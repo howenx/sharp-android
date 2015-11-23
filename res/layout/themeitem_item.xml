@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="5dp"
+    android:paddingBottom="10dp"
+    android:background="@color/white" >
+    <ImageView 
+        android:id="@+id/img"
+        android:scaleType="fitXY"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_launcher"
+        android:contentDescription="@null"/>
+    <TextView 
+        android:id="@+id/title"
+        android:layout_margin="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="德国原产奶粉！！！"
+        android:textSize="14sp"
+        android:textColor="@color/huise"/>
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:ellipsize="end"
+        android:text="US  ¥32.00"
+        android:textColor="@color/red"
+        android:textSize="16sp" />
+
+</LinearLayout>

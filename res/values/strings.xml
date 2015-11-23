@@ -4,5 +4,5 @@
     <string name="app_name">hanbimei</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-
+	<string name="idcard_info">请您协助提供正确的第二代居民身份证件信息，如因身份证信息有误导致我们无法发货和报关造成的损失，将由您自己承担。</string>
 </resources>

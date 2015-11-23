@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@drawable/white_corner_bg"
+    android:gravity="center">
+    <View 
+        android:layout_height="0.2dp"
+        android:layout_width="match_parent"
+        android:background="@color/qianhui"/>
+    <TextView 
+        android:id="@+id/play_photo"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="拍照"
+        android:textSize="16sp"
+        android:textColor="@color/fontcolor"/>
+    <View 
+        android:layout_height="0.2dp"
+        android:layout_width="match_parent"
+        android:background="@color/qianhui"/>
+    <TextView 
+        android:id="@+id/my_photo"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="相册"
+        android:textSize="16sp"
+        android:textColor="@color/fontcolor"/>
+    <View 
+        android:layout_height="0.2dp"
+        android:layout_width="match_parent"
+        android:background="@color/qianhui"/>
+    <TextView 
+        android:id="@+id/cancle"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="取消"
+        android:textSize="16sp"
+        android:textColor="@color/fontcolor"/>
+    <View 
+        android:layout_height="0.2dp"
+        android:layout_width="match_parent"
+        android:background="@color/qianhui"/>
+    
+
+</LinearLayout>

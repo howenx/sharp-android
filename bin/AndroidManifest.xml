@@ -34,11 +34,30 @@
             </intent-filter>
         </activity>
         <activity 
+            android:name="com.hanbimei.activity.ViewPagerActivity"
+            android:screenOrientation="portrait" />
+        <activity 
             android:name="com.hanbimei.activity.MainActivity"
             android:screenOrientation="portrait" />
         <activity 
             android:name="com.hanbimei.activity.ThemeDetailActivity"
             android:screenOrientation="portrait" />
+        <activity 
+            android:name="com.hanbimei.activity.MyOrderActivity"
+            android:screenOrientation="portrait" />
+        <activity 
+            android:name="com.hanbimei.activity.CouponActivity"
+            android:screenOrientation="portrait" />
+        <activity 
+            android:name="com.hanbimei.activity.IdCardActivity"
+            android:screenOrientation="portrait" />
+        <activity 
+            android:name="com.hanbimei.activity.AdressActivity"
+            android:screenOrientation="portrait" />
+        <activity 
+            android:name="com.hanbimei.activity.EditAdressActivity"
+            android:screenOrientation="portrait" />
+        
     </application>
 
 </manifest>

@@ -4,5 +4,11 @@
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="huise">#969696</color>
+    <color name="red">#EF2528</color>
+    <color name="bg">#E7E7E7</color>
+    <color name="fontcolor">#4A4A4A</color>
+    <color name="qianhui">#D4D4D4</color>
+    <color name="xian">#D1D1D1</color>
+    <color name="province_line_border">#C7C7C7</color>
 </resources>
 

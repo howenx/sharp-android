@@ -1,22 +1,26 @@
 package com.hanbimei.utils;
 
-import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import java.util.UUID;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
 
 import android.util.Log;
 
@@ -31,7 +35,8 @@ public class HttpUtils {
 	private HttpUtils() {
 		throw new AssertionError();
 	}
-
+/*
+ * 	android 原生get请求
 	public static String doGet(String httpUrl) {
 		HttpURLConnection conn = null;
 		URL url = null;
@@ -45,7 +50,6 @@ public class HttpUtils {
 			conn.setRequestMethod("GET");
 			conn.setDoInput(true);
 			conn.setDoOutput(true);
-			int code = conn.getResponseCode();
 			if (conn.getResponseCode() == 200) {
 				is = conn.getInputStream();
 				byte[] buffer = new byte[1024];
@@ -66,7 +70,9 @@ public class HttpUtils {
 		}
 		return result.toString();
 	}
-	public static String get(String url){
+*/
+//	apche  get请求
+	public static String get(String url) {
 		StringBuilder result = new StringBuilder();
 
 		DefaultHttpClient httpClient = new DefaultHttpClient();
@@ -77,7 +83,6 @@ public class HttpUtils {
 			getRequest.addHeader("accept", "application/json");
 
 			HttpResponse response = httpClient.execute(getRequest);
-			int code = response.getStatusLine().getStatusCode() ;
 			if (response.getStatusLine().getStatusCode() == 200) {
 				is = response.getEntity().getContent();
 				byte[] buffer = new byte[1024];
@@ -87,21 +92,19 @@ public class HttpUtils {
 				}
 			}
 
-			
-
-		  } catch (MalformedURLException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				// 网络连接有问题
-				e.printStackTrace();
-			} finally {
-				if (is != null) {
-					httpClient.getConnectionManager().shutdown();
-				}
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			// 网络连接有问题
+			e.printStackTrace();
+		} finally {
+			if (is != null) {
+				httpClient.getConnectionManager().shutdown();
 			}
+		}
 
 		return result.toString();
-		
+
 	}
 
 	// 上传图片
@@ -181,6 +184,34 @@ public class HttpUtils {
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+//	apche   post请求
+	public static String post(String url, JSONObject obj,
+			String tokenKey, String tokenValue) {
+		String result = "";
+		HttpResponse response;
+		try {
+			HttpClient httpclient = new DefaultHttpClient();
+			HttpPost httppost = new HttpPost(url);
+			//添加http头信息
+			httppost.addHeader(tokenKey, tokenValue); // 认证token
+			httppost.addHeader("Content-Type", "application/json");
+			//http post的json数据格式： {"name": "your name"}
+			httppost.setEntity(new StringEntity(obj.toString(),HTTP.UTF_8));
+			response = httpclient.execute(httppost);
+			//检验状态码，如果成功接收数据
+			if (response.getStatusLine().getStatusCode() == 200) {
+				result = EntityUtils.toString(response.getEntity());
+			}
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return result;

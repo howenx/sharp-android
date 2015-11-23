@@ -4,10 +4,13 @@ import com.hanbimei.R;
 import com.hanbimei.fragment.AboutMyFragment;
 import com.hanbimei.fragment.HomeFragment;
 import com.hanbimei.fragment.ShoppingCartFragment;
+import com.hanbimei.utils.DoJumpUtils;
+
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
@@ -19,9 +22,11 @@ import android.os.Bundle;
 
 
 @SuppressLint("NewApi") 
-public class MainActivity extends BaseActivity implements OnTabChangeListener{
+public class MainActivity extends BaseActivity implements OnTabChangeListener, OnClickListener{
 
 	private TabHost tabHost;
+	private TextView header;
+	private ImageView setting;
 	private LayoutInflater inflater;
 	private static final String TAB_HOME_ID = "tab_01";
 	private static final String TAB_CAR_ID = "tab_02";
@@ -44,6 +49,9 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener{
         getActionBar().hide();
         inflater = LayoutInflater.from(this);
         tabHost = (TabHost) findViewById(android.R.id.tabhost);
+        header = (TextView) findViewById(R.id.header);
+        setting = (ImageView) findViewById(R.id.setting);
+        setting.setOnClickListener(this);
         initFragment();
         tabHost.setup();
         tabHost.setOnTabChangedListener(this);
@@ -76,21 +84,26 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener{
 	public void onTabChanged(String tabId) {
 		ft = fm.beginTransaction();
 		/** 如果当前选项卡是home */
-
 		if (tabId.equals(TAB_HOME_ID)) {
+			setting.setVisibility(View.GONE);
+			header.setText("韩秘美");
 			isTabHome();
 			/** 如果当前选项卡是shopping */
 		} else if (tabId.equals(TAB_CAR_ID)) {
+			setting.setVisibility(View.GONE);
+			header.setText("购物车");
 			isTabShopping();
 			/** 如果当前选项卡是my*/
 		} else if (tabId.equals(TAB_MY_ID)) {
+			setting.setVisibility(View.VISIBLE);
+			header.setText("");
 			isTabMy();
 		}
 		ft.commit();
 	}
 	private void isTabMy() {
 		if(myFragment == null){
-			ft.replace(R.id.realtabcontent, new AboutMyFragment(), TAB_HOME_ID);
+			ft.replace(R.id.realtabcontent, new AboutMyFragment(), TAB_MY_ID);
 		}else{
 			ft.attach(myFragment);
 		}
@@ -109,4 +122,16 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener{
 			ft.attach(homeFragment);
 		}
 	}
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.setting:
+			DoJumpUtils.doJump(this,SettingActivity.class);
+			break;
+
+		default:
+			break;
+		}
+	}
+	
 }

@@ -4,15 +4,10 @@
     android:layout_width="fill_parent"
     android:orientation="vertical"
     >
-    <TextView 
-        android:id="@+id/header"
+    <include 
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:gravity="center"
-        android:text="韩秘美"
-        android:textSize="16sp"
-        android:textColor="@color/white"
-        android:background="@color/theme"/>
+        layout="@layout/main_header_layout"/>
 <TabHost 
     android:id="@android:id/tabhost"
     android:layout_width="fill_parent"

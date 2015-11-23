@@ -12,13 +12,15 @@ import com.hanbimei.data.DataParser;
 import com.hanbimei.entity.Slider;
 import com.hanbimei.entity.Theme;
 import com.hanbimei.utils.HttpUtils;
-import com.hanbimei.view.cycleviewpager.CycleViewPager;
-import com.hanbimei.view.cycleviewpager.ViewFactory;
+import com.hanbimei.view.CycleViewPager;
+import com.hanbimei.view.ViewFactory;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import android.annotation.SuppressLint;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -34,7 +36,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-@SuppressLint("NewApi")
+@SuppressLint({ "NewApi", "InflateParams" })
 public class HomeFragment extends Fragment implements
 		OnRefreshListener2<ListView> {
 	private LayoutInflater inflater;
@@ -80,18 +82,20 @@ public class HomeFragment extends Fragment implements
 			public void onItemClick(AdapterView<?> arg0, View view,
 					int position, long arg3) {
 				Intent intent = new Intent(mContext, ThemeDetailActivity.class);
-				intent.putExtra("url", data.get(position - 1).getThemeUrl());
+				intent.putExtra("url", data.get(position - 2).getThemeUrl());
 				mContext.startActivity(intent);
 			}
 		});
-		cycleViewPager = (CycleViewPager) getActivity().getFragmentManager()
-				.findFragmentById(R.id.fragment_cycle_viewpager_content);
+		findHeaderView();
 		loadData();
+		addHeaderView();
 		return view;
 	}
 
 	private void findHeaderView() {
 		headerView = inflater.inflate(R.layout.home_header_slider_layout, null);
+		cycleViewPager = (CycleViewPager) getActivity().getFragmentManager()
+				.findFragmentById(R.id.fragment_cycle_viewpager_content);
 	}
 
 	private void addHeaderView() {
@@ -125,11 +129,6 @@ public class HomeFragment extends Fragment implements
 		cycleViewPager.setIndicatorCenter();
 	}
 
-	// 执行图片轮播
-	private void initSlider() {
-
-	}
-
 	// 加载本地数据
 	private void loadData() {
 		List<Theme> list = themeDao.queryBuilder().build().list();
@@ -140,7 +139,7 @@ public class HomeFragment extends Fragment implements
 			adapter.notifyDataSetChanged();
 			dataSliders.clear();
 			dataSliders.addAll(list2);
-			initSlider();
+			initHeaderView();
 		} else {
 			getNetData();
 		}
@@ -186,7 +185,7 @@ public class HomeFragment extends Fragment implements
 				if (list != null && list.size() > 0) {
 					sliderDao.deleteAll();
 					sliderDao.insertInTx(dataSliders);
-					initSlider();
+					initHeaderView();
 					themeDao.deleteAll();
 					data.clear();
 					data.addAll(list);
@@ -229,6 +228,20 @@ public class HomeFragment extends Fragment implements
 		isUpOrDwom = 1;
 		pageIndex++;
 		getNetData();
+	}
+
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+		if (cycleViewPager != null) {
+			FragmentManager f = getActivity().getFragmentManager();
+			if (f != null && !f.isDestroyed()) {
+				final FragmentTransaction ft = f.beginTransaction();
+				if (ft != null) {
+					ft.remove((android.app.Fragment) cycleViewPager).commit();
+				}
+			}
+		}
 	}
 
 }

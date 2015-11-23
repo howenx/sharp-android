@@ -3,9 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+    <FrameLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
     <fragment
         android:id="@+id/fragment_cycle_viewpager_content"
-        android:name="com.hanbimei.view.cycleviewpager.CycleViewPager"
+        android:name="com.hanbimei.view.CycleViewPager"
         android:layout_width="match_parent"
-        android:layout_height="180dip" />
+        android:layout_height="160dip" />
+    </FrameLayout>
 </LinearLayout>
