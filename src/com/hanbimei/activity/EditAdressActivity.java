@@ -248,9 +248,9 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 			public void run() {
 				String result ;
 				if(isWhat == 1){
-					result = HttpUtils.post("http://172.28.3.18:9001/id/address/update", object,"id-token","1d3f3fcf313b7b0332d64db15986bd66");
+					result = HttpUtils.post("http://172.28.3.51:9001/id/address/update", object,"id-token","1d3f3fcf313b7b0332d64db15986bd66");
 				}else{
-					result = HttpUtils.post("http://172.28.3.18:9001/id/address/add", object,"id-token","1d3f3fcf313b7b0332d64db15986bd66");;
+					result = HttpUtils.post("http://172.28.3.51:9001/id/address/add", object,"id-token","1d3f3fcf313b7b0332d64db15986bd66");;
 				}
 				Result mResult = DataParser.parserResult(result);
 				Message msg = mHandler.obtainMessage(1);

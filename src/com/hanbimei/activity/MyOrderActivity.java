@@ -13,12 +13,19 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-@SuppressLint("NewApi") public class MyOrderActivity extends BaseActivity {
+@SuppressLint("NewApi") 
+public class MyOrderActivity extends BaseActivity implements OnClickListener{
 	
+	private static final String ALL_ID = "tag00";
 	private static final String NO_PAY_ID = "tag01";
 	private static final String PAY_ID = "tag02";
 	private static final String NO_RECEIVE_ID = "tag01";
+	private static final String ALL = "全部";
 	private static final String NO_PAY = "待付款";
 	private static final String PAY = "已付款";
 	private static final String NO_RECEIVE = "待收货";
@@ -27,6 +34,8 @@ import android.support.v4.view.ViewPager;
 	private List<Category> data;
 	private List<Fragment> fragmentList;
 	private MyPagerAdapter adapter;
+	private TextView header;
+	private ImageView back;
 	
 	@Override
 	protected void onCreate(Bundle bundle) {
@@ -35,6 +44,11 @@ import android.support.v4.view.ViewPager;
 		getActionBar().hide();
 		indicator = (TabPageIndicator) findViewById(R.id.indicator);
 		viewPager = (ViewPager) findViewById(R.id.pager);
+		header = (TextView) findViewById(R.id.header);
+		header.setText("我的订单");
+		back = (ImageView) findViewById(R.id.back);
+		back.setVisibility(View.VISIBLE);
+		back.setOnClickListener(this);
 		initCategory();
 		initFragment();
 	}
@@ -56,9 +70,22 @@ import android.support.v4.view.ViewPager;
 
 	private void initCategory() {
 		data = new ArrayList<Category>();
+		data.add(new Category(ALL_ID, ALL));
 		data.add(new Category(NO_PAY_ID, NO_PAY));
 		data.add(new Category(PAY_ID, PAY));
 		data.add(new Category(NO_RECEIVE_ID, NO_RECEIVE));
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.back:
+			finish();
+			break;
+
+		default:
+			break;
+		}
 	}
 
 }
