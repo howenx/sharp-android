@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mlinearLayout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal" >
+    
+    
+
+    <TextView
+        android:id="@+id/tag"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:background="@drawable/biaoqian_180"
+        android:textColor="#ffffff"
+        android:paddingLeft="3dp"
+        android:paddingRight="10dp"
+        android:textSize="12sp" >
+    </TextView>
+    
+    <ImageView 
+        android:id="@+id/point"
+        android:layout_width="3dp"
+        android:layout_height="3dp"
+        android:layout_margin="5dp"
+        android:src="@drawable/black_point"
+        android:contentDescription="@null"/>
+
+</LinearLayout>

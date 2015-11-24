@@ -17,6 +17,7 @@ import com.hanbimei.wheel.entity.DistrictModel;
 import com.hanbimei.wheel.entity.ProvinceModel;
 
 import android.content.res.AssetManager;
+import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
 public class BaseActivity extends FragmentActivity {
@@ -126,5 +127,11 @@ public class BaseActivity extends FragmentActivity {
 		MyApplication application = (MyApplication) getApplication();
 		return application.getDaoSession();
 	}
+	@Override
+	protected void onCreate(Bundle arg0) {
+		super.onCreate(arg0);
+	}
+	
+	
 
 }

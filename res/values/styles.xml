@@ -16,6 +16,7 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
          <item name="vpiTabPageIndicatorStyle">@style/CustomTabPageIndicator</item>
+         
     </style>
     
     <style name="wode_font_style">

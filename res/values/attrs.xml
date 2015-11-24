@@ -42,4 +42,9 @@
         <attr name="circleSeparation" format="dimension" />
         <attr name="activeRadius" format="dimension" />
     </declare-styleable>
+    
+    <!-- 倾斜的textview -->
+    <declare-styleable name="RotateTextView">
+        <attr name="angle" format="dimension" />
+    </declare-styleable>
 </resources>

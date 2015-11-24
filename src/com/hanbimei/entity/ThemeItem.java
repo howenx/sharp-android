@@ -10,26 +10,57 @@ package com.hanbimei.entity;
 public class ThemeItem {
 
     private Long id;
-    private Integer themeId;
-    private Integer itemId;
-    private String itemImg;
-    private String itemUrl;
-    private String itemTitle;
-    private Integer itemPrice;
-    private Integer itemCostPrice;
-    private Integer itemDiscount;
-    private Integer itemSoldAmount;
-    private Boolean orMasterItem;
-    private Integer collectCount;
-    private String masterItemTag;
-    private String masterItemImg;
-    private String onShelvesAt;
-    private String offShelvesAt;
+    private Integer themeId;			              // 主题id
+    private Integer itemId;				              // 商品id
+    private String itemImg;                           // 商品图片
+    private String itemUrl;                            //	商品详情页链接
+    private String itemTitle;                          //	商品标题
+    private Integer itemPrice;                       //	商品价格
+    private Integer itemCostPrice;               //   商品原价
+    private Integer itemDiscount;                //	商品折扣
+    private Integer itemSoldAmount;          //	商品销售量
+    private Boolean orMasterItem;             //		是否是主题主打宣传商品
+    private Integer collectCount;                //		商品收藏数
+    private String masterItemTag;             //     如果是主打宣传商品，会需要tag json串
+    private String masterItemImg;             //    如果是主宣传商品图片url
+    private String onShelvesAt;                  //
+    private String offShelvesAt; //
+    
+    //新添
+    private String itemMasterImg;
+    private Integer itemSrcPrice;					//主sku原价
+    private String state;								//商品状态
+    
+    
 
     // KEEP FIELDS - put your custom fields here
     // KEEP FIELDS END
 
-    public ThemeItem() {
+    public String getItemMasterImg() {
+		return itemMasterImg;
+	}
+
+	public void setItemMasterImg(String itemMasterImg) {
+		this.itemMasterImg = itemMasterImg;
+	}
+
+	public Integer getItemSrcPrice() {
+		return itemSrcPrice;
+	}
+
+	public void setItemSrcPrice(Integer itemSrcPrice) {
+		this.itemSrcPrice = itemSrcPrice;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public ThemeItem() {
     }
 
     public ThemeItem(Long id) {

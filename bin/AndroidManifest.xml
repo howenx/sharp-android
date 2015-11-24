@@ -57,6 +57,9 @@
         <activity 
             android:name="com.hanbimei.activity.EditAdressActivity"
             android:screenOrientation="portrait" />
+        <activity 
+            android:name="com.hanbimei.activity.GoodsDetailActivity"
+            android:screenOrientation="portrait" />
         
     </application>
 

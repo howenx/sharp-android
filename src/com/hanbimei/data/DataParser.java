@@ -7,10 +7,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.hanbimei.entity.Adress;
+import com.hanbimei.entity.HMessage;
 import com.hanbimei.entity.Result;
 import com.hanbimei.entity.Slider;
 import com.hanbimei.entity.Theme;
+import com.hanbimei.entity.ThemeDetail;
 import com.hanbimei.entity.ThemeItem;
 
 public class DataParser {
@@ -58,50 +62,57 @@ public class DataParser {
 		return list;
 		
 	}
-	public static List<ThemeItem> parserThemeItem(String result){
-		List<ThemeItem> list = new ArrayList<ThemeItem>();
+	
+	
+	public static ThemeDetail parserThemeItem(String result){
+		ThemeDetail detail = new ThemeDetail();
+		JSONObject obj = null;
+		HMessage msg = new HMessage();
+		List<ThemeItem> themeList = new ArrayList<ThemeItem>();
+		ThemeItem t = null;
 		try {
-			JSONArray array = new JSONArray(result);
-			for(int i = 0; i < array.length(); i ++){
-				JSONObject obj = array.getJSONObject(i);
-				ThemeItem item = new ThemeItem();
-				if(obj.has("themeId"))
-					item.setThemeId(obj.getInt("themeId"));
-				if(obj.has("itemId"))
-					item.setItemId(obj.getInt("itemId"));
-				if(obj.has("itemImg"))
-					item.setItemImg(obj.getString("itemImg"));
-				if(obj.has("itemUrl"))
-					item.setItemUrl(obj.getString("itemUrl"));
-				if(obj.has("itemTitle"))
-					item.setItemTitle(obj.getString("itemTitle"));
-				if(obj.has("itemPrice"))
-					item.setItemPrice(obj.getInt("itemPrice"));
-				if(obj.has("itemCostPrice"))
-					item.setItemCostPrice(obj.getInt("itemCostPrice"));
-				if(obj.has("itemDiscount"))
-					item.setItemDiscount(obj.getInt("itemDiscount"));
-				if(obj.has("itemSoldAmount"))
-					item.setItemSoldAmount(obj.getInt("itemSoldAmount"));
-				if(obj.has("orMasterItem"))
-					item.setOrMasterItem(obj.getBoolean("orMasterItem"));
-				if(obj.has("masterItemTag"))
-					item.setMasterItemTag(obj.getString("masterItemTag"));
-				if(obj.has("collectCount"))
-					item.setCollectCount(obj.getInt("collectCount"));
-				if(obj.has("masterItemImg"))
-					item.setMasterItemImg(obj.getString("masterItemImg"));
-				if(obj.has("onShelvesAt"))
-					item.setOnShelvesAt(obj.getString("onShelvesAt"));
-				if(obj.has("offShelvesAt"))
-					item.setOffShelvesAt(obj.getString("offShelvesAt"));
-				list.add(item);
+			obj = new JSONObject(result);
+			JSONObject json = obj.getJSONObject("message");
+			msg.setMessage(json.getString("message"));
+			msg.setCode(json.getInt("code"));
+			detail.setMessage(msg);
+			
+			JSONArray array = new JSONArray(obj.getString("themeList"));
+			
+			for(int i=0;i<array.length();i++){
+				JSONObject jjson = array.getJSONObject(i);
+				t = new ThemeItem();
+				t.setItemTitle(jjson.getString("itemTitle"));
+				t.setItemMasterImg(jjson.getString("itemMasterImg"));
+				t.setCollectCount(jjson.getInt("collectCount"));
+				t.setThemeId(jjson.getInt("themeId"));
+				t.setItemDiscount(jjson.getInt("itemDiscount"));
+				t.setItemSoldAmount(jjson.getInt("itemSoldAmount"));
+				t.setItemId(jjson.getInt("itemId"));
+				t.setItemImg(jjson.getString("itemImg"));
+				t.setItemSrcPrice(jjson.getInt("itemSrcPrice"));
+				t.setMasterItemTag(jjson.getString("masterItemTag"));
+				t.setOrMasterItem(jjson.getBoolean("orMasterItem"));
+				t.setItemPrice(jjson.getInt("itemPrice"));
+				t.setState(jjson.getString("state"));
+				t.setItemUrl(jjson.getString("itemUrl"));
+				
+				if(t.getOrMasterItem()){
+					detail.setMasterItem(t);
+				}else{
+					themeList.add(t);
+				}
 			}
-		} catch (JSONException e) {
-			e.printStackTrace();
+			
+			detail.setThemeList(themeList);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
-		return list;
+		return detail;
 	}
+	
+	
 	public static List<Adress> parserAddressList(String result){
 		List<Adress> list = new ArrayList<Adress>();
 		try {
