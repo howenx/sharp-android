@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:padding="10dp"
+    android:id="@+id/order_header">
+    <LinearLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
+    <TextView 
+        android:id="@+id/order_nums"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="订单号：2938983989903723"
+        android:textSize="13sp"
+        android:textColor="@color/fontcolor"/>
+    <TextView 
+        android:id="@+id/order_date"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2015-11-11  11:11:11"
+        android:textSize="12sp"
+        android:textColor="@color/huise"/>
+    </LinearLayout>
+    <TextView 
+        android:id="@+id/order_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:gravity="center_vertical"
+        android:text="待支付  "
+        android:textSize="13sp"
+        android:textColor="@color/fontcolor"/>
+
+</RelativeLayout>

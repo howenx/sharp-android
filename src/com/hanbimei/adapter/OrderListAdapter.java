@@ -1,0 +1,81 @@
+package com.hanbimei.adapter;
+
+import java.util.List;
+
+import com.hanbimei.R;
+import com.hanbimei.entity.Goods;
+import com.hanbimei.utils.ImgUtils;
+import com.hanbimei.utils.InitImageLoader;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+public class OrderListAdapter extends BaseAdapter {
+
+	private List<Goods> data;
+	private Context mContext;
+	private LayoutInflater inflater;
+	private ImageLoader imageLoader;
+	private DisplayImageOptions options;
+	public OrderListAdapter(List<Goods> list, Context mContext){
+		this.data = list;
+		this.mContext = mContext;
+		inflater = LayoutInflater.from(mContext);
+		imageLoader = InitImageLoader.initLoader(mContext);
+		options = InitImageLoader.initOptions();
+	}
+	@Override
+	public int getCount() {
+		// TODO Auto-generated method stub
+		return data.size();
+	}
+
+	@Override
+	public Object getItem(int arg0) {
+		// TODO Auto-generated method stub
+		return data.get(arg0);
+	}
+
+	@Override
+	public long getItemId(int arg0) {
+		// TODO Auto-generated method stub
+		return arg0;
+	}
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup arg2) {
+		Goods goods = data.get(position);
+		ViewHolder holder = null;
+		if(convertView == null){
+			holder = new ViewHolder();
+			convertView = inflater.inflate(R.layout.order_list_item, null);
+			holder.img = (ImageView) convertView.findViewById(R.id.img);
+			holder.name = (TextView) convertView.findViewById(R.id.name);
+			holder.price = (TextView) convertView.findViewById(R.id.price);
+			holder.nums = (TextView) convertView.findViewById(R.id.nums);
+			convertView.setTag(holder);
+		}else{
+			holder = (ViewHolder) convertView.getTag();
+		}
+		imageLoader.displayImage(goods.getImgUrl(), holder.img, options);
+		holder.name.setText(goods.getTitle());
+		holder.price.setText("单价： ¥" + goods.getPrice());
+		holder.nums.setText("x" + goods.getNums());
+		return convertView;
+	}
+	private class ViewHolder{
+		private ImageView img;
+		private TextView name;
+		private TextView price;
+		private TextView nums;
+	}
+
+}

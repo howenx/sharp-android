@@ -25,7 +25,7 @@ import com.hanbimei.entity.Slider;
  * 实现可循环，可轮播的viewpager
  */
 @SuppressLint("NewApi")
-public class CycleViewPager extends Fragment implements OnPageChangeListener {
+public class CycleViewPager extends Fragment implements OnPageChangeListener{
 	
 	private List<ImageView> imageViews = new ArrayList<ImageView>();
 	private ImageView[] indicators;

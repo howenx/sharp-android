@@ -117,8 +117,8 @@ public class HttpUtils {
 		try {
 			URL url = new URL(RequestURL);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setReadTimeout(TIME_OUT);
-			conn.setConnectTimeout(TIME_OUT);
+			conn.setReadTimeout(30000);
+			conn.setConnectTimeout(30000);
 			conn.setDoInput(true); // 允许输入流
 			conn.setDoOutput(true); // 允许输出流
 			conn.setUseCaches(false); // 不允许使用缓存
