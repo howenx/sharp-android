@@ -399,6 +399,7 @@ int drawable abc_textfield_searchview_holo_light 0x7f020054
 int drawable abc_textfield_searchview_right_holo_dark 0x7f020055
 int drawable abc_textfield_searchview_right_holo_light 0x7f020056
 int drawable bg_black_boarder 0x7f020057
+<<<<<<< HEAD
 int drawable bg_custom_button 0x7f020058
 int drawable bg_tag_item 0x7f020059
 int drawable bg_tag_item_normal 0x7f02005a
@@ -409,6 +410,18 @@ int drawable black_point 0x7f02005e
 int drawable default_ptr_flip 0x7f02005f
 int drawable default_ptr_rotate 0x7f020060
 int drawable duihao 0x7f020061
+=======
+int drawable bg_tag_item 0x7f020058
+int drawable bg_tag_item_normal 0x7f020059
+int drawable bg_tag_item_pressed 0x7f02005a
+int drawable biaoqian_0 0x7f02005b
+int drawable biaoqian_180 0x7f02005c
+int drawable black_point 0x7f02005d
+int drawable default_ptr_flip 0x7f02005e
+int drawable default_ptr_rotate 0x7f02005f
+int drawable duihao 0x7f020060
+int drawable edit_input_bg 0x7f020061
+>>>>>>> 3120e8265a55d38224875e050ceae24523b84bdd
 int drawable experience_corners_bg 0x7f020062
 int drawable first_show 0x7f020063
 int drawable gouwuche 0x7f020064
@@ -421,6 +434,7 @@ int drawable icon_add_img 0x7f02006a
 int drawable icon_address 0x7f02006b
 int drawable icon_authenticate 0x7f02006c
 int drawable icon_back 0x7f02006d
+<<<<<<< HEAD
 int drawable icon_collect_normal 0x7f02006e
 int drawable icon_dingdan 0x7f02006f
 int drawable icon_jiantou 0x7f020070
@@ -455,6 +469,45 @@ int drawable wheel_val 0x7f02008c
 int drawable white_corner_bg 0x7f02008d
 int drawable wode 0x7f02008e
 int drawable wode_un 0x7f02008f
+=======
+int drawable icon_dingdan 0x7f02006e
+int drawable icon_jiantou 0x7f02006f
+int drawable icon_point 0x7f020070
+int drawable icon_point_pre 0x7f020071
+int drawable icon_setting 0x7f020072
+int drawable icon_shenfenzheng 0x7f020073
+int drawable icon_un_authenticate 0x7f020074
+int drawable icon_youhuiquan 0x7f020075
+int drawable iconfont_comment 0x7f020076
+int drawable iconfont_guanyuwomen 0x7f020077
+int drawable iconfont_lianxiwomen 0x7f020078
+int drawable iconfont_qingchuhuancun 0x7f020079
+int drawable iconfont_yijianfankui 0x7f02007a
+int drawable indicator_arrow 0x7f02007b
+int drawable indicator_bg 0x7f02007c
+int drawable indicator_bg_bottom 0x7f02007d
+int drawable indicator_bg_top 0x7f02007e
+int drawable indicator_corner_bg 0x7f02007f
+int drawable order_indicator_bg 0x7f020080
+int drawable red_border 0x7f020081
+int drawable tab_bg 0x7f020082
+int drawable tab_home 0x7f020083
+int drawable tab_my 0x7f020084
+int drawable tab_shopping 0x7f020085
+int drawable theme_button_bg 0x7f020086
+int drawable vpi__tab_indicator 0x7f020087
+int drawable vpi__tab_selected_focused_holo 0x7f020088
+int drawable vpi__tab_selected_holo 0x7f020089
+int drawable vpi__tab_selected_pressed_holo 0x7f02008a
+int drawable vpi__tab_unselected_focused_holo 0x7f02008b
+int drawable vpi__tab_unselected_holo 0x7f02008c
+int drawable vpi__tab_unselected_pressed_holo 0x7f02008d
+int drawable wheel_bg 0x7f02008e
+int drawable wheel_val 0x7f02008f
+int drawable white_corner_bg 0x7f020090
+int drawable wode 0x7f020091
+int drawable wode_un 0x7f020092
+>>>>>>> 3120e8265a55d38224875e050ceae24523b84bdd
 int id Accordion 0x7f05001d
 int id Background2Foreground 0x7f05001e
 int id CubeIn 0x7f05001f
@@ -471,7 +524,12 @@ int id Tablet 0x7f050028
 int id ZoomIn 0x7f050029
 int id ZoomOut 0x7f05002b
 int id ZoomOutSlide 0x7f05002a
+<<<<<<< HEAD
 int id about 0x7f0500c6
+=======
+int id about 0x7f050062
+int id about_card 0x7f0500cd
+>>>>>>> 3120e8265a55d38224875e050ceae24523b84bdd
 int id action_bar 0x7f050042
 int id action_bar_activity_content 0x7f050015
 int id action_bar_container 0x7f050041
@@ -483,6 +541,7 @@ int id action_context_bar 0x7f050043
 int id action_menu_divider 0x7f050016
 int id action_menu_presenter 0x7f050017
 int id action_mode_close_button 0x7f05004a
+<<<<<<< HEAD
 int id action_settings 0x7f0500c7
 int id activity_chooser_view_content 0x7f05004b
 int id add 0x7f05006c
@@ -491,15 +550,30 @@ int id adress 0x7f050066
 int id all_price 0x7f050095
 int id always 0x7f05000b
 int id back 0x7f050085
+=======
+int id action_settings 0x7f0500ce
+int id activity_chooser_view_content 0x7f05004b
+int id add 0x7f05006d
+int id address 0x7f050090
+int id adress 0x7f050067
+int id all_price 0x7f050096
+int id always 0x7f05000b
+int id back 0x7f050084
+>>>>>>> 3120e8265a55d38224875e050ceae24523b84bdd
 int id beginning 0x7f050011
 int id both 0x7f050035
 int id bottom 0x7f050030
 int id btn_attention 0x7f050073
 int id btn_share 0x7f050076
+<<<<<<< HEAD
 int id cancle 0x7f05009c
+=======
+int id cancle 0x7f05009d
+>>>>>>> 3120e8265a55d38224875e050ceae24523b84bdd
 int id checkbox 0x7f050053
-int id city 0x7f05006f
+int id city 0x7f050070
 int id collapseActionView 0x7f05000d
+<<<<<<< HEAD
 int id cost_price 0x7f050092
 int id daimajia_indicator_wrapper 0x7f050082
 int id daimajia_slider_image 0x7f0500a6
@@ -515,17 +589,42 @@ int id default_center_top_right_indicator 0x7f0500b1
 int id del 0x7f050068
 int id description 0x7f0500a9
 int id description_layout 0x7f0500a8
+=======
+int id comment 0x7f0500b0
+int id cost_price 0x7f050093
+int id daimajia_indicator_wrapper 0x7f05007c
+int id daimajia_slider_image 0x7f0500a9
+int id daimajia_slider_viewpager 0x7f0500b3
+int id date 0x7f0500c0
+int id default_activity_button 0x7f05004e
+int id default_bottom_left_indicator 0x7f0500b6
+int id default_bottom_right_indicator 0x7f0500b5
+int id default_center_bottom_indicator 0x7f0500b4
+int id default_center_top_indicator 0x7f0500b7
+int id default_center_top_left_indicator 0x7f0500b9
+int id default_center_top_right_indicator 0x7f0500b8
+int id del 0x7f050069
+int id description 0x7f0500ac
+int id description_layout 0x7f0500ab
+>>>>>>> 3120e8265a55d38224875e050ceae24523b84bdd
 int id dialog 0x7f05000e
 int id disableHome 0x7f050008
 int id disabled 0x7f050032
 int id discount 0x7f050077
+<<<<<<< HEAD
 int id do_authenticate 0x7f0500c1
 int id drawer_layout 0x7f050088
+=======
+int id do_authenticate 0x7f0500c8
+int id drawer_layout 0x7f050087
+>>>>>>> 3120e8265a55d38224875e050ceae24523b84bdd
 int id dropdown 0x7f05000f
 int id edit_query 0x7f050056
 int id end 0x7f050013
+int id exit 0x7f0500b2
 int id expand_activities_button 0x7f05004c
 int id expanded_menu 0x7f050052
+<<<<<<< HEAD
 int id experience 0x7f0500c0
 int id fill 0x7f05003f
 int id first 0x7f05006d
@@ -536,10 +635,25 @@ int id go_pay 0x7f050096
 int id gridview 0x7f05003b
 int id header 0x7f050083
 int id header_layout 0x7f050086
+=======
+int id experience 0x7f0500c7
+int id fill 0x7f05003f
+int id first 0x7f05006e
+int id fl_inner 0x7f0500a2
+int id flip 0x7f05003a
+int id forget 0x7f05007f
+int id fragment_cycle_viewpager_content 0x7f05007a
+int id get_yanzheng 0x7f0500a8
+int id go_pay 0x7f050097
+int id gridview 0x7f05003b
+int id header 0x7f050082
+int id header_layout 0x7f050085
+>>>>>>> 3120e8265a55d38224875e050ceae24523b84bdd
 int id home 0x7f050014
 int id homeAsUp 0x7f050005
 int id icon 0x7f050050
 int id icon_attention 0x7f050074
+<<<<<<< HEAD
 int id id_city 0x7f05009f
 int id id_district 0x7f0500a0
 int id id_province 0x7f05009e
@@ -576,10 +690,47 @@ int id my_photo 0x7f0500ab
 int id my_viewflow 0x7f0500be
 int id mylist 0x7f050080
 int id name 0x7f050064
+=======
+int id id_city 0x7f0500a0
+int id id_district 0x7f0500a1
+int id id_province 0x7f05009f
+int id idea 0x7f0500af
+int id ifRoom 0x7f05000a
+int id image 0x7f05004d
+int id image_indicator 0x7f0500c4
+int id img 0x7f050071
+int id indicator 0x7f050088
+int id invisible 0x7f05001b
+int id itemTitle 0x7f050078
+int id layout_viewager_content 0x7f0500c1
+int id layout_viewpager_indicator 0x7f0500c3
+int id left 0x7f05006b
+int id list 0x7f050086
+int id listMode 0x7f050001
+int id list_item 0x7f05004f
+int id loading_bar 0x7f0500aa
+int id login 0x7f050080
+int id mTextView 0x7f0500ba
+int id manualOnly 0x7f050036
+int id masterItem 0x7f0500bb
+int id mframeLayout 0x7f0500bd
+int id middle 0x7f050012
+int id mlinearLayout 0x7f05009a
+int id money 0x7f0500be
+int id more_pay 0x7f0500bf
+int id my_grid 0x7f0500bc
+int id my_indicator 0x7f0500c6
+int id my_listview 0x7f050099
+int id my_photo 0x7f0500ae
+int id my_viewflow 0x7f0500c5
+int id mylist 0x7f05007b
+int id name 0x7f050065
+>>>>>>> 3120e8265a55d38224875e050ceae24523b84bdd
 int id never 0x7f050009
 int id none 0x7f050010
 int id normal 0x7f050000
 int id num_attention 0x7f050075
+<<<<<<< HEAD
 int id nums 0x7f050069
 int id order 0x7f0500c3
 int id order_code 0x7f050089
@@ -600,18 +751,50 @@ int id price 0x7f050090
 int id progress_circular 0x7f050018
 int id progress_horizontal 0x7f050019
 int id publicity 0x7f05007c
+=======
+int id nums 0x7f05006a
+int id order 0x7f0500ca
+int id order_code 0x7f05008a
+int id order_date 0x7f05008d
+int id order_detail 0x7f05008e
+int id order_header 0x7f050098
+int id order_nums 0x7f05008f
+int id order_price 0x7f050094
+int id order_state 0x7f05008b
+int id oval 0x7f05002c
+int id pager 0x7f050089
+int id pay_from 0x7f05008c
+int id phone 0x7f050066
+int id phone_num 0x7f05007d
+int id play_photo 0x7f0500ad
+int id point 0x7f05009b
+int id post_cost 0x7f050092
+int id price 0x7f050091
+int id progress_circular 0x7f050018
+int id progress_horizontal 0x7f050019
+int id propertys 0x7f050079
+>>>>>>> 3120e8265a55d38224875e050ceae24523b84bdd
 int id pullDownFromTop 0x7f050037
 int id pullFromEnd 0x7f050034
 int id pullFromStart 0x7f050033
 int id pullUpFromBottom 0x7f050038
+<<<<<<< HEAD
 int id pull_to_refresh_image 0x7f0500a2
 int id pull_to_refresh_progress 0x7f0500a3
 int id pull_to_refresh_sub_text 0x7f0500a5
 int id pull_to_refresh_text 0x7f0500a4
+=======
+int id pull_to_refresh_image 0x7f0500a3
+int id pull_to_refresh_progress 0x7f0500a4
+int id pull_to_refresh_sub_text 0x7f0500a6
+int id pull_to_refresh_text 0x7f0500a5
+int id pwd 0x7f05007e
+>>>>>>> 3120e8265a55d38224875e050ceae24523b84bdd
 int id radio 0x7f050055
-int id realtabcontent 0x7f050063
+int id realtabcontent 0x7f050064
 int id rect 0x7f05002d
-int id right 0x7f05006b
+int id regist 0x7f050081
+int id right 0x7f05006c
 int id rotate 0x7f050039
 int id scrollview 0x7f05003d
 int id search_badge 0x7f050058
@@ -624,37 +807,60 @@ int id search_mag_icon 0x7f05005b
 int id search_plate 0x7f05005c
 int id search_src_text 0x7f05005d
 int id search_voice_btn 0x7f050061
+<<<<<<< HEAD
 int id send 0x7f050094
 int id setting 0x7f050084
 int id shenfenzheng 0x7f0500c5
+=======
+int id send 0x7f050095
+int id setting 0x7f050083
+int id shenfenzheng 0x7f0500cc
+>>>>>>> 3120e8265a55d38224875e050ceae24523b84bdd
 int id shortcut 0x7f050054
-int id show 0x7f05006e
+int id show 0x7f05006f
 int id showCustom 0x7f050007
 int id showHome 0x7f050004
 int id showTitle 0x7f050006
 int id slider 0x7f050072
 int id split_action_bar 0x7f050044
-int id state_bar 0x7f050062
+int id state_bar 0x7f050063
 int id stroke 0x7f05003e
 int id submit_area 0x7f05005f
+<<<<<<< HEAD
 int id sure 0x7f05009d
 int id tabMode 0x7f050002
 int id tag 0x7f05009b
 int id tagCloudView 0x7f05007b
+=======
+int id sure 0x7f05009e
+int id tabMode 0x7f050002
+int id tag 0x7f05009c
+int id tel 0x7f0500b1
+>>>>>>> 3120e8265a55d38224875e050ceae24523b84bdd
 int id title 0x7f050051
 int id top 0x7f050031
 int id top_action_bar 0x7f050046
 int id triangle 0x7f05002e
 int id underline 0x7f05002f
 int id up 0x7f050047
-int id update 0x7f050067
+int id update 0x7f050068
 int id useLogo 0x7f050003
+<<<<<<< HEAD
 int id user_name 0x7f0500c2
 int id viewPager 0x7f0500bb
 int id visible 0x7f05001a
 int id webview 0x7f05003c
 int id withText 0x7f05000c
 int id youhui 0x7f0500c4
+=======
+int id user_name 0x7f0500c9
+int id viewPager 0x7f0500c2
+int id visible 0x7f05001a
+int id webview 0x7f05003c
+int id withText 0x7f05000c
+int id yanzheng 0x7f0500a7
+int id youhui 0x7f0500cb
+>>>>>>> 3120e8265a55d38224875e050ceae24523b84bdd
 int integer abc_max_action_buttons 0x7f090000
 int integer default_circle_indicator_orientation 0x7f090001
 int integer default_title_indicator_footer_indicator_style 0x7f090002
@@ -685,18 +891,32 @@ int layout abc_popup_menu_item_layout 0x7f030014
 int layout abc_search_dropdown_item_icons_2line 0x7f030015
 int layout abc_search_view 0x7f030016
 int layout abc_simple_decor 0x7f030017
+<<<<<<< HEAD
 int layout activity_main 0x7f030018
 int layout adress_list_item 0x7f030019
 int layout bind_idcard_layout 0x7f03001a
 int layout edit_adress_layout 0x7f03001b
 int layout first_show_layout 0x7f03001c
 int layout goods_detail_img_layout 0x7f03001d
+=======
+int layout about_we_layout 0x7f030018
+int layout activity_main 0x7f030019
+int layout adress_list_item 0x7f03001a
+int layout bind_idcard_layout 0x7f03001b
+int layout edit_adress_layout 0x7f03001c
+int layout first_show_layout 0x7f03001d
+>>>>>>> 3120e8265a55d38224875e050ceae24523b84bdd
 int layout goods_detail_layout 0x7f03001e
 int layout home_header_slider_layout 0x7f03001f
 int layout home_list_item 0x7f030020
 int layout home_list_layout 0x7f030021
+<<<<<<< HEAD
 int layout img_panel 0x7f030022
 int layout indicator_layout 0x7f030023
+=======
+int layout indicator_layout 0x7f030022
+int layout login_layout 0x7f030023
+>>>>>>> 3120e8265a55d38224875e050ceae24523b84bdd
 int layout main_header_layout 0x7f030024
 int layout my_address_layout 0x7f030025
 int layout my_coupon_layout 0x7f030026
@@ -712,6 +932,7 @@ int layout pop_wheel_layout 0x7f03002f
 int layout pull_to_refresh_header_horizontal 0x7f030030
 int layout pull_to_refresh_header_vertical 0x7f030031
 int layout pulltorefresh_list_layout 0x7f030032
+<<<<<<< HEAD
 int layout render_type_default 0x7f030033
 int layout render_type_text 0x7f030034
 int layout select_img_pop_layout 0x7f030035
@@ -729,6 +950,27 @@ int layout view_cycle_viewpager_indicator 0x7f030040
 int layout viewpager_panel 0x7f030041
 int layout viewpager_panel_item 0x7f030042
 int layout wode_layout 0x7f030043
+=======
+int layout regist_layout 0x7f030033
+int layout render_type_default 0x7f030034
+int layout render_type_text 0x7f030035
+int layout select_img_pop_layout 0x7f030036
+int layout setting_layout 0x7f030037
+int layout slider_layout 0x7f030038
+int layout support_simple_spinner_dropdown_item 0x7f030039
+int layout tab_item_layout 0x7f03003a
+int layout tag_item_layout 0x7f03003b
+int layout theme_detail_layout 0x7f03003c
+int layout theme_layout 0x7f03003d
+int layout themeitem_item 0x7f03003e
+int layout ticket_item 0x7f03003f
+int layout view_banner 0x7f030040
+int layout view_cycle_viewpager_contet 0x7f030041
+int layout view_cycle_viewpager_indicator 0x7f030042
+int layout viewpager_panel 0x7f030043
+int layout viewpager_panel_item 0x7f030044
+int layout wode_layout 0x7f030045
+>>>>>>> 3120e8265a55d38224875e050ceae24523b84bdd
 int menu main 0x7f0c0000
 int string abc_action_bar_home_description 0x7f0a0001
 int string abc_action_bar_up_description 0x7f0a0002
@@ -745,6 +987,7 @@ int string abc_shareactionprovider_share_with 0x7f0a000c
 int string abc_shareactionprovider_share_with_application 0x7f0a000b
 int string action_settings 0x7f0a0015
 int string app_name 0x7f0a000d
+int string forget 0x7f0a0017
 int string hello_world 0x7f0a0014
 int string idcard_info 0x7f0a0016
 int string pull_to_refresh_from_bottom_pull_label 0x7f0a0011
@@ -907,9 +1150,16 @@ int style Widget_AppCompat_ProgressBar_Horizontal 0x7f0b0009
 int style Widget_AppCompat_Spinner_DropDown_ActionBar 0x7f0b0022
 int style Widget_IconPageIndicator 0x7f0b0092
 int style Widget_TabPageIndicator 0x7f0b0090
+<<<<<<< HEAD
 int style customButton 0x7f0b009d
 int style order_font_style 0x7f0b009b
 int style submit 0x7f0b009c
+=======
+int style login_edit_style 0x7f0b009c
+int style order_font_style 0x7f0b0099
+int style setting_text_style 0x7f0b009b
+int style submit 0x7f0b009a
+>>>>>>> 3120e8265a55d38224875e050ceae24523b84bdd
 int style wode_font_style 0x7f0b0096
 int[] styleable ActionBar { 0x7f010025, 0x7f010026, 0x7f010027, 0x7f010028, 0x7f010029, 0x7f01002a, 0x7f01002b, 0x7f01002c, 0x7f01002d, 0x7f01002e, 0x7f01002f, 0x7f010030, 0x7f010031, 0x7f010032, 0x7f010033, 0x7f010034, 0x7f010035, 0x7f010036, 0x7f010037 }
 int styleable ActionBar_background 10

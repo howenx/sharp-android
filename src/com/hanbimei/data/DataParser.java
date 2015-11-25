@@ -33,10 +33,6 @@ public class DataParser {
 				JSONObject obj = array.getJSONObject(i);
 				if(obj.has("id"))
 					theme.setId(obj.getLong("id"));
-				if(obj.has("sortNu"))
-					theme.setSortNum(obj.getInt("sortNu"));
-				if(obj.has("masterItemId"))
-					theme.setItem_id(obj.getInt("masterItemId"));
 				if(obj.has("themeImg"))
 					theme.setThemeImg(obj.getString("themeImg"));
 				if(obj.has("themeUrl"))
@@ -54,11 +50,15 @@ public class DataParser {
 	public static List<Slider> parserSlider(String result){
 		List<Slider> list = new ArrayList<Slider>();
 		try {
-			JSONObject obj = new JSONObject(result);
-			JSONArray array = obj.getJSONArray("slider");
+			JSONObject object = new JSONObject(result);
+			JSONArray array = object.getJSONArray("slider");
 			for(int i = 0; i < array.length(); i ++){
+				JSONObject obj = array.getJSONObject(i);
 				Slider slider = new Slider();
-				slider.setImgUrl(array.get(i).toString());
+				if(obj.has("url"))
+					slider.setImgUrl(obj.getString("url"));
+				if(obj.has("itemTarget"))
+					slider.setUrl(obj.getString("itemTarget"));
 				list.add(slider);
 			}
 		} catch (JSONException e) {
@@ -166,6 +166,7 @@ public class DataParser {
 		}
 		return result;
 	}
+<<<<<<< HEAD
 	
 	//商品详情页 －－ 商品详情数据解析
 	public static GoodsDetail parserGoodsDetail(String result){
@@ -244,6 +245,21 @@ public class DataParser {
 		}
 		
 		return detail;
+=======
+	public static Result parserLoginResult(String str){
+		Result result = new Result();
+		try {
+			JSONObject object = new JSONObject(str);
+			if(object.has("result"))
+				result.setSuccess(object.getBoolean("result"));
+			if(object.has("message"))
+				result.setMessage(object.getString("message"));
+			
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return result;
+>>>>>>> 3120e8265a55d38224875e050ceae24523b84bdd
 	}
 
 }

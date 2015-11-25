@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <include 
+        android:layout_height="40dp"
+        android:layout_width="match_parent"
+        layout="@layout/main_header_layout"/>
+    <TextView 
+        android:id="@+id/about"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="    关于我们"
+        style="@style/setting_text_style"/>
+    <View 
+        android:layout_height="0.1dp"
+        android:layout_width="match_parent"
+        android:background="@color/qianhui"/>
+    <TextView 
+        android:id="@+id/idea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="    意见反馈"
+        style="@style/setting_text_style"/>
+    <View 
+        android:layout_height="0.1dp"
+        android:layout_width="match_parent"
+        android:background="@color/qianhui"/>
+    <TextView 
+        android:id="@+id/comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="    评价我们"
+        style="@style/setting_text_style"/>
+    <View 
+        android:layout_height="0.1dp"
+        android:layout_width="match_parent"
+        android:background="@color/qianhui"/>
+    <TextView 
+        android:id="@+id/tel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="    联系我们"
+        style="@style/setting_text_style"/>
+    <View 
+        android:layout_height="0.1dp"
+        android:layout_width="match_parent"
+        android:background="@color/qianhui"/>
+    <TextView 
+        android:id="@+id/del"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="    清除缓存"
+        style="@style/setting_text_style"/>
+    <View 
+        android:layout_height="0.1dp"
+        android:layout_width="match_parent"
+        android:background="@color/qianhui"/>
+    <TextView 
+        android:id="@+id/exit"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="退出登录"
+        style="@style/submit"/>
+
+</LinearLayout>

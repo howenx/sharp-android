@@ -7,12 +7,14 @@ import com.hanbimei.data.AppConstant;
 import com.hanbimei.data.DataParser;
 import com.hanbimei.entity.Adress;
 import com.hanbimei.entity.Result;
+import com.hanbimei.utils.CommonUtil;
 import com.hanbimei.utils.HttpUtils;
 import com.hanbimei.wheel.widget.OnWheelChangedListener;
 import com.hanbimei.wheel.widget.WheelView;
 import com.hanbimei.wheel.widget.adapter.ArrayWheelAdapter;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -59,6 +61,8 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 	private WheelView mViewProvince;
 	private WheelView mViewCity;
 	private WheelView mViewDistrict;
+	
+	private ProgressDialog dialog;
 
 	@Override
 	protected void onCreate(Bundle bundle) {
@@ -220,12 +224,13 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 		}else if(address.equals("")){
 			Toast.makeText(this, "请输入详细地址", Toast.LENGTH_SHORT).show();
 			return;
-		}else if(!isPhoneNum(phone)){
+		}else if(!CommonUtil.isPhoneNum(phone)){
 			Toast.makeText(this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
 			return;
+		}else{
+			toObject();
+			addNewAdress();
 		}
-		toObject();
-		addNewAdress();
 	}
 	private void toObject() {
 		object = new JSONObject();
@@ -243,6 +248,8 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 	}
 
 	private void addNewAdress() {
+		dialog = CommonUtil.dialog(this, "正在提交，请稍后...");
+		dialog.show();
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -258,16 +265,6 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 				mHandler.sendMessage(msg);
 			}
 		}).start();
-	}
-	private boolean isPhoneNum(String nums){
-		/* 
-	    判断前两位 13/15/17/18
-	    */  
-	    String telRegex = "[1][345678]\\d{9}";//"[1]"代表第1位为数字1，"[358]"代表第二位可以为3、5、8中的一个，"\\d{9}"代表后面是可以是0～9的数字，有9位。  
-	    if (TextUtils.isEmpty(nums)) 
-	    	return false;  
-	    else 
-	    	return nums.matches(telRegex);  
 	}
 	
 	private Handler mHandler = new Handler(){
@@ -296,6 +293,8 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 				}else{
 					Toast.makeText(EditAdressActivity.this, result.getCode() + "   " + result.getMessage(), Toast.LENGTH_SHORT).show();
 				}
+
+				dialog.dismiss();
 				break;
 
 			default:

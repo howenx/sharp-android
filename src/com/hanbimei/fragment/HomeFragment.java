@@ -74,7 +74,7 @@ public class HomeFragment extends Fragment implements
 		View view = inflater.inflate(R.layout.home_list_layout, null);
 		mListView = (PullToRefreshListView) view.findViewById(R.id.mylist);
 		mListView.setAdapter(adapter);
-		mListView.setMode(Mode.BOTH);
+		mListView.setMode(Mode.PULL_UP_TO_REFRESH);
 		mListView.setOnRefreshListener(this);
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -94,6 +94,7 @@ public class HomeFragment extends Fragment implements
 
 	private void findHeaderView() {
 		headerView = inflater.inflate(R.layout.home_header_slider_layout, null);
+		headerView.setVisibility(View.GONE);
 		cycleViewPager = (CycleViewPager) getActivity().getFragmentManager()
 				.findFragmentById(R.id.fragment_cycle_viewpager_content);
 	}
@@ -104,7 +105,9 @@ public class HomeFragment extends Fragment implements
 	}
 
 	private void initHeaderView() {
+		headerView.setVisibility(View.VISIBLE);
 		// 将最后一个ImageView添加进来
+		views.clear();
 		views.add(ViewFactory.getImageView(mContext,
 				dataSliders.get(dataSliders.size() - 1).getUrl()));
 		for (int i = 0; i < dataSliders.size(); i++) {
@@ -140,12 +143,11 @@ public class HomeFragment extends Fragment implements
 			dataSliders.clear();
 			dataSliders.addAll(list2);
 			initHeaderView();
-		} else {
-			getNetData();
 		}
+		getNetData();
 
 	}
-
+	private List<Slider> sliders_temp;
 	// 加载网络数据
 	private void getNetData() {
 		new Thread(new Runnable() {
@@ -156,8 +158,7 @@ public class HomeFragment extends Fragment implements
 					String result = HttpUtils
 							.get("http://172.28.3.18:9001/index/" + pageIndex);
 					List<Theme> list = DataParser.parserHome(result);
-					dataSliders.clear();
-					dataSliders = DataParser.parserSlider(result);
+					sliders_temp = DataParser.parserSlider(result);
 					Message msg;
 					if (isUpOrDwom == 0) {
 						msg = mHandler.obtainMessage(1);
@@ -184,19 +185,18 @@ public class HomeFragment extends Fragment implements
 				List<Theme> list = (List<Theme>) msg.obj;
 				if (list != null && list.size() > 0) {
 					sliderDao.deleteAll();
-					sliderDao.insertInTx(dataSliders);
+					sliderDao.insertInTx(sliders_temp);
+					dataSliders.clear();
+					dataSliders.addAll(sliders_temp);
 					initHeaderView();
-					themeDao.deleteAll();
 					data.clear();
 					data.addAll(list);
+					themeDao.deleteAll();
 					themeDao.insertInTx(data);
 					adapter.notifyDataSetChanged();
 					Toast.makeText(mContext, "加载数据成功！！！", Toast.LENGTH_SHORT)
 							.show();
-				} else {
-					Toast.makeText(mContext, "加载数据成功！！！", Toast.LENGTH_SHORT)
-							.show();
-				}
+				} 
 				break;
 			case 2:
 				mListView.onRefreshComplete();
@@ -204,7 +204,10 @@ public class HomeFragment extends Fragment implements
 				if (list_more != null && list_more.size() > 0) {
 					data.addAll(list_more);
 					adapter.notifyDataSetChanged();
+					Toast.makeText(mContext, "小美为您加载了 " + list_more.size() + " 条新数据", Toast.LENGTH_SHORT)
+					.show();
 				} else {
+					pageIndex -- ;
 					Toast.makeText(mContext, "暂无更多数据！！！", Toast.LENGTH_SHORT)
 							.show();
 				}

@@ -186,7 +186,7 @@ public class ThemeDetailActivity extends BaseActivity {
 				}
 				 TextView tag = (TextView) view.findViewById(R.id.tag);
 				 ImageView point = (ImageView) view.findViewById(R.id.point);
-				 WaveAnimationUtil.waveAnimation(point, 2f);
+				 WaveAnimationUtil.waveAnimation(point, 3.5f);
 				 FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 				 lp.setMargins(Integer.valueOf((int) (width * json.getDouble("left"))),
 						 Integer.valueOf((int) (height * json.getDouble("top"))), 0, 0);

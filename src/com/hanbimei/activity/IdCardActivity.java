@@ -7,13 +7,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.json.JSONException;
 import org.json.JSONObject;
 import com.hanbimei.R;
 import com.hanbimei.data.AppConstant;
@@ -24,6 +17,7 @@ import com.hanbimei.utils.HasSDCardUtil;
 import com.hanbimei.utils.HttpUtils;
 import com.hanbimei.utils.ImgUtils;
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -43,11 +37,12 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-@SuppressLint({ "NewApi", "SdCardPath" })
+@SuppressLint({ "NewApi", "SdCardPath", "InflateParams" })
 public class IdCardActivity extends BaseActivity implements OnClickListener {
 
 	private TextView header;
@@ -57,20 +52,20 @@ public class IdCardActivity extends BaseActivity implements OnClickListener {
 	private TextView add;
 	private ImageView left_img;
 	private ImageView right_img;
+	private ProgressDialog dialog;
+	private JSONObject object = new JSONObject();
+	private String name;
+	private String idcard_nums;
 	//
 	private PopupWindow popWindow;
 	private View parenView;
 
-	private String name;
-	private String idcard_nums;
-
 	private static final String IMAGE_FILE_NAME = "idCard";
 	private static final int CAMERA_REQUEST_CODE = 1;
-	private static final int RESULT_REQUEST_CODE = 2;
 	private Bitmap photo;
 	private boolean isLeft = true;
-	private String left_String;
-	private String right_String;
+	private String left_String = "";
+	private String right_String = "";
 
 	@Override
 	protected void onCreate(Bundle bundle) {
@@ -81,7 +76,7 @@ public class IdCardActivity extends BaseActivity implements OnClickListener {
 		initSelectPop();
 	}
 
-//	初始化控件
+	// 初始化控件
 	private void findView() {
 		header = (TextView) findViewById(R.id.header);
 		header.setText("上传身份证信息");
@@ -99,7 +94,8 @@ public class IdCardActivity extends BaseActivity implements OnClickListener {
 		parenView = LayoutInflater.from(this).inflate(
 				R.layout.bind_idcard_layout, null);
 	}
-//onclick事件
+
+	// onclick事件
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -108,8 +104,6 @@ public class IdCardActivity extends BaseActivity implements OnClickListener {
 			break;
 		case R.id.add:
 			checkInput();
-			turnToObject();
-			doUpImg();
 			break;
 		case R.id.left:
 			isLeft = true;
@@ -123,7 +117,8 @@ public class IdCardActivity extends BaseActivity implements OnClickListener {
 			break;
 		}
 	}
-//	输入检查
+
+	// 输入检查
 	private void checkInput() {
 		name = name_edit.getText().toString();
 		idcard_nums = nums_edit.getText().toString();
@@ -133,15 +128,20 @@ public class IdCardActivity extends BaseActivity implements OnClickListener {
 		} else if (idcard_nums.equals("")) {
 			Toast.makeText(this, "请输入身份证", Toast.LENGTH_SHORT).show();
 			return;
-		}else if(left_String.equals("")){
+		} else if (left_String.equals("")) {
 			Toast.makeText(this, "身份证证件信息不足", Toast.LENGTH_SHORT).show();
 			return;
-		}else if(right_String.equals("")){
+		} else if (right_String.equals("")) {
 			Toast.makeText(this, "身份证证件信息不足", Toast.LENGTH_SHORT).show();
 			return;
+		}else{
+			turnToObject();
+			doUpImg();
 		}
 	}
-//	初始化popwindow
+
+	// 初始化popwindow
+	@SuppressWarnings("deprecation")
 	private void initSelectPop() {
 		popWindow = new PopupWindow(this);
 		View view = LayoutInflater.from(this).inflate(
@@ -152,7 +152,7 @@ public class IdCardActivity extends BaseActivity implements OnClickListener {
 		popWindow.setFocusable(true);
 		popWindow.setOutsideTouchable(true);
 		popWindow.setContentView(view);
-		//拍照
+		// 拍照
 		view.findViewById(R.id.play_photo).setOnClickListener(
 				new OnClickListener() {
 					@Override
@@ -171,7 +171,7 @@ public class IdCardActivity extends BaseActivity implements OnClickListener {
 						popWindow.dismiss();
 					}
 				});
-		//本地照片
+		// 本地照片
 		view.findViewById(R.id.my_photo).setOnClickListener(
 				new OnClickListener() {
 
@@ -182,7 +182,7 @@ public class IdCardActivity extends BaseActivity implements OnClickListener {
 						popWindow.dismiss();
 					}
 				});
-		//取消
+		// 取消
 		view.findViewById(R.id.cancle).setOnClickListener(
 				new OnClickListener() {
 
@@ -239,8 +239,7 @@ public class IdCardActivity extends BaseActivity implements OnClickListener {
 		}
 	}
 
-	private JSONObject object = new JSONObject();
-	//string 转object
+	// string 转object
 	private void turnToObject() {
 		try {
 			object.put("cardImgA", left_String);
@@ -253,8 +252,10 @@ public class IdCardActivity extends BaseActivity implements OnClickListener {
 			e.printStackTrace();
 		}
 	}
-	//上传图片，证件号，姓名。
+
+	// 上传图片，证件号，姓名。
 	private void doUpImg() {
+		showLoading();
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -268,7 +269,16 @@ public class IdCardActivity extends BaseActivity implements OnClickListener {
 			}
 		}).start();
 	}
-	private Handler mHandler = new Handler(){
+
+	private void showLoading() {
+		// 设置推出等待窗口
+		dialog = new ProgressDialog(this);
+		dialog.setMessage("正在上传，请稍后...");
+		dialog.show();
+	}
+
+	@SuppressLint("HandlerLeak") 
+	private Handler mHandler = new Handler() {
 
 		@Override
 		public void handleMessage(Message msg) {
@@ -276,21 +286,24 @@ public class IdCardActivity extends BaseActivity implements OnClickListener {
 			switch (msg.what) {
 			case 1:
 				Result result = (Result) msg.obj;
-				if(result != null){
-					Toast.makeText(IdCardActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
-					if(result.getCode() == 200){
+				if (result != null) {
+					Toast.makeText(IdCardActivity.this, result.getMessage(),
+							Toast.LENGTH_SHORT).show();
+					if (result.getCode() == 200) {
 						finish();
 					}
 				}
+				dialog.dismiss();
 				break;
 
 			default:
 				break;
 			}
 		}
-		
+
 	};
-	//将文件转成流  base64
+
+	// 将文件转成流 base64
 	private String toBuffer(File file) {
 		byte b[] = null;
 		try {
@@ -308,7 +321,9 @@ public class IdCardActivity extends BaseActivity implements OnClickListener {
 		}
 		return new String(Base64.encode(b, Base64.NO_WRAP));
 	}
-	//得到file  并展示到imageview
+
+	// 得到file 并展示到imageview
+	@SuppressWarnings("deprecation")
 	private File getFile(Intent data) {
 		Bundle extras = data.getExtras();
 		if (extras != null) {
@@ -316,8 +331,10 @@ public class IdCardActivity extends BaseActivity implements OnClickListener {
 			Drawable drawable = new BitmapDrawable(photo);
 			if (isLeft) {
 				left_img.setImageDrawable(drawable);
+				left_img.setScaleType(ScaleType.FIT_XY);
 			} else {
 				right_img.setImageDrawable(drawable);
+				right_img.setScaleType(ScaleType.FIT_XY);
 			}
 
 		}

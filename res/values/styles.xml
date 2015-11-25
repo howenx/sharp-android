@@ -78,6 +78,7 @@
         <item name="android:paddingBottom">10dp</item>
         <item name="android:paddingTop">10dp</item>
     </style>
+<<<<<<< HEAD
     
 	   <style name="customButton">
         <item name="android:paddingLeft">10dp</item>
@@ -86,4 +87,23 @@
         <item name="android:paddingBottom">5dp</item>
         <item name="android:background">@drawable/bg_custom_button</item>
     </style>
+=======
+    <style name="setting_text_style">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/fontcolor</item>
+        <item name="android:padding">15dp</item>
+    </style>
+    
+    <style name="login_edit_style">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/qianhui</item>
+        <item name="android:textColorHint">@color/qianhui</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingRight">15dp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+    
+>>>>>>> 3120e8265a55d38224875e050ceae24523b84bdd
 </resources>

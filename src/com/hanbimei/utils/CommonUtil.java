@@ -2,6 +2,9 @@ package com.hanbimei.utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -10,7 +13,9 @@ import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningAppProcessInfo;
 import android.app.ActivityManager.RunningTaskInfo;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
@@ -18,6 +23,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
@@ -367,5 +373,47 @@ public class CommonUtil {
 				"yyyy-MM-dd HH:mm:ss ");
 		Date curDate = new Date(System.currentTimeMillis());// 获取当前时间
 		return formatter.format(curDate);
+	}
+	/*
+	 * activity跳转
+	 */
+	public static void doJump(Context mcContext, Class clazz){
+		Intent intent = new Intent(mcContext,clazz);
+		mcContext.startActivity(intent);
+	}
+	//判断手机格式  正则
+	public static boolean isPhoneNum(String nums){
+		/* 
+	    判断前两位 13/15/17/18
+	    */  
+	    String telRegex = "[1][345678]\\d{9}";//"[1]"代表第1位为数字1，"[358]"代表第二位可以为3、5、8中的一个，"\\d{9}"代表后面是可以是0～9的数字，有9位。  
+	    if (TextUtils.isEmpty(nums)) 
+	    	return false;  
+	    else 
+	    	return nums.matches(telRegex);  
+	}
+	//等待窗
+	public static ProgressDialog dialog(Context mContext, String msg){
+		ProgressDialog dialog = new ProgressDialog(mContext);
+		dialog.setMessage(msg);
+		return dialog;
+	}
+	//MD5加密
+	public static String md5(String string) {
+	    byte[] hash;
+	    try {
+	        hash = MessageDigest.getInstance("MD5").digest(string.getBytes("UTF-8"));
+	    } catch (NoSuchAlgorithmException e) {
+	        throw new RuntimeException("Huh, MD5 should be supported?", e);
+	    } catch (UnsupportedEncodingException e) {
+	        throw new RuntimeException("Huh, UTF-8 should be supported?", e);
+	    }
+
+	    StringBuilder hex = new StringBuilder(hash.length * 2);
+	    for (byte b : hash) {
+	        if ((b & 0xFF) < 0x10) hex.append("0");
+	        hex.append(Integer.toHexString(b & 0xFF));
+	    }
+	    return hex.toString();
 	}
 }

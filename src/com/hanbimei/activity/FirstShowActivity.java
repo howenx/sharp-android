@@ -51,7 +51,7 @@ public class FirstShowActivity extends BaseActivity {
 			switch (msg.what) {
 			case 1:
 				startActivity(new Intent(FirstShowActivity.this,
-						MainActivity.class));
+						LoginActivity.class));
 				finish();
 				break;
 

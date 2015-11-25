@@ -5,17 +5,14 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-
 import com.hanbimei.application.MyApplication;
 import com.hanbimei.dao.DaoSession;
 import com.hanbimei.data.XmlParserHandler;
 import com.hanbimei.wheel.entity.CityModel;
 import com.hanbimei.wheel.entity.DistrictModel;
 import com.hanbimei.wheel.entity.ProvinceModel;
-
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -120,6 +117,7 @@ public class BaseActivity extends FragmentActivity {
         	
         } 
 	}
+    
 	/*
 	* 获得用于数据库管理的DaoSession
 	*/

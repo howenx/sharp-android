@@ -42,16 +42,28 @@ public final class R {
 		public static final int indicator_right_padding = 0x7f080022;
 	}
 	public static final class drawable {
+<<<<<<< HEAD
 		public static final int default_ptr_flip = 0x7f02005f;
 		public static final int default_ptr_rotate = 0x7f020060;
 		public static final int indicator_arrow = 0x7f020078;
 		public static final int indicator_bg_bottom = 0x7f02007a;
 		public static final int indicator_bg_top = 0x7f02007b;
+=======
+		public static final int default_ptr_flip = 0x7f02005e;
+		public static final int default_ptr_rotate = 0x7f02005f;
+		public static final int indicator_arrow = 0x7f02007b;
+		public static final int indicator_bg_bottom = 0x7f02007d;
+		public static final int indicator_bg_top = 0x7f02007e;
+>>>>>>> 3120e8265a55d38224875e050ceae24523b84bdd
 	}
 	public static final class id {
 		public static final int both = 0x7f050035;
 		public static final int disabled = 0x7f050032;
+<<<<<<< HEAD
 		public static final int fl_inner = 0x7f0500a1;
+=======
+		public static final int fl_inner = 0x7f0500a2;
+>>>>>>> 3120e8265a55d38224875e050ceae24523b84bdd
 		public static final int flip = 0x7f05003a;
 		public static final int gridview = 0x7f05003b;
 		public static final int manualOnly = 0x7f050036;
@@ -59,10 +71,17 @@ public final class R {
 		public static final int pullFromEnd = 0x7f050034;
 		public static final int pullFromStart = 0x7f050033;
 		public static final int pullUpFromBottom = 0x7f050038;
+<<<<<<< HEAD
 		public static final int pull_to_refresh_image = 0x7f0500a2;
 		public static final int pull_to_refresh_progress = 0x7f0500a3;
 		public static final int pull_to_refresh_sub_text = 0x7f0500a5;
 		public static final int pull_to_refresh_text = 0x7f0500a4;
+=======
+		public static final int pull_to_refresh_image = 0x7f0500a3;
+		public static final int pull_to_refresh_progress = 0x7f0500a4;
+		public static final int pull_to_refresh_sub_text = 0x7f0500a6;
+		public static final int pull_to_refresh_text = 0x7f0500a5;
+>>>>>>> 3120e8265a55d38224875e050ceae24523b84bdd
 		public static final int rotate = 0x7f050039;
 		public static final int scrollview = 0x7f05003d;
 		public static final int webview = 0x7f05003c;

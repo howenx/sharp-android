@@ -11,6 +11,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.UUID;
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -18,6 +19,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
@@ -203,6 +205,29 @@ public class HttpUtils {
 			//http post的json数据格式： {"name": "your name"}
 			httppost.setEntity(new StringEntity(obj.toString(),HTTP.UTF_8));
 			response = httpclient.execute(httppost);
+			//检验状态码，如果成功接收数据
+			if (response.getStatusLine().getStatusCode() == 200) {
+				result = EntityUtils.toString(response.getEntity());
+			}
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+//	apche   post请求
+	public static String postCommon(String url, List<NameValuePair> params) {
+		String result = "";
+		HttpResponse response;
+		try {
+			HttpClient httpclient = new DefaultHttpClient();
+			HttpPost httppost = new HttpPost(url);
+			httppost.setEntity(new UrlEncodedFormEntity(params,HTTP.UTF_8));
+			response = httpclient.execute(httppost);
+			int code = response.getStatusLine().getStatusCode();
 			//检验状态码，如果成功接收数据
 			if (response.getStatusLine().getStatusCode() == 200) {
 				result = EntityUtils.toString(response.getEntity());
