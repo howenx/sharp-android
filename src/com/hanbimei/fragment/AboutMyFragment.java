@@ -1,6 +1,7 @@
 package com.hanbimei.fragment;
 
 import com.hanbimei.R;
+import com.hanbimei.activity.AboutIdCardActivity;
 import com.hanbimei.activity.AdressActivity;
 import com.hanbimei.activity.CouponActivity;
 import com.hanbimei.activity.IdCardActivity;
@@ -82,7 +83,7 @@ public class AboutMyFragment extends Fragment implements OnClickListener{
 		shenfenzheng.setCompoundDrawables(shenfen_icon, null, jiantou_icon, null);
 		youhui = (TextView) view.findViewById(R.id.youhui);
 		youhui.setCompoundDrawables(youhui_icon, null, jiantou_icon, null);
-		about = (TextView) view.findViewById(R.id.about);
+		about = (TextView) view.findViewById(R.id.about_card);
 		about.setCompoundDrawables(about_icon, null, jiantou_icon, null);
 		header.setOnClickListener(this);
 		is_authenticate.setOnClickListener(this);
@@ -90,6 +91,7 @@ public class AboutMyFragment extends Fragment implements OnClickListener{
 		youhui.setOnClickListener(this);
 		shenfenzheng.setOnClickListener(this);
 		address.setOnClickListener(this);
+		about.setOnClickListener(this);
 	}
 
 	@Override
@@ -112,6 +114,9 @@ public class AboutMyFragment extends Fragment implements OnClickListener{
 			break;
 		case R.id.do_authenticate:
 			DoJumpUtils.doJump(getActivity(),IdCardActivity.class);
+			break;
+		case R.id.about_card:
+			DoJumpUtils.doJump(getActivity(),AboutIdCardActivity.class);
 			break;
 		default:
 			break;

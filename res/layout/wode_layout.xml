@@ -70,11 +70,11 @@
 	    android:text="    管理收获地址"
 	    style="@style/wode_font_style"/>
 		<TextView 
-	    android:id="@+id/about"
+	    android:id="@+id/about_card"
 	    android:layout_marginTop="15dp"
 	    android:padding="12dp"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
-	    android:text="    关于我们"
+	    android:text="    关于身份证"
 	    style="@style/wode_font_style"/>
 </LinearLayout>

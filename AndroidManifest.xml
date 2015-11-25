@@ -64,6 +64,21 @@
          <activity 
             android:name="com.hanbimei.activity.OrderDetailActivity"
             android:screenOrientation="portrait" />
+         <activity 
+            android:name="com.hanbimei.activity.SettingActivity"
+            android:screenOrientation="portrait" />
+         <activity 
+            android:name="com.hanbimei.activity.AboutIdCardActivity"
+            android:screenOrientation="portrait" />
+         <activity 
+            android:name="com.hanbimei.activity.LoginActivity"
+            android:screenOrientation="portrait" />
+         <activity 
+            android:name="com.hanbimei.activity.RegistActivity"
+            android:screenOrientation="portrait" />
+         <activity 
+            android:name="com.hanbimei.activity.ForgetPwdActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

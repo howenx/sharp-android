@@ -28,10 +28,6 @@ public class DataParser {
 				JSONObject obj = array.getJSONObject(i);
 				if(obj.has("id"))
 					theme.setId(obj.getLong("id"));
-				if(obj.has("sortNu"))
-					theme.setSortNum(obj.getInt("sortNu"));
-				if(obj.has("masterItemId"))
-					theme.setItem_id(obj.getInt("masterItemId"));
 				if(obj.has("themeImg"))
 					theme.setThemeImg(obj.getString("themeImg"));
 				if(obj.has("themeUrl"))
@@ -49,11 +45,15 @@ public class DataParser {
 	public static List<Slider> parserSlider(String result){
 		List<Slider> list = new ArrayList<Slider>();
 		try {
-			JSONObject obj = new JSONObject(result);
-			JSONArray array = obj.getJSONArray("slider");
+			JSONObject object = new JSONObject(result);
+			JSONArray array = object.getJSONArray("slider");
 			for(int i = 0; i < array.length(); i ++){
+				JSONObject obj = array.getJSONObject(i);
 				Slider slider = new Slider();
-				slider.setImgUrl(array.get(i).toString());
+				if(obj.has("url"))
+					slider.setImgUrl(obj.getString("url"));
+				if(obj.has("itemTarget"))
+					slider.setUrl(obj.getString("itemTarget"));
 				list.add(slider);
 			}
 		} catch (JSONException e) {
@@ -156,6 +156,20 @@ public class DataParser {
 				if(obj.has("addId"))
 					result.setResult_id(obj.getInt("addId"));
 			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	public static Result parserLoginResult(String str){
+		Result result = new Result();
+		try {
+			JSONObject object = new JSONObject(str);
+			if(object.has("result"))
+				result.setSuccess(object.getBoolean("result"));
+			if(object.has("message"))
+				result.setMessage(object.getString("message"));
+			
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

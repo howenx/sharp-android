@@ -88,7 +88,7 @@
         <ImageView 
             android:id="@+id/left"
             android:layout_marginRight="20dp"
-            android:scaleType="fitXY"
+            android:scaleType="center"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="120dp"
@@ -97,7 +97,7 @@
             android:background="@drawable/white_corner_bg"/>
         <ImageView 
             android:id="@+id/right"
-            android:scaleType="fitXY"
+            android:scaleType="center"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="120dp"

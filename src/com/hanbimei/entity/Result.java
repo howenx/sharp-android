@@ -6,6 +6,8 @@ public class Result {
 	private int result_id;
 	private String tag;
 	private String message;
+	private boolean isSuccess;
+	
 	public int getCode() {
 		return code;
 	}
@@ -30,12 +32,22 @@ public class Result {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	public Result(int code, int result_id, String tag, String message) {
+	
+	public boolean isSuccess() {
+		return isSuccess;
+	}
+	public void setSuccess(boolean isSuccess) {
+		this.isSuccess = isSuccess;
+	}
+	
+	public Result(int code, int result_id, String tag, String message,
+			boolean isSuccess) {
 		super();
 		this.code = code;
 		this.result_id = result_id;
 		this.tag = tag;
 		this.message = message;
+		this.isSuccess = isSuccess;
 	}
 	public Result() {
 		super();

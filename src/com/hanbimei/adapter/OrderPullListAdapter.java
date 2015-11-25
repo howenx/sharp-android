@@ -20,6 +20,7 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class OrderPullListAdapter extends BaseAdapter{
 
@@ -81,6 +82,12 @@ public class OrderPullListAdapter extends BaseAdapter{
 				Intent intent = new Intent(activity,OrderDetailActivity.class);
 				intent.putExtra("orderId", order.getOrderId());
 				activity.startActivity(intent);
+			}
+		});
+		holder.go_pay.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				Toast.makeText(activity, "亲，您需要支付 225¥", Toast.LENGTH_SHORT).show();
 			}
 		});
 		holder.orderCode.setText("订单号： " + order.getOrderNums());
