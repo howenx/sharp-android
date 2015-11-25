@@ -60,6 +60,7 @@
             android:screenOrientation="portrait" />
         <activity 
             android:name="com.hanbimei.activity.GoodsDetailActivity"
+            android:theme="@style/AppThemeForGoodsDetail"
             android:screenOrientation="portrait" />
          <activity 
             android:name="com.hanbimei.activity.OrderDetailActivity"

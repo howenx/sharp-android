@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -18,6 +19,8 @@ import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -73,6 +76,21 @@ public class ThemeDetailActivity extends BaseActivity {
 		gridView.setAdapter(adapter);
 		gridView.setFocusable(false);            
 		loadUrl();
+		
+		gridView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				// TODO Auto-generated method stub
+				if(!data.get(arg2).getState().equals("Y")){
+					return;
+				}
+				Intent intent = new Intent(getActivity(),GoodsDetailActivity.class);
+				intent.putExtra("url", data.get(arg2).getItemUrl());
+				startActivity(intent);
+			}
+		});
 	}
 	private void findView() {
 		imageLoader = InitImageLoader.initLoader(this);
@@ -139,6 +157,20 @@ public class ThemeDetailActivity extends BaseActivity {
 		imageLoader.displayImage(themeItem.getItemMasterImg(), img,imageOptions);
 		title.setText(themeItem.getItemTitle());
 		price.setText("US ¥ " + themeItem.getItemPrice());
+		
+		img.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(!themeItem.getState().equals("Y")){
+					return;
+				}
+				Intent intent = new Intent(getActivity(),GoodsDetailActivity.class);
+				intent.putExtra("url", themeItem.getItemUrl());
+				startActivity(intent);
+			}
+		});
 		
 		try {
 			JSONArray array = new JSONArray(themeItem.getMasterItemTag());

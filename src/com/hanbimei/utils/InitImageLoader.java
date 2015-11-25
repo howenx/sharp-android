@@ -1,6 +1,7 @@
 package com.hanbimei.utils;
 
 import android.content.Context;
+import android.widget.ImageView;
 
 import com.hanbimei.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -24,5 +25,11 @@ public class InitImageLoader {
 		.showStubImage(R.drawable.ic_launcher).cacheInMemory(true)
 		.cacheOnDisc(true).build();
 		return imageOptions;
+	}
+	
+	public static void loadImage(Context mContext,String url ,ImageView imgView){
+		initOptions();
+		imageLoader = initLoader(mContext);
+		imageLoader.displayImage(url, imgView,imageOptions);
 	}
 }

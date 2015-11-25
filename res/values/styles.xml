@@ -39,6 +39,24 @@
         <item name="android:paddingBottom">5dp</item>
         <item name="android:textStyle">normal</item>
     </style>
+    
+    <style name="AppThemeForGoodsDetail" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+         <item name="vpiTabPageIndicatorStyle">@style/GoodsDetailTabPageIndicator</item>
+    </style>
+    <!--goods detail indicator  style -->
+    <style name="GoodsDetailTabPageIndicator" parent="Widget.TabPageIndicator">
+        <item name="android:textColor">@color/order_indicator_font_color</item>
+        <item name="android:textSize">13sp</item>    
+        <item name="android:background">@drawable/order_indicator_bg</item>
+        <item name="android:paddingLeft">10dip</item>
+        <item name="android:paddingRight">10dip</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+    
+    
     <style name="OrderTabPageIndicator" parent="Widget.TabPageIndicator">
         <item name="android:textColor">@color/order_indicator_font_color</item>
         <item name="android:textSize">16sp</item>    
@@ -59,5 +77,13 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:paddingBottom">10dp</item>
         <item name="android:paddingTop">10dp</item>
+    </style>
+    
+	   <style name="customButton">
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:background">@drawable/bg_custom_button</item>
     </style>
 </resources>

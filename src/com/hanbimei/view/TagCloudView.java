@@ -57,7 +57,7 @@ public class TagCloudView extends ViewGroup{
     private TextView endText = null;
 
     private static final int DEFAULT_TEXT_COLOR = Color.WHITE;
-    private static final int DEFAULT_TEXT_SIZE = 14;
+    private static final int DEFAULT_TEXT_SIZE = 12;
     private static final int DEFAULT_TEXT_BACKGROUND = R.drawable.bg_tag_item;
     private static final int DEFAULT_VIEW_BORDER = 6;
     private static final int DEFAULT_TEXT_BORDER_HORIZONTAL = 8;
@@ -67,7 +67,7 @@ public class TagCloudView extends ViewGroup{
     private static final int DEFAULT_RIGHT_IMAGE = R.drawable.duihao;
     private static final boolean DEFAULT_SINGLE_LINE = false;
     private static final boolean DEFAULT_SHOW_RIGHT_IMAGE = true;
-    private static final boolean DEFAULT_SHOW_END_TEXT = true;
+    private static final boolean DEFAULT_SHOW_END_TEXT = true; 
     private static final String DEFAULT_END_TEXT_STRING = " … ";
     private static final boolean DEFAULT_CAN_TAG_CLICK = true;
 

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical" >
 
     <include
@@ -12,7 +13,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:scrollbars="@null" >
 
         <LinearLayout
@@ -28,10 +30,16 @@
                 app:indicator_visibility="visible"
                 app:pager_animation="Accordion"
                 app:pager_animation_span="1100" />
+            
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#CCCCCC"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="8dp"
                 android:orientation="horizontal" >
 
                 <LinearLayout
@@ -39,7 +47,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/bg_black_boarder"
                     android:gravity="center"
                     android:orientation="horizontal" >
 
@@ -48,37 +55,46 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="@null"
-                        android:src="@drawable/icon_about" />
+                        android:src="@drawable/icon_collect_normal" />
 
                     <TextView
                         android:id="@+id/num_attention"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="（200）" />
+                        android:layout_marginLeft="10dp"/>
                 </LinearLayout>
+                
+                <View 
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="#CCCCCC"/>
 
                 <LinearLayout
                     android:id="@+id/btn_share"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/bg_black_boarder"
                     android:gravity="center"
+                    
                     android:orientation="horizontal" >
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="@null"
-                        android:src="@drawable/icon_about" />
+                        android:src="@drawable/icon_share" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="分享" />
+                        android:text="分享"
+                        android:layout_marginLeft="10dp" />
                 </LinearLayout>
             </LinearLayout>
-
+			<View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#CCCCCC"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -105,6 +121,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/itemSrcPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right|end"
@@ -114,6 +131,7 @@
                 android:textSize="12sp" />
 
             <TextView
+                android:id="@+id/itemPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right|end"
@@ -131,11 +149,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
+                android:text="规格"
                 android:textColor="#000000"
                 android:textSize="14sp" />
 
             <com.hanbimei.view.TagCloudView
-                android:id="@+id/propertys"
+                android:id="@+id/tagCloudView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:tcvBorder="5dp"
@@ -144,10 +163,73 @@
                 app:tcvItemBorderVertical="6dp"
                 app:tcvSingleLine="false"
                 app:tcvTextColor="@color/black" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="#ECECEC" />
+
+            <TextView
+                android:id="@+id/publicity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="[包邮]    海外直购\n[包邮]   全场包邮\n[优惠] 满减"
+                android:textColor="#FF7F01"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="#ECECEC" />
             
-            
-            
+            <com.viewpagerindicator.TabPageIndicator
+            android:id="@+id/indicator"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white" />
+
+        <com.hanbimei.view.CustomViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
         </LinearLayout>
     </ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ECECEC" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp" >
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <TextView
+            style="@style/customButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:text="加入购物车"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
+
+        <TextView
+            style="@style/customButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="立即购买"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
+    </LinearLayout>
 
 </LinearLayout>

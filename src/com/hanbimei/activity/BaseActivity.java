@@ -132,6 +132,8 @@ public class BaseActivity extends FragmentActivity {
 		super.onCreate(arg0);
 	}
 	
-	
+	public BaseActivity getActivity(){
+		return this;
+	}
 
 }

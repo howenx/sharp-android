@@ -1,15 +1,20 @@
 package com.hanbimei.data;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONStringer;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.hanbimei.entity.Adress;
+import com.hanbimei.entity.GoodsDetail;
+import com.hanbimei.entity.GoodsDetail.ItemFeature;
+import com.hanbimei.entity.GoodsDetail.Stock;
 import com.hanbimei.entity.HMessage;
 import com.hanbimei.entity.Result;
 import com.hanbimei.entity.Slider;
@@ -160,6 +165,85 @@ public class DataParser {
 			e.printStackTrace();
 		}
 		return result;
+	}
+	
+	//商品详情页 －－ 商品详情数据解析
+	public static GoodsDetail parserGoodsDetail(String result){
+		GoodsDetail detail = new GoodsDetail();
+		try {
+			JSONObject obj = new JSONObject(result);
+			JSONObject objMain = obj.getJSONObject("main");
+			GoodsDetail.Main main = detail.new Main();
+			
+			main.setId(objMain.getInt("id"));
+			main.setItemTitle(objMain.getString("itemTitle"));
+			main.setItemMasterImg(objMain.getString("itemMasterImg"));
+			main.setOnShelvesAt(objMain.getString("onShelvesAt"));
+			main.setOffShelvesAt(objMain.getString("offShelvesAt"));
+			JSONArray array = new JSONArray(objMain.getString("itemDetailImgs"));
+			List<String> list = new ArrayList<String>();
+			for(int i = 0;i<array.length();i++){
+				list.add(array.getString(i));
+			}
+			main.setItemDetailImgs(list);
+			JSONObject json = new JSONObject(objMain.getString("itemFeatures"));
+			Iterator<String> it = json.keys();
+			List<ItemFeature> itemFeatures = new ArrayList<ItemFeature>(); 
+			ItemFeature itemFeature = null;
+			while(it.hasNext()) {  
+			    itemFeature = detail.new ItemFeature(it.next(),json.getString(it.next()));
+			    itemFeatures.add(itemFeature);
+			}  
+			main.setItemFeatures(itemFeatures);
+			main.setThemeId(objMain.getInt("themeId"));
+			main.setState(objMain.getString("state"));
+			main.setShareUrl(objMain.getString("shareUrl"));
+			main.setCollectCount(objMain.getInt("collectCount"));
+			main.setItemNotice(objMain.getString("itemNotice"));
+			array = new  JSONArray(objMain.getString("publicity"));
+			list = new ArrayList<String>();
+			for(int i = 0;i<array.length();i++){
+				list.add(array.getString(i));
+			}
+			main.setPublicity(list);
+			main.setMasterInvId(objMain.getInt("masterInvId"));
+			
+			detail.setMain(main);
+			
+			GoodsDetail.Stock stock = null;
+			List<Stock> listt = new ArrayList<GoodsDetail.Stock>();
+			JSONArray arrayStock = obj.getJSONArray("stock");
+			for(int j = 0;j<arrayStock.length();j++){
+				JSONObject objStock = arrayStock.getJSONObject(j);
+				stock = detail.new Stock();
+				stock.setId(objStock.getInt("id"));
+				stock.setItemColor(objStock.getString("itemColor"));
+				stock.setItemSize(objStock.getString("itemSize"));
+				stock.setItemSrcPrice(objStock.getDouble("itemSrcPrice"));
+				stock.setItemPrice(objStock.getDouble("itemPrice"));
+				stock.setItemDiscount(objStock.getDouble("itemDiscount"));
+				stock.setOrMasterInv(objStock.getBoolean("orMasterInv"));
+				stock.setState(objStock.getString("state"));
+				stock.setShipFee(objStock.getInt("shipFee"));
+				stock.setInvArea(objStock.getString("invArea"));
+				stock.setRestrictAmount(objStock.getInt("restrictAmount"));
+				stock.setRestAmount(objStock.getInt("restAmount"));
+				stock.setInvImg(objStock.getString("invImg"));
+				array = new JSONArray(objStock.getString("itemPreviewImgs"));
+				list = new ArrayList<String>();
+				for(int i = 0;i<array.length();i++){
+					list.add(array.getString(i));
+				}
+				stock.setItemPreviewImgs(list);
+				stock.setInvImg(objStock.getString("invImg"));
+				stock.setInvTitle(objStock.getString("invTitle"));
+				listt.add(stock);
+			}
+			detail.setStocks(listt);
+		} catch (JSONException e) {
+		}
+		
+		return detail;
 	}
 
 }
