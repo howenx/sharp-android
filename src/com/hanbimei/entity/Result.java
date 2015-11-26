@@ -1,6 +1,8 @@
 package com.hanbimei.entity;
 
-public class Result {
+import java.io.Serializable;
+
+public class Result implements Serializable{
 
 	private int code;
 	private int result_id;
