@@ -163,14 +163,10 @@ public class DataParser {
 		return result;
 	}
 
-<<<<<<< HEAD
-	// 商品详情页 －－ 商品详情数据解析
-	public static GoodsDetail parserGoodsDetail(String result) {
-=======
+
 	
 	//商品详情页 －－ 商品详情数据解析
 	public static GoodsDetail parserGoodsDetail(String result){
->>>>>>> ae51f586ce0cd0635d732ad47610e40e4d9f6050
 		GoodsDetail detail = new GoodsDetail();
 		try {
 			JSONObject obj = new JSONObject(result);
@@ -249,12 +245,8 @@ public class DataParser {
 
 		return detail;
 	}
-<<<<<<< HEAD
 
-	public static Result parserLoginResult(String str) {
-=======
 	public static Result parserLoginResult(String str){
->>>>>>> ae51f586ce0cd0635d732ad47610e40e4d9f6050
 		Result result = new Result();
 		try {
 			JSONObject object = new JSONObject(str);

@@ -316,17 +316,17 @@ public final class R {
 		public static final int checkbox = 0x7f050053;
 		public static final int collapseActionView = 0x7f05000d;
 		public static final int daimajia_indicator_wrapper = 0x7f050090;
-		public static final int daimajia_slider_image = 0x7f0500bb;
-		public static final int daimajia_slider_viewpager = 0x7f0500c5;
+		public static final int daimajia_slider_image = 0x7f0500bd;
+		public static final int daimajia_slider_viewpager = 0x7f0500c7;
 		public static final int default_activity_button = 0x7f05004e;
-		public static final int default_bottom_left_indicator = 0x7f0500c8;
-		public static final int default_bottom_right_indicator = 0x7f0500c7;
-		public static final int default_center_bottom_indicator = 0x7f0500c6;
-		public static final int default_center_top_indicator = 0x7f0500c9;
-		public static final int default_center_top_left_indicator = 0x7f0500cb;
-		public static final int default_center_top_right_indicator = 0x7f0500ca;
-		public static final int description = 0x7f0500be;
-		public static final int description_layout = 0x7f0500bd;
+		public static final int default_bottom_left_indicator = 0x7f0500ca;
+		public static final int default_bottom_right_indicator = 0x7f0500c9;
+		public static final int default_center_bottom_indicator = 0x7f0500c8;
+		public static final int default_center_top_indicator = 0x7f0500cb;
+		public static final int default_center_top_left_indicator = 0x7f0500cd;
+		public static final int default_center_top_right_indicator = 0x7f0500cc;
+		public static final int description = 0x7f0500c0;
+		public static final int description_layout = 0x7f0500bf;
 		public static final int dialog = 0x7f05000e;
 		public static final int disableHome = 0x7f050008;
 		public static final int dropdown = 0x7f05000f;
@@ -342,7 +342,7 @@ public final class R {
 		public static final int invisible = 0x7f05002b;
 		public static final int listMode = 0x7f050001;
 		public static final int list_item = 0x7f05004f;
-		public static final int loading_bar = 0x7f0500bc;
+		public static final int loading_bar = 0x7f0500be;
 		public static final int middle = 0x7f050012;
 		public static final int never = 0x7f050009;
 		public static final int none = 0x7f050010;
@@ -405,10 +405,10 @@ public final class R {
 		public static final int abc_search_view = 0x7f030016;
 		public static final int abc_simple_decor = 0x7f030017;
 		public static final int indicator_layout = 0x7f030028;
-		public static final int render_type_default = 0x7f03003a;
-		public static final int render_type_text = 0x7f03003b;
-		public static final int slider_layout = 0x7f03003e;
-		public static final int support_simple_spinner_dropdown_item = 0x7f03003f;
+		public static final int render_type_default = 0x7f03003b;
+		public static final int render_type_text = 0x7f03003c;
+		public static final int slider_layout = 0x7f03003f;
+		public static final int support_simple_spinner_dropdown_item = 0x7f030040;
 	}
 	public static final class string {
 		public static final int abc_action_bar_home_description = 0x7f0a0001;
