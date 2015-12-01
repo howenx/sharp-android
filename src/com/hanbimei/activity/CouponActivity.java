@@ -7,7 +7,6 @@ import com.hanbimei.R;
 import com.hanbimei.adapter.TicketAdapter;
 import com.hanbimei.entity.Ticket;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;

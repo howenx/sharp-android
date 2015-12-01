@@ -2,7 +2,6 @@ package com.hanbimei.activity;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -11,6 +10,7 @@ import com.hanbimei.data.AppConstant;
 import com.hanbimei.data.DataParser;
 import com.hanbimei.entity.Adress;
 import com.hanbimei.entity.Result;
+import com.hanbimei.entity.User;
 import com.hanbimei.utils.HttpUtils;
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -39,11 +39,13 @@ import android.widget.TextView;
 	private Adress adress;
 	private int index;
 	private JSONObject object;
+	private User user;
 	@Override
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
 		setContentView(R.layout.my_address_layout);
 		getActionBar().hide();
+		user = getUser();
 		findView();
 		loadData();
 		
@@ -53,7 +55,7 @@ import android.widget.TextView;
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				String result = HttpUtils.get("http://172.28.3.18:9001/id/address");
+				String result = HttpUtils.getToken("http://172.28.3.18:9004/api/address/list", "id-token", user.getToken());
 				List<Adress> list = DataParser.parserAddressList(result);
 				Message msg = mHandler.obtainMessage(1);
 				msg.obj = list;
@@ -233,7 +235,7 @@ import android.widget.TextView;
 		new Thread(new Runnable() {	
 			@Override
 			public void run() {
-				String result = HttpUtils.post("http://172.28.3.18:9001/id/address/del", object, "id-token","1d3f3fcf313b7b0332d64db15986bd66");
+				String result = HttpUtils.post("http://172.28.3.18:9004/api/address/del", object, "id-token",user.getToken());
 				Result mResult = DataParser.parserResult(result);
 				Message msg = mHandler.obtainMessage(2);
 				msg.obj = mResult;

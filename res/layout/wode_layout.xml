@@ -14,24 +14,24 @@
         android:id="@+id/header"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:src="@drawable/first_show"/>
+        android:src="@drawable/ic_launcher"/>
 
     <TextView
         android:id="@+id/do_authenticate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="绑定身份证"
+        android:layout_marginTop="7dp"
+        android:text="未登录"
         android:textSize="12sp"
         android:textColor="@color/white" />
 
     <TextView 
         android:id="@+id/user_name"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="40dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="KaKao"
+        android:text="点击登录"
         android:textSize="18sp"
         android:textStyle="bold"
         android:textColor="@color/white"/>

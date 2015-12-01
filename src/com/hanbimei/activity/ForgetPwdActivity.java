@@ -11,7 +11,6 @@ import com.hanbimei.data.DataParser;
 import com.hanbimei.entity.Result;
 import com.hanbimei.utils.CommonUtil;
 import com.hanbimei.utils.HttpUtils;
-
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;

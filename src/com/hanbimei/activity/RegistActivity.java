@@ -111,7 +111,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener{
 				params.add(new BasicNameValuePair("phone", phone));
 				params.add(new BasicNameValuePair("code", yanzheng));
 				params.add(new BasicNameValuePair("password", pwd));
-				String result = HttpUtils.postCommon("http://172.28.3.18:9004/api/reg", params);
+				String result = HttpUtils.postCommon("http://172.28.3.51:9004/api/reg", params);
 				Result issucess = DataParser.parserLoginResult(result);
 				Message msg = mHandler.obtainMessage(1);
 				msg.obj = issucess;
@@ -127,7 +127,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener{
 				List<NameValuePair> params = new ArrayList<NameValuePair>();
 				params.add(new BasicNameValuePair("phone", phone));
 				params.add(new BasicNameValuePair("msg", msg));
-				String result = HttpUtils.postCommon("http://172.28.3.18:9004/api/send_code", params);
+				String result = HttpUtils.postCommon("http://172.28.3.51:9004/api/send_code", params);
 				Result issucess = DataParser.parserLoginResult(result);
 				Message msg = mHandler.obtainMessage(2);
 				msg.obj = issucess;

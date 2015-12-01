@@ -1,6 +1,8 @@
 package com.hanbimei.activity;
 
 import com.hanbimei.R;
+import com.hanbimei.application.MyApplication;
+import com.hanbimei.dao.UserDao;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
@@ -31,11 +33,16 @@ public class SettingActivity extends BaseActivity implements OnClickListener{
 	private TextView exit;
 	
 	private ProgressDialog dialog;
+	
+	private MyApplication application;
+	private UserDao userDao;
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.setting_layout);
 		getActionBar().hide();
+		application = (MyApplication) getApplication();
+		userDao = getDaoSession().getUserDao();
 		initDrawable();
 		initView();
 	}
@@ -107,6 +114,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener{
 			@Override
 			public void run() {
 				try {
+					
 					Thread.sleep(2000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();

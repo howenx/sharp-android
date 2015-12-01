@@ -3,15 +3,23 @@ package com.hanbimei.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.hanbimei.R;
 import com.hanbimei.adapter.OrderDetailListAdapter;
+import com.hanbimei.data.DataParser;
 import com.hanbimei.entity.Adress;
 import com.hanbimei.entity.Order;
+import com.hanbimei.entity.Result;
 import com.hanbimei.entity.Sku;
+import com.hanbimei.utils.HttpUtils;
 import com.hanbimei.view.CustomListView;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -40,6 +48,8 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 	private List<Sku> list;
 	private CustomListView listView;
 	private OrderDetailListAdapter adapter;
+	
+	private JSONObject object;
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
@@ -74,9 +84,13 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		phone.setText("手机号码：" + addressInfo.getPhone());
 		address.setText("收货地址：" + addressInfo.getCity() + addressInfo.getAdress());
 		nums.setText("订单总件数：" + list.size());
-		total_price.setText("商品总费用：" );
+		int goods_price = 0;
+		for(int i = 0; i < list.size(); i ++){
+			goods_price = goods_price + list.get(i).getPrice() * list.get(i).getAmount();
+		}
+		total_price.setText("商品总费用：" + goods_price);
 		post_cost.setText("邮费：" + order.getShipFee());
-		cut_price.setText("优惠商品单价：");
+		cut_price.setText("已优惠金额：" + order.getDiscount());
 		order_price.setText("订单应付金额：" + order.getPayTotal());
 	}
 	private void findView() {
@@ -108,10 +122,45 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		case R.id.back:
 			finish();
 			break;
-
+		case R.id.send:
+			toObject();
+			cancleOrder();
+			break;
 		default:
 			break;
 		}
 	}
+	private void toObject() {
+		object = new JSONObject();
+		try {
+			object.put("orderId", order.getOrderId());
+			object.put("status", "C");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	private void cancleOrder() {
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				String result = HttpUtils.post("http://172.28.3.18:9003/client/order/state/update", object, "id-token", getUser().getToken());
+				Result isSuccess = DataParser.parserResult(result);
+				Message msg = mHandler.obtainMessage(1);
+				msg.obj = isSuccess;
+				mHandler.sendMessage(msg);
+			}
+		}).start();
+	}
 
+	private Handler mHandler = new Handler(){
+
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			super.handleMessage(msg);
+		}
+		
+	};
 }

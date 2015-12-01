@@ -9,6 +9,7 @@ public class Result implements Serializable{
 	private String tag;
 	private String message;
 	private boolean isSuccess;
+	private int time;
 	
 	public int getCode() {
 		return code;
@@ -53,6 +54,12 @@ public class Result implements Serializable{
 	}
 	public Result() {
 		super();
+	}
+	public int getTime() {
+		return time;
+	}
+	public void setTime(int time) {
+		this.time = time;
 	}
 	
 }

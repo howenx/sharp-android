@@ -103,5 +103,7 @@
         <item name="android:paddingRight">15dp</item>
         <item name="android:gravity">center_vertical</item>
     </style>
-
+    <style name="checkbox_style">
+        <item name="android:button">@drawable/check_box</item>
+    </style>
 </resources>

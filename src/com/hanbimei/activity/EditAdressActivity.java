@@ -7,12 +7,12 @@ import com.hanbimei.data.AppConstant;
 import com.hanbimei.data.DataParser;
 import com.hanbimei.entity.Adress;
 import com.hanbimei.entity.Result;
+import com.hanbimei.entity.User;
 import com.hanbimei.utils.CommonUtil;
 import com.hanbimei.utils.HttpUtils;
 import com.hanbimei.wheel.widget.OnWheelChangedListener;
 import com.hanbimei.wheel.widget.WheelView;
 import com.hanbimei.wheel.widget.adapter.ArrayWheelAdapter;
-
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -20,13 +20,11 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -63,6 +61,7 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 	private WheelView mViewDistrict;
 	
 	private ProgressDialog dialog;
+	private User user;
 
 	@Override
 	protected void onCreate(Bundle bundle) {
@@ -70,6 +69,7 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 		setContentView(R.layout.edit_adress_layout);
 		getActionBar().hide();
 		new_Adress = new Adress();
+		user = getUser();
 		findView();
 		isWhat = getIntent().getIntExtra("isWhat", 0);
 		if(isWhat == 1){
@@ -255,9 +255,9 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 			public void run() {
 				String result ;
 				if(isWhat == 1){
-					result = HttpUtils.post("http://172.28.3.51:9001/id/address/update", object,"id-token","1d3f3fcf313b7b0332d64db15986bd66");
+					result = HttpUtils.post("http://172.28.3.18:9004/api/address/update", object,"id-token", user.getToken());
 				}else{
-					result = HttpUtils.post("http://172.28.3.51:9001/id/address/add", object,"id-token","1d3f3fcf313b7b0332d64db15986bd66");;
+					result = HttpUtils.post("http://172.28.3.18:9004/api/address/add", object,"id-token", user.getToken());;
 				}
 				Result mResult = DataParser.parserResult(result);
 				Message msg = mHandler.obtainMessage(1);

@@ -6,17 +6,20 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import com.hanbimei.entity.Adress;
 import com.hanbimei.entity.GoodsDetail;
-import com.hanbimei.entity.GoodsDetail.ItemFeature;
 import com.hanbimei.entity.HMessage;
 import com.hanbimei.entity.Order;
 import com.hanbimei.entity.Result;
+import com.hanbimei.entity.ShoppingCar;
+import com.hanbimei.entity.ShoppingGoods;
 import com.hanbimei.entity.Sku;
 import com.hanbimei.entity.Slider;
 import com.hanbimei.entity.Theme;
 import com.hanbimei.entity.ThemeDetail;
 import com.hanbimei.entity.ThemeItem;
+import com.hanbimei.entity.GoodsDetail.ItemFeature;
 
 public class DataParser {
 	public static List<Theme> parserHome(String result) {
@@ -27,8 +30,8 @@ public class DataParser {
 			for (int i = 0; i < array.length(); i++) {
 				Theme theme = new Theme();
 				JSONObject obj = array.getJSONObject(i);
-				if (obj.has("id"))
-					theme.setId(obj.getLong("id"));
+				if(obj.has("id"))
+					theme.setItem_id(obj.getInt("id"));
 				if (obj.has("themeImg"))
 					theme.setThemeImg(obj.getString("themeImg"));
 				if (obj.has("themeUrl"))
@@ -162,6 +165,19 @@ public class DataParser {
 		}
 		return result;
 	}
+	public static Result parserUpImg(String str){
+		Result result = new Result();
+		try {
+			JSONObject object = new JSONObject(str);
+			if(object.has("message"))
+				result.setMessage(object.getString("message"));
+			if(object.has("code"))
+				result.setCode(object.getInt("code"));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 
 
 	
@@ -254,7 +270,10 @@ public class DataParser {
 				result.setSuccess(object.getBoolean("result"));
 			if (object.has("message"))
 				result.setMessage(object.getString("message"));
-
+			if(object.has("token"))
+				result.setTag(object.getString("token"));
+			if(object.has("expired"))
+				result.setTime(object.getInt("expired"));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -339,4 +358,79 @@ public class DataParser {
 		}
 		return list;
 	}
+	public static ShoppingCar parserShoppingCar(String result){
+		ShoppingCar car = new ShoppingCar();
+		List<ShoppingGoods> list = new ArrayList<ShoppingGoods>();
+		HMessage msg = new HMessage();
+		try {
+			JSONObject object = new JSONObject(result);
+			JSONArray array = object.getJSONArray("cartList");
+			for(int i = 0; i < array.length(); i ++){
+				JSONObject obj = array.getJSONObject(i);
+				ShoppingGoods goods = new ShoppingGoods();
+				if(obj.has("cartId"))
+					goods.setCartId(obj.getInt("cartId"));
+				if(obj.has("skuId"))
+					goods.setGoodsId(obj.getInt("skuId"));
+				if(obj.has("amount"))
+					goods.setGoodsNums(obj.getInt("amount"));
+				if(obj.has("itemColor"))
+					goods.setItemColor(obj.getString("itemColor"));
+				if(obj.has("itemSize"))
+					goods.setItemSize(obj.getString("itemSize"));
+				if(obj.has("itemPrice"))
+					goods.setGoodsPrice(obj.getInt("itemPrice"));
+				if(obj.has("state")){
+					if(obj.getString("state").equals("G")){
+						goods.setState("I");
+					}else{
+						goods.setState(obj.getString("state"));
+					}
+				}
+				if(obj.has("shipFee"))
+					goods.setShipFee(obj.getInt("shipFee"));
+				if(obj.has("invArea"))
+					goods.setInvArea(obj.getString("invArea"));
+				if(obj.has("restrictAmount"))
+					goods.setRestrictAmount(obj.getInt("restrictAmount"));
+				if(obj.has("restAmount"))
+					goods.setRestAmount(obj.getInt("restAmount"));
+				if(obj.has("invImg"))
+					goods.setGoodsImg(obj.getString("invImg"));
+				if(obj.has("invUrl"))
+					goods.setGoodsUrl(obj.getString("invUrl"));
+				if(obj.has("invTitle"))
+					goods.setGoodsName(obj.getString("invTitle"));
+				if(obj.has("cartDelUrl"))
+					goods.setDelUrl(obj.getString("cartDelUrl"));
+				list.add(goods);
+			}
+			JSONObject msgObject = object.getJSONObject("message");
+			if(msgObject.has("message"))
+				msg.setMessage(msgObject.getString("message"));
+			if(msgObject.has("code"))
+				msg.setCode(msgObject.getInt("code"));
+			car.setList(list);
+			car.setMessage(msg);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return car;
+	}
+	public static HMessage paserResultMsg(String result){
+		HMessage msg = new HMessage();
+		try {
+			JSONObject object = new JSONObject(result);
+			JSONObject obj = object.getJSONObject("message");
+			if(obj.has("message"))
+				msg.setMessage(obj.getString("message"));
+			if(obj.has("code"))
+				msg.setCode(obj.getInt("code"));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return msg;
+		
+	}
+	
 }
