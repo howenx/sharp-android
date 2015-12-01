@@ -22,41 +22,42 @@ import com.hanbimei.entity.ThemeItem;
 import com.hanbimei.entity.GoodsDetail.ItemFeature;
 
 public class DataParser {
-	public static List<Theme> parserHome(String result){
+	public static List<Theme> parserHome(String result) {
 		List<Theme> list = new ArrayList<Theme>();
 		try {
 			JSONObject object = new JSONObject(result);
 			JSONArray array = object.getJSONArray("theme");
-			for(int i = 0; i < array.length(); i ++){
+			for (int i = 0; i < array.length(); i++) {
 				Theme theme = new Theme();
 				JSONObject obj = array.getJSONObject(i);
 				if(obj.has("id"))
 					theme.setItem_id(obj.getInt("id"));
-				if(obj.has("themeImg"))
+				if (obj.has("themeImg"))
 					theme.setThemeImg(obj.getString("themeImg"));
-				if(obj.has("themeUrl"))
+				if (obj.has("themeUrl"))
 					theme.setThemeUrl(obj.getString("themeUrl"));
 				list.add(theme);
-				
+
 			}
-			
+
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 		return list;
-		
+
 	}
-	public static List<Slider> parserSlider(String result){
+
+	public static List<Slider> parserSlider(String result) {
 		List<Slider> list = new ArrayList<Slider>();
 		try {
 			JSONObject object = new JSONObject(result);
 			JSONArray array = object.getJSONArray("slider");
-			for(int i = 0; i < array.length(); i ++){
+			for (int i = 0; i < array.length(); i++) {
 				JSONObject obj = array.getJSONObject(i);
 				Slider slider = new Slider();
-				if(obj.has("url"))
+				if (obj.has("url"))
 					slider.setImgUrl(obj.getString("url"));
-				if(obj.has("itemTarget"))
+				if (obj.has("itemTarget"))
 					slider.setUrl(obj.getString("itemTarget"));
 				list.add(slider);
 			}
@@ -64,11 +65,10 @@ public class DataParser {
 			e.printStackTrace();
 		}
 		return list;
-		
+
 	}
-	
-	
-	public static ThemeDetail parserThemeItem(String result){
+
+	public static ThemeDetail parserThemeItem(String result) {
 		ThemeDetail detail = new ThemeDetail();
 		JSONObject obj = null;
 		HMessage msg = new HMessage();
@@ -80,10 +80,10 @@ public class DataParser {
 			msg.setMessage(json.getString("message"));
 			msg.setCode(json.getInt("code"));
 			detail.setMessage(msg);
-			
+
 			JSONArray array = new JSONArray(obj.getString("themeList"));
-			
-			for(int i=0;i<array.length();i++){
+
+			for (int i = 0; i < array.length(); i++) {
 				JSONObject jjson = array.getJSONObject(i);
 				t = new ThemeItem();
 				t.setItemTitle(jjson.getString("itemTitle"));
@@ -100,64 +100,64 @@ public class DataParser {
 				t.setItemPrice(jjson.getInt("itemPrice"));
 				t.setState(jjson.getString("state"));
 				t.setItemUrl(jjson.getString("itemUrl"));
-				
-				if(t.getOrMasterItem()){
+
+				if (t.getOrMasterItem()) {
 					detail.setMasterItem(t);
-				}else{
+				} else {
 					themeList.add(t);
 				}
 			}
-			
+
 			detail.setThemeList(themeList);
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 		return detail;
 	}
-	
-	
-	public static List<Adress> parserAddressList(String result){
+
+	public static List<Adress> parserAddressList(String result) {
 		List<Adress> list = new ArrayList<Adress>();
 		try {
 			JSONObject object = new JSONObject(result);
 			JSONArray array = object.getJSONArray("address");
-			for(int i = 0; i < array.length(); i ++){
+			for (int i = 0; i < array.length(); i++) {
 				JSONObject obj = array.getJSONObject(i);
 				Adress adress = new Adress();
-				if(obj.has("addId"))
+				if (obj.has("addId"))
 					adress.setAdress_id(obj.getInt("addId"));
-//				if(obj.has("userId"))
-//					adress.setUser_id(obj.getInt("userId"));
-				if(obj.has("tel"))
+				// if(obj.has("userId"))
+				// adress.setUser_id(obj.getInt("userId"));
+				if (obj.has("tel"))
 					adress.setPhone(obj.getString("tel"));
-				if(obj.has("name"))
+				if (obj.has("name"))
 					adress.setName(obj.getString("name"));
-				if(obj.has("deliveryCity"))
+				if (obj.has("deliveryCity"))
 					adress.setCity(obj.getString("deliveryCity"));
-				if(obj.has("deliveryDetail"))
+				if (obj.has("deliveryDetail"))
 					adress.setAdress(obj.getString("deliveryDetail"));
 				list.add(adress);
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		return list;	
+		return list;
 	}
-	public static Result parserResult(String str){
+
+	public static Result parserResult(String str) {
 		Result result = new Result();
 		try {
 			JSONObject object = new JSONObject(str);
-			if(object.has("message")){
+			if (object.has("message")) {
 				JSONObject obj = new JSONObject(object.getString("message"));
-				if(obj.has("code"))
+				if (obj.has("code"))
 					result.setCode(obj.getInt("code"));
-				if(obj.has("message"))
+				if (obj.has("message"))
 					result.setMessage(obj.getString("message"));
 			}
-			if(object.has("address")){
+			if (object.has("address")) {
 				JSONObject obj = new JSONObject(object.getString("address"));
-				if(obj.has("addId"))
+				if (obj.has("addId"))
 					result.setResult_id(obj.getInt("addId"));
 			}
 		} catch (JSONException e) {
@@ -179,6 +179,7 @@ public class DataParser {
 		return result;
 	}
 
+
 	
 	//商品详情页 －－ 商品详情数据解析
 	public static GoodsDetail parserGoodsDetail(String result){
@@ -187,7 +188,7 @@ public class DataParser {
 			JSONObject obj = new JSONObject(result);
 			JSONObject objMain = obj.getJSONObject("main");
 			GoodsDetail.Main main = detail.new Main();
-			
+
 			main.setId(objMain.getInt("id"));
 			main.setItemTitle(objMain.getString("itemTitle"));
 			main.setItemMasterImg(objMain.getString("itemMasterImg"));
@@ -195,38 +196,40 @@ public class DataParser {
 			main.setOffShelvesAt(objMain.getString("offShelvesAt"));
 			JSONArray array = new JSONArray(objMain.getString("itemDetailImgs"));
 			List<String> list = new ArrayList<String>();
-			for(int i = 0;i<array.length();i++){
+			for (int i = 0; i < array.length(); i++) {
 				list.add(array.getString(i));
 			}
 			main.setItemDetailImgs(list);
 			JSONObject json = new JSONObject(objMain.getString("itemFeatures"));
 			Iterator<String> it = json.keys();
-			List<ItemFeature> itemFeatures = new ArrayList<ItemFeature>(); 
+			List<ItemFeature> itemFeatures = new ArrayList<ItemFeature>();
 			ItemFeature itemFeature = null;
-			while(it.hasNext()) {  
-			    itemFeature = detail.new ItemFeature(it.next(),json.getString(it.next()));
-			    itemFeatures.add(itemFeature);
-			}  
+			while (it.hasNext()) {
+				String key = it.next();
+				String value = json.get(key).toString();
+				itemFeature = detail.new ItemFeature(key,value);
+				itemFeatures.add(itemFeature);
+			}
 			main.setItemFeatures(itemFeatures);
 			main.setThemeId(objMain.getInt("themeId"));
 			main.setState(objMain.getString("state"));
 			main.setShareUrl(objMain.getString("shareUrl"));
 			main.setCollectCount(objMain.getInt("collectCount"));
 			main.setItemNotice(objMain.getString("itemNotice"));
-			array = new  JSONArray(objMain.getString("publicity"));
+			array = new JSONArray(objMain.getString("publicity"));
 			list = new ArrayList<String>();
-			for(int i = 0;i<array.length();i++){
+			for (int i = 0; i < array.length(); i++) {
 				list.add(array.getString(i));
 			}
 			main.setPublicity(list);
 			main.setMasterInvId(objMain.getInt("masterInvId"));
-			
+
 			detail.setMain(main);
-			
+
 			GoodsDetail.Stock stock = null;
 			List<GoodsDetail.Stock> listt = new ArrayList<GoodsDetail.Stock>();
 			JSONArray arrayStock = obj.getJSONArray("stock");
-			for(int j = 0;j<arrayStock.length();j++){
+			for (int j = 0; j < arrayStock.length(); j++) {
 				JSONObject objStock = arrayStock.getJSONObject(j);
 				stock = detail.new Stock();
 				stock.setId(objStock.getInt("id"));
@@ -244,7 +247,7 @@ public class DataParser {
 				stock.setInvImg(objStock.getString("invImg"));
 				array = new JSONArray(objStock.getString("itemPreviewImgs"));
 				list = new ArrayList<String>();
-				for(int i = 0;i<array.length();i++){
+				for (int i = 0; i < array.length(); i++) {
 					list.add(array.getString(i));
 				}
 				stock.setItemPreviewImgs(list);
@@ -255,16 +258,17 @@ public class DataParser {
 			detail.setStocks(listt);
 		} catch (JSONException e) {
 		}
-		
+
 		return detail;
 	}
+
 	public static Result parserLoginResult(String str){
 		Result result = new Result();
 		try {
 			JSONObject object = new JSONObject(str);
-			if(object.has("result"))
+			if (object.has("result"))
 				result.setSuccess(object.getBoolean("result"));
-			if(object.has("message"))
+			if (object.has("message"))
 				result.setMessage(object.getString("message"));
 			if(object.has("token"))
 				result.setTag(object.getString("token"));

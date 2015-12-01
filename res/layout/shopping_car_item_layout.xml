@@ -18,7 +18,7 @@
         android:layout_marginLeft="15dp"
         android:layout_height="60dp"
         android:layout_width="60dp"
-        android:src="@drawable/first_show"
+        android:src="@null"
         android:scaleType="fitXY"
         android:contentDescription="@null"/>
     <RelativeLayout 
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:lines="1"
             android:ellipsize="end"
-            android:text="德国原产深层修复经典护手霜"
+            android:text="@null"
             android:textColor="@color/fontcolor"
             android:textSize="14sp"/>
         <TextView 
@@ -40,7 +40,7 @@
             android:layout_below="@id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="¥146.00"
+            android:text="@null"
             android:textSize="14sp"
             android:textColor="@color/theme"/>
         <LinearLayout 
@@ -65,7 +65,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:text="10"
+                android:text="@null"
                 android:textSize="14sp"
                 android:textColor="@color/fontcolor"/>
             <ImageView 
@@ -87,7 +87,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="删除"
-            android:textSize="14dp"
+            android:textSize="14sp"
             android:textColor="@color/white"
             android:background="@drawable/theme_button_bg" />
     </RelativeLayout>

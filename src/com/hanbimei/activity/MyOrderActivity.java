@@ -2,13 +2,11 @@ package com.hanbimei.activity;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.hanbimei.R;
 import com.hanbimei.adapter.MyPagerAdapter;
 import com.hanbimei.entity.Category;
 import com.hanbimei.fragment.OrderFragment;
 import com.viewpagerindicator.TabPageIndicator;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,7 +16,6 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-@SuppressLint("NewApi") 
 public class MyOrderActivity extends BaseActivity implements OnClickListener{
 	
 	private static final String ALL_ID = "tag00";

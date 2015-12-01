@@ -7,205 +7,280 @@
     android:orientation="vertical" >
 
     <include
+        android:id="@+id/mActionbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/actionbar_size"
         layout="@layout/main_header_layout" />
 
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:scrollbars="@null" >
+        android:layout_weight="1" >
 
-        <LinearLayout
+        <com.hanbimei.view.CustomScrollView
+            android:id="@+id/mScrollView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <com.daimajia.slider.library.SliderLayout
-                android:id="@+id/slider"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                app:auto_cycle="true"
-                app:indicator_visibility="visible"
-                app:pager_animation="Accordion"
-                app:pager_animation_span="1100" />
-            
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="#CCCCCC"/>
+            android:layout_height="match_parent" >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
+                android:background="#ECECEC"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:id="@+id/pager_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <com.daimajia.slider.library.SliderLayout
+                        android:id="@+id/slider"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        app:auto_cycle="true"
+                        app:indicator_visibility="visible"
+                        app:pager_animation="Accordion"
+                        app:pager_animation_span="1100" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="#CCCCCC" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="horizontal"
+                        android:padding="8dp" >
+
+                        <LinearLayout
+                            android:id="@+id/btn_attention"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal" >
+
+                            <ImageView
+                                android:id="@+id/icon_attention"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:contentDescription="@null"
+                                android:src="@drawable/icon_collect_normal" />
+
+                            <TextView
+                                android:id="@+id/num_attention"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="1px"
+                            android:layout_height="match_parent"
+                            android:background="#CCCCCC" />
+
+                        <LinearLayout
+                            android:id="@+id/btn_share"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal" >
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:contentDescription="@null"
+                                android:src="@drawable/icon_share" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:text="分享" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="#CCCCCC" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="horizontal"
+                        android:padding="8dp" >
+
+                        <TextView
+                            android:id="@+id/discount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="[8.9 折]"
+                            android:textColor="@color/theme"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/itemTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:text="德国原产德国原产德国原产德国原产德国原产德国原产"
+                            android:textColor="#AA000000"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/itemSrcPrice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:gravity="right|end"
+                        android:paddingRight="8dp"
+                        android:text="30.00"
+                        android:textColor="#BBBBBB"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/itemPrice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:gravity="right|end"
+                        android:paddingRight="8dp"
+                        android:text="150.00"
+                        android:textColor="@color/theme"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/white"
+                        android:padding="10dp"
+                        android:text="规格"
+                        android:textColor="#000000"
+                        android:textSize="14sp" />
+
+                    <com.hanbimei.view.TagCloudView
+                        android:id="@+id/tagCloudView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        app:tcvBorder="5dp"
+                        app:tcvCanTagClick="false"
+                        app:tcvItemBorderHorizontal="8dp"
+                        app:tcvItemBorderVertical="6dp"
+                        app:tcvSingleLine="false"
+                        app:tcvTextColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/publicity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/white"
+                        android:padding="10dp"
+                        android:textColor="#FF7F01"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <com.viewpagerindicator.TabPageIndicator
+                    android:id="@+id/indicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:visibility="gone" />
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/pager"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </com.hanbimei.view.CustomScrollView>
+
+        <LinearLayout
+            android:id="@+id/indicator_hide"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:visibility="gone"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
                 <LinearLayout
-                    android:id="@+id/btn_attention"
+                    android:id="@+id/tv_guid1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="1.0"
                     android:gravity="center"
-                    android:orientation="horizontal" >
-
-                    <ImageView
-                        android:id="@+id/icon_attention"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@null"
-                        android:src="@drawable/icon_collect_normal" />
+                    android:padding="10dp"
+                    android:orientation="vertical" >
 
                     <TextView
-                        android:id="@+id/num_attention"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"/>
+                        android:text="图文详情"
+                        android:textSize="13sp" />
                 </LinearLayout>
-                
-                <View 
-                    android:layout_width="1px"
-                    android:layout_height="match_parent"
-                    android:background="#CCCCCC"/>
 
                 <LinearLayout
-                    android:id="@+id/btn_share"
+                    android:id="@+id/tv_guid2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="1.0"
                     android:gravity="center"
-                    
-                    android:orientation="horizontal" >
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@null"
-                        android:src="@drawable/icon_share" />
+                    android:padding="10dp"
+                    android:orientation="vertical" >
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="分享"
-                        android:layout_marginLeft="10dp" />
+                        android:text="商品参数"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tv_guid3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="热卖商品"
+                        android:textSize="13sp" />
                 </LinearLayout>
             </LinearLayout>
-			<View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="#CCCCCC"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="8dp" >
-
-                <TextView
-                    android:id="@+id/discount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="[8.9 折]"
-                    android:textColor="@color/theme"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/itemTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:singleLine="true"
-                    android:text="德国原产德国原产德国原产德国原产德国原产德国原产"
-                    android:textColor="#AA000000"
-                    android:textSize="14sp" />
-            </LinearLayout>
 
             <TextView
-                android:id="@+id/itemSrcPrice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="right|end"
-                android:paddingRight="8dp"
-                android:text="30.00"
-                android:textColor="#BBBBBB"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/itemPrice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="right|end"
-                android:paddingRight="8dp"
-                android:text="150.00"
-                android:textColor="@color/theme"
-                android:textSize="16sp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:background="#ECECEC" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="规格"
-                android:textColor="#000000"
-                android:textSize="14sp" />
-
-            <com.hanbimei.view.TagCloudView
-                android:id="@+id/tagCloudView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:tcvBorder="5dp"
-                app:tcvCanTagClick="false"
-                app:tcvItemBorderHorizontal="8dp"
-                app:tcvItemBorderVertical="6dp"
-                app:tcvSingleLine="false"
-                app:tcvTextColor="@color/black" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:background="#ECECEC" />
-
-            <TextView
-                android:id="@+id/publicity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="[包邮]    海外直购\n[包邮]   全场包邮\n[优惠] 满减"
-                android:textColor="#FF7F01"
-                android:textSize="14sp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:background="#ECECEC" />
-            
-            <com.viewpagerindicator.TabPageIndicator
-            android:id="@+id/indicator"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white" />
-
-        <com.hanbimei.view.CustomViewPager
-            android:id="@+id/pager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
+                android:id="@+id/cursor"
+                android:layout_width="80dp"
+                android:layout_height="3dp"
+                android:background="@color/theme" />
         </LinearLayout>
-    </ScrollView>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#ECECEC" />
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
         android:orientation="horizontal"
         android:padding="8dp" >
 

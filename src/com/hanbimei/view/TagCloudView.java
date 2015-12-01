@@ -1,8 +1,10 @@
 package com.hanbimei.view;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.hanbimei.R;
+import com.hanbimei.entity.Tag;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -25,7 +27,7 @@ public class TagCloudView extends ViewGroup{
 
     private static final String TAG = TagCloudView.class.getSimpleName();
     //自定义Search 修改
-    private List<String> tags;
+    private List<Tag> tags;
 
     private LayoutInflater mInflater;
     private OnTagClickListener onTagClickListener;
@@ -58,7 +60,7 @@ public class TagCloudView extends ViewGroup{
 
     private static final int DEFAULT_TEXT_COLOR = Color.WHITE;
     private static final int DEFAULT_TEXT_SIZE = 12;
-    private static final int DEFAULT_TEXT_BACKGROUND = R.drawable.bg_tag_item;
+    private static final int DEFAULT_TEXT_BACKGROUND = R.drawable.bg_tag_item_state;
     private static final int DEFAULT_VIEW_BORDER = 6;
     private static final int DEFAULT_TEXT_BORDER_HORIZONTAL = 8;
     private static final int DEFAULT_TEXT_BORDER_VERTICAL = 5;
@@ -200,7 +202,7 @@ public class TagCloudView extends ViewGroup{
                 @Override
                 public void onClick(View view) {
                     if (onTagClickListener != null) {
-                        onTagClickListener.onTagClick(-1);
+                        onTagClickListener.onTagClick(-1,-1,null);
                     }
                 }
             });
@@ -308,29 +310,63 @@ public class TagCloudView extends ViewGroup{
     public LayoutParams generateLayoutParams(AttributeSet attrs) {
         return super.generateLayoutParams(attrs);
     }
+    
+    public static final int default_background = R.drawable.bg_tag_item_normal;
+    public static final int state_background = R.drawable.bg_tag_item_state;
+    public static final int selected_background = R.drawable.bg_tag_item_pressed;
+    
+    public static final int default_color = Color.parseColor("#CCCCCC");
+    public static final int state_color = Color.parseColor("#ECECEC");
+    public static final int theme_color = Color.parseColor("#F9616A");
+    
+    List<TextView> tagViewList = new ArrayList<TextView>();
+    private int selectedPos = 0;
 
-    public void setTags(List<String> tagList) {
+    public void setTags(List<Tag> tagList) {
         this.tags = tagList;
         if (tags != null && tags.size() > 0) {
             for (int i = 0; i < tags.size(); i++) {
                 TextView tagView = (TextView) mInflater.inflate(mTagResId, null);
+                final Tag tag = tags.get(i);
                 if (mTagResId == DEFAULT_TAG_RESID) {
-                    tagView.setBackgroundResource(mBackground);
+                    if(tag.getOrMasterInv()){
+                    	selectedPos = i;
+                    	tagView.setBackgroundResource(selected_background);
+                    	tagView.setTextColor(theme_color);
+                    }else if(!tag.getState().equals("Y")){
+                    	tagView.setBackgroundResource(state_background);
+                    	tagView.setTextColor(state_color);
+                    }else{
+                    	tagView.setBackgroundResource(default_background);
+                    	tagView.setTextColor(default_color);
+                    }
                     tagView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mTagSize);
-                    tagView.setTextColor(mTagColor);
+                    
                 }
                 LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
                 tagView.setLayoutParams(layoutParams);
-                tagView.setText(tags.get(i));
+                tagView.setText(tag.getContent());
                 final int finalI = i;
                 tagView.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (onTagClickListener != null) {
-                            onTagClickListener.onTagClick(finalI);
+                        	if(tag.getOrMasterInv())
+                        		return;
+                        	if(!tag.getState().equals("Y"))
+                        		return;
+                        	tags.get(selectedPos).setOrMasterInv(false);
+                        	tags.get(finalI).setOrMasterInv(true);
+                        	tagViewList.get(finalI).setBackgroundResource(selected_background);
+                        	tagViewList.get(finalI).setTextColor(theme_color);
+                        	tagViewList.get(selectedPos).setBackgroundResource(default_background);
+                        	tagViewList.get(selectedPos).setTextColor(default_color);
+                            onTagClickListener.onTagClick(selectedPos,finalI,tag);
+                            selectedPos = finalI;
                         }
                     }
                 });
+                tagViewList.add(tagView);
                 addView(tagView);
             }
         }
@@ -342,7 +378,7 @@ public class TagCloudView extends ViewGroup{
     }
 
     public interface OnTagClickListener{
-        void onTagClick(int position);
+        void onTagClick(int oldPosition,int position,Tag tag);
     }
 
 }

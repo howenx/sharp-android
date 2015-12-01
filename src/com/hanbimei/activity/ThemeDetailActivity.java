@@ -9,10 +9,6 @@ import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -38,7 +34,6 @@ import com.hanbimei.utils.CommonUtil;
 import com.hanbimei.utils.HttpUtils;
 import com.hanbimei.utils.InitImageLoader;
 import com.hanbimei.utils.WaveAnimationUtil;
-import com.hanbimei.view.RotateTextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 /**

@@ -4,16 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.daimajia.slider.library.SliderLayout;
@@ -27,17 +30,25 @@ import com.hanbimei.entity.Category;
 import com.hanbimei.entity.GoodsDetail;
 import com.hanbimei.entity.GoodsDetail.Main;
 import com.hanbimei.entity.GoodsDetail.Stock;
-import com.hanbimei.fragment.goodstab.HotFragment;
+import com.hanbimei.entity.Tag;
 import com.hanbimei.fragment.goodstab.ImgFragment;
 import com.hanbimei.fragment.goodstab.ParamFragment;
-import com.hanbimei.listener.DataLoadListener;
+import com.hanbimei.utils.AsyncImageLoader;
+import com.hanbimei.utils.AsyncImageLoader.LoadedCallback;
+import com.hanbimei.utils.CommonUtil;
 import com.hanbimei.utils.HttpUtils;
+import com.hanbimei.view.CustomScrollView;
 import com.hanbimei.view.TagCloudView;
+import com.hanbimei.view.TagCloudView.OnTagClickListener;
 import com.viewpagerindicator.TabPageIndicator;
 
 @SuppressLint("NewApi")
 public class GoodsDetailActivity extends BaseActivity implements
-		OnClickListener, OnSliderClickListener {
+		OnClickListener, OnSliderClickListener,
+		CustomScrollView.OnScrollUpListener {
+
+	private static final String DETAIL_HEADER_TRANSLATION_Y = "detail_header_translation_y";
+	private static final String PAGER_HEADER_TRANSLATION_Y = "pager_header_translation_y";
 
 	private static final String TAB_IMG_ID = "tab_img";
 	private static final String TAB_PARAM_ID = "tab_param";
@@ -54,34 +65,25 @@ public class GoodsDetailActivity extends BaseActivity implements
 			itemPrice;
 	private TagCloudView tagCloudView;
 	private TextView publicity;
-	private TabPageIndicator indicator;
 	private ViewPager pager;
-	
-	private DataLoadListener imgDataLoadListener,hotDataLoadListener,paramDataLoadListener;
-	private void  setImgDataLoadListener ( DataLoadListener mDataLoadListener){
-		this.imgDataLoadListener = mDataLoadListener;
-	}
-	private void  setHotDataLoadListener ( DataLoadListener mDataLoadListener){
-		this.hotDataLoadListener = mDataLoadListener;
-	}
-	private void  setParamDataLoadListener ( DataLoadListener mDataLoadListener){
-		this.paramDataLoadListener = mDataLoadListener;
-	}
-	
+	private CustomScrollView mScrollView;
+	private TabPageIndicator indicator;
+	private View indicator_hide;
+
+	private View pager_header;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		getActionBar().hide();
-
 		setContentView(R.layout.goods_detail_layout);
-		findView();
+		findView(arg0);
 		initTab();
-		initFragment();
 		loadDataByUrl();
+//		registerReceivers();
 	}
 
-	private void findView() {
+	private void findView(Bundle savedInstanceState) {
 		TextView header = (TextView) findViewById(R.id.header);
 		header.setText("商品详情");
 
@@ -93,8 +95,12 @@ public class GoodsDetailActivity extends BaseActivity implements
 		tagCloudView = (TagCloudView) findViewById(R.id.tagCloudView);
 		publicity = (TextView) findViewById(R.id.publicity);
 		indicator = (TabPageIndicator) findViewById(R.id.indicator);
+		indicator_hide = findViewById(R.id.indicator_hide);
 		pager = (ViewPager) findViewById(R.id.pager);
 		discount = (TextView) findViewById(R.id.discount);
+		mScrollView = (CustomScrollView) findViewById(R.id.mScrollView);
+		mScrollView.setOnScrollUpListener(this);
+		pager_header = findViewById(R.id.pager_header);
 
 		findViewById(R.id.btn_attention).setOnClickListener(this);
 		findViewById(R.id.btn_share).setOnClickListener(this);
@@ -109,29 +115,11 @@ public class GoodsDetailActivity extends BaseActivity implements
 		tabs.add(new Category(TAB_HOT_ID, TAB_HOT));
 	}
 	
-	private void initFragment() {
-		List<Fragment> fragmentList = new ArrayList<Fragment>();
-		
-		ImgFragment imgFragment = new ImgFragment();
-		setImgDataLoadListener(imgFragment);
-		fragmentList.add(imgFragment);
-		
-		ParamFragment paramFragment = new ParamFragment();
-		setParamDataLoadListener(paramFragment);
-		fragmentList.add(paramFragment);
-		
-		
-		HotFragment hotFragment = new HotFragment();
-		setHotDataLoadListener(hotFragment);
-		fragmentList.add(hotFragment);
-		
-		
-		MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager(), fragmentList, tabs);
-		pager.setAdapter(adapter);
-		indicator.setViewPager(pager);
-		indicator.setVisibility(View.VISIBLE);
-		
+	public ViewPager getViewPager (){
+		return pager;
 	}
+
+	
 
 	private void loadDataByUrl() {
 		new Thread(new Runnable() {
@@ -182,21 +170,102 @@ public class GoodsDetailActivity extends BaseActivity implements
 		}
 
 	};
-	
+
 	private Main main;
-	
+	private List<Stock> stocks;
+	private List<Tag> tags;
+
 	private void initGoodsDetail(GoodsDetail detail) {
 		main = detail.getMain();
-		List<Stock> stocks = detail.getStocks();
+		stocks = detail.getStocks();
 
 		num_attention.setText("(" + main.getCollectCount() + ")");
 		publicity.setText(main.getPublicity());
 
-		List<String> tags = new ArrayList<String>();
-		
+		tags = new ArrayList<Tag>();
+		initStocks(-1);
 
-		for (Stock s : stocks) {
-			tags.add(s.getItemColor() + " " + s.getItemSize());
+		tagCloudView.setTags(tags);
+		tagCloudView.setOnTagClickListener(new OnTagClickListener() {
+
+			@Override
+			public void onTagClick(int oldPostion, int position, Tag tag) {
+				// TODO Auto-generated method stub
+				stocks.get(oldPostion).setOrMasterInv(false);
+				stocks.get(position).setOrMasterInv(true);
+				initStocks(position);
+			}
+		});
+		getItemDetailImages();
+//		initFragment();
+	}
+	
+	
+	
+	private void initFragment(List<Bitmap> bitmaps) {
+		List<Fragment> data = new ArrayList<Fragment>();
+		ImgFragment imgFragment = ImgFragment.newInstance(main.getItemNotice(),
+				bitmaps);
+		ParamFragment pFragment = ParamFragment.newInstance(main
+				.getItemFeatures());
+		ParamFragment ppFragment = ParamFragment.newInstance(main
+				.getItemFeatures());
+		data.add(imgFragment);
+		data.add(pFragment);
+		data.add(ppFragment);
+
+		
+		pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager(), data,
+				tabs));
+		pager.setOffscreenPageLimit(3);
+		indicator.setViewPager(pager);
+		indicator.setVisibility(View.VISIBLE);
+		CommonUtil.resetViewPagerHeight(pager, 0);
+		indicator.setOnPageChangeListener(new OnPageChangeListener() {
+
+			@Override
+			public void onPageSelected(int arg0) {
+				// TODO Auto-generated method stub
+				CommonUtil.resetViewPagerHeight(pager, arg0);
+				indicator_hide.setVisibility(View.GONE);
+				currIndex = arg0 ;
+			}
+
+			@Override
+			public void onPageScrolled(int arg0, float arg1, int arg2) {
+				// TODO Auto-generated method stub
+				// 取得该控件的实例
+				LinearLayout.LayoutParams ll = (android.widget.LinearLayout.LayoutParams) barText
+						.getLayoutParams();
+
+				if (currIndex == arg0) {
+					ll.leftMargin = (int) (currIndex * barText.getWidth() + arg1
+							* barText.getWidth());
+				} else if (currIndex > arg0) {
+					ll.leftMargin = (int) (currIndex * barText.getWidth() - (1 - arg1)
+							* barText.getWidth());
+				}
+				barText.setLayoutParams(ll);
+			}
+
+			@Override
+			public void onPageScrollStateChanged(int arg0) {
+				// TODO Auto-generated method stub
+				
+
+			}
+		});
+		InitTextView();
+		InitTextBar();
+
+	}
+
+	private void initStocks(int position) {
+		for (int index = 0; index < stocks.size(); index++) {
+			Stock s = stocks.get(index);
+			tags.add(new Tag(s.getItemColor() + " " + s.getItemSize(), s
+					.getState(), s.getOrMasterInv()));
+
 			if (s.getOrMasterInv()) {
 				initSliderImage(s);
 				discount.setText("[" + s.getItemDiscount() + "折]");
@@ -206,13 +275,10 @@ public class GoodsDetailActivity extends BaseActivity implements
 				itemPrice.setText(s.getItemPrice() + "");
 			}
 		}
-		tagCloudView.setTags(tags);
-		
-		imgDataLoadListener.dataLoad(main.getItemDetailImgs());
-		paramDataLoadListener.dataLoad(main.getItemFeatures());
 	}
 
 	private void initSliderImage(Stock s) {
+		slider.removeAllSliders();
 		for (String url : s.getItemPreviewImgs()) {
 			DefaultSliderView defaultSliderView = new DefaultSliderView(this);
 			// initialize a SliderLayout
@@ -232,5 +298,118 @@ public class GoodsDetailActivity extends BaseActivity implements
 		// TODO Auto-generated method stub
 
 	}
+	
+	private int currIndex;// 当前页卡编号
+	/**
+	 * 初始化标签名
+	 */
+	private void InitTextView() {
+		findViewById(R.id.tv_guid1).setOnClickListener(new txListener(0));
+		findViewById(R.id.tv_guid2).setOnClickListener(new txListener(1));
+		findViewById(R.id.tv_guid3).setOnClickListener(new txListener(2));
+		
+	}
+
+	public class txListener implements View.OnClickListener {
+		private int index = 0;
+
+		public txListener(int i) {
+			index = i;
+		}
+
+		@Override
+		public void onClick(View v) {
+			pager.setCurrentItem(index);
+		}
+	}
+	
+	private TextView barText;
+	/**
+	 * 初始化图片的位移像素
+	 */
+	private void InitTextBar() {
+		barText = (TextView) findViewById(R.id.cursor);
+		Display display = getWindow().getWindowManager()
+				.getDefaultDisplay();
+		// 得到显示屏宽度
+		DisplayMetrics metrics = new DisplayMetrics();
+		display.getMetrics(metrics);
+		// 1/3屏幕宽度
+		int tabLineLength = metrics.widthPixels / 3;
+		LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) barText.getLayoutParams();
+		lp.width = tabLineLength;
+		barText.setLayoutParams(lp);
+
+	}
+
+	@Override
+	public void onScroll(int scrollY, boolean scrollDirection) {
+		// 如果滚动值
+		if (scrollY >= pager_header.getMeasuredHeight()
+				&& indicator_hide.getVisibility() == View.GONE) {
+			indicator_hide.setVisibility(View.VISIBLE);
+			return;
+		}
+
+		if (scrollY < pager_header.getMeasuredHeight()
+				&& indicator_hide.getVisibility() == View.VISIBLE) {
+			indicator_hide.setVisibility(View.GONE);
+			return;
+		}
+
+	}
+	
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		AsyncImageLoader.getInstance().clearCache();
+	}
+	
+	// ********************************************************************
+			// **********************广播接收的初始化**********************************
+			// ********************************************************************
+//	GoodsDetailBroadCastReceiver receiver = null;
+//			/**
+//			 * 广播接受者 注册
+//			 */
+//			private void registerReceivers() {
+//				receiver = new GoodsDetailBroadCastReceiver();
+//				IntentFilter intentFilter = new IntentFilter("MESSAGE_BROADCAST_CART_CLEAR_ACTION");
+//				registerReceiver(receiver, intentFilter);
+//			}
+//
+//			/**
+//			 * 通知重新初始化数据
+//			 * 
+//			 * @author Administrator
+//			 *
+//			 */
+//			private class GoodsDetailBroadCastReceiver extends BroadcastReceiver {
+//				@Override
+//				public void onReceive(Context context, Intent intent) {
+//					if (intent.getAction().equals("MESSAGE_BROADCAST_CART_CLEAR_ACTION")) {
+//						initFragment();
+//					}
+//				}
+//
+//			}
+	
+	
+		private void getItemDetailImages(){
+			int size = main.getItemDetailImgs().size();
+			for(String imageUrl : main.getItemDetailImgs()){
+				AsyncImageLoader.getInstance().loadBitmap(this,size, imageUrl, new LoadedCallback() {
+					
+					@Override
+					public void imageLoaded(List<Bitmap> bitmaps) {
+						// TODO Auto-generated method stub
+						initFragment(bitmaps);
+					}
+				});
+				
+			}
+		}
+	
 
 }
