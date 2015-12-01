@@ -3,10 +3,12 @@ package com.hanbimei.fragment;
 import java.util.ArrayList;
 import java.util.List;
 import com.hanbimei.R;
+import com.hanbimei.activity.BaseActivity;
 import com.hanbimei.adapter.OrderPullListAdapter;
 import com.hanbimei.data.DataParser;
 import com.hanbimei.entity.Category;
 import com.hanbimei.entity.Order;
+import com.hanbimei.entity.User;
 import com.hanbimei.utils.HttpUtils;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import android.annotation.SuppressLint;
@@ -26,6 +28,8 @@ public class OrderFragment extends Fragment {
 	private OrderPullListAdapter adapter;
 	private Category category;
 	private int state = 0;
+	private User user;
+	private BaseActivity activity;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -33,7 +37,8 @@ public class OrderFragment extends Fragment {
 		adapter = new OrderPullListAdapter(data, getActivity());
 		Bundle bundle = getArguments();
 		category = (Category) bundle.getSerializable("category");
-
+		activity = (BaseActivity) getActivity();
+		user = activity.getUser();
 	}
 
 	@Override
@@ -58,7 +63,7 @@ public class OrderFragment extends Fragment {
 			
 			@Override
 			public void run() {
-				String result = HttpUtils.get("http://172.28.3.18:9003/client/order");
+				String result = HttpUtils.getToken("http://172.28.3.18:9003/client/order", "id-token", user.getToken());
 				List<Order> list = DataParser.parserOrder(result);
 				Message msg = mHandler.obtainMessage(1);
 				msg.obj = list;
@@ -66,7 +71,7 @@ public class OrderFragment extends Fragment {
 			}
 		}).start();
 	}
-	private void getOrderByState(int state, List<Order> orders){
+	private void getOrderByState(List<Order> orders){
 		if(state == 0){
 			data.addAll(orders);
 		}else if(state == 1){
@@ -97,7 +102,7 @@ public class OrderFragment extends Fragment {
 				List<Order> orders = (List<Order>) msg.obj;
 				if(orders != null && orders.size() > 0){
 					data.clear();
-					getOrderByState(state, orders);
+					getOrderByState(orders);
 					adapter.notifyDataSetChanged();
 				}else{
 					

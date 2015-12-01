@@ -1,6 +1,7 @@
 package com.hanbimei.activity;
 
 import com.hanbimei.R;
+import com.hanbimei.data.AppConstant;
 import com.hanbimei.fragment.AboutMyFragment;
 import com.hanbimei.fragment.HomeFragment;
 import com.hanbimei.fragment.ShoppingCartFragment;
@@ -17,9 +18,9 @@ import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
 import android.widget.TabHost.OnTabChangeListener;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-
 
 @SuppressLint("NewApi") 
 public class MainActivity extends BaseActivity implements OnTabChangeListener, OnClickListener{
@@ -133,5 +134,16 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener, O
 			break;
 		}
 	}
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if(resultCode == AppConstant.LOGIN_CODE){
+			if(myFragment != null){
+				myFragment.initView();
+			}else{
+				((AboutMyFragment) fm.findFragmentByTag(TAB_MY_ID)).initView();
+			}
+		}
+	}
+	
 	
 }

@@ -18,6 +18,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+
 import android.annotation.SuppressLint;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -138,8 +139,10 @@ public class HomeFragment extends Fragment implements
 		List<Slider> list2 = sliderDao.queryBuilder().build().list();
 		if (list != null && list.size() > 0) {
 			data.clear();
-			data.addAll(list);
+			data.addAll(themeDao.queryBuilder().build().list());
 			adapter.notifyDataSetChanged();
+		}
+		if(list2 != null && list2.size() > 0){
 			dataSliders.clear();
 			dataSliders.addAll(list2);
 			initHeaderView();
@@ -188,15 +191,16 @@ public class HomeFragment extends Fragment implements
 					sliderDao.insertInTx(sliders_temp);
 					dataSliders.clear();
 					dataSliders.addAll(sliders_temp);
-					initHeaderView();
+					if(dataSliders != null && dataSliders.size() > 0)
+						initHeaderView();
 					data.clear();
 					data.addAll(list);
 					themeDao.deleteAll();
 					themeDao.insertInTx(data);
 					adapter.notifyDataSetChanged();
-					Toast.makeText(mContext, "加载数据成功！！！", Toast.LENGTH_SHORT)
-							.show();
-				} 
+				} else{
+					Toast.makeText(mContext, "获取数据失败！", Toast.LENGTH_SHORT).show();
+				}
 				break;
 			case 2:
 				mListView.onRefreshComplete();

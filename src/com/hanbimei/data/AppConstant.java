@@ -6,5 +6,6 @@ public class AppConstant {
 	public static final int KITKAT_LESS = 3;
 	public static final int KITKAT_ABOVE = 4;
 	public static final int INTENT_CROP = 5;
+	public static final int LOGIN_CODE = 6;
 
 }

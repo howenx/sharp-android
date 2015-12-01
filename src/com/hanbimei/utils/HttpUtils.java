@@ -10,6 +10,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import java.util.UUID;
+
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -18,6 +20,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HTTP;
@@ -37,43 +40,22 @@ public class HttpUtils {
 	private HttpUtils() {
 		throw new AssertionError();
 	}
-/*
- * 	android 原生get请求
-	public static String doGet(String httpUrl) {
-		HttpURLConnection conn = null;
-		URL url = null;
-		InputStream is = null;
-		StringBuilder result = new StringBuilder();
-		try {
-			url = new URL(httpUrl);
-			conn = (HttpURLConnection) url.openConnection();
-			conn.setConnectTimeout(TIME_OUT);
-			conn.setReadTimeout(TIME_OUT);
-			conn.setRequestMethod("GET");
-			conn.setDoInput(true);
-			conn.setDoOutput(true);
-			if (conn.getResponseCode() == 200) {
-				is = conn.getInputStream();
-				byte[] buffer = new byte[1024];
-				int len = 0;
-				while ((len = is.read(buffer)) != -1) {
-					result.append(new String(buffer, 0, len));
-				}
-			}
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			// 网络连接有问题
-			e.printStackTrace();
-		} finally {
-			if (is != null) {
-				conn.disconnect();
-			}
-		}
-		return result.toString();
-	}
-*/
-//	apche  get请求
+
+	/*
+	 * android 原生get请求 public static String doGet(String httpUrl) {
+	 * HttpURLConnection conn = null; URL url = null; InputStream is = null;
+	 * StringBuilder result = new StringBuilder(); try { url = new URL(httpUrl);
+	 * conn = (HttpURLConnection) url.openConnection();
+	 * conn.setConnectTimeout(TIME_OUT); conn.setReadTimeout(TIME_OUT);
+	 * conn.setRequestMethod("GET"); conn.setDoInput(true);
+	 * conn.setDoOutput(true); if (conn.getResponseCode() == 200) { is =
+	 * conn.getInputStream(); byte[] buffer = new byte[1024]; int len = 0; while
+	 * ((len = is.read(buffer)) != -1) { result.append(new String(buffer, 0,
+	 * len)); } } } catch (MalformedURLException e) { e.printStackTrace(); }
+	 * catch (IOException e) { // 网络连接有问题 e.printStackTrace(); } finally { if
+	 * (is != null) { conn.disconnect(); } } return result.toString(); }
+	 */
+	// apche get请求
 	public static String get(String url) {
 		StringBuilder result = new StringBuilder();
 
@@ -83,7 +65,75 @@ public class HttpUtils {
 
 			HttpGet getRequest = new HttpGet(url);
 			getRequest.addHeader("accept", "application/json");
+			HttpResponse response = httpClient.execute(getRequest);
+			if (response.getStatusLine().getStatusCode() == 200) {
+				is = response.getEntity().getContent();
+				byte[] buffer = new byte[1024];
+				int len = 0;
+				while ((len = is.read(buffer)) != -1) {
+					result.append(new String(buffer, 0, len));
+				}
+			}
 
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			// 网络连接有问题
+			e.printStackTrace();
+		} finally {
+			if (is != null) {
+				httpClient.getConnectionManager().shutdown();
+			}
+		}
+
+		return result.toString();
+
+	}
+	public static String get(String url, String token) {
+		StringBuilder result = new StringBuilder();
+
+		DefaultHttpClient httpClient = new DefaultHttpClient();
+		InputStream is = null;
+		try {
+
+			HttpGet getRequest = new HttpGet(url);
+			getRequest.addHeader("accept", "application/json");
+			getRequest.addHeader("id-token", token);
+			HttpResponse response = httpClient.execute(getRequest);
+			if (response.getStatusLine().getStatusCode() == 200) {
+				is = response.getEntity().getContent();
+				byte[] buffer = new byte[1024];
+				int len = 0;
+				while ((len = is.read(buffer)) != -1) {
+					result.append(new String(buffer, 0, len));
+				}
+			}
+
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			// 网络连接有问题
+			e.printStackTrace();
+		} finally {
+			if (is != null) {
+				httpClient.getConnectionManager().shutdown();
+			}
+		}
+
+		return result.toString();
+
+	}
+
+	public static String getToken(String url, String tokenKey, String tokenValue) {
+		StringBuilder result = new StringBuilder();
+
+		DefaultHttpClient httpClient = new DefaultHttpClient();
+		InputStream is = null;
+		try {
+
+			HttpGet getRequest = new HttpGet(url);
+			getRequest.addHeader("accept", "application/json");
+			getRequest.addHeader(tokenKey, tokenValue);
 			HttpResponse response = httpClient.execute(getRequest);
 			if (response.getStatusLine().getStatusCode() == 200) {
 				is = response.getEntity().getContent();
@@ -110,7 +160,7 @@ public class HttpUtils {
 	}
 
 	// 上传图片
-	public static String uploadFile(List<File> list, String RequestURL) {
+	public static String uploadFile(File file, String RequestURL) {
 		String result = null;
 		String BOUNDARY = UUID.randomUUID().toString(); // 边界标识 随机生成
 		String PREFIX = "--", LINE_END = "\r\n";
@@ -130,59 +180,52 @@ public class HttpUtils {
 			conn.setRequestProperty("Content-Type", CONTENT_TYPE + ";boundary="
 					+ BOUNDARY);
 
-			if (list != null && list.size() > 0) {
-				for (int i = 0; i < list.size(); i++) {
-					File file = list.get(i);
-					// if (file != null) {
-					/**
-					 * 当文件不为空，把文件包装并且上传
-					 */
-					DataOutputStream dos = new DataOutputStream(
-							conn.getOutputStream());
-					StringBuffer sb = new StringBuffer();
-					sb.append(PREFIX);
-					sb.append(BOUNDARY);
-					sb.append(LINE_END);
-					/**
-					 * 这里重点注意： name里面的值为服务端需要key 只有这个key 才可以得到对应的文件
-					 * filename是文件的名字，包含后缀名的 比如:abc.png
-					 */
-					sb.append("Content-Disposition: form-data; name=\"uploadfile\"; filename=\""
-							+ file.getName() + "\"" + LINE_END);
-					sb.append("Content-Type: image/jpg; charset=" + CHARSET
-							+ LINE_END);
-					sb.append(LINE_END);
-					dos.write(sb.toString().getBytes());
-					InputStream is = new FileInputStream(file);
-					byte[] bytes = new byte[1024];
-					int len = 0;
-					while ((len = is.read(bytes)) != -1) {
-						dos.write(bytes, 0, len);
-					}
-					is.close();
-					dos.write(LINE_END.getBytes());
-					byte[] end_data = (PREFIX + BOUNDARY + PREFIX + LINE_END)
-							.getBytes();
-					dos.write(end_data);
-					dos.flush();
-					/**
-					 * 获取响应码 200=成功 当响应成功，获取响应的流
-					 */
-					int res = conn.getResponseCode();
-					Log.e(TAG, "response code:" + res);
-					// if(res==200)
-					// {
-					Log.e(TAG, "request success");
-					InputStream input = conn.getInputStream();
-					StringBuffer sb1 = new StringBuffer();
-					int ss;
-					while ((ss = input.read()) != -1) {
-						sb1.append((char) ss);
-					}
-					result = sb1.toString();
-					Log.e(TAG, "result : " + result);
-				}
+			/**
+			 * 当文件不为空，把文件包装并且上传
+			 */
+			DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
+			StringBuffer sb = new StringBuffer();
+			sb.append(PREFIX);
+			sb.append(BOUNDARY);
+			sb.append(LINE_END);
+			/**
+			 * 这里重点注意： name里面的值为服务端需要key 只有这个key 才可以得到对应的文件
+			 * filename是文件的名字，包含后缀名的 比如:abc.png
+			 */
+			sb.append("Content-Disposition: form-data; name=\"uploadfile\"; filename=\""
+					+ file.getName() + "\"" + LINE_END);
+			sb.append("Content-Type: image/jpg; charset=" + CHARSET + LINE_END);
+			sb.append(LINE_END);
+			dos.write(sb.toString().getBytes());
+			InputStream is = new FileInputStream(file);
+			byte[] bytes = new byte[1024];
+			int len = 0;
+			while ((len = is.read(bytes)) != -1) {
+				dos.write(bytes, 0, len);
 			}
+			is.close();
+			dos.write(LINE_END.getBytes());
+			byte[] end_data = (PREFIX + BOUNDARY + PREFIX + LINE_END)
+					.getBytes();
+			dos.write(end_data);
+			dos.flush();
+			/**
+			 * 获取响应码 200=成功 当响应成功，获取响应的流
+			 */
+			int res = conn.getResponseCode();
+			Log.e(TAG, "response code:" + res);
+			// if(res==200)
+			// {
+			Log.e(TAG, "request success");
+			InputStream input = conn.getInputStream();
+			StringBuffer sb1 = new StringBuffer();
+			int ss;
+			while ((ss = input.read()) != -1) {
+				sb1.append((char) ss);
+			}
+			result = sb1.toString();
+			Log.e(TAG, "result : " + result);
+
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -191,21 +234,27 @@ public class HttpUtils {
 		return result;
 	}
 
-//	apche   post请求
-	public static String post(String url, JSONObject obj,
-			String tokenKey, String tokenValue) {
+	// apche post请求
+	public static String post(String url, Object obj, String tokenKey,
+			String tokenValue) {
 		String result = "";
 		HttpResponse response;
 		try {
 			HttpClient httpclient = new DefaultHttpClient();
 			HttpPost httppost = new HttpPost(url);
-			//添加http头信息
+			// 添加http头信息
 			httppost.addHeader(tokenKey, tokenValue); // 认证token
 			httppost.addHeader("Content-Type", "application/json");
-			//http post的json数据格式： {"name": "your name"}
-			httppost.setEntity(new StringEntity(obj.toString(),HTTP.UTF_8));
+			// http post的json数据格式： {"name": "your name"}
+			if (obj == null) {
+				StringEntity en = new StringEntity(null);
+				en.setContentType("application/json");
+				httppost.setEntity(en);
+			} else {
+				httppost.setEntity(new StringEntity(obj.toString(), HTTP.UTF_8));
+			}
 			response = httpclient.execute(httppost);
-			//检验状态码，如果成功接收数据
+			// 检验状态码，如果成功接收数据
 			if (response.getStatusLine().getStatusCode() == 200) {
 				result = EntityUtils.toString(response.getEntity());
 			}
@@ -218,17 +267,18 @@ public class HttpUtils {
 		}
 		return result;
 	}
-//	apche   post请求
+
+	// apche post请求
 	public static String postCommon(String url, List<NameValuePair> params) {
 		String result = "";
 		HttpResponse response;
 		try {
 			HttpClient httpclient = new DefaultHttpClient();
 			HttpPost httppost = new HttpPost(url);
-			httppost.setEntity(new UrlEncodedFormEntity(params,HTTP.UTF_8));
+			httppost.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
 			response = httpclient.execute(httppost);
 			int code = response.getStatusLine().getStatusCode();
-			//检验状态码，如果成功接收数据
+			// 检验状态码，如果成功接收数据
 			if (response.getStatusLine().getStatusCode() == 200) {
 				result = EntityUtils.toString(response.getEntity());
 			}

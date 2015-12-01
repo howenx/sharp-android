@@ -1,23 +1,20 @@
 package com.hanbimei.adapter;
 
-import java.util.ArrayList;
 import java.util.List;
 import com.hanbimei.R;
 import com.hanbimei.activity.OrderDetailActivity;
 import com.hanbimei.entity.Order;
-import com.hanbimei.entity.Sku;
+import com.hanbimei.view.CustomListView;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,7 +24,6 @@ public class OrderPullListAdapter extends BaseAdapter{
 
 	private List<Order> data;
 	private LayoutInflater inflater;
-	private List<Sku> skus;
 	private OrderListAdapter adapter;
 	private Drawable drawable;
 	private Activity activity;
@@ -36,8 +32,6 @@ public class OrderPullListAdapter extends BaseAdapter{
 		this.data = data;
 		activity = (Activity) mContext;
 		inflater = LayoutInflater.from(mContext);
-		skus = new ArrayList<Sku>();
-		adapter = new OrderListAdapter(skus, mContext);
 		drawable = activity.getResources().getDrawable(R.drawable.icon_jiantou);
 		drawable.setBounds(0, 0, 40, 40);
 	}
@@ -48,13 +42,11 @@ public class OrderPullListAdapter extends BaseAdapter{
 
 	@Override
 	public Object getItem(int arg0) {
-		// TODO Auto-generated method stub
 		return data.get(arg0);
 	}
 
 	@Override
 	public long getItemId(int arg0) {
-		// TODO Auto-generated method stub
 		return arg0;
 	}
 
@@ -72,7 +64,7 @@ public class OrderPullListAdapter extends BaseAdapter{
 			holder.date = (TextView) convertView.findViewById(R.id.order_date);
 			holder.all_price = (TextView) convertView.findViewById(R.id.all_price);
 			holder.go_pay = (TextView) convertView.findViewById(R.id.go_pay);
-			holder.listView = (ListView) convertView.findViewById(R.id.my_listview);
+			holder.listView = (CustomListView) convertView.findViewById(R.id.my_listview);
 			convertView.setTag(holder);
 		}else{
 			holder = (ViewHolder) convertView.getTag();
@@ -96,19 +88,17 @@ public class OrderPullListAdapter extends BaseAdapter{
 			holder.all_price.setText("应付金额： ¥" + order.getPayTotal());
 			holder.state.setText("待支付");
 		}else if(order.getOrderStatus().equals("S")){
-			holder.go_pay.setVisibility(View.GONE);
+			holder.go_pay.setText("确定收货");
 			holder.all_price.setText("已付金额： ¥" + order.getPayTotal());
 			holder.state.setText("已支付");
 		}else{
-			holder.all_price.setText("应付金额： ¥" + order.getPayTotal());
+			holder.all_price.setText("应付金额： ¥ 0.00");
 			holder.state.setText("已取消");
 			holder.go_pay.setVisibility(View.GONE);
 		}
 		holder.date.setText(order.getOrderCreateAt());
+		adapter = new OrderListAdapter(order.getList(), activity);
 		holder.listView.setAdapter(adapter);
-		skus.clear();
-		skus.addAll(order.getList());
-		adapter.notifyDataSetChanged();
 		return convertView;
 	}
 	private class ViewHolder{
@@ -117,7 +107,7 @@ public class OrderPullListAdapter extends BaseAdapter{
 		private TextView state;
 		private TextView date;
 		private TextView all_price;
-		private ListView listView;
+		private CustomListView listView;
 		private TextView go_pay;
 	}
 

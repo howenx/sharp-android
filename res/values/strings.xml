@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">hanbimei</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="app_name">HMM</string>
     <string name="action_settings">Settings</string>
 	<string name="idcard_info">请您协助提供正确的第二代居民身份证件信息，如因身份证信息有误导致我们无法发货和报关造成的损失，将由您自己承担。</string>
 	<string name="forget"><u>忘记密码？</u></string>
+	<string name="about_id_card">    ·我在韩秘美购物为什么需要客户提交身份证信息？\n\n    您好，因为您购买的是国外商品，商品送到您手中需要经过海关报关流程，根据国家法规规定国外商品进入中国是需要您提供身份证信息来完成报关的。请您放心，我们会妥善处理与保管您的身份证信息，仅用于商品清关时使用。 若您有疑惑可以查看相应的国家法律条款信息： 详情点击查看：http://www.customs.gov.cn/publish/portal0/tab517/info265077.htm。
+\n\n    ·我填写的收货人信息是错误的，怎么上传身份证信息？\n\n   建议您可以拨打韩秘美400免费热线：400-843-2288 周一到周日 09：00-18：00，我们会帮助您协商处理。</string>
 </resources>

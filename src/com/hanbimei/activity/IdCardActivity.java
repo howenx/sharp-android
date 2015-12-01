@@ -12,10 +12,12 @@ import com.hanbimei.R;
 import com.hanbimei.data.AppConstant;
 import com.hanbimei.data.DataParser;
 import com.hanbimei.entity.Result;
+import com.hanbimei.entity.User;
 import com.hanbimei.utils.DateUtil;
 import com.hanbimei.utils.HasSDCardUtil;
 import com.hanbimei.utils.HttpUtils;
 import com.hanbimei.utils.ImgUtils;
+
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -66,6 +68,8 @@ public class IdCardActivity extends BaseActivity implements OnClickListener {
 	private boolean isLeft = true;
 	private String left_String = "";
 	private String right_String = "";
+	
+	private User user;
 
 	@Override
 	protected void onCreate(Bundle bundle) {
@@ -74,6 +78,7 @@ public class IdCardActivity extends BaseActivity implements OnClickListener {
 		getActionBar().hide();
 		findView();
 		initSelectPop();
+		user = getUser();
 	}
 
 	// 初始化控件
@@ -260,9 +265,9 @@ public class IdCardActivity extends BaseActivity implements OnClickListener {
 			@Override
 			public void run() {
 				String result = HttpUtils.post(
-						"http://172.28.3.51:9001/test/file", object,
-						"id-token", "1d3f3fcf313b7b0332d64db15986bd66");
-				Result mResult = DataParser.parserResult(result);
+						"http://172.28.3.51:9004/api/user/verify", object,
+						"id-token", user.getToken());
+				Result mResult = DataParser.parserUpImg(result);
 				Message msg = mHandler.obtainMessage(1);
 				msg.obj = mResult;
 				mHandler.sendMessage(msg);

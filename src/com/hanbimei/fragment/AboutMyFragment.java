@@ -3,13 +3,18 @@ package com.hanbimei.fragment;
 import com.hanbimei.R;
 import com.hanbimei.activity.AboutIdCardActivity;
 import com.hanbimei.activity.AdressActivity;
+import com.hanbimei.activity.BaseActivity;
 import com.hanbimei.activity.CouponActivity;
 import com.hanbimei.activity.IdCardActivity;
+import com.hanbimei.activity.LoginActivity;
 import com.hanbimei.activity.MyOrderActivity;
+import com.hanbimei.data.AppConstant;
+import com.hanbimei.entity.User;
 import com.hanbimei.utils.DoJumpUtils;
+import com.hanbimei.utils.InitImageLoader;
 import com.hanbimei.view.RoundImageView;
-
-import android.content.Context;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -38,10 +43,15 @@ public class AboutMyFragment extends Fragment implements OnClickListener{
 	private TextView about;
 	private TextView is_authenticate;
 
+	private BaseActivity activity;
+	private User user;
+	private ImageLoader imageLoader;
+	private DisplayImageOptions imageOptions;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		initIcon();
+		activity = (BaseActivity) getActivity();
 	}
 
 	private void initIcon() {
@@ -67,7 +77,22 @@ public class AboutMyFragment extends Fragment implements OnClickListener{
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.wode_layout, null);
 		findView(view);
+		if(activity.getUser() != null){
+			initView();
+		}
 		return view;
+	}
+
+	public void initView() {
+		user = activity.getUser();
+		imageLoader = InitImageLoader.initLoader(getActivity());
+		imageOptions = InitImageLoader.initOptions();
+		imageLoader.displayImage(user.getUserImg(), header, imageOptions);
+		is_authenticate.setText("未绑定");
+		shenfenzheng.setVisibility(View.VISIBLE);
+		about.setVisibility(View.VISIBLE);
+		user_name.setText(user.getUserName());
+		is_authenticate.setText("尚未绑定");
 	}
 
 	private void findView(View view) {
@@ -75,15 +100,18 @@ public class AboutMyFragment extends Fragment implements OnClickListener{
 		is_authenticate = (TextView) view.findViewById(R.id.do_authenticate);
 		is_authenticate.setCompoundDrawables(un_authenticate, null, null, null);
 		user_name = (TextView) view.findViewById(R.id.user_name);
+		
 		address = (TextView) view.findViewById(R.id.address);
 		address.setCompoundDrawables(address_icon, null, jiantou_icon, null);
 		order = (TextView) view.findViewById(R.id.order);
 		order.setCompoundDrawables(order_icon, null, jiantou_icon, null);
 		shenfenzheng = (TextView) view.findViewById(R.id.shenfenzheng);
+		shenfenzheng.setVisibility(View.GONE);
 		shenfenzheng.setCompoundDrawables(shenfen_icon, null, jiantou_icon, null);
 		youhui = (TextView) view.findViewById(R.id.youhui);
 		youhui.setCompoundDrawables(youhui_icon, null, jiantou_icon, null);
 		about = (TextView) view.findViewById(R.id.about_card);
+		about.setVisibility(View.GONE);
 		about.setCompoundDrawables(about_icon, null, jiantou_icon, null);
 		header.setOnClickListener(this);
 		is_authenticate.setOnClickListener(this);
@@ -92,34 +120,46 @@ public class AboutMyFragment extends Fragment implements OnClickListener{
 		shenfenzheng.setOnClickListener(this);
 		address.setOnClickListener(this);
 		about.setOnClickListener(this);
+		user_name.setOnClickListener(this);
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.header:
-			
+			doJump(MyOrderActivity.class);
 			break;
 		case R.id.order:
-			DoJumpUtils.doJump(getActivity(),MyOrderActivity.class);
+			doJump(MyOrderActivity.class);
 			break;
 		case R.id.youhui:
-			DoJumpUtils.doJump(getActivity(),CouponActivity.class);
+			doJump(CouponActivity.class);
 			break;
 		case R.id.shenfenzheng:
-			DoJumpUtils.doJump(getActivity(),IdCardActivity.class);
+			doJump(IdCardActivity.class);
 			break;
 		case R.id.address:
-			DoJumpUtils.doJump(getActivity(),AdressActivity.class);
+			doJump(AdressActivity.class);
 			break;
 		case R.id.do_authenticate:
-			DoJumpUtils.doJump(getActivity(),IdCardActivity.class);
+			doJump(IdCardActivity.class);
 			break;
 		case R.id.about_card:
-			DoJumpUtils.doJump(getActivity(),AboutIdCardActivity.class);
+			doJump(AboutIdCardActivity.class);
+			break;
+		case R.id.user_name:
+			doJump(AboutIdCardActivity.class);
 			break;
 		default:
 			break;
+		}
+	}
+	private void doJump(Class clazz){
+		if(activity.getUser() == null){
+			Intent intent = new Intent(getActivity(), LoginActivity.class);
+			getActivity().startActivityForResult(intent, AppConstant.LOGIN_CODE);
+		}else{
+			DoJumpUtils.doJump(getActivity(),clazz);
 		}
 	}
 	

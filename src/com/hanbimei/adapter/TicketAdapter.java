@@ -3,6 +3,7 @@ package com.hanbimei.adapter;
 import java.util.List;
 import com.hanbimei.R;
 import com.hanbimei.entity.Ticket;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
