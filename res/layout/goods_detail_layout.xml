@@ -17,7 +17,7 @@
         android:layout_height="0dp"
         android:layout_weight="1" >
 
-        <com.hanbimei.view.CustomScrollView
+        <com.hanmimei.view.CustomScrollView
             android:id="@+id/mScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
@@ -167,7 +167,7 @@
                         android:textColor="#000000"
                         android:textSize="14sp" />
 
-                    <com.hanbimei.view.TagCloudView
+                    <com.hanmimei.view.TagCloudView
                         android:id="@+id/tagCloudView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -203,7 +203,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
-        </com.hanbimei.view.CustomScrollView>
+        </com.hanmimei.view.CustomScrollView>
 
         <LinearLayout
             android:id="@+id/indicator_hide"

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.hanbimei"
+    package="com.hanmimei"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -22,9 +22,9 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" 
-        android:name="com.hanbimei.application.MyApplication">
+        android:name="com.hanmimei.application.MyApplication">
         <activity
-            android:name="com.hanbimei.activity.FirstShowActivity"
+            android:name="com.hanmimei.activity.FirstShowActivity"
             android:screenOrientation="portrait" 
             android:label="@string/app_name" >
             <intent-filter>
@@ -34,51 +34,51 @@
             </intent-filter>
         </activity>
         <activity 
-            android:name="com.hanbimei.activity.ViewPagerActivity"
+            android:name="com.hanmimei.activity.ViewPagerActivity"
             android:screenOrientation="portrait" />
         <activity 
-            android:name="com.hanbimei.activity.MainActivity"
+            android:name="com.hanmimei.activity.MainActivity"
             android:screenOrientation="portrait" />
         <activity 
-            android:name="com.hanbimei.activity.ThemeDetailActivity"
+            android:name="com.hanmimei.activity.ThemeDetailActivity"
             android:screenOrientation="portrait" />
         <activity 
        	 	android:theme="@style/AppThemeForOrder" 
-            android:name="com.hanbimei.activity.MyOrderActivity"
+            android:name="com.hanmimei.activity.MyOrderActivity"
             android:screenOrientation="portrait" />
         <activity 
-            android:name="com.hanbimei.activity.CouponActivity"
+            android:name="com.hanmimei.activity.CouponActivity"
             android:screenOrientation="portrait" />
         <activity 
-            android:name="com.hanbimei.activity.IdCardActivity"
+            android:name="com.hanmimei.activity.IdCardActivity"
             android:screenOrientation="portrait" />
         <activity 
-            android:name="com.hanbimei.activity.AdressActivity"
+            android:name="com.hanmimei.activity.AdressActivity"
             android:screenOrientation="portrait" />
         <activity 
-            android:name="com.hanbimei.activity.EditAdressActivity"
+            android:name="com.hanmimei.activity.EditAdressActivity"
             android:screenOrientation="portrait" />
         <activity 
-            android:name="com.hanbimei.activity.GoodsDetailActivity"
+            android:name="com.hanmimei.activity.GoodsDetailActivity"
             android:theme="@style/AppThemeForGoodsDetail"
             android:screenOrientation="portrait" />
          <activity 
-            android:name="com.hanbimei.activity.OrderDetailActivity"
+            android:name="com.hanmimei.activity.OrderDetailActivity"
             android:screenOrientation="portrait" />
          <activity 
-            android:name="com.hanbimei.activity.SettingActivity"
+            android:name="com.hanmimei.activity.SettingActivity"
             android:screenOrientation="portrait" />
          <activity 
-            android:name="com.hanbimei.activity.AboutIdCardActivity"
+            android:name="com.hanmimei.activity.AboutIdCardActivity"
             android:screenOrientation="portrait" />
          <activity 
-            android:name="com.hanbimei.activity.LoginActivity"
+            android:name="com.hanmimei.activity.LoginActivity"
             android:screenOrientation="portrait" />
          <activity 
-            android:name="com.hanbimei.activity.RegistActivity"
+            android:name="com.hanmimei.activity.RegistActivity"
             android:screenOrientation="portrait" />
          <activity 
-            android:name="com.hanbimei.activity.ForgetPwdActivity"
+            android:name="com.hanmimei.activity.ForgetPwdActivity"
             android:screenOrientation="portrait" />
     </application>
 
