@@ -2,22 +2,21 @@ package com.hanbimei.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.hanbimei.R;
 import com.hanbimei.adapter.OrderPullListAdapter;
+import com.hanbimei.data.DataParser;
 import com.hanbimei.entity.Category;
-import com.hanbimei.entity.Goods;
 import com.hanbimei.entity.Order;
-import com.hanbimei.view.CustomListView;
+import com.hanbimei.utils.HttpUtils;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 @SuppressLint("InflateParams")
 public class OrderFragment extends Fragment {
@@ -26,7 +25,7 @@ public class OrderFragment extends Fragment {
 	private List<Order> data;
 	private OrderPullListAdapter adapter;
 	private Category category;
-
+	private int state = 0;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -40,31 +39,76 @@ public class OrderFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = null;
+		View view = inflater.inflate(R.layout.pulltorefresh_list_layout, null);
+		mListView = (PullToRefreshListView) view.findViewById(R.id.mylist);
+		mListView.setAdapter(adapter);
 		if (category.getId().equals("tag00")) {
-			view = inflater.inflate(R.layout.pulltorefresh_list_layout, null);
-			mListView = (PullToRefreshListView) view.findViewById(R.id.mylist);
-			mListView.setAdapter(adapter);
-			loadOrder();
+			state = 0;
+		}else if(category.getId().equals("tag01")){
+			state = 1;
+		}else{
+			state = 2;
 		}
+		loadOrder();
 		return view;
 	}
 
 	private void loadOrder() {
-		for (int i = 0; i < 3; i++) {
-			List<Goods> list = new ArrayList<Goods>();
-			list.add(new Goods(
-					"http://image.cn.made-in-china.com/4f0j01wsiEjcvWEPzI/%E6%88%91%E7%9A%84%E5%BF%83%E6%9C%BA%E9%9D%A2%E8%86%9C.jpg",
-					"我的心机丝瓜补水面膜 X5张 ＋  火山泥去黑头美白面膜 X2", "112.50", 1,
-					"www.baidu.com"));
-			list.add(new Goods(
-					"http://image.cn.made-in-china.com/4f0j01wsiEjcvWEPzI/%E6%88%91%E7%9A%84%E5%BF%83%E6%9C%BA%E9%9D%A2%E8%86%9C.jpg",
-					"我的心机丝瓜补水面膜 X5张 ＋  火山泥去黑头美白面膜 X2", "112.50", 1,
-					"www.baidu.com"));
-			data.add(new Order("201511241134092734", "待付款",
-					"2015-11-24 09:20:01", list));
-		}
-		adapter.notifyDataSetChanged();
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				String result = HttpUtils.get("http://172.28.3.18:9003/client/order");
+				List<Order> list = DataParser.parserOrder(result);
+				Message msg = mHandler.obtainMessage(1);
+				msg.obj = list;
+				mHandler.sendMessage(msg);
+			}
+		}).start();
 	}
+	private void getOrderByState(int state, List<Order> orders){
+		if(state == 0){
+			data.addAll(orders);
+		}else if(state == 1){
+			for(int i = 0; i < orders.size(); i ++){
+				if(orders.get(i).getOrderStatus().equals("I")){
+					data.add(orders.get(i));
+				}
+			}
+		}else{
+			for(int i = 0; i < orders.size(); i ++){
+				if(orders.get(i).getOrderStatus().equals("S")){
+					data.add(orders.get(i));
+				}
+			}
+		}
+		
+	}
+	
+	@SuppressLint("HandlerLeak") 
+	private Handler mHandler = new Handler(){
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			switch (msg.what) {
+			case 1:
+				List<Order> orders = (List<Order>) msg.obj;
+				if(orders != null && orders.size() > 0){
+					data.clear();
+					getOrderByState(state, orders);
+					adapter.notifyDataSetChanged();
+				}else{
+					
+				}
+				break;
+
+			default:
+				break;
+			}
+		}
+		
+	};
 
 }

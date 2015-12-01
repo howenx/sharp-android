@@ -23,11 +23,9 @@ public class MyOrderActivity extends BaseActivity implements OnClickListener{
 	private static final String ALL_ID = "tag00";
 	private static final String NO_PAY_ID = "tag01";
 	private static final String PAY_ID = "tag02";
-	private static final String NO_RECEIVE_ID = "tag01";
 	private static final String ALL = "全部";
 	private static final String NO_PAY = "待付款";
 	private static final String PAY = "已付款";
-	private static final String NO_RECEIVE = "待收货";
 	private TabPageIndicator indicator;
 	private ViewPager viewPager;
 	private List<Category> data;
@@ -72,7 +70,6 @@ public class MyOrderActivity extends BaseActivity implements OnClickListener{
 		data.add(new Category(ALL_ID, ALL));
 		data.add(new Category(NO_PAY_ID, NO_PAY));
 		data.add(new Category(PAY_ID, PAY));
-		data.add(new Category(NO_RECEIVE_ID, NO_RECEIVE));
 	}
 
 	@Override

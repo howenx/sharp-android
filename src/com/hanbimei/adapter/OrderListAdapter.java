@@ -1,15 +1,12 @@
 package com.hanbimei.adapter;
 
 import java.util.List;
-
 import com.hanbimei.R;
-import com.hanbimei.entity.Goods;
-import com.hanbimei.utils.ImgUtils;
+import com.hanbimei.entity.Sku;
 import com.hanbimei.utils.InitImageLoader;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,16 +15,15 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+@SuppressLint("InflateParams") 
 public class OrderListAdapter extends BaseAdapter {
 
-	private List<Goods> data;
-	private Context mContext;
+	private List<Sku> data;
 	private LayoutInflater inflater;
 	private ImageLoader imageLoader;
 	private DisplayImageOptions options;
-	public OrderListAdapter(List<Goods> list, Context mContext){
+	public OrderListAdapter(List<Sku> list, Context mContext){
 		this.data = list;
-		this.mContext = mContext;
 		inflater = LayoutInflater.from(mContext);
 		imageLoader = InitImageLoader.initLoader(mContext);
 		options = InitImageLoader.initOptions();
@@ -52,7 +48,7 @@ public class OrderListAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup arg2) {
-		Goods goods = data.get(position);
+		Sku sku = data.get(position);
 		ViewHolder holder = null;
 		if(convertView == null){
 			holder = new ViewHolder();
@@ -65,10 +61,10 @@ public class OrderListAdapter extends BaseAdapter {
 		}else{
 			holder = (ViewHolder) convertView.getTag();
 		}
-		imageLoader.displayImage(goods.getImgUrl(), holder.img, options);
-		holder.name.setText(goods.getTitle());
-		holder.price.setText("单价： ¥" + goods.getPrice());
-		holder.nums.setText("x" + goods.getNums());
+		imageLoader.displayImage(sku.getInvImg(), holder.img, options);
+		holder.name.setText(sku.getSkuTitle());
+		holder.price.setText("单价： ¥" + sku.getPrice());
+		holder.nums.setText("x" + sku.getAmount());
 		return convertView;
 	}
 	private class ViewHolder{

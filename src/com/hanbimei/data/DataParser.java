@@ -1,22 +1,18 @@
 package com.hanbimei.data;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONStringer;
-
 import com.hanbimei.entity.Adress;
 import com.hanbimei.entity.GoodsDetail;
 import com.hanbimei.entity.GoodsDetail.ItemFeature;
-import com.hanbimei.entity.GoodsDetail.Stock;
 import com.hanbimei.entity.HMessage;
+import com.hanbimei.entity.Order;
 import com.hanbimei.entity.Result;
+import com.hanbimei.entity.Sku;
 import com.hanbimei.entity.Slider;
 import com.hanbimei.entity.Theme;
 import com.hanbimei.entity.ThemeDetail;
@@ -167,8 +163,14 @@ public class DataParser {
 		return result;
 	}
 
+<<<<<<< HEAD
 	// 商品详情页 －－ 商品详情数据解析
 	public static GoodsDetail parserGoodsDetail(String result) {
+=======
+	
+	//商品详情页 －－ 商品详情数据解析
+	public static GoodsDetail parserGoodsDetail(String result){
+>>>>>>> ae51f586ce0cd0635d732ad47610e40e4d9f6050
 		GoodsDetail detail = new GoodsDetail();
 		try {
 			JSONObject obj = new JSONObject(result);
@@ -213,7 +215,7 @@ public class DataParser {
 			detail.setMain(main);
 
 			GoodsDetail.Stock stock = null;
-			List<Stock> listt = new ArrayList<GoodsDetail.Stock>();
+			List<GoodsDetail.Stock> listt = new ArrayList<GoodsDetail.Stock>();
 			JSONArray arrayStock = obj.getJSONArray("stock");
 			for (int j = 0; j < arrayStock.length(); j++) {
 				JSONObject objStock = arrayStock.getJSONObject(j);
@@ -247,8 +249,12 @@ public class DataParser {
 
 		return detail;
 	}
+<<<<<<< HEAD
 
 	public static Result parserLoginResult(String str) {
+=======
+	public static Result parserLoginResult(String str){
+>>>>>>> ae51f586ce0cd0635d732ad47610e40e4d9f6050
 		Result result = new Result();
 		try {
 			JSONObject object = new JSONObject(str);
@@ -262,5 +268,83 @@ public class DataParser {
 		}
 		return result;
 	}
-
+	public static List<Order> parserOrder(String result){
+		List<Order> list = new ArrayList<Order>();
+		try {
+			JSONObject object = new JSONObject(result);
+			JSONArray array = object.getJSONArray("orderList");
+			for(int i = 0; i < array.length(); i ++){
+				Order order = new Order();
+				JSONObject obj = array.getJSONObject(i);
+				if(obj.has("address")){
+					JSONObject addObject = obj.getJSONObject("address");
+					Adress adress = new Adress();
+					if(addObject.has("addId"))
+						adress.setAdress_id(addObject.getInt("addId"));
+					if(addObject.has("tel"))
+						adress.setPhone(addObject.getString("tel"));
+					if(addObject.has("name"))
+						adress.setName(addObject.getString("name"));
+					if(addObject.has("deliveryCity"))
+						adress.setCity(addObject.getString("deliveryCity"));
+					if(addObject.has("deliveryDetail"))
+						adress.setAdress(addObject.getString("deliveryDetail"));
+					order.setAdress(adress);
+				}
+				if(obj.has("order")){
+					JSONObject orderObject = obj.getJSONObject("order");
+					if(orderObject.has("orderId"))
+						order.setOrderId(orderObject.getInt("orderId")+"");
+					if(orderObject.has("payTotal"))
+						order.setPayTotal(orderObject.getInt("payTotal"));
+					if(orderObject.has("payMethod"))
+						order.setPayMethod(orderObject.getString("payMethod"));
+					if(orderObject.has("orderCreateAt"))
+						order.setOrderCreateAt(orderObject.getString("orderCreateAt"));
+					if(orderObject.has("orderStatus"))
+						order.setOrderStatus(orderObject.getString("orderStatus"));
+					if(orderObject.has("discount"))
+						order.setDiscount(orderObject.getInt("discount"));
+					if(orderObject.has("orderDesc"))
+						order.setOrderDesc(orderObject.getString("orderDesc"));
+					if(orderObject.has("addId"))
+						order.setAddId(orderObject.getInt("addId"));
+					if(orderObject.has("shipFee"))
+						order.setShipFee(orderObject.getInt("shipFee"));
+					if(orderObject.has("orderDetailUrl"))
+						order.setOrderDetailUrl(orderObject.getString("orderDetailUrl"));
+				}
+				if(obj.has("sku")){
+					JSONArray skuArray = obj.getJSONArray("sku");
+					List<Sku> skuList = new ArrayList<Sku>();
+					for(int j = 0; j < skuArray.length(); j ++){
+						JSONObject skuObject = skuArray.getJSONObject(j);
+						Sku sku = new Sku();
+						if(skuObject.has("skuId"))
+							sku.setSkuId(skuObject.getInt("skuId"));
+						if(skuObject.has("amount"))
+							sku.setAmount(skuObject.getInt("amount"));
+						if(skuObject.has("price"))
+							sku.setPrice(skuObject.getInt("price"));
+						if(skuObject.has("skuTitle"))
+							sku.setSkuTitle(skuObject.getString("skuTitle"));
+						if(skuObject.has("invImg"))
+							sku.setInvImg(skuObject.getString("invImg"));
+						if(skuObject.has("invUrl"))
+							sku.setInvUrl(skuObject.getString("invUrl"));
+						if(skuObject.has("itemColor"))
+							sku.setItemColor(skuObject.getString("itemColor"));
+						if(skuObject.has("itemSize"))
+							sku.setItemSize(skuObject.getString("itemSize"));
+						skuList.add(sku);
+					}
+					order.setList(skuList);
+				}
+				list.add(order);
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 }

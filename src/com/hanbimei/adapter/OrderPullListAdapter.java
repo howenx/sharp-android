@@ -2,16 +2,16 @@ package com.hanbimei.adapter;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.hanbimei.R;
 import com.hanbimei.activity.OrderDetailActivity;
-import com.hanbimei.entity.Goods;
 import com.hanbimei.entity.Order;
-
+import com.hanbimei.entity.Sku;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,11 +22,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+@SuppressLint("InflateParams") 
 public class OrderPullListAdapter extends BaseAdapter{
 
 	private List<Order> data;
 	private LayoutInflater inflater;
-	private List<Goods> goods;
+	private List<Sku> skus;
 	private OrderListAdapter adapter;
 	private Drawable drawable;
 	private Activity activity;
@@ -35,8 +36,8 @@ public class OrderPullListAdapter extends BaseAdapter{
 		this.data = data;
 		activity = (Activity) mContext;
 		inflater = LayoutInflater.from(mContext);
-		goods = new ArrayList<Goods>();
-		adapter = new OrderListAdapter(goods, mContext);
+		skus = new ArrayList<Sku>();
+		adapter = new OrderListAdapter(skus, mContext);
 		drawable = activity.getResources().getDrawable(R.drawable.icon_jiantou);
 		drawable.setBounds(0, 0, 40, 40);
 	}
@@ -80,7 +81,7 @@ public class OrderPullListAdapter extends BaseAdapter{
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(activity,OrderDetailActivity.class);
-				intent.putExtra("orderId", order.getOrderId());
+				intent.putExtra("order", order);
 				activity.startActivity(intent);
 			}
 		});
@@ -90,17 +91,23 @@ public class OrderPullListAdapter extends BaseAdapter{
 				Toast.makeText(activity, "亲，您需要支付 225¥", Toast.LENGTH_SHORT).show();
 			}
 		});
-		holder.orderCode.setText("订单号： " + order.getOrderNums());
-		holder.state.setText(order.getState());
-		holder.date.setText(order.getOrderTime());
-		double allPrice = 0;
-		for(int i = 0; i < order.getList().size(); i ++){
-			allPrice = allPrice + Double.parseDouble(order.getList().get(i).getPrice());
+		holder.orderCode.setText("订单号： " + order.getOrderId());
+		if(order.getOrderStatus().equals("I")){
+			holder.all_price.setText("应付金额： ¥" + order.getPayTotal());
+			holder.state.setText("待支付");
+		}else if(order.getOrderStatus().equals("S")){
+			holder.go_pay.setVisibility(View.GONE);
+			holder.all_price.setText("已付金额： ¥" + order.getPayTotal());
+			holder.state.setText("已支付");
+		}else{
+			holder.all_price.setText("应付金额： ¥" + order.getPayTotal());
+			holder.state.setText("已取消");
+			holder.go_pay.setVisibility(View.GONE);
 		}
-		holder.all_price.setText("应付金额： ¥" + allPrice);
+		holder.date.setText(order.getOrderCreateAt());
 		holder.listView.setAdapter(adapter);
-		goods.clear();
-		goods.addAll(order.getList());
+		skus.clear();
+		skus.addAll(order.getList());
 		adapter.notifyDataSetChanged();
 		return convertView;
 	}

@@ -7,9 +7,9 @@
     <ImageView 
         android:id="@+id/img"
         android:scaleType="fitXY"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/ic_launcher"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@null"
         android:contentDescription="@null"/>
     <TextView 
         android:id="@+id/name"
@@ -30,7 +30,7 @@
         android:layout_toRightOf="@id/img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="单价： ¥39"
+        android:text="@null"
         android:textColor="@color/fontcolor"
         android:textSize="14sp"/>
     <TextView 
@@ -42,7 +42,7 @@
         android:layout_toRightOf="@id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="X 1"
+        android:text="@null"
         android:textColor="@color/huise"
         android:textSize="14sp"/>
 
