@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/contentView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
     android:orientation="vertical" >
-    
-    <TextView 
+	
+    <com.hanbimei.view.CustomListView 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/theme"
-        android:padding="8dp"
-        android:textSize="12sp"/>
-    
-    <ListView
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:id="@+id/mListView" />
-
+        android:divider="@null"
+        android:id="@+id/mListView"/>
 </LinearLayout>

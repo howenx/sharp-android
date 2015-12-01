@@ -1,5 +1,6 @@
 # cache for current jar dependency. DO NOT EDIT.
 # format is <lastModified> <length> <SHA-1> <path>
 # Encoding is UTF-8
-1437630436000 621451 5896b0a4e377ac4242eb2bc785220c1c4fc052f4 /Users/eric/Documents/workspace/ViewPagerIndicatorLibrary/libs/android-support-v4.jar
-1437630402000 621451 5896b0a4e377ac4242eb2bc785220c1c4fc052f4 /Users/eric/Documents/workspace/android-support-v7-appcompat/libs/android-support-v4.jar
+1445781717000 1294803 0725d32f682f72bdfb3f61a2cd04dc3763710b6c /Users/vince/Documents/workspace/style-android/libs/android-support-v4.jar
+1445781717000 1294803 0725d32f682f72bdfb3f61a2cd04dc3763710b6c /Users/vince/Documents/workspace/android-support-v7-appcompat/libs/android-support-v4.jar
+1445781717000 1294803 0725d32f682f72bdfb3f61a2cd04dc3763710b6c /Users/vince/Documents/workspace/ViewPagerIndicatorLibrary/libs/android-support-v4.jar

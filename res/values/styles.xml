@@ -46,13 +46,13 @@
     </style>
     <!--goods detail indicator  style -->
     <style name="GoodsDetailTabPageIndicator" parent="Widget.TabPageIndicator">
-        <item name="android:textColor">@color/order_indicator_font_color</item>
+        <item name="android:textColor">@color/black</item>
         <item name="android:textSize">13sp</item>    
         <item name="android:background">@drawable/order_indicator_bg</item>
         <item name="android:paddingLeft">10dip</item>
         <item name="android:paddingRight">10dip</item>
-        <item name="android:paddingTop">5dp</item>
-        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
         <item name="android:textStyle">normal</item>
     </style>
     
@@ -78,7 +78,6 @@
         <item name="android:paddingBottom">10dp</item>
         <item name="android:paddingTop">10dp</item>
     </style>
-<<<<<<< HEAD
     
 	   <style name="customButton">
         <item name="android:paddingLeft">10dp</item>
@@ -87,7 +86,7 @@
         <item name="android:paddingBottom">5dp</item>
         <item name="android:background">@drawable/bg_custom_button</item>
     </style>
-=======
+    
     <style name="setting_text_style">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/fontcolor</item>
@@ -105,5 +104,4 @@
         <item name="android:gravity">center_vertical</item>
     </style>
     
->>>>>>> 3120e8265a55d38224875e050ceae24523b84bdd
 </resources>

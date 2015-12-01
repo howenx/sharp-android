@@ -19,7 +19,7 @@ public class HotFragment extends Fragment  implements DataLoadListener{
 	}
 
 	@Override
-	public void dataLoad(Object obj) {
+	public void dataLoad(Object obj,String itemNotice) {
 		// TODO Auto-generated method stub
 		
 	}

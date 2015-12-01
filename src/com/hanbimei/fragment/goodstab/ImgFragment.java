@@ -2,38 +2,75 @@ package com.hanbimei.fragment.goodstab;
 
 import java.util.List;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.hanbimei.R;
 import com.hanbimei.adapter.GoodsDetailImgAdapter;
-import com.hanbimei.listener.DataLoadListener;
-import com.hanbimei.view.CustomListView;
+import com.hanbimei.adapter.GoodsDetailImgAdapter.LoadCallback;
 
-public class ImgFragment extends Fragment implements DataLoadListener{
+public class ImgFragment extends Fragment {
 
-	private List<String> datas;
-	private CustomListView mListView;
+	public static final String TAG = ImgFragment.class.getSimpleName();
 
+	private List<Bitmap> datas;
+	private String itemNotice;
+	private ListView mListView;
+	private GoodsDetailImgAdapter adapter;
+	private View view;
+
+	public static ImgFragment newInstance(String itemNotice, List<Bitmap> datas) {
+		ImgFragment fragment = new ImgFragment();
+		fragment.initFragment(itemNotice, datas);
+		return fragment;
+	}
+
+	public ImgFragment() {
+		super();
+	}
+
+	public void initFragment(String itemNotice, List<Bitmap> datas) {
+		this.datas = datas;
+		this.itemNotice = itemNotice;
+	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+	@Nullable
+	public View onCreateView(LayoutInflater inflater,
+			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		View view = inflater.inflate(R.layout.goods_detail_img_layout, null);
-		mListView = (CustomListView) view.findViewById(R.id.mListView);
-		
+		if(view == null){
+			view = inflater.inflate(R.layout.goods_detail_img_layout, null);
+			mListView = (ListView) view.findViewById(R.id.mListView);
+			setAdapter();
+		}
 		return view;
 	}
 
+	public void setAdapter() {
+		if (getActivity() == null)
+			return;
+		if (itemNotice != null) {
+			View view = getActivity().getLayoutInflater().inflate(
+					R.layout.text_panel, null);
+			TextView textView = (TextView) view
+					.findViewById(R.id.itemNoticeView);
+			textView.setText(itemNotice);
+			mListView.addHeaderView(textView);
+		}
 
-	@Override
-	public void dataLoad(Object obj) {
-		datas = (List<String>) obj;
-		mListView.setAdapter(new GoodsDetailImgAdapter(datas, getActivity()));
+		 adapter = new GoodsDetailImgAdapter(datas,
+				getContext(),null);
+		mListView.setAdapter(adapter);
+		mListView.setFocusable(false);
 	}
 	
 	

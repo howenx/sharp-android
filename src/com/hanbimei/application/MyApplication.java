@@ -1,5 +1,7 @@
 package com.hanbimei.application;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
 import com.hanbimei.dao.DaoMaster;
 import com.hanbimei.dao.DaoMaster.DevOpenHelper;
 import com.hanbimei.dao.DaoSession;
@@ -9,11 +11,17 @@ import android.app.Application;
 public class MyApplication extends Application {
 	private DaoMaster daoMaster;
 	private DaoSession daoSession;
+	private RequestQueue queue;
 	
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		queue = Volley.newRequestQueue(this);
+	}
+	
+	public RequestQueue getRequestQueue() {
+		return this.queue;
 	}
 
 

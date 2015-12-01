@@ -18,7 +18,6 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-@SuppressLint("NewApi") 
 public class MyOrderActivity extends BaseActivity implements OnClickListener{
 	
 	private static final String ALL_ID = "tag00";
