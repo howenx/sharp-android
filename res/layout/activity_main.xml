@@ -1,54 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="fill_parent"
     android:layout_width="fill_parent"
-    android:orientation="vertical"
-    >
-    <include 
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <include
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        layout="@layout/main_header_layout"/>
-<TabHost 
-    android:id="@android:id/tabhost"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
- >
+        layout="@layout/main_header_layout" />
 
-    <LinearLayout
+    <com.hanmimei.fragment.FragmentTabHost
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@android:id/tabhost"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical" >
-        <View 
-            android:id="@+id/state_bar"
-            android:layout_height="1dp"
-            android:layout_width="match_parent"
-            android:background="@color/theme"
-            android:clipToPadding="true"
-            android:fitsSystemWindows="true"/>
-        <FrameLayout
-            android:id="@+id/realtabcontent"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+        android:layout_height="fill_parent" >
 
-        <TabWidget
-            android:id="@android:id/tabs"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="49dp"
-            android:layout_gravity="bottom"
-            android:layout_weight="0"
-            android:background="@drawable/tab_bg"
-            android:divider="@null"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:tabStripEnabled="false" />
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
-        <FrameLayout
-            android:id="@android:id/tabcontent"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="0" />
-    </LinearLayout>
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="0" />
 
-</TabHost>
+            <FrameLayout
+                android:id="@+id/realcontent"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/white" />
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@null"
+                android:orientation="horizontal" />
+        </LinearLayout>
+    </com.hanmimei.fragment.FragmentTabHost>
+
 </LinearLayout>

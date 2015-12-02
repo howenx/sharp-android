@@ -28,7 +28,7 @@
                 layout="@layout/themeitem_item"
                 android:visibility="gone" />
 
-            <com.hanbimei.view.CustomGridView
+            <com.hanmimei.view.CustomGridView
                 android:id="@+id/my_grid"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

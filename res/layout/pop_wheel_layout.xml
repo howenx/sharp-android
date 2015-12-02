@@ -29,19 +29,19 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
-        <com.hanbimei.wheel.widget.WheelView
+        <com.hanmimei.wheel.widget.WheelView
             android:id="@+id/id_province"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
-        <com.hanbimei.wheel.widget.WheelView
+        <com.hanmimei.wheel.widget.WheelView
             android:id="@+id/id_city"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
-        <com.hanbimei.wheel.widget.WheelView
+        <com.hanmimei.wheel.widget.WheelView
             android:id="@+id/id_district"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

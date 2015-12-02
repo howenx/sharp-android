@@ -17,7 +17,7 @@
         android:layout_height="0dp"
         android:layout_weight="1" >
 
-        <com.hanbimei.view.CustomScrollView
+        <com.hanmimei.view.CustomScrollView
             android:id="@+id/mScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
@@ -37,8 +37,9 @@
                     <com.daimajia.slider.library.SliderLayout
                         android:id="@+id/slider"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
+                        android:layout_height="wrap_content"
                         app:auto_cycle="true"
+                        android:background="@color/white"
                         app:indicator_visibility="visible"
                         app:pager_animation="Accordion"
                         app:pager_animation_span="1100" />
@@ -167,7 +168,7 @@
                         android:textColor="#000000"
                         android:textSize="14sp" />
 
-                    <com.hanbimei.view.TagCloudView
+                    <com.hanmimei.view.TagCloudView
                         android:id="@+id/tagCloudView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -203,7 +204,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
-        </com.hanbimei.view.CustomScrollView>
+        </com.hanmimei.view.CustomScrollView>
 
         <LinearLayout
             android:id="@+id/indicator_hide"
@@ -290,6 +291,7 @@
             android:layout_weight="1" />
 
         <TextView
+            android:id="@+id/btn_shopcart"
             style="@style/customButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -299,6 +301,7 @@
             android:textSize="13sp" />
 
         <TextView
+            android:id="@+id/btn_pay"
             style="@style/customButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
