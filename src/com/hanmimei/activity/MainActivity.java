@@ -9,6 +9,7 @@ import com.hanmimei.utils.DoJumpUtils;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -144,6 +145,15 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener, O
 			}
 		}
 	}
+	//	主界面返回之后在后台运行
+	@Override  
+    public boolean onKeyDown(int keyCode, KeyEvent event) {  
+        if (keyCode == KeyEvent.KEYCODE_BACK) {  
+            moveTaskToBack(false);  
+            return true;  
+        }  
+        return super.onKeyDown(keyCode, event);  
+    }
 	
 	
 }

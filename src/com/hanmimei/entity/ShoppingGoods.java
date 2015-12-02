@@ -36,16 +36,11 @@ public class ShoppingGoods {
     public ShoppingGoods(Long id) {
         this.id = id;
     }
-    public ShoppingGoods(Integer cartId, Integer goodsId, String goodsImg, String goodsUrl, String goodsName, Integer goodsPrice, String state, Integer goodsNums, String delUrl) {
+    public ShoppingGoods(Integer cartId, Integer goodsId, String state, Integer goodsNums) {
         this.cartId = cartId;
         this.goodsId = goodsId;
-        this.goodsImg = goodsImg;
-        this.goodsUrl = goodsUrl;
-        this.goodsName = goodsName;
-        this.goodsPrice = goodsPrice;
         this.state = state;
         this.goodsNums = goodsNums;
-        this.delUrl = delUrl;
     }
     public ShoppingGoods(Long id, Integer cartId, Integer goodsId, String goodsImg, String goodsUrl, String goodsName, Integer goodsPrice, Boolean isChecked, String state, Integer goodsNums, String itemColor, String itemSize, Integer shipFee, String delUrl, String invArea, Integer restrictAmount, Integer restAmount) {
         this.id = id;

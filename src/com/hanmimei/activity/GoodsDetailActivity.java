@@ -25,12 +25,14 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView.OnSliderClickListe
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.hanmimei.R;
 import com.hanmimei.adapter.MyPagerAdapter;
+import com.hanmimei.dao.ShoppingGoodsDao;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.entity.Category;
 import com.hanmimei.entity.GoodsDetail;
 import com.hanmimei.entity.Tag;
 import com.hanmimei.entity.GoodsDetail.Main;
 import com.hanmimei.entity.GoodsDetail.Stock;
+import com.hanmimei.entity.User;
 import com.hanmimei.fragment.goodstab.ImgFragment;
 import com.hanmimei.fragment.goodstab.ParamFragment;
 import com.hanmimei.utils.AsyncImageLoader;
@@ -71,6 +73,10 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private View indicator_hide;
 
 	private View pager_header;
+	private TextView customButton;
+	
+	private User user;
+	private ShoppingGoodsDao goodsDao;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -101,7 +107,10 @@ public class GoodsDetailActivity extends BaseActivity implements
 		mScrollView = (CustomScrollView) findViewById(R.id.mScrollView);
 		mScrollView.setOnScrollUpListener(this);
 		pager_header = findViewById(R.id.pager_header);
-
+		customButton = (TextView) findViewById(R.id.add_shoppingCar);
+		customButton.setOnClickListener(this);
+		user = getUser();
+		goodsDao = getDaoSession().getShoppingGoodsDao();
 		findViewById(R.id.btn_attention).setOnClickListener(this);
 		findViewById(R.id.btn_share).setOnClickListener(this);
 		findViewById(R.id.back).setVisibility(View.VISIBLE);
@@ -146,10 +155,20 @@ public class GoodsDetailActivity extends BaseActivity implements
 			break;
 		case R.id.btn_share:
 			break;
-
+		case R.id.add_shoppingCar:
+			if(user != null){
+				sendData();
+			}else{
+			}
+			break;
 		default:
 			break;
 		}
+	}
+
+	private void sendData() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	private Handler mHandler = new Handler() {

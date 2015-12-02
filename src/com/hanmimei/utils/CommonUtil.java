@@ -13,7 +13,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningTaskInfo;
 import android.app.ProgressDialog;
@@ -33,6 +37,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 
@@ -316,12 +321,12 @@ public class CommonUtil {
 	}
 
 	public static int getWindowWidth(Context context) {
-		
+
 		WindowManager wm = (WindowManager) context
 				.getSystemService(Context.WINDOW_SERVICE);
 
 		int width = wm.getDefaultDisplay().getWidth();
-//		int height = wm.getDefaultDisplay().getHeight();
+		// int height = wm.getDefaultDisplay().getHeight();
 		return width;
 	}
 
@@ -461,7 +466,7 @@ public class CommonUtil {
 	}
 
 	// 把一个url的网络图片变成一个本地的BitMap
-	public static Bitmap returnBitMap(Context context,String url) {
+	public static Bitmap returnBitMap(Context context, String url) {
 		URL myFileUrl = null;
 		Bitmap bitmap = null;
 		try {
@@ -482,13 +487,31 @@ public class CommonUtil {
 		}
 		int oldWidth = bitmap.getWidth();
 		int windowWidth = CommonUtil.getWindowWidth(context);
-		float sx = (float)windowWidth/(float)oldWidth;
-//		sx = (float) Math.floor(sx);
-		 Matrix matrix = new Matrix(); 
-		  matrix.postScale(sx,sx); //长和宽放大缩小的比例
-		  Bitmap resizeBmp = Bitmap.createBitmap(bitmap,0,0,bitmap.getWidth(),bitmap.getHeight(),matrix,true);
-		  bitmap = null;
-		  return resizeBmp;
-		
+		float sx = (float) windowWidth / (float) oldWidth;
+		// sx = (float) Math.floor(sx);
+		Matrix matrix = new Matrix();
+		matrix.postScale(sx, sx); // 长和宽放大缩小的比例
+		Bitmap resizeBmp = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
+				bitmap.getHeight(), matrix, true);
+		bitmap = null;
+		return resizeBmp;
+
 	}
+
+	public static void loadImg(Activity activity, ImageView img, String url,
+			int w, int h) {
+		ImageLoader imageLoader = InitImageLoader.initLoader(activity);
+		DisplayImageOptions imageOptions = InitImageLoader.initOptions();
+		// 图片的比例适配
+		DisplayMetrics dm = new DisplayMetrics();
+		activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+		int screenWidth = dm.widthPixels;
+		android.view.ViewGroup.LayoutParams params;
+		params = img.getLayoutParams();
+		params.height = screenWidth * h / w;
+		params.width = screenWidth;
+		img.setLayoutParams(params);
+		imageLoader.displayImage(url, img, imageOptions);
+	}
+	
 }

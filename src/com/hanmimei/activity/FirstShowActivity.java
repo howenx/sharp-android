@@ -2,17 +2,14 @@ package com.hanmimei.activity;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.hanmimei.R;
 import com.hanmimei.application.MyApplication;
 import com.hanmimei.dao.ShoppingGoodsDao;
 import com.hanmimei.dao.UserDao;
-import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.User;
 import com.hanmimei.utils.DateUtil;
 import com.hanmimei.utils.SharedPreferencesUtil;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,7 +28,6 @@ public class FirstShowActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		getActionBar().hide();
 		setContentView(R.layout.first_show_layout);
 		//判断是否自动登录，以及更新token
 		loginUser();
@@ -39,6 +35,7 @@ public class FirstShowActivity extends BaseActivity {
 		//判断是否是第一次进入app
 		SharedPreferencesUtil util = new SharedPreferencesUtil(
 				FirstShowActivity.this, FIRST);
+		util.putString("isLoadNet", "true");
 		String flag = util.getString(FIRST_LOG_FLAG);
 		if (flag == null) {
 			util.putString(FIRST_LOG_FLAG, "not_first");
@@ -64,9 +61,10 @@ public class FirstShowActivity extends BaseActivity {
 	private void initShoppingCar() {
 		ShoppingGoodsDao goodsDao = getDaoSession().getShoppingGoodsDao();
 		List<ShoppingGoods> list = new ArrayList<ShoppingGoods>();
-		for(int i = 0; i < 5; i ++){
-			list.add(new ShoppingGoods(500321, 100243, "", "", "超级爽肤补水100ml经典还是的的", 59, "G", 2, ""));
-		}
+		list.add(new ShoppingGoods(0, 100243, "I", 5));
+		list.add(new ShoppingGoods(0, 100249, "I", 2));
+		list.add(new ShoppingGoods(0, 100237, "I", 1));
+		list.add(new ShoppingGoods(0, 100003, "I", 1));
 		goodsDao.deleteAll();
 		goodsDao.insertInTx(list);
 	}

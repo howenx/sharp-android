@@ -243,7 +243,8 @@ public class HttpUtils {
 			HttpClient httpclient = new DefaultHttpClient();
 			HttpPost httppost = new HttpPost(url);
 			// 添加http头信息
-			httppost.addHeader(tokenKey, tokenValue); // 认证token
+			if(tokenKey.equals("id-token"))
+				httppost.addHeader(tokenKey, tokenValue); // 认证token
 			httppost.addHeader("Content-Type", "application/json");
 			// http post的json数据格式： {"name": "your name"}
 			if (obj == null) {
