@@ -2,18 +2,6 @@ package com.hanmimei.adapter;
 
 import java.util.List;
 
-import com.hanmimei.R;
-import com.hanmimei.activity.BaseActivity;
-import com.hanmimei.dao.ShoppingGoodsDao;
-import com.hanmimei.data.DataParser;
-import com.hanmimei.entity.HMessage;
-import com.hanmimei.entity.ShoppingGoods;
-import com.hanmimei.entity.User;
-import com.hanmimei.utils.HttpUtils;
-import com.hanmimei.utils.InitImageLoader;
-import com.hanmimei.utils.ShoppingCarMenager;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
@@ -27,6 +15,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hanmimei.R;
+import com.hanmimei.activity.BaseActivity;
+import com.hanmimei.dao.ShoppingGoodsDao;
+import com.hanmimei.dao.ShoppingGoodsDao.Properties;
+import com.hanmimei.data.DataParser;
+import com.hanmimei.entity.HMessage;
+import com.hanmimei.entity.ShoppingGoods;
+import com.hanmimei.entity.User;
+import com.hanmimei.utils.HttpUtils;
+import com.hanmimei.utils.InitImageLoader;
+import com.hanmimei.utils.ShoppingCarMenager;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+
 public class ShoppingCarAdapter extends BaseAdapter {
 
 	private LayoutInflater inflater;
@@ -37,17 +39,14 @@ public class ShoppingCarAdapter extends BaseAdapter {
 	private User user;
 	private Drawable check_Drawable;
 	private Drawable uncheck_Drawable;
-	private ShoppingCarMenager carMenager;
 	private ShoppingGoodsDao goodsDao;
 	private int check_nums;
 
-	public ShoppingCarAdapter(List<ShoppingGoods> data, Context mContext,
-			ShoppingCarMenager menager) {
+	public ShoppingCarAdapter(List<ShoppingGoods> data, Context mContext) {
 		inflater = LayoutInflater.from(mContext);
 		imageLoader = InitImageLoader.initLoader(mContext);
 		imageOptions = InitImageLoader.initOptions();
 		this.data = data;
-		carMenager = menager;
 		activity = (BaseActivity) mContext;
 		goodsDao = activity.getDaoSession().getShoppingGoodsDao();
 		user = activity.getUser();
@@ -106,6 +105,11 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		holder.jian.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
+				
+				if(goods.getState().equals("G")){
+					if(goods.getGoodsNums() > 1)
+					ShoppingCarMenager.getInstance().setBottom(-1, goods.getGoodsPrice(), 0);
+				}
 				//登录状态减少到服务器，未登录状态增减少本地数据库
 				if (user != null) {
 					if (goods.getGoodsNums() > 1)
@@ -120,12 +124,15 @@ public class ShoppingCarAdapter extends BaseAdapter {
 						goodsDao.insertInTx(data);
 					}
 				}
+				
 			}
 		});
 		holder.plus.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
+				if(goods.getState().equals("G"))
+					ShoppingCarMenager.getInstance().setBottom(1, goods.getGoodsPrice(), 0);
 				//登录状态增加到服务器，未登录状态增加到本地数据库
 				if (user != null) {
 					goods.setGoodsNums(goods.getGoodsNums() + 1);
@@ -142,12 +149,19 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		holder.del.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				if(goods.getState().equals("G"))
+				ShoppingCarMenager.getInstance().setBottom(-goods.getGoodsNums(),
+						goods.getGoodsPrice(), 0);
+				
 				//登录状态删除服务器数据，未登录状态删除本地数据
 				if(user != null){
 				delGoods(goods);
 				}else{
-					goodsDao.delete(goods);
+					goodsDao.delete(goodsDao.queryBuilder().where(Properties.GoodsId.eq(goods.getGoodsId())).build().unique());
+					data.remove(goods);
 					notifyDataSetChanged();
+					if(data.size() < 1)
+						ShoppingCarMenager.getInstance().setNoGoods();
 				}
 			}
 		});
@@ -156,8 +170,8 @@ public class ShoppingCarAdapter extends BaseAdapter {
 			public void onClick(View arg0) {
 				if (goods.getState().equals("G")) {
 					check_nums = check_nums - 1;
-					carMenager.setUnChecked();
-					carMenager.setBottom(false, -goods.getGoodsNums(),
+					ShoppingCarMenager.getInstance().setUnChecked();
+					ShoppingCarMenager.getInstance().setBottom(-goods.getGoodsNums(),
 							goods.getGoodsPrice(), 0);
 					goods.setState("I");
 					notifyDataSetChanged();
@@ -165,8 +179,8 @@ public class ShoppingCarAdapter extends BaseAdapter {
 					goods.setState("G");
 					check_nums = check_nums + 1;
 					if(check_nums == data.size())
-						carMenager.setChecked();
-					carMenager.setBottom(false, goods.getGoodsNums(),
+						ShoppingCarMenager.getInstance().setChecked();
+					ShoppingCarMenager.getInstance().setBottom(goods.getGoodsNums(),
 							goods.getGoodsPrice(), 0);
 					notifyDataSetChanged();
 				}
@@ -241,6 +255,8 @@ public class ShoppingCarAdapter extends BaseAdapter {
 					if (hm.getCode() == 200) {
 						data.remove(delGoods);
 						notifyDataSetChanged();
+						if(data.size() < 1)
+							ShoppingCarMenager.getInstance().setNoGoods();
 					} else {
 						Toast.makeText(activity, hm.getMessage(),
 								Toast.LENGTH_SHORT).show();

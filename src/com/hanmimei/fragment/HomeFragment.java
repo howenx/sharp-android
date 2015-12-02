@@ -2,6 +2,28 @@ package com.hanmimei.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import android.annotation.SuppressLint;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.Toast;
+
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
@@ -18,24 +40,6 @@ import com.hanmimei.entity.Theme;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.view.CycleViewPager;
 import com.hanmimei.view.ViewFactory;
-
-import android.annotation.SuppressLint;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.Toast;
 
 @SuppressLint({ "NewApi", "InflateParams" })
 public class HomeFragment extends Fragment implements
@@ -68,7 +72,6 @@ public class HomeFragment extends Fragment implements
 		themeDao = mActivity.getDaoSession().getThemeDao();
 		sliderDao = mActivity.getDaoSession().getSliderDao();
 	}
-
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -96,6 +99,16 @@ public class HomeFragment extends Fragment implements
 	private void findHeaderView() {
 		headerView = inflater.inflate(R.layout.home_header_slider_layout, null);
 		headerView.setVisibility(View.GONE);
+		LinearLayout header_linear = (LinearLayout) headerView.findViewById(R.id.header_linear);
+		// 图片的比例适配
+		DisplayMetrics dm = new DisplayMetrics();
+		getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+		int screenWidth = dm.widthPixels;
+		int width = screenWidth;
+		int height = width / 3;
+		AbsListView.LayoutParams lp = new AbsListView.LayoutParams(width, height);
+		header_linear.setLayoutParams(lp);
+		
 		cycleViewPager = (CycleViewPager) getActivity().getFragmentManager()
 				.findFragmentById(R.id.fragment_cycle_viewpager_content);
 	}
@@ -107,10 +120,10 @@ public class HomeFragment extends Fragment implements
 
 	private void initHeaderView() {
 		headerView.setVisibility(View.VISIBLE);
-		// 将最后一个ImageView添加进来
 		views.clear();
+		// 将最后一个ImageView添加进来
 		views.add(ViewFactory.getImageView(mContext,
-				dataSliders.get(dataSliders.size() - 1).getUrl()));
+				dataSliders.get(dataSliders.size() - 1).getImgUrl()));
 		for (int i = 0; i < dataSliders.size(); i++) {
 			views.add(ViewFactory.getImageView(mContext, dataSliders.get(i)
 					.getImgUrl()));
@@ -142,7 +155,7 @@ public class HomeFragment extends Fragment implements
 			data.addAll(themeDao.queryBuilder().build().list());
 			adapter.notifyDataSetChanged();
 		}
-		if(list2 != null && list2.size() > 0){
+		if (list2 != null && list2.size() > 0) {
 			dataSliders.clear();
 			dataSliders.addAll(list2);
 			initHeaderView();
@@ -150,7 +163,9 @@ public class HomeFragment extends Fragment implements
 		getNetData();
 
 	}
+
 	private List<Slider> sliders_temp;
+
 	// 加载网络数据
 	private void getNetData() {
 		new Thread(new Runnable() {
@@ -191,15 +206,16 @@ public class HomeFragment extends Fragment implements
 					sliderDao.insertInTx(sliders_temp);
 					dataSliders.clear();
 					dataSliders.addAll(sliders_temp);
-					if(dataSliders != null && dataSliders.size() > 0)
+					if (dataSliders != null && dataSliders.size() > 0)
 						initHeaderView();
 					data.clear();
 					data.addAll(list);
 					themeDao.deleteAll();
 					themeDao.insertInTx(data);
 					adapter.notifyDataSetChanged();
-				} else{
-					Toast.makeText(mContext, "获取数据失败！", Toast.LENGTH_SHORT).show();
+				} else {
+					Toast.makeText(mContext, "获取数据失败！", Toast.LENGTH_SHORT)
+							.show();
 				}
 				break;
 			case 2:
@@ -208,10 +224,11 @@ public class HomeFragment extends Fragment implements
 				if (list_more != null && list_more.size() > 0) {
 					data.addAll(list_more);
 					adapter.notifyDataSetChanged();
-					Toast.makeText(mContext, "小美为您加载了 " + list_more.size() + " 条新数据", Toast.LENGTH_SHORT)
-					.show();
+					Toast.makeText(mContext,
+							"小美为您加载了 " + list_more.size() + " 条新数据",
+							Toast.LENGTH_SHORT).show();
 				} else {
-					pageIndex -- ;
+					pageIndex--;
 					Toast.makeText(mContext, "暂无更多数据！！！", Toast.LENGTH_SHORT)
 							.show();
 				}

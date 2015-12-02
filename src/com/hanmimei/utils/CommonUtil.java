@@ -1,12 +1,9 @@
 package com.hanmimei.utils;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.lang.ref.SoftReference;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -15,9 +12,6 @@ import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Transformation;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -39,8 +33,12 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * 常用工具
@@ -472,7 +470,6 @@ public class CommonUtil {
 
 	// 把一个url的网络图片变成一个本地的BitMap
 	public static Bitmap returnBitMap(Context context,String url) {
-		
 		URL myFileUrl = null;
 		Bitmap bitmap = null;
 		try {
@@ -512,6 +509,22 @@ public class CommonUtil {
 //		  bitmap = null;
 //		  return resizeBmp;
 		
+	}
+
+	public static void loadImg(Activity activity, ImageView img, String url,
+			int w, int h) {
+		ImageLoader imageLoader = InitImageLoader.initLoader(activity);
+		DisplayImageOptions imageOptions = InitImageLoader.initOptions();
+		// 图片的比例适配
+		DisplayMetrics dm = new DisplayMetrics();
+		activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+		int screenWidth = dm.widthPixels;
+		android.view.ViewGroup.LayoutParams params;
+		params = img.getLayoutParams();
+		params.height = screenWidth * h / w;
+		params.width = screenWidth;
+		img.setLayoutParams(params);
+		imageLoader.displayImage(url, img, imageOptions);
 	}
 	
 }

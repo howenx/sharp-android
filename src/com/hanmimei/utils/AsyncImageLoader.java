@@ -1,7 +1,6 @@
 package com.hanmimei.utils;
 
 import java.io.IOException;
-import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,8 +14,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreConnectionPNames;
 
-import com.hanmimei.manager.ThreadPoolManager;
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -29,160 +26,186 @@ import android.widget.ImageView;
  * 异步加载图片
  */
 public class AsyncImageLoader {
+	
+	public class SoftReference<T>{
+		T t ;
 
-	private static class AsyncImageLoaderHolder {
+		public SoftReference(T t) {
+			super();
+			this.t = t;
+		}
+		public T get(){
+			return t;
+		}
+	}
+	
+	private static class AsyncImageLoaderHolder{
 		public static final AsyncImageLoader instance = new AsyncImageLoader();
 	}
-
-	public static AsyncImageLoader getInstance() {
+	 
+	
+	public static AsyncImageLoader getInstance(){
 		return AsyncImageLoaderHolder.instance;
 	}
+	
 
-	// 软引用，使用内存做临时缓存 （程序退出，或内存不够则清除软引用）
-	private HashMap<String, SoftReference<Bitmap>> imageCache;
+    // 软引用，使用内存做临时缓存 （程序退出，或内存不够则清除软引用）
+    private HashMap<String, SoftReference<Bitmap>> imageCache;
 
-	public AsyncImageLoader() {
-		imageCache = new HashMap<String, SoftReference<Bitmap>>();
-		bitmaps = new ArrayList<Bitmap>();
-	}
+    public AsyncImageLoader() {
+        imageCache = new HashMap<String, SoftReference<Bitmap>>();
+    }
 
-	/**
-	 * 定义回调接口
-	 */
-	public interface ImageCallback {
-		public void imageLoaded(Bitmap imgBitmap, ImageView mImageView,
-				String imageUrl);
-	}
+    /**
+     * 定义回调接口
+     */
+    public interface ImageCallback {
+        public void imageLoaded(Bitmap imgBitmap, ImageView mImageView,String imageUrl);
+    }
+    
+    /**
+     * 定义回调接口
+     */
+    public interface LoadedCallback {
+        public void imageLoaded(Bitmap bitmap);
+    }
 
-	/**
-	 * 定义回调接口
-	 */
-	public interface LoadedCallback {
-		public void imageLoaded(Bitmap bitmap, int position);
-	}
+     
+    /**
+     * 创建子线程加载图片
+     * 子线程加载完图片交给handler处理（子线程不能更新ui，而handler处在主线程，可以更新ui）
+     * handler又交给imageCallback，imageCallback须要自己来实现，在这里可以对回调参数进行处理
+     *
+     * @param imageUrl ：须要加载的图片url
+     * @param imageCallback：
+     * @return
+     */
+    public Bitmap loadBitmap(final Context context,final ImageView mImageView,final String imageUrl,
+            final ImageCallback imageCallback) {
+         
+        //如果缓存中存在图片  ，则首先使用缓存
+        if (imageCache.containsKey(imageUrl)) {
+            SoftReference<Bitmap> softReference = imageCache.get(imageUrl.toString());
+            Bitmap mBitmap = softReference.get();
+            if (mBitmap != null) {
+                imageCallback.imageLoaded(mBitmap, mImageView,imageUrl);//执行回调
+                return mBitmap;
+            }
+        }
+        
+        /**
+         * 在主线程里执行回调，更新视图
+         */
+        final Handler handler = new Handler() {
+            public void handleMessage(Message message) {
+                imageCallback.imageLoaded((Bitmap) message.obj, mImageView,imageUrl);
+            }
+        };
 
-	/**
-	 * 创建子线程加载图片 子线程加载完图片交给handler处理（子线程不能更新ui，而handler处在主线程，可以更新ui）
-	 * handler又交给imageCallback，imageCallback须要自己来实现，在这里可以对回调参数进行处理
-	 * 
-	 * @param imageUrl
-	 *            ：须要加载的图片url
-	 * @param imageCallback
-	 *            ：
-	 * @return
-	 */
-	public Bitmap loadBitmap(final Context context, final ImageView mImageView,
-			final String imageUrl, final ImageCallback imageCallback) {
+         
+        /**
+         * 创建子线程访问网络并加载图片 ，把结果交给handler处理
+         */
+        new Thread() {
+            @Override
+            public void run() {
+            	Bitmap mBitmap = CommonUtil.returnBitMap(context, imageUrl);
+                // 下载完的图片放到缓存里
+                imageCache.put(imageUrl, new SoftReference<Bitmap>(mBitmap));
+                Message message = handler.obtainMessage(0, mBitmap);
+                handler.sendMessage(message);
+            }
+        }.start();
+         
+        return null;
+    }
 
-		// 如果缓存中存在图片 ，则首先使用缓存
-		if (imageCache.containsKey(imageUrl)) {
-			SoftReference<Bitmap> softReference = imageCache.get(imageUrl
-					.toString());
-			Bitmap mBitmap = softReference.get();
-			if (mBitmap != null) {
-				imageCallback.imageLoaded(mBitmap, mImageView, imageUrl);// 执行回调
-				return mBitmap;
-			}
-		}
+    /**
+     * 创建子线程加载图片
+     * 子线程加载完图片交给handler处理（子线程不能更新ui，而handler处在主线程，可以更新ui）
+     * handler又交给imageCallback，imageCallback须要自己来实现，在这里可以对回调参数进行处理
+     *
+     * @param imageUrl ：须要加载的图片url
+     * @param imageCallback：
+     * @return
+     */
+    
+    public Bitmap loadBitmap(final Context context,final int size,final String imageUrl,
+            final LoadedCallback loadedCallback) {
+         
+        
+        /**
+         * 在主线程里执行回调，更新视图
+         */
+        final Handler handler = new Handler() {
+            public void handleMessage(Message message) {
+            	loadedCallback.imageLoaded((Bitmap)message.obj);
+            }
+        };
 
-		/**
-		 * 在主线程里执行回调，更新视图
-		 */
-		final Handler handler = new Handler() {
-			public void handleMessage(Message message) {
-				imageCallback.imageLoaded((Bitmap) message.obj, mImageView,
-						imageUrl);
-			}
-		};
+         
+        /**
+         * 创建子线程访问网络并加载图片 ，把结果交给handler处理
+         */
+        new Thread() {
+            @Override
+            public void run() {
+            	Bitmap mBitmap = CommonUtil.returnBitMap(context, imageUrl);
+                // 下载完的图片放到缓存里
+            		 Message message = handler.obtainMessage(0,mBitmap);
+                     handler.sendMessage(message);
+               
+            }
+        }.start();
+         
+        return null;
+    }
+    
+    
+    public HashMap<String, SoftReference<Bitmap>> getImageCache(){
+    	return this.imageCache;
+    }
+    
 
-		/**
-		 * 创建子线程访问网络并加载图片 ，把结果交给handler处理
-		 */
+    //清除缓存
+    public  void clearCache() {
 
-		ThreadPoolManager.getInstance().getExecutorService()
-				.execute(new Runnable() {
+        if (imageCache.size() > 0) {
 
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						Bitmap mBitmap = CommonUtil.returnBitMap(context,
-								imageUrl);
-						// 下载完的图片放到缓存里
-						imageCache.put(imageUrl, new SoftReference<Bitmap>(
-								mBitmap));
-						Message message = handler.obtainMessage(0, mBitmap);
-						handler.sendMessage(message);
-					}
-				});
+            imageCache.clear();
+        }
 
-		return null;
-	}
+    }
+    
+    /**
+     * 下载图片  （注意HttpClient 和httpUrlConnection的区别）
+     */
+    public Drawable loadImageFromUrl(String url) {
 
-	/**
-	 * 创建子线程加载图片 子线程加载完图片交给handler处理（子线程不能更新ui，而handler处在主线程，可以更新ui）
-	 * handler又交给imageCallback，imageCallback须要自己来实现，在这里可以对回调参数进行处理
-	 * 
-	 * @param imageUrl
-	 *            ：须要加载的图片url
-	 * @param imageCallback
-	 *            ：
-	 * @return
-	 */
+        try {
+            HttpClient client = new DefaultHttpClient();
+            client.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 1000*15);
+            HttpGet get = new HttpGet(url);
+            HttpResponse response;
 
-	private List<Bitmap> bitmaps;
+            response = client.execute(get);
+            if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+                HttpEntity entity = response.getEntity();
 
-	public void loadBitmap(final Context context, final int position,
-			final String imageUrl, final LoadedCallback loadedCallback) {
+                Drawable d = Drawable.createFromStream(entity.getContent(),
+                        "src");
+                
+                return d;
+            } else {
+                return null;
+            }
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-//		// 如果缓存中存在图片 ，则首先使用缓存
-//		if (imageCache.containsKey(imageUrl)) {
-//			SoftReference<Bitmap> softReference = imageCache.get(imageUrl
-//					.toString());
-//			Bitmap mBitmap = softReference.get();
-//			if (mBitmap != null) {
-//				loadedCallback.imageLoaded(mBitmap, position);// 执行回调
-//				return;
-//			}
-//		}
-
-		/**
-		 * 在主线程里执行回调，更新视图
-		 */
-		final Handler handler = new Handler() {
-			public void handleMessage(Message message) {
-				loadedCallback.imageLoaded((Bitmap) message.obj, position);
-			}
-		};
-
-		/**
-		 * 创建子线程访问网络并加载图片 ，把结果交给handler处理
-		 */
-		ThreadPoolManager.getInstance().getExecutorService()
-				.execute(new Runnable() {
-
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						Bitmap mBitmap = CommonUtil.returnBitMap(context,
-								imageUrl);
-//						// 下载完的图片放到缓存里
-//						imageCache.put(imageUrl, new SoftReference<Bitmap>(
-//								mBitmap));
-						Message message = handler.obtainMessage(0, mBitmap);
-						handler.sendMessage(message);
-					}
-				});
-
-		return;
-	}
-
-	// 清除缓存
-	public void clearCache() {
-
-		if (imageCache.size() > 0) {
-			imageCache.clear();
-		}
-
-	}
+        return null;
+    }
 
 }

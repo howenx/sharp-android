@@ -18,8 +18,6 @@ import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.daimajia.slider.library.SliderLayout;
@@ -28,12 +26,14 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView.OnSliderClickListe
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.hanmimei.R;
 import com.hanmimei.adapter.MyPagerAdapter;
+import com.hanmimei.dao.ShoppingGoodsDao;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.entity.Category;
 import com.hanmimei.entity.GoodsDetail;
 import com.hanmimei.entity.GoodsDetail.Main;
 import com.hanmimei.entity.GoodsDetail.Stock;
 import com.hanmimei.entity.Tag;
+import com.hanmimei.entity.User;
 import com.hanmimei.fragment.goodstab.ImgFragment;
 import com.hanmimei.fragment.goodstab.ParamFragment;
 import com.hanmimei.utils.AsyncImageLoader;
@@ -74,6 +74,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private View indicator_hide;
 
 	private View pager_header;
+	
+	private User user;
+	private ShoppingGoodsDao goodsDao;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -106,12 +109,15 @@ public class GoodsDetailActivity extends BaseActivity implements
 		mScrollView = (CustomScrollView) findViewById(R.id.mScrollView);
 		mScrollView.setOnScrollUpListener(this);
 		pager_header = findViewById(R.id.pager_header);
-
+		
+		user = getUser();
+		goodsDao = getDaoSession().getShoppingGoodsDao();
 		findViewById(R.id.btn_attention).setOnClickListener(this);
 		findViewById(R.id.btn_share).setOnClickListener(this);
 		findViewById(R.id.back).setVisibility(View.VISIBLE);
 		findViewById(R.id.back).setOnClickListener(this);
 		findViewById(R.id.btn_pay).setOnClickListener(this);
+		findViewById(R.id.btn_shopcart).setOnClickListener(this);
 	}
 
 	private void initTab() {
@@ -157,9 +163,20 @@ public class GoodsDetailActivity extends BaseActivity implements
 			startActivity(intent);
 			break;
 
+		case R.id.btn_shopcart:
+			if(user != null){
+				sendData();
+			}else{
+			}
+			break;
 		default:
 			break;
 		}
+	}
+
+	private void sendData() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	private Handler mHandler = new Handler() {
@@ -425,15 +442,18 @@ public class GoodsDetailActivity extends BaseActivity implements
 			for (int i = 0; i < size; i++) {
 			
 				AsyncImageLoader.getInstance().loadBitmap(this,i, main.getItemDetailImgs().get(i), new LoadedCallback() {
-					
+
 					@Override
-					public void imageLoaded(Bitmap bitmap,int position) {
+					public void imageLoaded(Bitmap bitmap) {
 						// TODO Auto-generated method stub
 						bitmaps.add(bitmap);
 						if(bitmaps.size() == main.getItemDetailImgs().size()){
 							initFragment(bitmaps);
 						}
+						
 					}
+					
+					
 				});
 				
 			}

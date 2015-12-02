@@ -1,11 +1,11 @@
 package com.hanmimei.activity;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,13 +16,13 @@ import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
 
 import com.hanmimei.R;
-import com.hanmimei.data.AppConstant;
 import com.hanmimei.fragment.AboutMyFragment;
 import com.hanmimei.fragment.FragmentTabHost;
 import com.hanmimei.fragment.HomeFragment;
 import com.hanmimei.fragment.ShoppingCartFragment;
 import com.hanmimei.manager.TabHostManager;
 import com.hanmimei.utils.DoJumpUtils;
+
 
 @SuppressLint("NewApi") 
 public class MainActivity extends BaseActivity implements OnTabChangeListener, OnClickListener{
@@ -52,7 +52,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener, O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
+        getActionBar().hide();
 //        inflater = LayoutInflater.from(this);
 //        tabHost = (TabHost) findViewById(android.R.id.tabhost);
         header = (TextView) findViewById(R.id.header);
@@ -122,5 +122,15 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener, O
 			break;
 		}
 	}
+
+	//	主界面返回之后在后台运行
+	@Override  
+    public boolean onKeyDown(int keyCode, KeyEvent event) {  
+        if (keyCode == KeyEvent.KEYCODE_BACK) {  
+            moveTaskToBack(false);  
+            return true;  
+        }  
+        return super.onKeyDown(keyCode, event);  
+    }
 	
 }

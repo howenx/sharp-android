@@ -18,6 +18,15 @@
          <item name="vpiTabPageIndicatorStyle">@style/CustomTabPageIndicator</item>
          
     </style>
+    <!-- 透明主题 -->
+    <style name="Theme.AppStartLoadTranslucent" parent="android:Theme">    
+          <item name="android:windowIsTranslucent">true</item>   
+          <item name="android:windowNoTitle">true</item>
+          <!-- 填充屏幕 -->
+          <item name="android:windowFullscreen">true</item>
+          <item name="android:windowContentOverlay">@null</item>    
+	</style> 
+	
     <style name="AppThemeForOrder" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
          <item name="vpiTabPageIndicatorStyle">@style/OrderTabPageIndicator</item>
