@@ -4,10 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <include
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/actionbar_size"
-        layout="@layout/main_header_layout" />
+  
 
     <ScrollView
         android:layout_width="match_parent"

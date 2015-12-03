@@ -42,7 +42,7 @@ public class FirstShowActivity extends BaseActivity {
 		if (flag == null) {
 			util.putString(FIRST_LOG_FLAG, "not_first");
 			startActivity(new Intent(FirstShowActivity.this,
-					ViewPagerActivity.class));
+					IndroductionActivity.class));
 			finish();
 		} else {
 			new Thread(new Runnable() {

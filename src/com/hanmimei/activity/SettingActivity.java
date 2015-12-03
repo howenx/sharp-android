@@ -40,7 +40,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener{
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.setting_layout);
-		getActionBar().hide();
+//		getActionBar().hide();
 		application = (MyApplication) getApplication();
 		userDao = getDaoSession().getUserDao();
 		initDrawable();

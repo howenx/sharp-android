@@ -76,7 +76,7 @@ public class IdCardActivity extends BaseActivity implements OnClickListener {
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
 		setContentView(R.layout.bind_idcard_layout);
-		getActionBar().hide();
+//		getActionBar().hide();
 		findView();
 		initSelectPop();
 		user = getUser();

@@ -13,7 +13,7 @@ public class AboutWeActivity extends BaseActivity {
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.about_we_layout);
-		getActionBar().hide();
+//		getActionBar().hide();
 		
 	}
 

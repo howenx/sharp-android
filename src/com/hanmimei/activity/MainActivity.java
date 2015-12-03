@@ -52,19 +52,10 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener, O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getActionBar().hide();
-//        inflater = LayoutInflater.from(this);
-//        tabHost = (TabHost) findViewById(android.R.id.tabhost);
+//        getActionBar().hide();
         header = (TextView) findViewById(R.id.header);
         setting = (ImageView) findViewById(R.id.setting);
         setting.setOnClickListener(this);
-//        initFragment();
-//        tabHost.setup();
-//        tabHost.setOnTabChangedListener(this);
-//        initTab(TAB_HOME_ID, TAB_HOME, home_drawable);
-//        initTab(TAB_CAR_ID, TAB_CAR, shopping_drawable);
-//        initTab(TAB_MY_ID, TAB_MY, my_drawable);
-//        tabHost.setCurrentTab(0);
         mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
     	mTabHost.setup(this, getSupportFragmentManager(), R.id.realcontent);
 		mTabHost.setOnTabChangedListener(this);
@@ -74,26 +65,6 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener, O
         TabHostManager.getInstance().initTabItem(TAB_MY_ID, my_drawable, TAB_MY, AboutMyFragment  .class);
         
     }
-	private void initFragment() {
-		fm = getSupportFragmentManager();
-		ft = fm.beginTransaction();
-		homeFragment = (HomeFragment) fm.findFragmentByTag(TAB_HOME_ID);
-		cartFragment = (ShoppingCartFragment) fm.findFragmentByTag(TAB_CAR_ID);
-		myFragment = (AboutMyFragment) fm.findFragmentByTag(TAB_MY_ID);
-		ft.commit();
-	}
-	private void initTab(String tab_id, String tab_name, int drawableId) {
-		View view = inflater.inflate(R.layout.tab_item_layout, null);
-		ImageView img = (ImageView) view.findViewById(R.id.img);
-		TextView name = (TextView) view.findViewById(R.id.name);
-		Drawable drawable = getResources().getDrawable(drawableId);
-		img.setImageDrawable(drawable);
-		name.setText(tab_name);
-		TabSpec tabSpec = tabHost.newTabSpec(tab_id);
-		tabSpec.setIndicator(view);
-		tabSpec.setContent(android.R.id.tabcontent);
-		tabHost.addTab(tabSpec);
-	}
 	@Override
 	public void onTabChanged(String tabId) {
 		/** 如果当前选项卡是home */

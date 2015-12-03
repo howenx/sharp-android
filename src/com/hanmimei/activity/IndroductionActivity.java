@@ -16,7 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 @SuppressLint("NewApi") 
-public class ViewPagerActivity extends BaseActivity {
+public class IndroductionActivity extends BaseActivity {
 
 	private ViewFlow viewFlow;
 	private CircleFlowIndicator indicator;
@@ -27,7 +27,6 @@ public class ViewPagerActivity extends BaseActivity {
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
 		setContentView(R.layout.viewpager_panel);
-		getActionBar().hide();
 		viewFlow = (ViewFlow) findViewById(R.id.my_viewflow);
 		indicator = (CircleFlowIndicator) findViewById(R.id.my_indicator);
 		viewFlow.setmSideBuffer(images.length);
@@ -39,7 +38,7 @@ public class ViewPagerActivity extends BaseActivity {
 		private LayoutInflater inflater;
 		
 		public ViewFlowAdapter(){
-			inflater = LayoutInflater.from(ViewPagerActivity.this);
+			inflater = LayoutInflater.from(IndroductionActivity.this);
 		}
 
 		@Override
@@ -75,7 +74,7 @@ public class ViewPagerActivity extends BaseActivity {
 				holder.experience.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View arg0) {
-						ViewPagerActivity.this.startActivity(new Intent(ViewPagerActivity.this,MainActivity.class));
+						IndroductionActivity.this.startActivity(new Intent(IndroductionActivity.this,MainActivity.class));
 					}
 				});
 			}

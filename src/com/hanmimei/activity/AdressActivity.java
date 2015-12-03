@@ -45,7 +45,7 @@ import android.widget.TextView;
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
 		setContentView(R.layout.my_address_layout);
-		getActionBar().hide();
+//		getActionBar().hide();
 		user = getUser();
 		findView();
 		loadData();

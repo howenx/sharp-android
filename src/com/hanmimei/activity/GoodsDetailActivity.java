@@ -36,6 +36,7 @@ import com.hanmimei.entity.Tag;
 import com.hanmimei.entity.User;
 import com.hanmimei.fragment.goodstab.ImgFragment;
 import com.hanmimei.fragment.goodstab.ParamFragment;
+import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AsyncImageLoader;
 import com.hanmimei.utils.AsyncImageLoader.LoadedCallback;
 import com.hanmimei.utils.CommonUtil;
@@ -81,7 +82,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
-		getActionBar().hide();
+		ActionBarUtil.setActionBarStyle(this, "商品详情");
 		setContentView(R.layout.goods_detail_layout);
 		findView(arg0);
 		initTab();
@@ -90,8 +91,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 	}
 
 	private void findView(Bundle savedInstanceState) {
-		TextView header = (TextView) findViewById(R.id.header);
-		header.setText("商品详情");
 
 		slider = (SliderLayout) findViewById(R.id.slider);
 		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(CommonUtil.getScreenWidth(this),CommonUtil.getScreenWidth(this));
@@ -224,7 +223,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 			}
 		});
 		getItemDetailImages();
-//		initFragment(null);
 	}
 	
 	

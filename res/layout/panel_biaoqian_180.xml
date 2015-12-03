@@ -19,12 +19,26 @@
         android:textSize="12sp" >
     </TextView>
     
+    <RelativeLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
     <ImageView 
-        android:id="@+id/point"
-        android:layout_width="3dp"
-        android:layout_height="3dp"
-        android:layout_margin="5dp"
-        android:src="@drawable/black_point"
+        android:id="@+id/point_b"
+        android:layout_width="5dp"
+        android:layout_height="5dp"
+        android:layout_margin="10dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/point_black"
         android:contentDescription="@null"/>
+    <ImageView 
+        android:id="@+id/point_w"
+        android:layout_width="5dp"
+        android:layout_height="5dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/point_white"
+        android:contentDescription="@null"/>
+    </RelativeLayout>
+
 
 </LinearLayout>

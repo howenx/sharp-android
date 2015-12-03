@@ -15,9 +15,27 @@
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <item name="actionBarSize">@dimen/actionbar_size</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="actionBarStyle"> @style/MyActionBarStyle</item>
          <item name="vpiTabPageIndicatorStyle">@style/CustomTabPageIndicator</item>
          
     </style>
+    
+    <!-- acitonbar 样式 -->
+    <style name="MyActionBarStyle" parent="@style/Widget.AppCompat.ActionBar">
+        <item name="background">@color/theme</item>
+        <item name="contentInsetStart">0dp</item>
+        <item name="contentInsetEnd">0dp</item>
+    </style>
+    
+    <style name="SplashStyle" parent="AppTheme">
+        <item name="android:windowIsTranslucent">true</item>  
+        <!-- 填充屏幕 -->
+          <item name="android:windowFullscreen">true</item>
+          <item name="android:windowContentOverlay">@null</item>   
+    </style>
+    
     <!-- 透明主题 -->
     <style name="Theme.AppStartLoadTranslucent" parent="android:Theme">    
           <item name="android:windowIsTranslucent">true</item>   
@@ -49,7 +67,7 @@
         <item name="android:textStyle">normal</item>
     </style>
     
-    <style name="AppThemeForGoodsDetail" parent="AppBaseTheme">
+    <style name="AppThemeForGoodsDetail" parent="AppTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
          <item name="vpiTabPageIndicatorStyle">@style/GoodsDetailTabPageIndicator</item>
     </style>

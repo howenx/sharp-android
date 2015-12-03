@@ -55,7 +55,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
-		getActionBar().hide();
+//		getActionBar().hide();
 		setContentView(R.layout.login_layout);
 		initView();
 	}

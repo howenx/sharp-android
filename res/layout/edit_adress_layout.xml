@@ -1,162 +1,234 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-
-    <include
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        layout="@layout/main_header_layout" />
+    android:background="@color/white" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:background="@drawable/white_corner_bg"
-        android:orientation="vertical" >
-
-        <LinearLayout
-            android:id="@+id/first"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:padding="2dp" >
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingLeft="10dp"
-                android:text="收货人姓名："
-                android:textColor="@color/fontcolor"
-                android:textSize="13sp" />
-
-            <EditText
-                android:id="@+id/name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:layout_weight="2"
-                android:background="@color/white"
-                android:paddingBottom="20dp"
-                android:paddingTop="20dp"
-                android:textSize="13sp" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.05dp"
-            android:background="@color/xian" />
+        android:orientation="vertical"
+        android:padding="10dp" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:padding="2dp" >
+            android:orientation="vertical" >
 
-            <TextView
-                android:layout_width="0dp"
+            <LinearLayout
+                android:id="@+id/first"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingLeft="10dp"
-                android:text="手机号码："
-                android:textColor="@color/fontcolor"
-                android:textSize="13sp" />
+                android:gravity="center_vertical" 
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
 
-            <EditText
-                android:id="@+id/phone"
-                android:paddingBottom="20dp"
-                android:paddingTop="20dp"
-                android:layout_width="0dp"
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="5dp"
+                    android:text="收货人:"
+                    android:textColor="@color/fontcolor"
+                    android:textSize="13sp" />
+
+                <EditText
+                    android:id="@+id/name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@null"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.05dp"
+                android:background="@color/xian" />
+
+            <LinearLayout
+                android:id="@+id/two"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:layout_weight="2"
-                android:background="@color/white"
-                android:phoneNumber="true"
-                android:textSize="13sp" />
+                android:gravity="center_vertical" 
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="5dp"
+                    android:text="联系电话:"
+                    android:textColor="@color/fontcolor"
+                    android:textSize="13sp" />
+
+                <EditText
+                    android:id="@+id/phone"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@null"
+                    android:textSize="14sp" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.05dp"
+                android:background="@color/xian" />
+
+            <LinearLayout
+                android:id="@+id/three"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical" 
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="5dp"
+                    android:text="身份证:"
+                    android:textColor="@color/fontcolor"
+                    android:textSize="13sp" />
+
+                <EditText
+                    android:id="@+id/card"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@null"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.05dp"
+                android:background="@color/xian" />
+
+            <LinearLayout
+                android:id="@+id/show"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical" 
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="省市区："
+                    android:paddingLeft="5dp"
+                    android:textColor="@color/fontcolor"
+                    android:textSize="13sp" />
+
+                <EditText
+                    android:id="@+id/city"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:editable="false"
+                    android:background="@null"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.05dp"
+                android:background="@color/xian" />
+
+            <LinearLayout
+                android:id="@+id/five"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical" 
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="5dp"
+                    android:text="详细地址:"
+                    android:textColor="@color/fontcolor"
+                    android:textSize="13sp" />
+
+                <EditText
+                    android:id="@+id/address"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@null"
+                    android:textSize="14sp" />
+            </LinearLayout>
+             <View
+                android:layout_width="match_parent"
+                android:layout_height="0.05dp"
+                android:background="@color/xian" />
+
+            <LinearLayout
+                android:id="@+id/six"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:text="设为默认:"
+                    android:textColor="@color/fontcolor"
+                    android:textSize="13sp" />
+
+                <CheckBox
+                    android:id="@+id/btn_dufault"
+                    android:layout_height="wrap_content"
+                    android:layout_width="40dp"
+                    android:background="@drawable/anniu_selector"
+                    android:button="@null" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.05dp"
+                android:background="@color/xian" />
         </LinearLayout>
+        
+          <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="提示："
+                    android:layout_margin="5dp"
+                    android:textColor="@color/theme"
+                    android:textSize="13sp" />
+          <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="5dp"
+					android:layout_marginTop="5dp"
+                    android:text="@string/tishi"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.05dp"
-            android:background="@color/xian" />
-
-        <LinearLayout
-            android:id="@+id/show"
+        <TextView
+            android:id="@+id/add"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:padding="2dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingLeft="10dp"
-                android:text="所在区域："
-                android:textColor="@color/fontcolor"
-                android:textSize="13sp" />
-
-            <EditText
-                android:id="@+id/city"
-                android:paddingBottom="20dp"
-                android:paddingTop="20dp"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:layout_weight="2"
-                android:background="@color/white"
-                android:editable="false"
-                android:textSize="13sp" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.05dp"
-            android:background="@color/xian" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:padding="2dp" >
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingLeft="10dp"
-                android:text="添加地址："
-                android:textColor="@color/fontcolor"
-                android:textSize="13sp" />
-
-            <EditText
-                android:id="@+id/adress"
-                android:paddingBottom="20dp"
-                android:paddingTop="20dp"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:layout_weight="2"
-                android:background="@color/white"
-                android:textSize="13sp" />
-        </LinearLayout>
+            android:layout_marginTop="25dp"
+            android:background="@drawable/theme_button_bg"
+            android:gravity="center"
+            android:paddingBottom="7dp"
+            android:paddingTop="7dp"
+            android:text="添加"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/add"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/theme_button_bg"
-        android:gravity="center"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:text="新增地址"
-        android:textColor="@color/white"
-        android:textSize="18sp" />
-
-</LinearLayout>
+</ScrollView>

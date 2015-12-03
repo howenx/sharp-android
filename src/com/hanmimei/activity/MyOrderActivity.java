@@ -37,7 +37,7 @@ public class MyOrderActivity extends BaseActivity implements OnClickListener{
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
 		setContentView(R.layout.my_order_layout);
-		getActionBar().hide();
+//		getActionBar().hide();
 		indicator = (TabPageIndicator) findViewById(R.id.indicator);
 		viewPager = (ViewPager) findViewById(R.id.pager);
 		header = (TextView) findViewById(R.id.header);

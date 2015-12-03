@@ -4,11 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <include
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/actionbar_size"
-        layout="@layout/main_header_layout" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -20,12 +15,92 @@
             android:background="#ECECEC"
             android:orientation="vertical" >
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:id="@+id/selectAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#FFFFFF"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:padding="10dp" >
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:id="@+id/name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="5dp"
+                            android:textColor="@color/black"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/phone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_toEndOf="@id/name"
+                            android:layout_toRightOf="@id/name"
+                            android:drawablePadding="5dp"
+                            android:textColor="@color/black"
+                            android:textSize="18sp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp" >
+
+                        <TextView
+                            android:id="@+id/address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginStart="8dp"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/postcode"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_toEndOf="@id/address"
+                            android:layout_toRightOf="@id/address"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/newAddress"
+                    style="@style/customButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@color/theme"
+                    android:text="添加收获地址"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:background="@color/white"
                 android:padding="10dp"
-                android:text="收货信息"
+                android:text="免税区"
                 android:textColor="#cccccc"
                 android:textSize="13sp" />
 
@@ -34,15 +109,11 @@
                 android:layout_height="1px"
                 android:background="#cccccc" />
 
-            <TextView
+            <com.hanmimei.view.CustomListView
+                android:id="@+id/mListView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text="请新建收货地址以确保商品顺利送达"
-                android:textColor="#cccccc"
-                android:textSize="14sp" />
+                android:background="@color/white" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -97,9 +168,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:visibility="gone"
                 android:checkedButton="@+id/btn_all_day"
-                android:orientation="vertical" >
+                android:orientation="vertical"
+                android:visibility="gone" >
 
                 <RadioButton
                     android:id="@+id/btn_all_day"
@@ -192,9 +263,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:visibility="gone"
                 android:checkedButton="@+id/btn_online_pay"
-                android:orientation="vertical" >
+                android:orientation="vertical"
+                android:visibility="gone" >
 
                 <RadioButton
                     android:id="@+id/btn_online_pay"
@@ -211,10 +282,10 @@
                     android:background="#cccccc" />
 
                 <RadioButton
-                    android:checkedButton="@+id/btn_get_pay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:checkedButton="@+id/btn_get_pay"
                     android:text="货到付款"
                     android:textColor="#CCCCCC"
                     android:textSize="12sp" />
@@ -284,24 +355,10 @@
                     android:textSize="14sp" />
             </RelativeLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@color/white"
-                android:padding="10dp"
-                android:text="订单金额"
-                android:textColor="#cccccc"
-                android:textSize="13sp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="#cccccc" />
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:background="@color/white"
                 android:padding="10dp" >
 
@@ -309,7 +366,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:text="商品金额"
+                    android:text="商品总价"
                     android:textColor="#DDDDDD"
                     android:textSize="14sp" />
 
@@ -339,7 +396,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:text="手机优惠"
+                    android:text="优惠金额"
                     android:textColor="#DDDDDD"
                     android:textSize="14sp" />
 
@@ -348,7 +405,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:text="-10元"
+                    android:text="10元"
                     android:textColor="@color/theme"
                     android:textSize="14sp" />
             </RelativeLayout>
@@ -368,7 +425,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:text="应付金额"
+                    android:text="关税"
                     android:textColor="#DDDDDD"
                     android:textSize="14sp" />
 
@@ -382,6 +439,65 @@
                     android:textColor="@color/theme"
                     android:textSize="14sp" />
             </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#cccccc" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="10dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="运费"
+                    android:textColor="#DDDDDD"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="10dp"
+                    android:text="1601元"
+                    android:textColor="@color/theme"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#cccccc" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="订单留言（选填）"
+                    android:textColor="#DDDDDD"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/edit_input_bg"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
@@ -409,7 +525,7 @@
             android:background="@color/theme"
             android:gravity="center"
             android:padding="15dp"
-            android:text="提交订单"
+            android:text="结算"
             android:textColor="#FFFFFF"
             android:textSize="16sp" />
     </LinearLayout>

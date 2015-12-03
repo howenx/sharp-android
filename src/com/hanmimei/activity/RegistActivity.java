@@ -45,7 +45,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener{
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.regist_layout);
-		getActionBar().hide();
+//		getActionBar().hide();
 		initView();
 	}
 	private void initView() {

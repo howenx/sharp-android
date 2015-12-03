@@ -9,6 +9,7 @@ import com.hanmimei.data.DataParser;
 import com.hanmimei.entity.Adress;
 import com.hanmimei.entity.Result;
 import com.hanmimei.entity.User;
+import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.wheel.widget.OnWheelChangedListener;
@@ -56,7 +57,6 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 	private View popView;
 	private View parenView;
 	private PopupWindow pop;
-	private LinearLayout show;
 	
 	private WheelView mViewProvince;
 	private WheelView mViewCity;
@@ -69,7 +69,8 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
 		setContentView(R.layout.edit_adress_layout);
-		getActionBar().hide();
+//		getActionBar().hide();
+		ActionBarUtil.setActionBarStyle(this, "管理地址");
 		new_Adress = new Adress();
 		user = getUser();
 		findView();
@@ -145,20 +146,14 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 	}
 
 	private void findView() {
-		header = (TextView) findViewById(R.id.header);
-		header.setText("管理地址");
-		back = (ImageView) findViewById(R.id.back);
-		back.setVisibility(View.VISIBLE);
-		back.setOnClickListener(this);
+		
 		name_edit = (EditText) findViewById(R.id.name);
 		phone_edit = (EditText) findViewById(R.id.phone);
 		city_edit = (EditText) findViewById(R.id.city);
-		adress_edit = (EditText) findViewById(R.id.adress);
-		add_adre = (TextView) findViewById(R.id.add);
-		add_adre.setOnClickListener(this);
+		adress_edit = (EditText) findViewById(R.id.address);
 		city_edit.setOnClickListener(this);
-		show = (LinearLayout) findViewById(R.id.show);
-		show.setOnClickListener(this);
+		findViewById(R.id.add).setOnClickListener(this);
+		findViewById(R.id.show).setOnClickListener(this);
 	}
 
 	@Override

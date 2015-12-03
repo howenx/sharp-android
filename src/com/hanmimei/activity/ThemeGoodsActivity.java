@@ -31,6 +31,7 @@ import com.hanmimei.dao.ThemeItemDao;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.entity.ThemeDetail;
 import com.hanmimei.entity.ThemeItem;
+import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AsyncImageLoader;
 import com.hanmimei.utils.AsyncImageLoader.ImageCallback;
 import com.hanmimei.utils.CommonUtil;
@@ -66,7 +67,15 @@ public class ThemeGoodsActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.theme_layout);
-		getActionBar().hide();
+		ActionBarUtil.setActionBarStyle(this, "商品展示",R.drawable.white_shoppingcar,new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+//		getActionBar().hide();
 		itemDao = getDaoSession().getThemeItemDao();
 		url = getIntent().getStringExtra("url");
 		data = new ArrayList<ThemeItem>();
@@ -99,17 +108,17 @@ public class ThemeGoodsActivity extends BaseActivity {
 		img = (ImageView) findViewById(R.id.img);
 		title = (TextView) findViewById(R.id.title);
 		price = (TextView) findViewById(R.id.price);
-		header = (TextView) findViewById(R.id.header);
-		header.setText("商品展示");
+//		header = (TextView) findViewById(R.id.header);
+//		header.setText("商品展示");
 		mframeLayout = (FrameLayout) findViewById(R.id.mframeLayout);
-		findViewById(R.id.back).setVisibility(View.VISIBLE);
-		findViewById(R.id.back).setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				finish();
-			}
-		});
+//		findViewById(R.id.back).setVisibility(View.VISIBLE);
+//		findViewById(R.id.back).setOnClickListener(new OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View arg0) {
+//				finish();
+//			}
+//		});
 	}
 	private void loadUrl() {
 		new Thread(new Runnable() {
@@ -184,8 +193,8 @@ public class ThemeGoodsActivity extends BaseActivity {
 					view = getLayoutInflater().inflate(R.layout.panel_biaoqian_0, null);
 				}
 				 TextView tag = (TextView) view.findViewById(R.id.tag);
-				 ImageView point = (ImageView) view.findViewById(R.id.point);
-				 WaveAnimationUtil.waveAnimation(point, 3.5f);
+				 ImageView point_b = (ImageView) view.findViewById(R.id.point_b);
+				 WaveAnimationUtil.waveAnimation(point_b, 3.0f);
 				 FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 				 lp.setMargins(Integer.valueOf((int) (width * json.getDouble("left"))),
 						 Integer.valueOf((int) (height * json.getDouble("top"))), 0, 0);

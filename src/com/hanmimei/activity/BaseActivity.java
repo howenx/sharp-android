@@ -5,11 +5,15 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+
 import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 
 import com.hanmimei.application.MyApplication;
 import com.hanmimei.dao.DaoSession;
@@ -20,7 +24,7 @@ import com.hanmimei.wheel.entity.DistrictModel;
 import com.hanmimei.wheel.entity.ProvinceModel;
 
 
-public class BaseActivity extends FragmentActivity {
+public class BaseActivity extends AppCompatActivity {
 
 	/**
 	 * 所有省
@@ -128,11 +132,17 @@ public class BaseActivity extends FragmentActivity {
 		MyApplication application = (MyApplication) getApplication();
 		return application.getDaoSession();
 	}
-	@Override
-	protected void onCreate(Bundle arg0) {
-		super.onCreate(arg0);
-	}
 	
+	
+	
+
+	@Override
+	protected void onCreate(@Nullable Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		getSupportActionBar().hide();
+	}
+
 	public BaseActivity getActivity(){
 		return this;
 	}

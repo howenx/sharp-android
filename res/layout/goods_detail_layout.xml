@@ -6,11 +6,6 @@
     android:background="@color/white"
     android:orientation="vertical" >
 
-    <include
-        android:id="@+id/mActionbar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/actionbar_size"
-        layout="@layout/main_header_layout" />
 
     <RelativeLayout
         android:layout_width="match_parent"

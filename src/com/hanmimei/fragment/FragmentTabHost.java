@@ -343,5 +343,7 @@ public class FragmentTabHost extends TabHost implements
 		return lastTab;
 	}
 	
+//	public int getCurrent
+	
 	
 }
