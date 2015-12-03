@@ -3,6 +3,7 @@ package com.hanmimei.adapter;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import com.hanmimei.R;
 import com.hanmimei.activity.BaseActivity;
+import com.hanmimei.activity.GoodsDetailActivity;
 import com.hanmimei.dao.ShoppingGoodsDao;
 import com.hanmimei.dao.ShoppingGoodsDao.Properties;
 import com.hanmimei.data.DataParser;
@@ -102,6 +104,24 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		holder.name.setText(goods.getGoodsName());
 		holder.price.setText("¥" + goods.getGoodsPrice());
 		holder.nums.setText(goods.getGoodsNums() + "");
+		holder.name.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				Intent intent = new Intent(activity,GoodsDetailActivity.class);
+				intent.putExtra("url", goods.getGoodsUrl());
+				activity.startActivity(intent);
+			}
+		});
+		holder.img.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				Intent intent = new Intent(activity,GoodsDetailActivity.class);
+				intent.putExtra("url", goods.getGoodsUrl());
+				activity.startActivity(intent);
+			}
+		});
 		holder.jian.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {

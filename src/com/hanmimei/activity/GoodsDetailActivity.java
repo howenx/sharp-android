@@ -3,10 +3,17 @@ package com.hanmimei.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -17,8 +24,10 @@ import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
@@ -27,11 +36,15 @@ import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.hanmimei.R;
 import com.hanmimei.adapter.MyPagerAdapter;
 import com.hanmimei.dao.ShoppingGoodsDao;
+import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.entity.Category;
 import com.hanmimei.entity.GoodsDetail;
 import com.hanmimei.entity.GoodsDetail.Main;
 import com.hanmimei.entity.GoodsDetail.Stock;
+import com.hanmimei.entity.HMessage;
+import com.hanmimei.entity.ShoppingGoods;
+import com.hanmimei.entity.Sku;
 import com.hanmimei.entity.Tag;
 import com.hanmimei.entity.User;
 import com.hanmimei.fragment.goodstab.ImgFragment;
@@ -41,6 +54,7 @@ import com.hanmimei.utils.AsyncImageLoader;
 import com.hanmimei.utils.AsyncImageLoader.LoadedCallback;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.HttpUtils;
+import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.CustomScrollView;
 import com.hanmimei.view.TagCloudView;
 import com.hanmimei.view.TagCloudView.OnTagClickListener;
@@ -73,12 +87,12 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private CustomScrollView mScrollView;
 	private TabPageIndicator indicator;
 	private View indicator_hide;
+	private ImageView shoppingCar;
 
 	private View pager_header;
 	
 	private User user;
 	private ShoppingGoodsDao goodsDao;
-
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
@@ -89,6 +103,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		loadDataByUrl();
 //		registerReceivers();
 	}
+
 
 	private void findView(Bundle savedInstanceState) {
 
@@ -108,15 +123,21 @@ public class GoodsDetailActivity extends BaseActivity implements
 		mScrollView = (CustomScrollView) findViewById(R.id.mScrollView);
 		mScrollView.setOnScrollUpListener(this);
 		pager_header = findViewById(R.id.pager_header);
+		shoppingCar = (ImageView) findViewById(R.id.shoppingcar);
+		shoppingCar.setVisibility(View.VISIBLE);
+		shoppingCar.setOnClickListener(this);
 		
 		user = getUser();
 		goodsDao = getDaoSession().getShoppingGoodsDao();
+		goods = new ShoppingGoods();
 		findViewById(R.id.btn_attention).setOnClickListener(this);
 		findViewById(R.id.btn_share).setOnClickListener(this);
 		findViewById(R.id.back).setVisibility(View.VISIBLE);
 		findViewById(R.id.back).setOnClickListener(this);
 		findViewById(R.id.btn_pay).setOnClickListener(this);
 		findViewById(R.id.btn_shopcart).setOnClickListener(this);
+		findViewById(R.id.talk_us).setOnClickListener(this);
+		findViewById(R.id.like).setOnClickListener(this);
 	}
 
 	private void initTab() {
@@ -163,19 +184,69 @@ public class GoodsDetailActivity extends BaseActivity implements
 			break;
 
 		case R.id.btn_shopcart:
+			for(int i = 0; i < stocks.size(); i ++){
+				Stock stock = stocks.get(i);
+				if(stock.getOrMasterInv()){
+					goods.setGoodsId(stock.getId());
+					goods.setGoodsNums(1);
+					goods.setState("I");
+				}
+			}
 			if(user != null){
 				sendData();
 			}else{
+				goodsDao.insert(goods);
+//				Toast.makeText(GoodsDetailActivity.this, "已加入购物车", Toast.LENGTH_SHORT).show();
+				ToastUtils.Toast(this);
+				sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_ADD_CAR));
 			}
+			break;
+		case R.id.shoppingcar:
+			setResult(AppConstant.CAR_TO_GOODS_CODE);
+			startActivity(new Intent(this, ShoppingCarActivity.class));
+			break;
+		case R.id.talk_us:
+			   intent= new Intent();
+			   intent.setAction("android.intent.action.CALL");
+			   intent.setData(Uri.parse("tel:"+ "18511664543"));
+			   startActivity(intent);
+			break;
+		case R.id.like:
+			Toast.makeText(this, "您点击了收藏", Toast.LENGTH_SHORT).show();
 			break;
 		default:
 			break;
 		}
 	}
 
+	private ShoppingGoods goods;
 	private void sendData() {
-		// TODO Auto-generated method stub
-		
+		toObject();
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				String result = HttpUtils.post("http://172.28.3.18:9003/client/cart", array, "id-token", user.getToken());
+				HMessage hm = DataParser.paserResultMsg(result);
+				Message msg = mHandler.obtainMessage(2);
+				msg.obj = hm;
+				mHandler.sendMessage(msg);
+			}
+		}).start();
+	}
+	private JSONArray array;
+	private void toObject() {
+		try {
+			array = new JSONArray();
+				JSONObject object = new JSONObject();
+				object.put("cartId", 0);
+				object.put("skuId", goods.getGoodsId());
+				object.put("amount", goods.getGoodsNums());
+				object.put("state", goods.getState());
+				array.put(object);
+			
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private Handler mHandler = new Handler() {
@@ -189,7 +260,16 @@ public class GoodsDetailActivity extends BaseActivity implements
 						.toString());
 				initGoodsDetail(detail);
 				break;
-
+			case 2:
+				HMessage hm = (HMessage) msg.obj;
+				if(hm.getCode() == 200){
+					ToastUtils.Toast(GoodsDetailActivity.this);
+//					Toast.makeText(GoodsDetailActivity.this, "已加入购物车", Toast.LENGTH_SHORT).show();
+					sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_ADD_CAR));
+				}else{
+					Toast.makeText(GoodsDetailActivity.this, hm.getMessage(), Toast.LENGTH_SHORT).show();
+				}
+				break;
 			default:
 				break;
 			}

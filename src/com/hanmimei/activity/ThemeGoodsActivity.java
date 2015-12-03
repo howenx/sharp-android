@@ -46,7 +46,7 @@ import com.squareup.picasso.Picasso;
  *	主题商品的二级界面。
  */
 @SuppressLint("NewApi") 
-public class ThemeGoodsActivity extends BaseActivity {
+public class ThemeGoodsActivity extends BaseActivity implements OnClickListener{
 
 	private String url;
 	private ThemeAdapter adapter;
@@ -58,6 +58,7 @@ public class ThemeGoodsActivity extends BaseActivity {
 	private TextView title;
 	private TextView price;
 	private TextView header;
+	private ImageView shoppingCar;
 	private LinearLayout masterItem;
 	private FrameLayout mframeLayout;
 	private ImageLoader imageLoader;
@@ -108,17 +109,10 @@ public class ThemeGoodsActivity extends BaseActivity {
 		img = (ImageView) findViewById(R.id.img);
 		title = (TextView) findViewById(R.id.title);
 		price = (TextView) findViewById(R.id.price);
-//		header = (TextView) findViewById(R.id.header);
-//		header.setText("商品展示");
 		mframeLayout = (FrameLayout) findViewById(R.id.mframeLayout);
-//		findViewById(R.id.back).setVisibility(View.VISIBLE);
-//		findViewById(R.id.back).setOnClickListener(new OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View arg0) {
-//				finish();
-//			}
-//		});
+		shoppingCar = (ImageView) findViewById(R.id.shoppingcar);
+		shoppingCar.setVisibility(View.VISIBLE);
+		shoppingCar.setOnClickListener(this);
 	}
 	private void loadUrl() {
 		new Thread(new Runnable() {
@@ -205,6 +199,19 @@ public class ThemeGoodsActivity extends BaseActivity {
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.back:
+			finish();
+			break;
+		case R.id.shoppingcar:
+			startActivity(new Intent(this, ShoppingCarActivity.class));
+			break;
+		default:
+			break;
 		}
 	}
 	

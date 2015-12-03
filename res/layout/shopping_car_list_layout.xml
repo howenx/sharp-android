@@ -5,6 +5,12 @@
     android:layout_height="match_parent"
     android:background="@color/white">
     <include 
+        android:id="@+id/top"
+        android:layout_height="40dp"
+        android:layout_width="match_parent"
+        layout="@layout/main_header_layout"
+        android:visibility="gone"/>
+    <include 
         android:id="@+id/bottom"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
@@ -13,6 +19,7 @@
         android:visibility="gone"/>
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         	android:layout_above="@+id/bottom"
+        	android:layout_below="@id/top"
       		android:layout_width="fill_parent"
       		android:layout_height="match_parent"
       		android:cacheColorHint="#00000000"
@@ -31,6 +38,7 @@
       		android:visibility="visible"/>
     <LinearLayout 
         android:id="@+id/data_null"
+        android:layout_below="@id/top"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:orientation="vertical"
