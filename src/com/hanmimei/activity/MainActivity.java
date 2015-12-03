@@ -27,10 +27,10 @@ import com.hanmimei.utils.DoJumpUtils;
 @SuppressLint("NewApi") 
 public class MainActivity extends BaseActivity implements OnTabChangeListener, OnClickListener{
 
-	private TabHost tabHost;
+//	private TabHost tabHost;
 	private TextView header;
 	private ImageView setting;
-	private LayoutInflater inflater;
+//	private LayoutInflater inflater;
 	private static final String TAB_HOME_ID = "tab_01";
 	private static final String TAB_CAR_ID = "tab_02";
 	private static final String TAB_MY_ID = "tab_03";
@@ -40,11 +40,11 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener, O
 	private static final int home_drawable = R.drawable.tab_home;
 	private static final int shopping_drawable = R.drawable.tab_shopping;
 	private static final int my_drawable = R.drawable.tab_my;
-	private HomeFragment homeFragment;
-	private ShoppingCartFragment cartFragment;
-	private AboutMyFragment myFragment;
-	private FragmentManager fm;
-	private FragmentTransaction ft;
+//	private HomeFragment homeFragment;
+//	private ShoppingCartFragment cartFragment;
+//	private AboutMyFragment myFragment;
+//	private FragmentManager fm;
+//	private FragmentTransaction ft;
 	
 	private FragmentTabHost mTabHost;
 	
@@ -74,26 +74,26 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener, O
         TabHostManager.getInstance().initTabItem(TAB_MY_ID, my_drawable, TAB_MY, AboutMyFragment  .class);
         
     }
-	private void initFragment() {
-		fm = getSupportFragmentManager();
-		ft = fm.beginTransaction();
-		homeFragment = (HomeFragment) fm.findFragmentByTag(TAB_HOME_ID);
-		cartFragment = (ShoppingCartFragment) fm.findFragmentByTag(TAB_CAR_ID);
-		myFragment = (AboutMyFragment) fm.findFragmentByTag(TAB_MY_ID);
-		ft.commit();
-	}
-	private void initTab(String tab_id, String tab_name, int drawableId) {
-		View view = inflater.inflate(R.layout.tab_item_layout, null);
-		ImageView img = (ImageView) view.findViewById(R.id.img);
-		TextView name = (TextView) view.findViewById(R.id.name);
-		Drawable drawable = getResources().getDrawable(drawableId);
-		img.setImageDrawable(drawable);
-		name.setText(tab_name);
-		TabSpec tabSpec = tabHost.newTabSpec(tab_id);
-		tabSpec.setIndicator(view);
-		tabSpec.setContent(android.R.id.tabcontent);
-		tabHost.addTab(tabSpec);
-	}
+//	private void initFragment() {
+//		fm = getSupportFragmentManager();
+//		ft = fm.beginTransaction();
+//		homeFragment = (HomeFragment) fm.findFragmentByTag(TAB_HOME_ID);
+//		cartFragment = (ShoppingCartFragment) fm.findFragmentByTag(TAB_CAR_ID);
+//		myFragment = (AboutMyFragment) fm.findFragmentByTag(TAB_MY_ID);
+//		ft.commit();
+//	}
+//	private void initTab(String tab_id, String tab_name, int drawableId) {
+//		View view = inflater.inflate(R.layout.tab_item_layout, null);
+//		ImageView img = (ImageView) view.findViewById(R.id.img);
+//		TextView name = (TextView) view.findViewById(R.id.name);
+//		Drawable drawable = getResources().getDrawable(drawableId);
+//		img.setImageDrawable(drawable);
+//		name.setText(tab_name);
+//		TabSpec tabSpec = tabHost.newTabSpec(tab_id);
+//		tabSpec.setIndicator(view);
+//		tabSpec.setContent(android.R.id.tabcontent);
+//		tabHost.addTab(tabSpec);
+//	}
 	@Override
 	public void onTabChanged(String tabId) {
 		/** 如果当前选项卡是home */
@@ -125,10 +125,15 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener, O
 
 	//	主界面返回之后在后台运行
 	@Override  
-    public boolean onKeyDown(int keyCode, KeyEvent event) {  
-        if (keyCode == KeyEvent.KEYCODE_BACK) {  
-            moveTaskToBack(false);  
-            return true;  
+    public boolean onKeyDown(int keyCode, KeyEvent event) { 
+        if (keyCode == KeyEvent.KEYCODE_BACK) { 
+        	if(mTabHost.getCurrentTab() != 0){
+        		mTabHost.setCurrentTab(0);
+        		return false;
+        	}else{
+        		moveTaskToBack(false);  
+        		return true;  
+        	}
         }  
         return super.onKeyDown(keyCode, event);  
     }

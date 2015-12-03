@@ -182,7 +182,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 
 	};
 	private List<ShoppingGoods> list;
-	private JSONObject obj;
 	private void sendShoppingCar() {
 		user = getUser();
 		list = goodsDao.queryBuilder().build().list();

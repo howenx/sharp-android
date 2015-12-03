@@ -1,4 +1,4 @@
-package com.hanmimei.fragment;
+package com.hanmimei.activity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,8 +7,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.hanmimei.R;
-import com.hanmimei.activity.BaseActivity;
-import com.hanmimei.activity.GoodsDetailActivity;
 import com.hanmimei.adapter.ShoppingCarAdapter;
 import com.hanmimei.dao.ShoppingGoodsDao;
 import com.hanmimei.data.AppConstant;
@@ -18,28 +16,23 @@ import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.User;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ShoppingCarMenager;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-public class ShoppingCartFragment extends Fragment implements
-		OnClickListener {
+/*
+ * 同shoppingcarfragment
+ */
+public class ShoppingCarActivity extends BaseActivity implements OnClickListener{
 
 	private PullToRefreshListView mListView;
 	private RelativeLayout bottom;
@@ -50,9 +43,9 @@ public class ShoppingCartFragment extends Fragment implements
 	private TextView cut_price;
 	private TextView pay;
 	private LinearLayout no_data;
+	private FrameLayout top_bar;
 	private List<ShoppingGoods> data;
 	private ShoppingCarAdapter adapter;
-	private BaseActivity activity;
 	private User user;
 	private ShoppingGoodsDao goodsDao;
 	//
@@ -64,52 +57,33 @@ public class ShoppingCartFragment extends Fragment implements
 	private Drawable check_Drawable;
 	private Drawable uncheck_Drawable;
 	
-//	private ShoppingCarMenager menager;
-
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		activity = (BaseActivity) getActivity();
-		goodsDao = activity.getDaoSession().getShoppingGoodsDao();
+	protected void onCreate(Bundle arg0) {
+		super.onCreate(arg0);
+		setContentView(R.layout.shopping_car_list_layout);
+		getActionBar().hide();
+		goodsDao = getDaoSession().getShoppingGoodsDao();
 		data = new ArrayList<ShoppingGoods>();
-		check_Drawable = activity.getResources()
+		check_Drawable = getResources()
 				.getDrawable(R.drawable.checked);
-		uncheck_Drawable = activity.getResources().getDrawable(
+		uncheck_Drawable = getResources().getDrawable(
 				R.drawable.check_un);
-	}
-
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.shopping_car_list_layout, null);
-		findView(view);
-		registerReceivers();
-//		menager = ShoppingCarMenager.getInstance();
-		ShoppingCarMenager.getInstance().initShoppingCarMenager(check_all, goods_nums, total_price, pay_price, cut_price, no_data, bottom);
-		ShoppingCarMenager.getInstance().initDrawable(getActivity());
-		adapter = new ShoppingCarAdapter(data, getActivity());
-		mListView.setAdapter(adapter);
+		findView();
 		loadData();
-		return view;
 	}
 
 	private void loadData() {
-		user = activity.getUser();
+		user = getUser();
 		if (user != null) {
 			getNetData();
 		} else {
 			getLocalData();
 		}
-
 	}
 
 	private void getLocalData() {
 		List<ShoppingGoods> list = goodsDao.queryBuilder().build().list();
 		if (list != null && list.size() > 0) {
-//			no_data.setVisibility(View.GONE);
-//			bottom.setVisibility(View.VISIBLE);
-//			data.addAll(list);
-//			adapter.notifyDataSetChanged();
 			toJsonArray(list);
 			getData();
 		}else{
@@ -154,7 +128,6 @@ public class ShoppingCartFragment extends Fragment implements
 			}
 		}).start();
 	}
-
 	private void getNetData() {
 		new Thread(new Runnable() {
 
@@ -182,14 +155,12 @@ public class ShoppingCartFragment extends Fragment implements
 				if(car.getList() != null && car.getList().size() > 0){
 					no_data.setVisibility(View.GONE);
 					bottom.setVisibility(View.VISIBLE);
-					mListView.setVisibility(View.VISIBLE);
 					data.clear();
 					data.addAll(car.getList());
 					adapter.notifyDataSetChanged();
 				}else{
 					bottom.setVisibility(View.GONE);
 					no_data.setVisibility(View.VISIBLE);
-					mListView.setVisibility(View.GONE);
 				}
 				break;
 
@@ -199,17 +170,52 @@ public class ShoppingCartFragment extends Fragment implements
 		}
 		
 	};
-	private void findView(View view) {
-		bottom = (RelativeLayout) view.findViewById(R.id.bottom);
-		goods_nums = (TextView) view.findViewById(R.id.goods_nums);
-		total_price = (TextView) view.findViewById(R.id.total_price);
-		check_all = (ImageView) view.findViewById(R.id.all);
-		pay_price = (TextView) view.findViewById(R.id.end_price);
-		cut_price = (TextView) view.findViewById(R.id.cost_price);
-		pay = (TextView) view.findViewById(R.id.pay);
-		mListView = (PullToRefreshListView) view.findViewById(R.id.mylist);
-		no_data = (LinearLayout) view.findViewById(R.id.data_null);
+
+	private void findView() {
+		TextView title = (TextView) findViewById(R.id.header);
+		title.setText("购物车");
+		bottom = (RelativeLayout) findViewById(R.id.bottom);
+		goods_nums = (TextView) findViewById(R.id.goods_nums);
+		total_price = (TextView) findViewById(R.id.total_price);
+		check_all = (ImageView) findViewById(R.id.all);
+		pay_price = (TextView) findViewById(R.id.end_price);
+		cut_price = (TextView) findViewById(R.id.cost_price);
+		pay = (TextView) findViewById(R.id.pay);
+		mListView = (PullToRefreshListView) findViewById(R.id.mylist);
+		no_data = (LinearLayout) findViewById(R.id.data_null);
+		findViewById(R.id.top).setVisibility(View.VISIBLE);
+		findViewById(R.id.back).setVisibility(View.VISIBLE);
+		findViewById(R.id.back).setOnClickListener(this);
 		check_all.setOnClickListener(this);
+		adapter = new ShoppingCarAdapter(data, getActivity());
+		mListView.setAdapter(adapter);
+
+		ShoppingCarMenager.getInstance().initShoppingCarMenager(check_all, goods_nums, total_price, pay_price, cut_price, no_data, bottom);
+		ShoppingCarMenager.getInstance().initDrawable(getActivity());
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.all:
+			if(isSelected){
+				check_all.setImageDrawable(uncheck_Drawable);
+				clearPrice();
+				isSelected = false;
+			}else{
+				check_all.setImageDrawable(check_Drawable);
+				doPrice();
+				isSelected = true;
+			}
+			break;
+		case R.id.back:
+			//发广播  通知shoppingfragment数据发生改变
+			sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
+			finish();
+			break;
+		default:
+			break;
+		}
 	}
 
 	private void doPrice() {
@@ -236,61 +242,25 @@ public class ShoppingCartFragment extends Fragment implements
 	}
 
 	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.all:
-			if(isSelected){
-				check_all.setImageDrawable(uncheck_Drawable);
-				clearPrice();
-				isSelected = false;
-			}else{
-				check_all.setImageDrawable(check_Drawable);
-				doPrice();
-				isSelected = true;
-			}
-			break;
-
-		default:
-			break;
-		}
+	protected void onActivityResult(int requestCode, int resultCode, Intent arg2) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, arg2);
+//		if(resultCode == AppConstant.CAR_TO_GOODS_CODE){
+			loadData();
+//		}
 	}
-private CarBroadCastReceiver netReceiver;
-	
-	// 广播接收者 注册
-		private void registerReceivers() {
-			netReceiver = new CarBroadCastReceiver();
-			IntentFilter intentFilter = new IntentFilter();
-			intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_ADD_CAR);
-			intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR);
-			getActivity().registerReceiver(netReceiver, intentFilter);
-		}
-		
-		
-		
+//	主界面返回之后在后台运行
+	@Override  
+    public boolean onKeyDown(int keyCode, KeyEvent event) { 
+        if (keyCode == KeyEvent.KEYCODE_BACK) { 
+			//发广播  通知shoppingfragment数据发生改变
+        	sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
+        	finish();
+        	return false;
+        }  
+        return super.onKeyDown(keyCode, event);  
+    }
 
-		@Override
-		public void onDestroy() {
-			// TODO Auto-generated method stub
-			super.onDestroy();
-			getActivity().unregisterReceiver(netReceiver);
-		}
-
-
-
-
-		private class CarBroadCastReceiver extends BroadcastReceiver {
-
-			@Override
-			public void onReceive(Context context, Intent intent) {
-				if (intent.getAction().equals(AppConstant.MESSAGE_BROADCAST_ADD_CAR)) {
-					loadData();
-				}else if(intent.getAction().equals(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR)){
-					loadData();
-				}
-
-			}
-
-		}
 	
 
 }

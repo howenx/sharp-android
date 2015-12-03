@@ -17,6 +17,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -62,7 +63,7 @@
         <activity 
             android:name="com.hanmimei.activity.GoodsDetailActivity"
             android:theme="@style/AppThemeForGoodsDetail"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
          <activity 
             android:name="com.hanmimei.activity.OrderDetailActivity"
             android:screenOrientation="portrait" />
@@ -84,6 +85,10 @@
          <activity 
             android:name="com.hanmimei.activity.GoodsBalanceActivity"
             android:screenOrientation="portrait" />
+         <activity 
+            android:name="com.hanmimei.activity.ShoppingCarActivity"
+            android:screenOrientation="portrait"  
+            android:launchMode="singleTask"/>
     </application>
 
 </manifest>

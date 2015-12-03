@@ -20,6 +20,14 @@
         android:layout_gravity="right|center_vertical"
         android:src="@drawable/icon_setting"
         android:visibility="gone"/>
+     <ImageView 
+        android:id="@+id/shoppingcar"
+        android:layout_marginRight="10dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_gravity="right|center_vertical"
+        android:src="@drawable/white_shoppingcar"
+        android:visibility="gone"/>
 	<ImageView 
 	    android:id="@+id/back"
 	    android:layout_marginLeft="10dp"
