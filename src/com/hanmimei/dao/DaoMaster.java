@@ -7,8 +7,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import de.greenrobot.dao.AbstractDaoMaster;
 import de.greenrobot.dao.identityscope.IdentityScopeType;
-
-import com.hanmimei.dao.AdressDao;
 import com.hanmimei.dao.ShoppingGoodsDao;
 import com.hanmimei.dao.SliderDao;
 import com.hanmimei.dao.ThemeDao;
@@ -21,7 +19,7 @@ import com.hanmimei.dao.UserDao;
  * Master of DAO (schema version 1): knows all DAOs.
 */
 public class DaoMaster extends AbstractDaoMaster {
-    public static final int SCHEMA_VERSION = 8;
+    public static final int SCHEMA_VERSION = 11;
 
     /** Creates underlying database table using DAOs. */
     public static void createAllTables(SQLiteDatabase db, boolean ifNotExists) {
@@ -29,7 +27,6 @@ public class DaoMaster extends AbstractDaoMaster {
         ThemeItemDao.createTable(db, ifNotExists);
         SliderDao.createTable(db, ifNotExists);
         TicketDao.createTable(db, ifNotExists);
-        AdressDao.createTable(db, ifNotExists);
         UserDao.createTable(db, ifNotExists);
         ShoppingGoodsDao.createTable(db, ifNotExists);
     }
@@ -40,7 +37,6 @@ public class DaoMaster extends AbstractDaoMaster {
         ThemeItemDao.dropTable(db, ifExists);
         SliderDao.dropTable(db, ifExists);
         TicketDao.dropTable(db, ifExists);
-        AdressDao.dropTable(db, ifExists);
         UserDao.dropTable(db, ifExists);
         ShoppingGoodsDao.dropTable(db, ifExists);
     }
@@ -78,7 +74,6 @@ public class DaoMaster extends AbstractDaoMaster {
         registerDaoClass(ThemeItemDao.class);
         registerDaoClass(SliderDao.class);
         registerDaoClass(TicketDao.class);
-        registerDaoClass(AdressDao.class);
         registerDaoClass(UserDao.class);
         registerDaoClass(ShoppingGoodsDao.class);
     }

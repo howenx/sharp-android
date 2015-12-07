@@ -12,23 +12,15 @@
         android:gravity="center_horizontal">
     <com.hanmimei.view.RoundImageView 
         android:id="@+id/header"
+        android:layout_marginTop="10dp"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:src="@drawable/ic_launcher"/>
 
-    <TextView
-        android:id="@+id/do_authenticate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
-        android:text="未登录"
-        android:textSize="12sp"
-        android:textColor="@color/white" />
-
     <TextView 
         android:id="@+id/user_name"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="点击登录"
@@ -53,6 +45,7 @@
 	    android:layout_height="wrap_content"
 	    android:text="    优惠券"
 	    style="@style/wode_font_style"/>
+	<!-- 
 	<TextView 
 	    android:id="@+id/shenfenzheng"
 	    android:layout_marginTop="15dp"
@@ -61,6 +54,7 @@
 	    android:layout_height="wrap_content"
 	    android:text="    补填身份证"
 	   style="@style/wode_font_style"/>
+	    -->
 	<TextView 
 	    android:id="@+id/address"
 	    android:layout_marginTop="15dp"
@@ -69,6 +63,7 @@
 	    android:layout_height="wrap_content"
 	    android:text="    管理收获地址"
 	    style="@style/wode_font_style"/>
+	<!--  
 		<TextView 
 	    android:id="@+id/about_card"
 	    android:layout_marginTop="15dp"
@@ -77,4 +72,5 @@
 	    android:layout_height="wrap_content"
 	    android:text="    关于身份证"
 	    style="@style/wode_font_style"/>
+	    -->
 </LinearLayout>

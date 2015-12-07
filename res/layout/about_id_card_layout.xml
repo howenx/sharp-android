@@ -3,10 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <include 
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        layout="@layout/main_header_layout"/>
     <TextView 
         android:id="@+id/about_card"
         android:layout_marginLeft="15dp"

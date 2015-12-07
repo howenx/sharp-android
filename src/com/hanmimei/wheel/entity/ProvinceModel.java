@@ -4,16 +4,26 @@ import java.util.List;
 
 public class ProvinceModel {
 	private String name;
+	private String enName;
 	private List<CityModel> cityList;
 	
 	public ProvinceModel() {
 		super();
 	}
 
-	public ProvinceModel(String name, List<CityModel> cityList) {
+	public ProvinceModel(String name, String enName, List<CityModel> cityList) {
 		super();
 		this.name = name;
+		this.enName = enName;
 		this.cityList = cityList;
+	}
+
+	public String getEnName() {
+		return enName;
+	}
+
+	public void setEnName(String enName) {
+		this.enName = enName;
 	}
 
 	public String getName() {

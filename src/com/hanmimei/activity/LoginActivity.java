@@ -143,12 +143,12 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 				Result result = (Result) msg.obj;
 				if (result.isSuccess() == true) {
 					User user = new User();
-					user.setUserId(100001);
-					user.setUserName("福建一只肖毛驴");
+					user.setUserId(0);
+//					user.setUserName("福建一只肖毛驴");
 					user.setToken(result.getTag());
 					user.setIsBind(false);
 					user.setExpired(DateUtil.turnToDate(result.getTime()));
-					user.setUserImg("http://img5.duitang.com/uploads/item/201411/30/20141130201227_AfQWu.thumb.700_0.jpeg");
+//					user.setUserImg("http://img5.duitang.com/uploads/item/201411/30/20141130201227_AfQWu.thumb.700_0.jpeg");
 					user.setLast_login(DateUtil.getCurrentDate());
 					MyApplication application = (MyApplication) getApplication();
 					application.setLoginUser(user);

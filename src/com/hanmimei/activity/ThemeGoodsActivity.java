@@ -68,14 +68,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.theme_layout);
-		ActionBarUtil.setActionBarStyle(this, "商品展示",R.drawable.white_shoppingcar,new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
+		ActionBarUtil.setActionBarStyle(this, "商品展示",R.drawable.white_shoppingcar, true, this);
 //		getActionBar().hide();
 		itemDao = getDaoSession().getThemeItemDao();
 		url = getIntent().getStringExtra("url");
@@ -110,9 +103,9 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener{
 		title = (TextView) findViewById(R.id.title);
 		price = (TextView) findViewById(R.id.price);
 		mframeLayout = (FrameLayout) findViewById(R.id.mframeLayout);
-		shoppingCar = (ImageView) findViewById(R.id.shoppingcar);
-		shoppingCar.setVisibility(View.VISIBLE);
-		shoppingCar.setOnClickListener(this);
+//		shoppingCar = (ImageView) findViewById(R.id.shoppingcar);
+//		shoppingCar.setVisibility(View.VISIBLE);
+//		shoppingCar.setOnClickListener(this);
 	}
 	private void loadUrl() {
 		new Thread(new Runnable() {
@@ -144,7 +137,6 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener{
 				}
 				
 				break;
-
 			default:
 				break;
 			}
@@ -158,8 +150,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener{
 		masterItem.setVisibility(View.VISIBLE);
 		Picasso.with(this).load(themeItem.getItemMasterImg()).resize(CommonUtil.getScreenWidth(this),CommonUtil.getScreenWidth(this)/2).into(img);
 		title.setText(themeItem.getItemTitle());
-		price.setText("US ¥ " + themeItem.getItemPrice());
-		
+		price.setText("¥ " + themeItem.getItemPrice());
 		img.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -204,10 +195,10 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener{
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.back:
-			finish();
-			break;
-		case R.id.shoppingcar:
+//		case R.id.back:
+//			finish();
+//			break;
+		case R.id.setting:
 			startActivity(new Intent(this, ShoppingCarActivity.class));
 			break;
 		default:

@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.hanmimei.entity.Adress;
+import com.hanmimei.entity.Customs;
 import com.hanmimei.entity.GoodsDetail;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.Order;
@@ -20,6 +21,7 @@ import com.hanmimei.entity.Theme;
 import com.hanmimei.entity.ThemeDetail;
 import com.hanmimei.entity.ThemeItem;
 import com.hanmimei.entity.GoodsDetail.ItemFeature;
+import com.hanmimei.entity.User;
 
 public class DataParser {
 	public static List<Theme> parserHome(String result) {
@@ -136,6 +138,10 @@ public class DataParser {
 					adress.setCity(obj.getString("deliveryCity"));
 				if (obj.has("deliveryDetail"))
 					adress.setAdress(obj.getString("deliveryDetail"));
+				if(obj.has("idCardNum"))
+					adress.setIdCard(obj.getString("idCardNum"));
+				if(obj.has("orDefault"))
+					adress.setDefault(obj.getBoolean("orDefault"));
 				list.add(adress);
 			}
 		} catch (JSONException e) {
@@ -360,57 +366,73 @@ public class DataParser {
 	}
 	public static ShoppingCar parserShoppingCar(String result){
 		ShoppingCar car = new ShoppingCar();
-		List<ShoppingGoods> list = new ArrayList<ShoppingGoods>();
+		List<Customs> customs = new ArrayList<Customs>();
 		HMessage msg = new HMessage();
 		try {
 			JSONObject object = new JSONObject(result);
 			JSONArray array = object.getJSONArray("cartList");
 			for(int i = 0; i < array.length(); i ++){
 				JSONObject obj = array.getJSONObject(i);
-				ShoppingGoods goods = new ShoppingGoods();
-				if(obj.has("cartId"))
-					goods.setCartId(obj.getInt("cartId"));
-				if(obj.has("skuId"))
-					goods.setGoodsId(obj.getInt("skuId"));
-				if(obj.has("amount"))
-					goods.setGoodsNums(obj.getInt("amount"));
-				if(obj.has("itemColor"))
-					goods.setItemColor(obj.getString("itemColor"));
-				if(obj.has("itemSize"))
-					goods.setItemSize(obj.getString("itemSize"));
-				if(obj.has("itemPrice"))
-					goods.setGoodsPrice(obj.getInt("itemPrice"));
-				if(obj.has("state")){
-					if(obj.getString("state").equals("G")){
-						goods.setState("I");
-					}else{
-						goods.setState(obj.getString("state"));
-					}
-				}
-				if(obj.has("shipFee"))
-					goods.setShipFee(obj.getInt("shipFee"));
+				List<ShoppingGoods> list = new ArrayList<ShoppingGoods>();
+				Customs custom = new Customs();
+				if(obj.has("invCustoms"))
+					custom.setInvCustoms(obj.getString("invCustoms"));
 				if(obj.has("invArea"))
-					goods.setInvArea(obj.getString("invArea"));
-				if(obj.has("restrictAmount"))
-					goods.setRestrictAmount(obj.getInt("restrictAmount"));
-				if(obj.has("restAmount"))
-					goods.setRestAmount(obj.getInt("restAmount"));
-				if(obj.has("invImg"))
-					goods.setGoodsImg(obj.getString("invImg"));
-				if(obj.has("invUrl"))
-					goods.setGoodsUrl(obj.getString("invUrl"));
-				if(obj.has("invTitle"))
-					goods.setGoodsName(obj.getString("invTitle"));
-				if(obj.has("cartDelUrl"))
-					goods.setDelUrl(obj.getString("cartDelUrl"));
-				list.add(goods);
+					custom.setInvArea(obj.getString("invArea"));
+				JSONArray cartsArray = obj.getJSONArray("carts");
+				for(int j = 0; j < cartsArray.length(); j ++){
+					JSONObject goodsObject = cartsArray.getJSONObject(j);
+					ShoppingGoods goods = new ShoppingGoods();
+					if(goodsObject.has("cartId"))
+						goods.setCartId(goodsObject.getInt("cartId"));
+					if(goodsObject.has("skuId"))
+						goods.setGoodsId(goodsObject.getInt("skuId"));
+					if(goodsObject.has("amount"))
+						goods.setGoodsNums(goodsObject.getInt("amount"));
+					if(goodsObject.has("itemColor"))
+						goods.setItemColor(goodsObject.getString("itemColor"));
+					if(goodsObject.has("itemSize"))
+						goods.setItemSize(goodsObject.getString("itemSize"));
+					if(goodsObject.has("itemPrice"))
+						goods.setGoodsPrice(goodsObject.getInt("itemPrice"));
+					if(goodsObject.has("state")){
+						if(goodsObject.getString("state").equals("G")){
+							goods.setState("I");
+						}else{
+							goods.setState(goodsObject.getString("state"));
+						}
+					}
+					if(goodsObject.has("shipFee"))
+						goods.setShipFee(goodsObject.getInt("shipFee"));
+					if(goodsObject.has("invArea"))
+						goods.setInvArea(goodsObject.getString("invArea"));
+					if(goodsObject.has("restrictAmount"))
+						goods.setRestrictAmount(goodsObject.getInt("restrictAmount"));
+					if(goodsObject.has("restAmount"))
+						goods.setRestAmount(goodsObject.getInt("restAmount"));
+					if(goodsObject.has("invImg"))
+						goods.setGoodsImg(goodsObject.getString("invImg"));
+					if(goodsObject.has("invUrl"))
+						goods.setGoodsUrl(goodsObject.getString("invUrl"));
+					if(goodsObject.has("invTitle"))
+						goods.setGoodsName(goodsObject.getString("invTitle"));
+					if(goodsObject.has("cartDelUrl"))
+						goods.setDelUrl(goodsObject.getString("cartDelUrl"));
+					if(goodsObject.has("invCustoms"))
+						goods.setInvCustoms(goodsObject.getString("invCustoms"));
+					if(goodsObject.has("postalTaxRate"))
+						goods.setPostalTaxRate(goodsObject.getString("postalTaxRate"));
+					list.add(goods);
+				}
+				custom.setList(list);
+				customs.add(custom);
 			}
 			JSONObject msgObject = object.getJSONObject("message");
 			if(msgObject.has("message"))
 				msg.setMessage(msgObject.getString("message"));
 			if(msgObject.has("code"))
 				msg.setCode(msgObject.getInt("code"));
-			car.setList(list);
+			car.setList(customs);
 			car.setMessage(msg);
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -431,6 +453,24 @@ public class DataParser {
 		}
 		return msg;
 		
+	}
+
+	public static User parserUserInfo(String result) {
+		User user = new User();
+		try {
+			JSONObject object = new JSONObject(result);
+			JSONObject obj = object.getJSONObject("userInfo");
+			if(obj.has("name"))
+				user.setUserName(obj.getString("name"));
+			if(obj.has("photo"))
+				user.setUserImg(obj.getString("photo"));
+			if(obj.has("phoneNum"))
+				user.setPhone(obj.getString("phoneNum"));
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return user;
 	}
 	
 }

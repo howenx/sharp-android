@@ -74,7 +74,7 @@ public class ThemeAdapter extends BaseAdapter {
 		holder.img.setLayoutParams(params);
 		imageLoader.displayImage(theme.getItemImg(), holder.img,imageOptions);
 		holder.title.setText(theme.getItemTitle());
-		holder.price.setText("US ¥ "+theme.getItemPrice());
+		holder.price.setText("¥ "+theme.getItemPrice());
 		
 		return convertView;
 	}

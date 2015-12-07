@@ -61,7 +61,6 @@ public class ShoppingCarActivity extends BaseActivity implements OnClickListener
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.shopping_car_list_layout);
-		getActionBar().hide();
 		goodsDao = getDaoSession().getShoppingGoodsDao();
 		data = new ArrayList<ShoppingGoods>();
 		check_Drawable = getResources()
@@ -156,7 +155,7 @@ public class ShoppingCarActivity extends BaseActivity implements OnClickListener
 					no_data.setVisibility(View.GONE);
 					bottom.setVisibility(View.VISIBLE);
 					data.clear();
-					data.addAll(car.getList());
+//					data.addAll(car.getList());
 					adapter.notifyDataSetChanged();
 				}else{
 					bottom.setVisibility(View.GONE);
@@ -190,7 +189,7 @@ public class ShoppingCarActivity extends BaseActivity implements OnClickListener
 		adapter = new ShoppingCarAdapter(data, getActivity());
 		mListView.setAdapter(adapter);
 
-		ShoppingCarMenager.getInstance().initShoppingCarMenager(check_all, goods_nums, total_price, pay_price, cut_price, no_data, bottom);
+//		ShoppingCarMenager.getInstance().initShoppingCarMenager(check_all, goods_nums, total_price, pay_price, cut_price, no_data, bottom);
 		ShoppingCarMenager.getInstance().initDrawable(getActivity());
 	}
 

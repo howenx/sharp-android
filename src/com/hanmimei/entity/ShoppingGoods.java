@@ -26,6 +26,8 @@ public class ShoppingGoods {
     private String invArea;
     private Integer restrictAmount;
     private Integer restAmount;
+    private String postalTaxRate;
+    private String invCustoms;
 
     // KEEP FIELDS - put your custom fields here
     // KEEP FIELDS END
@@ -36,13 +38,8 @@ public class ShoppingGoods {
     public ShoppingGoods(Long id) {
         this.id = id;
     }
-    public ShoppingGoods(Integer cartId, Integer goodsId, String state, Integer goodsNums) {
-        this.cartId = cartId;
-        this.goodsId = goodsId;
-        this.state = state;
-        this.goodsNums = goodsNums;
-    }
-    public ShoppingGoods(Long id, Integer cartId, Integer goodsId, String goodsImg, String goodsUrl, String goodsName, Integer goodsPrice, Boolean isChecked, String state, Integer goodsNums, String itemColor, String itemSize, Integer shipFee, String delUrl, String invArea, Integer restrictAmount, Integer restAmount) {
+
+    public ShoppingGoods(Long id, Integer cartId, Integer goodsId, String goodsImg, String goodsUrl, String goodsName, Integer goodsPrice, Boolean isChecked, String state, Integer goodsNums, String itemColor, String itemSize, Integer shipFee, String delUrl, String invArea, Integer restrictAmount, Integer restAmount, String postalTaxRate, String invCustoms) {
         this.id = id;
         this.cartId = cartId;
         this.goodsId = goodsId;
@@ -60,6 +57,8 @@ public class ShoppingGoods {
         this.invArea = invArea;
         this.restrictAmount = restrictAmount;
         this.restAmount = restAmount;
+        this.postalTaxRate = postalTaxRate;
+        this.invCustoms = invCustoms;
     }
 
     public Long getId() {
@@ -196,6 +195,22 @@ public class ShoppingGoods {
 
     public void setRestAmount(Integer restAmount) {
         this.restAmount = restAmount;
+    }
+
+    public String getPostalTaxRate() {
+        return postalTaxRate;
+    }
+
+    public void setPostalTaxRate(String postalTaxRate) {
+        this.postalTaxRate = postalTaxRate;
+    }
+
+    public String getInvCustoms() {
+        return invCustoms;
+    }
+
+    public void setInvCustoms(String invCustoms) {
+        this.invCustoms = invCustoms;
     }
 
     // KEEP METHODS - put your custom methods here

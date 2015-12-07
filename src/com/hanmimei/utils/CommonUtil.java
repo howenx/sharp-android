@@ -31,6 +31,7 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
@@ -525,6 +526,10 @@ public class CommonUtil {
 		params.width = screenWidth;
 		img.setLayoutParams(params);
 		imageLoader.displayImage(url, img, imageOptions);
+	}
+	public static int dp2px(Context context, int dp) {
+		return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
+				context.getResources().getDisplayMetrics());
 	}
 	
 }

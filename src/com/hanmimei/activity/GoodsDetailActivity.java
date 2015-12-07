@@ -96,7 +96,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
-		ActionBarUtil.setActionBarStyle(this, "商品详情");
+		ActionBarUtil.setActionBarStyle(this, "商品详情", R.drawable.white_shoppingcar, true, this);
 		setContentView(R.layout.goods_detail_layout);
 		findView(arg0);
 		initTab();
@@ -123,17 +123,17 @@ public class GoodsDetailActivity extends BaseActivity implements
 		mScrollView = (CustomScrollView) findViewById(R.id.mScrollView);
 		mScrollView.setOnScrollUpListener(this);
 		pager_header = findViewById(R.id.pager_header);
-		shoppingCar = (ImageView) findViewById(R.id.shoppingcar);
-		shoppingCar.setVisibility(View.VISIBLE);
-		shoppingCar.setOnClickListener(this);
+//		shoppingCar = (ImageView) findViewById(R.id.shoppingcar);
+//		shoppingCar.setVisibility(View.VISIBLE);
+//		shoppingCar.setOnClickListener(this);
 		
 		user = getUser();
 		goodsDao = getDaoSession().getShoppingGoodsDao();
 		goods = new ShoppingGoods();
 		findViewById(R.id.btn_attention).setOnClickListener(this);
 		findViewById(R.id.btn_share).setOnClickListener(this);
-		findViewById(R.id.back).setVisibility(View.VISIBLE);
-		findViewById(R.id.back).setOnClickListener(this);
+//		findViewById(R.id.back).setVisibility(View.VISIBLE);
+//		findViewById(R.id.back).setOnClickListener(this);
 		findViewById(R.id.btn_pay).setOnClickListener(this);
 		findViewById(R.id.btn_shopcart).setOnClickListener(this);
 		findViewById(R.id.talk_us).setOnClickListener(this);
@@ -201,7 +201,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 				sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_ADD_CAR));
 			}
 			break;
-		case R.id.shoppingcar:
+		case R.id.setting:
 			setResult(AppConstant.CAR_TO_GOODS_CODE);
 			startActivity(new Intent(this, ShoppingCarActivity.class));
 			break;

@@ -33,7 +33,6 @@ public class FirstShowActivity extends BaseActivity {
 		setContentView(R.layout.first_show_layout);
 		//判断是否自动登录，以及更新token
 		loginUser();
-		initShoppingCar();
 		//判断是否是第一次进入app
 		SharedPreferencesUtil util = new SharedPreferencesUtil(
 				FirstShowActivity.this, FIRST);
@@ -60,17 +59,6 @@ public class FirstShowActivity extends BaseActivity {
 		}
 	}
 
-	private void initShoppingCar() {
-		ShoppingGoodsDao goodsDao = getDaoSession().getShoppingGoodsDao();
-		List<ShoppingGoods> list = new ArrayList<ShoppingGoods>();
-		list.add(new ShoppingGoods(0, 100243, "I", 5));
-		list.add(new ShoppingGoods(0, 100249, "I", 2));
-		list.add(new ShoppingGoods(0, 100237, "I", 1));
-		list.add(new ShoppingGoods(0, 100003, "I", 1));
-		goodsDao.deleteAll();
-		goodsDao.insertInTx(list);
-	}
-
 	private void loginUser() {
 		userDao = getDaoSession().getUserDao();
 		user = userDao.queryBuilder().build().unique();
@@ -79,7 +67,7 @@ public class FirstShowActivity extends BaseActivity {
 		if(difDay < 24 && difDay >=0){
 			getNewToken();
 		}else if(difDay <0){
-			
+			userDao.deleteAll();
 		}else{
 			application = (MyApplication) getApplication();
 			application.setLoginUser(user);
@@ -88,8 +76,19 @@ public class FirstShowActivity extends BaseActivity {
 	}
 
 	private void getNewToken() {
-		// TODO Auto-generated method stub
-		
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				try {
+					Thread.sleep(1000);
+					Message msg = mHandler.obtainMessage(2);
+					mHandler.sendMessage(msg);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
 	}
 
 	private Handler mHandler = new Handler() {
@@ -103,7 +102,9 @@ public class FirstShowActivity extends BaseActivity {
 						MainActivity.class));
 				finish();
 				break;
-
+			case 2:
+				
+				break;
 			default:
 				break;
 			}

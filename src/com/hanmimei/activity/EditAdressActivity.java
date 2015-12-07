@@ -2,7 +2,6 @@ package com.hanmimei.activity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import com.hanmimei.R;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
@@ -15,7 +14,6 @@ import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.wheel.widget.OnWheelChangedListener;
 import com.hanmimei.wheel.widget.WheelView;
 import com.hanmimei.wheel.widget.adapter.ArrayWheelAdapter;
-
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -28,9 +26,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,17 +38,21 @@ import android.widget.Toast;
 @SuppressLint("NewApi") 
 public class EditAdressActivity extends BaseActivity implements OnClickListener,OnWheelChangedListener{
 	
-	private TextView header;
-	private ImageView back;
+//	private TextView header;
+//	private ImageView back;
 	private EditText name_edit;
 	private EditText phone_edit;
-	private EditText city_edit;
+	private EditText idCard_edit;
+	private TextView city_edit;
 	private EditText adress_edit;
 	private TextView add_adre;
+	private CheckBox check_box;
 	private String name;
 	private String phone;
 	private String city;
 	private String address;
+	private String idCard;
+	private boolean isDefaut = false;
 	private Adress old_Adress;
 	private int isWhat;
 	private JSONObject object;
@@ -115,6 +119,7 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 	private void updateCities() {
 		int pCurrent = mViewProvince.getCurrentItem();
 		mCurrentProviceName = mProvinceDatas[pCurrent];
+		mCurrentProviceEnName = mProvinceEnDatas[pCurrent];
 		String[] cities = mCitisDatasMap.get(mCurrentProviceName);
 		if (cities == null) {
 			cities = new String[] { "" };
@@ -143,16 +148,31 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 		phone_edit.setText(old_Adress.getPhone());
 		city_edit.setText(old_Adress.getCity());
 		adress_edit.setText(old_Adress.getAdress());
+		idCard_edit.setText(old_Adress.getIdCard());
+		if(old_Adress.isDefault()){
+			check_box.setSelected(true);
+		}else{
+			check_box.setSelected(false);
+		}
 	}
 
 	private void findView() {
-		
+		add_adre = (TextView) findViewById(R.id.add);
 		name_edit = (EditText) findViewById(R.id.name);
 		phone_edit = (EditText) findViewById(R.id.phone);
-		city_edit = (EditText) findViewById(R.id.city);
+		city_edit = (TextView) findViewById(R.id.city);
 		adress_edit = (EditText) findViewById(R.id.address);
-		city_edit.setOnClickListener(this);
-		findViewById(R.id.add).setOnClickListener(this);
+		idCard_edit = (EditText) findViewById(R.id.card);
+		check_box = (CheckBox) findViewById(R.id.btn_dufault);
+		check_box.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			
+			@Override
+			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+				isDefaut = arg1;
+			}
+		});
+//		city_edit.setOnClickListener(this);
+		add_adre.setOnClickListener(this);
 		findViewById(R.id.show).setOnClickListener(this);
 	}
 
@@ -165,9 +185,8 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 		case R.id.add:
 			checkInfo();
 			break;
-		case R.id.city:
-			
 		case R.id.show:
+			CommonUtil.closeBoard(this);
 			parenView = LayoutInflater.from(this).inflate(R.layout.edit_adress_layout, null);
 			pop.showAtLocation(parenView, Gravity.BOTTOM, 0, 0);
 			break;
@@ -209,6 +228,8 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 		phone = phone_edit.getText().toString();
 		city = city_edit.getText().toString();
 		address = adress_edit.getText().toString();
+		idCard = idCard_edit.getText().toString();
+		
 		if(name.equals("")){
 			Toast.makeText(this, "请输入姓名", Toast.LENGTH_SHORT).show();
 			return;
@@ -224,6 +245,9 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 		}else if(!CommonUtil.isPhoneNum(phone)){
 			Toast.makeText(this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
 			return;
+		}else if(idCard.equals("")){
+			Toast.makeText(this, "请输入正确的身份证号", Toast.LENGTH_SHORT).show();
+			return;
 		}else{
 			toObject();
 			addNewAdress();
@@ -234,10 +258,19 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 		try {
 			if(isWhat == 1)
 				object.put("addId", old_Adress.getAdress_id());
+			JSONObject cityObject = new JSONObject();
+			cityObject.put("province", mCurrentProviceName);
+			cityObject.put("city", mCurrentCityName);
+			cityObject.put("area", mCurrentDistrictName);
+			cityObject.put("area_code", null);
+			cityObject.put("city_code", null);
+			cityObject.put("province_code", mCurrentProviceEnName);
 			object.put("tel", phone);
 			object.put("name", name);
-			object.put("deliveryCity", city);
+			object.put("deliveryCity", cityObject.toString());
 			object.put("deliveryDetail", address);
+			object.put("orDefault", isDefaut);
+			object.put("idCardNum", idCard);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -277,6 +310,7 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 					new_Adress.setCity(city);
 					new_Adress.setAdress(address);
 					new_Adress.setPhone(phone);
+					new_Adress.setIdCard(idCard);
 					Bundle bundle = new Bundle();
 					bundle.putSerializable("address", new_Adress);
 					Intent intent = new Intent();
