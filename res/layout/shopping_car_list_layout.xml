@@ -15,8 +15,8 @@
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        layout="@layout/shopping_car_bottom_layout"
-        android:visibility="gone"/>
+        layout="@layout/shopping_car_bottom_new"
+        android:visibility="visible"/>
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         	android:layout_above="@+id/bottom"
         	android:layout_below="@id/top"
@@ -33,7 +33,7 @@
       		android:smoothScrollbar="true"
       		android:id="@+id/mylist"
       		ptr:ptrShowIndicator="false"
-      		ptr:ptrDrawable="@drawable/ic_launcher"
+      		ptr:ptrDrawable="@drawable/refreshing"
       		android:background="@color/white"
       		android:visibility="visible"/>
     <LinearLayout 

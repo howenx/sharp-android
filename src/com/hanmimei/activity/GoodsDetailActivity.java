@@ -8,10 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
@@ -40,13 +37,13 @@ import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.entity.BitmapInfo;
 import com.hanmimei.entity.Category;
+import com.hanmimei.entity.Customs;
 import com.hanmimei.entity.GoodsDetail;
 import com.hanmimei.entity.GoodsDetail.Main;
 import com.hanmimei.entity.GoodsDetail.Stock;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
-import com.hanmimei.entity.Sku;
 import com.hanmimei.entity.Tag;
 import com.hanmimei.entity.User;
 import com.hanmimei.fragment.goodstab.ImgFragment;
@@ -60,7 +57,6 @@ import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.CustomScrollView;
 import com.hanmimei.view.TagCloudView;
 import com.hanmimei.view.TagCloudView.OnTagClickListener;
-import com.viewpagerindicator.TabPageIndicator;
 
 @SuppressLint("NewApi")
 public class GoodsDetailActivity extends BaseActivity implements
@@ -87,7 +83,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
-		ActionBarUtil.setActionBarStyle(this, "商品详情", R.drawable.white_shoppingcar, this);
+		ActionBarUtil.setActionBarStyle(this, "商品详情", R.drawable.white_shoppingcar, true, this);
 		setContentView(R.layout.goods_detail_layout);
 		findView(arg0);
 		loadDataByUrl();
@@ -156,6 +152,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 				return;
 			}
 			ShoppingCar car = new ShoppingCar();
+			List<Customs> list =new ArrayList<Customs>();
+			Customs customs = new Customs();
+			
 			ShoppingGoods sgoods = null;
 			for(Stock s :stocks){
 				if(s.getOrMasterInv()){
@@ -165,9 +164,15 @@ public class GoodsDetailActivity extends BaseActivity implements
 					sgoods.setGoodsName(s.getInvTitle());
 					sgoods.setGoodsNums(1);
 					sgoods.setGoodsPrice(s.getItemPrice().intValue());
-					car.addShoppingGoods(sgoods);
+					sgoods.setInvArea(s.getInvArea());
+					sgoods.setInvCustoms(s.getInvCustom());
+					customs.setInvArea(s.getInvArea());
+					customs.setInvCustoms(s.getInvCustom());
+					customs.addShoppingGoods(sgoods);
 				}
 			}
+			list.add(customs);
+			car.setList(list);
 			car.setAllPrice(sgoods.getGoodsPrice());
 			Intent intent  = new Intent(this, GoodsBalanceActivity.class);
 			intent.putExtra("car", car);

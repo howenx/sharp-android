@@ -2,6 +2,10 @@ package com.hanmimei.adapter;
 
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -22,7 +26,9 @@ import com.hanmimei.activity.GoodsDetailActivity;
 import com.hanmimei.dao.ShoppingGoodsDao;
 import com.hanmimei.dao.ShoppingGoodsDao.Properties;
 import com.hanmimei.data.DataParser;
+import com.hanmimei.entity.Goods;
 import com.hanmimei.entity.HMessage;
+import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.User;
 import com.hanmimei.utils.HttpUtils;
@@ -159,10 +165,13 @@ public class ShoppingCarAdapter extends BaseAdapter {
 					// notifyDataSetChanged();
 					upGoods(goods);
 				} else {
-					goodsDao.deleteAll();
 					goods.setGoodsNums(goods.getGoodsNums() + 1);
-					notifyDataSetChanged();
-					goodsDao.insertInTx(data);
+					// notifyDataSetChanged();
+					upGoodsN(goods);
+//					goodsDao.deleteAll();
+//					goods.setGoodsNums(goods.getGoodsNums() + 1);
+//					notifyDataSetChanged();
+//					goodsDao.insertInTx(data);
 				}
 			}
 		});
@@ -231,38 +240,44 @@ public class ShoppingCarAdapter extends BaseAdapter {
 
 	// 更新购物车 商品状态
 	private void upGoods(final ShoppingGoods goods) {
-		// final JSONArray array = new JSONArray();
-		// JSONObject object = new JSONObject();
-		// try {
-		// object.put("cartId", goods.getCartId());
-		// object.put("skuId", goods.getGoodsId());
-		// object.put("amount", goods.getGoodsNums());
-		// object.put("state", goods.getState());
-		// array.put(object);
-		// } catch (JSONException e) {
-		// e.printStackTrace();
-		// }
+		 final JSONArray array = new JSONArray();
+		 JSONObject object = new JSONObject();
+		 try {
+		 object.put("cartId", goods.getCartId());
+		 object.put("skuId", goods.getGoodsId());
+		 object.put("amount", goods.getGoodsNums());
+		 object.put("state", "I");
+		 array.put(object);
+		 } catch (JSONException e) {
+		 e.printStackTrace();
+		 }
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				// String result =
-				// HttpUtils.post("http://172.28.3.18:9003/client/cart", array,
-				// "id-token", user.getToken());
-				// ShoppingCar car = DataParser.parserShoppingCar(result);
-				String result = HttpUtils
-						.get("http://172.28.3.18:9003/client/cart/verify/amount/"
-								+ goods.getGoodsId()
-								+ "/"
-								+ goods.getGoodsNums());
-				HMessage hm = DataParser.paserResultMsg(result);
-				Message msg = mHandler.obtainMessage(2);
-				// msg.obj = car;
-				msg.obj = hm;
-				mHandler.sendMessage(msg);
+				 String result =
+				 HttpUtils.post("http://172.28.3.18:9003/client/cart", array,
+				 "id-token", user.getToken());
+				 ShoppingCar car = DataParser.parserShoppingCar(result);
+				 Message msg = mHandler.obtainMessage(3);
+					// msg.obj = car;
+					msg.obj = car;
+					mHandler.sendMessage(msg);
 			}
 		}).start();
 	}
+	private void upGoodsN(final ShoppingGoods goods){
 
+		String result = HttpUtils
+				.get("http://172.28.3.51:9003/client/cart/verify/amount/"
+						+ goods.getGoodsId()
+						+ "/"
+						+ goods.getGoodsNums());
+		HMessage hm = DataParser.paserResultMsg(result);
+		Message msg = mHandler.obtainMessage(2);
+		// msg.obj = car;
+		msg.obj = hm;
+		mHandler.sendMessage(msg);
+	}
 	private Handler mHandler = new Handler() {
 
 		@Override
@@ -287,20 +302,12 @@ public class ShoppingCarAdapter extends BaseAdapter {
 				}
 				break;
 			case 2:
-				// ShoppingCar car = (ShoppingCar) msg.obj;
-				// if(car != null){
-				// if(car.getMessage().getCode() == 200){
-				// data.clear();
-				// data.addAll(car.getList());
-				// notifyDataSetChanged();
-				// }else{
-				//
-				// }
-				// }
 				HMessage hmm = (HMessage) msg.obj;
 				if (hmm != null) {
 					if (hmm.getCode() == 200) {
 						notifyDataSetChanged();
+						goodsDao.deleteAll();
+						goodsDao.insertInTx(data);
 					} else {
 						Toast.makeText(activity, hmm.getMessage(),
 								Toast.LENGTH_SHORT).show();
@@ -308,6 +315,21 @@ public class ShoppingCarAdapter extends BaseAdapter {
 				} else {
 					Toast.makeText(activity, "操作失败！", Toast.LENGTH_SHORT)
 							.show();
+				}
+				break;
+			case 3:
+				ShoppingCar car = (ShoppingCar) msg.obj;
+				HMessage m = car.getMessage();
+				if(m != null){
+				if(m.getCode() == 200){
+					notifyDataSetChanged();
+				}else {
+					Toast.makeText(activity, m.getMessage(),
+							Toast.LENGTH_SHORT).show();
+				}
+				}else{
+					Toast.makeText(activity, "操作失败！", Toast.LENGTH_SHORT)
+					.show();
 				}
 				break;
 			default:

@@ -21,16 +21,13 @@ import com.hanmimei.fragment.FragmentTabHost;
 import com.hanmimei.fragment.HomeFragment;
 import com.hanmimei.fragment.ShoppingCartFragment;
 import com.hanmimei.manager.TabHostManager;
+import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.DoJumpUtils;
 
 
 @SuppressLint("NewApi") 
 public class MainActivity extends BaseActivity implements OnTabChangeListener, OnClickListener{
 
-//	private TabHost tabHost;
-	private TextView header;
-	private ImageView setting;
-//	private LayoutInflater inflater;
 	private static final String TAB_HOME_ID = "tab_01";
 	private static final String TAB_CAR_ID = "tab_02";
 	private static final String TAB_MY_ID = "tab_03";
@@ -40,11 +37,6 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener, O
 	private static final int home_drawable = R.drawable.tab_home;
 	private static final int shopping_drawable = R.drawable.tab_shopping;
 	private static final int my_drawable = R.drawable.tab_my;
-//	private HomeFragment homeFragment;
-//	private ShoppingCartFragment cartFragment;
-//	private AboutMyFragment myFragment;
-//	private FragmentManager fm;
-//	private FragmentTransaction ft;
 	
 	private FragmentTabHost mTabHost;
 	
@@ -52,10 +44,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener, O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        getActionBar().hide();
-        header = (TextView) findViewById(R.id.header);
-        setting = (ImageView) findViewById(R.id.setting);
-        setting.setOnClickListener(this);
+        ActionBarUtil.setActionBarStyle(this, "", 0, false, this);
         mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
     	mTabHost.setup(this, getSupportFragmentManager(), R.id.realcontent);
 		mTabHost.setOnTabChangedListener(this);
@@ -70,16 +59,13 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener, O
 	public void onTabChanged(String tabId) {
 		/** 如果当前选项卡是home */
 		if (tabId.equals(TAB_HOME_ID)) {
-			setting.setVisibility(View.GONE);
-			header.setText("韩秘美");
+	        ActionBarUtil.setActionBarStyle(this, "韩秘美", 0, false, this);
 			/** 如果当前选项卡是shopping */
 		} else if (tabId.equals(TAB_CAR_ID)) {
-			setting.setVisibility(View.GONE);
-			header.setText("购物车");
+	        ActionBarUtil.setActionBarStyle(this, "购物车", 0, false, this);
 			/** 如果当前选项卡是my*/
 		} else if (tabId.equals(TAB_MY_ID)) {
-			setting.setVisibility(View.VISIBLE);
-			header.setText("");
+	        ActionBarUtil.setActionBarStyle(this, "", R.drawable.icon_setting, false, this);
 		}
 	}
 

@@ -25,7 +25,7 @@
       		android:smoothScrollbar="true"
       		android:id="@+id/mylist"
       		ptr:ptrShowIndicator="false"
-      		ptr:ptrDrawable="@drawable/ic_launcher"
+      		ptr:ptrDrawable="@drawable/refreshing"
       		/>
 
 </LinearLayout>

@@ -3,11 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    <include 
-        android:id="@+id/header_layout"
-        android:layout_height="40dp"
-        android:layout_width="match_parent"
-        layout="@layout/main_header_layout"/>
     <TextView 
         android:id="@+id/add"
         android:layout_marginLeft="15dp"
@@ -23,7 +18,7 @@
         android:textSize="18sp"
         android:textColor="@color/white"
         android:background="@drawable/theme_button_bg"/>
-
+<!-- 
     <ListView
         android:id="@+id/list"
         android:layout_margin="15dp"
@@ -31,6 +26,14 @@
         android:layout_above="@id/add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:scrollbars="none"/>
+         -->
+    <com.baoyz.swipemenulistview.SwipeMenuListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:id="@+id/list"
+        android:layout_above="@id/add" 
         android:scrollbars="none"/>
 
 </RelativeLayout>

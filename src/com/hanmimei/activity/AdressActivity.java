@@ -5,17 +5,26 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.baoyz.swipemenulistview.SwipeMenu;
+import com.baoyz.swipemenulistview.SwipeMenuCreator;
+import com.baoyz.swipemenulistview.SwipeMenuItem;
+import com.baoyz.swipemenulistview.SwipeMenuListView;
+import com.baoyz.swipemenulistview.SwipeMenuListView.OnMenuItemClickListener;
 import com.hanmimei.R;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.entity.Adress;
 import com.hanmimei.entity.Result;
 import com.hanmimei.entity.User;
+import com.hanmimei.utils.ActionBarUtil;
+import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.HttpUtils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -23,6 +32,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -33,11 +44,12 @@ import android.widget.TextView;
 	private LayoutInflater inflater;
 	private TextView header;
 	private ImageView back;
-	private ListView mListView;
+	private SwipeMenuListView mListView;
 	private TextView addAddress;
 	private List<Adress> data;
 	private AdressAdapter adapter;
 	private Adress adress;
+	private int index_;
 	private int index;
 	private JSONObject object;
 	private User user;
@@ -45,13 +57,29 @@ import android.widget.TextView;
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
 		setContentView(R.layout.my_address_layout);
-//		getActionBar().hide();
+		ActionBarUtil.setActionBarStyle(this, "管理地址", 0, true, null);
 		user = getUser();
 		findView();
 		loadData();
 		
 	}
-	
+	private SwipeMenuCreator creator = new SwipeMenuCreator() {
+
+		@Override
+		public void create(SwipeMenu menu) {
+			
+			SwipeMenuItem deleteItem = new SwipeMenuItem(
+					getApplicationContext());
+			// 设置背景颜色
+			deleteItem.setBackground(new ColorDrawable(Color.parseColor("#F9616A")));
+			//设置删除的宽度
+			deleteItem.setWidth(CommonUtil.dp2px(AdressActivity.this, 90));
+			//设置图标
+			deleteItem.setIcon(R.drawable.icon_delete);
+			//增加到menu中
+			menu.addMenuItem(deleteItem);
+		}
+	};
 	private void loadData() {
 		new Thread(new Runnable() {
 			@Override
@@ -64,6 +92,7 @@ import android.widget.TextView;
 			}
 		}).start();
 	}
+	
 	private void findView() {
 		inflater = LayoutInflater.from(this);
 		adress = new Adress();
@@ -74,10 +103,32 @@ import android.widget.TextView;
 		back = (ImageView) findViewById(R.id.back);
 		back.setVisibility(View.VISIBLE);
 		back.setOnClickListener(this);
-		mListView = (ListView) findViewById(R.id.list);
+		mListView = (SwipeMenuListView) findViewById(R.id.list);
 		mListView.setAdapter(adapter);
+		mListView.setMenuCreator(creator);
 		addAddress = (TextView) findViewById(R.id.add);
 		addAddress.setOnClickListener(this);
+		mListView.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+			@Override
+			public void onMenuItemClick(int position, SwipeMenu menu, int index) {
+				index_ = position;
+				toObject(data.get(position));
+			}
+		});
+		mListView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
+					long arg3) {
+				index = position;
+				Intent intent = new Intent(AdressActivity.this,EditAdressActivity.class);
+				Bundle bundle = new Bundle();
+				bundle.putSerializable("address", data.get(position));
+				intent.putExtras(bundle);
+				intent.putExtra("isWhat", 1);
+				AdressActivity.this.startActivityForResult(intent, AppConstant.ADR_UP_SU);
+			}
+		});
 	}
 	@Override
 	public void onClick(View v) {
@@ -139,7 +190,7 @@ import android.widget.TextView;
 			case 2:
 				Result result = (Result) msg.obj;
 				if(result.getCode() == 200){
-					data.remove(index);
+					data.remove(index_);
 					adapter.notifyDataSetChanged();
 				}
 				break;
@@ -180,43 +231,33 @@ import android.widget.TextView;
 				holder.name = (TextView) convertView.findViewById(R.id.name);
 				holder.phone = (TextView) convertView.findViewById(R.id.phone);
 				holder.adress = (TextView) convertView.findViewById(R.id.adress);
-				holder.del = (TextView) convertView.findViewById(R.id.del);
-				holder.update = (TextView) convertView.findViewById(R.id.update);
+				holder.id_card = (TextView) convertView.findViewById(R.id.idCard);
+				holder.isDefault = (ImageView) convertView.findViewById(R.id.isDefault);
+//				holder.del = (TextView) convertView.findViewById(R.id.del);
+//				holder.update = (TextView) convertView.findViewById(R.id.update);
 				convertView.setTag(holder);
 			}else{
 				holder = (ViewHolder) convertView.getTag();
 			}
-			holder.name.setText(adress.getName());
-			holder.phone.setText(adress.getPhone());
-			holder.adress.setText(adress.getCity() + "  " + adress.getAdress());
-			holder.del.setOnClickListener(new OnClickListener() {	
-				@Override
-				public void onClick(View arg0) {
-					toObject(adress);
-				}
-			});
-			holder.update.setOnClickListener(new OnClickListener() {
-				
-				@Override
-				public void onClick(View arg0) {
-					index = position;
-					Intent intent = new Intent(AdressActivity.this,EditAdressActivity.class);
-					Bundle bundle = new Bundle();
-					bundle.putSerializable("address", adress);
-					intent.putExtras(bundle);
-					intent.putExtra("isWhat", 1);
-					AdressActivity.this.startActivityForResult(intent, AppConstant.ADR_UP_SU);
-				}
-			});
+			holder.name.setText("收货人：" + adress.getName());
+			holder.phone.setText("联系电话：" + adress.getPhone());
+			holder.id_card.setText("身份证号：" + adress.getIdCard());
+			holder.adress.setText("收货地址：" + adress.getCity() + "  " + adress.getAdress());
+			if(adress.isDefault()){
+				holder.isDefault.setVisibility(View.VISIBLE);
+			}else{
+				holder.isDefault.setVisibility(View.GONE);
+			}
 			return convertView;
 		}
 		private class ViewHolder{
 			private TextView name;
 			private TextView phone;
-			private TextView city;
 			private TextView adress;
-			private TextView del;
-			private TextView update;
+			private TextView id_card;
+			private ImageView isDefault;
+//			private TextView del;
+//			private TextView update;
 		}
 		
 	}
@@ -226,6 +267,7 @@ import android.widget.TextView;
 		object = new JSONObject();
 		try {
 			object.put("addId", adress.getAdress_id());
+			object.put("orDefault", adress.isDefault());
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

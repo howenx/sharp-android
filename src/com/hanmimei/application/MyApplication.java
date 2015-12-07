@@ -36,7 +36,7 @@ public class MyApplication extends Application {
 	public DaoMaster getDaoMaster() {
 		if (daoMaster == null) {
 			DevOpenHelper helper = new DaoMaster.DevOpenHelper(this,
-					"jredb_greedao.db", null);
+					"hmmdb_greedao.db", null);
 			daoMaster = new DaoMaster(helper.getWritableDatabase());
 		}
 		return daoMaster;

@@ -8,9 +8,6 @@ import de.greenrobot.dao.AbstractDao;
 import de.greenrobot.dao.AbstractDaoSession;
 import de.greenrobot.dao.identityscope.IdentityScopeType;
 import de.greenrobot.dao.internal.DaoConfig;
-
-
-import com.hanmimei.dao.AdressDao;
 import com.hanmimei.dao.ShoppingGoodsDao;
 import com.hanmimei.dao.SliderDao;
 import com.hanmimei.dao.ThemeDao;
@@ -38,7 +35,6 @@ public class DaoSession extends AbstractDaoSession {
     private final DaoConfig themeItemDaoConfig;
     private final DaoConfig sliderDaoConfig;
     private final DaoConfig ticketDaoConfig;
-    private final DaoConfig adressDaoConfig;
     private final DaoConfig userDaoConfig;
     private final DaoConfig shoppingGoodsDaoConfig;
 
@@ -46,7 +42,6 @@ public class DaoSession extends AbstractDaoSession {
     private final ThemeItemDao themeItemDao;
     private final SliderDao sliderDao;
     private final TicketDao ticketDao;
-    private final AdressDao adressDao;
     private final UserDao userDao;
     private final ShoppingGoodsDao shoppingGoodsDao;
 
@@ -66,9 +61,6 @@ public class DaoSession extends AbstractDaoSession {
         ticketDaoConfig = daoConfigMap.get(TicketDao.class).clone();
         ticketDaoConfig.initIdentityScope(type);
 
-        adressDaoConfig = daoConfigMap.get(AdressDao.class).clone();
-        adressDaoConfig.initIdentityScope(type);
-
         userDaoConfig = daoConfigMap.get(UserDao.class).clone();
         userDaoConfig.initIdentityScope(type);
 
@@ -79,7 +71,6 @@ public class DaoSession extends AbstractDaoSession {
         themeItemDao = new ThemeItemDao(themeItemDaoConfig, this);
         sliderDao = new SliderDao(sliderDaoConfig, this);
         ticketDao = new TicketDao(ticketDaoConfig, this);
-        adressDao = new AdressDao(adressDaoConfig, this);
         userDao = new UserDao(userDaoConfig, this);
         shoppingGoodsDao = new ShoppingGoodsDao(shoppingGoodsDaoConfig, this);
 
@@ -87,7 +78,6 @@ public class DaoSession extends AbstractDaoSession {
         registerDao(ThemeItem.class, themeItemDao);
         registerDao(Slider.class, sliderDao);
         registerDao(Ticket.class, ticketDao);
-        registerDao(Adress.class, adressDao);
         registerDao(User.class, userDao);
         registerDao(ShoppingGoods.class, shoppingGoodsDao);
     }
@@ -97,7 +87,6 @@ public class DaoSession extends AbstractDaoSession {
         themeItemDaoConfig.getIdentityScope().clear();
         sliderDaoConfig.getIdentityScope().clear();
         ticketDaoConfig.getIdentityScope().clear();
-        adressDaoConfig.getIdentityScope().clear();
         userDaoConfig.getIdentityScope().clear();
         shoppingGoodsDaoConfig.getIdentityScope().clear();
     }
@@ -116,10 +105,6 @@ public class DaoSession extends AbstractDaoSession {
 
     public TicketDao getTicketDao() {
         return ticketDao;
-    }
-
-    public AdressDao getAdressDao() {
-        return adressDao;
     }
 
     public UserDao getUserDao() {

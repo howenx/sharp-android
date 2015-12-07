@@ -4,26 +4,58 @@
     android:layout_height="match_parent"
     android:orientation="vertical" 
     android:padding="10dp"
-    android:background="@drawable/white_corner_bg">
+    android:background="@drawable/white_corner_bg"
+    android:gravity="center_vertical">
+    <ImageView 
+        android:id="@+id/icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_address"/>
     <TextView 
         android:id="@+id/name"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@id/icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="张三"
         android:textSize="14sp"
         android:textColor="@color/fontcolor"/>
+    
+    <ImageView 
+        android:id="@+id/isDefault"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_theme_check"/>
     <TextView 
         android:id="@+id/phone"
-        android:layout_toRightOf="@id/name"
-        android:layout_width="match_parent"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/icon"
+        android:layout_below="@id/name"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="13520436754"
         android:textSize="14sp"
         android:textColor="@color/fontcolor"/>
     <TextView 
+        android:id="@+id/idCard"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@id/icon"
+        android:layout_below="@id/phone"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="447974947999"
+        android:textSize="14sp"
+        android:textColor="@color/fontcolor"/>
+    <TextView 
         android:id="@+id/adress"
-        android:layout_below="@id/name"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@id/icon"
+        android:layout_below="@id/idCard"
         android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,6 +63,7 @@
         android:textSize="14sp"
         android:textColor="@color/fontcolor"/>
     
+    <!--  
     <TextView 
         android:id="@+id/update"
         android:layout_alignParentRight="true"
@@ -53,5 +86,5 @@
         android:text="删除"
         android:textSize="16sp"
         android:textColor="@color/red"/>
-
+-->
 </RelativeLayout>

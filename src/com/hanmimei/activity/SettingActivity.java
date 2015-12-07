@@ -3,9 +3,11 @@ package com.hanmimei.activity;
 import com.hanmimei.R;
 import com.hanmimei.application.MyApplication;
 import com.hanmimei.dao.UserDao;
+import com.hanmimei.data.AppConstant;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -114,8 +116,9 @@ public class SettingActivity extends BaseActivity implements OnClickListener{
 			@Override
 			public void run() {
 				try {
-					
-					Thread.sleep(2000);
+					application.clearLoginUser();
+					userDao.deleteAll();
+					Thread.sleep(1500);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -132,6 +135,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener{
 			switch (msg.what) {
 			case 1:
 				dialog.dismiss();
+				sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_QUIT_LOGIN_ACTION));
 				finish();
 				break;
 

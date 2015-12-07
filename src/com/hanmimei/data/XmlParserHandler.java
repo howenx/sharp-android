@@ -42,6 +42,7 @@ public class XmlParserHandler extends DefaultHandler {
 		if (qName.equals("province")) {
 			provinceModel = new ProvinceModel();
 			provinceModel.setName(attributes.getValue(0));
+			provinceModel.setEnName(attributes.getValue(1));
 			provinceModel.setCityList(new ArrayList<CityModel>());
 		} else if (qName.equals("city")) {
 			cityModel = new CityModel();

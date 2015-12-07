@@ -159,6 +159,15 @@ public class GoodsDetail {
 		private List<String> itemPreviewImgs;
 		private String invUrl;
 		private String invTitle;
+		private String invCustom;
+		
+		
+		public String getInvCustom() {
+			return invCustom;
+		}
+		public void setInvCustom(String invCustom) {
+			this.invCustom = invCustom;
+		}
 		public Integer getId() {
 			return id;
 		}

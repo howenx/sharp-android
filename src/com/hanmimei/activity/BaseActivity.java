@@ -1,6 +1,5 @@
 package com.hanmimei.activity;
 
-
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
@@ -9,16 +8,11 @@ import java.util.Map;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import android.content.Context;
 import android.content.res.AssetManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ImageView;
 
-import com.hanmimei.R;
 import com.hanmimei.application.MyApplication;
 import com.hanmimei.dao.DaoSession;
 import com.hanmimei.data.XmlParserHandler;
@@ -26,12 +20,6 @@ import com.hanmimei.entity.User;
 import com.hanmimei.wheel.entity.CityModel;
 import com.hanmimei.wheel.entity.DistrictModel;
 import com.hanmimei.wheel.entity.ProvinceModel;
-import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 
 public class BaseActivity extends AppCompatActivity {
@@ -40,6 +28,7 @@ public class BaseActivity extends AppCompatActivity {
 	 * 所有省
 	 */
 	protected String[] mProvinceDatas;
+	protected String[] mProvinceEnDatas;
 	/**
 	 * key - 省 value - 市
 	 */
@@ -58,6 +47,10 @@ public class BaseActivity extends AppCompatActivity {
 	 * 当前省的名称
 	 */
 	protected String mCurrentProviceName;
+	/**
+	 * 当前省的简称
+	 */
+	protected String mCurrentProviceEnName;
 	/**
 	 * 当前市的名称
 	 */
@@ -93,6 +86,7 @@ public class BaseActivity extends AppCompatActivity {
 			//*/ 初始化默认选中的省、市、区
 			if (provinceList!= null && !provinceList.isEmpty()) {
 				mCurrentProviceName = provinceList.get(0).getName();
+				mCurrentProviceEnName = provinceList.get(0).getEnName();
 				List<CityModel> cityList = provinceList.get(0).getCityList();
 				if (cityList!= null && !cityList.isEmpty()) {
 					mCurrentCityName = cityList.get(0).getName();
@@ -103,9 +97,11 @@ public class BaseActivity extends AppCompatActivity {
 			}
 			//*/
 			mProvinceDatas = new String[provinceList.size()];
+			mProvinceEnDatas = new String[provinceList.size()];
         	for (int i=0; i< provinceList.size(); i++) {
         		// 遍历所有省的数据
         		mProvinceDatas[i] = provinceList.get(i).getName();
+        		mProvinceEnDatas[i] = provinceList.get(i).getEnName();
         		List<CityModel> cityList = provinceList.get(i).getCityList();
         		String[] cityNames = new String[cityList.size()];
         		for (int j=0; j< cityList.size(); j++) {

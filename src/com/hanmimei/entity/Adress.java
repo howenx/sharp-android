@@ -19,6 +19,8 @@ public class Adress implements Serializable{
     private String phone;
     private String adress;
     private String other;
+    private String idCard;
+    private boolean isDefault;
 
     // KEEP FIELDS - put your custom fields here
     // KEEP FIELDS END
@@ -35,18 +37,41 @@ public class Adress implements Serializable{
         this.phone = phone;
         this.adress = adress;
     }
-    public Adress(Long id, Integer adress_id, Integer user_id, String name, String city, String phone, String adress, String other) {
-        this.id = id;
-        this.adress_id = adress_id;
-        this.user_id = user_id;
-        this.name = name;
-        this.city = city;
-        this.phone = phone;
-        this.adress = adress;
-        this.other = other;
-    }
 
-    public Long getId() {
+
+    public Adress(Long id, Integer adress_id, Integer user_id, String name,
+			String city, String phone, String adress, String other,
+			String idCard, boolean isDefault) {
+		super();
+		this.id = id;
+		this.adress_id = adress_id;
+		this.user_id = user_id;
+		this.name = name;
+		this.city = city;
+		this.phone = phone;
+		this.adress = adress;
+		this.other = other;
+		this.idCard = idCard;
+		this.isDefault = isDefault;
+	}
+
+	public String getIdCard() {
+		return idCard;
+	}
+
+	public void setIdCard(String idCard) {
+		this.idCard = idCard;
+	}
+
+	public boolean isDefault() {
+		return isDefault;
+	}
+
+	public void setDefault(boolean isDefault) {
+		this.isDefault = isDefault;
+	}
+
+	public Long getId() {
         return id;
     }
 

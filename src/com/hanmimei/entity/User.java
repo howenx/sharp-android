@@ -17,6 +17,8 @@ public class User {
     private String token;
     private String expired;
     private String last_login;
+    private String phone;
+    private String sex;
 
     // KEEP FIELDS - put your custom fields here
     // KEEP FIELDS END
@@ -28,7 +30,7 @@ public class User {
         this.id = id;
     }
 
-    public User(Long id, Integer userId, String userName, String userImg, Boolean isBind, String token, String expired, String last_login) {
+    public User(Long id, Integer userId, String userName, String userImg, Boolean isBind, String token, String expired, String last_login, String phone, String sex) {
         this.id = id;
         this.userId = userId;
         this.userName = userName;
@@ -37,6 +39,8 @@ public class User {
         this.token = token;
         this.expired = expired;
         this.last_login = last_login;
+        this.phone = phone;
+        this.sex = sex;
     }
 
     public Long getId() {
@@ -101,6 +105,22 @@ public class User {
 
     public void setLast_login(String last_login) {
         this.last_login = last_login;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
     // KEEP METHODS - put your custom methods here
