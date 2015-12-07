@@ -13,6 +13,7 @@ import com.baoyz.swipemenulistview.SwipeMenuListView.OnMenuItemClickListener;
 import com.hanmimei.R;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
+import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.Adress;
 import com.hanmimei.entity.Result;
 import com.hanmimei.entity.User;
@@ -84,7 +85,7 @@ import android.widget.TextView;
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				String result = HttpUtils.getToken("http://172.28.3.18:9004/api/address/list", "id-token", user.getToken());
+				String result = HttpUtils.getToken(UrlUtil.ADDRESS_LIST_URL, "id-token", user.getToken());
 				List<Adress> list = DataParser.parserAddressList(result);
 				Message msg = mHandler.obtainMessage(1);
 				msg.obj = list;
@@ -278,7 +279,7 @@ import android.widget.TextView;
 		new Thread(new Runnable() {	
 			@Override
 			public void run() {
-				String result = HttpUtils.post("http://172.28.3.18:9004/api/address/del", object, "id-token",user.getToken());
+				String result = HttpUtils.post(UrlUtil.ADDRESS_DEL_URL, object, "id-token",user.getToken());
 				Result mResult = DataParser.parserResult(result);
 				Message msg = mHandler.obtainMessage(2);
 				msg.obj = mResult;

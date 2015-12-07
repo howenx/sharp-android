@@ -27,6 +27,7 @@ import com.hanmimei.activity.MyOrderActivity;
 import com.hanmimei.dao.UserDao;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
+import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.User;
 import com.hanmimei.utils.DoJumpUtils;
 import com.hanmimei.utils.HttpUtils;
@@ -107,8 +108,7 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				String result = HttpUtils.get(
-						"http://172.28.3.18:9004/api/user/get/info",
+				String result = HttpUtils.get(UrlUtil.GET_USERINFO_URL,
 						user.getToken());
 				User userInfo = DataParser.parserUserInfo(result);
 				Message msg = mHandler.obtainMessage(1);

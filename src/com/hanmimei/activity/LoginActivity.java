@@ -14,6 +14,7 @@ import com.hanmimei.dao.ShoppingGoodsDao;
 import com.hanmimei.dao.UserDao;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
+import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.Result;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.User;
@@ -122,7 +123,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 				params.add(new BasicNameValuePair("name", phone));
 				params.add(new BasicNameValuePair("password", pwd));
 				String result = HttpUtils.postCommon(
-						"http://172.28.3.18:9004/api/login_user_name", params);
+						UrlUtil.LOGIN_URL, params);
 				Result loginInfo = DataParser.parserLoginResult(result);
 				Message msg = mHandler.obtainMessage(1);
 				msg.obj = loginInfo;
@@ -190,7 +191,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			new Thread(new Runnable() {
 				@Override
 				public void run() {
-					String result = HttpUtils.post("http://172.28.3.18:9003/client/cart", array, "id-token", user.getToken());
+					String result = HttpUtils.post(UrlUtil.GET_CAR_LIST_URL, array, "id-token", user.getToken());
 					Message msg = mHandler.obtainMessage(2);
 					mHandler.sendMessage(msg);
 				}

@@ -17,6 +17,7 @@ import com.hanmimei.adapter.ShoppingCarPullListAdapter;
 import com.hanmimei.dao.ShoppingGoodsDao;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
+import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.Customs;
 import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
@@ -85,7 +86,7 @@ public class ShoppingCartFragment extends Fragment implements
 		View view = inflater.inflate(R.layout.shopping_car_list_layout, null);
 		findView(view);
 		registerReceivers();
-		ShoppingCarMenager.getInstance().initShoppingCarMenager(check_all, total_price, no_data, bottom);
+		ShoppingCarMenager.getInstance().initShoppingCarMenager(check_all, total_price, pay, no_data, bottom);
 		ShoppingCarMenager.getInstance().initDrawable(getActivity());
 		adapter = new ShoppingCarPullListAdapter(data, getActivity());
 		mListView.setAdapter(adapter);
@@ -160,8 +161,7 @@ public class ShoppingCartFragment extends Fragment implements
 
 			@Override
 			public void run() {
-				String result = HttpUtils.post(
-						"http://172.28.3.51:9003/client/cart",
+				String result = HttpUtils.post(UrlUtil.GET_CAR_LIST_URL,
 						new JSONObject(), "id-token", user.getToken());
 				ShoppingCar car = DataParser.parserShoppingCar(result);
 				Message msg = mHandler.obtainMessage(1);
@@ -196,6 +196,7 @@ public class ShoppingCartFragment extends Fragment implements
 			default:
 				break;
 			}
+			
 		}
 		
 	};

@@ -32,9 +32,10 @@ public class ShoppingCarMenager {
 		check_Drawable = mContext.getResources().getDrawable(R.drawable.checked);
 		uncheck_Drawable = mContext.getResources().getDrawable(R.drawable.check_un);
 	}
-	public void initShoppingCarMenager(ImageView checkBox, TextView totalPrice, LinearLayout no_data, LinearLayout bottom){
+	public void initShoppingCarMenager(ImageView checkBox, TextView totalPrice, TextView pay, LinearLayout no_data, LinearLayout bottom){
 		this.checkBox_b = checkBox;
 		this.totalPrice_t = totalPrice;
+		this.pay = pay;
 		this.no_data = no_data;
 		this.bottom = bottom;
 	}

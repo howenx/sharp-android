@@ -35,6 +35,7 @@ import com.hanmimei.adapter.HomeAdapter;
 import com.hanmimei.dao.SliderDao;
 import com.hanmimei.dao.ThemeDao;
 import com.hanmimei.data.DataParser;
+import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.Slider;
 import com.hanmimei.entity.Theme;
 import com.hanmimei.utils.HttpUtils;
@@ -174,7 +175,7 @@ public class HomeFragment extends Fragment implements
 				try {
 					Thread.sleep(1000);
 					String result = HttpUtils
-							.get("http://172.28.3.18:9001/index/" + pageIndex);
+							.get(UrlUtil.HOME_LIST_URL + pageIndex);
 					List<Theme> list = DataParser.parserHome(result);
 					sliders_temp = DataParser.parserSlider(result);
 					Message msg;

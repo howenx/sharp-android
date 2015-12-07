@@ -8,6 +8,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 import com.hanmimei.R;
 import com.hanmimei.data.DataParser;
+import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.Result;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.HttpUtils;
@@ -93,7 +94,7 @@ public class ForgetPwdActivity extends BaseActivity implements OnClickListener{
 				List<NameValuePair> params = new ArrayList<NameValuePair>();
 				params.add(new BasicNameValuePair("phone", phone));
 				params.add(new BasicNameValuePair("msg", msg));
-				String result = HttpUtils.postCommon("http://172.28.3.18:9004/api/send_code", params);
+				String result = HttpUtils.postCommon(UrlUtil.GET_CODE_URL, params);
 				Result issucess = DataParser.parserLoginResult(result);
 				Message msg = mHandler.obtainMessage(2);
 				msg.obj = issucess;
@@ -128,7 +129,7 @@ public class ForgetPwdActivity extends BaseActivity implements OnClickListener{
 				params.add(new BasicNameValuePair("phone", phone));
 				params.add(new BasicNameValuePair("code", yanzheng));
 				params.add(new BasicNameValuePair("password", pwd));
-				String result = HttpUtils.postCommon("http://172.28.3.18:9004/api/reset_password", params);
+				String result = HttpUtils.postCommon(UrlUtil.RESET_PWD_URL, params);
 				Result issucess = DataParser.parserLoginResult(result);
 				Message msg = mHandler.obtainMessage(1);
 				msg.obj = issucess;
