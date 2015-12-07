@@ -3,7 +3,6 @@ package com.hanmimei.adapter;
 import java.util.List;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,19 +11,23 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.hanmimei.R;
-import com.hanmimei.utils.CommonUtil;
+import com.hanmimei.entity.BitmapInfo;
+import com.squareup.picasso.Picasso;
 
 public class GoodsDetailImgAdapter extends BaseAdapter {
 
-	private List<Bitmap> data;
+	private List<BitmapInfo> data;
 	private Context context;
 	private LoadCallback mLoadCallback;
+	int screenWidth;
+	int screenHeight;
 
-	public GoodsDetailImgAdapter(List<Bitmap> data, Context context,LoadCallback mLoadCallback) {
+	public GoodsDetailImgAdapter(List<BitmapInfo> data, Context context,int screenHeight,int screenWidth) {
 		super();
 		this.data = data;
 		this.context = context;
-		this.mLoadCallback = mLoadCallback;
+		this.screenHeight = screenHeight;
+		this.screenWidth = screenWidth;
 	}
 
 	@Override
@@ -48,53 +51,37 @@ public class GoodsDetailImgAdapter extends BaseAdapter {
 	@Override
 	public View getView(final int position, View contentView, ViewGroup arg2) {
 		// TODO Auto-generated method stub
-//		ViewHolder holder = null;
-//		Bitmap bitmap = null;
-//		if (contentView == null) {
-//			contentView = LayoutInflater.from(context).inflate(
-//					R.layout.img_panel, null);
-//			bitmap = data.get(position);
-//			holder = new ViewHolder(contentView);
-//			holder.mImageView.setTag(bitmap);
-//			contentView.setTag(holder);
-//		} else {
-//			holder = (ViewHolder) contentView.getTag();
-//		}
-//		
-//		if(holder.mImageView.getTag().equals(bitmap)){
-//			 Picasso.with(context).load(url).into(holder.mImageView);
-//			AsyncImageLoader.getInstance().loadBitmap(context, holder.mImageView,url, new ImageCallback() {
-//				
-//				@Override
-//				public void imageLoaded(Bitmap imgBitmap, ImageView mImageView,
-//						String imageUrl) {
-//					// TODO Auto-generated method stub
-//						mImageView.setImageBitmap(imgBitmap);
-//				}
-//			});
-//			holder.mImageView.setImageBitmap(bitmap);
-//		}
+		ViewHolder holder = null;
+		BitmapInfo info = null;
+		if (contentView == null) {
+			contentView = LayoutInflater.from(context).inflate(
+					R.layout.img_panel, null);
+			info = data.get(position);
+			holder = new ViewHolder(contentView);
+			
+			contentView.setTag(holder);
+		} else {
+			holder = (ViewHolder) contentView.getTag();
+		}
 		
-		View view =  LayoutInflater.from(context).inflate(
-				R.layout.img_panel, null);
-		ImageView imgView = (ImageView) view.findViewById(R.id.mImageView);
-		Bitmap bm = data.get(position);
-		int width = bm.getWidth();
-		int screenWidth = CommonUtil.getScreenWidth(context);
-		int viewHeight = (int) (bm.getHeight()*(float)screenWidth/(float)width);
+		info = data.get(position);
+		int viewHeight = (int) (screenWidth/info.getScaleSize());
+		if(viewHeight>screenHeight)
+			viewHeight = screenHeight;
 		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,viewHeight);
-		imgView.setLayoutParams(lp);
-		imgView.setImageBitmap(bm);
-		return view;
+		holder.mImageView.setLayoutParams(lp);
+		
+		Picasso.with(context).load(info.getUrl()).into(holder.mImageView);
+		return contentView;
 	}
 
-//	private  class ViewHolder {
-//		public ImageView mImageView;
-//
-//		public ViewHolder(View view) {
-//			mImageView = (ImageView) view.findViewById(R.id.mImageView);
-//		}
-//	}
+	private  class ViewHolder {
+		public ImageView mImageView;
+
+		public ViewHolder(View view) {
+			mImageView = (ImageView) view.findViewById(R.id.my_image_view);
+		}
+	}
 	
 	public interface LoadCallback{
 		public void finish();

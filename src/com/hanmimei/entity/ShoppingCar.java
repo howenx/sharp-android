@@ -1,8 +1,14 @@
 package com.hanmimei.entity;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class ShoppingCar {
+public class ShoppingCar implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID =  1;
 	private HMessage message;
 	private List<ShoppingGoods> list;
 	public HMessage getMessage() {
@@ -16,6 +22,19 @@ public class ShoppingCar {
 	}
 	public void setList(List<ShoppingGoods> list) {
 		this.list = list;
+	}
+	
+	public void addShoppingGoods(ShoppingGoods shoppingGoods){
+		if(list == null)
+			list = new ArrayList<ShoppingGoods>();
+		list.add(shoppingGoods);
+	}
+	private Integer allPrice = 0;
+	public Integer getAllPrice() {
+		return allPrice;
+	}
+	public void setAllPrice(Integer allPrice) {
+		this.allPrice = allPrice;
 	}
 	
 

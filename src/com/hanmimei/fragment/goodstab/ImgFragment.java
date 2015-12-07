@@ -17,18 +17,20 @@ import android.widget.TextView;
 import com.hanmimei.R;
 import com.hanmimei.adapter.GoodsDetailImgAdapter;
 import com.hanmimei.adapter.GoodsDetailImgAdapter.LoadCallback;
+import com.hanmimei.entity.BitmapInfo;
+import com.hanmimei.utils.CommonUtil;
 
 public class ImgFragment extends Fragment {
 
 	public static final String TAG = ImgFragment.class.getSimpleName();
 
-	private List<Bitmap> datas;
+	private List<BitmapInfo> datas;
 	private String itemNotice;
 	private ListView mListView;
 	private GoodsDetailImgAdapter adapter;
 	private View view;
 
-	public static ImgFragment newInstance(String itemNotice, List<Bitmap> datas) {
+	public static ImgFragment newInstance(String itemNotice, List<BitmapInfo> datas) {
 		ImgFragment fragment = new ImgFragment();
 		fragment.initFragment(itemNotice, datas);
 		return fragment;
@@ -38,7 +40,7 @@ public class ImgFragment extends Fragment {
 		super();
 	}
 
-	public void initFragment(String itemNotice, List<Bitmap> datas) {
+	public void initFragment(String itemNotice, List<BitmapInfo> datas) {
 		this.datas = datas;
 		this.itemNotice = itemNotice;
 	}
@@ -69,7 +71,7 @@ public class ImgFragment extends Fragment {
 		}
 
 		 adapter = new GoodsDetailImgAdapter(datas,
-				getContext(),null);
+				getContext(),CommonUtil.getScreenHeight(getActivity()),CommonUtil.getScreenWidth(getActivity()));
 		mListView.setAdapter(adapter);
 		mListView.setFocusable(false);
 	}

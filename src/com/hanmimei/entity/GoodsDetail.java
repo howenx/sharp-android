@@ -228,8 +228,11 @@ public class GoodsDetail {
 		public void setItemSrcPrice(Double itemSrcPrice) {
 			this.itemSrcPrice = itemSrcPrice;
 		}
-		public String getItemPrice() {
+		public String getItemPriceFormat() {
 			return new DecimalFormat("##0.00").format(itemPrice);
+		}
+		public Double getItemPrice(){
+			return itemPrice;
 		}
 		public void setItemPrice(Double itemPrice) {
 			this.itemPrice = itemPrice;

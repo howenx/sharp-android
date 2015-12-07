@@ -38,11 +38,13 @@ import com.hanmimei.adapter.MyPagerAdapter;
 import com.hanmimei.dao.ShoppingGoodsDao;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
+import com.hanmimei.entity.BitmapInfo;
 import com.hanmimei.entity.Category;
 import com.hanmimei.entity.GoodsDetail;
 import com.hanmimei.entity.GoodsDetail.Main;
 import com.hanmimei.entity.GoodsDetail.Stock;
 import com.hanmimei.entity.HMessage;
+import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.Sku;
 import com.hanmimei.entity.Tag;
@@ -65,16 +67,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 		OnClickListener, OnSliderClickListener,
 		CustomScrollView.OnScrollUpListener {
 
-	private static final String DETAIL_HEADER_TRANSLATION_Y = "detail_header_translation_y";
-	private static final String PAGER_HEADER_TRANSLATION_Y = "pager_header_translation_y";
-
-	private static final String TAB_IMG_ID = "tab_img";
-	private static final String TAB_PARAM_ID = "tab_param";
-	private static final String TAB_HOT_ID = "tab_hot";
-
-	private static final String TAB_IMG = "图文详情";
-	private static final String TAB_PARAM = "商品参数";
-	private static final String TAB_HOT = "热卖商品";
 
 	private List<Category> tabs;
 
@@ -85,7 +77,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private TextView publicity;
 	private ViewPager pager;
 	private CustomScrollView mScrollView;
-	private TabPageIndicator indicator;
 	private View indicator_hide;
 	private ImageView shoppingCar;
 
@@ -96,10 +87,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
-		ActionBarUtil.setActionBarStyle(this, "商品详情");
+		ActionBarUtil.setActionBarStyle(this, "商品详情", R.drawable.white_shoppingcar, this);
 		setContentView(R.layout.goods_detail_layout);
 		findView(arg0);
-		initTab();
 		loadDataByUrl();
 //		registerReceivers();
 	}
@@ -116,42 +106,24 @@ public class GoodsDetailActivity extends BaseActivity implements
 		itemPrice = (TextView) findViewById(R.id.itemPrice);
 		tagCloudView = (TagCloudView) findViewById(R.id.tagCloudView);
 		publicity = (TextView) findViewById(R.id.publicity);
-		indicator = (TabPageIndicator) findViewById(R.id.indicator);
 		indicator_hide = findViewById(R.id.indicator_hide);
 		pager = (ViewPager) findViewById(R.id.pager);
 		discount = (TextView) findViewById(R.id.discount);
 		mScrollView = (CustomScrollView) findViewById(R.id.mScrollView);
 		mScrollView.setOnScrollUpListener(this);
 		pager_header = findViewById(R.id.pager_header);
-		shoppingCar = (ImageView) findViewById(R.id.shoppingcar);
-		shoppingCar.setVisibility(View.VISIBLE);
-		shoppingCar.setOnClickListener(this);
 		
 		user = getUser();
 		goodsDao = getDaoSession().getShoppingGoodsDao();
 		goods = new ShoppingGoods();
 		findViewById(R.id.btn_attention).setOnClickListener(this);
 		findViewById(R.id.btn_share).setOnClickListener(this);
-		findViewById(R.id.back).setVisibility(View.VISIBLE);
-		findViewById(R.id.back).setOnClickListener(this);
 		findViewById(R.id.btn_pay).setOnClickListener(this);
 		findViewById(R.id.btn_shopcart).setOnClickListener(this);
 		findViewById(R.id.talk_us).setOnClickListener(this);
 		findViewById(R.id.like).setOnClickListener(this);
 	}
 
-	private void initTab() {
-		tabs = new ArrayList<Category>();
-		tabs.add(new Category(TAB_IMG_ID, TAB_IMG));
-		tabs.add(new Category(TAB_PARAM_ID, TAB_PARAM));
-		tabs.add(new Category(TAB_HOT_ID, TAB_HOT));
-	}
-	
-	public ViewPager getViewPager (){
-		return pager;
-	}
-
-	
 
 	private void loadDataByUrl() {
 		new Thread(new Runnable() {
@@ -179,7 +151,26 @@ public class GoodsDetailActivity extends BaseActivity implements
 		case R.id.btn_share:
 			break;
 		case R.id.btn_pay:
+			if(getUser() == null){
+				startActivity(new Intent(this, LoginActivity.class));
+				return;
+			}
+			ShoppingCar car = new ShoppingCar();
+			ShoppingGoods sgoods = null;
+			for(Stock s :stocks){
+				if(s.getOrMasterInv()){
+					sgoods = new ShoppingGoods();
+					sgoods.setGoodsId(s.getId());
+					sgoods.setGoodsImg(s.getInvImg());
+					sgoods.setGoodsName(s.getInvTitle());
+					sgoods.setGoodsNums(1);
+					sgoods.setGoodsPrice(s.getItemPrice().intValue());
+					car.addShoppingGoods(sgoods);
+				}
+			}
+			car.setAllPrice(sgoods.getGoodsPrice());
 			Intent intent  = new Intent(this, GoodsBalanceActivity.class);
+			intent.putExtra("car", car);
 			startActivity(intent);
 			break;
 
@@ -201,7 +192,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 				sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_ADD_CAR));
 			}
 			break;
-		case R.id.shoppingcar:
+		case R.id.setting:
 			setResult(AppConstant.CAR_TO_GOODS_CODE);
 			startActivity(new Intent(this, ShoppingCarActivity.class));
 			break;
@@ -307,10 +298,11 @@ public class GoodsDetailActivity extends BaseActivity implements
 	
 	
 	
-	private void initFragment(List<Bitmap> bitmaps) {
+	@SuppressWarnings("deprecation")
+	private void initFragment(List<BitmapInfo> infos) {
 		List<Fragment> data = new ArrayList<Fragment>();
 		ImgFragment imgFragment = ImgFragment.newInstance(main.getItemNotice(),
-				bitmaps);
+				infos);
 		ParamFragment pFragment = ParamFragment.newInstance(main
 				.getItemFeatures());
 		ParamFragment ppFragment = ParamFragment.newInstance(main
@@ -323,10 +315,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 		pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager(), data,
 				tabs));
 		pager.setOffscreenPageLimit(3);
-		indicator.setViewPager(pager);
-		indicator.setVisibility(View.VISIBLE);
 		CommonUtil.resetViewPagerHeight(pager, 0);
-		indicator.setOnPageChangeListener(new OnPageChangeListener() {
+		pager.addOnPageChangeListener(new OnPageChangeListener() {
 
 			@Override
 			public void onPageSelected(int arg0) {
@@ -418,6 +408,12 @@ public class GoodsDetailActivity extends BaseActivity implements
 		findViewById(R.id.tv_guid2).setOnClickListener(new txListener(1));
 		findViewById(R.id.tv_guid3).setOnClickListener(new txListener(2));
 		
+		findViewById(R.id.guid1).setOnClickListener(new txListener(0));
+		findViewById(R.id.guid2).setOnClickListener(new txListener(1));
+		findViewById(R.id.guid3).setOnClickListener(new txListener(2));
+		
+		
+		
 	}
 
 	public class txListener implements View.OnClickListener {
@@ -433,12 +429,13 @@ public class GoodsDetailActivity extends BaseActivity implements
 		}
 	}
 	
-	private TextView barText;
+	private TextView barText,tv_barText;
 	/**
 	 * 初始化图片的位移像素
 	 */
 	private void InitTextBar() {
 		barText = (TextView) findViewById(R.id.cursor);
+		tv_barText = (TextView) findViewById(R.id.tv_cursor);
 		Display display = getWindow().getWindowManager()
 				.getDefaultDisplay();
 		// 得到显示屏宽度
@@ -449,7 +446,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 		LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) barText.getLayoutParams();
 		lp.width = tabLineLength;
 		barText.setLayoutParams(lp);
-
+		tv_barText.setLayoutParams(lp);
+  
 	}
 
 	@Override
@@ -473,60 +471,22 @@ public class GoodsDetailActivity extends BaseActivity implements
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		AsyncImageLoader.getInstance().clearCache();
-		if(bitmaps !=null){
-			for(Bitmap b:bitmaps){
-				b.recycle();
-			}
-			System.gc();
-			bitmaps.clear();
-		}
 	}
-	
-	// ********************************************************************
-			// **********************广播接收的初始化**********************************
-			// ********************************************************************
-//	GoodsDetailBroadCastReceiver receiver = null;
-//			/**
-//			 * 广播接受者 注册
-//			 */
-//			private void registerReceivers() {
-//				receiver = new GoodsDetailBroadCastReceiver();
-//				IntentFilter intentFilter = new IntentFilter("MESSAGE_BROADCAST_CART_CLEAR_ACTION");
-//				registerReceiver(receiver, intentFilter);
-//			}
-//
-//			/**
-//			 * 通知重新初始化数据
-//			 * 
-//			 * @author Administrator
-//			 *
-//			 */
-//			private class GoodsDetailBroadCastReceiver extends BroadcastReceiver {
-//				@Override
-//				public void onReceive(Context context, Intent intent) {
-//					if (intent.getAction().equals("MESSAGE_BROADCAST_CART_CLEAR_ACTION")) {
-//						initFragment();
-//					}
-//				}
-//
-//			}
 		
-	private List<Bitmap>  bitmaps;
+	private List<BitmapInfo>  infos;
 	
 		private void getItemDetailImages(){
 			final int size = main.getItemDetailImgs().size();
-			bitmaps = new ArrayList<Bitmap>();
+			infos = new ArrayList<BitmapInfo>();
 			for (int i = 0; i < size; i++) {
-			
 				AsyncImageLoader.getInstance().loadBitmap(this,i, main.getItemDetailImgs().get(i), new LoadedCallback() {
 
 					@Override
-					public void imageLoaded(Bitmap bitmap) {
+					public void imageLoaded(BitmapInfo info) {
 						// TODO Auto-generated method stub
-						bitmaps.add(bitmap);
-						if(bitmaps.size() == main.getItemDetailImgs().size()){
-							initFragment(bitmaps);
+						infos.add(info);
+						if(infos.size() == main.getItemDetailImgs().size()){
+							initFragment(infos);
 						}
 						
 					}

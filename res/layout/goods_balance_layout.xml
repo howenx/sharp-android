@@ -101,7 +101,7 @@
                 android:background="@color/white"
                 android:padding="10dp"
                 android:text="免税区"
-                android:textColor="#cccccc"
+                android:textColor="#AA000000"
                 android:textSize="13sp" />
 
             <View
@@ -122,7 +122,7 @@
                 android:background="@color/white"
                 android:padding="10dp"
                 android:text="发货时间"
-                android:textColor="#cccccc"
+                android:textColor="#AA000000"
                 android:textSize="13sp" />
 
             <View
@@ -144,7 +144,7 @@
                     android:drawablePadding="10dp"
                     android:gravity="center_vertical"
                     android:text="工作日双休日与假期均可送货"
-                    android:textColor="#DDDDDD"
+                    android:textColor="#AA000000"
                     android:textSize="14sp" />
 
                 <TextView
@@ -178,7 +178,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="工作日双休日与假期均可送货"
-                    android:textColor="#CCCCCC"
+                    android:textColor="#AA000000"
                     android:textSize="12sp" />
 
                 <View
@@ -192,7 +192,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="只工作日送货"
-                    android:textColor="#CCCCCC"
+                    android:textColor="#AA000000"
                     android:textSize="12sp" />
 
                 <View
@@ -206,7 +206,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="只双休日与假日送货"
-                    android:textColor="#CCCCCC"
+                    android:textColor="#AA000000"
                     android:textSize="12sp" />
             </RadioGroup>
 
@@ -217,7 +217,7 @@
                 android:background="@color/white"
                 android:padding="10dp"
                 android:text="支付方式"
-                android:textColor="#cccccc"
+                android:textColor="#AA000000"
                 android:textSize="13sp" />
 
             <View
@@ -239,7 +239,7 @@
                     android:drawablePadding="10dp"
                     android:gravity="center_vertical"
                     android:text="在线支付"
-                    android:textColor="#DDDDDD"
+                    android:textColor="#AA000000"
                     android:textSize="14sp" />
 
                 <TextView
@@ -273,7 +273,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="在线支付"
-                    android:textColor="#CCCCCC"
+                    android:textColor="#AA000000"
                     android:textSize="12sp" />
 
                 <View
@@ -287,7 +287,7 @@
                     android:layout_marginLeft="10dp"
                     android:checkedButton="@+id/btn_get_pay"
                     android:text="货到付款"
-                    android:textColor="#CCCCCC"
+                    android:textColor="#AA000000"
                     android:textSize="12sp" />
             </RadioGroup>
 
@@ -297,8 +297,8 @@
                 android:layout_marginTop="10dp"
                 android:background="@color/white"
                 android:padding="10dp"
-                android:text="使用余额／优惠券"
-                android:textColor="#cccccc"
+                android:text="优惠券"
+                android:textColor="#AA000000"
                 android:textSize="13sp" />
 
             <View
@@ -306,30 +306,6 @@
                 android:layout_height="1px"
                 android:background="#cccccc" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:padding="10dp" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:text="可使用余额"
-                    android:textColor="#DDDDDD"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/balance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:text="0.00元"
-                    android:textColor="#CCCCCC"
-                    android:textSize="14sp" />
-            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -342,7 +318,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:text="可使用优惠券"
-                    android:textColor="#DDDDDD"
+                    android:textColor="#AA000000"
                     android:textSize="14sp" />
 
                 <TextView
@@ -367,11 +343,11 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:text="商品总价"
-                    android:textColor="#DDDDDD"
+                    android:textColor="#AA000000"
                     android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/all_money"
+                    android:id="@+id/all_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -397,7 +373,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:text="优惠金额"
-                    android:textColor="#DDDDDD"
+                    android:textColor="#AA000000"
                     android:textSize="14sp" />
 
                 <TextView
@@ -426,7 +402,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:text="关税"
-                    android:textColor="#DDDDDD"
+                    android:textColor="#AA000000"
                     android:textSize="14sp" />
 
                 <TextView
@@ -456,7 +432,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:text="运费"
-                    android:textColor="#DDDDDD"
+                    android:textColor="#AA000000"
                     android:textSize="14sp" />
 
                 <TextView
@@ -475,29 +451,7 @@
                 android:layout_height="1px"
                 android:background="#cccccc" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:text="订单留言（选填）"
-                    android:textColor="#DDDDDD"
-                    android:textSize="14sp" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:background="@drawable/edit_input_bg"
-                    android:padding="5dp"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-            </LinearLayout>
+           
         </LinearLayout>
     </ScrollView>
 
@@ -509,6 +463,7 @@
         android:weightSum="5" >
 
         <TextView
+            android:id="@+id/all_money"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"

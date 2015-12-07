@@ -2,44 +2,99 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
-    android:paddingBottom="10dp"
-    android:background="@color/white" >
-    
-    <FrameLayout 
+    android:paddingBottom="10dp" >
+
+    <FrameLayout
         android:id="@+id/mframeLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content" >
         
-    <ImageView 
-        android:id="@+id/img"
-        android:scaleType="fitXY"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher"
-        android:contentDescription="@null"/>
-    
-    
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_launcher" />
+        
+        <ImageView 
+            android:id="@+id/sold_out"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/yishouwan"
+            android:background="#44000000"
+            android:scaleType="center"
+            android:visibility="gone"
+            android:contentDescription="@null"
+            android:layout_gravity="center"/>
     </FrameLayout>
-    <TextView 
+    <View 
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/xian"/>
+
+    <TextView
         android:id="@+id/title"
-        android:layout_margin="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:ellipsize="end"
         android:maxLines="1"
         android:text="德国原产奶粉！！！"
-        android:textSize="14sp"
-        android:textColor="@color/huise"/>
+        android:textColor="@color/huise"
+        android:textSize="14sp" />
 
-    <TextView
-        android:id="@+id/price"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:ellipsize="end"
-        android:text="US  ¥32.00"
-        android:textColor="@color/red"
-        android:textSize="16sp" />
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="3dp" >
+
+        <TextView
+            android:id="@+id/area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/dingwei"
+            android:textColor="#cccccc"
+            android:text="上海"
+            android:gravity="center"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="7dp"
+            android:ellipsize="end"
+            android:textColor="#AA000000"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/old_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#CCCCCC"
+            android:textSize="10sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/discount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_red_boarder"
+            android:paddingBottom="2dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="2dp"
+            android:text="5.6折"
+            android:textColor="@color/red"
+            android:textSize="12sp" />
+    </LinearLayout>
 
 </LinearLayout>

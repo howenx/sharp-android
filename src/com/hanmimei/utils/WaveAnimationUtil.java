@@ -1,6 +1,5 @@
 package com.hanmimei.utils;
 
-import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;

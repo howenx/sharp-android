@@ -1,6 +1,8 @@
 package com.hanmimei.entity;
 
-public class HMessage {
+import java.io.Serializable;
+
+public class HMessage implements Serializable{
 	private String message;
 	private Integer code;
 	public String getMessage() {

@@ -2,11 +2,7 @@ package com.hanmimei.utils;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
@@ -26,6 +22,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
@@ -324,12 +321,15 @@ public class CommonUtil {
 		DisplayMetrics dm = new DisplayMetrics();
 		((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(dm);
 		int screenWidth = dm.widthPixels;
-//		LayoutParams params;
-//		params = viewHolder.img.getLayoutParams();
-//		params.height = screenWidth * 9 / 16;
-//		params.width = screenWidth;
-//		viewHolder.img.setLayoutParams(params);
 		return screenWidth;
+	}
+	
+public static int getScreenHeight(Context context) {
+		
+		DisplayMetrics dm = new DisplayMetrics();
+		((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(dm);
+		int screenHeight = dm.heightPixels;
+		return screenHeight;
 	}
 
 	/**
@@ -468,48 +468,6 @@ public class CommonUtil {
 	}
 	
 
-	// 把一个url的网络图片变成一个本地的BitMap
-	public static Bitmap returnBitMap(Context context,String url) {
-		URL myFileUrl = null;
-		Bitmap bitmap = null;
-		try {
-			myFileUrl = new URL(url);
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
-		try {
-			HttpURLConnection conn = (HttpURLConnection) myFileUrl
-					.openConnection();
-			conn.setDoInput(true);
-			conn.connect();
-			InputStream is = conn.getInputStream();
-			if (is == null){  
-			    throw new RuntimeException("stream is null");  
-			}else{  
-				BitmapFactory.Options options = new BitmapFactory.Options();  
-		        options.inTempStorage = new byte[100 * 1024];
-		        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-		        options.inPurgeable = true;
-		      //6.设置解码位图的尺寸信息
-		        options.inInputShareable = true; 
-		        bitmap =BitmapFactory.decodeStream(is,null, options);    
-			    is.close();  
-			}  
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return bitmap;
-//		int width = bitmap.getWidth();
-//		int screenWidth = CommonUtil.getScreenWidth(context);
-//		float sx = (float)screenWidth/(float)width;
-//		 Matrix matrix = new Matrix(); 
-//		  matrix.postScale(sx,sx); //长和宽放大缩小的比例
-//		  Bitmap resizeBmp = Bitmap.createBitmap(bitmap,0,0,bitmap.getWidth(),bitmap.getHeight(),matrix,true);
-//		  bitmap.recycle();
-//		  bitmap = null;
-//		  return resizeBmp;
-		
-	}
 
 	public static void loadImg(Activity activity, ImageView img, String url,
 			int w, int h) {

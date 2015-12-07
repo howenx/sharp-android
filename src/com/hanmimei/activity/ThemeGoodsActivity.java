@@ -76,7 +76,6 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener{
 				
 			}
 		});
-//		getActionBar().hide();
 		itemDao = getDaoSession().getThemeItemDao();
 		url = getIntent().getStringExtra("url");
 		data = new ArrayList<ThemeItem>();
@@ -158,7 +157,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener{
 		masterItem.setVisibility(View.VISIBLE);
 		Picasso.with(this).load(themeItem.getItemMasterImg()).resize(CommonUtil.getScreenWidth(this),CommonUtil.getScreenWidth(this)/2).into(img);
 		title.setText(themeItem.getItemTitle());
-		price.setText("US ¥ " + themeItem.getItemPrice());
+		price.setText(" ¥ " + themeItem.getItemPrice());
 		
 		img.setOnClickListener(new OnClickListener() {
 			

@@ -1,9 +1,11 @@
 package com.hanmimei.utils;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
-import java.util.List;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -15,12 +17,15 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreConnectionPNames;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
 import android.widget.ImageView;
+
+import com.hanmimei.entity.BitmapInfo;
+import com.squareup.picasso.Picasso;
 
 /**
  * 异步加载图片
@@ -67,58 +72,10 @@ public class AsyncImageLoader {
      * 定义回调接口
      */
     public interface LoadedCallback {
-        public void imageLoaded(Bitmap bitmap);
+        public void imageLoaded(BitmapInfo info);
     }
 
-     
-    /**
-     * 创建子线程加载图片
-     * 子线程加载完图片交给handler处理（子线程不能更新ui，而handler处在主线程，可以更新ui）
-     * handler又交给imageCallback，imageCallback须要自己来实现，在这里可以对回调参数进行处理
-     *
-     * @param imageUrl ：须要加载的图片url
-     * @param imageCallback：
-     * @return
-     */
-    public Bitmap loadBitmap(final Context context,final ImageView mImageView,final String imageUrl,
-            final ImageCallback imageCallback) {
-         
-        //如果缓存中存在图片  ，则首先使用缓存
-        if (imageCache.containsKey(imageUrl)) {
-            SoftReference<Bitmap> softReference = imageCache.get(imageUrl.toString());
-            Bitmap mBitmap = softReference.get();
-            if (mBitmap != null) {
-                imageCallback.imageLoaded(mBitmap, mImageView,imageUrl);//执行回调
-                return mBitmap;
-            }
-        }
-        
-        /**
-         * 在主线程里执行回调，更新视图
-         */
-        final Handler handler = new Handler() {
-            public void handleMessage(Message message) {
-                imageCallback.imageLoaded((Bitmap) message.obj, mImageView,imageUrl);
-            }
-        };
 
-         
-        /**
-         * 创建子线程访问网络并加载图片 ，把结果交给handler处理
-         */
-        new Thread() {
-            @Override
-            public void run() {
-            	Bitmap mBitmap = CommonUtil.returnBitMap(context, imageUrl);
-                // 下载完的图片放到缓存里
-                imageCache.put(imageUrl, new SoftReference<Bitmap>(mBitmap));
-                Message message = handler.obtainMessage(0, mBitmap);
-                handler.sendMessage(message);
-            }
-        }.start();
-         
-        return null;
-    }
 
     /**
      * 创建子线程加载图片
@@ -139,7 +96,7 @@ public class AsyncImageLoader {
          */
         final Handler handler = new Handler() {
             public void handleMessage(Message message) {
-            	loadedCallback.imageLoaded((Bitmap)message.obj);
+            	loadedCallback.imageLoaded((BitmapInfo)message.obj);
             }
         };
 
@@ -150,10 +107,12 @@ public class AsyncImageLoader {
         new Thread() {
             @Override
             public void run() {
-            	Bitmap mBitmap = CommonUtil.returnBitMap(context, imageUrl);
+            	Float scale = returnBitMapSize(context, imageUrl);
                 // 下载完的图片放到缓存里
-            		 Message message = handler.obtainMessage(0,mBitmap);
-                     handler.sendMessage(message);
+            	BitmapInfo info = new BitmapInfo(imageUrl, scale);
+                Message message = handler.obtainMessage(0, info);
+                handler.sendMessage(message);
+               
                
             }
         }.start();
@@ -207,5 +166,36 @@ public class AsyncImageLoader {
 
         return null;
     }
+    
+	// 把一个url的网络图片变成一个本地的BitMap
+	public static float returnBitMapSize(Context context,String url) {
+		URL myFileUrl = null;
+		float scale = 0f;
+		try {
+			myFileUrl = new URL(url);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		try {
+			HttpURLConnection conn = (HttpURLConnection) myFileUrl
+					.openConnection();
+			conn.setDoInput(true);
+			conn.connect();
+			InputStream is = conn.getInputStream();
+			if (is == null){  
+			    throw new RuntimeException("stream is null");  
+			}else{  
+				BitmapFactory.Options options = new BitmapFactory.Options();  
+				options.inJustDecodeBounds = true;
+		        BitmapFactory.decodeStream(is,null, options);
+		        scale = (float)options.outWidth/(float)options.outHeight;
+			    is.close();  
+			}  
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return scale;
+		
+	}
 
 }
