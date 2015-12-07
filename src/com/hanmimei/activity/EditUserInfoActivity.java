@@ -15,6 +15,7 @@ import com.hanmimei.R;
 import com.hanmimei.dao.UserDao;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
+import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.User;
 import com.hanmimei.utils.ActionBarUtil;
@@ -139,7 +140,7 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				String result = HttpUtils.post("http://172.28.3.18:9004/api/user/update", object, "id-token", oldUser.getToken());
+				String result = HttpUtils.post(UrlUtil.UPDATE_USERINFO, object, "id-token", oldUser.getToken());
 				HMessage hm = DataParser.paserResultMsg(result);
 				Message msg = mHandler.obtainMessage(1);
 				msg.obj = hm;

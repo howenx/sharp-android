@@ -38,6 +38,7 @@ import com.hanmimei.adapter.MyPagerAdapter;
 import com.hanmimei.dao.ShoppingGoodsDao;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
+import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.Category;
 import com.hanmimei.entity.GoodsDetail;
 import com.hanmimei.entity.GoodsDetail.Main;
@@ -225,7 +226,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				String result = HttpUtils.post("http://172.28.3.18:9003/client/cart", array, "id-token", user.getToken());
+				String result = HttpUtils.post(UrlUtil.GET_CAR_LIST_URL, array, "id-token", user.getToken());
 				HMessage hm = DataParser.paserResultMsg(result);
 				Message msg = mHandler.obtainMessage(2);
 				msg.obj = hm;

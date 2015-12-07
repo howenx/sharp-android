@@ -26,6 +26,7 @@ import com.hanmimei.activity.GoodsDetailActivity;
 import com.hanmimei.dao.ShoppingGoodsDao;
 import com.hanmimei.dao.ShoppingGoodsDao.Properties;
 import com.hanmimei.data.DataParser;
+import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.Goods;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.ShoppingCar;
@@ -255,20 +256,19 @@ public class ShoppingCarAdapter extends BaseAdapter {
 			@Override
 			public void run() {
 				 String result =
-				 HttpUtils.post("http://172.28.3.18:9003/client/cart", array,
+				 HttpUtils.post(UrlUtil.GET_CAR_LIST_URL, array,
 				 "id-token", user.getToken());
 				 ShoppingCar car = DataParser.parserShoppingCar(result);
 				 Message msg = mHandler.obtainMessage(3);
-					// msg.obj = car;
-					msg.obj = car;
-					mHandler.sendMessage(msg);
+				 msg.obj = car;
+				 mHandler.sendMessage(msg);
 			}
 		}).start();
 	}
 	private void upGoodsN(final ShoppingGoods goods){
 
 		String result = HttpUtils
-				.get("http://172.28.3.51:9003/client/cart/verify/amount/"
+				.get(UrlUtil.SEND_CAR_TO_SERVER_UN
 						+ goods.getGoodsId()
 						+ "/"
 						+ goods.getGoodsNums());

@@ -7,6 +7,7 @@ import com.hanmimei.R;
 import com.hanmimei.activity.BaseActivity;
 import com.hanmimei.adapter.OrderPullListAdapter;
 import com.hanmimei.data.DataParser;
+import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.Category;
 import com.hanmimei.entity.Order;
 import com.hanmimei.entity.User;
@@ -64,7 +65,7 @@ public class OrderFragment extends Fragment {
 			
 			@Override
 			public void run() {
-				String result = HttpUtils.getToken("http://172.28.3.18:9003/client/order", "id-token", user.getToken());
+				String result = HttpUtils.getToken(UrlUtil.GET_ORDER_LIST_URL, "id-token", user.getToken());
 				List<Order> list = DataParser.parserOrder(result);
 				Message msg = mHandler.obtainMessage(1);
 				msg.obj = list;

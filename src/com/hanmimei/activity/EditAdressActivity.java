@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import com.hanmimei.R;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
+import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.Adress;
 import com.hanmimei.entity.Result;
 import com.hanmimei.entity.User;
@@ -285,9 +286,9 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 			public void run() {
 				String result ;
 				if(isWhat == 1){
-					result = HttpUtils.post("http://172.28.3.18:9004/api/address/update", object,"id-token", user.getToken());
+					result = HttpUtils.post(UrlUtil.ADDRESS_UPDATE_URL, object,"id-token", user.getToken());
 				}else{
-					result = HttpUtils.post("http://172.28.3.18:9004/api/address/add", object,"id-token", user.getToken());;
+					result = HttpUtils.post(UrlUtil.ADDRESS_ADD_URL, object,"id-token", user.getToken());;
 				}
 				Result mResult = DataParser.parserResult(result);
 				Message msg = mHandler.obtainMessage(1);

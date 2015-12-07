@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import com.hanmimei.R;
 import com.hanmimei.adapter.OrderDetailListAdapter;
 import com.hanmimei.data.DataParser;
+import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.Adress;
 import com.hanmimei.entity.Order;
 import com.hanmimei.entity.Result;
@@ -145,7 +146,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 			
 			@Override
 			public void run() {
-				String result = HttpUtils.post("http://172.28.3.18:9003/client/order/state/update", object, "id-token", getUser().getToken());
+				String result = HttpUtils.post(UrlUtil.CANCLE_ORDER_URL, object, "id-token", getUser().getToken());
 				Result isSuccess = DataParser.parserResult(result);
 				Message msg = mHandler.obtainMessage(1);
 				msg.obj = isSuccess;
