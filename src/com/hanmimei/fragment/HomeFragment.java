@@ -39,6 +39,7 @@ import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.Slider;
 import com.hanmimei.entity.Theme;
 import com.hanmimei.utils.HttpUtils;
+import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.CycleViewPager;
 import com.hanmimei.view.ViewFactory;
 
@@ -215,8 +216,7 @@ public class HomeFragment extends Fragment implements
 					themeDao.insertInTx(data);
 					adapter.notifyDataSetChanged();
 				} else {
-					Toast.makeText(mContext, "获取数据失败！", Toast.LENGTH_SHORT)
-							.show();
+					ToastUtils.Toast(getActivity(), R.string.error);
 				}
 				break;
 			case 2:

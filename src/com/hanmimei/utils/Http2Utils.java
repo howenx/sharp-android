@@ -27,9 +27,9 @@ import com.hanmimei.activity.BaseActivity;
  * @author 刘奇
  *
  */
-public class HttpUtil {
+public class Http2Utils {
 
-	public HttpUtil() {
+	public Http2Utils() {
 		throw new UnsupportedOperationException("cannot be instantiated");
 	}
 	/**
@@ -55,8 +55,6 @@ public class HttpUtil {
 			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
 				result = EntityUtils.toString(response.getEntity());
 			} else {
-//				EBHandler.getInstance().sendEmptyMessage(
-//						HandlerMessger.LOGIN_FAIL_MSG);
 			}
 		} catch (IOException e) {
 			
@@ -106,6 +104,41 @@ public class HttpUtil {
 			callback.onError();
 		}
 		mActivity.getMyApplication().getRequestQueue().add(request);
+	}
+	
+	/**
+	 * 实现网络请求数据  
+	 * @param mContext  上下文
+	 * @param url		请求地址
+	 * @param callback	返回数据的回调
+	 * @param map		传送数据的键值对
+	 */
+
+	// 实现Volley 异步回调请求的结果
+	public static void doGetRequestTask(Context mContext, String url,
+			final VolleyJsonCallback callback){
+		final BaseActivity mActivity = (BaseActivity) mContext;
+		PostStringRequest request = null;
+		try {
+			request = new PostStringRequest(Method.GET, url,
+					new Listener<String>() {
+
+						@Override
+						public void onResponse(String arg0) {
+							callback.onSuccess(arg0);
+						}
+					}, new ErrorListener() {
+
+						@Override
+						public void onErrorResponse(VolleyError arg0) {
+							callback.onError();
+						}
+					});
+			mActivity.getMyApplication().getRequestQueue().add(request);
+		} catch (Exception e) {
+			callback.onError();
+		}
+		
 	}
 
 	

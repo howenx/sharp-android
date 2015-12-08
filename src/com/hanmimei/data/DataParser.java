@@ -88,8 +88,10 @@ public class DataParser {
 			for (int i = 0; i < array.length(); i++) {
 				JSONObject jjson = array.getJSONObject(i);
 				t = new ThemeItem();
+				t.setInvWeight(jjson.getInt("invWeight"));
 				t.setItemTitle(jjson.getString("itemTitle"));
-				t.setItemMasterImg(jjson.getString("itemMasterImg"));
+				if(jjson.has("itemMasterImg"))
+					t.setItemMasterImg(jjson.getString("itemMasterImg"));
 				t.setCollectCount(jjson.getInt("collectCount"));
 				t.setThemeId(jjson.getInt("themeId"));
 				t.setItemDiscount(jjson.getInt("itemDiscount"));
@@ -97,11 +99,15 @@ public class DataParser {
 				t.setItemId(jjson.getInt("itemId"));
 				t.setItemImg(jjson.getString("itemImg"));
 				t.setItemSrcPrice(jjson.getInt("itemSrcPrice"));
+				if(jjson.has("masterItemTag"))
 				t.setMasterItemTag(jjson.getString("masterItemTag"));
-				t.setOrMasterItem(jjson.getBoolean("orMasterItem"));
+				if(jjson.has("orMasterItem"))
+					t.setOrMasterItem(jjson.getBoolean("orMasterItem"));
 				t.setItemPrice(jjson.getInt("itemPrice"));
 				t.setState(jjson.getString("state"));
+				t.setPostalTaxRate(jjson.getInt("postalTaxRate"));
 				t.setItemUrl(jjson.getString("itemUrl"));
+				t.setInvArea(jjson.getString("invArea"));
 
 				if (t.getOrMasterItem()) {
 					detail.setMasterItem(t);

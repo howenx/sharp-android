@@ -31,20 +31,20 @@ public class ToastUtils {
 	 * @param context
 	 * @param content
 	 */
-//	public static void Toast(Context context, int content) {
-//
-//		Toast toast = new Toast(context);
-//		toast.setDuration(Toast.LENGTH_SHORT);
-//		TextView view = new TextView(context);
-//		view.setPadding(CommonUtil.dip2px(10),  CommonUtil.dip2px(3)
-//				, CommonUtil.dip2px(10),  CommonUtil.dip2px(3));
-//		view.setBackgroundResource(R.drawable.bg_toast);
-//		view.setTextColor(Color.WHITE);
-//		view.setTextSize(12);
-//		view.setText(content);
-//		toast.setView(view);
-//		toast.show();
-//	}
+	public static void Toast(Context context, int content) {
+
+		Toast toast = new Toast(context);
+		toast.setDuration(Toast.LENGTH_SHORT);
+		TextView view = new TextView(context);
+		view.setPadding(CommonUtil.dip2px(10),  CommonUtil.dip2px(3)
+				, CommonUtil.dip2px(10),  CommonUtil.dip2px(3));
+		view.setBackgroundResource(R.drawable.bg_toast);
+		view.setTextColor(Color.WHITE);
+		view.setTextSize(12);
+		view.setText(content);
+		toast.setView(view);
+		toast.show();
+	}
 
 	/**
 	 * toast 工具类 自定义toast
@@ -52,18 +52,18 @@ public class ToastUtils {
 	 * @param context
 	 * @param content
 	 */
-//	public static void Toast(Context context, String content) {
-//
-//		Toast toast = new Toast(context);
-//		toast.setDuration(Toast.LENGTH_SHORT);
-//		TextView view = new TextView(context);
-//		view.setPadding(CommonUtil.dip2px(10), 0
-//				, CommonUtil.dip2px(10),  0);
-//		view.setBackgroundResource(R.drawable.bg_toast);
-//		view.setTextColor(Color.WHITE);
-//		view.setTextSize(12);
-//		view.setText(content);
-//		toast.setView(view);
-//		toast.show();
-//	}
+	public static void Toast(Context context, String content) {
+
+		Toast toast = new Toast(context);
+		toast.setDuration(Toast.LENGTH_SHORT);
+		TextView view = new TextView(context);
+		view.setPadding(CommonUtil.dip2px(10), 0
+				, CommonUtil.dip2px(10),  0);
+		view.setBackgroundResource(R.drawable.bg_toast);
+		view.setTextColor(Color.WHITE);
+		view.setTextSize(12);
+		view.setText(content);
+		toast.setView(view);
+		toast.show();
+	}
 }

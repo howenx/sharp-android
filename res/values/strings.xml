@@ -13,4 +13,5 @@
 	
 	<string name="price">¥%1$s</string>
 	<string name="discount">%1$s折</string>
+	<string name="error">数据请求失败</string>
 </resources>

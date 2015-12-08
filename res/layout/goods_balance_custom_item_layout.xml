@@ -9,14 +9,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:padding="10dp" >
+        android:padding="@dimen/padding_normal" >
 
         <TextView
             android:id="@+id/area_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:textSize="16sp" />
+            android:textSize="@dimen/font_middle" />
     </RelativeLayout>
 
     <View

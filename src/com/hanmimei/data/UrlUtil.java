@@ -8,7 +8,7 @@ public class UrlUtil {
 	
 	
 	
-	public static final String HOME_LIST_URL = SERVER01 + "/index/";
+	public static final String HOME_LIST_URL = SERVER03 + "/index/";
 	public static final String ADDRESS_LIST_URL = SERVER01 + "/api/address/list";
 	public static final String ADDRESS_DEL_URL = SERVER01 + "/api/address/del";
 	public static final String ADDRESS_ADD_URL = SERVER01 + "/api/address/add";

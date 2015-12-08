@@ -53,6 +53,8 @@ import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AsyncImageLoader;
 import com.hanmimei.utils.AsyncImageLoader.LoadedCallback;
 import com.hanmimei.utils.CommonUtil;
+import com.hanmimei.utils.Http2Utils;
+import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.CustomScrollView;
@@ -123,18 +125,20 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 
 	private void loadDataByUrl() {
-		new Thread(new Runnable() {
-
+		Http2Utils.doGetRequestTask(this, getIntent().getStringExtra("url"), new VolleyJsonCallback() {
+			
 			@Override
-			public void run() {
+			public void onSuccess(String result) {
 				// TODO Auto-generated method stub
-				String result = HttpUtils
-						.get(getIntent().getStringExtra("url"));
-				Message msg = mHandler.obtainMessage(1);
-				msg.obj = result;
-				mHandler.sendMessage(msg);
+				GoodsDetail detail = DataParser.parserGoodsDetail(result);
+				initGoodsDetail(detail);
 			}
-		}).start();
+			
+			@Override
+			public void onError() {
+				ToastUtils.Toast(getActivity(), R.string.error);
+			}
+		});
 	}
 
 	@Override
@@ -219,17 +223,38 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private ShoppingGoods goods;
 	private void sendData() {
 		toObject();
-		new Thread(new Runnable() {
+		submitTask(new Runnable() {
+			
 			@Override
 			public void run() {
+				// TODO Auto-generated method stub
 				String result = HttpUtils.post(UrlUtil.GET_CAR_LIST_URL, array, "id-token", user.getToken());
 				HMessage hm = DataParser.paserResultMsg(result);
-				Message msg = mHandler.obtainMessage(2);
+				Message msg = mHandler.obtainMessage(1);
 				msg.obj = hm;
 				mHandler.sendMessage(msg);
 			}
-		}).start();
+		});
 	}
+	
+	private  Handler mHandler = new  Handler(){
+
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			if(msg.what == 1){
+				HMessage hm = (HMessage) msg.obj;
+				if(hm.getCode() == 200){
+					ToastUtils.Toast(GoodsDetailActivity.this);
+					sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_ADD_CAR));
+				}else{
+					Toast.makeText(GoodsDetailActivity.this, hm.getMessage(), Toast.LENGTH_SHORT).show();
+				}
+			}
+		}
+		
+	};
+	
 	private JSONArray array;
 	private void toObject() {
 		try {
@@ -246,33 +271,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 		}
 	}
 
-	private Handler mHandler = new Handler() {
-
-		@Override
-		public void handleMessage(Message msg) {
-			super.handleMessage(msg);
-			switch (msg.what) {
-			case 1:
-				GoodsDetail detail = DataParser.parserGoodsDetail(msg.obj
-						.toString());
-				initGoodsDetail(detail);
-				break;
-			case 2:
-				HMessage hm = (HMessage) msg.obj;
-				if(hm.getCode() == 200){
-					ToastUtils.Toast(GoodsDetailActivity.this);
-//					Toast.makeText(GoodsDetailActivity.this, "已加入购物车", Toast.LENGTH_SHORT).show();
-					sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_ADD_CAR));
-				}else{
-					Toast.makeText(GoodsDetailActivity.this, hm.getMessage(), Toast.LENGTH_SHORT).show();
-				}
-				break;
-			default:
-				break;
-			}
-		}
-
-	};
 
 	private Main main;
 	private List<Stock> stocks;

@@ -12,7 +12,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#ECECEC"
+            android:background="@color/background"
             android:orientation="vertical" >
 
             <RelativeLayout
@@ -23,12 +23,12 @@
                     android:id="@+id/selectAddress"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:layout_marginTop="10dp"
-                    android:background="#FFFFFF"
+                    android:layout_marginTop="@dimen/margin_vertical_normal"
+                    android:background="@color/white"
                     android:clickable="true"
                     android:gravity="center_vertical"
                     android:orientation="vertical"
-                    android:padding="10dp" >
+                    android:padding="@dimen/padding_normal" >
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -38,47 +38,47 @@
                             android:id="@+id/name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:drawablePadding="5dp"
+                            android:drawablePadding="@dimen/driver_padding_small"
                             android:textColor="@color/black"
-                            android:textSize="18sp" />
+                            android:textSize="@dimen/font_big" />
 
                         <TextView
                             android:id="@+id/phone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginStart="20dp"
+                            android:layout_marginLeft="@dimen/margin_horizontal_big"
+                            android:layout_marginStart="@dimen/margin_horizontal_big"
                             android:layout_toEndOf="@id/name"
                             android:layout_toRightOf="@id/name"
-                            android:drawablePadding="5dp"
+                            android:drawablePadding="@dimen/driver_padding_normal"
                             android:textColor="@color/black"
-                            android:textSize="18sp" />
+                            android:textSize="@dimen/font_big" />
                     </RelativeLayout>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp" >
+                        android:layout_marginTop="@dimen/margin_vertical_small" >
 
                         <TextView
                             android:id="@+id/address"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginStart="8dp"
+                            android:layout_marginLeft="@dimen/margin_horizontal_middle"
+                            android:layout_marginStart="@dimen/margin_horizontal_middle"
                             android:textColor="@color/black"
-                            android:textSize="14sp" />
+                            android:textSize="@dimen/font_normal" />
 
                         <TextView
                             android:id="@+id/postcode"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginStart="8dp"
+                            android:layout_marginLeft="@dimen/margin_horizontal_middle"
+                            android:layout_marginStart="@dimen/margin_horizontal_middle"
                             android:layout_toEndOf="@id/address"
                             android:layout_toRightOf="@id/address"
                             android:textColor="@color/black"
-                            android:textSize="14sp" />
+                            android:textSize="@dimen/font_normal" />
                     </RelativeLayout>
                 </LinearLayout>
 

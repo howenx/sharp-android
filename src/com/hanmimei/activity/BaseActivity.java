@@ -17,6 +17,7 @@ import com.hanmimei.application.MyApplication;
 import com.hanmimei.dao.DaoSession;
 import com.hanmimei.data.XmlParserHandler;
 import com.hanmimei.entity.User;
+import com.hanmimei.manager.ThreadPoolManager;
 import com.hanmimei.wheel.entity.CityModel;
 import com.hanmimei.wheel.entity.DistrictModel;
 import com.hanmimei.wheel.entity.ProvinceModel;
@@ -162,7 +163,10 @@ public class BaseActivity extends AppCompatActivity {
 		return (MyApplication) this.getApplication();
 	}
 	
-	
+	//线程池 管理网络提交事务
+		public void submitTask(Runnable runable) {
+			ThreadPoolManager.getInstance().getExecutorService().execute(runable);
+		}
 	
 
 }

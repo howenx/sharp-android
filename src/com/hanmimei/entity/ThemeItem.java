@@ -9,35 +9,60 @@ package com.hanmimei.entity;
  */
 public class ThemeItem {
 
-    private Long id;
-    private Integer themeId;			              // 主题id
-    private Integer itemId;				              // 商品id
-    private String itemImg;                           // 商品图片
-    private String itemUrl;                            //	商品详情页链接
-    private String itemTitle;                          //	商品标题
-    private Integer itemPrice;                       //	商品价格
-    private Integer itemCostPrice;               //   商品原价
-    private Integer itemDiscount;                //	商品折扣
-    private Integer itemSoldAmount;          //	商品销售量
-    private Boolean orMasterItem;             //		是否是主题主打宣传商品
-    private Integer collectCount;                //		商品收藏数
-    private String masterItemTag;             //     如果是主打宣传商品，会需要tag json串
-    private String masterItemImg;             //    如果是主宣传商品图片url
-    private String onShelvesAt;                  //
-    private String offShelvesAt; //
-    
-    //新添
-    private String itemMasterImg;
-    private Integer itemSrcPrice;					//主sku原价
-    private String state;								//商品状态
-    
-    
+	private Long id;
+	private Integer themeId; //  主题id
+	private Integer itemId; // 商品id
+	private String itemImg; // 商品图片
+	private String itemUrl; // 商品详情页链接
+	private String itemTitle; // 商品标题
+	private Integer itemPrice; // 商品价格
+	private Integer itemCostPrice; // 商品原价
+	private Integer itemDiscount; // 商品折扣
+	private Integer itemSoldAmount; // 商品销售量
+	private Boolean orMasterItem = false; // 是否是主题主打宣传商品
+	private Integer collectCount; // 商品收藏数
+	private String masterItemTag; // 如果是主打宣传商品，会需要tag json串
+	private String masterItemImg; // 如果是主宣传商品图片url
+	private String onShelvesAt; //
+	private String offShelvesAt; //
+	private Integer invWeight; // 商品重量
+	private String invArea; // 发货方式
+	private Integer postalTaxRate; // 税率
 
-    // KEEP FIELDS - put your custom fields here
-    // KEEP FIELDS END
+	// 新添
+	private String itemMasterImg;
+	private Integer itemSrcPrice; // 主sku原价
+	private String state; // 商品状态
 
-    public String getItemMasterImg() {
+	// KEEP FIELDS - put your custom fields here
+	// KEEP FIELDS END
+
+	public String getItemMasterImg() {
 		return itemMasterImg;
+	}
+
+	public Integer getPostalTaxRate() {
+		return postalTaxRate;
+	}
+
+	public void setPostalTaxRate(Integer postalTaxRate) {
+		this.postalTaxRate = postalTaxRate;
+	}
+
+	public Integer getInvWeight() {
+		return invWeight;
+	}
+
+	public void setInvWeight(Integer invWeight) {
+		this.invWeight = invWeight;
+	}
+
+	public String getInvArea() {
+		return invArea;
+	}
+
+	public void setInvArea(String invArea) {
+		this.invArea = invArea;
 	}
 
 	public void setItemMasterImg(String itemMasterImg) {
@@ -61,160 +86,165 @@ public class ThemeItem {
 	}
 
 	public ThemeItem() {
-    }
+	}
 
-    public ThemeItem(Long id) {
-        this.id = id;
-    }
+	public ThemeItem(Long id) {
+		this.id = id;
+	}
 
-    public ThemeItem(Long id, Integer themeId, Integer itemId, String itemImg, String itemUrl, String itemTitle, Integer itemPrice, Integer itemCostPrice, Integer itemDiscount, Integer itemSoldAmount, Boolean orMasterItem, Integer collectCount, String masterItemTag, String masterItemImg, String onShelvesAt, String offShelvesAt) {
-        this.id = id;
-        this.themeId = themeId;
-        this.itemId = itemId;
-        this.itemImg = itemImg;
-        this.itemUrl = itemUrl;
-        this.itemTitle = itemTitle;
-        this.itemPrice = itemPrice;
-        this.itemCostPrice = itemCostPrice;
-        this.itemDiscount = itemDiscount;
-        this.itemSoldAmount = itemSoldAmount;
-        this.orMasterItem = orMasterItem;
-        this.collectCount = collectCount;
-        this.masterItemTag = masterItemTag;
-        this.masterItemImg = masterItemImg;
-        this.onShelvesAt = onShelvesAt;
-        this.offShelvesAt = offShelvesAt;
-    }
+	public ThemeItem(Long id, Integer themeId, Integer itemId, String itemImg,
+			String itemUrl, String itemTitle, Integer itemPrice,
+			Integer itemCostPrice, Integer itemDiscount,
+			Integer itemSoldAmount, Boolean orMasterItem, Integer collectCount,
+			String masterItemTag, String masterItemImg, String onShelvesAt,
+			String offShelvesAt) {
+		this.id = id;
+		this.themeId = themeId;
+		this.itemId = itemId;
+		this.itemImg = itemImg;
+		this.itemUrl = itemUrl;
+		this.itemTitle = itemTitle;
+		this.itemPrice = itemPrice;
+		this.itemCostPrice = itemCostPrice;
+		this.itemDiscount = itemDiscount;
+		this.itemSoldAmount = itemSoldAmount;
+		this.orMasterItem = orMasterItem;
+		this.collectCount = collectCount;
+		this.masterItemTag = masterItemTag;
+		this.masterItemImg = masterItemImg;
+		this.onShelvesAt = onShelvesAt;
+		this.offShelvesAt = offShelvesAt;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public Integer getThemeId() {
-        return themeId;
-    }
+	public Integer getThemeId() {
+		return themeId;
+	}
 
-    public void setThemeId(Integer themeId) {
-        this.themeId = themeId;
-    }
+	public void setThemeId(Integer themeId) {
+		this.themeId = themeId;
+	}
 
-    public Integer getItemId() {
-        return itemId;
-    }
+	public Integer getItemId() {
+		return itemId;
+	}
 
-    public void setItemId(Integer itemId) {
-        this.itemId = itemId;
-    }
+	public void setItemId(Integer itemId) {
+		this.itemId = itemId;
+	}
 
-    public String getItemImg() {
-        return itemImg;
-    }
+	public String getItemImg() {
+		return itemImg;
+	}
 
-    public void setItemImg(String itemImg) {
-        this.itemImg = itemImg;
-    }
+	public void setItemImg(String itemImg) {
+		this.itemImg = itemImg;
+	}
 
-    public String getItemUrl() {
-        return itemUrl;
-    }
+	public String getItemUrl() {
+		return itemUrl;
+	}
 
-    public void setItemUrl(String itemUrl) {
-        this.itemUrl = itemUrl;
-    }
+	public void setItemUrl(String itemUrl) {
+		this.itemUrl = itemUrl;
+	}
 
-    public String getItemTitle() {
-        return itemTitle;
-    }
+	public String getItemTitle() {
+		return itemTitle;
+	}
 
-    public void setItemTitle(String itemTitle) {
-        this.itemTitle = itemTitle;
-    }
+	public void setItemTitle(String itemTitle) {
+		this.itemTitle = itemTitle;
+	}
 
-    public Integer getItemPrice() {
-        return itemPrice;
-    }
+	public Integer getItemPrice() {
+		return itemPrice;
+	}
 
-    public void setItemPrice(Integer itemPrice) {
-        this.itemPrice = itemPrice;
-    }
+	public void setItemPrice(Integer itemPrice) {
+		this.itemPrice = itemPrice;
+	}
 
-    public Integer getItemCostPrice() {
-        return itemCostPrice;
-    }
+	public Integer getItemCostPrice() {
+		return itemCostPrice;
+	}
 
-    public void setItemCostPrice(Integer itemCostPrice) {
-        this.itemCostPrice = itemCostPrice;
-    }
+	public void setItemCostPrice(Integer itemCostPrice) {
+		this.itemCostPrice = itemCostPrice;
+	}
 
-    public Integer getItemDiscount() {
-        return itemDiscount;
-    }
+	public Integer getItemDiscount() {
+		return itemDiscount;
+	}
 
-    public void setItemDiscount(Integer itemDiscount) {
-        this.itemDiscount = itemDiscount;
-    }
+	public void setItemDiscount(Integer itemDiscount) {
+		this.itemDiscount = itemDiscount;
+	}
 
-    public Integer getItemSoldAmount() {
-        return itemSoldAmount;
-    }
+	public Integer getItemSoldAmount() {
+		return itemSoldAmount;
+	}
 
-    public void setItemSoldAmount(Integer itemSoldAmount) {
-        this.itemSoldAmount = itemSoldAmount;
-    }
+	public void setItemSoldAmount(Integer itemSoldAmount) {
+		this.itemSoldAmount = itemSoldAmount;
+	}
 
-    public Boolean getOrMasterItem() {
-        return orMasterItem;
-    }
+	public Boolean getOrMasterItem() {
+		return orMasterItem;
+	}
 
-    public void setOrMasterItem(Boolean orMasterItem) {
-        this.orMasterItem = orMasterItem;
-    }
+	public void setOrMasterItem(Boolean orMasterItem) {
+		this.orMasterItem = orMasterItem;
+	}
 
-    public Integer getCollectCount() {
-        return collectCount;
-    }
+	public Integer getCollectCount() {
+		return collectCount;
+	}
 
-    public void setCollectCount(Integer collectCount) {
-        this.collectCount = collectCount;
-    }
+	public void setCollectCount(Integer collectCount) {
+		this.collectCount = collectCount;
+	}
 
-    public String getMasterItemTag() {
-        return masterItemTag;
-    }
+	public String getMasterItemTag() {
+		return masterItemTag;
+	}
 
-    public void setMasterItemTag(String masterItemTag) {
-        this.masterItemTag = masterItemTag;
-    }
+	public void setMasterItemTag(String masterItemTag) {
+		this.masterItemTag = masterItemTag;
+	}
 
-    public String getMasterItemImg() {
-        return masterItemImg;
-    }
+	public String getMasterItemImg() {
+		return masterItemImg;
+	}
 
-    public void setMasterItemImg(String masterItemImg) {
-        this.masterItemImg = masterItemImg;
-    }
+	public void setMasterItemImg(String masterItemImg) {
+		this.masterItemImg = masterItemImg;
+	}
 
-    public String getOnShelvesAt() {
-        return onShelvesAt;
-    }
+	public String getOnShelvesAt() {
+		return onShelvesAt;
+	}
 
-    public void setOnShelvesAt(String onShelvesAt) {
-        this.onShelvesAt = onShelvesAt;
-    }
+	public void setOnShelvesAt(String onShelvesAt) {
+		this.onShelvesAt = onShelvesAt;
+	}
 
-    public String getOffShelvesAt() {
-        return offShelvesAt;
-    }
+	public String getOffShelvesAt() {
+		return offShelvesAt;
+	}
 
-    public void setOffShelvesAt(String offShelvesAt) {
-        this.offShelvesAt = offShelvesAt;
-    }
+	public void setOffShelvesAt(String offShelvesAt) {
+		this.offShelvesAt = offShelvesAt;
+	}
 
-    // KEEP METHODS - put your custom methods here
-    // KEEP METHODS END
+	// KEEP METHODS - put your custom methods here
+	// KEEP METHODS END
 
 }
