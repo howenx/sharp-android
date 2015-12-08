@@ -2,7 +2,7 @@ package com.hanmimei.data;
 
 public class UrlUtil {
 	public static final String SERVER01 = "http://172.28.3.18:9003";	//服务器	
-//	public static final String SERVER02 = "http://172.28.3.51:9003";   //  测试服务器
+	public static final String SERVER02 = "http://172.28.3.51:9003";   //  测试服务器
 	public static final String SERVER03 = "http://172.28.3.18:9001";	//服务器	
 	public static final String SERVER04 = "http://172.28.3.18:9004";	//服务器	
 	
@@ -24,5 +24,6 @@ public class UrlUtil {
 	public static final String CANCLE_ORDER_URL = SERVER01 + "/client/order/state/update";
 	public static final String GET_USERINFO_URL = SERVER04 + "/api/user/get/info";
 	public static final String GET_ORDER_LIST_URL = SERVER01 + "/client/order";
+	public static final String GET_COUPON_LIST_URL = SERVER02 + "/client/coupons/list";
 	
 }

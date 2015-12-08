@@ -2,13 +2,12 @@ package com.hanmimei.activity;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.hanmimei.R;
 import com.hanmimei.adapter.MyPagerAdapter;
 import com.hanmimei.entity.Category;
 import com.hanmimei.fragment.OrderFragment;
+import com.hanmimei.utils.ActionBarUtil;
 import com.viewpagerindicator.TabPageIndicator;
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -37,14 +36,15 @@ public class MyOrderActivity extends BaseActivity implements OnClickListener{
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
 		setContentView(R.layout.my_order_layout);
+		ActionBarUtil.setActionBarStyle(this, "我的订单", 0, true, null);
 //		getActionBar().hide();
 		indicator = (TabPageIndicator) findViewById(R.id.indicator);
 		viewPager = (ViewPager) findViewById(R.id.pager);
-		header = (TextView) findViewById(R.id.header);
-		header.setText("我的订单");
-		back = (ImageView) findViewById(R.id.back);
-		back.setVisibility(View.VISIBLE);
-		back.setOnClickListener(this);
+//		header = (TextView) findViewById(R.id.header);
+//		header.setText("我的订单");
+//		back = (ImageView) findViewById(R.id.back);
+//		back.setVisibility(View.VISIBLE);
+//		back.setOnClickListener(this);
 		initCategory();
 		initFragment();
 	}

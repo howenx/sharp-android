@@ -150,7 +150,7 @@ public class ShoppingCarActivity extends BaseActivity implements OnClickListener
 					no_data.setVisibility(View.GONE);
 					bottom.setVisibility(View.VISIBLE);
 					data.clear();
-//					data.addAll(car.getList());
+					data.addAll(car.getList());
 					adapter.notifyDataSetChanged();
 				}else{
 					bottom.setVisibility(View.GONE);
@@ -178,7 +178,7 @@ public class ShoppingCarActivity extends BaseActivity implements OnClickListener
 		findViewById(R.id.back).setVisibility(View.VISIBLE);
 		findViewById(R.id.back).setOnClickListener(this);
 		check_all.setOnClickListener(this);
-		adapter = new ShoppingCarPullListAdapter(data, activity);
+		adapter = new ShoppingCarPullListAdapter(data, this);
 		mListView.setAdapter(adapter);
 
 		ShoppingCarMenager.getInstance().initShoppingCarMenager(check_all, total_price, pay, no_data, bottom);

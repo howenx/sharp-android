@@ -50,6 +50,7 @@
             android:name="com.hanmimei.activity.MyOrderActivity"
             android:screenOrientation="portrait" />
         <activity 
+       	 	android:theme="@style/AppThemeForOrder" 
             android:name="com.hanmimei.activity.CouponActivity"
             android:screenOrientation="portrait" />
         <activity 

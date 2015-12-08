@@ -2,62 +2,63 @@ package com.hanmimei.activity;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.hanmimei.R;
-import com.hanmimei.adapter.TicketAdapter;
-import com.hanmimei.entity.Ticket;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import com.hanmimei.R;
+import com.hanmimei.adapter.MyPagerAdapter;
+import com.hanmimei.entity.Category;
+import com.hanmimei.fragment.CouponFragment;
+import com.hanmimei.utils.ActionBarUtil;
+import com.viewpagerindicator.TabPageIndicator;
 
 @SuppressLint("NewApi") 
-public class CouponActivity extends BaseActivity implements OnClickListener{
+public class CouponActivity extends BaseActivity{
 
-	private PullToRefreshListView mListView;
-	private TicketAdapter adapter;
-	private List<Ticket> data;
-	private TextView header;
-	private ImageView back;
 	
+	private static final String TAG_ID_01 = "tag01";
+	private static final String TAG_ID_02 = "tag02";
+	private static final String TAG_ID_03 = "tag03";
+	private static final String TAG_01 = "未使用";
+	private static final String TAG_02 = "已使用";
+	private static final String TAG_03 = "已过期";
+	private TabPageIndicator indicator;
+	private ViewPager viewPager;
+	private List<Category> data;
+	private List<Fragment> fragmentList;
+	private MyPagerAdapter adapter;
 	@Override
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
-		setContentView(R.layout.my_coupon_layout);
-//		getActionBar().hide();
-		data = new ArrayList<Ticket>();
-		adapter = new TicketAdapter(data, this);
-		mListView = (PullToRefreshListView) findViewById(R.id.mylist);
-		header = (TextView) findViewById(R.id.header);
-		back = (ImageView) findViewById(R.id.back);
-		back.setOnClickListener(this);
-		back.setVisibility(View.VISIBLE);
-		header.setText("购物券");
-		mListView.setAdapter(adapter);
-		loadData();
+		setContentView(R.layout.my_order_layout);
+		ActionBarUtil.setActionBarStyle(this, "优惠券", 0, true, null);
+		indicator = (TabPageIndicator) findViewById(R.id.indicator);
+		viewPager = (ViewPager) findViewById(R.id.pager);
+		initCategory();
+		initFragment();
 	}
 
-	private void loadData() {
-		for(int i = 0; i < 7; i ++){
-			data.add(new Ticket(i*10+5, i*50+100, "2015-12-24"));
+	private void initFragment() {
+		fragmentList = new ArrayList<Fragment>();
+		for(int i = 0; i < data.size(); i ++){
+			Category category = data.get(i);
+			CouponFragment fragment = new CouponFragment();
+			Bundle bundle = new Bundle();
+			bundle.putSerializable("category", category);
+			fragment.setArguments(bundle);
+			fragmentList.add(fragment);
 		}
-		adapter.notifyDataSetChanged();
+		adapter = new MyPagerAdapter(getSupportFragmentManager(), fragmentList, data);
+		viewPager.setAdapter(adapter);
+		indicator.setViewPager(viewPager);
 	}
 
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.back:
-			finish();
-			break;
-
-		default:
-			break;
-		}
+	private void initCategory() {
+		data = new ArrayList<Category>();
+		data.add(new Category(TAG_ID_01, TAG_01));
+		data.add(new Category(TAG_ID_02, TAG_02));
+		data.add(new Category(TAG_ID_03, TAG_03));
 	}
 
 }
