@@ -154,6 +154,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		case R.id.btn_pay:
 			if(getUser() == null){
 				startActivity(new Intent(this, LoginActivity.class));
+				sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION));
 				return;
 			}
 			ShoppingCar car = new ShoppingCar();
@@ -171,6 +172,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 					sgoods.setGoodsPrice(s.getItemPrice().intValue());
 					sgoods.setInvArea(s.getInvArea());
 					sgoods.setInvCustoms(s.getInvCustom());
+					sgoods.setPostalTaxRate(s.getPostalTaxRate()+"");
+					sgoods.setShipFee(s.getShipFee());
 					customs.setInvArea(s.getInvArea());
 					customs.setInvCustoms(s.getInvCustom());
 					customs.addShoppingGoods(sgoods);
@@ -278,7 +281,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 	private void initGoodsDetail(GoodsDetail detail) {
 		main = detail.getMain();
-		stocks = detail.getStocks();
+		stocks = detail.getStock();
 
 		num_attention.setText("(" + main.getCollectCount() + ")");
 		publicity.setText(main.getPublicity());

@@ -65,7 +65,8 @@ public class ThemeAdapter extends BaseAdapter {
 			holder.title = (TextView) convertView.findViewById(R.id.title);
 			holder.price = (TextView) convertView.findViewById(R.id.price);
 			holder.old_price = (TextView) convertView.findViewById(R.id.old_price);
-			holder.discount = (TextView) convertView.findViewById(R.id.discount);
+			holder.area = (TextView) convertView.findViewById(R.id.area);
+//			holder.discount = (TextView) convertView.findViewById(R.id.discount);
 			holder.sold_out = (ImageView) convertView.findViewById(R.id.sold_out);
 			convertView.setTag(holder);
 		}else{
@@ -78,10 +79,11 @@ public class ThemeAdapter extends BaseAdapter {
 		holder.img.setLayoutParams(params);
 		imageLoader.displayImage(theme.getItemImg(), holder.img,imageOptions);
 		holder.title.setText(theme.getItemTitle());
+		holder.area.setText(theme.getInvArea());
 		holder.price.setText(activity.getResources().getString(R.string.price, theme.getItemPrice()));
 		holder.old_price.setText(activity.getResources().getString(R.string.price, theme.getItemSrcPrice()));
 		holder.old_price.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-		holder.discount.setText(activity.getResources().getString(R.string.discount, theme.getItemDiscount()));
+//		holder.discount.setText(activity.getResources().getString(R.string.discount, theme.getItemDiscount()));
 		if(theme.getState().equals("Y")){
 			holder.sold_out.setVisibility(View.GONE);
 		}else{
@@ -96,6 +98,7 @@ public class ThemeAdapter extends BaseAdapter {
 		private TextView price;
 		private TextView old_price;
 		private TextView discount;
+		private TextView area;
 	}
 
 }

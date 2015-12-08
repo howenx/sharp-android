@@ -4,37 +4,40 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
-    android:orientation="horizontal">
-    
-    <RelativeLayout 
+    android:orientation="horizontal" >
+
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    <ImageView 
-        android:id="@+id/point_b"
-        android:layout_width="5dp"
-        android:layout_height="5dp"
-        android:layout_margin="10dp"
-        android:layout_centerInParent="true"
-        android:src="@drawable/point_black"
-        android:contentDescription="@null"/>
-    <ImageView 
-        android:id="@+id/point_w"
-        android:layout_width="5dp"
-        android:layout_height="5dp"
-        android:layout_centerInParent="true"
-        android:src="@drawable/point_white"
-        android:contentDescription="@null"/>
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/point_b"
+            android:layout_width="5dp"
+            android:layout_height="5dp"
+            android:layout_centerInParent="true"
+            android:layout_margin="10dp"
+            android:contentDescription="@null"
+            android:src="@drawable/point_black" />
+
+        <ImageView
+            android:id="@+id/point_w"
+            android:layout_width="5dp"
+            android:layout_height="5dp"
+            android:layout_centerInParent="true"
+            android:contentDescription="@null"
+            android:src="@drawable/point_white" />
     </RelativeLayout>
 
     <TextView
         android:id="@+id/tag"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
+        android:background="@drawable/biaoqian_0"
+        android:gravity="center_vertical"
         android:paddingLeft="10dp"
         android:paddingRight="3dp"
-		android:background="@drawable/biaoqian_0"
         android:textColor="#ffffff"
-        android:textSize="12sp" >
+        android:textSize="14sp" >
     </TextView>
 
 </LinearLayout>

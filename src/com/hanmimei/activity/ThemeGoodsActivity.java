@@ -98,7 +98,6 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		imageLoader = InitImageLoader.initLoader(this);
 		imageOptions = InitImageLoader.initOptions();
 		gridView = (GridView) findViewById(R.id.my_grid);
-		masterItem = (LinearLayout) findViewById(R.id.masterItem);
 		img = (ImageView) findViewById(R.id.img);
 		title = (TextView) findViewById(R.id.title);
 		price = (TextView) findViewById(R.id.price);
@@ -135,33 +134,15 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		themeItem = detail.getMasterItem();
 		if (themeItem == null)
 			return;
-		masterItem.setVisibility(View.VISIBLE);
 		Picasso.with(this)
 				.load(themeItem.getItemMasterImg())
 				.resize(CommonUtil.getScreenWidth(this),
-						CommonUtil.getScreenWidth(this) / 2).into(img);
-		title.setText(themeItem.getItemTitle());
-		price.setText(getResources().getString(R.id.price,
-				themeItem.getItemPrice()));
-		img.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				if (!themeItem.getState().equals("Y")) {
-					return;
-				}
-				Intent intent = new Intent(getActivity(),
-						GoodsDetailActivity.class);
-				intent.putExtra("url", themeItem.getItemUrl());
-				startActivity(intent);
-			}
-		});
+						CommonUtil.getScreenWidth(this) *10/12).into(img);
 
 		try {
 			JSONArray array = new JSONArray(themeItem.getMasterItemTag());
 			int width = CommonUtil.getScreenWidth(this);
-			int height = CommonUtil.getScreenWidth(this) / 2;
+			int height = CommonUtil.getScreenWidth(this)*10 /12;
 			View view = null;
 			for (int i = 0; i < array.length(); i++) {
 				JSONObject json = array.getJSONObject(i);
@@ -183,6 +164,18 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 						0, 0);
 
 				tag.setText(json.getString("name"));
+				final String url = json.getString("url");
+				view.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View arg0) {
+						// TODO Auto-generated method stub
+						Intent intent = new Intent(getActivity(),
+								GoodsDetailActivity.class);
+						intent.putExtra("url", url);
+						startActivity(intent);
+					}
+				});
 				mframeLayout.addView(view, lp);
 			}
 		} catch (JSONException e) {
