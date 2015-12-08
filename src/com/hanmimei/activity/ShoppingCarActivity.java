@@ -7,10 +7,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.hanmimei.R;
-import com.hanmimei.adapter.ShoppingCarAdapter;
+import com.hanmimei.adapter.ShoppingCarPullListAdapter;
 import com.hanmimei.dao.ShoppingGoodsDao;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
+import com.hanmimei.entity.Customs;
 import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.User;
@@ -24,10 +25,8 @@ import android.os.Message;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 /*
  * 同shoppingcarfragment
@@ -35,23 +34,19 @@ import android.widget.TextView;
 public class ShoppingCarActivity extends BaseActivity implements OnClickListener{
 
 	private PullToRefreshListView mListView;
-	private RelativeLayout bottom;
-	private TextView goods_nums;
+	private LinearLayout bottom;
 	private TextView total_price;
 	private ImageView check_all;
-	private TextView pay_price;
-	private TextView cut_price;
 	private TextView pay;
 	private LinearLayout no_data;
-	private FrameLayout top_bar;
-	private List<ShoppingGoods> data;
-	private ShoppingCarAdapter adapter;
+	private List<Customs> data;
+	private ShoppingCarPullListAdapter adapter;
+	private BaseActivity activity;
 	private User user;
 	private ShoppingGoodsDao goodsDao;
 	//
 	private int nums = 0;
 	private int totalPrice = 0;
-	private int cutPrice = 0;
 	
 	private boolean isSelected = false;
 	private Drawable check_Drawable;
@@ -62,7 +57,7 @@ public class ShoppingCarActivity extends BaseActivity implements OnClickListener
 		super.onCreate(arg0);
 		setContentView(R.layout.shopping_car_list_layout);
 		goodsDao = getDaoSession().getShoppingGoodsDao();
-		data = new ArrayList<ShoppingGoods>();
+		data = new ArrayList<Customs>();
 		check_Drawable = getResources()
 				.getDrawable(R.drawable.checked);
 		uncheck_Drawable = getResources().getDrawable(
@@ -173,12 +168,9 @@ public class ShoppingCarActivity extends BaseActivity implements OnClickListener
 	private void findView() {
 		TextView title = (TextView) findViewById(R.id.header);
 		title.setText("购物车");
-		bottom = (RelativeLayout) findViewById(R.id.bottom);
-		goods_nums = (TextView) findViewById(R.id.goods_nums);
+		bottom = (LinearLayout) findViewById(R.id.bottom);
 		total_price = (TextView) findViewById(R.id.total_price);
 		check_all = (ImageView) findViewById(R.id.all);
-		pay_price = (TextView) findViewById(R.id.end_price);
-		cut_price = (TextView) findViewById(R.id.cost_price);
 		pay = (TextView) findViewById(R.id.pay);
 		mListView = (PullToRefreshListView) findViewById(R.id.mylist);
 		no_data = (LinearLayout) findViewById(R.id.data_null);
@@ -186,10 +178,10 @@ public class ShoppingCarActivity extends BaseActivity implements OnClickListener
 		findViewById(R.id.back).setVisibility(View.VISIBLE);
 		findViewById(R.id.back).setOnClickListener(this);
 		check_all.setOnClickListener(this);
-		adapter = new ShoppingCarAdapter(data, getActivity());
+		adapter = new ShoppingCarPullListAdapter(data, activity);
 		mListView.setAdapter(adapter);
 
-//		ShoppingCarMenager.getInstance().initShoppingCarMenager(check_all, goods_nums, total_price, pay_price, cut_price, no_data, bottom);
+		ShoppingCarMenager.getInstance().initShoppingCarMenager(check_all, total_price, pay, no_data, bottom);
 		ShoppingCarMenager.getInstance().initDrawable(getActivity());
 	}
 
@@ -219,36 +211,42 @@ public class ShoppingCarActivity extends BaseActivity implements OnClickListener
 
 	private void doPrice() {
 		for (int i = 0; i < data.size(); i++) {
-			data.get(i).setState("G");
-			nums = nums + data.get(i).getGoodsNums();
-			totalPrice = totalPrice + data.get(i).getGoodsNums()
-					* data.get(i).getGoodsPrice();
+			for(int j = 0; j < data.get(i).getList().size(); j ++){
+			data.get(i).getList().get(j).setState("G");
+			nums = nums + data.get(i).getList().get(j).getGoodsNums();
+			totalPrice = totalPrice + data.get(i).getList().get(j).getGoodsNums()
+					* data.get(i).getList().get(j).getGoodsPrice();
+			}
 		}
 		adapter.notifyDataSetChanged();
 		ShoppingCarMenager.getInstance().ClearAll();
-		ShoppingCarMenager.getInstance().setAll(nums, totalPrice, cutPrice);
+		ShoppingCarMenager.getInstance().setAll(nums, totalPrice);
+		pay.setText("结算" + "(" + nums + ")");
+		total_price.setText("总计：" + totalPrice);
 	}
 
 	private void clearPrice() {
 		for (int i = 0; i < data.size(); i++) {
-			data.get(i).setState("I");
+			for(int j = 0; j < data.get(i).getList().size(); j ++){
+			data.get(i).getList().get(j).setState("I");
+			}
 		}
 		adapter.notifyDataSetChanged();
 		ShoppingCarMenager.getInstance().ClearAll();
 		nums = 0;
 		totalPrice = 0;
-		cutPrice = 0;
+		pay.setText("结算" + "(" + nums + ")");
+		total_price.setText("总计：" + totalPrice);
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent arg2) {
-		// TODO Auto-generated method stub
+		
 		super.onActivityResult(requestCode, resultCode, arg2);
-//		if(resultCode == AppConstant.CAR_TO_GOODS_CODE){
 			loadData();
-//		}
 	}
-//	主界面返回之后在后台运行
+	
+	//	主界面返回之后在后台运行
 	@Override  
     public boolean onKeyDown(int keyCode, KeyEvent event) { 
         if (keyCode == KeyEvent.KEYCODE_BACK) { 

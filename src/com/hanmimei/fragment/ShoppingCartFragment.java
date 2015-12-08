@@ -5,14 +5,12 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.hanmimei.R;
 import com.hanmimei.activity.BaseActivity;
-import com.hanmimei.adapter.ShoppingCarAdapter;
 import com.hanmimei.adapter.ShoppingCarPullListAdapter;
 import com.hanmimei.dao.ShoppingGoodsDao;
 import com.hanmimei.data.AppConstant;
@@ -40,7 +38,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class ShoppingCartFragment extends Fragment implements
@@ -60,13 +57,10 @@ public class ShoppingCartFragment extends Fragment implements
 	//
 	private int nums = 0;
 	private int totalPrice = 0;
-	private int cutPrice = 0;
 	
 	private boolean isSelected = false;
 	private Drawable check_Drawable;
 	private Drawable uncheck_Drawable;
-	
-//	private ShoppingCarMenager menager;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -223,7 +217,7 @@ public class ShoppingCartFragment extends Fragment implements
 		}
 		adapter.notifyDataSetChanged();
 		ShoppingCarMenager.getInstance().ClearAll();
-		//ShoppingCarMenager.getInstance().setAll(nums, totalPrice, cutPrice);
+		ShoppingCarMenager.getInstance().setAll(nums, totalPrice);
 		pay.setText("结算" + "(" + nums + ")");
 		total_price.setText("总计：" + totalPrice);
 	}
@@ -238,7 +232,6 @@ public class ShoppingCartFragment extends Fragment implements
 		ShoppingCarMenager.getInstance().ClearAll();
 		nums = 0;
 		totalPrice = 0;
-		cutPrice = 0;
 		pay.setText("结算" + "(" + nums + ")");
 		total_price.setText("总计：" + totalPrice);
 	}

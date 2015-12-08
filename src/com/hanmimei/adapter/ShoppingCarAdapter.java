@@ -103,6 +103,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		if (goods.getState().equals("G")) {
 			// carMenager.setBottom(false, goods.getGoodsNums(),
 			// goods.getGoodsPrice(), 0);
+			check_nums = check_nums + 1;
 			holder.checkBox.setImageDrawable(check_Drawable);
 		} else {
 			holder.checkBox.setImageDrawable(uncheck_Drawable);
@@ -135,7 +136,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 				
 				if(goods.getState().equals("G")){
 					if(goods.getGoodsNums() > 1)
-					ShoppingCarMenager.getInstance().setBottom(-1, goods.getGoodsPrice(), 0);
+					ShoppingCarMenager.getInstance().setBottom(-1, goods.getGoodsPrice());
 				}
 				//登录状态减少到服务器，未登录状态增减少本地数据库
 				if (user != null) {
@@ -159,7 +160,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				if(goods.getState().equals("G"))
-					ShoppingCarMenager.getInstance().setBottom(1, goods.getGoodsPrice(), 0);
+					ShoppingCarMenager.getInstance().setBottom(1, goods.getGoodsPrice());
 				//登录状态增加到服务器，未登录状态增加到本地数据库
 				if (user != null) {
 					goods.setGoodsNums(goods.getGoodsNums() + 1);
@@ -181,7 +182,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 			public void onClick(View v) {
 				if(goods.getState().equals("G"))
 				ShoppingCarMenager.getInstance().setBottom(-goods.getGoodsNums(),
-						goods.getGoodsPrice(), 0);
+						goods.getGoodsPrice());
 				
 				//登录状态删除服务器数据，未登录状态删除本地数据
 				if(user != null){
@@ -202,7 +203,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 					check_nums = check_nums - 1;
 					ShoppingCarMenager.getInstance().setUnChecked();
 					ShoppingCarMenager.getInstance().setBottom(-goods.getGoodsNums(),
-							goods.getGoodsPrice(), 0);
+							goods.getGoodsPrice());
 					goods.setState("I");
 					notifyDataSetChanged();
 				} else {
@@ -211,7 +212,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 					if(check_nums == data.size())
 						ShoppingCarMenager.getInstance().setChecked();
 					ShoppingCarMenager.getInstance().setBottom(goods.getGoodsNums(),
-							goods.getGoodsPrice(), 0);
+							goods.getGoodsPrice());
 					notifyDataSetChanged();
 				}
 			}

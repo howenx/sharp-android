@@ -53,7 +53,7 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 	private String city;
 	private String address;
 	private String idCard;
-	private boolean isDefaut = false;
+	private int isDefaut = 0;
 	private Adress old_Adress;
 	private int isWhat;
 	private JSONObject object;
@@ -102,7 +102,7 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 	/**
 	 * 根据当前的市，更新区WheelView的信息
 	 */
-	private void updateAreas() {
+	private void updateAreas() {	
 		int pCurrent = mViewCity.getCurrentItem();
 		mCurrentCityName = mCitisDatasMap.get(mCurrentProviceName)[pCurrent];
 		String[] areas = mDistrictDatasMap.get(mCurrentCityName);
@@ -169,7 +169,11 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 			
 			@Override
 			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
-				isDefaut = arg1;
+				if(arg1){
+					isDefaut = 1;
+				}else{
+					isDefaut = 0;
+				}
 			}
 		});
 //		city_edit.setOnClickListener(this);
