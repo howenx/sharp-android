@@ -52,5 +52,4 @@
     <dimen name="panel_loading_size">100dp</dimen>
     <dimen name="driver_padding_normal">8dp</dimen>
     <dimen name="driver_padding_small">5dp</dimen>
-
 </resources>
