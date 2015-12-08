@@ -7,6 +7,15 @@ import java.util.List;
 public class Customs implements Serializable{
 	private String invArea;
 	private String  invCustoms;
+	private int postFee;
+	
+	public int getPostFee() {
+		return postFee;
+	}
+	public void setPostFee(int postFee) {
+		this.postFee = postFee;
+	}
+
 	private List<ShoppingGoods> list;
 	
 	public String getInvArea() {

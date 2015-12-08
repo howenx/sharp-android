@@ -35,15 +35,14 @@ import com.hanmimei.utils.ToastUtils;
 public class GoodsBalanceActivity extends BaseActivity implements
 		OnClickListener {
 
-	private RadioGroup group_pay_type, group_send_time,group_coupons;
+	private RadioGroup group_pay_type, group_send_time, group_coupons;
 	private TextView send_time, pay_type;
-	private ListView mListView,mCouponView;
+	private ListView mListView, mCouponView;
 	private ShoppingCar car;
-	private List<Customs> customslist; //保税区列表
-	
-	private TextView all_price,all_money;
-	private TextView name,phone,address,coupon_num;
-	
+	private List<Customs> customslist; // 保税区列表
+
+	private TextView all_price, all_money;
+	private TextView name, phone, address, coupon_num;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -54,7 +53,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 		car = (ShoppingCar) getIntent().getSerializableExtra("car");
 		customslist = car.getList();
 		findView();
-//		initViews();
+		// initViews();
 		loadData();
 	}
 
@@ -66,7 +65,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 
 		pay_type = (TextView) findViewById(R.id.pay_type);
 		send_time = (TextView) findViewById(R.id.send_time);
-		
+
 		all_price = (TextView) findViewById(R.id.all_price);
 		all_money = (TextView) findViewById(R.id.all_money);
 		name = (TextView) findViewById(R.id.name);
@@ -99,32 +98,31 @@ public class GoodsBalanceActivity extends BaseActivity implements
 						send_time.setText(btn.getText());
 					}
 				});
-		
-		
+
 	}
-	
-	private void initViews(){
+
+	private void initViews() {
 		mListView.setAdapter(new GoodsBalanceCustomAdapter(customslist, this));
-		all_price.setText(car.getAllPrice()+"");
-		if(goodsBalance !=null){
-			if(goodsBalance.getMessage().getCode() == 200){
+		all_price.setText(car.getAllPrice() + "");
+		if (goodsBalance != null) {
+			if (goodsBalance.getMessage().getCode() == 200) {
 				Settle settle = goodsBalance.getSettle();
-				if(settle.getAddress() !=null){
+				if (settle.getAddress() != null) {
 					findViewById(R.id.newAddress).setVisibility(View.GONE);
 					address.setText(settle.getAddress().getDeliveryCity());
 					name.setText(settle.getAddress().getName());
 					phone.setText(settle.getAddress().getTel());
 				}
-				if(settle.getCoupons() !=null){
-					List<Coupon> coupons  = settle.getCoupons();
-					coupon_num.setText(coupons.size()+"张可用");
-					for(Coupon c : coupons){
+				if (settle.getCoupons() != null) {
+					List<Coupon> coupons = settle.getCoupons();
+					coupon_num.setText(coupons.size() + "张可用");
+					for (Coupon c : coupons) {
 						RadioButton btn = new RadioButton(this);
 						btn.setText(c.getDenomination());
 						group_coupons.addView(btn);
 					}
 				}
-				
+
 			}
 		}
 	}
@@ -159,40 +157,38 @@ public class GoodsBalanceActivity extends BaseActivity implements
 			break;
 		}
 	}
-	
-	
-	
-	//网络请求数据
-	private void loadData(){
+
+	// 网络请求数据
+	private void loadData() {
 		final JSONArray array = JSONPaserTool.ClientSettlePaser(car);
 		submitTask(new Runnable() {
-			
+
 			@Override
 			public void run() {
-				String result = HttpUtils.post(UrlUtil.POST_CLIENT_SETTLE, array, "id-token", getUser().getToken());
+				String result = HttpUtils.post(UrlUtil.POST_CLIENT_SETTLE,
+						array, "id-token", getUser().getToken());
 				Message msg = mHandler.obtainMessage(1, result);
 				mHandler.sendMessage(msg);
 			}
 		});
 	}
-	
+
 	private GoodsBalance goodsBalance;
-	
-	private Handler mHandler = new Handler(){
+
+	private Handler mHandler = new Handler() {
 
 		@Override
 		public void handleMessage(Message msg) {
 			// TODO Auto-generated method stub
-			if(msg.what== 1){
+			if (msg.what == 1) {
 				String result = (String) msg.obj;
 				Gson gson = new Gson();
-				 goodsBalance = gson.fromJson(result, GoodsBalance.class);
-				 initViews();
+				goodsBalance = gson.fromJson(result, GoodsBalance.class);
+				initViews();
 				ToastUtils.Toast(getActivity(), result);
 			}
 		}
-		
+
 	};
-	
 
 }

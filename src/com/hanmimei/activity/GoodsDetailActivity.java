@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView.OnSliderClickListener;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.hanmimei.R;
@@ -71,7 +72,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 	private SliderLayout slider;
 	private TextView num_attention, discount, itemTitle, itemSrcPrice,
-			itemPrice;
+			itemPrice,area;
+	private TextView num_shipFee,num_portalFee,num_restrictAmount;
 	private TagCloudView tagCloudView;
 	private TextView publicity;
 	private ViewPager pager;
@@ -105,9 +107,13 @@ public class GoodsDetailActivity extends BaseActivity implements
 		itemPrice = (TextView) findViewById(R.id.itemPrice);
 		tagCloudView = (TagCloudView) findViewById(R.id.tagCloudView);
 		publicity = (TextView) findViewById(R.id.publicity);
+		num_shipFee = (TextView) findViewById(R.id.shipFee);
+		num_portalFee = (TextView) findViewById(R.id.portalFee);
+		num_restrictAmount = (TextView) findViewById(R.id.restrictAmount);
 		indicator_hide = findViewById(R.id.indicator_hide);
 		pager = (ViewPager) findViewById(R.id.pager);
 		discount = (TextView) findViewById(R.id.discount);
+		area = (TextView) findViewById(R.id.area);
 		mScrollView = (CustomScrollView) findViewById(R.id.mScrollView);
 		mScrollView.setOnScrollUpListener(this);
 		pager_header = findViewById(R.id.pager_header);
@@ -370,11 +376,15 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 			if (s.getOrMasterInv()) {
 				initSliderImage(s);
-				discount.setText("[" + s.getItemDiscount() + "折]");
-				itemTitle.setText(s.getInvTitle());
-				itemSrcPrice.setText(s.getItemSrcPrice() + "");
+//				discount.setText("[" + s.getItemDiscount() + "折]");
+//				itemTitle.setText(s.getInvTitle());
+				itemSrcPrice.setText(getResources().getString(R.string.price, s.getItemSrcPrice()));
 				itemSrcPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-				itemPrice.setText(s.getItemPrice() + "");
+				itemPrice.setText(getResources().getString(R.string.price, s.getItemPrice()));
+				num_restrictAmount.setText(getResources().getString(R.string.restrictAmount,s.getRestrictAmount()));
+				num_portalFee.setText(getResources().getString(R.string.postalTaxRate,s.getPostalTaxRate()));
+				num_shipFee.setText(getResources().getString(R.string.shipFee, s.getShipFee()));
+				area.setText(s.getInvArea());
 			}
 		}
 	}
@@ -382,17 +392,19 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private void initSliderImage(Stock s) {
 		slider.setVisibility(View.INVISIBLE);
 //		slider.removeAllSliders();
-		List<DefaultSliderView> imageContent = new ArrayList<DefaultSliderView>();
+		List<TextSliderView> imageContent = new ArrayList<TextSliderView>();
 		for (String url : s.getItemPreviewImgs()) {
-			DefaultSliderView defaultSliderView = new DefaultSliderView(this);
+//			DefaultSliderView defaultSliderView = new DefaultSliderView(this);
+			TextSliderView textSliderView = new TextSliderView(this);
 			// initialize a SliderLayout
-			defaultSliderView.image(url)
+			textSliderView.image(url)
 					.setScaleType(BaseSliderView.ScaleType.Fit)
+					.description("[" + s.getItemDiscount() + "折]"+s.getInvTitle())
 					.setOnSliderClickListener(this);
 
 			// add your extra information
-			defaultSliderView.getBundle().putString("extra", s.getInvUrl());
-			imageContent.add(defaultSliderView);
+			textSliderView.getBundle().putString("extra", s.getInvUrl());
+			imageContent.add(textSliderView);
 //			slider.addSlider(defaultSliderView);
 		}
 		slider.setPresetTransformer(SliderLayout.Transformer.Default);

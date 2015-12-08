@@ -154,7 +154,7 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 			object.put("nickname", name_str);
 			object.put("phoneNum", oldUser.getPhone());
 			object.put("birthday", null);
-			object.put("gender", "女");
+			object.put("gender", "M");
 			object.put("photoUrl", header_str);
 		} catch (JSONException e) {
 			e.printStackTrace();

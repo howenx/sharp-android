@@ -5,12 +5,15 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Comment;
+
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.hanmimei.R;
 import com.hanmimei.activity.BaseActivity;
+import com.hanmimei.activity.GoodsBalanceActivity;
 import com.hanmimei.adapter.ShoppingCarPullListAdapter;
 import com.hanmimei.dao.ShoppingGoodsDao;
 import com.hanmimei.data.AppConstant;
@@ -20,6 +23,8 @@ import com.hanmimei.entity.Customs;
 import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.User;
+import com.hanmimei.utils.CommonUtil;
+import com.hanmimei.utils.DoJumpUtils;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ShoppingCarMenager;
 import android.content.BroadcastReceiver;
@@ -39,6 +44,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ShoppingCartFragment extends Fragment implements
 		OnClickListener,OnRefreshListener2<ListView> {
@@ -68,6 +74,7 @@ public class ShoppingCartFragment extends Fragment implements
 		activity = (BaseActivity) getActivity();
 		goodsDao = activity.getDaoSession().getShoppingGoodsDao();
 		data = new ArrayList<Customs>();
+		shoppingCar = new ShoppingCar();
 		check_Drawable = activity.getResources()
 				.getDrawable(R.drawable.checked);
 		uncheck_Drawable = activity.getResources().getDrawable(
@@ -101,15 +108,15 @@ public class ShoppingCartFragment extends Fragment implements
 	private void getLocalData() {
 		List<ShoppingGoods> list = goodsDao.queryBuilder().build().list();
 		if (list != null && list.size() > 0) {
-//			no_data.setVisibility(View.GONE);
-//			bottom.setVisibility(View.VISIBLE);
-//			data.addAll(list);
-//			adapter.notifyDataSetChanged();
+			mListView.setVisibility(View.VISIBLE);
+			no_data.setVisibility(View.GONE);
+			bottom.setVisibility(View.VISIBLE);
 			toJsonArray(list);
 			getData();
 		}else{
-//			bottom.setVisibility(View.GONE);
+			bottom.setVisibility(View.GONE);
 			no_data.setVisibility(View.VISIBLE);
+			mListView.setVisibility(View.GONE);
 		}
 	}
 
@@ -175,13 +182,13 @@ public class ShoppingCartFragment extends Fragment implements
 				ShoppingCar car = (ShoppingCar) msg.obj;
 				if(car.getList() != null && car.getList().size() > 0){
 					no_data.setVisibility(View.GONE);
-//					bottom.setVisibility(View.VISIBLE);
+					bottom.setVisibility(View.VISIBLE);
 					mListView.setVisibility(View.VISIBLE);
 					data.clear();
 					data.addAll(car.getList());
 					adapter.notifyDataSetChanged();
 				}else{
-//					bottom.setVisibility(View.GONE);
+					bottom.setVisibility(View.GONE);
 					no_data.setVisibility(View.VISIBLE);
 					mListView.setVisibility(View.GONE);
 				}
@@ -204,6 +211,7 @@ public class ShoppingCartFragment extends Fragment implements
 		mListView.setMode(Mode.PULL_DOWN_TO_REFRESH);
 		no_data = (LinearLayout) view.findViewById(R.id.data_null);
 		check_all.setOnClickListener(this);
+		pay.setOnClickListener(this);
 	}
 
 	private void doPrice() {
@@ -236,6 +244,7 @@ public class ShoppingCartFragment extends Fragment implements
 		total_price.setText("总计：" + totalPrice);
 	}
 
+	private ShoppingCar shoppingCar;
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -250,11 +259,46 @@ public class ShoppingCartFragment extends Fragment implements
 				isSelected = true;
 			}
 			break;
-
+		case R.id.pay:
+			List<Customs> customsList = new ArrayList<Customs>();
+			for(int i = 0; i < data.size(); i ++){
+				List<ShoppingGoods> goodsList = new ArrayList<ShoppingGoods>();
+				Customs customs = new Customs();
+				for(int j = 0 ; j < data.get(i).getList().size(); j ++){
+					if(data.get(i).getList().get(j).getState().equals("G")){
+						goodsList.add(data.get(i).getList().get(j));	
+					}
+				}
+				if(goodsList.size() > 0){
+					customs.setList(goodsList);
+					customs.setInvArea(data.get(i).getInvArea());
+					customs.setInvCustoms(data.get(i).getInvCustoms());
+					int postFee = 0;
+					for(int m = 0; m < goodsList.size(); m ++){
+						postFee = postFee + goodsList.get(m).getShipFee();
+					}
+					customs.setPostFee(postFee);
+					customsList.add(customs);
+				}
+			}
+			shoppingCar.setList(customsList);
+			if(shoppingCar.getList().size() > 0){
+				doPay(shoppingCar);
+			}else{
+				Toast.makeText(getActivity(), "请选择商品", Toast.LENGTH_SHORT).show();
+			}
+			break;
 		default:
 			break;
 		}
 	}
+	private void doPay(ShoppingCar shoppingCar) {
+		Intent intent = new Intent(getActivity(), GoodsBalanceActivity.class);
+		intent.putExtra("car", shoppingCar);
+		getActivity().startActivity(intent);
+	}
+	
+
 	private CarBroadCastReceiver netReceiver;
 	
 	// 广播接收者 注册
@@ -264,6 +308,7 @@ public class ShoppingCartFragment extends Fragment implements
 			intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_ADD_CAR);
 			intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR);
 			intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION);
+			intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_QUIT_LOGIN_ACTION);
 			getActivity().registerReceiver(netReceiver, intentFilter);
 		}
 		
@@ -283,6 +328,8 @@ public class ShoppingCartFragment extends Fragment implements
 				}else if(intent.getAction().equals(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR)){
 					loadData();
 				}else if(intent.getAction().equals(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION)){
+					loadData();
+				}else if(intent.getAction().equals(AppConstant.MESSAGE_BROADCAST_QUIT_LOGIN_ACTION)){
 					loadData();
 				}
 			}
