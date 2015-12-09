@@ -1,11 +1,9 @@
 package com.hanmimei.adapter;
 
 import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -19,7 +17,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.hanmimei.R;
 import com.hanmimei.activity.BaseActivity;
 import com.hanmimei.activity.GoodsDetailActivity;
@@ -27,7 +24,6 @@ import com.hanmimei.dao.ShoppingGoodsDao;
 import com.hanmimei.dao.ShoppingGoodsDao.Properties;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
-import com.hanmimei.entity.Goods;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
@@ -50,6 +46,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 	private Drawable uncheck_Drawable;
 	private ShoppingGoodsDao goodsDao;
 	private int check_nums;
+	private boolean isFirst = true;
 
 	public ShoppingCarAdapter(List<ShoppingGoods> data, Context mContext) {
 		inflater = LayoutInflater.from(mContext);
@@ -134,10 +131,10 @@ public class ShoppingCarAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View arg0) {
 				
-				if(goods.getState().equals("G")){
-					if(goods.getGoodsNums() > 1)
-					ShoppingCarMenager.getInstance().setBottom(-1, goods.getGoodsPrice());
-				}
+//				if(goods.getState().equals("G")){
+//					if(goods.getGoodsNums() > 1)
+//					ShoppingCarMenager.getInstance().setBottom(-1, goods.getGoodsPrice());
+//				}
 				//登录状态减少到服务器，未登录状态增减少本地数据库
 				if (user != null) {
 					if (goods.getGoodsNums() > 1)
@@ -151,6 +148,8 @@ public class ShoppingCarAdapter extends BaseAdapter {
 						notifyDataSetChanged();
 						goodsDao.insertInTx(data);
 					}
+					//同一海关下，商品总金额不得 > 1000
+//					ShoppingCarMenager.getInstance().isMoreThan();
 				}
 				
 			}
@@ -159,30 +158,28 @@ public class ShoppingCarAdapter extends BaseAdapter {
 
 			@Override
 			public void onClick(View v) {
-				if(goods.getState().equals("G"))
-					ShoppingCarMenager.getInstance().setBottom(1, goods.getGoodsPrice());
+				if(goods.getGoodsNums() < goods.getRestrictAmount() || goods.getRestrictAmount() == 0){
+//				if(goods.getState().equals("G"))
+//					ShoppingCarMenager.getInstance().setBottom(1, goods.getGoodsPrice());
 				//登录状态增加到服务器，未登录状态增加到本地数据库
 				if (user != null) {
 					goods.setGoodsNums(goods.getGoodsNums() + 1);
-					// notifyDataSetChanged();
 					upGoods(goods);
 				} else {
 					goods.setGoodsNums(goods.getGoodsNums() + 1);
-					// notifyDataSetChanged();
 					upGoodsN(goods);
-//					goodsDao.deleteAll();
-//					goods.setGoodsNums(goods.getGoodsNums() + 1);
-//					notifyDataSetChanged();
-//					goodsDao.insertInTx(data);
 				}
+			}else{
+				Toast.makeText(activity, "本商品限购"+ goods.getRestrictAmount() + "件", Toast.LENGTH_SHORT).show();
+			}
 			}
 		});
 		holder.del.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if(goods.getState().equals("G"))
-				ShoppingCarMenager.getInstance().setBottom(-goods.getGoodsNums(),
-						goods.getGoodsPrice());
+//				if(goods.getState().equals("G"))
+//				ShoppingCarMenager.getInstance().setBottom(-goods.getGoodsNums(),
+//						goods.getGoodsPrice());
 				
 				//登录状态删除服务器数据，未登录状态删除本地数据
 				if(user != null){
@@ -191,8 +188,9 @@ public class ShoppingCarAdapter extends BaseAdapter {
 					goodsDao.delete(goodsDao.queryBuilder().where(Properties.GoodsId.eq(goods.getGoodsId())).build().unique());
 					data.remove(goods);
 					notifyDataSetChanged();
-					if(data.size() < 1)
-						ShoppingCarMenager.getInstance().setNoGoods();
+//					if(data.size() < 1)
+//						ShoppingCarMenager.getInstance().setNoGoods();
+					ShoppingCarMenager.getInstance().setBottom();
 				}
 			}
 		});
@@ -201,19 +199,29 @@ public class ShoppingCarAdapter extends BaseAdapter {
 			public void onClick(View arg0) {
 				if (goods.getState().equals("G")) {
 					check_nums = check_nums - 1;
-					ShoppingCarMenager.getInstance().setUnChecked();
-					ShoppingCarMenager.getInstance().setBottom(-goods.getGoodsNums(),
-							goods.getGoodsPrice());
+//					ShoppingCarMenager.getInstance().setUnChecked();
+//					ShoppingCarMenager.getInstance().setBottom(-goods.getGoodsNums(),
+//							goods.getGoodsPrice());
 					goods.setState("I");
+					//同一海关下，商品总金额不得 > 1000
+//					ShoppingCarMenager.getInstance().isMoreThan();
+					
 					notifyDataSetChanged();
+
+					ShoppingCarMenager.getInstance().setBottom();
 				} else {
 					goods.setState("G");
+					//同一海关下，商品总金额不得 > 1000
+//					ShoppingCarMenager.getInstance().isMoreThan();
+					
 					check_nums = check_nums + 1;
-					if(check_nums == data.size())
-						ShoppingCarMenager.getInstance().setChecked();
-					ShoppingCarMenager.getInstance().setBottom(goods.getGoodsNums(),
-							goods.getGoodsPrice());
+//					if(check_nums == data.size())
+//						ShoppingCarMenager.getInstance().setChecked();
+//					ShoppingCarMenager.getInstance().setBottom(goods.getGoodsNums(),
+//							goods.getGoodsPrice());
 					notifyDataSetChanged();
+
+					ShoppingCarMenager.getInstance().setBottom();
 				}
 			}
 		});
@@ -267,17 +275,23 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		}).start();
 	}
 	private void upGoodsN(final ShoppingGoods goods){
-
-		String result = HttpUtils
-				.get(UrlUtil.SEND_CAR_TO_SERVER_UN
-						+ goods.getGoodsId()
-						+ "/"
-						+ goods.getGoodsNums());
-		HMessage hm = DataParser.paserResultMsg(result);
-		Message msg = mHandler.obtainMessage(2);
-		// msg.obj = car;
-		msg.obj = hm;
-		mHandler.sendMessage(msg);
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				String result = HttpUtils
+						.get(UrlUtil.SEND_CAR_TO_SERVER_UN
+								+ goods.getGoodsId()
+								+ "/"
+								+ goods.getGoodsNums());
+				HMessage hm = DataParser.paserResultMsg(result);
+				Message msg = mHandler.obtainMessage(2);
+				// msg.obj = car;
+				msg.obj = hm;
+				mHandler.sendMessage(msg);
+			}
+		}).start();
+		
 	}
 	private Handler mHandler = new Handler() {
 
@@ -291,8 +305,10 @@ public class ShoppingCarAdapter extends BaseAdapter {
 					if (hm.getCode() == 200) {
 						data.remove(delGoods);
 						notifyDataSetChanged();
-						if(data.size() < 1)
-							ShoppingCarMenager.getInstance().setNoGoods();
+//						if(data.size() < 1)
+//							ShoppingCarMenager.getInstance().setNoGoods();
+
+						ShoppingCarMenager.getInstance().setBottom();
 					} else {
 						Toast.makeText(activity, hm.getMessage(),
 								Toast.LENGTH_SHORT).show();
@@ -307,6 +323,9 @@ public class ShoppingCarAdapter extends BaseAdapter {
 				if (hmm != null) {
 					if (hmm.getCode() == 200) {
 						notifyDataSetChanged();
+						//同一海关下，商品总金额不得 > 1000
+//						ShoppingCarMenager.getInstance().isMoreThan();
+						ShoppingCarMenager.getInstance().setBottom();
 						goodsDao.deleteAll();
 						goodsDao.insertInTx(data);
 					} else {
@@ -324,6 +343,9 @@ public class ShoppingCarAdapter extends BaseAdapter {
 				if(m != null){
 				if(m.getCode() == 200){
 					notifyDataSetChanged();
+					//同一海关下，商品总金额不得 > 1000
+//					ShoppingCarMenager.getInstance().isMoreThan();
+					ShoppingCarMenager.getInstance().setBottom();
 				}else {
 					Toast.makeText(activity, m.getMessage(),
 							Toast.LENGTH_SHORT).show();
@@ -339,7 +361,6 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		}
 
 	};
-
 	private class ViewHolder {
 		private ImageView checkBox;
 		private ImageView img;

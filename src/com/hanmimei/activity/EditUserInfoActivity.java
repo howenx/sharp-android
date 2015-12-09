@@ -67,6 +67,7 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 	private String sex_str;
 
 	private PopupWindow popWindow;
+	private PopupWindow sexPopupWindow;
 	private View parenView;
 	private static final String IMAGE_FILE_NAME = "header";
 	private static final int CAMERA_REQUEST_CODE = 1;
@@ -87,6 +88,7 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 		findView();
 		initView();
 		initSelectPop();
+		initSexWindow();
 	}
 	private void findView() {
 		header = (RoundImageView) findViewById(R.id.headerImg);
@@ -109,7 +111,11 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 	protected void initView() {
 		InitImageLoader.initLoader(this).displayImage(oldUser.getUserImg(), header, InitImageLoader.initOptions());
 		name.setText(oldUser.getUserName());
+		if(oldUser.getSex() == null){
+			sex.setText("未知");
+		}else{
 		sex.setText(oldUser.getSex());
+			}
 	}
 	@Override
 	public void onClick(View v) {
@@ -120,16 +126,16 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 		case R.id.back:
 			checkInput();
 			break;
+		case R.id.up_sex:
+			sexPopupWindow.showAtLocation(parenView, Gravity.CENTER, 0, 0);
+			break;
 		default:
 			break;
 		}
 	}
 	private void checkInput() {
 		name_str = name.getText().toString();
-		sex_str = name.getText().toString();
 		if(name_str.equals("")){
-			return;
-		}else if(sex_str.equals("")){
 			return;
 		}else{
 			UpUserInfo();
@@ -154,7 +160,7 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 			object.put("nickname", name_str);
 			object.put("phoneNum", oldUser.getPhone());
 			object.put("birthday", null);
-			object.put("gender", "M");
+			object.put("gender", sex_str);
 			object.put("photoUrl", header_str);
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -182,6 +188,35 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 		}
 		
 	};
+	private void initSexWindow() {
+		sexPopupWindow = new PopupWindow(this);
+		View view = LayoutInflater.from(this).inflate(
+				R.layout.select_sex_pop_layout, null);
+		sexPopupWindow.setWidth(LayoutParams.MATCH_PARENT);
+		sexPopupWindow.setHeight(LayoutParams.WRAP_CONTENT);
+		sexPopupWindow.setBackgroundDrawable(new BitmapDrawable());
+		sexPopupWindow.setFocusable(true);
+		sexPopupWindow.setOutsideTouchable(true);
+		sexPopupWindow.setContentView(view);
+		view.findViewById(R.id.men).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				sex.setText("男");
+				sex_str = "M";
+				sexPopupWindow.dismiss();
+			}
+		});
+		view.findViewById(R.id.women).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				sex.setText("女");
+				sex_str = "F";
+				sexPopupWindow.dismiss();
+			}
+		});
+	}
 	private void initSelectPop() {
 		popWindow = new PopupWindow(this);
 		View view = LayoutInflater.from(this).inflate(

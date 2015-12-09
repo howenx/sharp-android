@@ -227,7 +227,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 			
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
 				String result = HttpUtils.post(UrlUtil.GET_CAR_LIST_URL, array, "id-token", user.getToken());
 				HMessage hm = DataParser.paserResultMsg(result);
 				Message msg = mHandler.obtainMessage(1);
