@@ -40,7 +40,7 @@
                             android:layout_height="wrap_content"
                             android:drawablePadding="@dimen/driver_padding_small"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/font_big" />
+                            android:textSize="@dimen/font_normal" />
 
                         <TextView
                             android:id="@+id/phone"
@@ -52,7 +52,7 @@
                             android:layout_toRightOf="@id/name"
                             android:drawablePadding="@dimen/driver_padding_normal"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/font_big" />
+                            android:textSize="@dimen/font_normal" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -69,16 +69,6 @@
                             android:textColor="@color/black"
                             android:textSize="@dimen/font_normal" />
 
-                        <TextView
-                            android:id="@+id/postcode"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/margin_horizontal_middle"
-                            android:layout_marginStart="@dimen/margin_horizontal_middle"
-                            android:layout_toEndOf="@id/address"
-                            android:layout_toRightOf="@id/address"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/font_normal" />
                     </RelativeLayout>
                 </LinearLayout>
 
@@ -94,16 +84,6 @@
                     android:textSize="16sp" />
             </RelativeLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@color/white"
-                android:padding="10dp"
-                android:text="免税区"
-                android:textColor="#AA000000"
-                android:textSize="13sp" />
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
@@ -114,11 +94,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white" />
+            
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#cccccc" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:background="@color/white"
                 android:padding="10dp"
                 android:text="发货时间"
@@ -158,16 +142,12 @@
                     android:textSize="14sp" />
             </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="#cccccc" />
 
             <RadioGroup
                 android:id="@+id/group_send_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="@color/background"
                 android:checkedButton="@+id/btn_all_day"
                 android:orientation="vertical"
                 android:visibility="gone" >
@@ -209,11 +189,13 @@
                     android:textColor="#AA000000"
                     android:textSize="12sp" />
             </RadioGroup>
-
+			   <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#cccccc" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:background="@color/white"
                 android:padding="10dp"
                 android:text="支付方式"
@@ -253,16 +235,12 @@
                     android:textSize="14sp" />
             </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="#cccccc" />
 
             <RadioGroup
                 android:id="@+id/group_pay_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="@color/background"
                 android:checkedButton="@+id/btn_online_pay"
                 android:orientation="vertical"
                 android:visibility="gone" >
@@ -298,19 +276,24 @@
                 android:background="@color/white"
                 android:padding="10dp"
                 android:text="优惠券"
+               android:visibility="gone"
                 android:textColor="#AA000000"
                 android:textSize="13sp" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
+                 android:visibility="gone"
                 android:background="#cccccc" />
 
 
-            <RelativeLayout
+            <LinearLayout
+                android:id="@+id/btn_mCoupon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
                 android:padding="10dp" >
 
                 <TextView
@@ -320,8 +303,13 @@
                     android:text="可使用优惠券"
                     android:textColor="#AA000000"
                     android:textSize="14sp" />
+                <View 
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="1dp"/>
 
                 <TextView
+                    android:id="@+id/coupon_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -329,12 +317,23 @@
                     android:text="5张"
                     android:textColor="#CCCCCC"
                     android:textSize="14sp" />
-            </RelativeLayout>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" 
+                    android:src="@drawable/xiangxia"
+                    android:contentDescription="@null"/>
+            </LinearLayout>
+            <RadioGroup 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/background"
+                android:id="@+id/group_coupons">
+                
+                </RadioGroup>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:background="@color/white"
                 android:padding="10dp" >
 

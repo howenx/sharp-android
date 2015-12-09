@@ -14,4 +14,8 @@
 	<string name="price">¥%1$s</string>
 	<string name="discount">%1$s折</string>
 	<string name="error">数据请求失败</string>
+	
+	<string name="restrictAmount">限购数量:%1$s</string>
+	<string name="shipFee">运费:%1$s</string>
+	<string name="postalTaxRate">行邮税:%1$s</string>
 </resources>

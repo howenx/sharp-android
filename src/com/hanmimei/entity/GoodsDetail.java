@@ -10,7 +10,8 @@ import android.os.Parcelable;
 
 public class GoodsDetail {
 	private Main main;
-	private List<Stock> stocks;
+	private List<Stock> stock;
+	private HMessage message;
 	
 	 public Main getMain() {
 		return main;
@@ -20,13 +21,23 @@ public class GoodsDetail {
 		this.main = main;
 	}
 
-	public List<Stock> getStocks() {
-		return stocks;
+	public List<Stock> getStock() {
+		return stock;
 	}
 
-	public void setStocks(List<Stock> stocks) {
-		this.stocks = stocks;
+	public void setStock(List<Stock> stock) {
+		this.stock = stock;
 	}
+	
+	
+	public HMessage getMessage() {
+		return message;
+	}
+
+	public void setMessage(HMessage message) {
+		this.message = message;
+	}
+
 
 	public class Main{
 		private Integer id;
@@ -160,8 +171,17 @@ public class GoodsDetail {
 		private String invUrl;
 		private String invTitle;
 		private String invCustom;
+		private Integer postalTaxRate;
 		
 		
+		
+		
+		public Integer getPostalTaxRate() {
+			return postalTaxRate;
+		}
+		public void setPostalTaxRate(Integer postalTaxRate) {
+			this.postalTaxRate = postalTaxRate;
+		}
 		public String getInvCustom() {
 			return invCustom;
 		}

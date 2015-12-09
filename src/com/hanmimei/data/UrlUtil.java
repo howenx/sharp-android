@@ -26,4 +26,7 @@ public class UrlUtil {
 	public static final String GET_ORDER_LIST_URL = SERVER01 + "/client/order";
 	public static final String GET_COUPON_LIST_URL = SERVER02 + "/client/coupons/list";
 	
+	//结算页接口
+	public static final String POST_CLIENT_SETTLE = SERVER02 +"/client/settle";
+	
 }

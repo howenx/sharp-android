@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.gson.Gson;
 import com.hanmimei.entity.Adress;
 import com.hanmimei.entity.Customs;
 import com.hanmimei.entity.GoodsDetail;
@@ -195,6 +196,7 @@ public class DataParser {
 	
 	//商品详情页 －－ 商品详情数据解析
 	public static GoodsDetail parserGoodsDetail(String result){
+//		new Gson().fromJson(result, new TypeToken(<>){}.getType());
 		GoodsDetail detail = new GoodsDetail();
 		try {
 			JSONObject obj = new JSONObject(result);
@@ -257,6 +259,8 @@ public class DataParser {
 				stock.setRestrictAmount(objStock.getInt("restrictAmount"));
 				stock.setRestAmount(objStock.getInt("restAmount"));
 				stock.setInvImg(objStock.getString("invImg"));
+				stock.setInvCustom(objStock.getString("invCustoms"));
+				stock.setPostalTaxRate(objStock.getInt("postalTaxRate"));
 				array = new JSONArray(objStock.getString("itemPreviewImgs"));
 				list = new ArrayList<String>();
 				for (int i = 0; i < array.length(); i++) {
@@ -267,7 +271,7 @@ public class DataParser {
 				stock.setInvTitle(objStock.getString("invTitle"));
 				listt.add(stock);
 			}
-			detail.setStocks(listt);
+			detail.setStock(listt);
 		} catch (JSONException e) {
 		}
 
