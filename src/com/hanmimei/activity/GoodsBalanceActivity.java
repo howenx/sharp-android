@@ -6,11 +6,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -42,7 +44,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 	private List<Customs> customslist; // 保税区列表
 
 	private TextView all_price, all_money;
-	private TextView name, phone, address, coupon_num;
+	private TextView name, phone, address, coupon_num,coupon_denomi;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -53,6 +55,9 @@ public class GoodsBalanceActivity extends BaseActivity implements
 		car = (ShoppingCar) getIntent().getSerializableExtra("car");
 		customslist = car.getList();
 		findView();
+		mListView.setAdapter(new GoodsBalanceCustomAdapter(customslist, this));
+		all_price.setText(getResources().getString(R.string.price,
+				car.getAllPrice()));
 		// initViews();
 		loadData();
 	}
@@ -72,11 +77,12 @@ public class GoodsBalanceActivity extends BaseActivity implements
 		phone = (TextView) findViewById(R.id.phone);
 		address = (TextView) findViewById(R.id.address);
 		coupon_num = (TextView) findViewById(R.id.coupon_num);
+		coupon_denomi = (TextView) findViewById(R.id.coupon_denomi);
 
 		findViewById(R.id.btn_pay_type).setOnClickListener(this);
 		findViewById(R.id.btn_send_time).setOnClickListener(this);
 		findViewById(R.id.newAddress).setOnClickListener(this);
-		findViewById(R.id.group_coupons).setOnClickListener(this);
+		findViewById(R.id.btn_mCoupon).setOnClickListener(this);
 
 		group_pay_type
 				.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -98,12 +104,21 @@ public class GoodsBalanceActivity extends BaseActivity implements
 						send_time.setText(btn.getText());
 					}
 				});
+		
+		group_coupons.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			
+			@Override
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				// TODO Auto-generated method stub
+				RadioButton btn = (RadioButton) findViewById(checkedId);
+				coupon_denomi.setText(btn.getText());
+			}
+		});
 
 	}
 
 	private void initViews() {
-		mListView.setAdapter(new GoodsBalanceCustomAdapter(customslist, this));
-		all_price.setText(car.getAllPrice() + "");
+
 		if (goodsBalance != null) {
 			if (goodsBalance.getMessage().getCode() == 200) {
 				Settle settle = goodsBalance.getSettle();
@@ -119,10 +134,16 @@ public class GoodsBalanceActivity extends BaseActivity implements
 					for (Coupon c : coupons) {
 						RadioButton btn = new RadioButton(this);
 						btn.setText(c.getDenomination());
-						group_coupons.addView(btn);
+						LayoutParams lp = new LayoutParams(
+								LayoutParams.MATCH_PARENT,
+								LayoutParams.WRAP_CONTENT);
+						group_coupons.addView(btn, lp);
 					}
 				}
-
+				findViewById(R.id.btn_pay).setOnClickListener(this);
+			} else {
+				ToastUtils.Toast(this, goodsBalance.getMessage().getMessage());
+				findViewById(R.id.btn_pay).setBackgroundColor(Color.parseColor("#9F9F9F"));
 			}
 		}
 	}
@@ -182,10 +203,8 @@ public class GoodsBalanceActivity extends BaseActivity implements
 			// TODO Auto-generated method stub
 			if (msg.what == 1) {
 				String result = (String) msg.obj;
-				Gson gson = new Gson();
-				goodsBalance = gson.fromJson(result, GoodsBalance.class);
+				goodsBalance = new Gson().fromJson(result, GoodsBalance.class);
 				initViews();
-				ToastUtils.Toast(getActivity(), result);
 			}
 		}
 

@@ -25,17 +25,17 @@ public class GoodsBalance {
 	public class Settle {
 		private Address address;
 		private List<Coupon> coupons;
-		private Integer shipFee;
+		private Double shipFee;
 		private Double portalFee;
-		private Integer freePortalFee;
+		private Double freePortalFee;
 		
 		
 
-		public Integer getFreePortalFee() {
+		public Double getFreePortalFee() {
 			return freePortalFee;
 		}
 
-		public void setFreePortalFee(Integer freePortalFee) {
+		public void setFreePortalFee(Double freePortalFee) {
 			this.freePortalFee = freePortalFee;
 		}
 
@@ -55,11 +55,11 @@ public class GoodsBalance {
 			this.coupons = coupons;
 		}
 
-		public Integer getShipFee() {
+		public Double getShipFee() {
 			return shipFee;
 		}
 
-		public void setShipFee(Integer shipFee) {
+		public void setShipFee(Double shipFee) {
 			this.shipFee = shipFee;
 		}
 

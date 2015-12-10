@@ -28,5 +28,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/mListView"/>
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/xian" />
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_normal">
+        <TextView 
+            android:id="@+id/shipFee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="邮费：100"
+            android:textColor="@color/fontcolor"/>
+        
+        <TextView 
+            android:id="@+id/protalFee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_horizontal_middle"
+            android:text="行邮税：200"
+            android:textColor="@color/fontcolor"/>
+    </LinearLayout>
+    
+    
 
 </LinearLayout>

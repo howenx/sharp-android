@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -488,6 +489,10 @@ public static int getScreenHeight(Context context) {
 	public static int dp2px(Context context, int dp) {
 		return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
 				context.getResources().getDisplayMetrics());
+	}
+	
+	public static String DecimalFormat(Double format){
+		return  new DecimalFormat("##0.00").format(format);
 	}
 	
 }

@@ -19,7 +19,7 @@ public class UrlUtil {
 	public static final String UPDATE_USERINFO = SERVER04 + "/api/user/update";
 	public static final String GET_CAR_LIST_URL = SERVER01 + "/client/cart";
 	public static final String SEND_CAR_TO_SERVER_UN = SERVER01 + "/client/cart/verify/amount/";
-	public static final String LOGIN_URL = SERVER04 + "/api/login_user_name";
+	public static final String LOGIN_URL = SERVER02 + "/api/login_user_name";
 	public static final String REGIST_URL = SERVER04 + "/api/reg";
 	public static final String CANCLE_ORDER_URL = SERVER01 + "/client/order/state/update";
 	public static final String GET_USERINFO_URL = SERVER04 + "/api/user/get/info";

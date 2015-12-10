@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="@dimen/actionbar_size"
     android:background="@color/theme" >
     <TextView 
         android:id="@+id/header"
@@ -14,19 +14,19 @@
         android:textColor="@color/white"/>
     <ImageView 
         android:id="@+id/setting"
-        android:layout_marginRight="10dp"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="@dimen/actionbar_size"
+        android:layout_height="@dimen/actionbar_size"
         android:layout_gravity="right|center_vertical"
         android:src="@drawable/icon_setting"
+        android:scaleType="center"
         android:visibility="gone"/>
 	<ImageView 
 	    android:id="@+id/back"
-	    android:layout_marginLeft="10dp"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
+	    android:layout_width="@dimen/actionbar_size"
+	    android:layout_height="@dimen/actionbar_size"
 	    android:layout_gravity="left|center_vertical"
+	    android:scaleType="center"
+	    android:visibility="gone"
 	    android:src="@drawable/icon_back"
-	    android:contentDescription="@null"
-	    android:visibility="gone"/>
+	    android:contentDescription="@null"/>
 </FrameLayout>

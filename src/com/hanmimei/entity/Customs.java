@@ -7,17 +7,18 @@ import java.util.List;
 public class Customs implements Serializable{
 	private String invArea;
 	private String  invCustoms;
-	private int postFee;
+	private List<ShoppingGoods> list;
+	private Float postFee = 0f;
 	
-	public int getPostFee() {
+	private Double allPrice = 0.00;
+	
+	public Float getPostFee() {
 		return postFee;
 	}
-	public void setPostFee(int postFee) {
+	public void setPostFee(Float postFee) {
 		this.postFee = postFee;
 	}
 
-	private List<ShoppingGoods> list;
-	
 	public String getInvArea() {
 		return invArea;
 	}
@@ -42,15 +43,31 @@ public class Customs implements Serializable{
 		this.invArea = invArea;
 		this.invCustoms = invCustoms;
 		this.list = list;
+	
 	}
 	public Customs() {
 		super();
+	}
+	
+	
+	public Double getAllPrice() {
+		for(ShoppingGoods sg : list){
+			allPrice += sg.getGoodsPrice() *sg.getGoodsNums();
+		}
+		return allPrice;
 	}
 	
 	public void addShoppingGoods(ShoppingGoods shoppingGoods){
 		if(list == null)
 			list = new ArrayList<ShoppingGoods>();
 		list.add(shoppingGoods);
+	}
+	
+	public Float getAllPoastalFee(){
+		for(ShoppingGoods sg : list){
+			postFee += sg.getPoastalFee();
+		}
+		return postFee;
 	}
 
 }

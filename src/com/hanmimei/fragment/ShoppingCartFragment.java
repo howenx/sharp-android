@@ -273,11 +273,6 @@ public class ShoppingCartFragment extends Fragment implements
 					customs.setList(goodsList);
 					customs.setInvArea(data.get(i).getInvArea());
 					customs.setInvCustoms(data.get(i).getInvCustoms());
-					int postFee = 0;
-					for(int m = 0; m < goodsList.size(); m ++){
-						postFee = postFee + goodsList.get(m).getShipFee();
-					}
-					customs.setPostFee(postFee);
 					customsList.add(customs);
 				}
 			}

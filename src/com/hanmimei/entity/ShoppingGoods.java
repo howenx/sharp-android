@@ -30,6 +30,8 @@ public class ShoppingGoods implements Serializable{
     private Integer restAmount;
     private String postalTaxRate;
     private String invCustoms;
+    
+    private Integer postalStandard;
 
     // KEEP FIELDS - put your custom fields here
     // KEEP FIELDS END
@@ -62,8 +64,18 @@ public class ShoppingGoods implements Serializable{
         this.postalTaxRate = postalTaxRate;
         this.invCustoms = invCustoms;
     }
+    
+    
 
-    public Long getId() {
+    public Integer getPostalStandard() {
+		return postalStandard;
+	}
+
+	public void setPostalStandard(Integer postalStandard) {
+		this.postalStandard = postalStandard;
+	}
+
+	public Long getId() {
         return id;
     }
 
@@ -217,5 +229,9 @@ public class ShoppingGoods implements Serializable{
 
     // KEEP METHODS - put your custom methods here
     // KEEP METHODS END
-
+    
+    public Float getPoastalFee(){
+    	return getGoodsNums()*getGoodsPrice()*Integer.valueOf(getPostalTaxRate()).floatValue();
+    }
+    
 }

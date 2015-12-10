@@ -3,6 +3,7 @@ package com.hanmimei.adapter;
 import java.util.List;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,8 +58,8 @@ public class GoodsBalanceAdapter extends BaseAdapter {
 		}
 		ShoppingGoods sg = goods.get(arg0);
 		holder.pro_name.setText(sg.getGoodsName());
-		holder.pro_num.setText(sg.getGoodsNums()+"");
-		holder.pro_price.setText(sg.getGoodsPrice()+"");
+		holder.pro_num.setText(context.getResources().getString(R.string.buyNum, sg.getGoodsNums()));
+		holder.pro_price.setText(context.getResources().getString(R.string.price, sg.getGoodsPrice()));
 		Picasso.with(context).load(sg.getGoodsImg()).into(holder.pro_img);
 		return arg1;
 	}
