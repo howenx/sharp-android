@@ -51,31 +51,30 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 			holder = new ViewHolder();
 			holder.area = (TextView) convertView.findViewById(R.id.area);
 			holder.listView = (CustomListView) convertView.findViewById(R.id.my_listview);
-//			holder.attention = (TextView) convertView.findViewById(R.id.attention);
+			holder.tax = (TextView) convertView.findViewById(R.id.attention);
 			convertView.setTag(holder);
 		}else{
 			holder = (ViewHolder) convertView.getTag();
 		}
-		holder.area.setText(custom.getInvArea());
-		//goods = custom.getList();
+		holder.area.setText("发货仓库：" + custom.getInvArea());
+		if(custom.getTax() != 0){
+			holder.tax.setVisibility(View.VISIBLE);
+			if(Double.compare(custom.getTax(), custom.getPostalStandard()) > 0){
+				holder.tax.setText("行邮税：¥" + custom.getTax() * 0.01);
+			}else{
+				holder.tax.setText("行邮税：¥" + custom.getTax() * 0.01+ "（免）");
+			}
+		}else{
+			holder.tax.setVisibility(View.GONE);
+		}
 		adapter = new ShoppingCarAdapter(custom.getList(), activity);
 		holder.listView.setAdapter(adapter);
-//		int totalPrice = 0;
-//		for(int i = 0; i < goods.size(); i ++){
-//			if(goods.get(i).getState().equals("G"))
-//				totalPrice = totalPrice + goods.get(i).getGoodsPrice() * goods.get(i).getGoodsNums();
-//		}
-//		if(totalPrice > 1000){
-//			holder.attention.setVisibility(View.VISIBLE);
-//		}else{
-//			holder.attention.setVisibility(View.GONE);
-//		}
 		return convertView;
 	}
 	private class ViewHolder{
 		private TextView area;
 		private CustomListView listView;
-//		private TextView attention;
+		private TextView tax;
 	}
 
 }

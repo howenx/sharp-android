@@ -16,18 +16,17 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:text="杭州保税区"
-        android:textSize="15sp"
+        android:textSize="14sp"
         android:textColor="@color/fontcolor"/>
-    <!-- 
     <TextView 
         android:id="@+id/attention"
-        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:text="提示：同一保税区商品总价不能超过¥1000.00"
-        android:textSize="12sp"
+        android:gravity="right"
+        android:text="行邮税：¥50（免）"
+        android:textSize="10sp"
         android:textColor="@color/red"/>
-         -->
     </LinearLayout>
 
     <View

@@ -24,11 +24,11 @@ public class ShoppingCar implements Serializable{
 		this.list = list;
 	}
 	
-	private Integer allPrice = 0;
-	public Integer getAllPrice() {
+	private double allPrice = 0;
+	public double getAllPrice() {
 		return allPrice;
 	}
-	public void setAllPrice(Integer allPrice) {
+	public void setAllPrice(double allPrice) {
 		this.allPrice = allPrice;
 	}
 	

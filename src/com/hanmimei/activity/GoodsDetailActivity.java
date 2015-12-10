@@ -175,11 +175,11 @@ public class GoodsDetailActivity extends BaseActivity implements
 					sgoods.setGoodsImg(s.getInvImg());
 					sgoods.setGoodsName(s.getInvTitle());
 					sgoods.setGoodsNums(1);
-					sgoods.setGoodsPrice(s.getItemPrice().intValue());
+					sgoods.setGoodsPrice(s.getItemPrice()+"");
 					sgoods.setInvArea(s.getInvArea());
 					sgoods.setInvCustoms(s.getInvCustom());
 					sgoods.setPostalTaxRate(s.getPostalTaxRate()+"");
-					sgoods.setShipFee(s.getShipFee());
+					sgoods.setShipFee(s.getShipFee()+"");
 					customs.setInvArea(s.getInvArea());
 					customs.setInvCustoms(s.getInvCustom());
 					customs.addShoppingGoods(sgoods);
@@ -187,7 +187,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 			}
 			list.add(customs);
 			car.setList(list);
-			car.setAllPrice(sgoods.getGoodsPrice());
+			car.setAllPrice(Double.parseDouble(sgoods.getGoodsPrice()));
 			Intent intent  = new Intent(this, GoodsBalanceActivity.class);
 			intent.putExtra("car", car);
 			startActivity(intent);

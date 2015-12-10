@@ -29,19 +29,21 @@ public class ShoppingGoodsDao extends AbstractDao<ShoppingGoods, Long> {
         public final static Property GoodsImg = new Property(3, String.class, "goodsImg", false, "GOODS_IMG");
         public final static Property GoodsUrl = new Property(4, String.class, "goodsUrl", false, "GOODS_URL");
         public final static Property GoodsName = new Property(5, String.class, "goodsName", false, "GOODS_NAME");
-        public final static Property GoodsPrice = new Property(6, Integer.class, "goodsPrice", false, "GOODS_PRICE");
+        public final static Property GoodsPrice = new Property(6, String.class, "goodsPrice", false, "GOODS_PRICE");
         public final static Property IsChecked = new Property(7, Boolean.class, "isChecked", false, "IS_CHECKED");
         public final static Property State = new Property(8, String.class, "state", false, "STATE");
         public final static Property GoodsNums = new Property(9, Integer.class, "goodsNums", false, "GOODS_NUMS");
         public final static Property ItemColor = new Property(10, String.class, "itemColor", false, "ITEM_COLOR");
         public final static Property ItemSize = new Property(11, String.class, "itemSize", false, "ITEM_SIZE");
-        public final static Property ShipFee = new Property(12, Integer.class, "shipFee", false, "SHIP_FEE");
+        public final static Property ShipFee = new Property(12, String.class, "shipFee", false, "SHIP_FEE");
         public final static Property DelUrl = new Property(13, String.class, "delUrl", false, "DEL_URL");
         public final static Property InvArea = new Property(14, String.class, "invArea", false, "INV_AREA");
         public final static Property RestrictAmount = new Property(15, Integer.class, "restrictAmount", false, "RESTRICT_AMOUNT");
         public final static Property RestAmount = new Property(16, Integer.class, "restAmount", false, "REST_AMOUNT");
         public final static Property PostalTaxRate = new Property(17, String.class, "postalTaxRate", false, "POSTAL_TAX_RATE");
-        public final static Property InvCustoms = new Property(18, String.class, "invCustoms", false, "INV_CUSTOMS");
+        public final static Property PostalStandard = new Property(18, String.class, "postalStandard", false, "POSTAL_STANDARD");
+        public final static Property PostalLimit = new Property(19, String.class, "postalLimit", false, "POSTAL_LIMIT");
+        public final static Property InvCustoms = new Property(20, String.class, "invCustoms", false, "INV_CUSTOMS");
     };
 
 
@@ -63,19 +65,21 @@ public class ShoppingGoodsDao extends AbstractDao<ShoppingGoods, Long> {
                 "\"GOODS_IMG\" TEXT," + // 3: goodsImg
                 "\"GOODS_URL\" TEXT," + // 4: goodsUrl
                 "\"GOODS_NAME\" TEXT," + // 5: goodsName
-                "\"GOODS_PRICE\" INTEGER," + // 6: goodsPrice
+                "\"GOODS_PRICE\" TEXT," + // 6: goodsPrice
                 "\"IS_CHECKED\" INTEGER," + // 7: isChecked
                 "\"STATE\" TEXT," + // 8: state
                 "\"GOODS_NUMS\" INTEGER," + // 9: goodsNums
                 "\"ITEM_COLOR\" TEXT," + // 10: itemColor
                 "\"ITEM_SIZE\" TEXT," + // 11: itemSize
-                "\"SHIP_FEE\" INTEGER," + // 12: shipFee
+                "\"SHIP_FEE\" TEXT," + // 12: shipFee
                 "\"DEL_URL\" TEXT," + // 13: delUrl
                 "\"INV_AREA\" TEXT," + // 14: invArea
                 "\"RESTRICT_AMOUNT\" INTEGER," + // 15: restrictAmount
                 "\"REST_AMOUNT\" INTEGER," + // 16: restAmount
                 "\"POSTAL_TAX_RATE\" TEXT," + // 17: postalTaxRate
-                "\"INV_CUSTOMS\" TEXT);"); // 18: invCustoms
+                "\"POSTAL_STANDARD\" TEXT," + // 18: postalStandard
+                "\"POSTAL_LIMIT\" TEXT," + // 19: postalLimit
+                "\"INV_CUSTOMS\" TEXT);"); // 20: invCustoms
     }
 
     /** Drops the underlying database table. */
@@ -119,9 +123,9 @@ public class ShoppingGoodsDao extends AbstractDao<ShoppingGoods, Long> {
             stmt.bindString(6, goodsName);
         }
  
-        Integer goodsPrice = entity.getGoodsPrice();
+        String goodsPrice = entity.getGoodsPrice();
         if (goodsPrice != null) {
-            stmt.bindLong(7, goodsPrice);
+            stmt.bindString(7, goodsPrice);
         }
  
         Boolean isChecked = entity.getIsChecked();
@@ -149,9 +153,9 @@ public class ShoppingGoodsDao extends AbstractDao<ShoppingGoods, Long> {
             stmt.bindString(12, itemSize);
         }
  
-        Integer shipFee = entity.getShipFee();
+        String shipFee = entity.getShipFee();
         if (shipFee != null) {
-            stmt.bindLong(13, shipFee);
+            stmt.bindString(13, shipFee);
         }
  
         String delUrl = entity.getDelUrl();
@@ -179,9 +183,19 @@ public class ShoppingGoodsDao extends AbstractDao<ShoppingGoods, Long> {
             stmt.bindString(18, postalTaxRate);
         }
  
+        String postalStandard = entity.getPostalStandard();
+        if (postalStandard != null) {
+            stmt.bindString(19, postalStandard);
+        }
+ 
+        String postalLimit = entity.getPostalLimit();
+        if (postalLimit != null) {
+            stmt.bindString(20, postalLimit);
+        }
+ 
         String invCustoms = entity.getInvCustoms();
         if (invCustoms != null) {
-            stmt.bindString(19, invCustoms);
+            stmt.bindString(21, invCustoms);
         }
     }
 
@@ -201,19 +215,21 @@ public class ShoppingGoodsDao extends AbstractDao<ShoppingGoods, Long> {
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // goodsImg
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // goodsUrl
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // goodsName
-            cursor.isNull(offset + 6) ? null : cursor.getInt(offset + 6), // goodsPrice
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // goodsPrice
             cursor.isNull(offset + 7) ? null : cursor.getShort(offset + 7) != 0, // isChecked
             cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // state
             cursor.isNull(offset + 9) ? null : cursor.getInt(offset + 9), // goodsNums
             cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // itemColor
             cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // itemSize
-            cursor.isNull(offset + 12) ? null : cursor.getInt(offset + 12), // shipFee
+            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // shipFee
             cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // delUrl
             cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // invArea
             cursor.isNull(offset + 15) ? null : cursor.getInt(offset + 15), // restrictAmount
             cursor.isNull(offset + 16) ? null : cursor.getInt(offset + 16), // restAmount
             cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17), // postalTaxRate
-            cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18) // invCustoms
+            cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18), // postalStandard
+            cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19), // postalLimit
+            cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20) // invCustoms
         );
         return entity;
     }
@@ -227,19 +243,21 @@ public class ShoppingGoodsDao extends AbstractDao<ShoppingGoods, Long> {
         entity.setGoodsImg(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setGoodsUrl(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setGoodsName(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
-        entity.setGoodsPrice(cursor.isNull(offset + 6) ? null : cursor.getInt(offset + 6));
+        entity.setGoodsPrice(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
         entity.setIsChecked(cursor.isNull(offset + 7) ? null : cursor.getShort(offset + 7) != 0);
         entity.setState(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
         entity.setGoodsNums(cursor.isNull(offset + 9) ? null : cursor.getInt(offset + 9));
         entity.setItemColor(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
         entity.setItemSize(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
-        entity.setShipFee(cursor.isNull(offset + 12) ? null : cursor.getInt(offset + 12));
+        entity.setShipFee(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
         entity.setDelUrl(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
         entity.setInvArea(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
         entity.setRestrictAmount(cursor.isNull(offset + 15) ? null : cursor.getInt(offset + 15));
         entity.setRestAmount(cursor.isNull(offset + 16) ? null : cursor.getInt(offset + 16));
         entity.setPostalTaxRate(cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17));
-        entity.setInvCustoms(cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18));
+        entity.setPostalStandard(cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18));
+        entity.setPostalLimit(cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19));
+        entity.setInvCustoms(cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20));
      }
     
     /** @inheritdoc */

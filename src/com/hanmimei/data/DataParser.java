@@ -389,6 +389,12 @@ public class DataParser {
 					custom.setInvCustoms(obj.getString("invCustoms"));
 				if(obj.has("invArea"))
 					custom.setInvArea(obj.getString("invArea"));
+				if(obj.has("postalLimit"))
+					custom.setPostalLimit(obj.getInt("postalLimit"));
+				if(obj.has("freeShip"))
+					custom.setPostFee(obj.getInt("freeShip"));
+				if(obj.has("postalStandard"))
+					custom.setPostalStandard(obj.getInt("postalStandard"));
 				JSONArray cartsArray = obj.getJSONArray("carts");
 				for(int j = 0; j < cartsArray.length(); j ++){
 					JSONObject goodsObject = cartsArray.getJSONObject(j);
@@ -404,7 +410,7 @@ public class DataParser {
 					if(goodsObject.has("itemSize"))
 						goods.setItemSize(goodsObject.getString("itemSize"));
 					if(goodsObject.has("itemPrice"))
-						goods.setGoodsPrice(goodsObject.getInt("itemPrice"));
+						goods.setGoodsPrice(goodsObject.getString("itemPrice"));
 					if(goodsObject.has("state")){
 						if(goodsObject.getString("state").equals("G")){
 							goods.setState("I");
@@ -413,7 +419,7 @@ public class DataParser {
 						}
 					}
 					if(goodsObject.has("shipFee"))
-						goods.setShipFee(goodsObject.getInt("shipFee"));
+						goods.setShipFee(goodsObject.getString("shipFee"));
 					if(goodsObject.has("invArea"))
 						goods.setInvArea(goodsObject.getString("invArea"));
 					if(goodsObject.has("restrictAmount"))
@@ -432,6 +438,10 @@ public class DataParser {
 						goods.setInvCustoms(goodsObject.getString("invCustoms"));
 					if(goodsObject.has("postalTaxRate"))
 						goods.setPostalTaxRate(goodsObject.getString("postalTaxRate"));
+					if(goodsObject.has("postalStandard"))
+						goods.setPostalStandard(goodsObject.getString("postalStandard"));
+					if(goodsObject.has("postalLimit"))
+						goods.setPostalLimit(goodsObject.getString("postalLimit"));
 					list.add(goods);
 				}
 				custom.setList(list);

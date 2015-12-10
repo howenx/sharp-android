@@ -18,7 +18,7 @@
         layout="@layout/shopping_car_bottom_new"
         android:visibility="visible"/>
     <com.handmark.pulltorefresh.library.PullToRefreshListView
-        	android:layout_above="@+id/bottom"
+        	android:layout_above="@+id/attention"
         	android:layout_below="@id/top"
       		android:layout_width="fill_parent"
       		android:layout_height="match_parent"
@@ -57,4 +57,19 @@
         android:textSize="18sp"
         android:textColor="@color/huise"/>
 	</LinearLayout>
+
+    <TextView
+        android:id="@+id/attention"
+        android:paddingBottom="2dp"
+        android:paddingTop="2dp"
+        android:paddingRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom"
+        android:gravity="right"
+        android:text="@null"
+        android:textColor="@color/huise"
+        android:textSize="12sp" 
+        android:visibility="invisible"/>
+
 </RelativeLayout>

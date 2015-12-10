@@ -49,10 +49,7 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 	private TextView user_name;
 	private TextView address;
 	private TextView order;
-	// private TextView shenfenzheng;
 	private TextView youhui;
-	// private TextView about;
-	// private TextView is_authenticate;
 
 	private BaseActivity activity;
 	private User user;
@@ -67,11 +64,6 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 	}
 
 	private void initIcon() {
-		// authenticate =
-		// getResources().getDrawable(R.drawable.icon_authenticate);
-		// un_authenticate =
-		// getResources().getDrawable(R.drawable.icon_un_authenticate);
-		// un_authenticate.setBounds(0, 0, 30, 30);
 		address_icon = getResources().getDrawable(R.drawable.icon_address);
 		address_icon.setBounds(0, 0, 40, 40);
 		order_icon = getResources().getDrawable(R.drawable.icon_dingdan);
@@ -93,11 +85,7 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 		user = activity.getUser();
 		findView(view);
 		if (user != null) {
-//			if (user.getUserId() == 0) {
-//				getUserInfo();
-//			} else {
-				initView();
-//			}
+			initView();
 		}
 		registerReceivers();
 		return view;
@@ -123,11 +111,7 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 		imageLoader = InitImageLoader.initLoader(getActivity());
 		imageOptions = InitImageLoader.initOptions();
 		imageLoader.displayImage(user.getUserImg(), header, imageOptions);
-		// is_authenticate.setText("未绑定");
-		// shenfenzheng.setVisibility(View.VISIBLE);
-		// about.setVisibility(View.VISIBLE);
 		user_name.setText(user.getUserName());
-		// is_authenticate.setText("尚未绑定");
 	}
 
 	private void clearView() {
@@ -140,31 +124,18 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 
 	private void findView(View view) {
 		header = (RoundImageView) view.findViewById(R.id.header);
-		// is_authenticate = (TextView) view.findViewById(R.id.do_authenticate);
-		// is_authenticate.setCompoundDrawables(un_authenticate, null, null,
-		// null);
 		user_name = (TextView) view.findViewById(R.id.user_name);
 
 		address = (TextView) view.findViewById(R.id.address);
 		address.setCompoundDrawables(address_icon, null, jiantou_icon, null);
 		order = (TextView) view.findViewById(R.id.order);
 		order.setCompoundDrawables(order_icon, null, jiantou_icon, null);
-		// shenfenzheng = (TextView) view.findViewById(R.id.shenfenzheng);
-		// shenfenzheng.setVisibility(View.GONE);
-		// shenfenzheng.setCompoundDrawables(shenfen_icon, null, jiantou_icon,
-		// null);
 		youhui = (TextView) view.findViewById(R.id.youhui);
 		youhui.setCompoundDrawables(youhui_icon, null, jiantou_icon, null);
-		// about = (TextView) view.findViewById(R.id.about_card);
-		// about.setVisibility(View.GONE);
-		// about.setCompoundDrawables(about_icon, null, jiantou_icon, null);
 		header.setOnClickListener(this);
-		// is_authenticate.setOnClickListener(this);
 		order.setOnClickListener(this);
 		youhui.setOnClickListener(this);
-		// shenfenzheng.setOnClickListener(this);
 		address.setOnClickListener(this);
-		// about.setOnClickListener(this);
 		user_name.setOnClickListener(this);
 	}
 
@@ -180,18 +151,9 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 		case R.id.youhui:
 			doJump(CouponActivity.class);
 			break;
-		// case R.id.shenfenzheng:
-		// doJump(IdCardActivity.class);
-		// break;
 		case R.id.address:
 			doJump(AdressActivity.class);
 			break;
-		// case R.id.do_authenticate:
-		// doJump(IdCardActivity.class);
-		// break;
-		// case R.id.about_card:
-		// doJump(AboutIdCardActivity.class);
-		// break;
 		case R.id.user_name:
 			doJump(EditUserInfoActivity.class);
 			break;
@@ -260,7 +222,6 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 		public void onReceive(Context context, Intent intent) {
 			if (intent.getAction().equals(
 					AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION)) {
-//				initView();
 				getUserInfo();
 			} else if (intent.getAction().equals(
 					AppConstant.MESSAGE_BROADCAST_QUIT_LOGIN_ACTION)) {
