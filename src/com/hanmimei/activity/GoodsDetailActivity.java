@@ -178,19 +178,18 @@ public class GoodsDetailActivity extends BaseActivity implements
 					sgoods.setGoodsImg(s.getInvImg());
 					sgoods.setGoodsName(s.getInvTitle());
 					sgoods.setGoodsNums(1);
-					sgoods.setGoodsPrice(s.getItemPrice().intValue());
+					sgoods.setGoodsPrice(s.getItemPrice());
 					sgoods.setInvArea(s.getInvArea());
 					sgoods.setInvCustoms(s.getInvCustom());
-					sgoods.setPostalTaxRate(s.getPostalTaxRate().toString());
-					sgoods.setShipFee(s.getShipFee().intValue());
+					sgoods.setPostalTaxRate(s.getPostalTaxRate());
+					sgoods.setShipFee(s.getShipFee().toString());
 					sgoods.setPostalStandard(s.getPostalStandard());
-					customs.setInvArea(s.getInvArea());
-					customs.setInvCustoms(s.getInvCustom());
 					customs.addShoppingGoods(sgoods);
 				}
 			}
 			list.add(customs);
 			car.setList(list);
+			car.setAllPrice(sgoods.getGoodsPrice());
 			Intent intent = new Intent(this, GoodsBalanceActivity.class);
 			intent.putExtra("car", car);
 			startActivity(intent);
@@ -411,7 +410,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 					num_restrictAmount.setVisibility(View.GONE);
 				}
 				
-				curPostalTaxRate = s.getPostalTaxRate().intValue();
+				curPostalTaxRate = s.getPostalTaxRate();
 				curItemPrice = s.getItemPrice();
 				postalStandard = s.getPostalStandard();
 				area.setText(s.getInvArea());

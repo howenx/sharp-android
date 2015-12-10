@@ -227,7 +227,10 @@ public class GoodsDetail {
 			this.postalStandard = postalStandard;
 		}
 
-	
+
+		public void setPostalTaxRate(int postalTaxRate) {
+			this.postalTaxRate = postalTaxRate;
+		}
 
 		public String getInvCustom() {
 			return invCustom;
@@ -331,7 +334,7 @@ public class GoodsDetail {
 		public String getItemPriceFormat() {
 			return new DecimalFormat("##0.00").format(itemPrice);
 		}
-
+		
 		public Double getItemPrice() {
 			return itemPrice;
 		}

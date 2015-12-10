@@ -38,6 +38,7 @@ public class ShoppingCarActivity extends BaseActivity implements OnClickListener
 	private TextView total_price;
 	private ImageView check_all;
 	private TextView pay;
+	private TextView attention;
 	private LinearLayout no_data;
 	private List<Customs> data;
 	private ShoppingCarPullListAdapter adapter;
@@ -146,7 +147,7 @@ public class ShoppingCarActivity extends BaseActivity implements OnClickListener
 					bottom.setVisibility(View.VISIBLE);
 					data.clear();
 					data.addAll(car.getList());
-					ShoppingCarMenager.getInstance().initShoppingCarMenager(ShoppingCarActivity.this, data, false, check_all, total_price, pay, no_data, bottom);
+					ShoppingCarMenager.getInstance().initShoppingCarMenager(ShoppingCarActivity.this, adapter, data, false, attention, check_all, total_price, pay, no_data, bottom);
 					ShoppingCarMenager.getInstance().initDrawable(getActivity());
 					adapter.notifyDataSetChanged();
 				}else{
@@ -174,6 +175,7 @@ public class ShoppingCarActivity extends BaseActivity implements OnClickListener
 			check_all.setImageDrawable(uncheck_Drawable);
 		}
 		pay = (TextView) findViewById(R.id.pay);
+		attention = (TextView) findViewById(R.id.attention);
 		mListView = (PullToRefreshListView) findViewById(R.id.mylist);
 		no_data = (LinearLayout) findViewById(R.id.data_null);
 		findViewById(R.id.top).setVisibility(View.VISIBLE);

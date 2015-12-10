@@ -23,7 +23,7 @@ public class UrlUtil {
 	public static final String LOGIN_URL = SERVER05 + "/api/login_user_name";
 	public static final String REGIST_URL = SERVER04 + "/api/reg";
 	public static final String CANCLE_ORDER_URL = SERVER01 + "/client/order/state/update";
-	public static final String GET_USERINFO_URL = SERVER04 + "/api/user/get/info";
+	public static final String GET_USERINFO_URL = SERVER05 + "/api/user/get/info";
 	public static final String GET_ORDER_LIST_URL = SERVER01 + "/client/order";
 	public static final String GET_COUPON_LIST_URL = SERVER02 + "/client/coupons/list";
 	

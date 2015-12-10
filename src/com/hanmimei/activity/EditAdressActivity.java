@@ -267,8 +267,8 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 			cityObject.put("province", mCurrentProviceName);
 			cityObject.put("city", mCurrentCityName);
 			cityObject.put("area", mCurrentDistrictName);
-			cityObject.put("area_code", null);
-			cityObject.put("city_code", null);
+			cityObject.put("area_code", "");
+			cityObject.put("city_code", "");
 			cityObject.put("province_code", mCurrentProviceEnName);
 			object.put("tel", phone);
 			object.put("name", name);

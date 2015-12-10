@@ -29,10 +29,14 @@ public class ShoppingCar implements Serializable {
 	}
 
 	public Double getAllPrice() {
-		for (Customs cs : list) {
-			allPrice += cs.getAllPrice();
-		}
 		return allPrice;
 	}
+
+	public void setAllPrice(Double allPrice) {
+		this.allPrice = allPrice;
+	}
+	
+	
+	
 
 }

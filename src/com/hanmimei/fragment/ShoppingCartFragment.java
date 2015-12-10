@@ -50,6 +50,7 @@ public class ShoppingCartFragment extends Fragment implements
 	private TextView total_price;
 	private ImageView check_all;
 	private TextView pay;
+	private TextView attention;
 	private LinearLayout no_data;
 	private List<Customs> data;
 	private ShoppingCarPullListAdapter adapter;
@@ -177,7 +178,7 @@ public class ShoppingCartFragment extends Fragment implements
 					data.clear();
 					data.addAll(car.getList());
 					//
-					ShoppingCarMenager.getInstance().initShoppingCarMenager(activity,data, false, check_all, total_price, pay, no_data, bottom);
+					ShoppingCarMenager.getInstance().initShoppingCarMenager(activity, adapter ,data, false, attention, check_all, total_price, pay, no_data, bottom);
 					ShoppingCarMenager.getInstance().initDrawable(getActivity());
 					//
 					adapter.notifyDataSetChanged();
@@ -205,6 +206,7 @@ public class ShoppingCartFragment extends Fragment implements
 			check_all.setImageDrawable(uncheck_Drawable);
 		}
 		pay = (TextView) view.findViewById(R.id.pay);
+		attention = (TextView) view.findViewById(R.id.attention);
 		mListView = (PullToRefreshListView) view.findViewById(R.id.mylist);
 		mListView.setOnRefreshListener(this);
 		mListView.setMode(Mode.PULL_DOWN_TO_REFRESH);
@@ -260,6 +262,11 @@ public class ShoppingCartFragment extends Fragment implements
 					customs.setList(goodsList);
 					customs.setInvArea(data.get(i).getInvArea());
 					customs.setInvCustoms(data.get(i).getInvCustoms());
+					int postFee = 0;
+					for(int m = 0; m < goodsList.size(); m ++){
+						postFee = postFee + Integer.parseInt(goodsList.get(m).getShipFee());
+					}
+					customs.setPostFee(postFee);
 					customsList.add(customs);
 				}
 			}
