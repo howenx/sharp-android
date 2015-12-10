@@ -143,5 +143,13 @@
 
         <item name="android:windowExitAnimation">@anim/pophidden_anim</item>
         <!-- 指定消失的动画xml -->
-        </style>
+    </style>
+    <style name="youhui1">
+        <item name="android:textSize">16sp</item>  
+    	<item name="android:textColor">@color/fontcolor</item> 
+    </style>
+    <style name="youhui2">
+        <item name="android:textSize">13sp</item>  
+    	<item name="android:textColor">@color/theme</item> 
+    </style>
 </resources>

@@ -3,9 +3,14 @@ package com.hanmimei.utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.hanmimei.R;
+
+import android.content.Context;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.TextAppearanceSpan;
+import android.widget.TextView;
 
 public class KeyWordUtil {
 	
@@ -59,5 +64,13 @@ public class KeyWordUtil {
 			}
 		}
 		return s;
+	}
+	
+	//同一textview  不同字体设置 mid截止到 end 
+	public static void setDifrentFontStyle(Context mContext, TextView textView, String font, int mid, int end){
+		SpannableString styledText = new SpannableString(font);  
+        styledText.setSpan(new TextAppearanceSpan(mContext, R.style.youhui1), 0, mid, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);  
+        styledText.setSpan(new TextAppearanceSpan(mContext, R.style.youhui2), 14, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); 
+        textView.setText(styledText, TextView.BufferType.SPANNABLE);
 	}
 }

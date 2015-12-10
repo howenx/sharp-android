@@ -9,19 +9,19 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.TextAppearanceSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.hanmimei.R;
-import com.hanmimei.activity.AboutIdCardActivity;
 import com.hanmimei.activity.AdressActivity;
 import com.hanmimei.activity.BaseActivity;
 import com.hanmimei.activity.CouponActivity;
 import com.hanmimei.activity.EditUserInfoActivity;
-import com.hanmimei.activity.IdCardActivity;
 import com.hanmimei.activity.LoginActivity;
 import com.hanmimei.activity.MyOrderActivity;
 import com.hanmimei.dao.UserDao;
@@ -32,6 +32,7 @@ import com.hanmimei.entity.User;
 import com.hanmimei.utils.DoJumpUtils;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.InitImageLoader;
+import com.hanmimei.utils.KeyWordUtil;
 import com.hanmimei.view.RoundImageView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -84,9 +85,8 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 		View view = inflater.inflate(R.layout.wode_layout, null);
 		user = activity.getUser();
 		findView(view);
-		if (user != null) {
-			initView();
-		}
+		if(user != null)
+			getUserInfo();
 		registerReceivers();
 		return view;
 	}
@@ -112,6 +112,12 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 		imageOptions = InitImageLoader.initOptions();
 		imageLoader.displayImage(user.getUserImg(), header, imageOptions);
 		user_name.setText(user.getUserName());
+		String show = "    优惠券        " + user.getCouponCount() + "张可用";
+		KeyWordUtil.setDifrentFontStyle(getActivity(), youhui, show, 14, show.length());
+//		SpannableString styledText = new SpannableString(show);  
+//        styledText.setSpan(new TextAppearanceSpan(getActivity(), R.style.youhui1), 0, 14, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);  
+//        styledText.setSpan(new TextAppearanceSpan(getActivity(), R.style.youhui2), 14, show.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); 
+//		youhui.setText(styledText, TextView.BufferType.SPANNABLE);
 	}
 
 	private void clearView() {
@@ -184,6 +190,7 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 					user.setUserName(userinfo.getUserName());
 					user.setPhone(userinfo.getPhone());
 					user.setUserImg(userinfo.getUserImg());
+					user.setCouponCount(userinfo.getCouponCount());
 					UserDao userDao = activity.getDaoSession().getUserDao();
 					userDao.deleteAll();
 					userDao.insert(user);

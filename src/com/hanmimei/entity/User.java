@@ -19,6 +19,7 @@ public class User {
     private String last_login;
     private String phone;
     private String sex;
+    private Integer couponCount;
 
     // KEEP FIELDS - put your custom fields here
     // KEEP FIELDS END
@@ -30,7 +31,7 @@ public class User {
         this.id = id;
     }
 
-    public User(Long id, Integer userId, String userName, String userImg, Boolean isBind, String token, String expired, String last_login, String phone, String sex) {
+    public User(Long id, Integer userId, String userName, String userImg, Boolean isBind, String token, String expired, String last_login, String phone, String sex, Integer couponCount) {
         this.id = id;
         this.userId = userId;
         this.userName = userName;
@@ -41,6 +42,7 @@ public class User {
         this.last_login = last_login;
         this.phone = phone;
         this.sex = sex;
+        this.couponCount = couponCount;
     }
 
     public Long getId() {
@@ -121,6 +123,14 @@ public class User {
 
     public void setSex(String sex) {
         this.sex = sex;
+    }
+
+    public Integer getCouponCount() {
+        return couponCount;
+    }
+
+    public void setCouponCount(Integer couponCount) {
+        this.couponCount = couponCount;
     }
 
     // KEEP METHODS - put your custom methods here

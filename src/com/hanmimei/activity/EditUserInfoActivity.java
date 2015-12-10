@@ -11,22 +11,6 @@ import java.io.InputStream;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.hanmimei.R;
-import com.hanmimei.dao.UserDao;
-import com.hanmimei.data.AppConstant;
-import com.hanmimei.data.DataParser;
-import com.hanmimei.data.UrlUtil;
-import com.hanmimei.entity.HMessage;
-import com.hanmimei.entity.User;
-import com.hanmimei.utils.ActionBarUtil;
-import com.hanmimei.utils.DateUtil;
-import com.hanmimei.utils.HasSDCardUtil;
-import com.hanmimei.utils.HttpUtils;
-import com.hanmimei.utils.ImgUtils;
-import com.hanmimei.utils.InitImageLoader;
-import com.hanmimei.view.RoundImageView;
-import com.nostra13.universalimageloader.core.ImageLoader;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -51,7 +35,19 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ImageView.ScaleType;
+
+import com.hanmimei.R;
+import com.hanmimei.data.AppConstant;
+import com.hanmimei.data.DataParser;
+import com.hanmimei.data.UrlUtil;
+import com.hanmimei.entity.HMessage;
+import com.hanmimei.entity.User;
+import com.hanmimei.utils.DateUtil;
+import com.hanmimei.utils.HasSDCardUtil;
+import com.hanmimei.utils.HttpUtils;
+import com.hanmimei.utils.ImgUtils;
+import com.hanmimei.utils.InitImageLoader;
+import com.hanmimei.view.RoundImageView;
 
 public class EditUserInfoActivity extends BaseActivity implements OnClickListener{
 
@@ -74,9 +70,9 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 	private Bitmap photo;
 	
 	private User oldUser;
-	private UserDao userDao;
+//	private UserDao userDao;
 	private JSONObject object;
-	private User newUser;
+//	private User newUser;
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -84,7 +80,7 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 		//ActionBarUtil.setActionBarStyle(this, "个人资料", 0, true, null);
 		//loadData();
 		oldUser = getUser();
-		newUser = new User();
+//		newUser = new User();
 		findView();
 		initView();
 		initSelectPop();
@@ -114,7 +110,7 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 		if(oldUser.getSex() == null){
 			sex.setText("未知");
 		}else{
-		sex.setText(oldUser.getSex());
+			sex.setText(oldUser.getSex());
 			}
 	}
 	@Override

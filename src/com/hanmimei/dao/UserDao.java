@@ -1,10 +1,10 @@
 package com.hanmimei.dao;
 
-import com.hanmimei.entity.User;
-
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
+
+import com.hanmimei.entity.User;
 
 import de.greenrobot.dao.AbstractDao;
 import de.greenrobot.dao.Property;
@@ -33,6 +33,7 @@ public class UserDao extends AbstractDao<User, Long> {
         public final static Property Last_login = new Property(7, String.class, "last_login", false, "LAST_LOGIN");
         public final static Property Phone = new Property(8, String.class, "phone", false, "PHONE");
         public final static Property Sex = new Property(9, String.class, "sex", false, "SEX");
+        public final static Property CouponCount = new Property(10, Integer.class, "couponCount", false, "COUPON_COUNT");
     };
 
 
@@ -57,7 +58,8 @@ public class UserDao extends AbstractDao<User, Long> {
                 "\"EXPIRED\" TEXT," + // 6: expired
                 "\"LAST_LOGIN\" TEXT," + // 7: last_login
                 "\"PHONE\" TEXT," + // 8: phone
-                "\"SEX\" TEXT);"); // 9: sex
+                "\"SEX\" TEXT," + // 9: sex
+                "\"COUPON_COUNT\" INTEGER);"); // 10: couponCount
     }
 
     /** Drops the underlying database table. */
@@ -120,6 +122,11 @@ public class UserDao extends AbstractDao<User, Long> {
         if (sex != null) {
             stmt.bindString(10, sex);
         }
+ 
+        Integer couponCount = entity.getCouponCount();
+        if (couponCount != null) {
+            stmt.bindLong(11, couponCount);
+        }
     }
 
     /** @inheritdoc */
@@ -141,7 +148,8 @@ public class UserDao extends AbstractDao<User, Long> {
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // expired
             cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // last_login
             cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // phone
-            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9) // sex
+            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // sex
+            cursor.isNull(offset + 10) ? null : cursor.getInt(offset + 10) // couponCount
         );
         return entity;
     }
@@ -159,6 +167,7 @@ public class UserDao extends AbstractDao<User, Long> {
         entity.setLast_login(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
         entity.setPhone(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
         entity.setSex(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
+        entity.setCouponCount(cursor.isNull(offset + 10) ? null : cursor.getInt(offset + 10));
      }
     
     /** @inheritdoc */
