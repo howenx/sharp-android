@@ -180,13 +180,15 @@ public class GoodsDetailActivity extends BaseActivity implements
 					sgoods.setGoodsNums(1);
 					sgoods.setGoodsPrice(s.getItemPrice());
 					sgoods.setInvArea(s.getInvArea());
-					sgoods.setInvCustoms(s.getInvCustom());
+					sgoods.setInvCustoms(s.getInvCustoms());
 					sgoods.setPostalTaxRate(s.getPostalTaxRate());
 					sgoods.setShipFee(s.getShipFee().toString());
 					sgoods.setPostalStandard(s.getPostalStandard());
-					customs.addShoppingGoods(sgoods);
 				}
 			}
+			customs.addShoppingGoods(sgoods);
+			customs.setInvArea(sgoods.getInvArea());
+			customs.setInvCustoms(sgoods.getInvCustoms());
 			list.add(customs);
 			car.setList(list);
 			car.setAllPrice(sgoods.getGoodsPrice());

@@ -8,7 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.google.gson.Gson;
-import com.hanmimei.entity.Adress;
+import com.hanmimei.entity.HMMAddress;
 import com.hanmimei.entity.Customs;
 import com.hanmimei.entity.GoodsDetail;
 import com.hanmimei.entity.HMMThemeGoods;
@@ -73,14 +73,14 @@ public class DataParser {
 		return new Gson().fromJson(result, HMMThemeGoods.class);
 	}
 
-	public static List<Adress> parserAddressList(String result) {
-		List<Adress> list = new ArrayList<Adress>();
+	public static List<HMMAddress> parserAddressList(String result) {
+		List<HMMAddress> list = new ArrayList<HMMAddress>();
 		try {
 			JSONObject object = new JSONObject(result);
 			JSONArray array = object.getJSONArray("address");
 			for (int i = 0; i < array.length(); i++) {
 				JSONObject obj = array.getJSONObject(i);
-				Adress adress = new Adress();
+				HMMAddress adress = new HMMAddress();
 				if (obj.has("addId"))
 					adress.setAdress_id(obj.getInt("addId"));
 				// if(obj.has("userId"))
@@ -174,7 +174,7 @@ public class DataParser {
 				JSONObject obj = array.getJSONObject(i);
 				if(obj.has("address")){
 					JSONObject addObject = obj.getJSONObject("address");
-					Adress adress = new Adress();
+					HMMAddress adress = new HMMAddress();
 					if(addObject.has("addId"))
 						adress.setAdress_id(addObject.getInt("addId"));
 					if(addObject.has("tel"))

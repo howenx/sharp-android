@@ -14,7 +14,7 @@ import com.hanmimei.R;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
-import com.hanmimei.entity.Adress;
+import com.hanmimei.entity.HMMAddress;
 import com.hanmimei.entity.Result;
 import com.hanmimei.entity.User;
 import com.hanmimei.utils.ActionBarUtil;
@@ -47,9 +47,9 @@ import android.widget.TextView;
 	private ImageView back;
 	private SwipeMenuListView mListView;
 	private TextView addAddress;
-	private List<Adress> data;
+	private List<HMMAddress> data;
 	private AdressAdapter adapter;
-	private Adress adress;
+	private HMMAddress adress;
 	private int index_;
 	private int index;
 	private JSONObject object;
@@ -86,7 +86,7 @@ import android.widget.TextView;
 			@Override
 			public void run() {
 				String result = HttpUtils.getToken(UrlUtil.ADDRESS_LIST_URL, "id-token", user.getToken());
-				List<Adress> list = DataParser.parserAddressList(result);
+				List<HMMAddress> list = DataParser.parserAddressList(result);
 				Message msg = mHandler.obtainMessage(1);
 				msg.obj = list;
 				mHandler.sendMessage(msg);
@@ -96,8 +96,8 @@ import android.widget.TextView;
 	
 	private void findView() {
 		inflater = LayoutInflater.from(this);
-		adress = new Adress();
-		data = new ArrayList<Adress>();
+		adress = new HMMAddress();
+		data = new ArrayList<HMMAddress>();
 		adapter = new AdressAdapter(this,data);
 		header = (TextView) findViewById(R.id.header);
 		header.setText("地址列表");
@@ -151,11 +151,11 @@ import android.widget.TextView;
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		if(resultCode == AppConstant.ADR_ADD_SU){
 			Bundle bundle = intent.getExtras();
-			adress = (Adress) bundle.getSerializable("address");
+			adress = (HMMAddress) bundle.getSerializable("address");
 			addNewAddress();
 		}else if(resultCode == AppConstant.ADR_UP_SU){
 			Bundle bundle = intent.getExtras();
-			adress = (Adress) bundle.getSerializable("address");
+			adress = (HMMAddress) bundle.getSerializable("address");
 			updateAddress();
 		}
 	}
@@ -180,7 +180,7 @@ import android.widget.TextView;
 			super.handleMessage(msg);
 			switch (msg.what) {
 			case 1:
-				List<Adress> list = (List<Adress>) msg.obj;
+				List<HMMAddress> list = (List<HMMAddress>) msg.obj;
 				if(list != null && list.size() > 0 ){
 					data.clear();
 					adapter.notifyDataSetChanged();
@@ -203,8 +203,8 @@ import android.widget.TextView;
 	};
 	private class AdressAdapter extends BaseAdapter{
 
-		private List<Adress> adresses;
-		public AdressAdapter(Context mContext,List<Adress> data){
+		private List<HMMAddress> adresses;
+		public AdressAdapter(Context mContext,List<HMMAddress> data){
 			adresses = data;
 		}
 		@Override
@@ -224,7 +224,7 @@ import android.widget.TextView;
 
 		@Override
 		public View getView(final int position, View convertView, ViewGroup arg2) {
-			final Adress adress = adresses.get(position);
+			final HMMAddress adress = adresses.get(position);
 			ViewHolder holder = null;
 			if(convertView == null){
 				convertView = inflater.inflate(R.layout.adress_list_item, null);
@@ -264,7 +264,7 @@ import android.widget.TextView;
 	}
 
 
-	private void toObject(Adress adress) {
+	private void toObject(HMMAddress adress) {
 		object = new JSONObject();
 		try {
 			object.put("addId", adress.getAdress_id());

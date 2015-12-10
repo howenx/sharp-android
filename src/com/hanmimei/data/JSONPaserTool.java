@@ -10,7 +10,7 @@ import com.hanmimei.entity.ShoppingGoods;
 
 public class JSONPaserTool {
 
-	public static JSONArray ClientSettlePaser(ShoppingCar car) {
+	public static JSONArray ClientSettlePaser(ShoppingCar car,Long addressId) {
 		JSONArray array = new JSONArray();
 		try {
 			for (Customs cs : car.getList()) {
@@ -21,14 +21,14 @@ public class JSONPaserTool {
 				JSONArray arrayy = new JSONArray();
 				for(ShoppingGoods sg : cs.getList()){
 					JSONObject jsonn = new JSONObject();
-					jsonn.put("cartId", null);
+					jsonn.put("cartId", sg.getCartId());
 					jsonn.put("skuId", sg.getGoodsId());
 					jsonn.put("amount", sg.getGoodsNums());
-					jsonn.put("state", null);
+					jsonn.put("state", sg.getState());
 					arrayy.put(jsonn);
 				}
 				json.put("cartDtos", arrayy);
-//				json.put("addressId", value);
+				json.put("addressId", addressId);
 				array.put(json);
 			}
 		} catch (JSONException e) {

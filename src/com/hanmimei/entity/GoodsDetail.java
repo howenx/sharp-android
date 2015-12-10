@@ -213,7 +213,7 @@ public class GoodsDetail {
 		private String itemPreviewImgs;
 		private String invUrl;
 		private String invTitle;
-		private String invCustom;
+		private String invCustoms;
 		private Integer postalTaxRate;
 		private Integer postalStandard;// 关税收费标准
 		
@@ -232,12 +232,12 @@ public class GoodsDetail {
 			this.postalTaxRate = postalTaxRate;
 		}
 
-		public String getInvCustom() {
-			return invCustom;
+		public String getInvCustoms() {
+			return invCustoms;
 		}
 
-		public void setInvCustom(String invCustom) {
-			this.invCustom = invCustom;
+		public void setInvCustoms(String invCustoms) {
+			this.invCustoms = invCustoms;
 		}
 
 		public Integer getId() {

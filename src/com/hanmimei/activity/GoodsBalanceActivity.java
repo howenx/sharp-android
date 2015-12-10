@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -58,7 +59,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 		mListView.setAdapter(new GoodsBalanceCustomAdapter(customslist, this));
 		all_price.setText(getResources().getString(R.string.price,car.getAllPrice()));
 		// initViews();
-		loadData();
+		loadData(Long.valueOf(0));
 	}
 
 	private void findView() {
@@ -172,6 +173,10 @@ public class GoodsBalanceActivity extends BaseActivity implements
 				group_coupons.setVisibility(View.VISIBLE);
 			}
 			break;
+			
+		case R.id.newAddress:
+			startActivity(new Intent(this, EditAdressActivity.class));
+			break;
 
 		default:
 			break;
@@ -179,8 +184,8 @@ public class GoodsBalanceActivity extends BaseActivity implements
 	}
 
 	// 网络请求数据
-	private void loadData() {
-		final JSONArray array = JSONPaserTool.ClientSettlePaser(car);
+	private void loadData(Long addressId) {
+		final JSONArray array = JSONPaserTool.ClientSettlePaser(car,addressId);
 		submitTask(new Runnable() {
 
 			@Override
