@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +58,7 @@ import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.HttpUtils;
+import com.hanmimei.utils.PopupWindowUtil;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.CustomScrollView;
 import com.hanmimei.view.TagCloudView;
@@ -67,13 +69,11 @@ public class GoodsDetailActivity extends BaseActivity implements
 		OnClickListener, OnSliderClickListener,
 		CustomScrollView.OnScrollUpListener {
 
-
 	private List<Category> tabs;
 
 	private SliderLayout slider;
-	private TextView num_attention, discount, itemTitle, itemSrcPrice,
-			itemPrice,area;
-	private TextView num_shipFee,num_portalFee,num_restrictAmount;
+	private TextView discount, itemTitle, itemSrcPrice, itemPrice, area;
+	private TextView  num_restrictAmount;
 	private TagCloudView tagCloudView;
 	private TextView publicity;
 	private ViewPager pager;
@@ -82,33 +82,33 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private ImageView shoppingCar;
 
 	private View pager_header;
-	
+
 	private User user;
 	private ShoppingGoodsDao goodsDao;
+
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
-		ActionBarUtil.setActionBarStyle(this, "商品详情", R.drawable.white_shoppingcar, true, this);
+		ActionBarUtil.setActionBarStyle(this, "商品详情", R.drawable.fenxiang,
+				true, this);
 		setContentView(R.layout.goods_detail_layout);
 		findView(arg0);
 		loadDataByUrl();
-//		registerReceivers();
+		// registerReceivers();
 	}
-
 
 	private void findView(Bundle savedInstanceState) {
 
 		slider = (SliderLayout) findViewById(R.id.slider);
-		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(CommonUtil.getScreenWidth(this),CommonUtil.getScreenWidth(this));
+		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+				CommonUtil.getScreenWidth(this),
+				CommonUtil.getScreenWidth(this));
 		slider.setLayoutParams(lp);
-		num_attention = (TextView) findViewById(R.id.num_attention);
 		itemTitle = (TextView) findViewById(R.id.itemTitle);
 		itemSrcPrice = (TextView) findViewById(R.id.itemSrcPrice);
 		itemPrice = (TextView) findViewById(R.id.itemPrice);
 		tagCloudView = (TagCloudView) findViewById(R.id.tagCloudView);
 		publicity = (TextView) findViewById(R.id.publicity);
-		num_shipFee = (TextView) findViewById(R.id.shipFee);
-		num_portalFee = (TextView) findViewById(R.id.portalFee);
 		num_restrictAmount = (TextView) findViewById(R.id.restrictAmount);
 		indicator_hide = findViewById(R.id.indicator_hide);
 		pager = (ViewPager) findViewById(R.id.pager);
@@ -117,34 +117,34 @@ public class GoodsDetailActivity extends BaseActivity implements
 		mScrollView = (CustomScrollView) findViewById(R.id.mScrollView);
 		mScrollView.setOnScrollUpListener(this);
 		pager_header = findViewById(R.id.pager_header);
-		
+
 		user = getUser();
 		goodsDao = getDaoSession().getShoppingGoodsDao();
 		goods = new ShoppingGoods();
-		findViewById(R.id.btn_attention).setOnClickListener(this);
-		findViewById(R.id.btn_share).setOnClickListener(this);
 		findViewById(R.id.btn_pay).setOnClickListener(this);
 		findViewById(R.id.btn_shopcart).setOnClickListener(this);
-		findViewById(R.id.talk_us).setOnClickListener(this);
 		findViewById(R.id.like).setOnClickListener(this);
+		findViewById(R.id.car).setOnClickListener(this);
+		findViewById(R.id.btn_portalFee).setOnClickListener(this);
 	}
 
-
 	private void loadDataByUrl() {
-		Http2Utils.doGetRequestTask(this, getIntent().getStringExtra("url"), new VolleyJsonCallback() {
-			
-			@Override
-			public void onSuccess(String result) {
-				// TODO Auto-generated method stub
-				GoodsDetail detail = DataParser.parserGoodsDetail(result);
-				initGoodsDetail(detail);
-			}
-			
-			@Override
-			public void onError() {
-				ToastUtils.Toast(getActivity(), R.string.error);
-			}
-		});
+		Http2Utils.doGetRequestTask(this, getIntent().getStringExtra("url"),
+				new VolleyJsonCallback() {
+
+					@Override
+					public void onSuccess(String result) {
+						// TODO Auto-generated method stub
+						GoodsDetail detail = DataParser
+								.parserGoodsDetail(result);
+						initGoodsDetail(detail);
+					}
+
+					@Override
+					public void onError() {
+						ToastUtils.Toast(getActivity(), R.string.error);
+					}
+				});
 	}
 
 	@Override
@@ -153,90 +153,109 @@ public class GoodsDetailActivity extends BaseActivity implements
 		case R.id.back:
 			finish();
 			break;
-		case R.id.btn_attention:
+		case R.id.car:
+			setResult(AppConstant.CAR_TO_GOODS_CODE);
+			startActivity(new Intent(this, ShoppingCarActivity.class));
 			break;
-		case R.id.btn_share:
+		case R.id.btn_portalFee:
+			showPortalFeeInfo();
 			break;
 		case R.id.btn_pay:
-			if(getUser() == null){
+			if (getUser() == null) {
 				startActivity(new Intent(this, LoginActivity.class));
-				sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION));
+				sendBroadcast(new Intent(
+						AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION));
 				return;
 			}
 			ShoppingCar car = new ShoppingCar();
-			List<Customs> list =new ArrayList<Customs>();
+			List<Customs> list = new ArrayList<Customs>();
 			Customs customs = new Customs();
-			
+
 			ShoppingGoods sgoods = null;
-			for(Stock s :stocks){
-				if(s.getOrMasterInv()){
+			for (Stock s : stocks) {
+				if (s.getOrMasterInv()) {
 					sgoods = new ShoppingGoods();
 					sgoods.setGoodsId(s.getId());
 					sgoods.setGoodsImg(s.getInvImg());
 					sgoods.setGoodsName(s.getInvTitle());
 					sgoods.setGoodsNums(1);
-					sgoods.setGoodsPrice(s.getItemPrice()+"");
+					sgoods.setGoodsPrice(s.getItemPrice());
 					sgoods.setInvArea(s.getInvArea());
 					sgoods.setInvCustoms(s.getInvCustom());
-					sgoods.setPostalTaxRate(s.getPostalTaxRate()+"");
-					sgoods.setShipFee(s.getShipFee()+"");
-					customs.setInvArea(s.getInvArea());
-					customs.setInvCustoms(s.getInvCustom());
+					sgoods.setPostalTaxRate(s.getPostalTaxRate());
+					sgoods.setShipFee(s.getShipFee().toString());
+					sgoods.setPostalStandard(s.getPostalStandard());
 					customs.addShoppingGoods(sgoods);
 				}
 			}
 			list.add(customs);
 			car.setList(list);
-			car.setAllPrice(Double.parseDouble(sgoods.getGoodsPrice()));
-			Intent intent  = new Intent(this, GoodsBalanceActivity.class);
+			Intent intent = new Intent(this, GoodsBalanceActivity.class);
 			intent.putExtra("car", car);
 			startActivity(intent);
 			break;
 
 		case R.id.btn_shopcart:
-			for(int i = 0; i < stocks.size(); i ++){
+			for (int i = 0; i < stocks.size(); i++) {
 				Stock stock = stocks.get(i);
-				if(stock.getOrMasterInv()){
+				if (stock.getOrMasterInv()) {
 					goods.setGoodsId(stock.getId());
 					goods.setGoodsNums(1);
 					goods.setState("I");
 				}
 			}
-			if(user != null){
+			if (user != null) {
 				sendData();
-			}else{
+			} else {
 				goodsDao.insert(goods);
-//				Toast.makeText(GoodsDetailActivity.this, "已加入购物车", Toast.LENGTH_SHORT).show();
 				ToastUtils.Toast(this);
 				sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_ADD_CAR));
 			}
 			break;
 		case R.id.setting:
-			setResult(AppConstant.CAR_TO_GOODS_CODE);
-			startActivity(new Intent(this, ShoppingCarActivity.class));
-			break;
-		case R.id.talk_us:
-			   intent= new Intent();
-			   intent.setAction("android.intent.action.CALL");
-			   intent.setData(Uri.parse("tel:"+ "18511664543"));
-			   startActivity(intent);
+
 			break;
 		case R.id.like:
-			Toast.makeText(this, "您点击了收藏", Toast.LENGTH_SHORT).show();
+			ToastUtils.Toast(this, "您点击了收藏");
+			break;
+		case R.id.btn_cancel:
+			window.dismiss();
 			break;
 		default:
 			break;
 		}
 	}
 
+	PopupWindow window = null;
+
+	private void showPortalFeeInfo() {
+		// TODO Auto-generated method stub
+		View view = getLayoutInflater().inflate(R.layout.panel_portalfee, null);
+		TextView num_portalfee = (TextView) view
+				.findViewById(R.id.num_portalfee);
+		TextView prompt = (TextView) view
+				.findViewById(R.id.prompt);
+		Double postalFee = curPostalTaxRate * curItemPrice / 100;
+		num_portalfee.setText(getResources().getString(R.string.price,
+				CommonUtil.DecimalFormat(postalFee)));
+		prompt.setText(getResources().getString(R.string.portalfee_biaozhun,curPostalTaxRate,postalStandard));
+		if (postalFee <= 50)
+			num_portalfee.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+		view.findViewById(R.id.btn_cancel).setOnClickListener(this);
+		window = PopupWindowUtil.showPopWindow(this, view);
+	}
+
 	private ShoppingGoods goods;
+
 	private void sendData() {
 		toObject();
 		submitTask(new Runnable() {
-			
+
 			@Override
 			public void run() {
-				String result = HttpUtils.post(UrlUtil.GET_CAR_LIST_URL, array, "id-token", user.getToken());
+				// TODO Auto-generated method stub
+				String result = HttpUtils.post(UrlUtil.GET_CAR_LIST_URL, array,
+						"id-token", user.getToken());
 				HMessage hm = DataParser.paserResultMsg(result);
 				Message msg = mHandler.obtainMessage(1);
 				msg.obj = hm;
@@ -244,41 +263,43 @@ public class GoodsDetailActivity extends BaseActivity implements
 			}
 		});
 	}
-	
-	private  Handler mHandler = new  Handler(){
+
+	private Handler mHandler = new Handler() {
 
 		@Override
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
-			if(msg.what == 1){
+			if (msg.what == 1) {
 				HMessage hm = (HMessage) msg.obj;
-				if(hm.getCode() == 200){
+				if (hm.getCode() == 200) {
 					ToastUtils.Toast(GoodsDetailActivity.this);
-					sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_ADD_CAR));
-				}else{
-					Toast.makeText(GoodsDetailActivity.this, hm.getMessage(), Toast.LENGTH_SHORT).show();
+					sendBroadcast(new Intent(
+							AppConstant.MESSAGE_BROADCAST_ADD_CAR));
+				} else {
+					Toast.makeText(GoodsDetailActivity.this, hm.getMessage(),
+							Toast.LENGTH_SHORT).show();
 				}
 			}
 		}
-		
+
 	};
-	
+
 	private JSONArray array;
+
 	private void toObject() {
 		try {
 			array = new JSONArray();
-				JSONObject object = new JSONObject();
-				object.put("cartId", 0);
-				object.put("skuId", goods.getGoodsId());
-				object.put("amount", goods.getGoodsNums());
-				object.put("state", goods.getState());
-				array.put(object);
-			
+			JSONObject object = new JSONObject();
+			object.put("cartId", 0);
+			object.put("skuId", goods.getGoodsId());
+			object.put("amount", goods.getGoodsNums());
+			object.put("state", goods.getState());
+			array.put(object);
+
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 	}
-
 
 	private Main main;
 	private List<Stock> stocks;
@@ -288,7 +309,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 		main = detail.getMain();
 		stocks = detail.getStock();
 
-		num_attention.setText("(" + main.getCollectCount() + ")");
 		publicity.setText(main.getPublicity());
 
 		tags = new ArrayList<Tag>();
@@ -307,9 +327,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		});
 		getItemDetailImages();
 	}
-	
-	
-	
+
 	@SuppressWarnings("deprecation")
 	private void initFragment(List<BitmapInfo> infos) {
 		List<Fragment> data = new ArrayList<Fragment>();
@@ -323,7 +341,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 		data.add(pFragment);
 		data.add(ppFragment);
 
-		
 		pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager(), data,
 				tabs));
 		pager.setOffscreenPageLimit(3);
@@ -335,7 +352,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 				// TODO Auto-generated method stub
 				CommonUtil.resetViewPagerHeight(pager, arg0);
 				indicator_hide.setVisibility(View.GONE);
-				currIndex = arg0 ;
+				currIndex = arg0;
 			}
 
 			@Override
@@ -358,7 +375,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 			@Override
 			public void onPageScrollStateChanged(int arg0) {
 				// TODO Auto-generated method stub
-				
 
 			}
 		});
@@ -366,6 +382,10 @@ public class GoodsDetailActivity extends BaseActivity implements
 		InitTextBar();
 
 	}
+
+	private int curPostalTaxRate;	//当前商品税率
+	private double curItemPrice;	//当前商品价格
+	private int postalStandard;// 关税收费标准
 
 	private void initStocks(int position) {
 		for (int index = 0; index < stocks.size(); index++) {
@@ -375,14 +395,24 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 			if (s.getOrMasterInv()) {
 				initSliderImage(s);
-//				discount.setText("[" + s.getItemDiscount() + "折]");
-//				itemTitle.setText(s.getInvTitle());
-				itemSrcPrice.setText(getResources().getString(R.string.price, s.getItemSrcPrice()));
+				discount.setText("[" + s.getItemDiscount() + "折]");
+				itemTitle.setText(s.getInvTitle());
+				itemSrcPrice.setText(getResources().getString(R.string.price,
+						s.getItemSrcPrice()));
 				itemSrcPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-				itemPrice.setText(getResources().getString(R.string.price, s.getItemPrice()));
-				num_restrictAmount.setText(getResources().getString(R.string.restrictAmount,s.getRestrictAmount()));
-				num_portalFee.setText(getResources().getString(R.string.postalTaxRate,s.getPostalTaxRate()));
-				num_shipFee.setText(getResources().getString(R.string.shipFee, s.getShipFee()));
+				itemPrice.setText(getResources().getString(R.string.price,
+						s.getItemPrice()));
+				if(s.getRestrictAmount() >0){
+					num_restrictAmount.setVisibility(View.VISIBLE);
+					num_restrictAmount.setText(getResources().getString(
+							R.string.restrictAmount, s.getRestrictAmount()));
+				}else{
+					num_restrictAmount.setVisibility(View.GONE);
+				}
+				
+				curPostalTaxRate = s.getPostalTaxRate();
+				curItemPrice = s.getItemPrice();
+				postalStandard = s.getPostalStandard();
 				area.setText(s.getInvArea());
 			}
 		}
@@ -390,21 +420,20 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 	private void initSliderImage(Stock s) {
 		slider.setVisibility(View.INVISIBLE);
-//		slider.removeAllSliders();
-		List<TextSliderView> imageContent = new ArrayList<TextSliderView>();
+		// slider.removeAllSliders();
+		List<DefaultSliderView> imageContent = new ArrayList<DefaultSliderView>();
 		for (String url : s.getItemPreviewImgs()) {
-//			DefaultSliderView defaultSliderView = new DefaultSliderView(this);
-			TextSliderView textSliderView = new TextSliderView(this);
+			DefaultSliderView defaultSliderView = new DefaultSliderView(this);
+			// TextSliderView textSliderView = new TextSliderView(this);
 			// initialize a SliderLayout
-			textSliderView.image(url)
+			defaultSliderView.image(url)
 					.setScaleType(BaseSliderView.ScaleType.Fit)
-					.description("[" + s.getItemDiscount() + "折]"+s.getInvTitle())
 					.setOnSliderClickListener(this);
 
 			// add your extra information
-			textSliderView.getBundle().putString("extra", s.getInvUrl());
-			imageContent.add(textSliderView);
-//			slider.addSlider(defaultSliderView);
+			defaultSliderView.getBundle().putString("extra", s.getInvUrl());
+			imageContent.add(defaultSliderView);
+			// slider.addSlider(defaultSliderView);
 		}
 		slider.setPresetTransformer(SliderLayout.Transformer.Default);
 		slider.addSliderAll(imageContent);
@@ -416,8 +445,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	private int currIndex;// 当前页卡编号
+
 	/**
 	 * 初始化标签名
 	 */
@@ -425,13 +455,11 @@ public class GoodsDetailActivity extends BaseActivity implements
 		findViewById(R.id.tv_guid1).setOnClickListener(new txListener(0));
 		findViewById(R.id.tv_guid2).setOnClickListener(new txListener(1));
 		findViewById(R.id.tv_guid3).setOnClickListener(new txListener(2));
-		
+
 		findViewById(R.id.guid1).setOnClickListener(new txListener(0));
 		findViewById(R.id.guid2).setOnClickListener(new txListener(1));
 		findViewById(R.id.guid3).setOnClickListener(new txListener(2));
-		
-		
-		
+
 	}
 
 	public class txListener implements View.OnClickListener {
@@ -446,26 +474,27 @@ public class GoodsDetailActivity extends BaseActivity implements
 			pager.setCurrentItem(index);
 		}
 	}
-	
-	private TextView barText,tv_barText;
+
+	private TextView barText, tv_barText;
+
 	/**
 	 * 初始化图片的位移像素
 	 */
 	private void InitTextBar() {
 		barText = (TextView) findViewById(R.id.cursor);
 		tv_barText = (TextView) findViewById(R.id.tv_cursor);
-		Display display = getWindow().getWindowManager()
-				.getDefaultDisplay();
+		Display display = getWindow().getWindowManager().getDefaultDisplay();
 		// 得到显示屏宽度
 		DisplayMetrics metrics = new DisplayMetrics();
 		display.getMetrics(metrics);
 		// 1/3屏幕宽度
 		int tabLineLength = metrics.widthPixels / 3;
-		LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) barText.getLayoutParams();
+		LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) barText
+				.getLayoutParams();
 		lp.width = tabLineLength;
 		barText.setLayoutParams(lp);
 		tv_barText.setLayoutParams(lp);
-  
+
 	}
 
 	@Override
@@ -484,36 +513,31 @@ public class GoodsDetailActivity extends BaseActivity implements
 		}
 
 	}
-	
 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 	}
-		
-	private List<BitmapInfo>  infos;
-	
-		private void getItemDetailImages(){
-			final int size = main.getItemDetailImgs().size();
-			infos = new ArrayList<BitmapInfo>();
-			for (int i = 0; i < size; i++) {
-				AsyncImageLoader.getInstance().loadBitmap(this,i, main.getItemDetailImgs().get(i), new LoadedCallback() {
 
-					@Override
-					public void imageLoaded(BitmapInfo info) {
-						// TODO Auto-generated method stub
-						infos.add(info);
-						if(infos.size() == main.getItemDetailImgs().size()){
-							initFragment(infos);
+	private List<BitmapInfo> infos;
+
+	private void getItemDetailImages() {
+		final int size = main.getItemDetailImgs().size();
+		infos = new ArrayList<BitmapInfo>();
+		for (int i = 0; i < size; i++) {
+			AsyncImageLoader.getInstance().loadBitmap(this, i,
+					main.getItemDetailImgs().get(i), new LoadedCallback() {
+
+						@Override
+						public void imageLoaded(BitmapInfo info) {
+							infos.add(info);
+							if (infos.size() == main.getItemDetailImgs().size()) {
+								initFragment(infos);
+							}
 						}
-						
-					}
-					
-					
-				});
-				
-			}
+					});
+
 		}
-	
+	}
 
 }

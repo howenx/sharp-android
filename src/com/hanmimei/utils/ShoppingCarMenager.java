@@ -68,7 +68,7 @@ public class ShoppingCarMenager {
 			List<ShoppingGoods> goods = list.get(i).getList();
 			for(int j = 0; j < goods.size(); j ++){
 				if(goods.get(j).getState().equals("G"))
-					morePrice = morePrice + Double.parseDouble(goods.get(j).getGoodsPrice())* goods.get(j).getGoodsNums();
+					morePrice = morePrice + goods.get(j).getGoodsPrice()* goods.get(j).getGoodsNums();
 			}
 			if(morePrice > list.get(i).getPostalLimit()){
 				customName = list.get(i).getInvArea();
@@ -92,7 +92,7 @@ public class ShoppingCarMenager {
 				totalNums = totalNums + goods.get(j).getGoodsNums();
 				if(goods.get(j).getState().equals("G")){
 					nums_e = nums_e + goods.get(j).getGoodsNums();
-					totalPrice_e = totalPrice_e + goods.get(j).getGoodsNums() * Double.parseDouble(goods.get(j).getGoodsPrice());
+					totalPrice_e = totalPrice_e + goods.get(j).getGoodsNums() * goods.get(j).getGoodsPrice();
 				}	
 			}
 		}
@@ -137,7 +137,7 @@ public class ShoppingCarMenager {
 			List<ShoppingGoods> goods = list.get(i).getList();
 			for(int j = 0; j < goods.size(); j ++){
 				if(goods.get(j).getState().equals("G"))
-					tax = tax + Double.parseDouble(goods.get(j).getGoodsPrice()) * goods.get(j).getGoodsNums() * Integer.parseInt(goods.get(j).getPostalTaxRate());
+					tax = tax + goods.get(j).getGoodsPrice() * goods.get(j).getGoodsNums() * goods.get(j).getPostalTaxRate();
 			}
 			list.get(i).setTax(tax);
 		}

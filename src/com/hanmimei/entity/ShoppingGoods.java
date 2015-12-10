@@ -15,7 +15,7 @@ public class ShoppingGoods {
     private String goodsImg;
     private String goodsUrl;
     private String goodsName;
-    private String goodsPrice;
+    private Double goodsPrice;
     private Boolean isChecked;
     private String state;
     private Integer goodsNums;
@@ -26,9 +26,9 @@ public class ShoppingGoods {
     private String invArea;
     private Integer restrictAmount;
     private Integer restAmount;
-    private String postalTaxRate;
-    private String postalStandard;
-    private String postalLimit;
+    private Integer postalTaxRate;
+    private Integer postalStandard;
+    private Integer postalLimit;
     private String invCustoms;
 
     // KEEP FIELDS - put your custom fields here
@@ -41,7 +41,7 @@ public class ShoppingGoods {
         this.id = id;
     }
 
-    public ShoppingGoods(Long id, Integer cartId, Integer goodsId, String goodsImg, String goodsUrl, String goodsName, String goodsPrice, Boolean isChecked, String state, Integer goodsNums, String itemColor, String itemSize, String shipFee, String delUrl, String invArea, Integer restrictAmount, Integer restAmount, String postalTaxRate, String postalStandard, String postalLimit, String invCustoms) {
+    public ShoppingGoods(Long id, Integer cartId, Integer goodsId, String goodsImg, String goodsUrl, String goodsName, Double goodsPrice, Boolean isChecked, String state, Integer goodsNums, String itemColor, String itemSize, String shipFee, String delUrl, String invArea, Integer restrictAmount, Integer restAmount, Integer postalTaxRate, Integer postalStandard, Integer postalLimit, String invCustoms) {
         this.id = id;
         this.cartId = cartId;
         this.goodsId = goodsId;
@@ -113,11 +113,11 @@ public class ShoppingGoods {
         this.goodsName = goodsName;
     }
 
-    public String getGoodsPrice() {
+    public Double getGoodsPrice() {
         return goodsPrice;
     }
 
-    public void setGoodsPrice(String goodsPrice) {
+    public void setGoodsPrice(Double goodsPrice) {
         this.goodsPrice = goodsPrice;
     }
 
@@ -201,27 +201,27 @@ public class ShoppingGoods {
         this.restAmount = restAmount;
     }
 
-    public String getPostalTaxRate() {
+    public Integer getPostalTaxRate() {
         return postalTaxRate;
     }
 
-    public void setPostalTaxRate(String postalTaxRate) {
+    public void setPostalTaxRate(Integer postalTaxRate) {
         this.postalTaxRate = postalTaxRate;
     }
 
-    public String getPostalStandard() {
+    public Integer getPostalStandard() {
         return postalStandard;
     }
 
-    public void setPostalStandard(String postalStandard) {
+    public void setPostalStandard(Integer postalStandard) {
         this.postalStandard = postalStandard;
     }
 
-    public String getPostalLimit() {
+    public Integer getPostalLimit() {
         return postalLimit;
     }
 
-    public void setPostalLimit(String postalLimit) {
+    public void setPostalLimit(Integer postalLimit) {
         this.postalLimit = postalLimit;
     }
 

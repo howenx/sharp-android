@@ -1,8 +1,8 @@
 package com.hanmimei.data;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 import com.hanmimei.entity.Adress;
 import com.hanmimei.entity.Customs;
 import com.hanmimei.entity.GoodsDetail;
+import com.hanmimei.entity.HMMThemeGoods;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.Order;
 import com.hanmimei.entity.Result;
@@ -19,9 +20,6 @@ import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.Sku;
 import com.hanmimei.entity.Slider;
 import com.hanmimei.entity.Theme;
-import com.hanmimei.entity.ThemeDetail;
-import com.hanmimei.entity.ThemeItem;
-import com.hanmimei.entity.GoodsDetail.ItemFeature;
 import com.hanmimei.entity.User;
 
 public class DataParser {
@@ -71,58 +69,8 @@ public class DataParser {
 
 	}
 
-	public static ThemeDetail parserThemeItem(String result) {
-		ThemeDetail detail = new ThemeDetail();
-		JSONObject obj = null;
-		HMessage msg = new HMessage();
-		List<ThemeItem> themeList = new ArrayList<ThemeItem>();
-		ThemeItem t = null;
-		try {
-			obj = new JSONObject(result);
-			JSONObject json = obj.getJSONObject("message");
-			msg.setMessage(json.getString("message"));
-			msg.setCode(json.getInt("code"));
-			detail.setMessage(msg);
-
-			JSONArray array = new JSONArray(obj.getString("themeList"));
-
-			for (int i = 0; i < array.length(); i++) {
-				JSONObject jjson = array.getJSONObject(i);
-				t = new ThemeItem();
-				t.setInvWeight(jjson.getInt("invWeight"));
-				t.setItemTitle(jjson.getString("itemTitle"));
-				if(jjson.has("itemMasterImg"))
-					t.setItemMasterImg(jjson.getString("itemMasterImg"));
-				t.setCollectCount(jjson.getInt("collectCount"));
-				t.setThemeId(jjson.getInt("themeId"));
-				t.setItemDiscount(jjson.getInt("itemDiscount"));
-				t.setItemSoldAmount(jjson.getInt("itemSoldAmount"));
-				t.setItemId(jjson.getInt("itemId"));
-				t.setItemImg(jjson.getString("itemImg"));
-				t.setItemSrcPrice(jjson.getInt("itemSrcPrice"));
-				if(jjson.has("masterItemTag"))
-				t.setMasterItemTag(jjson.getString("masterItemTag"));
-				if(jjson.has("orMasterItem"))
-					t.setOrMasterItem(jjson.getBoolean("orMasterItem"));
-				t.setItemPrice(jjson.getInt("itemPrice"));
-				t.setState(jjson.getString("state"));
-				t.setPostalTaxRate(jjson.getInt("postalTaxRate"));
-				t.setItemUrl(jjson.getString("itemUrl"));
-				t.setInvArea(jjson.getString("invArea"));
-
-				if (t.getOrMasterItem()) {
-					detail.setMasterItem(t);
-				} else {
-					themeList.add(t);
-				}
-			}
-
-			detail.setThemeList(themeList);
-
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		return detail;
+	public static HMMThemeGoods parserThemeItem(String result) {
+		return new Gson().fromJson(result, HMMThemeGoods.class);
 	}
 
 	public static List<Adress> parserAddressList(String result) {
@@ -196,86 +144,7 @@ public class DataParser {
 	
 	//商品详情页 －－ 商品详情数据解析
 	public static GoodsDetail parserGoodsDetail(String result){
-//		new Gson().fromJson(result, new TypeToken(<>){}.getType());
-		GoodsDetail detail = new GoodsDetail();
-		try {
-			JSONObject obj = new JSONObject(result);
-			JSONObject objMain = obj.getJSONObject("main");
-			GoodsDetail.Main main = detail.new Main();
-
-			main.setId(objMain.getInt("id"));
-			main.setItemTitle(objMain.getString("itemTitle"));
-			main.setItemMasterImg(objMain.getString("itemMasterImg"));
-			main.setOnShelvesAt(objMain.getString("onShelvesAt"));
-			main.setOffShelvesAt(objMain.getString("offShelvesAt"));
-			JSONArray array = new JSONArray(objMain.getString("itemDetailImgs"));
-			List<String> list = new ArrayList<String>();
-			for (int i = 0; i < array.length(); i++) {
-				list.add(array.getString(i));
-			}
-			main.setItemDetailImgs(list);
-			JSONObject json = new JSONObject(objMain.getString("itemFeatures"));
-			Iterator<String> it = json.keys();
-			List<ItemFeature> itemFeatures = new ArrayList<ItemFeature>();
-			ItemFeature itemFeature = null;
-			while (it.hasNext()) {
-				String key = it.next();
-				String value = json.get(key).toString();
-				itemFeature = detail.new ItemFeature(key,value);
-				itemFeatures.add(itemFeature);
-			}
-			main.setItemFeatures(itemFeatures);
-			main.setThemeId(objMain.getInt("themeId"));
-			main.setState(objMain.getString("state"));
-			main.setShareUrl(objMain.getString("shareUrl"));
-			main.setCollectCount(objMain.getInt("collectCount"));
-			main.setItemNotice(objMain.getString("itemNotice"));
-			array = new JSONArray(objMain.getString("publicity"));
-			list = new ArrayList<String>();
-			for (int i = 0; i < array.length(); i++) {
-				list.add(array.getString(i));
-			}
-			main.setPublicity(list);
-			main.setMasterInvId(objMain.getInt("masterInvId"));
-
-			detail.setMain(main);
-
-			GoodsDetail.Stock stock = null;
-			List<GoodsDetail.Stock> listt = new ArrayList<GoodsDetail.Stock>();
-			JSONArray arrayStock = obj.getJSONArray("stock");
-			for (int j = 0; j < arrayStock.length(); j++) {
-				JSONObject objStock = arrayStock.getJSONObject(j);
-				stock = detail.new Stock();
-				stock.setId(objStock.getInt("id"));
-				stock.setItemColor(objStock.getString("itemColor"));
-				stock.setItemSize(objStock.getString("itemSize"));
-				stock.setItemSrcPrice(objStock.getDouble("itemSrcPrice"));
-				stock.setItemPrice(objStock.getDouble("itemPrice"));
-				stock.setItemDiscount(objStock.getDouble("itemDiscount"));
-				stock.setOrMasterInv(objStock.getBoolean("orMasterInv"));
-				stock.setState(objStock.getString("state"));
-				stock.setShipFee(objStock.getInt("shipFee"));
-				stock.setInvArea(objStock.getString("invArea"));
-				stock.setRestrictAmount(objStock.getInt("restrictAmount"));
-				stock.setRestAmount(objStock.getInt("restAmount"));
-				stock.setInvImg(objStock.getString("invImg"));
-				stock.setInvCustom(objStock.getString("invCustoms"));
-				stock.setPostalTaxRate(objStock.getInt("postalTaxRate"));
-				array = new JSONArray(objStock.getString("itemPreviewImgs"));
-				list = new ArrayList<String>();
-				for (int i = 0; i < array.length(); i++) {
-					list.add(array.getString(i));
-				}
-				stock.setItemPreviewImgs(list);
-				stock.setInvImg(objStock.getString("invImg"));
-				stock.setInvTitle(objStock.getString("invTitle"));
-				listt.add(stock);
-			}
-			detail.setStock(listt);
-		} catch (JSONException e) {
-		}
-
-		return detail;
+		return new Gson().fromJson(result, GoodsDetail.class);
 	}
 
 	public static Result parserLoginResult(String str){
@@ -410,7 +279,7 @@ public class DataParser {
 					if(goodsObject.has("itemSize"))
 						goods.setItemSize(goodsObject.getString("itemSize"));
 					if(goodsObject.has("itemPrice"))
-						goods.setGoodsPrice(goodsObject.getString("itemPrice"));
+						goods.setGoodsPrice(goodsObject.getDouble("itemPrice"));
 					if(goodsObject.has("state")){
 						if(goodsObject.getString("state").equals("G")){
 							goods.setState("I");
@@ -437,11 +306,11 @@ public class DataParser {
 					if(goodsObject.has("invCustoms"))
 						goods.setInvCustoms(goodsObject.getString("invCustoms"));
 					if(goodsObject.has("postalTaxRate"))
-						goods.setPostalTaxRate(goodsObject.getString("postalTaxRate"));
+						goods.setPostalTaxRate(goodsObject.getInt("postalTaxRate"));
 					if(goodsObject.has("postalStandard"))
-						goods.setPostalStandard(goodsObject.getString("postalStandard"));
+						goods.setPostalStandard(goodsObject.getInt("postalStandard"));
 					if(goodsObject.has("postalLimit"))
-						goods.setPostalLimit(goodsObject.getString("postalLimit"));
+						goods.setPostalLimit(goodsObject.getInt("postalLimit"));
 					list.add(goods);
 				}
 				custom.setList(list);

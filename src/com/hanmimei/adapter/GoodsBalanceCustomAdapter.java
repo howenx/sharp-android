@@ -60,15 +60,19 @@ public class GoodsBalanceCustomAdapter extends BaseAdapter {
 		Customs c = customs.get(arg0);
 		holder.area_name.setText(c.getInvArea());
 		holder.mListView.setAdapter(new GoodsBalanceAdapter(c.getList(), context));
+		holder.protalFee.setText(context.getResources().getString(R.string.postalFee, c.getAllPoastalFee()));
 		return arg1;
 	}
 	
 	private class ViewHolder{
 		private TextView area_name;
 		private ListView mListView;
+		private TextView shipFee,protalFee;
 		public ViewHolder(View view) {
 			super();
 			this.area_name = (TextView) view.findViewById(R.id.area_name);
+			this.shipFee = (TextView) view.findViewById(R.id.shipFee);
+			this.protalFee = (TextView) view.findViewById(R.id.protalFee);
 			this.mListView = (ListView) view.findViewById(R.id.mListView);
 		}
 	}

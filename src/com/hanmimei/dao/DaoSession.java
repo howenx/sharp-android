@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.Slider;
 import com.hanmimei.entity.Theme;
-import com.hanmimei.entity.ThemeItem;
 import com.hanmimei.entity.User;
 
 import de.greenrobot.dao.AbstractDao;
@@ -25,13 +24,11 @@ import de.greenrobot.dao.internal.DaoConfig;
 public class DaoSession extends AbstractDaoSession {
 
     private final DaoConfig themeDaoConfig;
-    private final DaoConfig themeItemDaoConfig;
     private final DaoConfig sliderDaoConfig;
     private final DaoConfig userDaoConfig;
     private final DaoConfig shoppingGoodsDaoConfig;
 
     private final ThemeDao themeDao;
-    private final ThemeItemDao themeItemDao;
     private final SliderDao sliderDao;
     private final UserDao userDao;
     private final ShoppingGoodsDao shoppingGoodsDao;
@@ -43,8 +40,6 @@ public class DaoSession extends AbstractDaoSession {
         themeDaoConfig = daoConfigMap.get(ThemeDao.class).clone();
         themeDaoConfig.initIdentityScope(type);
 
-        themeItemDaoConfig = daoConfigMap.get(ThemeItemDao.class).clone();
-        themeItemDaoConfig.initIdentityScope(type);
 
         sliderDaoConfig = daoConfigMap.get(SliderDao.class).clone();
         sliderDaoConfig.initIdentityScope(type);
@@ -56,13 +51,11 @@ public class DaoSession extends AbstractDaoSession {
         shoppingGoodsDaoConfig.initIdentityScope(type);
 
         themeDao = new ThemeDao(themeDaoConfig, this);
-        themeItemDao = new ThemeItemDao(themeItemDaoConfig, this);
         sliderDao = new SliderDao(sliderDaoConfig, this);
         userDao = new UserDao(userDaoConfig, this);
         shoppingGoodsDao = new ShoppingGoodsDao(shoppingGoodsDaoConfig, this);
 
         registerDao(Theme.class, themeDao);
-        registerDao(ThemeItem.class, themeItemDao);
         registerDao(Slider.class, sliderDao);
         registerDao(User.class, userDao);
         registerDao(ShoppingGoods.class, shoppingGoodsDao);
@@ -70,7 +63,6 @@ public class DaoSession extends AbstractDaoSession {
     
     public void clear() {
         themeDaoConfig.getIdentityScope().clear();
-        themeItemDaoConfig.getIdentityScope().clear();
         sliderDaoConfig.getIdentityScope().clear();
         userDaoConfig.getIdentityScope().clear();
         shoppingGoodsDaoConfig.getIdentityScope().clear();
@@ -78,10 +70,6 @@ public class DaoSession extends AbstractDaoSession {
 
     public ThemeDao getThemeDao() {
         return themeDao;
-    }
-
-    public ThemeItemDao getThemeItemDao() {
-        return themeItemDao;
     }
 
     public SliderDao getSliderDao() {

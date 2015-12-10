@@ -1,6 +1,5 @@
 package com.hanmimei.activity;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,24 +18,19 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hanmimei.R;
 import com.hanmimei.adapter.ThemeAdapter;
-import com.hanmimei.dao.ThemeItemDao;
 import com.hanmimei.data.DataParser;
-import com.hanmimei.entity.ThemeDetail;
-import com.hanmimei.entity.ThemeItem;
+import com.hanmimei.entity.HMMGoods;
+import com.hanmimei.entity.HMMThemeGoods;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
-import com.hanmimei.utils.InitImageLoader;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.utils.WaveAnimationUtil;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -48,18 +42,10 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 	private String url;
 	private ThemeAdapter adapter;
 	private GridView gridView;
-	private List<ThemeItem> data;
-	private ThemeItemDao itemDao;
-	private ThemeItem themeItem;
+	private List<HMMGoods> data;
+	private HMMGoods themeItem;
 	private ImageView img;
-	private TextView title;
-	private TextView price;
-	private TextView header;
-	private ImageView shoppingCar;
-	private LinearLayout masterItem;
 	private FrameLayout mframeLayout;
-	private ImageLoader imageLoader;
-	private DisplayImageOptions imageOptions;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,9 +54,8 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		ActionBarUtil.setActionBarStyle(this, "商品展示",
 				R.drawable.white_shoppingcar, true, this);
 		// getActionBar().hide();
-		itemDao = getDaoSession().getThemeItemDao();
 		url = getIntent().getStringExtra("url");
-		data = new ArrayList<ThemeItem>();
+		data = new ArrayList<HMMGoods>();
 		adapter = new ThemeAdapter(data, this);
 		findView();
 		gridView.setAdapter(adapter);
@@ -95,12 +80,8 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 	}
 
 	private void findView() {
-		imageLoader = InitImageLoader.initLoader(this);
-		imageOptions = InitImageLoader.initOptions();
 		gridView = (GridView) findViewById(R.id.my_grid);
 		img = (ImageView) findViewById(R.id.img);
-		title = (TextView) findViewById(R.id.title);
-		price = (TextView) findViewById(R.id.price);
 		mframeLayout = (FrameLayout) findViewById(R.id.mframeLayout);
 	}
 
@@ -110,7 +91,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 				@Override
 				public void onSuccess(String result) {
 					// TODO Auto-generated method stub
-					ThemeDetail detail = DataParser.parserThemeItem(result);
+					HMMThemeGoods detail = DataParser.parserThemeItem(result);
 					if (detail != null) {
 						initThemeView(detail);
 						data.clear();
@@ -130,7 +111,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 	}
 
 
-	private void initThemeView(ThemeDetail detail) {
+	private void initThemeView(HMMThemeGoods detail) {
 		themeItem = detail.getMasterItem();
 		if (themeItem == null)
 			return;

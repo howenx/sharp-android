@@ -16,6 +16,9 @@
 	<string name="error">数据请求失败</string>
 	
 	<string name="restrictAmount">限购数量:%1$s</string>
-	<string name="shipFee">运费:%1$s</string>
-	<string name="postalTaxRate">行邮税:%1$s</string>
+	<string name="shipFee">运费:¥%1$s</string>
+	<string name="postalFee">行邮税:%1$s</string>
+	<string name="buyNum">购买数量:%1$s</string>
+	
+	<string name="portalfee_biaozhun">本商品适用税率为%1$s％，若订单总税额≥%2$s则免征</string>
 </resources>

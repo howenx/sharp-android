@@ -45,7 +45,7 @@ public class ActionBarUtil {
 	
 	
 	public static void setActionBarStyle(Context context, String tag){
-		setActionBarStyle(context, tag, 0, false, null);
+		setActionBarStyle(context, tag, 0, true, null);
 	}
 	
 	

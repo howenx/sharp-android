@@ -14,6 +14,12 @@ public class Customs implements Serializable{
 	
 	
 	
+	public int getPostFee() {
+		return postFee;
+	}
+	public void setPostFee(int postFee) {
+		this.postFee = postFee;
+	}
 	public int getPostalLimit() {
 		return postalLimit;
 	}
@@ -32,15 +38,9 @@ public class Customs implements Serializable{
 	public void setTax(double tax) {
 		this.tax = tax;
 	}
-	public int getPostFee() {
-		return postFee;
-	}
-	public void setPostFee(int postFee) {
-		this.postFee = postFee;
-	}
-
 	private List<ShoppingGoods> list;
 	
+
 	public String getInvArea() {
 		return invArea;
 	}
@@ -65,6 +65,7 @@ public class Customs implements Serializable{
 		this.invArea = invArea;
 		this.invCustoms = invCustoms;
 		this.list = list;
+	
 	}
 	public Customs() {
 		super();
@@ -75,5 +76,6 @@ public class Customs implements Serializable{
 			list = new ArrayList<ShoppingGoods>();
 		list.add(shoppingGoods);
 	}
+	
 
 }

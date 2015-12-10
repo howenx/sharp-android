@@ -15,20 +15,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hanmimei.R;
-import com.hanmimei.entity.ThemeItem;
+import com.hanmimei.entity.HMMGoods;
 import com.hanmimei.utils.InitImageLoader;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class ThemeAdapter extends BaseAdapter {
-	private List<ThemeItem> data;
+	private List<HMMGoods> data;
 	private LayoutInflater inflater;
 	private ImageLoader imageLoader;
 	private DisplayImageOptions imageOptions;
 	private Activity activity;
 	private int screenWidth;
 
-	public ThemeAdapter (List<ThemeItem> data, Context mContext){
+	public ThemeAdapter (List<HMMGoods> data, Context mContext){
 		this.data = data;
 		activity = (Activity) mContext;
 		inflater = LayoutInflater.from(mContext);
@@ -56,7 +56,7 @@ public class ThemeAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup arg2) {
-		ThemeItem theme = data.get(position);
+		HMMGoods theme = data.get(position);
 		ViewHolder holder = null;
 		if(convertView == null){
 			convertView = inflater.inflate(R.layout.themeitem_item, null);
