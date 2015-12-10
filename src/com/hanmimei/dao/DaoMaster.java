@@ -13,13 +13,12 @@ import de.greenrobot.dao.identityscope.IdentityScopeType;
  * Master of DAO (schema version 1): knows all DAOs.
 */
 public class DaoMaster extends AbstractDaoMaster {
-    public static final int SCHEMA_VERSION = 11;
+    public static final int SCHEMA_VERSION = 12;
 
     /** Creates underlying database table using DAOs. */
     public static void createAllTables(SQLiteDatabase db, boolean ifNotExists) {
         ThemeDao.createTable(db, ifNotExists);
         SliderDao.createTable(db, ifNotExists);
-        TicketDao.createTable(db, ifNotExists);
         UserDao.createTable(db, ifNotExists);
         ShoppingGoodsDao.createTable(db, ifNotExists);
     }
@@ -28,7 +27,6 @@ public class DaoMaster extends AbstractDaoMaster {
     public static void dropAllTables(SQLiteDatabase db, boolean ifExists) {
         ThemeDao.dropTable(db, ifExists);
         SliderDao.dropTable(db, ifExists);
-        TicketDao.dropTable(db, ifExists);
         UserDao.dropTable(db, ifExists);
         ShoppingGoodsDao.dropTable(db, ifExists);
     }
@@ -64,7 +62,6 @@ public class DaoMaster extends AbstractDaoMaster {
         super(db, SCHEMA_VERSION);
         registerDaoClass(ThemeDao.class);
         registerDaoClass(SliderDao.class);
-        registerDaoClass(TicketDao.class);
         registerDaoClass(UserDao.class);
         registerDaoClass(ShoppingGoodsDao.class);
     }

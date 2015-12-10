@@ -3,6 +3,7 @@ package com.hanmimei.data;
 public class UrlUtil {
 	public static final String SERVER01 = "http://172.28.3.18:9003";	//服务器	
 	public static final String SERVER02 = "http://172.28.3.51:9003";   //  测试服务器
+	public static final String SERVER05 = "http://172.28.3.51:9004";   //  测试服务器
 	public static final String SERVER03 = "http://172.28.3.18:9001";	//服务器	
 	public static final String SERVER04 = "http://172.28.3.18:9004";	//服务器	
 	
@@ -19,7 +20,7 @@ public class UrlUtil {
 	public static final String UPDATE_USERINFO = SERVER04 + "/api/user/update";
 	public static final String GET_CAR_LIST_URL = SERVER01 + "/client/cart";
 	public static final String SEND_CAR_TO_SERVER_UN = SERVER01 + "/client/cart/verify/amount/";
-	public static final String LOGIN_URL = SERVER02 + "/api/login_user_name";
+	public static final String LOGIN_URL = SERVER05 + "/api/login_user_name";
 	public static final String REGIST_URL = SERVER04 + "/api/reg";
 	public static final String CANCLE_ORDER_URL = SERVER01 + "/client/order/state/update";
 	public static final String GET_USERINFO_URL = SERVER04 + "/api/user/get/info";

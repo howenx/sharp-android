@@ -4,17 +4,31 @@
     android:layout_height="match_parent"
     android:orientation="vertical" 
     android:background="@color/white">
-
-    <TextView 
-        android:id="@+id/area"
+	<LinearLayout 
         android:paddingLeft="15dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
+	    android:layout_height="wrap_content"
+	    android:layout_width="match_parent"
+	    android:orientation="horizontal">
+    <TextView 
+        android:id="@+id/area"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:text="杭州保税区"
         android:textSize="15sp"
         android:textColor="@color/fontcolor"/>
+    <!-- 
+    <TextView 
+        android:id="@+id/attention"
+        android:layout_marginLeft="15dp"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="提示：同一保税区商品总价不能超过¥1000.00"
+        android:textSize="12sp"
+        android:textColor="@color/red"/>
+         -->
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"

@@ -11,7 +11,11 @@ import java.io.Serializable;
  */
 public class ShoppingGoods implements Serializable{
 
-    private Long id;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Long id;
     private Integer cartId;
     private Integer goodsId;
     private String goodsImg;

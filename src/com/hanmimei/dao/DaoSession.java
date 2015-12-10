@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.Slider;
 import com.hanmimei.entity.Theme;
-import com.hanmimei.entity.Ticket;
 import com.hanmimei.entity.User;
 
 import de.greenrobot.dao.AbstractDao;
@@ -26,13 +25,11 @@ public class DaoSession extends AbstractDaoSession {
 
     private final DaoConfig themeDaoConfig;
     private final DaoConfig sliderDaoConfig;
-    private final DaoConfig ticketDaoConfig;
     private final DaoConfig userDaoConfig;
     private final DaoConfig shoppingGoodsDaoConfig;
 
     private final ThemeDao themeDao;
     private final SliderDao sliderDao;
-    private final TicketDao ticketDao;
     private final UserDao userDao;
     private final ShoppingGoodsDao shoppingGoodsDao;
 
@@ -47,9 +44,6 @@ public class DaoSession extends AbstractDaoSession {
         sliderDaoConfig = daoConfigMap.get(SliderDao.class).clone();
         sliderDaoConfig.initIdentityScope(type);
 
-        ticketDaoConfig = daoConfigMap.get(TicketDao.class).clone();
-        ticketDaoConfig.initIdentityScope(type);
-
         userDaoConfig = daoConfigMap.get(UserDao.class).clone();
         userDaoConfig.initIdentityScope(type);
 
@@ -58,13 +52,11 @@ public class DaoSession extends AbstractDaoSession {
 
         themeDao = new ThemeDao(themeDaoConfig, this);
         sliderDao = new SliderDao(sliderDaoConfig, this);
-        ticketDao = new TicketDao(ticketDaoConfig, this);
         userDao = new UserDao(userDaoConfig, this);
         shoppingGoodsDao = new ShoppingGoodsDao(shoppingGoodsDaoConfig, this);
 
         registerDao(Theme.class, themeDao);
         registerDao(Slider.class, sliderDao);
-        registerDao(Ticket.class, ticketDao);
         registerDao(User.class, userDao);
         registerDao(ShoppingGoods.class, shoppingGoodsDao);
     }
@@ -72,7 +64,6 @@ public class DaoSession extends AbstractDaoSession {
     public void clear() {
         themeDaoConfig.getIdentityScope().clear();
         sliderDaoConfig.getIdentityScope().clear();
-        ticketDaoConfig.getIdentityScope().clear();
         userDaoConfig.getIdentityScope().clear();
         shoppingGoodsDaoConfig.getIdentityScope().clear();
     }
@@ -83,10 +74,6 @@ public class DaoSession extends AbstractDaoSession {
 
     public SliderDao getSliderDao() {
         return sliderDao;
-    }
-
-    public TicketDao getTicketDao() {
-        return ticketDao;
     }
 
     public UserDao getUserDao() {

@@ -29,6 +29,7 @@ public class CouponFragment extends Fragment {
 	private BaseActivity activity;
 	private Category category;
 	private User user;
+	private int state;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,13 @@ public class CouponFragment extends Fragment {
 		View view = inflater.inflate(R.layout.my_coupon_layout, null);
 		mListView = (PullToRefreshListView) view.findViewById(R.id.mylist);
 		mListView.setAdapter(adapter);
+		if (category.getId().equals("tag00")) {
+			state = 0;
+		}else if(category.getId().equals("tag01")){
+			state = 1;
+		}else{
+			state = 2;
+		}
 		loadData();
 		return view;
 	}
