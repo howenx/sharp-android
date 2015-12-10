@@ -1,24 +1,18 @@
 package com.hanmimei.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
+import android.util.Log;
 
 public class Customs implements Serializable{
 	private String invArea;
 	private String  invCustoms;
 	private List<ShoppingGoods> list;
-	private Float postFee = 0f;
 	
-	private Double allPrice = 0.00;
 	
-	public Float getPostFee() {
-		return postFee;
-	}
-	public void setPostFee(Float postFee) {
-		this.postFee = postFee;
-	}
-
 	public String getInvArea() {
 		return invArea;
 	}
@@ -51,6 +45,7 @@ public class Customs implements Serializable{
 	
 	
 	public Double getAllPrice() {
+		Double allPrice = 0.00;
 		for(ShoppingGoods sg : list){
 			allPrice += sg.getGoodsPrice() *sg.getGoodsNums();
 		}
@@ -63,8 +58,10 @@ public class Customs implements Serializable{
 		list.add(shoppingGoods);
 	}
 	
-	public Float getAllPoastalFee(){
+	public Double getAllPoastalFee(){
+		Double postFee = 0.00;
 		for(ShoppingGoods sg : list){
+			Log.i(sg.getGoodsName(), postFee+"");
 			postFee += sg.getPoastalFee();
 		}
 		return postFee;

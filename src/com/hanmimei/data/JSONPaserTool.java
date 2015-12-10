@@ -28,6 +28,7 @@ public class JSONPaserTool {
 					arrayy.put(jsonn);
 				}
 				json.put("cartDtos", arrayy);
+				json.put("addressId", value);
 				array.put(json);
 			}
 		} catch (JSONException e) {

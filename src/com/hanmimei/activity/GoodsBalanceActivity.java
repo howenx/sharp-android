@@ -56,8 +56,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 		customslist = car.getList();
 		findView();
 		mListView.setAdapter(new GoodsBalanceCustomAdapter(customslist, this));
-		all_price.setText(getResources().getString(R.string.price,
-				car.getAllPrice()));
+		all_price.setText(getResources().getString(R.string.price,car.getAllPrice()));
 		// initViews();
 		loadData();
 	}

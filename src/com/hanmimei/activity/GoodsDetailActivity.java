@@ -10,7 +10,6 @@ import org.json.JSONObject;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Paint;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -183,7 +182,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 					sgoods.setInvArea(s.getInvArea());
 					sgoods.setInvCustoms(s.getInvCustom());
 					sgoods.setPostalTaxRate(s.getPostalTaxRate().toString());
-					sgoods.setShipFee(s.getShipFee());
+					sgoods.setShipFee(s.getShipFee().intValue());
 					sgoods.setPostalStandard(s.getPostalStandard());
 					customs.setInvArea(s.getInvArea());
 					customs.setInvCustoms(s.getInvCustom());

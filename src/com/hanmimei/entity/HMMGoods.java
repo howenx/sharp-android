@@ -17,8 +17,8 @@ public class HMMGoods {
 	private String itemImg; // 商品图片
 	private String itemUrl; // 商品详情页链接
 	private String itemTitle; // 商品标题
-	private Double itemPrice; // 商品价格
-	private Double itemDiscount; // 商品折扣
+	private BigDecimal itemPrice; // 商品价格
+	private BigDecimal itemDiscount; // 商品折扣
 	private Integer itemSoldAmount; // 商品销售量
 	private Boolean orMasterItem = false; // 是否是主题主打宣传商品
 	private Integer collectCount; // 商品收藏数
@@ -26,14 +26,14 @@ public class HMMGoods {
 	private String masterItemImg; // 如果是主宣传商品图片url
 	private String onShelvesAt; //
 	private String offShelvesAt; //
-	private Integer invWeight; // 商品重量
+	private BigDecimal invWeight; // 商品重量
 	private String invArea; // 发货方式
 	private Integer postalTaxRate; // 税率
 	private String invCustoms; //保税区
 
 	// 新添
 	private String itemMasterImg;
-	private Double itemSrcPrice; // 主sku原价
+	private BigDecimal itemSrcPrice; // 主sku原价
 	private String state; // 商品状态
 	
 
@@ -52,13 +52,7 @@ public class HMMGoods {
 		this.postalTaxRate = postalTaxRate;
 	}
 
-	public Integer getInvWeight() {
-		return invWeight;
-	}
-
-	public void setInvWeight(Integer invWeight) {
-		this.invWeight = invWeight;
-	}
+	
 
 	public String getInvArea() {
 		return invArea;
@@ -72,13 +66,6 @@ public class HMMGoods {
 		this.itemMasterImg = itemMasterImg;
 	}
 
-	public Double getItemSrcPrice() {
-		return itemSrcPrice;
-	}
-
-	public void setItemSrcPrice(Double itemSrcPrice) {
-		this.itemSrcPrice = itemSrcPrice;
-	}
 
 	public String getState() {
 		return state;
@@ -144,22 +131,7 @@ public class HMMGoods {
 		this.itemTitle = itemTitle;
 	}
 
-	public Double getItemPrice() {
-		return itemPrice;
-	}
-
-	public void setItemPrice(Double itemPrice) {
-		this.itemPrice = itemPrice;
-	}
-
-
-	public Double getItemDiscount() {
-		return itemDiscount;
-	}
-
-	public void setItemDiscount(Double itemDiscount) {
-		this.itemDiscount = itemDiscount;
-	}
+	
 
 	public Integer getItemSoldAmount() {
 		return itemSoldAmount;
@@ -223,6 +195,38 @@ public class HMMGoods {
 
 	public void setInvCustoms(String invCustoms) {
 		this.invCustoms = invCustoms;
+	}
+
+	public BigDecimal getItemPrice() {
+		return itemPrice;
+	}
+
+	public void setItemPrice(BigDecimal itemPrice) {
+		this.itemPrice = itemPrice;
+	}
+
+	public BigDecimal getItemDiscount() {
+		return itemDiscount;
+	}
+
+	public void setItemDiscount(BigDecimal itemDiscount) {
+		this.itemDiscount = itemDiscount;
+	}
+
+	public BigDecimal getInvWeight() {
+		return invWeight;
+	}
+
+	public void setInvWeight(BigDecimal invWeight) {
+		this.invWeight = invWeight;
+	}
+
+	public BigDecimal getItemSrcPrice() {
+		return itemSrcPrice;
+	}
+
+	public void setItemSrcPrice(BigDecimal itemSrcPrice) {
+		this.itemSrcPrice = itemSrcPrice;
 	}
 	
 	

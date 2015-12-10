@@ -200,21 +200,21 @@ public class GoodsDetail {
 		private Integer id;
 		private String itemColor;
 		private String itemSize;
-		private Float itemSrcPrice;
-		private Float itemPrice;
-		private Float itemDiscount;
+		private Double itemSrcPrice;
+		private Double itemPrice;
+		private Double itemDiscount;
 		private Boolean orMasterInv;
 		private String state;
-		private Integer shipFee;
+		private Double shipFee;
 		private String invArea;
-		private Integer restrictAmount;
+		private Integer restrictAmount;  
 		private Integer restAmount;
 		private String invImg;
 		private String itemPreviewImgs;
 		private String invUrl;
 		private String invTitle;
 		private String invCustom;
-		private Float postalTaxRate;
+		private Integer postalTaxRate;
 		private Integer postalStandard;// 关税收费标准
 		
 		
@@ -227,13 +227,7 @@ public class GoodsDetail {
 			this.postalStandard = postalStandard;
 		}
 
-		public Float getPostalTaxRate() {
-			return postalTaxRate;
-		}
-
-		public void setPostalTaxRate(Float postalTaxRate) {
-			this.postalTaxRate = postalTaxRate;
-		}
+	
 
 		public String getInvCustom() {
 			return invCustom;
@@ -330,7 +324,7 @@ public class GoodsDetail {
 			return new DecimalFormat("##0.00").format(itemSrcPrice);
 		}
 
-		public void setItemSrcPrice(Float itemSrcPrice) {
+		public void setItemSrcPrice(Double itemSrcPrice) {
 			this.itemSrcPrice = itemSrcPrice;
 		}
 
@@ -338,28 +332,37 @@ public class GoodsDetail {
 			return new DecimalFormat("##0.00").format(itemPrice);
 		}
 
-		public Float getItemPrice() {
+		public Double getItemPrice() {
 			return itemPrice;
 		}
 
-		public void setItemPrice(Float itemPrice) {
+		public void setItemPrice(Double itemPrice) {
 			this.itemPrice = itemPrice;
 		}
 
-		public Float getItemDiscount() {
+		public Double getItemDiscount() {
 			return itemDiscount;
 		}
 
-		public void setItemDiscount(Float itemDiscount) {
+		public void setItemDiscount(Double itemDiscount) {
 			this.itemDiscount = itemDiscount;
 		}
 
-		public Integer getShipFee() {
+		
+		public Double getShipFee() {
 			return shipFee;
 		}
 
-		public void setShipFee(Integer shipFee) {
+		public void setShipFee(Double shipFee) {
 			this.shipFee = shipFee;
+		}
+
+		public Integer getPostalTaxRate() {
+			return postalTaxRate;
+		}
+
+		public void setPostalTaxRate(Integer postalTaxRate) {
+			this.postalTaxRate = postalTaxRate;
 		}
 
 		public Integer getRestrictAmount() {
