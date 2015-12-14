@@ -138,7 +138,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View arg0) {
 				Intent intent = new Intent(activity, GoodsDetailActivity.class);
-				intent.putExtra("url", goods.getGoodsUrl());
+				intent.putExtra("id", goods.getGoodsId());
 				activity.startActivity(intent);
 			}
 		});
