@@ -114,6 +114,7 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 		user_name.setText(user.getUserName());
 		String show = "    优惠券        " + user.getCouponCount() + "张可用";
 		KeyWordUtil.setDifrentFontStyle(getActivity(), youhui, show, 14, show.length());
+
 	}
 
 	private void clearView() {

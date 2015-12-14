@@ -20,6 +20,7 @@ import com.hanmimei.fragment.ShoppingCartFragment;
 import com.hanmimei.manager.TabHostManager;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.DoJumpUtils;
+import com.hanmimei.utils.ToastUtils;
 
 @SuppressLint("NewApi")
 public class MainActivity extends BaseActivity implements OnTabChangeListener,
@@ -34,6 +35,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 	private static final int home_drawable = R.drawable.tab_home;
 	private static final int shopping_drawable = R.drawable.tab_shopping;
 	private static final int my_drawable = R.drawable.tab_my;
+
 	private MainBroadCastReceiver netReceiver;
 	private FragmentTabHost mTabHost;
 
@@ -87,18 +89,39 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			if (mTabHost.getCurrentTab() != 0) {
-				mTabHost.setCurrentTab(0);
-				return false;
-			} else {
-				moveTaskToBack(false);
-				return true;
-			}
+			exitClick();
+			return true;
 		}
 		return super.onKeyDown(keyCode, event);
 	}
+	private long mExitTime;
 
-	// 广播接收者 注册
+	/**
+	 * 退出函数
+	 */
+	private void exitClick() {
+		if (mTabHost.getCurrentTab() != 0) {
+			mTabHost.setCurrentTab(0);
+		} else {
+			if ((System.currentTimeMillis() - mExitTime) > 2000) {
+				ToastUtils.Toast(this, "再按一次退出程序");
+				mExitTime = System.currentTimeMillis();
+
+			} else {
+				finish();
+				System.exit(0);
+			}
+		}
+	
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		unregisterReceiver(netReceiver);
+	}
+
+//广播接收者 注册
 	private void registerReceivers() {
 		netReceiver = new MainBroadCastReceiver();
 		IntentFilter intentFilter = new IntentFilter();
@@ -115,12 +138,6 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 				mTabHost.setCurrentTab(0);
 			}
 		}
-	}
-
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		unregisterReceiver(netReceiver);
 	}
 
 }

@@ -16,28 +16,24 @@ import android.widget.TextView;
 
 import com.hanmimei.R;
 import com.hanmimei.entity.HMMGoods;
+import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.InitImageLoader;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.squareup.picasso.Picasso;
 
 public class ThemeAdapter extends BaseAdapter {
 	private List<HMMGoods> data;
 	private LayoutInflater inflater;
-	private ImageLoader imageLoader;
-	private DisplayImageOptions imageOptions;
 	private Activity activity;
-	private int screenWidth;
+	private int viewWidth;
 
 	public ThemeAdapter (List<HMMGoods> data, Context mContext){
 		this.data = data;
 		activity = (Activity) mContext;
 		inflater = LayoutInflater.from(mContext);
-		imageLoader = InitImageLoader.initLoader(mContext);
-		imageOptions = InitImageLoader.initOptions();
 //		 图片的比例适配
-		DisplayMetrics dm = new DisplayMetrics();
-		activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
-		screenWidth = dm.widthPixels/2;
+		viewWidth = CommonUtil.getScreenWidth(mContext)/2;
 	}
 	@Override
 	public int getCount() {
@@ -74,10 +70,10 @@ public class ThemeAdapter extends BaseAdapter {
 		}
 
 		 LayoutParams params = holder.img.getLayoutParams();
-		params.height = screenWidth - 10;
-		params.width = screenWidth -10;
+		params.height = viewWidth - 10;
+		params.width = viewWidth -10;
 		holder.img.setLayoutParams(params);
-		imageLoader.displayImage(theme.getItemImg(), holder.img,imageOptions);
+		Picasso.with(activity).load(theme.getItemImg()).into(holder.img);
 		holder.title.setText(theme.getItemTitle());
 		holder.area.setText(theme.getInvArea());
 		holder.price.setText(activity.getResources().getString(R.string.price, theme.getItemPrice()));

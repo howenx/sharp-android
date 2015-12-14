@@ -67,13 +67,13 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				// TODO Auto-generated method stub
 				if (!data.get(arg2).getState().equals("Y")) {
 					return;
 				}
 				Intent intent = new Intent(getActivity(),
 						GoodsDetailActivity.class);
-				intent.putExtra("url", data.get(arg2).getItemUrl());
+				intent.putExtra("url", data.get(arg2).getItemUrlAndroid());
+				ToastUtils.Toast(getActivity(), data.get(arg2).getItemId()+"");
 				startActivity(intent);
 			}
 		});
@@ -90,9 +90,8 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 
 				@Override
 				public void onSuccess(String result) {
-					// TODO Auto-generated method stub
 					HMMThemeGoods detail = DataParser.parserThemeItem(result);
-					if (detail != null) {
+					if (detail.getMessage().getCode() ==200) {
 						initThemeView(detail);
 						data.clear();
 						data.addAll(detail.getThemeList());
@@ -104,7 +103,6 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 
 				@Override
 				public void onError() {
-					// TODO Auto-generated method stub
 					ToastUtils.Toast(getActivity(), R.string.error);
 				}
 			});
@@ -145,23 +143,19 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 						0, 0);
 
 				tag.setText(json.getString("name"));
-				final String url = json.getString("url");
 				view.setOnClickListener(new OnClickListener() {
 					
 					@Override
 					public void onClick(View arg0) {
-						// TODO Auto-generated method stub
 						Intent intent = new Intent(getActivity(),
 								GoodsDetailActivity.class);
-						intent.putExtra("url", url);
+						intent.putExtra("url", themeItem.getItemUrlAndroid());
 						startActivity(intent);
 					}
 				});
 				mframeLayout.addView(view, lp);
 			}
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 

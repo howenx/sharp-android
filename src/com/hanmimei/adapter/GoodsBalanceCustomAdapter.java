@@ -60,20 +60,28 @@ public class GoodsBalanceCustomAdapter extends BaseAdapter {
 		Customs c = customs.get(arg0);
 		holder.area_name.setText(c.getInvArea());
 		holder.mListView.setAdapter(new GoodsBalanceAdapter(c.getList(), context));
-		holder.protalFee.setText(context.getResources().getString(R.string.postalFee, c.getAllPoastalFee()));
+		holder.protalFee.setText(context.getResources().getString(R.string.postalFee, c.getFactPortalFeeSingleCustoms()));
+		holder.shipFee.setText(context.getResources().getString(R.string.shipFee, c.getFactSingleCustomsShipFee()));
+		if(c.getFactPortalFeeSingleCustoms() == 0){
+			holder.biaoqian.setVisibility(View.VISIBLE);
+			holder.biaoqian.setText(context.getResources().getString(R.string.yuanguanshui, c.getPortalSingleCustomsFee()));
+		}else{
+			holder.biaoqian.setVisibility(View.GONE);
+		}
 		return arg1;
 	}
 	
 	private class ViewHolder{
 		private TextView area_name;
 		private ListView mListView;
-		private TextView shipFee,protalFee;
+		private TextView shipFee,protalFee,biaoqian;
 		public ViewHolder(View view) {
 			super();
 			this.area_name = (TextView) view.findViewById(R.id.area_name);
 			this.shipFee = (TextView) view.findViewById(R.id.shipFee);
 			this.protalFee = (TextView) view.findViewById(R.id.protalFee);
 			this.mListView = (ListView) view.findViewById(R.id.mListView);
+			this.biaoqian = (TextView) view.findViewById(R.id.biaoqian);
 		}
 	}
 }

@@ -12,6 +12,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.hanmimei.R;
 import com.hanmimei.activity.BaseActivity;
 import com.hanmimei.activity.GoodsBalanceActivity;
+import com.hanmimei.activity.LoginActivity;
 import com.hanmimei.adapter.ShoppingCarPullListAdapter;
 import com.hanmimei.dao.ShoppingGoodsDao;
 import com.hanmimei.data.AppConstant;
@@ -216,7 +217,8 @@ public class ShoppingCartFragment extends Fragment implements
 	private void doPrice() {
 		for (int i = 0; i < data.size(); i++) {
 			for(int j = 0; j < data.get(i).getList().size(); j ++){
-			data.get(i).getList().get(j).setState("G");
+				if(!data.get(i).getList().get(j).getState().equals("G"))
+					data.get(i).getList().get(j).setState("G");
 			}
 		}
 		adapter.notifyDataSetChanged();
@@ -265,7 +267,12 @@ public class ShoppingCartFragment extends Fragment implements
 			}
 			shoppingCar.setList(customsList);
 			if(shoppingCar.getList().size() > 0){
-				doPay(shoppingCar);
+				if(user !=null){
+					doPay(shoppingCar);
+				}else{
+					startActivity(new Intent(activity, LoginActivity.class));
+				}
+				
 			}else{
 				Toast.makeText(getActivity(), "请选择商品", Toast.LENGTH_SHORT).show();
 			}

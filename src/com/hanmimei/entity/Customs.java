@@ -1,7 +1,6 @@
 package com.hanmimei.entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,10 +16,38 @@ public class Customs implements Serializable{
 	private int postalLimit;
 	private int postalStandard;
 	
+	private double portalSingleCustomsFee = 0.00;
+	private double factSingleCustomsShipFee =0.00;
+	private double shipSingleCustomsFee= 0.00;
+	private double factPortalFeeSingleCustoms= 0.00;
 	
 	
 	public int getPostFee() {
 		return postFee;
+	}
+	public Double getPortalSingleCustomsFee() {
+		return portalSingleCustomsFee;
+	}
+	public void setPortalSingleCustomsFee(Double portalSingleCustomsFee) {
+		this.portalSingleCustomsFee = portalSingleCustomsFee;
+	}
+	public Double getFactSingleCustomsShipFee() {
+		return factSingleCustomsShipFee;
+	}
+	public void setFactSingleCustomsShipFee(Double factSingleCustomsShipFee) {
+		this.factSingleCustomsShipFee = factSingleCustomsShipFee;
+	}
+	public Double getShipSingleCustomsFee() {
+		return shipSingleCustomsFee;
+	}
+	public void setShipSingleCustomsFee(Double shipSingleCustomsFee) {
+		this.shipSingleCustomsFee = shipSingleCustomsFee;
+	}
+	public Double getFactPortalFeeSingleCustoms() {
+		return factPortalFeeSingleCustoms;
+	}
+	public void setFactPortalFeeSingleCustoms(Double factPortalFeeSingleCustoms) {
+		this.factPortalFeeSingleCustoms = factPortalFeeSingleCustoms;
 	}
 	public void setPostFee(int postFee) {
 		this.postFee = postFee;

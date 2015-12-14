@@ -17,7 +17,7 @@ public class Order implements Serializable{
 	private int shipFee;				//邮费
 	private String orderDetailUrl;		//订单相信页面url
 	private List<Sku> list;
-	private Adress adress;
+	private HMMAddress adress;
 	private Result result;
 	public Order() {
 		super();
@@ -26,7 +26,7 @@ public class Order implements Serializable{
 	public Order(String orderId, int payTotal, String payMethod,
 			String orderCreateAt, String orderStatus, int discount,
 			String orderDesc, int addId, int shipFee, String orderDetailUrl,
-			List<Sku> list, Adress adress, Result result) {
+			List<Sku> list, HMMAddress adress, Result result) {
 		super();
 		this.orderId = orderId;
 		this.payTotal = payTotal;
@@ -131,11 +131,11 @@ public class Order implements Serializable{
 		this.list = list;
 	}
 
-	public Adress getAdress() {
+	public HMMAddress getAdress() {
 		return adress;
 	}
 
-	public void setAdress(Adress adress) {
+	public void setAdress(HMMAddress adress) {
 		this.adress = adress;
 	}
 

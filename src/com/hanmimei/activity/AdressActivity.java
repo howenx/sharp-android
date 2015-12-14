@@ -2,8 +2,28 @@ package com.hanmimei.activity;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
@@ -14,91 +34,85 @@ import com.hanmimei.R;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
-import com.hanmimei.entity.Adress;
+import com.hanmimei.entity.From;
+import com.hanmimei.entity.HMMAddress;
 import com.hanmimei.entity.Result;
 import com.hanmimei.entity.User;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.HttpUtils;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
-
-@SuppressLint("NewApi") public class AdressActivity extends BaseActivity implements OnClickListener{
+@SuppressLint("NewApi")
+public class AdressActivity extends BaseActivity implements OnClickListener {
 
 	private LayoutInflater inflater;
 	private TextView header;
 	private ImageView back;
 	private SwipeMenuListView mListView;
 	private TextView addAddress;
-	private List<Adress> data;
+	private List<HMMAddress> data;
 	private AdressAdapter adapter;
-	private Adress adress;
+	private HMMAddress adress;
 	private int index_;
 	private int index;
 	private JSONObject object;
 	private User user;
+	private Integer selectedId = 0;
+
+	private int fromm = From.AboutMyFragment;
+
 	@Override
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
 		setContentView(R.layout.my_address_layout);
 		ActionBarUtil.setActionBarStyle(this, "管理地址", 0, true, null);
 		user = getUser();
+		fromm = getIntent().getIntExtra("from", From.AboutMyFragment);
+		if (fromm == From.GoodsBalanceActivity)
+			selectedId = getIntent().getIntExtra("selectedId", 0);
 		findView();
 		loadData();
-		
+
 	}
+
 	private SwipeMenuCreator creator = new SwipeMenuCreator() {
 
 		@Override
 		public void create(SwipeMenu menu) {
-			
+
 			SwipeMenuItem deleteItem = new SwipeMenuItem(
 					getApplicationContext());
 			// 设置背景颜色
-			deleteItem.setBackground(new ColorDrawable(Color.parseColor("#F9616A")));
-			//设置删除的宽度
+			deleteItem.setBackground(new ColorDrawable(Color
+					.parseColor("#F9616A")));
+			// 设置删除的宽度
 			deleteItem.setWidth(CommonUtil.dp2px(AdressActivity.this, 90));
-			//设置图标
+			// 设置图标
 			deleteItem.setIcon(R.drawable.icon_delete);
-			//增加到menu中
+			// 增加到menu中
 			menu.addMenuItem(deleteItem);
 		}
 	};
+
 	private void loadData() {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				String result = HttpUtils.getToken(UrlUtil.ADDRESS_LIST_URL, "id-token", user.getToken());
-				List<Adress> list = DataParser.parserAddressList(result);
+				String result = HttpUtils.getToken(UrlUtil.ADDRESS_LIST_URL,
+						"id-token", user.getToken());
+				List<HMMAddress> list = DataParser.parserAddressList(result);
 				Message msg = mHandler.obtainMessage(1);
 				msg.obj = list;
 				mHandler.sendMessage(msg);
 			}
 		}).start();
 	}
-	
+
 	private void findView() {
 		inflater = LayoutInflater.from(this);
-		adress = new Adress();
-		data = new ArrayList<Adress>();
-		adapter = new AdressAdapter(this,data);
+		adress = new HMMAddress();
+		data = new ArrayList<HMMAddress>();
+		adapter = new AdressAdapter(this, data);
 		header = (TextView) findViewById(R.id.header);
 		header.setText("地址列表");
 		back = (ImageView) findViewById(R.id.back);
@@ -119,18 +133,31 @@ import android.widget.TextView;
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
-					long arg3) {
+			public void onItemClick(AdapterView<?> arg0, View arg1,
+					int position, long arg3) {
+				if (fromm == From.GoodsBalanceActivity) {
+					selectedId = data.get(position).getAdress_id();
+					adapter.notifyDataSetChanged();
+					Intent intent = new Intent();
+					intent.putExtra("address", data.get(position));
+					setResult(1, intent);
+					finish();
+					return;
+				}
+
 				index = position;
-				Intent intent = new Intent(AdressActivity.this,EditAdressActivity.class);
+				Intent intent = new Intent(AdressActivity.this,
+						EditAdressActivity.class);
 				Bundle bundle = new Bundle();
 				bundle.putSerializable("address", data.get(position));
 				intent.putExtras(bundle);
 				intent.putExtra("isWhat", 1);
-				AdressActivity.this.startActivityForResult(intent, AppConstant.ADR_UP_SU);
+				AdressActivity.this.startActivityForResult(intent,
+						AppConstant.ADR_UP_SU);
 			}
 		});
 	}
+
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -138,7 +165,7 @@ import android.widget.TextView;
 			finish();
 			break;
 		case R.id.add:
-			Intent intent = new Intent(this,EditAdressActivity.class);
+			Intent intent = new Intent(this, EditAdressActivity.class);
 			intent.putExtra("isWhat", 0);
 			startActivityForResult(intent, AppConstant.ADR_ADD_SU);
 			break;
@@ -146,26 +173,28 @@ import android.widget.TextView;
 			break;
 		}
 	}
-	
+
 	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-		if(resultCode == AppConstant.ADR_ADD_SU){
+	protected void onActivityResult(int requestCode, int resultCode,
+			Intent intent) {
+		if (resultCode == AppConstant.ADR_ADD_SU) {
 			Bundle bundle = intent.getExtras();
-			adress = (Adress) bundle.getSerializable("address");
+			adress = (HMMAddress) bundle.getSerializable("address");
 			addNewAddress();
-		}else if(resultCode == AppConstant.ADR_UP_SU){
+		} else if (resultCode == AppConstant.ADR_UP_SU) {
 			Bundle bundle = intent.getExtras();
-			adress = (Adress) bundle.getSerializable("address");
+			adress = (HMMAddress) bundle.getSerializable("address");
 			updateAddress();
 		}
 	}
+
 	private void updateAddress() {
 		int id = data.get(index).getAdress_id();
 		adress.setAdress_id(id);
 		data.remove(index);
 		data.add(index, adress);
 		adapter.notifyDataSetChanged();
-//		loadData();
+		// loadData();
 	}
 
 	private void addNewAddress() {
@@ -173,15 +202,15 @@ import android.widget.TextView;
 		adapter.notifyDataSetChanged();
 	}
 
-	private Handler mHandler = new Handler(){
+	private Handler mHandler = new Handler() {
 
 		@Override
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
 			switch (msg.what) {
 			case 1:
-				List<Adress> list = (List<Adress>) msg.obj;
-				if(list != null && list.size() > 0 ){
+				List<HMMAddress> list = (List<HMMAddress>) msg.obj;
+				if (list != null && list.size() > 0) {
 					data.clear();
 					adapter.notifyDataSetChanged();
 					data.addAll(list);
@@ -190,7 +219,7 @@ import android.widget.TextView;
 				break;
 			case 2:
 				Result result = (Result) msg.obj;
-				if(result.getCode() == 200){
+				if (result.getCode() == 200) {
 					data.remove(index_);
 					adapter.notifyDataSetChanged();
 				}
@@ -199,14 +228,17 @@ import android.widget.TextView;
 				break;
 			}
 		}
-		
-	};
-	private class AdressAdapter extends BaseAdapter{
 
-		private List<Adress> adresses;
-		public AdressAdapter(Context mContext,List<Adress> data){
+	};
+
+	private class AdressAdapter extends BaseAdapter {
+
+		private List<HMMAddress> adresses;
+
+		public AdressAdapter(Context mContext, List<HMMAddress> data) {
 			adresses = data;
 		}
+
 		@Override
 		public int getCount() {
 			return adresses.size();
@@ -224,47 +256,65 @@ import android.widget.TextView;
 
 		@Override
 		public View getView(final int position, View convertView, ViewGroup arg2) {
-			final Adress adress = adresses.get(position);
+			final HMMAddress adress = adresses.get(position);
 			ViewHolder holder = null;
-			if(convertView == null){
+			if (convertView == null) {
 				convertView = inflater.inflate(R.layout.adress_list_item, null);
 				holder = new ViewHolder();
 				holder.name = (TextView) convertView.findViewById(R.id.name);
 				holder.phone = (TextView) convertView.findViewById(R.id.phone);
-				holder.adress = (TextView) convertView.findViewById(R.id.adress);
-				holder.id_card = (TextView) convertView.findViewById(R.id.idCard);
-				holder.isDefault = (ImageView) convertView.findViewById(R.id.isDefault);
-//				holder.del = (TextView) convertView.findViewById(R.id.del);
-//				holder.update = (TextView) convertView.findViewById(R.id.update);
+				holder.adress = (TextView) convertView
+						.findViewById(R.id.adress);
+				holder.id_card = (TextView) convertView
+						.findViewById(R.id.idCard);
+				holder.isDefault = (TextView) convertView
+						.findViewById(R.id.isDefault);
+				holder.isSelected = (ImageView) convertView
+						.findViewById(R.id.isSelected);
+				// holder.del = (TextView) convertView.findViewById(R.id.del);
+				// holder.update = (TextView)
+				// convertView.findViewById(R.id.update);
 				convertView.setTag(holder);
-			}else{
+			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
 			holder.name.setText("收货人：" + adress.getName());
 			holder.phone.setText("联系电话：" + adress.getPhone());
 			holder.id_card.setText("身份证号：" + adress.getIdCard());
-			holder.adress.setText("收货地址：" + adress.getCity() + "  " + adress.getAdress());
-			if(adress.isDefault()){
+			holder.adress.setText("收货地址：" + adress.getCity() + "  "
+					+ adress.getAdress());
+			if (adress.isDefault()) {
 				holder.isDefault.setVisibility(View.VISIBLE);
-			}else{
+			} else {
 				holder.isDefault.setVisibility(View.GONE);
 			}
+
+			if (fromm == From.GoodsBalanceActivity) {
+				if (adress.getAdress_id().equals(selectedId)) {
+					holder.isSelected.setVisibility(View.VISIBLE);
+				} else {
+					holder.isSelected.setVisibility(View.GONE);
+				}
+			}
+
 			return convertView;
 		}
-		private class ViewHolder{
+
+		private class ViewHolder {
 			private TextView name;
 			private TextView phone;
 			private TextView adress;
 			private TextView id_card;
-			private ImageView isDefault;
-//			private TextView del;
-//			private TextView update;
+			private TextView isDefault;
+			private ImageView isSelected;
+
+			// private TextView del;
+			// private TextView update;
 		}
-		
+
 	}
 
-
-	private void toObject(Adress adress) {
+	private void toObject(HMMAddress adress) {
 		object = new JSONObject();
 		try {
 			object.put("addId", adress.getAdress_id());
@@ -276,10 +326,11 @@ import android.widget.TextView;
 	}
 
 	private void delAddress() {
-		new Thread(new Runnable() {	
+		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				String result = HttpUtils.post(UrlUtil.ADDRESS_DEL_URL, object, "id-token",user.getToken());
+				String result = HttpUtils.post(UrlUtil.ADDRESS_DEL_URL, object,
+						"id-token", user.getToken());
 				Result mResult = DataParser.parserResult(result);
 				Message msg = mHandler.obtainMessage(2);
 				msg.obj = mResult;

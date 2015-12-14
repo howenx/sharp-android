@@ -1,30 +1,19 @@
 package com.hanmimei.entity;
 
+import java.util.Date;
+
 public class Coupon {
 	private String coupId;
 	private String userId;
 	private String cateId;
-	private String denomination;
+	private Double denomination;	//面值
 	private String startAt;
 	private String endAt;
-	private String state;
+	private String state;						//"N"
 	private String orderId;
 	private String userAt;
-	private String cateNm;
-	private double limitQuota;
-	
-	public String getCateNm() {
-		return cateNm;
-	}
-	public void setCateNm(String cateNm) {
-		this.cateNm = cateNm;
-	}
-	public double getLimitQuota() {
-		return limitQuota;
-	}
-	public void setLimitQuota(double limitQuota) {
-		this.limitQuota = limitQuota;
-	}
+	private double limitQuota; //
+	private String cateNm;	//  购物券所属种类
 	public String getCoupId() {
 		return coupId;
 	}
@@ -43,10 +32,10 @@ public class Coupon {
 	public void setCateId(String cateId) {
 		this.cateId = cateId;
 	}
-	public String getDenomination() {
+	public Double getDenomination() {
 		return denomination;
 	}
-	public void setDenomination(String denomination) {
+	public void setDenomination(Double denomination) {
 		this.denomination = denomination;
 	}
 	public String getStartAt() {
@@ -79,6 +68,23 @@ public class Coupon {
 	public void setUserAt(String userAt) {
 		this.userAt = userAt;
 	}
+	public double getLimitQuota() {
+		return limitQuota;
+	}
+	public void setLimitQuota(double limitQuota) {
+		this.limitQuota = limitQuota;
+	}
+	public String getCateNm() {
+		return cateNm;
+	}
+	public void setCateNm(String cateNm) {
+		this.cateNm = cateNm;
+	}
+	
+	
+	
+	
+	
 	
 	
 }

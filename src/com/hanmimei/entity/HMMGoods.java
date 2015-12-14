@@ -16,9 +16,10 @@ public class HMMGoods {
 	private Integer itemId; // 商品id
 	private String itemImg; // 商品图片
 	private String itemUrl; // 商品详情页链接
+	private String itemUrlAndroid; //商品详情页链接(android 专用)
 	private String itemTitle; // 商品标题
-	private BigDecimal itemPrice; // 商品价格
-	private BigDecimal itemDiscount; // 商品折扣
+	private Double itemPrice; // 商品价格
+	private Double itemDiscount; // 商品折扣
 	private Integer itemSoldAmount; // 商品销售量
 	private Boolean orMasterItem = false; // 是否是主题主打宣传商品
 	private Integer collectCount; // 商品收藏数
@@ -39,9 +40,19 @@ public class HMMGoods {
 
 	// KEEP FIELDS - put your custom fields here
 	// KEEP FIELDS END
+	
+	
 
 	public String getItemMasterImg() {
 		return itemMasterImg;
+	}
+
+	public String getItemUrlAndroid() {
+		return itemUrlAndroid;
+	}
+
+	public void setItemUrlAndroid(String itemUrlAndroid) {
+		this.itemUrlAndroid = itemUrlAndroid;
 	}
 
 	public Integer getPostalTaxRate() {
@@ -197,19 +208,19 @@ public class HMMGoods {
 		this.invCustoms = invCustoms;
 	}
 
-	public BigDecimal getItemPrice() {
+	public Double getItemPrice() {
 		return itemPrice;
 	}
 
-	public void setItemPrice(BigDecimal itemPrice) {
+	public void setItemPrice(Double itemPrice) {
 		this.itemPrice = itemPrice;
 	}
 
-	public BigDecimal getItemDiscount() {
+	public Double getItemDiscount() {
 		return itemDiscount;
 	}
 
-	public void setItemDiscount(BigDecimal itemDiscount) {
+	public void setItemDiscount(Double itemDiscount) {
 		this.itemDiscount = itemDiscount;
 	}
 

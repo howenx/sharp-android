@@ -10,7 +10,7 @@ import com.hanmimei.R;
 import com.hanmimei.adapter.OrderDetailListAdapter;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
-import com.hanmimei.entity.Adress;
+import com.hanmimei.entity.HMMAddress;
 import com.hanmimei.entity.Order;
 import com.hanmimei.entity.Result;
 import com.hanmimei.entity.Sku;
@@ -45,7 +45,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 	private TextView cut_price;
 	private TextView order_price;
 	private TextView cancle;
-	private Adress addressInfo;
+	private HMMAddress addressInfo;
 	private List<Sku> list;
 	private CustomListView listView;
 	private OrderDetailListAdapter adapter;
@@ -57,7 +57,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		setContentView(R.layout.order_detail_layout);
 //		getActionBar().hide();
 		order = new Order();
-		addressInfo = new Adress();
+		addressInfo = new HMMAddress();
 		list = new ArrayList<Sku>();
 		adapter = new OrderDetailListAdapter(list, this);
 		order = (Order) getIntent().getSerializableExtra("order");

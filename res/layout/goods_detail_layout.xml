@@ -1,5 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:app1="http://schemas.android.com/apk/res/com.hanmimei"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -33,9 +34,7 @@
                         android:layout_height="wrap_content"
                         android:background="@color/white"
                         app:auto_cycle="true"
-                        app:indicator_visibility="visible"
-                        app:pager_animation="Accordion"
-                        app:pager_animation_span="1100" />
+                        app:indicator_visibility="visible" />
 
                     <View
                         android:layout_width="match_parent"
@@ -123,34 +122,31 @@
                         android:orientation="horizontal"
                         android:padding="@dimen/padding_small" >
 
-
-
                         <TextView
                             android:id="@+id/restrictAmount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
-                            android:text="上海"
-                            android:visibility="gone"
-                            android:gravity="center_vertical"
                             android:drawableLeft="@drawable/icon_tanhao"
+                            android:gravity="center_vertical"
+                            android:text="上海"
                             android:textColor="#cccccc"
-                            android:textSize="@dimen/font_normal" />
-                        
-                        
-                        <View 
-                            android:layout_weight="1"
+                            android:textSize="@dimen/font_normal"
+                            android:visibility="gone" />
+
+                        <View
                             android:layout_width="0dp"
-                            android:layout_height="1dp"/>
-                        
-                        <TextView 
+                            android:layout_height="1dp"
+                            android:layout_weight="1" />
+
+                        <TextView
                             android:id="@+id/btn_portalFee"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="稅费"
-                            android:gravity="center_vertical"
                             android:drawablePadding="7dp"
-                            android:drawableRight="@drawable/icon_help"/>
+                            android:drawableRight="@drawable/icon_help"
+                            android:gravity="center_vertical"
+                            android:text="稅费" />
                     </LinearLayout>
 
                     <TextView
@@ -187,151 +183,146 @@
                         android:textSize="14sp" />
                 </LinearLayout>
 
-                <LinearLayout
+                <RadioGroup
                     android:id="@+id/indicator"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:orientation="vertical" >
+                    android:checkedButton="@+id/guid1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
 
+                    <RadioButton
+                        android:id="@+id/guid1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.0"
+                        android:background="@drawable/radio_btn_bg"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="10dp"
+                        android:text="图文详情"
+                        android:textSize="13sp" />
+
+                    <RadioButton
+                        android:id="@+id/guid2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.0"
+                        android:background="@drawable/radio_btn_bg"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="10dp"
+                        android:text="商品参数"
+                        android:textSize="13sp" />
+
+                    <RadioButton
+                        android:id="@+id/guid3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.0"
+                        android:background="@drawable/radio_btn_bg"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="10dp"
+                        android:text="热卖商品"
+                        android:textSize="13sp" />
+                </RadioGroup>
+
+		<FrameLayout 
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content">
+		    
                     <LinearLayout
+                        android:id="@+id/content_img"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal" >
+                        android:orientation="vertical" >
 
-                        <LinearLayout
-                            android:id="@+id/guid1"
-                            android:layout_width="0dp"
+                        <TextView
+                            android:id="@+id/notice"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1.0"
-                            android:gravity="center"
-                            android:orientation="vertical"
-                            android:padding="10dp" >
+                            android:background="@color/white"
+                            android:padding="@dimen/padding_middle"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/font_small" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="图文详情"
-                                android:textSize="13sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/guid2"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1.0"
-                            android:gravity="center"
-                            android:orientation="vertical"
-                            android:padding="10dp" >
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="商品参数"
-                                android:textSize="13sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/guid3"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1.0"
-                            android:gravity="center"
-                            android:orientation="vertical"
-                            android:padding="10dp" >
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="热卖商品"
-                                android:textSize="13sp" />
-                        </LinearLayout>
+                        <com.hanmimei.view.TouchWebView
+                            android:id="@+id/mWebView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
                     </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/cursor"
-                        android:layout_width="80dp"
-                        android:layout_height="3dp"
-                        android:background="@color/theme" />
-                </LinearLayout>
+                    <com.hanmimei.view.CustomListView
+                        android:id="@+id/content_params"
+                        android:layout_width="match_parent"
+                        android:visibility="gone"
+                        android:background="@color/white"
+                        android:layout_height="match_parent" />
 
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/pager"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" />
+                    <com.hanmimei.view.CustomListView
+                        android:id="@+id/content_hot"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:visibility="gone" />
+
+		</FrameLayout>
             </LinearLayout>
         </com.hanmimei.view.CustomScrollView>
 
-        <LinearLayout
+        <RadioGroup
             android:id="@+id/indicator_hide"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:orientation="vertical"
+            android:checkedButton="@+id/guid1_hide"
+            android:orientation="horizontal"
             android:visibility="gone" >
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <RadioButton
+                android:id="@+id/guid1_hide"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal" >
+                android:layout_weight="1.0"
+                android:background="@drawable/radio_btn_bg"
+                android:button="@null"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:text="图文详情"
+                android:textSize="13sp" />
 
-                <LinearLayout
-                    android:id="@+id/tv_guid1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.0"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="10dp" >
+            <RadioButton
+                android:id="@+id/guid2_hide"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:background="@drawable/radio_btn_bg"
+                android:button="@null"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:text="商品参数"
+                android:textSize="13sp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="图文详情"
-                        android:textSize="13sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/tv_guid2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.0"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="10dp" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="商品参数"
-                        android:textSize="13sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/tv_guid3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.0"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="10dp" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="热卖商品"
-                        android:textSize="13sp" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/tv_cursor"
-                android:layout_width="80dp"
-                android:layout_height="3dp"
-                android:background="@color/theme" />
-        </LinearLayout>
+            <RadioButton
+                android:id="@+id/guid3_hide"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:background="@drawable/radio_btn_bg"
+                android:button="@null"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:text="热卖商品"
+                android:textSize="13sp" />
+        </RadioGroup>
     </RelativeLayout>
 
     <LinearLayout

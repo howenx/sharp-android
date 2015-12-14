@@ -13,31 +13,32 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.View.OnClickListener;
-import android.widget.ImageView;
+import android.webkit.WebView;
+import android.widget.AbsListView.LayoutParams;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
-import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView.OnSliderClickListener;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.hanmimei.R;
-import com.hanmimei.adapter.MyPagerAdapter;
+import com.hanmimei.adapter.GoodsDetailParamAdapter;
 import com.hanmimei.dao.ShoppingGoodsDao;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
-import com.hanmimei.entity.BitmapInfo;
 import com.hanmimei.entity.Category;
 import com.hanmimei.entity.Customs;
 import com.hanmimei.entity.GoodsDetail;
@@ -48,11 +49,7 @@ import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.Tag;
 import com.hanmimei.entity.User;
-import com.hanmimei.fragment.goodstab.ImgFragment;
-import com.hanmimei.fragment.goodstab.ParamFragment;
 import com.hanmimei.utils.ActionBarUtil;
-import com.hanmimei.utils.AsyncImageLoader;
-import com.hanmimei.utils.AsyncImageLoader.LoadedCallback;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
@@ -66,19 +63,18 @@ import com.hanmimei.view.TagCloudView.OnTagClickListener;
 @SuppressLint("NewApi")
 public class GoodsDetailActivity extends BaseActivity implements
 		OnClickListener, OnSliderClickListener,
-		CustomScrollView.OnScrollUpListener {
+		CustomScrollView.OnScrollUpListener, RadioGroup.OnCheckedChangeListener {
 
 	private List<Category> tabs;
 
 	private SliderLayout slider;
 	private TextView discount, itemTitle, itemSrcPrice, itemPrice, area;
-	private TextView  num_restrictAmount;
+	private TextView num_restrictAmount;
 	private TagCloudView tagCloudView;
 	private TextView publicity;
-	private ViewPager pager;
 	private CustomScrollView mScrollView;
-	private View indicator_hide;
-	private ImageView shoppingCar;
+	private ListView content_params, content_hot;
+	private RadioGroup indicator_hide, indicator;
 
 	private View pager_header;
 
@@ -109,13 +105,16 @@ public class GoodsDetailActivity extends BaseActivity implements
 		tagCloudView = (TagCloudView) findViewById(R.id.tagCloudView);
 		publicity = (TextView) findViewById(R.id.publicity);
 		num_restrictAmount = (TextView) findViewById(R.id.restrictAmount);
-		indicator_hide = findViewById(R.id.indicator_hide);
-		pager = (ViewPager) findViewById(R.id.pager);
+		indicator_hide = (RadioGroup) findViewById(R.id.indicator_hide);
+		indicator = (RadioGroup) findViewById(R.id.indicator);
 		discount = (TextView) findViewById(R.id.discount);
 		area = (TextView) findViewById(R.id.area);
 		mScrollView = (CustomScrollView) findViewById(R.id.mScrollView);
 		mScrollView.setOnScrollUpListener(this);
 		pager_header = findViewById(R.id.pager_header);
+
+		content_params = (ListView) findViewById(R.id.content_params);
+		content_hot = (ListView) findViewById(R.id.content_hot);
 
 		user = getUser();
 		goodsDao = getDaoSession().getShoppingGoodsDao();
@@ -125,25 +124,26 @@ public class GoodsDetailActivity extends BaseActivity implements
 		findViewById(R.id.like).setOnClickListener(this);
 		findViewById(R.id.car).setOnClickListener(this);
 		findViewById(R.id.btn_portalFee).setOnClickListener(this);
+
+		indicator.setOnCheckedChangeListener(this);
+
 	}
 
 	private void loadDataByUrl() {
-		Http2Utils.doGetRequestTask(this, getIntent().getStringExtra("url"),
-				new VolleyJsonCallback() {
+		Http2Utils.doGetRequestTask(this,  getIntent().getStringExtra("url"), new VolleyJsonCallback() {
 
-					@Override
-					public void onSuccess(String result) {
-						// TODO Auto-generated method stub
-						GoodsDetail detail = DataParser
-								.parserGoodsDetail(result);
-						initGoodsDetail(detail);
-					}
+			@Override
+			public void onSuccess(String result) {
+				// TODO Auto-generated method stub
+				GoodsDetail detail = DataParser.parserGoodsDetail(result);
+				initGoodsDetail(detail);
+			}
 
-					@Override
-					public void onError() {
-						ToastUtils.Toast(getActivity(), R.string.error);
-					}
-				});
+			@Override
+			public void onError() {
+				ToastUtils.Toast(getActivity(), R.string.error);
+			}
+		});
 	}
 
 	@Override
@@ -180,16 +180,16 @@ public class GoodsDetailActivity extends BaseActivity implements
 					sgoods.setGoodsNums(1);
 					sgoods.setGoodsPrice(s.getItemPrice());
 					sgoods.setInvArea(s.getInvArea());
-					sgoods.setInvCustoms(s.getInvCustom());
+					sgoods.setInvCustoms(s.getInvCustoms());
 					sgoods.setPostalTaxRate(s.getPostalTaxRate());
-					sgoods.setShipFee(s.getShipFee().toString());
 					sgoods.setPostalStandard(s.getPostalStandard());
-					customs.addShoppingGoods(sgoods);
 				}
 			}
+			customs.addShoppingGoods(sgoods);
+			customs.setInvArea(sgoods.getInvArea());
+			customs.setInvCustoms(sgoods.getInvCustoms());
 			list.add(customs);
 			car.setList(list);
-			car.setAllPrice(sgoods.getGoodsPrice());
 			Intent intent = new Intent(this, GoodsBalanceActivity.class);
 			intent.putExtra("car", car);
 			startActivity(intent);
@@ -233,12 +233,12 @@ public class GoodsDetailActivity extends BaseActivity implements
 		View view = getLayoutInflater().inflate(R.layout.panel_portalfee, null);
 		TextView num_portalfee = (TextView) view
 				.findViewById(R.id.num_portalfee);
-		TextView prompt = (TextView) view
-				.findViewById(R.id.prompt);
+		TextView prompt = (TextView) view.findViewById(R.id.prompt);
 		Double postalFee = curPostalTaxRate * curItemPrice / 100;
 		num_portalfee.setText(getResources().getString(R.string.price,
 				CommonUtil.DecimalFormat(postalFee)));
-		prompt.setText(getResources().getString(R.string.portalfee_biaozhun,curPostalTaxRate,postalStandard));
+		prompt.setText(getResources().getString(R.string.portalfee_biaozhun,
+				curPostalTaxRate, postalStandard));
 		if (postalFee <= 50)
 			num_portalfee.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 		view.findViewById(R.id.btn_cancel).setOnClickListener(this);
@@ -306,6 +306,10 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private List<Tag> tags;
 
 	private void initGoodsDetail(GoodsDetail detail) {
+		if(detail.getMessage().getCode() != 200){
+			ToastUtils.Toast(this, detail.getMessage().getMessage());
+			return ;
+		}
 		main = detail.getMain();
 		stocks = detail.getStock();
 
@@ -325,66 +329,25 @@ public class GoodsDetailActivity extends BaseActivity implements
 				initStocks(position);
 			}
 		});
-		getItemDetailImages();
+		// getItemDetailImages();
+		// initFragment(infos);
+
+		// TODO Auto-generated method stub
+		WebView mWebView = (WebView) findViewById(R.id.mWebView);
+		mWebView.loadData(main.getItemDetailImgss(), "text/html", "UTF-8");
+		mWebView.setFocusable(false);
+		TextView notice = (TextView) findViewById(R.id.notice);
+		if (main.getItemNotice() != null) {
+			notice.setText(main.getItemNotice());
+		}
+		content_params.setAdapter(new GoodsDetailParamAdapter(main
+				.getItemFeatures(), this));
+		content_hot.setAdapter(new GoodsDetailParamAdapter(main
+				.getItemFeatures(), this));
 	}
 
-	@SuppressWarnings("deprecation")
-	private void initFragment(List<BitmapInfo> infos) {
-		List<Fragment> data = new ArrayList<Fragment>();
-		ImgFragment imgFragment = ImgFragment.newInstance(main.getItemNotice(),
-				infos);
-		ParamFragment pFragment = ParamFragment.newInstance(main
-				.getItemFeatures());
-		ParamFragment ppFragment = ParamFragment.newInstance(main
-				.getItemFeatures());
-		data.add(imgFragment);
-		data.add(pFragment);
-		data.add(ppFragment);
-
-		pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager(), data,
-				tabs));
-		pager.setOffscreenPageLimit(3);
-		CommonUtil.resetViewPagerHeight(pager, 0);
-		pager.addOnPageChangeListener(new OnPageChangeListener() {
-
-			@Override
-			public void onPageSelected(int arg0) {
-				// TODO Auto-generated method stub
-				CommonUtil.resetViewPagerHeight(pager, arg0);
-				indicator_hide.setVisibility(View.GONE);
-				currIndex = arg0;
-			}
-
-			@Override
-			public void onPageScrolled(int arg0, float arg1, int arg2) {
-				// TODO Auto-generated method stub
-				// 取得该控件的实例
-				LinearLayout.LayoutParams ll = (android.widget.LinearLayout.LayoutParams) barText
-						.getLayoutParams();
-
-				if (currIndex == arg0) {
-					ll.leftMargin = (int) (currIndex * barText.getWidth() + arg1
-							* barText.getWidth());
-				} else if (currIndex > arg0) {
-					ll.leftMargin = (int) (currIndex * barText.getWidth() - (1 - arg1)
-							* barText.getWidth());
-				}
-				barText.setLayoutParams(ll);
-			}
-
-			@Override
-			public void onPageScrollStateChanged(int arg0) {
-				// TODO Auto-generated method stub
-
-			}
-		});
-		InitTextView();
-		InitTextBar();
-
-	}
-
-	private int curPostalTaxRate;	//当前商品税率
-	private double curItemPrice;	//当前商品价格
+	private int curPostalTaxRate; // 当前商品税率
+	private double curItemPrice; // 当前商品价格
 	private int postalStandard;// 关税收费标准
 
 	private void initStocks(int position) {
@@ -402,14 +365,14 @@ public class GoodsDetailActivity extends BaseActivity implements
 				itemSrcPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 				itemPrice.setText(getResources().getString(R.string.price,
 						s.getItemPrice()));
-				if(s.getRestrictAmount() >0){
+				if (s.getRestrictAmount() > 0) {
 					num_restrictAmount.setVisibility(View.VISIBLE);
 					num_restrictAmount.setText(getResources().getString(
 							R.string.restrictAmount, s.getRestrictAmount()));
-				}else{
+				} else {
 					num_restrictAmount.setVisibility(View.GONE);
 				}
-				
+
 				curPostalTaxRate = s.getPostalTaxRate();
 				curItemPrice = s.getItemPrice();
 				postalStandard = s.getPostalStandard();
@@ -419,13 +382,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 	}
 
 	private void initSliderImage(Stock s) {
-		slider.setVisibility(View.INVISIBLE);
-		// slider.removeAllSliders();
 		List<DefaultSliderView> imageContent = new ArrayList<DefaultSliderView>();
 		for (String url : s.getItemPreviewImgs()) {
 			DefaultSliderView defaultSliderView = new DefaultSliderView(this);
-			// TextSliderView textSliderView = new TextSliderView(this);
-			// initialize a SliderLayout
 			defaultSliderView.image(url)
 					.setScaleType(BaseSliderView.ScaleType.Fit)
 					.setOnSliderClickListener(this);
@@ -433,67 +392,14 @@ public class GoodsDetailActivity extends BaseActivity implements
 			// add your extra information
 			defaultSliderView.getBundle().putString("extra", s.getInvUrl());
 			imageContent.add(defaultSliderView);
-			// slider.addSlider(defaultSliderView);
 		}
-		slider.setPresetTransformer(SliderLayout.Transformer.Default);
-		slider.addSliderAll(imageContent);
-		slider.setVisibility(View.VISIBLE);
+		slider.setAdapter(imageContent);
+		slider.startAutoCycle();
 	}
 
 	@Override
 	public void onSliderClick(BaseSliderView slider) {
 		// TODO Auto-generated method stub
-
-	}
-
-	private int currIndex;// 当前页卡编号
-
-	/**
-	 * 初始化标签名
-	 */
-	private void InitTextView() {
-		findViewById(R.id.tv_guid1).setOnClickListener(new txListener(0));
-		findViewById(R.id.tv_guid2).setOnClickListener(new txListener(1));
-		findViewById(R.id.tv_guid3).setOnClickListener(new txListener(2));
-
-		findViewById(R.id.guid1).setOnClickListener(new txListener(0));
-		findViewById(R.id.guid2).setOnClickListener(new txListener(1));
-		findViewById(R.id.guid3).setOnClickListener(new txListener(2));
-
-	}
-
-	public class txListener implements View.OnClickListener {
-		private int index = 0;
-
-		public txListener(int i) {
-			index = i;
-		}
-
-		@Override
-		public void onClick(View v) {
-			pager.setCurrentItem(index);
-		}
-	}
-
-	private TextView barText, tv_barText;
-
-	/**
-	 * 初始化图片的位移像素
-	 */
-	private void InitTextBar() {
-		barText = (TextView) findViewById(R.id.cursor);
-		tv_barText = (TextView) findViewById(R.id.tv_cursor);
-		Display display = getWindow().getWindowManager().getDefaultDisplay();
-		// 得到显示屏宽度
-		DisplayMetrics metrics = new DisplayMetrics();
-		display.getMetrics(metrics);
-		// 1/3屏幕宽度
-		int tabLineLength = metrics.widthPixels / 3;
-		LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) barText
-				.getLayoutParams();
-		lp.width = tabLineLength;
-		barText.setLayoutParams(lp);
-		tv_barText.setLayoutParams(lp);
 
 	}
 
@@ -503,12 +409,16 @@ public class GoodsDetailActivity extends BaseActivity implements
 		if (scrollY >= pager_header.getMeasuredHeight()
 				&& indicator_hide.getVisibility() == View.GONE) {
 			indicator_hide.setVisibility(View.VISIBLE);
+			indicator.setOnCheckedChangeListener(null);
+			indicator_hide.setOnCheckedChangeListener(this);
 			return;
 		}
 
 		if (scrollY < pager_header.getMeasuredHeight()
 				&& indicator_hide.getVisibility() == View.VISIBLE) {
 			indicator_hide.setVisibility(View.GONE);
+			indicator.setOnCheckedChangeListener(this);
+			indicator_hide.setOnCheckedChangeListener(null);
 			return;
 		}
 
@@ -519,24 +429,52 @@ public class GoodsDetailActivity extends BaseActivity implements
 		super.onDestroy();
 	}
 
-	private List<BitmapInfo> infos;
+	@Override
+	public void onCheckedChanged(RadioGroup group, int checkedId) {
+		// TODO Auto-generated method stub
+		switch (checkedId) {
+		case R.id.guid1:
+		case R.id.guid1_hide:
+			findViewById(R.id.content_img).setVisibility(View.VISIBLE);
+			content_params.setVisibility(View.GONE);
+			content_hot.setVisibility(View.GONE);
+			if (indicator_hide.getVisibility() == View.GONE) {
+				indicator_hide.check(R.id.guid1_hide);
+			} else {
+				indicator.check(R.id.guid1);
+			}
+			break;
+		case R.id.guid2:
+		case R.id.guid2_hide:
+			findViewById(R.id.content_img).setVisibility(View.GONE);
+			content_params.setVisibility(View.VISIBLE);
+			content_hot.setVisibility(View.GONE);
+			if (indicator_hide.getVisibility() == View.GONE) {
+				indicator_hide.check(R.id.guid2_hide);
+			} else {
+				indicator.check(R.id.guid2);
+				indicator_hide.setVisibility(View.GONE);
+				indicator.setOnCheckedChangeListener(this);
+				indicator_hide.setOnCheckedChangeListener(null);
+			}
+			break;
+		case R.id.guid3:
+		case R.id.guid3_hide:
+			findViewById(R.id.content_img).setVisibility(View.GONE);
+			content_params.setVisibility(View.GONE);
+			content_hot.setVisibility(View.VISIBLE);
+			if (indicator_hide.getVisibility() == View.GONE) {
+				indicator_hide.check(R.id.guid3_hide);
+			} else {
+				indicator.check(R.id.guid3);
+				indicator_hide.setVisibility(View.GONE);
+				indicator.setOnCheckedChangeListener(this);
+				indicator_hide.setOnCheckedChangeListener(null);
+			}
+			break;
 
-	private void getItemDetailImages() {
-		final int size = main.getItemDetailImgs().size();
-		infos = new ArrayList<BitmapInfo>();
-		for (int i = 0; i < size; i++) {
-			AsyncImageLoader.getInstance().loadBitmap(this, i,
-					main.getItemDetailImgs().get(i), new LoadedCallback() {
-
-						@Override
-						public void imageLoaded(BitmapInfo info) {
-							infos.add(info);
-							if (infos.size() == main.getItemDetailImgs().size()) {
-								initFragment(infos);
-							}
-						}
-					});
-
+		default:
+			break;
 		}
 	}
 
