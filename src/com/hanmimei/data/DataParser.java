@@ -95,8 +95,13 @@ public class DataParser {
 					adress.setAdress(obj.getString("deliveryDetail"));
 				if(obj.has("idCardNum"))
 					adress.setIdCard(obj.getString("idCardNum"));
-				if(obj.has("orDefault"))
-					adress.setDefault(obj.getBoolean("orDefault"));
+				if(obj.has("orDefault")){
+					if(obj.getInt("orDefault") == 0){
+						adress.setDefault(false);
+					}else{
+						adress.setDefault(true);
+					}
+				}
 				list.add(adress);
 			}
 		} catch (JSONException e) {
@@ -355,6 +360,8 @@ public class DataParser {
 				user.setUserImg(obj.getString("photo"));
 			if(obj.has("phoneNum"))
 				user.setPhone(obj.getString("phoneNum"));
+			if(obj.has("couponsCount"))
+				user.setCouponCount(obj.getInt("couponsCount"));
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

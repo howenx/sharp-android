@@ -38,12 +38,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:gravity="center_vertical"
         android:padding="@dimen/padding_normal">
         <TextView 
             android:id="@+id/shipFee"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="邮费：100"
             android:textColor="@color/fontcolor"/>
         
         <TextView 
@@ -51,8 +51,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_horizontal_middle"
-            android:text="行邮税：200"
             android:textColor="@color/fontcolor"/>
+        <TextView 
+            android:id="@+id/biaoqian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_mianshui"
+            android:padding="1dp"
+            android:textSize="10sp"
+            android:layout_marginLeft="@dimen/margin_horizontal_middle"
+            android:textColor="@color/white"/>
     </LinearLayout>
     
     

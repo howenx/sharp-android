@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 
 import com.hanmimei.R;
 import com.hanmimei.entity.BitmapInfo;
+import com.hanmimei.utils.CommonUtil;
+import com.hanmimei.utils.InitImageLoader;
 import com.squareup.picasso.Picasso;
 
 public class GoodsDetailImgAdapter extends BaseAdapter {
@@ -70,8 +72,7 @@ public class GoodsDetailImgAdapter extends BaseAdapter {
 			viewHeight = screenHeight;
 		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,viewHeight);
 		holder.mImageView.setLayoutParams(lp);
-		
-		Picasso.with(context).load(info.getUrl()).into(holder.mImageView);
+		InitImageLoader.loadImage(context, info.getUrl(), holder.mImageView);
 		return contentView;
 	}
 

@@ -17,8 +17,16 @@
 	
 	<string name="restrictAmount">限购数量:%1$s</string>
 	<string name="shipFee">运费:¥%1$s</string>
-	<string name="postalFee">行邮税:%1$s</string>
+	<string name="postalFee">行邮税:¥%1$s</string>
 	<string name="buyNum">购买数量:%1$s</string>
+	<string name="all_money">总金额:¥%1$s</string>
+	<string name="submit_order">提交订单</string>
 	
-	<string name="portalfee_biaozhun">本商品适用税率为%1$s％，若订单总税额≥%2$s则免征</string>
+	<string name="name">姓名:%1$s</string>
+	<string name="phone">联系电话:%1$s</string>
+	<string name="address">送达地址:%1$s</string>
+	<string name="idcard">身份证号:%1$s</string>
+	<string name="yuanguanshui">原关税¥%1$s(≤50,免税)</string>
+	
+	<string name="portalfee_biaozhun">本商品适用税率为%1$s％，若订单总税额≤%2$s则免征</string>
 </resources>

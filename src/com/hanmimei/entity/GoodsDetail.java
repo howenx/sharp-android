@@ -107,6 +107,9 @@ public class GoodsDetail {
 					}.getType());
 			return result;
 		}
+		public String getItemDetailImgss() {
+			return itemDetailImgs;
+		}
 
 		public void setItemDetailImgs(String itemDetailImgs) {
 			this.itemDetailImgs = itemDetailImgs;

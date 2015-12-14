@@ -329,14 +329,14 @@ public class TagCloudView extends ViewGroup{
                 TextView tagView = (TextView) mInflater.inflate(mTagResId, null);
                 final Tag tag = tags.get(i);
                 if (mTagResId == DEFAULT_TAG_RESID) {
-                    if(tag.getOrMasterInv()){
+                   if(!tag.getState().equals("Y")){
+                    	tagView.setBackgroundResource(state_background);
+                    	tagView.setTextColor(state_color);
+                    }else  if(tag.getOrMasterInv()){
                     	selectedPos = i;
                     	tagView.setBackgroundResource(selected_background);
                     	tagView.setTextColor(theme_color);
-                    }else if(!tag.getState().equals("Y")){
-                    	tagView.setBackgroundResource(state_background);
-                    	tagView.setTextColor(state_color);
-                    }else{
+                    } else{
                     	tagView.setBackgroundResource(default_background);
                     	tagView.setTextColor(default_color);
                     }

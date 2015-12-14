@@ -75,6 +75,7 @@ public class IndroductionActivity extends BaseActivity {
 					@Override
 					public void onClick(View arg0) {
 						IndroductionActivity.this.startActivity(new Intent(IndroductionActivity.this,MainActivity.class));
+						finish();
 					}
 				});
 			}

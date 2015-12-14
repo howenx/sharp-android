@@ -67,13 +67,13 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				// TODO Auto-generated method stub
 				if (!data.get(arg2).getState().equals("Y")) {
 					return;
 				}
 				Intent intent = new Intent(getActivity(),
 						GoodsDetailActivity.class);
-				intent.putExtra("url", data.get(arg2).getItemUrl());
+				intent.putExtra("id", data.get(arg2).getItemId()+"");
+				ToastUtils.Toast(getActivity(), data.get(arg2).getItemId()+"");
 				startActivity(intent);
 			}
 		});
@@ -90,9 +90,8 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 
 				@Override
 				public void onSuccess(String result) {
-					// TODO Auto-generated method stub
 					HMMThemeGoods detail = DataParser.parserThemeItem(result);
-					if (detail != null) {
+					if (detail.getMessage().getCode() ==200) {
 						initThemeView(detail);
 						data.clear();
 						data.addAll(detail.getThemeList());
@@ -104,7 +103,6 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 
 				@Override
 				public void onError() {
-					// TODO Auto-generated method stub
 					ToastUtils.Toast(getActivity(), R.string.error);
 				}
 			});
@@ -136,7 +134,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 				}
 				TextView tag = (TextView) view.findViewById(R.id.tag);
 				ImageView point_b = (ImageView) view.findViewById(R.id.point_b);
-				WaveAnimationUtil.waveAnimation(point_b, 3.0f);
+				WaveAnimationUtil.waveAnimation(point_b, 5.0f);
 				FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
 						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 				lp.setMargins(
@@ -145,23 +143,19 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 						0, 0);
 
 				tag.setText(json.getString("name"));
-				final String url = json.getString("url");
 				view.setOnClickListener(new OnClickListener() {
 					
 					@Override
 					public void onClick(View arg0) {
-						// TODO Auto-generated method stub
 						Intent intent = new Intent(getActivity(),
 								GoodsDetailActivity.class);
-						intent.putExtra("url", url);
+						intent.putExtra("id", themeItem.getItemId()+"");
 						startActivity(intent);
 					}
 				});
 				mframeLayout.addView(view, lp);
 			}
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 
