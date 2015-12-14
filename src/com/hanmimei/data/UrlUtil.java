@@ -26,7 +26,7 @@ public class UrlUtil {
 	public static final String CANCLE_ORDER_URL = SERVER01 + "/client/order/state/update";
 	public static final String GET_USERINFO_URL = SERVER04 + "/api/user/get/info";
 	public static final String GET_ORDER_LIST_URL = SERVER01 + "/client/order";
-	public static final String GET_COUPON_LIST_URL = SERVER02 + "/client/coupons/list";
+	public static final String GET_COUPON_LIST_URL = SERVER01 + "/client/coupons/list";
 	
 	//结算页接口
 	public static final String POST_CLIENT_SETTLE = SERVER01 +"/client/settle";
