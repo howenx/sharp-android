@@ -217,7 +217,7 @@ public class ShoppingCartFragment extends Fragment implements
 	private void doPrice() {
 		for (int i = 0; i < data.size(); i++) {
 			for(int j = 0; j < data.get(i).getList().size(); j ++){
-				if(!data.get(i).getList().get(j).getState().equals("G"))
+				if(!data.get(i).getList().get(j).getState().equals("S"))
 					data.get(i).getList().get(j).setState("G");
 			}
 		}
