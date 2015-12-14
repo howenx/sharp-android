@@ -143,7 +143,7 @@ public class ShoppingCartFragment extends Fragment implements
 				msg.obj = car;
 				mHandler.sendMessage(msg);
 			}
-		}).start();
+		}).start(); 
 	}
 
 	private void getNetData() {	

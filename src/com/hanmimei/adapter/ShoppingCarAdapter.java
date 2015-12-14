@@ -112,9 +112,10 @@ public class ShoppingCarAdapter extends BaseAdapter {
 							.where(Properties.GoodsId.eq(goods.getGoodsId()))
 							.build().list());
 				}
-			}else{
-				data.remove(position);
 			}
+//			else{
+//				data.remove(goods);
+//			}
 		} else {
 			holder.checkBox.setVisibility(View.VISIBLE);
 			holder.checkBox.setImageDrawable(uncheck_Drawable);
@@ -129,7 +130,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View arg0) {
 				Intent intent = new Intent(activity, GoodsDetailActivity.class);
-				intent.putExtra("url", goods.getGoodsUrl());
+				intent.putExtra("id", goods.getGoodsId());
 				activity.startActivity(intent);
 			}
 		});
