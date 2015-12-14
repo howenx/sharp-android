@@ -151,11 +151,13 @@ public class ShoppingCarAdapter extends BaseAdapter {
 				if (user != null) {
 					if (goods.getGoodsNums() > 1)
 						goods.setGoodsNums(goods.getGoodsNums() - 1);
-					upGoods(goods);
+					if(!goods.getState().equals("S"))
+						upGoods(goods);
 				} else {
 					if (goods.getGoodsNums() > 1) {
 						goodsDao.deleteAll();
-						goods.setGoodsNums(goods.getGoodsNums() - 1);
+						if(!goods.getState().equals("S"))
+							goods.setGoodsNums(goods.getGoodsNums() - 1);
 						notifyDataSetChanged();
 						goodsDao.insertInTx(data);
 					}
@@ -172,10 +174,12 @@ public class ShoppingCarAdapter extends BaseAdapter {
 					// 登录状态增加到服务器，未登录状态增加到本地数据库
 					if (user != null) {
 						goods.setGoodsNums(goods.getGoodsNums() + 1);
-						upGoods(goods);
+						if(!goods.getState().equals("S"))
+							upGoods(goods);
 					} else {
 						goods.setGoodsNums(goods.getGoodsNums() + 1);
-						upGoodsN(goods);
+						if(!goods.getState().equals("S"))
+							upGoodsN(goods);
 					}
 				} else {
 					Toast.makeText(activity,

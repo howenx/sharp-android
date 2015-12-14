@@ -91,7 +91,8 @@ public class ShoppingCarMenager {
 			if(list.get(i).getList().size() == 0)
 				list.remove(list.get(i));
 			for(int j = 0; j < goods.size(); j ++){
-				totalNums = totalNums + goods.get(j).getGoodsNums();
+				if(!goods.get(j).getState().equals("S"))
+					totalNums = totalNums + goods.get(j).getGoodsNums();
 				if(goods.get(j).getState().equals("G")){
 					nums_e = nums_e + goods.get(j).getGoodsNums();
 					totalPrice_e = totalPrice_e + goods.get(j).getGoodsNums() * goods.get(j).getGoodsPrice();
