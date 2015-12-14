@@ -112,8 +112,6 @@ public class ShoppingCarAdapter extends BaseAdapter {
 							.where(Properties.GoodsId.eq(goods.getGoodsId()))
 							.build().list());
 				}
-			}else{
-				data.remove(position);
 			}
 		} else {
 			holder.checkBox.setVisibility(View.VISIBLE);

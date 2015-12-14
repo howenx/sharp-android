@@ -91,6 +91,7 @@
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/idCard"
         android:layout_centerVertical="true"
+        android:visibility="gone"
         android:src="@drawable/icon_theme_check" />
 
     <TextView
@@ -102,6 +103,7 @@
         android:layout_toRightOf="@id/name"
         android:layout_marginLeft="8dp"
         android:text="默认地址"
+        android:visibility="gone"
         android:textColor="@color/red"
         android:textSize="12sp" />
 
