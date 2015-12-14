@@ -40,12 +40,12 @@ import com.squareup.picasso.Picasso;
 public class ThemeGoodsActivity extends BaseActivity implements OnClickListener {
 
 	private String url;
-	private ThemeAdapter adapter;
-	private GridView gridView;
-	private List<HMMGoods> data;
-	private HMMGoods themeItem;
-	private ImageView img;
-	private FrameLayout mframeLayout;
+	private ThemeAdapter adapter;	//商品适配器
+	private GridView gridView;	//
+	private List<HMMGoods> data;//显示的商品数据
+	private HMMGoods themeItem;	//主推商品
+	private ImageView img;	//主推商品图片
+	private FrameLayout mframeLayout;	//主推商品容器  添加tag使用
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +60,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		findView();
 		gridView.setAdapter(adapter);
 		gridView.setFocusable(false);
+		//获取数据
 		loadUrl();
 
 		gridView.setOnItemClickListener(new OnItemClickListener() {
@@ -78,13 +79,13 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 			}
 		});
 	}
-
+	//初始化view对象
 	private void findView() {
 		gridView = (GridView) findViewById(R.id.my_grid);
 		img = (ImageView) findViewById(R.id.img);
 		mframeLayout = (FrameLayout) findViewById(R.id.mframeLayout);
 	}
-
+	//获取显示数据
 	private void loadUrl() {
 			Http2Utils.doGetRequestTask(this, url, new VolleyJsonCallback() {
 
@@ -108,7 +109,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 			});
 	}
 
-
+	//初始化主推商品显示
 	private void initThemeView(HMMThemeGoods detail) {
 		themeItem = detail.getMasterItem();
 		if (themeItem == null)
@@ -132,6 +133,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 					view = getLayoutInflater().inflate(
 							R.layout.panel_biaoqian_0, null);
 				}
+				//整理显示主推商品小标签
 				TextView tag = (TextView) view.findViewById(R.id.tag);
 				ImageView point_b = (ImageView) view.findViewById(R.id.point_b);
 				WaveAnimationUtil.waveAnimation(point_b, 5.0f);

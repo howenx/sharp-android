@@ -13,19 +13,13 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.view.ViewPager;
-import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.webkit.WebView;
-import android.widget.AbsListView.LayoutParams;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +33,6 @@ import com.hanmimei.dao.ShoppingGoodsDao;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
-import com.hanmimei.entity.Category;
 import com.hanmimei.entity.Customs;
 import com.hanmimei.entity.GoodsDetail;
 import com.hanmimei.entity.GoodsDetail.Main;
@@ -62,24 +55,29 @@ import com.hanmimei.view.TagCloudView.OnTagClickListener;
 
 @SuppressLint("NewApi")
 public class GoodsDetailActivity extends BaseActivity implements
-		OnClickListener, OnSliderClickListener,
-		CustomScrollView.OnScrollUpListener, RadioGroup.OnCheckedChangeListener {
+		OnClickListener, CustomScrollView.OnScrollUpListener,
+		RadioGroup.OnCheckedChangeListener {
 
-	private List<Category> tabs;
-
-	private SliderLayout slider;
-	private TextView discount, itemTitle, itemSrcPrice, itemPrice, area;
+	private SliderLayout slider; // 轮播图控件
+	private TextView discount, itemTitle, itemSrcPrice, itemPrice, area; // 商品折扣
+																			// 标题
+																			// 原价
+																			// 现价
+																			// 发货区
 	private TextView num_restrictAmount;
-	private TagCloudView tagCloudView;
-	private TextView publicity;
-	private CustomScrollView mScrollView;
-	private ListView content_params, content_hot;
-	private RadioGroup indicator_hide, indicator;
+	private TagCloudView tagCloudView; // 规格标签控件
+	private TextView publicity; // 优惠信息
+	private CustomScrollView mScrollView; //
+	private ListView content_params, content_hot; // 商品参数／热卖商品
+	private RadioGroup indicator_hide, indicator; // 顶部导航栏 中部导航栏
 
 	private View pager_header;
 
 	private User user;
 	private ShoppingGoodsDao goodsDao;
+	private Main main; // 主信息
+	private List<Stock> stocks; // 子商品信息
+	private List<Tag> tags; // 规格标签信息
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -129,21 +127,27 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 	}
 
+	/**
+	 * 加载数据
+	 * 
+	 */
 	private void loadDataByUrl() {
-		Http2Utils.doGetRequestTask(this,  getIntent().getStringExtra("url"), new VolleyJsonCallback() {
+		Http2Utils.doGetRequestTask(this, getIntent().getStringExtra("url"),
+				new VolleyJsonCallback() {
 
-			@Override
-			public void onSuccess(String result) {
-				// TODO Auto-generated method stub
-				GoodsDetail detail = DataParser.parserGoodsDetail(result);
-				initGoodsDetail(detail);
-			}
+					@Override
+					public void onSuccess(String result) {
+						// TODO Auto-generated method stub
+						GoodsDetail detail = DataParser
+								.parserGoodsDetail(result);
+						initGoodsDetail(detail);
+					}
 
-			@Override
-			public void onError() {
-				ToastUtils.Toast(getActivity(), R.string.error);
-			}
-		});
+					@Override
+					public void onError() {
+						ToastUtils.Toast(getActivity(), R.string.error);
+					}
+				});
 	}
 
 	@Override
@@ -301,24 +305,29 @@ public class GoodsDetailActivity extends BaseActivity implements
 		}
 	}
 
-	private Main main;
-	private List<Stock> stocks;
-	private List<Tag> tags;
-
+	/**
+	 * 初始化显示商品信息
+	 * 
+	 * @param detail
+	 *            商品总详情数据
+	 */
 	private void initGoodsDetail(GoodsDetail detail) {
-		if(detail.getMessage().getCode() != 200){
+		if (detail.getMessage().getCode() != 200) {
 			ToastUtils.Toast(this, detail.getMessage().getMessage());
-			return ;
+			return;
 		}
+		// 主详情
 		main = detail.getMain();
+		// 子商品信息
 		stocks = detail.getStock();
 
 		publicity.setText(main.getPublicity());
-
 		tags = new ArrayList<Tag>();
+		// 初始化子商品信息 （-1表示默认选中位置 ）
 		initStocks(-1);
-
+		// 初始化规格显示
 		tagCloudView.setTags(tags);
+		// 规格标签的点击事件
 		tagCloudView.setOnTagClickListener(new OnTagClickListener() {
 
 			@Override
@@ -329,10 +338,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 				initStocks(position);
 			}
 		});
-		// getItemDetailImages();
-		// initFragment(infos);
 
-		// TODO Auto-generated method stub
+		// 初始化选项卡显示内容
 		WebView mWebView = (WebView) findViewById(R.id.mWebView);
 		mWebView.loadData(main.getItemDetailImgss(), "text/html", "UTF-8");
 		mWebView.setFocusable(false);
@@ -350,6 +357,12 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private double curItemPrice; // 当前商品价格
 	private int postalStandard;// 关税收费标准
 
+	/**
+	 * 初始化子商品信息
+	 * 
+	 * @param position
+	 *            选中商品位置
+	 */
 	private void initStocks(int position) {
 		for (int index = 0; index < stocks.size(); index++) {
 			Stock s = stocks.get(index);
@@ -381,14 +394,26 @@ public class GoodsDetailActivity extends BaseActivity implements
 		}
 	}
 
+	/**
+	 * 初始化轮播图
+	 * 
+	 * @param s
+	 *            当前选中子商品
+	 */
 	private void initSliderImage(Stock s) {
 		List<DefaultSliderView> imageContent = new ArrayList<DefaultSliderView>();
 		for (String url : s.getItemPreviewImgs()) {
 			DefaultSliderView defaultSliderView = new DefaultSliderView(this);
 			defaultSliderView.image(url)
 					.setScaleType(BaseSliderView.ScaleType.Fit)
-					.setOnSliderClickListener(this);
+					.setOnSliderClickListener(new OnSliderClickListener() {
 
+						@Override
+						public void onSliderClick(BaseSliderView slider) {
+							// 轮播图的点击事件
+							
+						}
+					});
 			// add your extra information
 			defaultSliderView.getBundle().putString("extra", s.getInvUrl());
 			imageContent.add(defaultSliderView);
@@ -397,38 +422,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 		slider.startAutoCycle();
 	}
 
-	@Override
-	public void onSliderClick(BaseSliderView slider) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onScroll(int scrollY, boolean scrollDirection) {
-		// 如果滚动值
-		if (scrollY >= pager_header.getMeasuredHeight()
-				&& indicator_hide.getVisibility() == View.GONE) {
-			indicator_hide.setVisibility(View.VISIBLE);
-			indicator.setOnCheckedChangeListener(null);
-			indicator_hide.setOnCheckedChangeListener(this);
-			return;
-		}
-
-		if (scrollY < pager_header.getMeasuredHeight()
-				&& indicator_hide.getVisibility() == View.VISIBLE) {
-			indicator_hide.setVisibility(View.GONE);
-			indicator.setOnCheckedChangeListener(this);
-			indicator_hide.setOnCheckedChangeListener(null);
-			return;
-		}
-
-	}
-
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-	}
-
+	/**
+	 * 选项卡选中改变事件
+	 */
 	@Override
 	public void onCheckedChanged(RadioGroup group, int checkedId) {
 		// TODO Auto-generated method stub
@@ -476,6 +472,28 @@ public class GoodsDetailActivity extends BaseActivity implements
 		default:
 			break;
 		}
+	}
+	
+	
+	@Override
+	public void onScroll(int scrollY, boolean scrollDirection) {
+		// 如果滚动值
+		if (scrollY >= pager_header.getMeasuredHeight()
+				&& indicator_hide.getVisibility() == View.GONE) {
+			indicator_hide.setVisibility(View.VISIBLE);
+			indicator.setOnCheckedChangeListener(null);
+			indicator_hide.setOnCheckedChangeListener(this);
+			return;
+		}
+
+		if (scrollY < pager_header.getMeasuredHeight()
+				&& indicator_hide.getVisibility() == View.VISIBLE) {
+			indicator_hide.setVisibility(View.GONE);
+			indicator.setOnCheckedChangeListener(this);
+			indicator_hide.setOnCheckedChangeListener(null);
+			return;
+		}
+
 	}
 
 }
