@@ -318,7 +318,11 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 		object = new JSONObject();
 		try {
 			object.put("addId", adress.getAdress_id());
-			object.put("orDefault", adress.isDefault());
+			if(adress.isDefault()){
+				object.put("orDefault", 1);
+			}else{
+				object.put("orDefault", 0);
+			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
