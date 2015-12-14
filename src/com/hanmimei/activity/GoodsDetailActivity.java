@@ -72,7 +72,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private TextView num_restrictAmount;
 	private TagCloudView tagCloudView;
 	private TextView publicity;
-	private ViewPager pager;
 	private CustomScrollView mScrollView;
 	private ListView content_params, content_hot;
 	private RadioGroup indicator_hide, indicator;
@@ -108,7 +107,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 		num_restrictAmount = (TextView) findViewById(R.id.restrictAmount);
 		indicator_hide = (RadioGroup) findViewById(R.id.indicator_hide);
 		indicator = (RadioGroup) findViewById(R.id.indicator);
-		pager = (ViewPager) findViewById(R.id.pager);
 		discount = (TextView) findViewById(R.id.discount);
 		area = (TextView) findViewById(R.id.area);
 		mScrollView = (CustomScrollView) findViewById(R.id.mScrollView);
@@ -132,9 +130,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	}
 
 	private void loadDataByUrl() {
-
-		Http2Utils.doGetRequestTask(this, UrlUtil.GOODS_DETAIL_URL
-				+ getIntent().getStringExtra("id"), new VolleyJsonCallback() {
+		Http2Utils.doGetRequestTask(this,  getIntent().getStringExtra("url"), new VolleyJsonCallback() {
 
 			@Override
 			public void onSuccess(String result) {
@@ -310,6 +306,10 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private List<Tag> tags;
 
 	private void initGoodsDetail(GoodsDetail detail) {
+		if(detail.getMessage().getCode() != 200){
+			ToastUtils.Toast(this, detail.getMessage().getMessage());
+			return ;
+		}
 		main = detail.getMain();
 		stocks = detail.getStock();
 

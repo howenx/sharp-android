@@ -13,6 +13,7 @@ public class Slider {
     private Integer slider_id;
     private String imgUrl;
     private String url;
+    private String type;
 
     // KEEP FIELDS - put your custom fields here
     // KEEP FIELDS END
@@ -24,11 +25,12 @@ public class Slider {
         this.id = id;
     }
 
-    public Slider(Long id, Integer slider_id, String imgUrl, String url) {
+    public Slider(Long id, Integer slider_id, String imgUrl, String url, String type) {
         this.id = id;
         this.slider_id = slider_id;
         this.imgUrl = imgUrl;
         this.url = url;
+        this.type = type;
     }
 
     public Long getId() {
@@ -61,6 +63,14 @@ public class Slider {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     // KEEP METHODS - put your custom methods here

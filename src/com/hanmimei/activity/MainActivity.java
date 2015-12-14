@@ -1,6 +1,10 @@
 package com.hanmimei.activity;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -8,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.widget.TabHost.OnTabChangeListener;
 
 import com.hanmimei.R;
+import com.hanmimei.data.AppConstant;
 import com.hanmimei.fragment.AboutMyFragment;
 import com.hanmimei.fragment.FragmentTabHost;
 import com.hanmimei.fragment.HomeFragment;
@@ -31,6 +36,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 	private static final int shopping_drawable = R.drawable.tab_shopping;
 	private static final int my_drawable = R.drawable.tab_my;
 
+	private MainBroadCastReceiver netReceiver;
 	private FragmentTabHost mTabHost;
 
 	@Override
@@ -49,7 +55,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 				TAB_CAR, ShoppingCartFragment.class);
 		TabHostManager.getInstance().initTabItem(TAB_MY_ID, my_drawable,
 				TAB_MY, AboutMyFragment.class);
-
+		registerReceivers();
 	}
 
 	@Override
@@ -88,7 +94,6 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 		}
 		return super.onKeyDown(keyCode, event);
 	}
-
 	private long mExitTime;
 
 	/**
@@ -105,6 +110,32 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 			} else {
 				finish();
 				System.exit(0);
+			}
+		}
+	
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		unregisterReceiver(netReceiver);
+	}
+
+//广播接收者 注册
+	private void registerReceivers() {
+		netReceiver = new MainBroadCastReceiver();
+		IntentFilter intentFilter = new IntentFilter();
+		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_GO_HOME);
+		registerReceiver(netReceiver, intentFilter);
+	}
+
+	private class MainBroadCastReceiver extends BroadcastReceiver {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			if (intent.getAction()
+					.equals(AppConstant.MESSAGE_BROADCAST_GO_HOME)) {
+				mTabHost.setCurrentTab(0);
 			}
 		}
 	}

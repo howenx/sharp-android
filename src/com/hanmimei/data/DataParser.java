@@ -60,6 +60,8 @@ public class DataParser {
 					slider.setImgUrl(obj.getString("url"));
 				if (obj.has("itemTarget"))
 					slider.setUrl(obj.getString("itemTarget"));
+				if(obj.has("targetType"))
+					slider.setType(obj.getString("targetType"));
 				list.add(slider);
 			}
 		} catch (JSONException e) {
@@ -302,8 +304,8 @@ public class DataParser {
 						goods.setRestAmount(goodsObject.getInt("restAmount"));
 					if(goodsObject.has("invImg"))
 						goods.setGoodsImg(goodsObject.getString("invImg"));
-					if(goodsObject.has("invUrl"))
-						goods.setGoodsUrl(goodsObject.getString("invUrl"));
+					if(goodsObject.has("invUrlAndroid"))
+						goods.setGoodsUrl(goodsObject.getString("invUrlAndroid"));
 					if(goodsObject.has("invTitle"))
 						goods.setGoodsName(goodsObject.getString("invTitle"));
 					if(goodsObject.has("cartDelUrl"))
@@ -312,8 +314,8 @@ public class DataParser {
 						goods.setInvCustoms(goodsObject.getString("invCustoms"));
 					if(goodsObject.has("postalTaxRate"))
 						goods.setPostalTaxRate(goodsObject.getInt("postalTaxRate"));
-					if(goodsObject.has("postalStandard"))
-						goods.setPostalStandard(goodsObject.getInt("postalStandard"));
+//					if(goodsObject.has("postalStandard"))
+//						goods.setPostalStandard(goodsObject.getInt("postalStandard"));
 //					if(goodsObject.has("postalLimit"))
 //						goods.setPostalLimit(goodsObject.getInt("postalLimit"));
 					list.add(goods);

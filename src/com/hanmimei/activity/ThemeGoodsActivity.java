@@ -72,7 +72,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 				}
 				Intent intent = new Intent(getActivity(),
 						GoodsDetailActivity.class);
-				intent.putExtra("id", data.get(arg2).getItemId()+"");
+				intent.putExtra("url", data.get(arg2).getItemUrlAndroid());
 				ToastUtils.Toast(getActivity(), data.get(arg2).getItemId()+"");
 				startActivity(intent);
 			}
@@ -149,7 +149,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 					public void onClick(View arg0) {
 						Intent intent = new Intent(getActivity(),
 								GoodsDetailActivity.class);
-						intent.putExtra("id", themeItem.getItemId()+"");
+						intent.putExtra("url", themeItem.getItemUrlAndroid());
 						startActivity(intent);
 					}
 				});

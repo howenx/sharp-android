@@ -16,6 +16,7 @@ public class HMMGoods {
 	private Integer itemId; // 商品id
 	private String itemImg; // 商品图片
 	private String itemUrl; // 商品详情页链接
+	private String itemUrlAndroid; //商品详情页链接(android 专用)
 	private String itemTitle; // 商品标题
 	private Double itemPrice; // 商品价格
 	private Double itemDiscount; // 商品折扣
@@ -39,9 +40,19 @@ public class HMMGoods {
 
 	// KEEP FIELDS - put your custom fields here
 	// KEEP FIELDS END
+	
+	
 
 	public String getItemMasterImg() {
 		return itemMasterImg;
+	}
+
+	public String getItemUrlAndroid() {
+		return itemUrlAndroid;
+	}
+
+	public void setItemUrlAndroid(String itemUrlAndroid) {
+		this.itemUrlAndroid = itemUrlAndroid;
 	}
 
 	public Integer getPostalTaxRate() {

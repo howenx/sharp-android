@@ -86,6 +86,8 @@ public class ForgetPwdActivity extends BaseActivity implements OnClickListener{
 			break;
 		}
 	}
+	
+	//获取验证码
 	private void getCode() {
 		msg = CommonUtil.md5(phone + "hmm");
 		new Thread(new Runnable() {
@@ -102,6 +104,8 @@ public class ForgetPwdActivity extends BaseActivity implements OnClickListener{
 			}
 		}).start();
 	}
+	
+	//检查输入
 	private void checkInput() {
 		phone = phone_edit.getText().toString();
 		yanzheng = code_edit.getText().toString();
@@ -119,8 +123,10 @@ public class ForgetPwdActivity extends BaseActivity implements OnClickListener{
 			doUpPwd();
 		}
 	}
+	
+	//修改密码
 	private void doUpPwd() {
-		dialog = CommonUtil.dialog(this, "正在注册，请稍后...");
+		dialog = CommonUtil.dialog(this, "正在修改，请稍后...");
 		dialog.show();
 		new Thread(new Runnable() {
 			@Override

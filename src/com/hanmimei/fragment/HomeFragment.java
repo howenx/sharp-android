@@ -30,6 +30,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.hanmimei.R;
 import com.hanmimei.activity.BaseActivity;
+import com.hanmimei.activity.MainActivity;
 import com.hanmimei.activity.ThemeGoodsActivity;
 import com.hanmimei.adapter.HomeAdapter;
 import com.hanmimei.dao.SliderDao;
@@ -41,6 +42,7 @@ import com.hanmimei.entity.Theme;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.CycleViewPager;
+import com.hanmimei.view.CycleViewPager.ImageCycleViewListener;
 import com.hanmimei.view.ViewFactory;
 
 @SuppressLint({ "NewApi", "InflateParams" })
@@ -138,7 +140,7 @@ public class HomeFragment extends Fragment implements
 		cycleViewPager.setCycle(true);
 
 		// 在加载数据前设置是否循环
-		cycleViewPager.setData(views, dataSliders, null);
+		cycleViewPager.setData(views, dataSliders, mAdCycleViewListener);
 		// 设置轮播
 		cycleViewPager.setWheel(true);
 
@@ -147,6 +149,20 @@ public class HomeFragment extends Fragment implements
 		// 设置圆点指示图标组居中显示，默认靠右
 		cycleViewPager.setIndicatorCenter();
 	}
+	private ImageCycleViewListener mAdCycleViewListener = new ImageCycleViewListener() {
+
+		@Override
+		public void onImageClick(Slider slider, int position, View imageView) {
+//			if(slider.getType().equals("D")){
+//				
+//			}else if(slider.getType().equals("T")){
+//				Intent intent = new Intent(getActivity(), ThemeGoodsActivity.class);
+//				intent.putExtra("url", slider.getUrl());
+//				getActivity().startActivity(intent);
+//			}
+		}
+
+	};
 
 	// 加载本地数据
 	private void loadData() {

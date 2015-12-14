@@ -27,6 +27,7 @@ public class SliderDao extends AbstractDao<Slider, Long> {
         public final static Property Slider_id = new Property(1, Integer.class, "slider_id", false, "SLIDER_ID");
         public final static Property ImgUrl = new Property(2, String.class, "imgUrl", false, "IMG_URL");
         public final static Property Url = new Property(3, String.class, "url", false, "URL");
+        public final static Property Type = new Property(4, String.class, "type", false, "TYPE");
     };
 
 
@@ -45,7 +46,8 @@ public class SliderDao extends AbstractDao<Slider, Long> {
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
                 "\"SLIDER_ID\" INTEGER," + // 1: slider_id
                 "\"IMG_URL\" TEXT," + // 2: imgUrl
-                "\"URL\" TEXT);"); // 3: url
+                "\"URL\" TEXT," + // 3: url
+                "\"TYPE\" TEXT);"); // 4: type
     }
 
     /** Drops the underlying database table. */
@@ -78,6 +80,11 @@ public class SliderDao extends AbstractDao<Slider, Long> {
         if (url != null) {
             stmt.bindString(4, url);
         }
+ 
+        String type = entity.getType();
+        if (type != null) {
+            stmt.bindString(5, type);
+        }
     }
 
     /** @inheritdoc */
@@ -93,7 +100,8 @@ public class SliderDao extends AbstractDao<Slider, Long> {
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1), // slider_id
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // imgUrl
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // url
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // url
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4) // type
         );
         return entity;
     }
@@ -105,6 +113,7 @@ public class SliderDao extends AbstractDao<Slider, Long> {
         entity.setSlider_id(cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1));
         entity.setImgUrl(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setUrl(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setType(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
      }
     
     /** @inheritdoc */

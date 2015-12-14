@@ -27,14 +27,14 @@ public class WaveAnimationUtil {
                1, animation_size,1,animation_size,
                Animation.RELATIVE_TO_SELF,0.5f,
                Animation.RELATIVE_TO_SELF,0.5f);
-        scaleAnimation.setDuration(1000);
+        scaleAnimation.setDuration(1200);
         animationSet.addAnimation(scaleAnimation);
 		
 		
         //创建一个AlphaAnimation对象，参数从完全的透明度，到完全的不透明
         AlphaAnimation alphaAnimation = new AlphaAnimation(1f, 0);
         //设置动画执行的时间
-        alphaAnimation.setDuration(1000);
+        alphaAnimation.setDuration(1200);
         //将alphaAnimation对象添加到AnimationSet当中
         animationSet.addAnimation(alphaAnimation);
         //使用ImageView的startAnimation方法执行动画

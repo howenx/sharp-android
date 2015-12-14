@@ -98,28 +98,46 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		}
 		if (goods.getState().equals("G")) {
 			check_nums = check_nums + 1;
+			holder.checkBox.setVisibility(View.VISIBLE);
 			holder.checkBox.setImageDrawable(check_Drawable);
+		} else if (goods.getState().equals("S")) {
+			holder.checkBox.setVisibility(View.INVISIBLE);
+			if (user == null) {
+				ShoppingGoodsDao goodsDao = activity.getDaoSession()
+						.getShoppingGoodsDao();
+				if (goodsDao.queryBuilder()
+						.where(Properties.GoodsId.eq(goods.getGoodsId()))
+						.build().list() != null) {
+					goodsDao.deleteInTx(goodsDao.queryBuilder()
+							.where(Properties.GoodsId.eq(goods.getGoodsId()))
+							.build().list());
+				}
+			}else{
+				data.remove(position);
+			}
 		} else {
+			holder.checkBox.setVisibility(View.VISIBLE);
 			holder.checkBox.setImageDrawable(uncheck_Drawable);
 		}
+		// }
 		imageLoader.displayImage(goods.getGoodsImg(), holder.img, imageOptions);
 		holder.name.setText(goods.getGoodsName());
 		holder.price.setText("¥" + goods.getGoodsPrice());
 		holder.nums.setText(goods.getGoodsNums() + "");
 		holder.name.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(activity,GoodsDetailActivity.class);
+				Intent intent = new Intent(activity, GoodsDetailActivity.class);
 				intent.putExtra("url", goods.getGoodsUrl());
 				activity.startActivity(intent);
 			}
 		});
 		holder.img.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(activity,GoodsDetailActivity.class);
+				Intent intent = new Intent(activity, GoodsDetailActivity.class);
 				intent.putExtra("url", goods.getGoodsUrl());
 				activity.startActivity(intent);
 			}
@@ -127,8 +145,8 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		holder.jian.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				
-				//登录状态减少到服务器，未登录状态增减少本地数据库
+
+				// 登录状态减少到服务器，未登录状态增减少本地数据库
 				if (user != null) {
 					if (goods.getGoodsNums() > 1)
 						goods.setGoodsNums(goods.getGoodsNums() - 1);
@@ -141,35 +159,43 @@ public class ShoppingCarAdapter extends BaseAdapter {
 						goodsDao.insertInTx(data);
 					}
 				}
-				
+
 			}
 		});
 		holder.plus.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				if(goods.getGoodsNums() < goods.getRestrictAmount() || goods.getRestrictAmount() == 0){
-				//登录状态增加到服务器，未登录状态增加到本地数据库
-				if (user != null) {
-					goods.setGoodsNums(goods.getGoodsNums() + 1);
-					upGoods(goods);
+				if (goods.getGoodsNums() < goods.getRestrictAmount()
+						|| goods.getRestrictAmount() == 0) {
+					// 登录状态增加到服务器，未登录状态增加到本地数据库
+					if (user != null) {
+						goods.setGoodsNums(goods.getGoodsNums() + 1);
+						upGoods(goods);
+					} else {
+						goods.setGoodsNums(goods.getGoodsNums() + 1);
+						upGoodsN(goods);
+					}
 				} else {
-					goods.setGoodsNums(goods.getGoodsNums() + 1);
-					upGoodsN(goods);
+					Toast.makeText(activity,
+							"本商品限购" + goods.getRestrictAmount() + "件",
+							Toast.LENGTH_SHORT).show();
 				}
-			}else{
-				Toast.makeText(activity, "本商品限购"+ goods.getRestrictAmount() + "件", Toast.LENGTH_SHORT).show();
-			}
 			}
 		});
 		holder.del.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				//登录状态删除服务器数据，未登录状态删除本地数据
-				if(user != null){
-				delGoods(goods);
-				}else{
-					goodsDao.delete(goodsDao.queryBuilder().where(Properties.GoodsId.eq(goods.getGoodsId())).build().unique());
+				// 登录状态删除服务器数据，未登录状态删除本地数据
+				if (user != null) {
+					delGoods(goods);
+				} else {
+					if (!goods.getState().equals("S")) {
+						goodsDao.delete(goodsDao
+								.queryBuilder()
+								.where(Properties.GoodsId.eq(goods.getGoodsId()))
+								.build().unique());
+					}
 					data.remove(goods);
 					notifyDataSetChanged();
 					ShoppingCarMenager.getInstance().setBottom();
@@ -201,57 +227,54 @@ public class ShoppingCarAdapter extends BaseAdapter {
 	// 删除购物车商品
 	private void delGoods(final ShoppingGoods goods) {
 		delGoods = goods;
-			new Thread(new Runnable() {
+		new Thread(new Runnable() {
 
-				@Override
-				public void run() {
-					String result = HttpUtils.get(goods.getDelUrl(),
-							user.getToken());
-					HMessage hm = DataParser.paserResultMsg(result);
-					Message msg = mHandler.obtainMessage(1);
-					msg.obj = hm;
-					mHandler.sendMessage(msg);
-				}
-			}).start();
-		
+			@Override
+			public void run() {
+				String result = HttpUtils.get(goods.getDelUrl(),
+						user.getToken());
+				HMessage hm = DataParser.paserResultMsg(result);
+				Message msg = mHandler.obtainMessage(1);
+				msg.obj = hm;
+				mHandler.sendMessage(msg);
+			}
+		}).start();
+
 	}
 
 	// 更新购物车 商品状态
 	private void upGoods(final ShoppingGoods goods) {
-		 final JSONArray array = new JSONArray();
-		 JSONObject object = new JSONObject();
-		 try {
-		 object.put("cartId", goods.getCartId());
-		 object.put("skuId", goods.getGoodsId());
-		 object.put("amount", goods.getGoodsNums());
-		 object.put("state", "I");
-		 array.put(object);
-		 } catch (JSONException e) {
-		 e.printStackTrace();
-		 }
+		final JSONArray array = new JSONArray();
+		JSONObject object = new JSONObject();
+		try {
+			object.put("cartId", goods.getCartId());
+			object.put("skuId", goods.getGoodsId());
+			object.put("amount", goods.getGoodsNums());
+			object.put("state", "I");
+			array.put(object);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				 String result =
-				 HttpUtils.post(UrlUtil.GET_CAR_LIST_URL, array,
-				 "id-token", user.getToken());
-				 ShoppingCar car = DataParser.parserShoppingCar(result);
-				 Message msg = mHandler.obtainMessage(3);
-				 msg.obj = car;
-				 mHandler.sendMessage(msg);
+				String result = HttpUtils.post(UrlUtil.GET_CAR_LIST_URL, array,
+						"id-token", user.getToken());
+				ShoppingCar car = DataParser.parserShoppingCar(result);
+				Message msg = mHandler.obtainMessage(3);
+				msg.obj = car;
+				mHandler.sendMessage(msg);
 			}
 		}).start();
 	}
-	private void upGoodsN(final ShoppingGoods goods){
+
+	private void upGoodsN(final ShoppingGoods goods) {
 		new Thread(new Runnable() {
-			
+
 			@Override
 			public void run() {
-				String result = HttpUtils
-						.get(UrlUtil.SEND_CAR_TO_SERVER_UN
-								+ goods.getGoodsId()
-								+ "/"
-								+ goods.getGoodsNums());
+				String result = HttpUtils.get(UrlUtil.SEND_CAR_TO_SERVER_UN
+						+ goods.getGoodsId() + "/" + goods.getGoodsNums());
 				HMessage hm = DataParser.paserResultMsg(result);
 				Message msg = mHandler.obtainMessage(2);
 				// msg.obj = car;
@@ -259,8 +282,9 @@ public class ShoppingCarAdapter extends BaseAdapter {
 				mHandler.sendMessage(msg);
 			}
 		}).start();
-		
+
 	}
+
 	private Handler mHandler = new Handler() {
 
 		@Override
@@ -303,17 +327,17 @@ public class ShoppingCarAdapter extends BaseAdapter {
 			case 3:
 				ShoppingCar car = (ShoppingCar) msg.obj;
 				HMessage m = car.getMessage();
-				if(m != null){
-				if(m.getCode() == 200){
-					notifyDataSetChanged();
-					ShoppingCarMenager.getInstance().setBottom();
-				}else {
-					Toast.makeText(activity, m.getMessage(),
-							Toast.LENGTH_SHORT).show();
-				}
-				}else{
+				if (m != null) {
+					if (m.getCode() == 200) {
+						notifyDataSetChanged();
+						ShoppingCarMenager.getInstance().setBottom();
+					} else {
+						Toast.makeText(activity, m.getMessage(),
+								Toast.LENGTH_SHORT).show();
+					}
+				} else {
 					Toast.makeText(activity, "操作失败！", Toast.LENGTH_SHORT)
-					.show();
+							.show();
 				}
 				break;
 			default:
@@ -322,6 +346,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		}
 
 	};
+
 	private class ViewHolder {
 		private ImageView checkBox;
 		private ImageView img;
