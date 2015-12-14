@@ -177,7 +177,10 @@ public class GoodsBalanceActivity extends BaseActivity implements
 					name.setText(getResources().getString(R.string.name,settle.getAddress().getName()));
 					phone.setText(getResources().getString(R.string.phone,settle.getAddress().getTel()));
 					idCard.setText(getResources().getString(R.string.idcard,settle.getAddress().getIdCardNum()));
-					findViewById(R.id.isDefault).setVisibility(View.VISIBLE);
+//					if(settle.getAddress()){
+//						findViewById(R.id.isDefault).setVisibility(View.VISIBLE);
+//					}
+					
 				}
 				if (settle.getCoupons() != null) {
 					List<Coupon> coupons = settle.getCoupons();

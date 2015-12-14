@@ -20,7 +20,7 @@ public class HMMAddress implements Serializable{
     private String adress;
     private String other;
     private String idCard;
-    private boolean isDefault;
+    private boolean isDefault = false;
 
     // KEEP FIELDS - put your custom fields here
     // KEEP FIELDS END
