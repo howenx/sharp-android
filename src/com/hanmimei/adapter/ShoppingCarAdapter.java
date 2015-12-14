@@ -96,36 +96,30 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-//		if (user != null) {
-//			if (goods.getState().equals("G")) {
-//				check_nums = check_nums + 1;
-//				holder.checkBox.setImageDrawable(check_Drawable);
-//			} else {
-//				holder.checkBox.setImageDrawable(uncheck_Drawable);
-//			}
-//		} else {
-			if (goods.getState().equals("G")) {
-				check_nums = check_nums + 1;
-				holder.checkBox.setVisibility(View.VISIBLE);
-				holder.checkBox.setImageDrawable(check_Drawable);
-			} else if (goods.getState().equals("S")) {
-				holder.checkBox.setVisibility(View.INVISIBLE);
-				if(user == null){
-					ShoppingGoodsDao goodsDao = activity.getDaoSession()
+		if (goods.getState().equals("G")) {
+			check_nums = check_nums + 1;
+			holder.checkBox.setVisibility(View.VISIBLE);
+			holder.checkBox.setImageDrawable(check_Drawable);
+		} else if (goods.getState().equals("S")) {
+			holder.checkBox.setVisibility(View.INVISIBLE);
+			if (user == null) {
+				ShoppingGoodsDao goodsDao = activity.getDaoSession()
 						.getShoppingGoodsDao();
-					if(goodsDao.queryBuilder()
-							.where(Properties.GoodsId.eq(goods.getGoodsId()))
-							.build().unique() != null){
-					goodsDao.delete(goodsDao.queryBuilder()
+				if (goodsDao.queryBuilder()
 						.where(Properties.GoodsId.eq(goods.getGoodsId()))
-						.build().unique());
-					}
+						.build().list() != null) {
+					goodsDao.deleteInTx(goodsDao.queryBuilder()
+							.where(Properties.GoodsId.eq(goods.getGoodsId()))
+							.build().list());
 				}
-			} else {
-				holder.checkBox.setVisibility(View.VISIBLE);
-				holder.checkBox.setImageDrawable(uncheck_Drawable);
+			}else{
+				data.remove(position);
 			}
-//		}
+		} else {
+			holder.checkBox.setVisibility(View.VISIBLE);
+			holder.checkBox.setImageDrawable(uncheck_Drawable);
+		}
+		// }
 		imageLoader.displayImage(goods.getGoodsImg(), holder.img, imageOptions);
 		holder.name.setText(goods.getGoodsName());
 		holder.price.setText("¥" + goods.getGoodsPrice());
@@ -196,10 +190,11 @@ public class ShoppingCarAdapter extends BaseAdapter {
 				if (user != null) {
 					delGoods(goods);
 				} else {
-					if(!goods.getState().equals("S")){
-						goodsDao.delete(goodsDao.queryBuilder()
-							.where(Properties.GoodsId.eq(goods.getGoodsId()))
-							.build().unique());
+					if (!goods.getState().equals("S")) {
+						goodsDao.delete(goodsDao
+								.queryBuilder()
+								.where(Properties.GoodsId.eq(goods.getGoodsId()))
+								.build().unique());
 					}
 					data.remove(goods);
 					notifyDataSetChanged();

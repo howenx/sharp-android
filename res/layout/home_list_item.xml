@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" 
-    android:paddingTop="10dp">
+    android:paddingTop="10dp"
+    android:background="@color/background">
     <ImageView 
         android:id="@+id/img"
         android:scaleType="fitXY"

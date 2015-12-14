@@ -52,6 +52,7 @@ public class ShoppingCartFragment extends Fragment implements
 	private TextView pay;
 	private TextView attention;
 	private LinearLayout no_data;
+	private TextView go_home;
 	private List<Customs> data;
 	private ShoppingCarPullListAdapter adapter;
 	private BaseActivity activity;
@@ -92,7 +93,6 @@ public class ShoppingCartFragment extends Fragment implements
 		} else {
 			getLocalData();
 		}
-
 	}
 
 	private void getLocalData() {
@@ -133,7 +133,6 @@ public class ShoppingCartFragment extends Fragment implements
 
 	private void getData() {
 		new Thread(new Runnable() {
-
 			@Override
 			public void run() {
 				String result = HttpUtils.post(
@@ -188,13 +187,10 @@ public class ShoppingCartFragment extends Fragment implements
 					mListView.setVisibility(View.GONE);
 				}
 				break;
-
 			default:
 				break;
-			}
-			
+			}	
 		}
-		
 	};
 	private void findView(View view) {
 		bottom = (LinearLayout) view.findViewById(R.id.bottom);
@@ -208,11 +204,13 @@ public class ShoppingCartFragment extends Fragment implements
 		pay = (TextView) view.findViewById(R.id.pay);
 		attention = (TextView) view.findViewById(R.id.attention);
 		mListView = (PullToRefreshListView) view.findViewById(R.id.mylist);
+		go_home = (TextView) view.findViewById(R.id.go_home);
 		mListView.setOnRefreshListener(this);
 		mListView.setMode(Mode.PULL_DOWN_TO_REFRESH);
 		no_data = (LinearLayout) view.findViewById(R.id.data_null);
 		check_all.setOnClickListener(this);
 		pay.setOnClickListener(this);
+		go_home.setOnClickListener(this);
 	}
 
 	private void doPrice() {
@@ -271,6 +269,9 @@ public class ShoppingCartFragment extends Fragment implements
 			}else{
 				Toast.makeText(getActivity(), "请选择商品", Toast.LENGTH_SHORT).show();
 			}
+			break;
+		case R.id.go_home:
+			getActivity().sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_GO_HOME));
 			break;
 		default:
 			break;

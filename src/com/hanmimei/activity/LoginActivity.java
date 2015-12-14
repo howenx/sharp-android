@@ -56,7 +56,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
-//		getActionBar().hide();
+		// getActionBar().hide();
 		setContentView(R.layout.login_layout);
 		initView();
 	}
@@ -122,8 +122,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 				List<NameValuePair> params = new ArrayList<NameValuePair>();
 				params.add(new BasicNameValuePair("name", phone));
 				params.add(new BasicNameValuePair("password", pwd));
-				String result = HttpUtils.postCommon(
-						UrlUtil.LOGIN_URL, params);
+				String result = HttpUtils.postCommon(UrlUtil.LOGIN_URL, params);
 				Result loginInfo = DataParser.parserLoginResult(result);
 				Message msg = mHandler.obtainMessage(1);
 				msg.obj = loginInfo;
@@ -145,22 +144,22 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 				if (result.isSuccess() == true) {
 					User user = new User();
 					user.setUserId(0);
-//					user.setUserName("福建一只肖毛驴");
 					user.setToken(result.getTag());
 					user.setIsBind(false);
 					user.setExpired(DateUtil.turnToDate(result.getTime()));
-//					user.setUserImg("http://img5.duitang.com/uploads/item/201411/30/20141130201227_AfQWu.thumb.700_0.jpeg");
 					user.setLast_login(DateUtil.getCurrentDate());
 					MyApplication application = (MyApplication) getApplication();
 					application.setLoginUser(user);
 					// 登录用户存储到本地sql
 					userDao.deleteAll();
 					userDao.insert(user);
-					if(goodsDao.queryBuilder().build().list() != null && goodsDao.queryBuilder().build().list().size() > 0){
+					if (goodsDao.queryBuilder().build().list() != null
+							&& goodsDao.queryBuilder().build().list().size() > 0) {
 						sendShoppingCar();
-					}else{
-					// startActivity(intent);
-						sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION));
+					} else {
+						// startActivity(intent);
+						sendBroadcast(new Intent(
+								AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION));
 						finish();
 					}
 				} else if (result.isSuccess() == false) {
@@ -173,8 +172,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 				break;
 			case 2:
 				goodsDao.deleteAll();
-				sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION));
-					finish();
+				sendBroadcast(new Intent(
+						AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION));
+				finish();
 				break;
 			default:
 				break;
@@ -183,6 +183,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 
 	};
 	private List<ShoppingGoods> list;
+
 	private void sendShoppingCar() {
 		user = getUser();
 		list = goodsDao.queryBuilder().build().list();
@@ -191,32 +192,34 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			new Thread(new Runnable() {
 				@Override
 				public void run() {
-					String result = HttpUtils.post(UrlUtil.GET_CAR_LIST_URL, array, "id-token", user.getToken());
+					String result = HttpUtils.post(UrlUtil.GET_CAR_LIST_URL,
+							array, "id-token", user.getToken());
 					Message msg = mHandler.obtainMessage(2);
 					mHandler.sendMessage(msg);
 				}
 			}).start();
 		}
 	}
-private JSONArray array;
+
+	private JSONArray array;
+
 	private void toObject() {
-			try {
-				array = new JSONArray();
-				for(int i = 0; i < list.size(); i ++){
-					ShoppingGoods goods = list.get(i);
-					JSONObject object = new JSONObject();
-					object.put("cartId", goods.getCartId());
-					object.put("skuId", goods.getGoodsId());
-					object.put("amount", goods.getGoodsNums());
-					object.put("state", goods.getState());
-					array.put(object);
-				}
-				
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		try {
+			array = new JSONArray();
+			for (int i = 0; i < list.size(); i++) {
+				ShoppingGoods goods = list.get(i);
+				JSONObject object = new JSONObject();
+				object.put("cartId", goods.getCartId());
+				object.put("skuId", goods.getGoodsId());
+				object.put("amount", goods.getGoodsNums());
+				object.put("state", goods.getState());
+				array.put(object);
 			}
-		
+
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }
