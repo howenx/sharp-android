@@ -7,6 +7,8 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Message;
 import android.app.Fragment;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.LayoutInflater;
@@ -19,6 +21,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.hanmimei.R;
+import com.hanmimei.activity.GoodsDetailActivity;
+import com.hanmimei.activity.ThemeGoodsActivity;
 import com.hanmimei.entity.Slider;
 
 /**
@@ -128,7 +132,7 @@ public class CycleViewPager extends Fragment implements OnPageChangeListener{
 			indicators[i] = (ImageView) view.findViewById(R.id.image_indicator);
 			indicatorLayout.addView(view);
 		}
-
+		
 		adapter = new ViewPagerAdapter();
 
 		// 默认指向第一项，下方viewPager.setCurrentItem将触发重新计算指示器指向
@@ -289,7 +293,15 @@ public class CycleViewPager extends Fragment implements OnPageChangeListener{
 					
 					@Override
 					public void onClick(View v) {
-						mImageCycleViewListener.onImageClick(infos.get(currentPosition - 1), currentPosition, v);
+						if(infos.get(currentPosition - 1).getType().equals("D")){
+							Intent intent = new Intent(getActivity(), GoodsDetailActivity.class);
+							intent.putExtra("url", infos.get(currentPosition - 1).getUrl());
+							getActivity().startActivity(intent);
+						}else if(infos.get(currentPosition - 1).getType().equals("T")){
+							Intent intent = new Intent(getActivity(), ThemeGoodsActivity.class);
+							intent.putExtra("url", infos.get(currentPosition - 1).getUrl());
+							getActivity().startActivity(intent);
+						}
 					}
 				});
 			}

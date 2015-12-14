@@ -2,19 +2,7 @@ package com.hanmimei.activity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.hanmimei.R;
-import com.hanmimei.data.AppConstant;
-import com.hanmimei.data.DataParser;
-import com.hanmimei.data.UrlUtil;
-import com.hanmimei.entity.Adress;
-import com.hanmimei.entity.Result;
-import com.hanmimei.entity.User;
-import com.hanmimei.utils.ActionBarUtil;
-import com.hanmimei.utils.CommonUtil;
-import com.hanmimei.utils.HttpUtils;
-import com.hanmimei.wheel.widget.OnWheelChangedListener;
-import com.hanmimei.wheel.widget.WheelView;
-import com.hanmimei.wheel.widget.adapter.ArrayWheelAdapter;
+
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -31,10 +19,23 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.hanmimei.R;
+import com.hanmimei.data.AppConstant;
+import com.hanmimei.data.DataParser;
+import com.hanmimei.data.UrlUtil;
+import com.hanmimei.entity.Adress;
+import com.hanmimei.entity.Result;
+import com.hanmimei.entity.User;
+import com.hanmimei.utils.ActionBarUtil;
+import com.hanmimei.utils.CommonUtil;
+import com.hanmimei.utils.HttpUtils;
+import com.hanmimei.wheel.widget.OnWheelChangedListener;
+import com.hanmimei.wheel.widget.WheelView;
+import com.hanmimei.wheel.widget.adapter.ArrayWheelAdapter;
 
 @SuppressLint("NewApi") 
 public class EditAdressActivity extends BaseActivity implements OnClickListener,OnWheelChangedListener{
@@ -89,6 +90,7 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 		setUpListener();
 		setUpData();
 	}
+	//设置地区选择器
 	private void setUpData() {
 		initProvinceDatas();
 		mViewProvince.setViewAdapter(new ArrayWheelAdapter<String>(this, mProvinceDatas));
@@ -137,12 +139,13 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
     	// 添加change事件
     	mViewDistrict.addChangingListener(this);
     }
+	//初始化控件
 	private void setUpViews() {
 		mViewProvince = (WheelView) popView.findViewById(R.id.id_province);
 		mViewCity = (WheelView) popView.findViewById(R.id.id_city);
 		mViewDistrict = (WheelView) popView.findViewById(R.id.id_district);
 	}
-
+	//初始化数据
 	private void initView() {
 		add_adre.setText("保存修改");
 		name_edit.setText(old_Adress.getName());
@@ -156,7 +159,7 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 			check_box.setSelected(false);
 		}
 	}
-
+	//初始化控件
 	private void findView() {
 		add_adre = (TextView) findViewById(R.id.add);
 		name_edit = (EditText) findViewById(R.id.name);
@@ -176,7 +179,6 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 				}
 			}
 		});
-//		city_edit.setOnClickListener(this);
 		add_adre.setOnClickListener(this);
 		findViewById(R.id.show).setOnClickListener(this);
 	}
@@ -191,6 +193,7 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 			checkInfo();
 			break;
 		case R.id.show:
+			//关闭键盘
 			CommonUtil.closeBoard(this);
 			parenView = LayoutInflater.from(this).inflate(R.layout.edit_adress_layout, null);
 			pop.showAtLocation(parenView, Gravity.BOTTOM, 0, 0);
@@ -199,7 +202,7 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 			break;
 		}
 	}
-
+	//地区选择器 popwindow初始化
 	private void initWheel() {
 		pop = new PopupWindow(this);
 		popView = LayoutInflater.from(this).inflate(R.layout.pop_wheel_layout, null);
@@ -223,11 +226,12 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 			}
 		});
 	}
-
+	//根据选择设置地区
 	private void setEditCity() {
 		city_edit.setText(mCurrentProviceName+"  "+mCurrentCityName+"  "+mCurrentDistrictName);
 	}
 
+	//检查输入
 	private void checkInfo(){
 		name = name_edit.getText().toString();
 		phone = phone_edit.getText().toString();
@@ -250,14 +254,16 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 		}else if(!CommonUtil.isPhoneNum(phone)){
 			Toast.makeText(this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
 			return;
-		}else if(idCard.equals("")){
-			Toast.makeText(this, "请输入正确的身份证号", Toast.LENGTH_SHORT).show();
+		}else if(!CommonUtil.IDCardValidate(idCard).equals("")){
+			Toast.makeText(this, CommonUtil.IDCardValidate(idCard), Toast.LENGTH_SHORT).show();
 			return;
 		}else{
 			toObject();
 			addNewAdress();
 		}
 	}
+	
+	//封装json，用于请求参数
 	private void toObject() {
 		object = new JSONObject();
 		try {
@@ -281,7 +287,7 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 		}
 		
 	}
-
+	//增加或是更新请求网络
 	private void addNewAdress() {
 		dialog = CommonUtil.dialog(this, "正在提交，请稍后...");
 		dialog.show();
@@ -339,7 +345,8 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 		}
 		
 	};
-
+	
+	//地区选择器 滑动改变的方法
 	@Override
 	public void onChanged(WheelView wheel, int oldValue, int newValue) {
 		// TODO Auto-generated method stub

@@ -136,7 +136,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 				}
 				TextView tag = (TextView) view.findViewById(R.id.tag);
 				ImageView point_b = (ImageView) view.findViewById(R.id.point_b);
-				WaveAnimationUtil.waveAnimation(point_b, 3.0f);
+				WaveAnimationUtil.waveAnimation(point_b, 5.0f);
 				FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
 						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 				lp.setMargins(

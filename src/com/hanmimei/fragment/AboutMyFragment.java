@@ -114,10 +114,6 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 		user_name.setText(user.getUserName());
 		String show = "    优惠券        " + user.getCouponCount() + "张可用";
 		KeyWordUtil.setDifrentFontStyle(getActivity(), youhui, show, 14, show.length());
-//		SpannableString styledText = new SpannableString(show);  
-//        styledText.setSpan(new TextAppearanceSpan(getActivity(), R.style.youhui1), 0, 14, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);  
-//        styledText.setSpan(new TextAppearanceSpan(getActivity(), R.style.youhui2), 14, show.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); 
-//		youhui.setText(styledText, TextView.BufferType.SPANNABLE);
 	}
 
 	private void clearView() {
@@ -126,12 +122,12 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 		imageOptions = InitImageLoader.initOptions();
 		imageLoader.displayImage("", header, imageOptions);
 		user_name.setText("点击登录");
+		youhui.setText("    优惠券");
 	}
 
 	private void findView(View view) {
 		header = (RoundImageView) view.findViewById(R.id.header);
 		user_name = (TextView) view.findViewById(R.id.user_name);
-
 		address = (TextView) view.findViewById(R.id.address);
 		address.setCompoundDrawables(address_icon, null, jiantou_icon, null);
 		order = (TextView) view.findViewById(R.id.order);

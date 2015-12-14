@@ -137,7 +137,7 @@ public class ShoppingCartFragment extends Fragment implements
 			@Override
 			public void run() {
 				String result = HttpUtils.post(
-						"http://172.28.3.51:9003/client/cart/get/sku/list",
+						"http://172.28.3.18:9003/client/cart/get/sku/list",
 						array, "null", "");
 				ShoppingCar car = DataParser.parserShoppingCar(result);
 				Message msg = mHandler.obtainMessage(1);
@@ -158,7 +158,7 @@ public class ShoppingCartFragment extends Fragment implements
 				Message msg = mHandler.obtainMessage(1);
 				msg.obj = car;
 				mHandler.sendMessage(msg);
-			}
+			}	
 		}).start();
 	}
 	

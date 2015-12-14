@@ -83,7 +83,6 @@ public class ThemeAdapter extends BaseAdapter {
 		holder.price.setText(activity.getResources().getString(R.string.price, theme.getItemPrice()));
 		holder.old_price.setText(activity.getResources().getString(R.string.price, theme.getItemSrcPrice()));
 		holder.old_price.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-//		holder.discount.setText(activity.getResources().getString(R.string.discount, theme.getItemDiscount()));
 		if(theme.getState().equals("Y")){
 			holder.sold_out.setVisibility(View.GONE);
 		}else{

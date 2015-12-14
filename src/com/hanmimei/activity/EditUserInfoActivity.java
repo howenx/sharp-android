@@ -70,22 +70,19 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 	private Bitmap photo;
 	
 	private User oldUser;
-//	private UserDao userDao;
 	private JSONObject object;
-//	private User newUser;
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.user_info_layout);
-		//ActionBarUtil.setActionBarStyle(this, "个人资料", 0, true, null);
-		//loadData();
 		oldUser = getUser();
-//		newUser = new User();
 		findView();
 		initView();
 		initSelectPop();
 		initSexWindow();
 	}
+	
+	//初始化控件
 	private void findView() {
 		header = (RoundImageView) findViewById(R.id.headerImg);
 		up_header = (RelativeLayout) findViewById(R.id.up_header);
@@ -103,7 +100,7 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 		TextView title = (TextView) findViewById(R.id.header);
 		title.setText("修改用户信息");
 	}
-
+	//填充数据
 	protected void initView() {
 		InitImageLoader.initLoader(this).displayImage(oldUser.getUserImg(), header, InitImageLoader.initOptions());
 		name.setText(oldUser.getUserName());
@@ -129,6 +126,7 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 			break;
 		}
 	}
+	//检查输入是否正确
 	private void checkInput() {
 		name_str = name.getText().toString();
 		if(name_str.equals("")){
@@ -137,6 +135,8 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 			UpUserInfo();
 		}
 	}
+	
+	//更新用户信息到服务器
 	private void UpUserInfo() {
 		toObject();
 		new Thread(new Runnable() {
@@ -150,6 +150,8 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 			}
 		}).start();
 	}
+	
+	//封装json，作为请求参数
 	private void toObject() {
 		try {
 			object = new JSONObject();
@@ -184,6 +186,7 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 		}
 		
 	};
+	//初始化性别popwindow
 	private void initSexWindow() {
 		sexPopupWindow = new PopupWindow(this);
 		View view = LayoutInflater.from(this).inflate(
@@ -213,6 +216,8 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 			}
 		});
 	}
+	
+	//初始化选择头像popwindow
 	private void initSelectPop() {
 		popWindow = new PopupWindow(this);
 		View view = LayoutInflater.from(this).inflate(

@@ -31,7 +31,7 @@ public class FirstShowActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.first_show_layout);
-		//判断是否自动登录，以及更新token
+		//判断是否自动登录
 		loginUser();
 		//判断是否是第一次进入app
 		SharedPreferencesUtil util = new SharedPreferencesUtil(
@@ -58,7 +58,7 @@ public class FirstShowActivity extends BaseActivity {
 			}).start();
 		}
 	}
-
+	//判断用户token信息
 	private void loginUser() {
 		userDao = getDaoSession().getUserDao();
 		user = userDao.queryBuilder().build().unique();
@@ -74,7 +74,7 @@ public class FirstShowActivity extends BaseActivity {
 		}
 		}
 	}
-
+	//更新token
 	private void getNewToken() {
 		new Thread(new Runnable() {
 			

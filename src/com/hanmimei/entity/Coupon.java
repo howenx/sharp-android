@@ -10,6 +10,21 @@ public class Coupon {
 	private String state;
 	private String orderId;
 	private String userAt;
+	private String cateNm;
+	private double limitQuota;
+	
+	public String getCateNm() {
+		return cateNm;
+	}
+	public void setCateNm(String cateNm) {
+		this.cateNm = cateNm;
+	}
+	public double getLimitQuota() {
+		return limitQuota;
+	}
+	public void setLimitQuota(double limitQuota) {
+		this.limitQuota = limitQuota;
+	}
 	public String getCoupId() {
 		return coupId;
 	}
