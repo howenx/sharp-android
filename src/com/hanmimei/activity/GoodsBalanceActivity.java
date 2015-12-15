@@ -38,25 +38,29 @@ import com.hanmimei.utils.ToastUtils;
 public class GoodsBalanceActivity extends BaseActivity implements
 		OnClickListener {
 
-	private RadioGroup group_pay_type, group_send_time, group_coupons;
-	private TextView send_time, pay_type;
-	private ListView mListView, mCouponView;
-	private ShoppingCar car;
+	private RadioGroup group_pay_type, group_send_time, group_coupons; // 支付类型
+																		// /发送时间/
+																		// 优惠券
+	private TextView send_time, pay_type; // 选中的发送时间 /支付类型
+	private ListView mListView;//
 	private List<Customs> customslist; // 保税区列表
 
 	private TextView all_price, all_money, youhui, all_portalfee, all_shipfee;
-	private TextView name, phone, address, idCard,coupon_num, coupon_denomi;
+	private TextView name, phone, address, idCard, coupon_num, coupon_denomi;
 
-	private int selectedId = 0;
+	private int selectedId = 0; // 默认地址为0
 
 	private GoodsBalanceCustomAdapter adapter;
+
+	private ShoppingCar car; // 所要显示的商品数据
+	private GoodsBalance goodsBalance; // 本页数据集合
 
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		ActionBarUtil.setActionBarStyle(this, "支付结算");
 		setContentView(R.layout.goods_balance_layout);
-
+		// 获取要购买的数据
 		car = (ShoppingCar) getIntent().getSerializableExtra("car");
 		customslist = car.getList();
 		findView();
@@ -65,10 +69,12 @@ public class GoodsBalanceActivity extends BaseActivity implements
 		mListView.setFocusable(false);
 		all_price.setText(getResources().getString(R.string.price,
 				car.getAllPrice()));
-		// initViews();
 		loadData(Long.valueOf(selectedId));
 	}
 
+	/**
+	 * 初始化所有view对象
+	 */
 	private void findView() {
 		group_pay_type = (RadioGroup) findViewById(R.id.group_pay_type);
 		group_send_time = (RadioGroup) findViewById(R.id.group_send_time);
@@ -101,7 +107,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 
 					@Override
 					public void onCheckedChanged(RadioGroup arg0, int arg1) {
-						// TODO Auto-generated method stub
+						// 显示选中的支付方式
 						RadioButton btn = (RadioButton) findViewById(arg1);
 						pay_type.setText(btn.getText());
 					}
@@ -111,7 +117,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 
 					@Override
 					public void onCheckedChanged(RadioGroup arg0, int arg1) {
-						// TODO Auto-generated method stub
+						// 显示选中的送达时间
 						RadioButton btn = (RadioButton) findViewById(arg1);
 						send_time.setText(btn.getText());
 					}
@@ -121,7 +127,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
-				// TODO Auto-generated method stub
+				// 优惠券响应时间
 				RadioButton btn = (RadioButton) findViewById(checkedId);
 				if (checkedId == R.id.btn_unuse) {
 					coupon_denomi.setText(btn.getText());
@@ -135,90 +141,11 @@ public class GoodsBalanceActivity extends BaseActivity implements
 						car.getDenomination()));
 				all_money.setText(getResources().getString(R.string.all_money,
 						car.getAllMoney()));
-
 			}
 		});
 
 	}
-
-	private void initViews() {
-
-		if (goodsBalance != null) {
-			if (goodsBalance.getMessage().getCode() == 200) {
-				Settle settle = goodsBalance.getSettle();
-
-				car.setFactPortalFee(settle.getFactPortalFee());
-				car.setFactShipFee(settle.getFactShipFee());
-				car.setPortalFee(settle.getPortalFee());
-				car.setShipFee(settle.getShipFee());
-
-				for (Customs cs : car.getList()) {
-					for (SingleCustoms scs : settle.getSingleCustoms()) {
-						if (cs.getInvCustoms().equals(scs.getInvCustoms())) {
-							cs.setFactPortalFeeSingleCustoms(scs
-									.getFactPortalFeeSingleCustoms());
-							cs.setFactSingleCustomsShipFee(scs
-									.getFactSingleCustomsShipFee());
-							cs.setPortalSingleCustomsFee(scs
-									.getPortalSingleCustomsFee());
-							cs.setShipSingleCustomsFee(scs
-									.getShipSingleCustomsFee());
-							break;
-						}
-					}
-				}
-				adapter.notifyDataSetChanged();
-
-				if (settle.getAddress() != null) {
-					findViewById(R.id.selectAddress).setVisibility(View.VISIBLE);
-					findViewById(R.id.newAddress).setVisibility(View.GONE);
-					selectedId = settle.getAddress().getAddId();
-					address.setText(getResources().getString(R.string.address, settle.getAddress().getDeliveryCity()+ settle.getAddress().getDeliveryDetail()));
-					name.setText(getResources().getString(R.string.name,settle.getAddress().getName()));
-					phone.setText(getResources().getString(R.string.phone,settle.getAddress().getTel()));
-					idCard.setText(getResources().getString(R.string.idcard,settle.getAddress().getIdCardNum()));
-//					if(settle.getAddress()){
-//						findViewById(R.id.isDefault).setVisibility(View.VISIBLE);
-//					}
-					
-				}
-				if (settle.getCoupons() != null) {
-					List<Coupon> coupons = settle.getCoupons();
-					coupon_num.setText(coupons.size() + "张可用");
-					RadioButton btn = null;
-					for (Coupon c : coupons) {
-						btn = getCustomRadioButton();
-						btn.setText(c.getDenomination() + "");
-						group_coupons.addView(btn);
-					}
-				}
-
-				all_shipfee.setText(getResources().getString(R.string.price,
-						car.getFactShipFee()));
-				all_price.setText(getResources().getString(R.string.price,
-						car.getAllPrice()));
-				all_portalfee.setText(getResources().getString(R.string.price,
-						car.getFactPortalFee()));
-				youhui.setText(getResources().getString(R.string.price,
-						car.getDenomination()));
-				all_money.setText(getResources().getString(R.string.all_money,
-						car.getAllMoney()));
-
-				findViewById(R.id.btn_pay).setOnClickListener(this);
-			} else {
-				ToastUtils.Toast(this, goodsBalance.getMessage().getMessage());
-				findViewById(R.id.btn_pay).setBackgroundColor(
-						Color.parseColor("#9F9F9F"));
-				findViewById(R.id.selectAddress).setVisibility(View.GONE);
-				findViewById(R.id.newAddress).setVisibility(View.VISIBLE);
-			}
-		}
-	}
-
-	private RadioButton getCustomRadioButton() {
-		return (RadioButton) getLayoutInflater().inflate(
-				R.layout.panel_radiobutton, null);
-	}
+	
 
 	@Override
 	public void onClick(View v) {
@@ -266,7 +193,12 @@ public class GoodsBalanceActivity extends BaseActivity implements
 		}
 	}
 
-	// 网络请求数据
+	/**
+	 * 加载网络数据
+	 * 
+	 * @param addressId
+	 *            被选中的地址id
+	 */
 	private void loadData(Long addressId) {
 		final JSONArray array = JSONPaserTool.ClientSettlePaser(car, addressId);
 		submitTask(new Runnable() {
@@ -281,8 +213,6 @@ public class GoodsBalanceActivity extends BaseActivity implements
 		});
 	}
 
-	private GoodsBalance goodsBalance;
-
 	private Handler mHandler = new Handler() {
 
 		@Override
@@ -291,11 +221,105 @@ public class GoodsBalanceActivity extends BaseActivity implements
 			if (msg.what == 1) {
 				String result = (String) msg.obj;
 				goodsBalance = new Gson().fromJson(result, GoodsBalance.class);
-				initViews();
+				initViewData();
 			}
 		}
 
 	};
+
+	/**
+	 * 初始化添加view数据
+	 */
+	private void initViewData() {
+
+		if (goodsBalance == null)
+			return ;
+			if (goodsBalance.getMessage().getCode() == 200) {
+				Settle settle = goodsBalance.getSettle();
+				//添加商品 行邮税 运费等信息
+				car.setFactPortalFee(settle.getFactPortalFee());
+				car.setFactShipFee(settle.getFactShipFee());
+				car.setPortalFee(settle.getPortalFee());
+				car.setShipFee(settle.getShipFee());
+
+				for (Customs cs : car.getList()) {
+					for (SingleCustoms scs : settle.getSingleCustoms()) {
+						if (cs.getInvCustoms().equals(scs.getInvCustoms())) {
+							cs.setFactPortalFeeSingleCustoms(scs
+									.getFactPortalFeeSingleCustoms());
+							cs.setFactSingleCustomsShipFee(scs
+									.getFactSingleCustomsShipFee());
+							cs.setPortalSingleCustomsFee(scs
+									.getPortalSingleCustomsFee());
+							cs.setShipSingleCustomsFee(scs
+									.getShipSingleCustomsFee());
+							break;
+						}
+					}
+				}
+				//通知显示
+				adapter.notifyDataSetChanged();
+				//如果有默认地址 则显示地址信息
+				if (!settle.getAddress().isEmpty()) {
+					findViewById(R.id.selectAddress).setVisibility(View.VISIBLE);
+					findViewById(R.id.newAddress).setVisibility(View.GONE);
+					
+					selectedId = settle.getAddress().getAddId();
+					address.setText(getResources().getString(
+							R.string.address,
+							settle.getAddress().getDeliveryCity()
+									+ settle.getAddress().getDeliveryDetail()));
+					name.setText(getResources().getString(R.string.name,
+							settle.getAddress().getName()));
+					phone.setText(getResources().getString(R.string.phone,
+							settle.getAddress().getTel()));
+					idCard.setText(getResources().getString(R.string.idcard,
+							settle.getAddress().getIdCardNum()));
+
+				}else{
+					findViewById(R.id.selectAddress).setVisibility(View.GONE);
+					findViewById(R.id.newAddress).setVisibility(View.VISIBLE);
+				}
+				//如果有优惠券则显示优惠券信息
+				if (settle.getCoupons() != null && settle.getCoupons().size()>0) {
+					List<Coupon> coupons = settle.getCoupons();
+					coupon_num.setText(coupons.size() + "张可用");
+					RadioButton btn = null;
+					for (Coupon c : coupons) {
+						btn = getCustomRadioButton();
+						btn.setText(c.getDenomination() + "");
+						group_coupons.addView(btn);
+					}
+				}
+
+				all_shipfee.setText(getResources().getString(R.string.price,
+						car.getFactShipFee()));
+				all_price.setText(getResources().getString(R.string.price,
+						car.getAllPrice()));
+				all_portalfee.setText(getResources().getString(R.string.price,
+						car.getFactPortalFee()));
+				youhui.setText(getResources().getString(R.string.price,
+						car.getDenomination()));
+				all_money.setText(getResources().getString(R.string.all_money,
+						car.getAllMoney()));
+				
+				findViewById(R.id.btn_pay).setOnClickListener(this);
+			} else {
+				ToastUtils.Toast(this, goodsBalance.getMessage().getMessage());
+				findViewById(R.id.btn_pay).setBackgroundColor(
+						Color.parseColor("#9F9F9F"));
+				findViewById(R.id.selectAddress).setVisibility(View.GONE);
+				findViewById(R.id.newAddress).setVisibility(View.VISIBLE);
+			}
+		
+	}
+	
+	
+	private RadioButton getCustomRadioButton() {
+		return (RadioButton) getLayoutInflater().inflate(
+				R.layout.panel_radiobutton, null);
+	}
+
 
 	@Override
 	protected void onActivityResult(int arg0, int arg1, Intent arg2) {
@@ -305,10 +329,14 @@ public class GoodsBalanceActivity extends BaseActivity implements
 			findViewById(R.id.selectAddress).setVisibility(View.VISIBLE);
 			HMMAddress adress = (HMMAddress) arg2
 					.getSerializableExtra("address");
-			address.setText(getResources().getString(R.string.address,adress.getCity() + adress.getAdress() ));
-			name.setText(getResources().getString(R.string.name,adress.getName()));
-			phone.setText(getResources().getString(R.string.phone,adress.getPhone()));
-			idCard.setText(getResources().getString(R.string.idcard,adress.getIdCard()));
+			address.setText(getResources().getString(R.string.address,
+					adress.getCity() + adress.getAdress()));
+			name.setText(getResources().getString(R.string.name,
+					adress.getName()));
+			phone.setText(getResources().getString(R.string.phone,
+					adress.getPhone()));
+			idCard.setText(getResources().getString(R.string.idcard,
+					adress.getIdCard()));
 			selectedId = adress.getAdress_id();
 			if (adress.isDefault()) {
 				findViewById(R.id.isDefault).setVisibility(View.VISIBLE);

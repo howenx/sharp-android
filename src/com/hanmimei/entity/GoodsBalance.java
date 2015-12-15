@@ -102,7 +102,9 @@ public class GoodsBalance {
 		private String deliveryDetail;
 		private String idCardNum;
 		
-		
+		public boolean isEmpty(){
+			return addId==null;
+		}
 		
 		public String getIdCardNum() {
 			return idCardNum;
