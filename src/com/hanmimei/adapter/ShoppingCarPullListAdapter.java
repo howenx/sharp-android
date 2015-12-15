@@ -60,9 +60,9 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 		if(custom.getTax() != 0){
 			holder.tax.setVisibility(View.VISIBLE);
 			if(Double.compare(custom.getTax(), custom.getPostalStandard()) > 0){
-				holder.tax.setText("行邮税超过¥" + custom.getPostalStandard() +"需收¥" + custom.getTax()+"行邮税");
+				holder.tax.setText("行邮税为¥" + custom.getTax());
 			}else{
-				holder.tax.setText("行邮税为¥" + custom.getTax() + " 不满" + custom.getPostalStandard()+"（免税）");
+				holder.tax.setText("行邮税为¥" + custom.getTax() + "（免税）");
 			}
 		}else{
 			holder.tax.setVisibility(View.GONE);
