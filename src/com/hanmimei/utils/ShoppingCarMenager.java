@@ -137,12 +137,24 @@ public class ShoppingCarMenager {
 	public void upCustoms(){
 		for(int i = 0; i < list.size(); i ++){
 			double tax = 0;
+			double allprice = 0;
 			List<ShoppingGoods> goods = list.get(i).getList();
 			for(int j = 0; j < goods.size(); j ++){
 				if(goods.get(j).getState().equals("G"))
-					tax = tax + goods.get(j).getGoodsPrice() * goods.get(j).getGoodsNums() * goods.get(j).getPostalTaxRate();
+					tax = tax + goods.get(j).getGoodsPrice() * goods.get(j).getGoodsNums() * goods.get(j).getPostalTaxRate() * 0.01;
 			}
-			list.get(i).setTax(tax);
+			if(Double.compare(tax, list.get(i).getPostalStandard()) > 0){
+				tax = 0;
+				for(int j = 0; j < goods.size(); j ++){
+					if(goods.get(j).getState().equals("G")){
+						tax = tax + goods.get(j).getGoodsPrice() * goods.get(j).getGoodsNums() / (1 - goods.get(j).getPostalTaxRate()*0.01);
+						allprice = allprice + goods.get(j).getGoodsPrice() * goods.get(j).getGoodsNums();
+					}
+				}
+				list.get(i).setTax(tax - allprice);
+			}else{
+				list.get(i).setTax(tax);
+			}
 		}
 		adapter.notifyDataSetChanged();
 	}
