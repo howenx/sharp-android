@@ -85,12 +85,15 @@ public class GoodsDetailActivity extends BaseActivity implements
 		ActionBarUtil.setActionBarStyle(this, "商品详情", R.drawable.fenxiang,
 				true, this);
 		setContentView(R.layout.goods_detail_layout);
-		findView(arg0);
+		findView();
 		loadDataByUrl();
 		// registerReceivers();
 	}
-
-	private void findView(Bundle savedInstanceState) {
+	/**
+	 * 初始化所有view
+	 * @param savedInstanceState
+	 */
+	private void findView() {
 
 		slider = (SliderLayout) findViewById(R.id.slider);
 		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
@@ -116,7 +119,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 		user = getUser();
 		goodsDao = getDaoSession().getShoppingGoodsDao();
-		goods = new ShoppingGoods();
+		
 		findViewById(R.id.btn_pay).setOnClickListener(this);
 		findViewById(R.id.btn_shopcart).setOnClickListener(this);
 		findViewById(R.id.like).setOnClickListener(this);
@@ -164,42 +167,11 @@ public class GoodsDetailActivity extends BaseActivity implements
 			showPortalFeeInfo();
 			break;
 		case R.id.btn_pay:
-			if (getUser() == null) {
-				startActivity(new Intent(this, LoginActivity.class));
-				sendBroadcast(new Intent(
-						AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION));
-				return;
-			}
-			ShoppingCar car = new ShoppingCar();
-			List<Customs> list = new ArrayList<Customs>();
-			Customs customs = new Customs();
-
-			ShoppingGoods sgoods = null;
-			for (Stock s : stocks) {
-				if (s.getOrMasterInv()) {
-					sgoods = new ShoppingGoods();
-					sgoods.setGoodsId(s.getId());
-					sgoods.setGoodsImg(s.getInvImg());
-					sgoods.setGoodsName(s.getInvTitle());
-					sgoods.setGoodsNums(1);
-					sgoods.setGoodsPrice(s.getItemPrice());
-					sgoods.setInvArea(s.getInvArea());
-					sgoods.setInvCustoms(s.getInvCustoms());
-					sgoods.setPostalTaxRate(s.getPostalTaxRate());
-					sgoods.setPostalStandard(s.getPostalStandard());
-				}
-			}
-			customs.addShoppingGoods(sgoods);
-			customs.setInvArea(sgoods.getInvArea());
-			customs.setInvCustoms(sgoods.getInvCustoms());
-			list.add(customs);
-			car.setList(list);
-			Intent intent = new Intent(this, GoodsBalanceActivity.class);
-			intent.putExtra("car", car);
-			startActivity(intent);
+			clickPay();
 			break;
 
 		case R.id.btn_shopcart:
+			ShoppingGoods goods = new ShoppingGoods();
 			for (int i = 0; i < stocks.size(); i++) {
 				Stock stock = stocks.get(i);
 				if (stock.getOrMasterInv()) {
@@ -209,7 +181,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 				}
 			}
 			if (user != null) {
-				sendData();
+				sendData(goods);
 			} else {
 				goodsDao.insert(goods);
 				ToastUtils.Toast(this);
@@ -229,9 +201,51 @@ public class GoodsDetailActivity extends BaseActivity implements
 			break;
 		}
 	}
+	/**
+	 * 点击立即购买按钮的响应事件
+	 */
+	private void clickPay(){
+		//未登录跳到登陆页面
+		if (getUser() == null) {
+			startActivity(new Intent(this, LoginActivity.class));
+			sendBroadcast(new Intent(
+					AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION));
+			return;
+		}
+		ShoppingCar car = new ShoppingCar();
+		List<Customs> list = new ArrayList<Customs>();
+		Customs customs = new Customs();
+
+		ShoppingGoods sgoods = null;
+		for (Stock s : stocks) {
+			if (s.getOrMasterInv()) {
+				sgoods = new ShoppingGoods();
+				sgoods.setGoodsId(s.getId());
+				sgoods.setGoodsImg(s.getInvImg());
+				sgoods.setGoodsName(s.getInvTitle());
+				sgoods.setGoodsNums(1);
+				sgoods.setGoodsPrice(s.getItemPrice());
+				sgoods.setInvArea(s.getInvArea());
+				sgoods.setInvCustoms(s.getInvCustoms());
+				sgoods.setPostalTaxRate(s.getPostalTaxRate());
+				sgoods.setPostalStandard(s.getPostalStandard());
+			}
+		}
+		customs.addShoppingGoods(sgoods);
+		customs.setInvArea(sgoods.getInvArea());
+		customs.setInvCustoms(sgoods.getInvCustoms());
+		list.add(customs);
+		car.setList(list);
+		Intent intent = new Intent(this, GoodsBalanceActivity.class);
+		intent.putExtra("car", car);
+		startActivity(intent);
+	}
+	
 
 	PopupWindow window = null;
-
+	/**
+	 * 弹出显示税费的提醒框
+	 */
 	private void showPortalFeeInfo() {
 		// TODO Auto-generated method stub
 		View view = getLayoutInflater().inflate(R.layout.panel_portalfee, null);
@@ -250,9 +264,11 @@ public class GoodsDetailActivity extends BaseActivity implements
 	}
 
 	private ShoppingGoods goods;
-
-	private void sendData() {
-		toObject();
+	/**
+	 * 发送商品信息添加到购物车
+	 */
+	private void sendData(ShoppingGoods goods) {
+		final JSONArray array = toJSONArray(goods);
 		submitTask(new Runnable() {
 
 			@Override
@@ -267,30 +283,12 @@ public class GoodsDetailActivity extends BaseActivity implements
 			}
 		});
 	}
-
-	private Handler mHandler = new Handler() {
-
-		@Override
-		public void handleMessage(Message msg) {
-			super.handleMessage(msg);
-			if (msg.what == 1) {
-				HMessage hm = (HMessage) msg.obj;
-				if (hm.getCode() == 200) {
-					ToastUtils.Toast(GoodsDetailActivity.this);
-					sendBroadcast(new Intent(
-							AppConstant.MESSAGE_BROADCAST_ADD_CAR));
-				} else {
-					Toast.makeText(GoodsDetailActivity.this, hm.getMessage(),
-							Toast.LENGTH_SHORT).show();
-				}
-			}
-		}
-
-	};
-
-	private JSONArray array;
-
-	private void toObject() {
+	
+	/**
+	 * 拼接商品信息
+	 */
+	private JSONArray toJSONArray(ShoppingGoods goods) {
+		JSONArray array = null;
 		try {
 			array = new JSONArray();
 			JSONObject object = new JSONObject();
@@ -303,7 +301,33 @@ public class GoodsDetailActivity extends BaseActivity implements
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+		return array;
 	}
+	
+	private Handler mHandler = new Handler() {
+
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			if (msg.what == 1) {
+				HMessage hm = (HMessage) msg.obj;
+				if (hm.getCode() == 200) {
+					//购物车添加成功，显示提示框
+					ToastUtils.Toast(GoodsDetailActivity.this);
+					//发送广播 提示购物车更新数据
+					sendBroadcast(new Intent(
+							AppConstant.MESSAGE_BROADCAST_ADD_CAR));
+				} else {
+					//提示添加失败原因
+					Toast.makeText(GoodsDetailActivity.this, hm.getMessage(),
+							Toast.LENGTH_SHORT).show();
+				}
+			}
+		}
+
+	};
+
+
 
 	/**
 	 * 初始化显示商品信息
