@@ -107,7 +107,6 @@ public class CouponFragment extends Fragment {
 					}
 				}
 				break;
-
 			default:
 				break;
 			}

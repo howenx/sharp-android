@@ -2,10 +2,6 @@ package com.hanmimei.adapter;
 
 import java.util.List;
 
-import com.hanmimei.R;
-import com.hanmimei.entity.Coupon;
-import com.hanmimei.entity.Ticket;
-
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,6 +10,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.hanmimei.R;
+import com.hanmimei.entity.Coupon;
 
 public class TicketAdapter extends BaseAdapter {
 	private List<Coupon> data;
