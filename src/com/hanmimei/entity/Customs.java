@@ -1,6 +1,7 @@
 package com.hanmimei.entity;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,11 +29,17 @@ public class Customs implements Serializable{
 	public Double getPortalSingleCustomsFee() {
 		return portalSingleCustomsFee;
 	}
+	public String getPortalSingleCustomsFeeFormat() {
+		return new DecimalFormat("##0.00").format(portalSingleCustomsFee);
+	}
 	public void setPortalSingleCustomsFee(Double portalSingleCustomsFee) {
 		this.portalSingleCustomsFee = portalSingleCustomsFee;
 	}
 	public Double getFactSingleCustomsShipFee() {
 		return factSingleCustomsShipFee;
+	}
+	public String getFactSingleCustomsShipFeeFormat() {
+		return new DecimalFormat("##0.00").format(factSingleCustomsShipFee);
 	}
 	public void setFactSingleCustomsShipFee(Double factSingleCustomsShipFee) {
 		this.factSingleCustomsShipFee = factSingleCustomsShipFee;
@@ -45,6 +52,9 @@ public class Customs implements Serializable{
 	}
 	public Double getFactPortalFeeSingleCustoms() {
 		return factPortalFeeSingleCustoms;
+	}
+	public String getFactPortalFeeSingleCustomsFormat() {
+		return new DecimalFormat("##0.00").format(factPortalFeeSingleCustoms);
 	}
 	public void setFactPortalFeeSingleCustoms(Double factPortalFeeSingleCustoms) {
 		this.factPortalFeeSingleCustoms = factPortalFeeSingleCustoms;

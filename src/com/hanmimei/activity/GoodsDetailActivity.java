@@ -401,7 +401,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 						s.getItemSrcPrice()));
 				itemSrcPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 				itemPrice.setText(getResources().getString(R.string.price,
-						s.getItemPrice()));
+						s.getItemPriceFormat()));
 				if (s.getRestrictAmount() > 0) {
 					num_restrictAmount.setVisibility(View.VISIBLE);
 					num_restrictAmount.setText(getResources().getString(

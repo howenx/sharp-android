@@ -60,11 +60,11 @@ public class GoodsBalanceCustomAdapter extends BaseAdapter {
 		Customs c = customs.get(arg0);
 		holder.area_name.setText(c.getInvArea());
 		holder.mListView.setAdapter(new GoodsBalanceAdapter(c.getList(), context));
-		holder.protalFee.setText(context.getResources().getString(R.string.postalFee, c.getFactPortalFeeSingleCustoms()));
-		holder.shipFee.setText(context.getResources().getString(R.string.shipFee, c.getFactSingleCustomsShipFee()));
+		holder.protalFee.setText(context.getResources().getString(R.string.postalFee, c.getFactPortalFeeSingleCustomsFormat()));
+		holder.shipFee.setText(context.getResources().getString(R.string.shipFee, c.getFactSingleCustomsShipFeeFormat()));
 		if(c.getFactPortalFeeSingleCustoms() == 0){
 			holder.biaoqian.setVisibility(View.VISIBLE);
-			holder.biaoqian.setText(context.getResources().getString(R.string.yuanguanshui, c.getPortalSingleCustomsFee()));
+			holder.biaoqian.setText(context.getResources().getString(R.string.yuanguanshui, c.getPortalSingleCustomsFeeFormat()));
 		}else{
 			holder.biaoqian.setVisibility(View.GONE);
 		}
