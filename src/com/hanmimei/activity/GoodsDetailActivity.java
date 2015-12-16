@@ -30,6 +30,7 @@ import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.hanmimei.R;
 import com.hanmimei.adapter.GoodsDetailParamAdapter;
 import com.hanmimei.dao.ShoppingGoodsDao;
+import com.hanmimei.dao.ShoppingGoodsDao.Properties;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
@@ -183,7 +184,14 @@ public class GoodsDetailActivity extends BaseActivity implements
 			if (user != null) {
 				sendData(goods);
 			} else {
-				goodsDao.insert(goods);
+				ShoppingGoods goods2 = goodsDao.queryBuilder().where(Properties.GoodsId.eq(goods.getGoodsId())).build().unique();
+				if(goods2 != null){
+					goodsDao.delete(goods2);
+					goods.setGoodsNums(goods2.getGoodsNums() + 1);
+					goodsDao.insert(goods);
+				}else{
+					goodsDao.insert(goods);
+				}
 				ToastUtils.Toast(this);
 				sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_ADD_CAR));
 			}

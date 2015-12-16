@@ -366,6 +366,8 @@ public class DataParser {
 				user.setPhone(obj.getString("phoneNum"));
 			if(obj.has("couponsCount"))
 				user.setCouponCount(obj.getInt("couponsCount"));
+			if(obj.has("gender"))
+				user.setSex(obj.getString("gender"));
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

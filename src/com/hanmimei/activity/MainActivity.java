@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.LinearLayout;
 import android.widget.TabHost.OnTabChangeListener;
+import android.widget.Toast;
 
 import com.hanmimei.R;
 import com.hanmimei.data.AppConstant;
@@ -38,14 +40,18 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 
 	private MainBroadCastReceiver netReceiver;
 	private FragmentTabHost mTabHost;
+	private LinearLayout guanggao;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		ActionBarUtil.setActionBarStyle(this, "", 0, false, this);
+		guanggao = (LinearLayout) findViewById(R.id.guanggao);
 		mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
 		mTabHost.setup(this, getSupportFragmentManager(), R.id.realcontent);
+		findViewById(R.id.close).setOnClickListener(this);
+		findViewById(R.id.gg_img).setOnClickListener(this);
 		mTabHost.setOnTabChangedListener(this);
 		TabHostManager.getInstance().initTabHostManager(this, mTabHost,
 				R.layout.tab_item_layout);
@@ -79,7 +85,13 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 		case R.id.setting:
 			DoJumpUtils.doJump(this, SettingActivity.class);
 			break;
-
+		case R.id.close:
+			guanggao.setVisibility(View.GONE);
+			break;
+		case R.id.gg_img:
+			Toast.makeText(this, "你点击了广告！！！", Toast.LENGTH_SHORT).show();
+			guanggao.setVisibility(View.GONE);
+			break;
 		default:
 			break;
 		}

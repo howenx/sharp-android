@@ -188,6 +188,7 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 					user.setPhone(userinfo.getPhone());
 					user.setUserImg(userinfo.getUserImg());
 					user.setCouponCount(userinfo.getCouponCount());
+					user.setSex(userinfo.getSex());
 					UserDao userDao = activity.getDaoSession().getUserDao();
 					userDao.deleteAll();
 					userDao.insert(user);

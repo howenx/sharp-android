@@ -104,10 +104,10 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 	protected void initView() {
 		InitImageLoader.initLoader(this).displayImage(oldUser.getUserImg(), header, InitImageLoader.initOptions());
 		name.setText(oldUser.getUserName());
-		if(oldUser.getSex() == null){
-			sex.setText("未知");
+		if(oldUser.getSex().equals("M")){
+			sex.setText("男");
 		}else{
-			sex.setText(oldUser.getSex());
+			sex.setText("女");
 			}
 	}
 	@Override

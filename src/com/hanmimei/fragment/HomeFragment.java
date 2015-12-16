@@ -2,7 +2,7 @@ package com.hanmimei.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import m.framework.ui.widget.pulltorefresh.Scrollable;
 import android.annotation.SuppressLint;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -15,22 +15,23 @@ import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
-
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.hanmimei.R;
 import com.hanmimei.activity.BaseActivity;
-import com.hanmimei.activity.MainActivity;
 import com.hanmimei.activity.ThemeGoodsActivity;
 import com.hanmimei.adapter.HomeAdapter;
 import com.hanmimei.dao.SliderDao;
@@ -47,7 +48,7 @@ import com.hanmimei.view.ViewFactory;
 
 @SuppressLint({ "NewApi", "InflateParams" })
 public class HomeFragment extends Fragment implements
-		OnRefreshListener2<ListView> {
+		OnRefreshListener2<ListView>,OnClickListener ,OnScrollListener{
 	private LayoutInflater inflater;
 	private PullToRefreshListView mListView;
 	private HomeAdapter adapter;
@@ -63,6 +64,7 @@ public class HomeFragment extends Fragment implements
 	private View headerView;
 	private List<ImageView> views = new ArrayList<ImageView>();
 	private CycleViewPager cycleViewPager;
+	private RelativeLayout back_top;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -81,6 +83,8 @@ public class HomeFragment extends Fragment implements
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.home_list_layout, null);
 		mListView = (PullToRefreshListView) view.findViewById(R.id.mylist);
+		back_top = (RelativeLayout) view.findViewById(R.id.back_top);
+		back_top.setOnClickListener(this);
 		mListView.setAdapter(adapter);
 		mListView.setMode(Mode.PULL_UP_TO_REFRESH);
 		mListView.setOnRefreshListener(this);
@@ -94,6 +98,7 @@ public class HomeFragment extends Fragment implements
 				mContext.startActivity(intent);
 			}
 		});
+		mListView.setOnScrollListener(this);
 		findHeaderView();
 		loadData();
 		addHeaderView();
@@ -145,7 +150,7 @@ public class HomeFragment extends Fragment implements
 		cycleViewPager.setWheel(true);
 
 		// 设置轮播时间，默认5000ms
-		cycleViewPager.setTime(2000);
+		cycleViewPager.setTime(3000);
 		// 设置圆点指示图标组居中显示，默认靠右
 		cycleViewPager.setIndicatorCenter();
 	}
@@ -153,13 +158,6 @@ public class HomeFragment extends Fragment implements
 
 		@Override
 		public void onImageClick(Slider slider, int position, View imageView) {
-//			if(slider.getType().equals("D")){
-//				
-//			}else if(slider.getType().equals("T")){
-//				Intent intent = new Intent(getActivity(), ThemeGoodsActivity.class);
-//				intent.putExtra("url", slider.getUrl());
-//				getActivity().startActivity(intent);
-//			}
 		}
 
 	};
@@ -282,6 +280,42 @@ public class HomeFragment extends Fragment implements
 					ft.remove((android.app.Fragment) cycleViewPager).commit();
 				}
 			}
+		}
+	}
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.back_top:
+			mListView.getRefreshableView().setSelection(0);
+			back_top.setVisibility(View.GONE);
+			break;
+
+		default:
+			break;
+		}
+	}
+	@Override
+	public void onScroll(AbsListView view, int firstVisibleItem,
+			int visibleItemCount, int totalItemCount) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void onScrollStateChanged(AbsListView view, int scrollState) {
+		switch (scrollState) {
+		case SCROLL_STATE_IDLE:  //屏幕停止滚动
+			// 判断滚动到顶部
+			if(mListView.getRefreshableView().getFirstVisiblePosition() == 0){
+				back_top.setVisibility(View.GONE);
+			}else{
+				back_top.setVisibility(View.VISIBLE);
+			}
+			break;
+		case SCROLL_STATE_TOUCH_SCROLL:      // 滚动时
+			back_top.setVisibility(View.VISIBLE);
+			break;
+		default:
+			break;
 		}
 	}
 

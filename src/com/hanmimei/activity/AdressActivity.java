@@ -14,7 +14,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -52,8 +51,6 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 	private TextView addAddress;
 	private List<HMMAddress> data;
 	private AdressAdapter adapter;
-	private HMMAddress adress;
-	private int index_;
 	private int index;
 	private JSONObject object;
 	private User user;
@@ -110,7 +107,7 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 
 	private void findView() {
 		inflater = LayoutInflater.from(this);
-		adress = new HMMAddress();
+//		adress = new HMMAddress();
 		data = new ArrayList<HMMAddress>();
 		adapter = new AdressAdapter(this, data);
 		header = (TextView) findViewById(R.id.header);
@@ -126,7 +123,7 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 		mListView.setOnMenuItemClickListener(new OnMenuItemClickListener() {
 			@Override
 			public void onMenuItemClick(int position, SwipeMenu menu, int index) {
-				index_ = position;
+				index = position;
 				toObject(data.get(position));
 			}
 		});
@@ -144,8 +141,6 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 					finish();
 					return;
 				}
-
-				index = position;
 				Intent intent = new Intent(AdressActivity.this,
 						EditAdressActivity.class);
 				Bundle bundle = new Bundle();
@@ -178,28 +173,10 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 	protected void onActivityResult(int requestCode, int resultCode,
 			Intent intent) {
 		if (resultCode == AppConstant.ADR_ADD_SU) {
-			Bundle bundle = intent.getExtras();
-			adress = (HMMAddress) bundle.getSerializable("address");
-			addNewAddress();
+			loadData();
 		} else if (resultCode == AppConstant.ADR_UP_SU) {
-			Bundle bundle = intent.getExtras();
-			adress = (HMMAddress) bundle.getSerializable("address");
-			updateAddress();
+			loadData();
 		}
-	}
-
-	private void updateAddress() {
-		int id = data.get(index).getAdress_id();
-		adress.setAdress_id(id);
-		data.remove(index);
-		data.add(index, adress);
-		adapter.notifyDataSetChanged();
-		// loadData();
-	}
-
-	private void addNewAddress() {
-		data.add(adress);
-		adapter.notifyDataSetChanged();
 	}
 
 	private Handler mHandler = new Handler() {
@@ -220,7 +197,7 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 			case 2:
 				Result result = (Result) msg.obj;
 				if (result.getCode() == 200) {
-					data.remove(index_);
+					data.remove(index);
 					adapter.notifyDataSetChanged();
 				}
 				break;
@@ -271,16 +248,13 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 						.findViewById(R.id.isDefault);
 				holder.isSelected = (ImageView) convertView
 						.findViewById(R.id.isSelected);
-				// holder.del = (TextView) convertView.findViewById(R.id.del);
-				// holder.update = (TextView)
-				// convertView.findViewById(R.id.update);
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
 			holder.name.setText("收货人：" + adress.getName());
 			holder.phone.setText("联系电话：" + adress.getPhone());
-			holder.id_card.setText("身份证号：" + adress.getIdCard());
+			holder.id_card.setText("身份证号：" + adress.getIdCard().substring(0, 5) + "********" + adress.getIdCard().substring(14, adress.getIdCard().length()));
 			holder.adress.setText("收货地址：" + adress.getCity() + "  "
 					+ adress.getAdress());
 			if (adress.isDefault()) {
@@ -288,7 +262,6 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 			} else {
 				holder.isDefault.setVisibility(View.GONE);
 			}
-
 			if (fromm == From.GoodsBalanceActivity) {
 				if (adress.getAdress_id().equals(selectedId)) {
 					holder.isSelected.setVisibility(View.VISIBLE);
@@ -307,9 +280,6 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 			private TextView id_card;
 			private TextView isDefault;
 			private ImageView isSelected;
-
-			// private TextView del;
-			// private TextView update;
 		}
 
 	}

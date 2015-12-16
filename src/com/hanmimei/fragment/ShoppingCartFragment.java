@@ -330,11 +330,13 @@ public class ShoppingCartFragment extends Fragment implements
 
 		@Override
 		public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+			clearPrice();
 			loadData();
 		}
 
 		@Override
 		public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+			clearPrice();
 			loadData();
 		}
 	

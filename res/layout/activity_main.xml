@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-<!-- 
-    <include
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        layout="@layout/main_header_layout" />
- -->
     <com.hanmimei.fragment.FragmentTabHost
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@android:id/tabhost"
@@ -45,5 +39,25 @@
                 android:orientation="horizontal" />
         </LinearLayout>
     </com.hanmimei.fragment.FragmentTabHost>
-
-</LinearLayout>
+	<LinearLayout 
+        android:id="@+id/guanggao"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:background="#88000000"
+        android:padding="15dp">
+        <ImageView 
+            android:id="@+id/close"
+            android:scaleType="fitEnd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_cha"/>
+        <ImageView 
+            android:id="@+id/gg_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitStart"
+            android:src="@drawable/guanggao"/>
+    </LinearLayout>
+</RelativeLayout>
