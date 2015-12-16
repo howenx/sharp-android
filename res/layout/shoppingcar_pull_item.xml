@@ -5,16 +5,24 @@
     android:orientation="vertical" 
     android:background="@color/white">
 	<LinearLayout 
-        android:paddingLeft="15dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
+        android:paddingLeft="5dp"
 	    android:layout_height="wrap_content"
 	    android:layout_width="match_parent"
 	    android:orientation="horizontal">
+	    
+    <ImageView 
+        android:id="@+id/check"
+        android:padding="5dp"
+        android:scaleType="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/check_box"/>
     <TextView 
         android:id="@+id/area"
+        android:layout_marginLeft="5dp"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
+        android:layout_gravity="center_vertical"
         android:text="杭州保税区"
         android:textSize="14sp"
         android:textColor="@color/fontcolor"/>
@@ -24,6 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:gravity="right"
+        android:layout_gravity="center_vertical"
         android:text="行邮税：¥50（免）"
         android:textSize="10sp"
         android:textColor="@color/red"/>
@@ -37,7 +46,9 @@
     <com.hanmimei.view.CustomListView
         android:id="@+id/my_listview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:divider="@color/qianhui"
+        android:dividerHeight="0.1dp"/>
 
 
 </LinearLayout>

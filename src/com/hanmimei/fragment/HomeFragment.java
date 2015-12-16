@@ -2,7 +2,7 @@ package com.hanmimei.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
-import m.framework.ui.widget.pulltorefresh.Scrollable;
+
 import android.annotation.SuppressLint;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -26,6 +26,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
@@ -43,7 +44,6 @@ import com.hanmimei.entity.Theme;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.CycleViewPager;
-import com.hanmimei.view.CycleViewPager.ImageCycleViewListener;
 import com.hanmimei.view.ViewFactory;
 
 @SuppressLint({ "NewApi", "InflateParams" })

@@ -11,7 +11,7 @@ public class Customs implements Serializable{
 	private String invArea;
 	private String  invCustoms;
 	private List<ShoppingGoods> list;
-	
+	private String state;
 	private int postFee;
 	private double tax;
 	private int postalLimit;
@@ -23,6 +23,12 @@ public class Customs implements Serializable{
 	private double factPortalFeeSingleCustoms= 0.00;
 	
 	
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
 	public int getPostFee() {
 		return postFee;
 	}

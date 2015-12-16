@@ -73,4 +73,11 @@ public class KeyWordUtil {
         styledText.setSpan(new TextAppearanceSpan(mContext, R.style.youhui2), 14, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); 
         textView.setText(styledText, TextView.BufferType.SPANNABLE);
 	}
+	//同一textview  不同字体颜色设置 mid截止到 end 
+		public static void setDifrentFontColor(Context mContext, TextView textView, String font, int mid, int end){
+			SpannableString styledText = new SpannableString(font);  
+	        styledText.setSpan(new TextAppearanceSpan(mContext, R.style.tax01), 0, mid, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);  
+	        styledText.setSpan(new TextAppearanceSpan(mContext, R.style.tax02), mid+1, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); 
+	        textView.setText(styledText, TextView.BufferType.SPANNABLE);
+		}
 }

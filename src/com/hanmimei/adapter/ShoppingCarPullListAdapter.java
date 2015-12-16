@@ -1,31 +1,42 @@
 package com.hanmimei.adapter;
 
 import java.util.List;
+
+import android.app.Activity;
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.hanmimei.R;
 import com.hanmimei.entity.Customs;
 import com.hanmimei.entity.ShoppingGoods;
+import com.hanmimei.utils.KeyWordUtil;
 import com.hanmimei.utils.ShoppingCarMenager;
 import com.hanmimei.view.CustomListView;
-import android.app.Activity;
-import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.TextView;
 
 public class ShoppingCarPullListAdapter extends BaseAdapter {
 
 	private List<Customs> data;
-	private List<ShoppingGoods> goods;
 	private LayoutInflater inflater;
 	private ShoppingCarAdapter adapter;
 	private Activity activity;
+	private Drawable check_Drawable;
+	private Drawable uncheck_Drawable;
 	
 	public ShoppingCarPullListAdapter(List<Customs> data, Context mContext){
 		this.data = ShoppingCarMenager.getInstance().getData();
 		inflater = LayoutInflater.from(mContext);
 		activity = (Activity) mContext;
+		check_Drawable = activity.getResources()
+				.getDrawable(R.drawable.checked);
+		uncheck_Drawable = activity.getResources().getDrawable(
+				R.drawable.check_un);
 	}
 	@Override
 	public int getCount() {
@@ -44,7 +55,7 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup arg2) {
-		Customs custom = data.get(position);
+		final Customs custom = data.get(position);
 		ViewHolder holder = null;
 		if(convertView == null){
 			convertView = inflater.inflate(R.layout.shoppingcar_pull_item, null);
@@ -52,17 +63,41 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 			holder.area = (TextView) convertView.findViewById(R.id.area);
 			holder.listView = (CustomListView) convertView.findViewById(R.id.my_listview);
 			holder.tax = (TextView) convertView.findViewById(R.id.attention);
+			holder.check = (ImageView) convertView.findViewById(R.id.check);
 			convertView.setTag(holder);
 		}else{
 			holder = (ViewHolder) convertView.getTag();
 		}
-		holder.area.setText("发货仓库：" + custom.getInvArea());
+		holder.check.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(custom.getState().equals("G")){
+					custom.setState("");
+					notifyDataSetChanged();
+					ShoppingCarMenager.getInstance().setCustomState();
+				}else{
+					custom.setState("G");
+					notifyDataSetChanged();
+					ShoppingCarMenager.getInstance().setCustomState();
+				}
+			}
+		});
+		if(custom.getState().equals("G")){
+			holder.check.setImageDrawable(check_Drawable);
+		}else{
+			holder.check.setImageDrawable(uncheck_Drawable);
+		}
+		holder.area.setText(custom.getInvArea() + "发货");
+		String tax = "";
 		if(custom.getTax() != 0){
 			holder.tax.setVisibility(View.VISIBLE);
 			if(Double.compare(custom.getTax(), custom.getPostalStandard()) > 0){
-				holder.tax.setText("行邮税为¥" + custom.getTax());
+				tax = "行邮税:¥" + custom.getTax();
+				KeyWordUtil.setDifrentFontColor(activity, holder.tax, tax, 4, tax.length());
 			}else{
-				holder.tax.setText("行邮税为¥" + custom.getTax() + "（免税）");
+				tax = "行邮税:¥" + custom.getTax() + "（免）";
+				KeyWordUtil.setDifrentFontColor(activity, holder.tax, tax, 4, tax.length());
 			}
 		}else{
 			holder.tax.setVisibility(View.GONE);
@@ -72,6 +107,7 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 		return convertView;
 	}
 	private class ViewHolder{
+		private ImageView check;
 		private TextView area;
 		private CustomListView listView;
 		private TextView tax;

@@ -28,8 +28,8 @@
         android:layout_below="@id/top"
         android:background="@color/white"
         android:cacheColorHint="#00000000"
-        android:divider="@color/huise"
-        android:dividerHeight="0.2dp"
+        android:divider="@color/qianhui"
+        android:dividerHeight="0.1dp"
         android:fadingEdge="none"
         android:fastScrollEnabled="false"
         android:footerDividersEnabled="false"
@@ -91,6 +91,6 @@
         android:text="@null"
         android:textColor="@color/huise"
         android:textSize="12sp"
-        android:visibility="invisible" />
+        android:visibility="gone" />
 
 </RelativeLayout>

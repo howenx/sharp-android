@@ -83,6 +83,8 @@ public class ShoppingCarMenager {
 		}
 	}
 	public void setBottom(){
+		isMoreThan();
+		upCustoms();
 		int totalNums = 0;
 		nums_e = 0;
 		totalPrice_e = 0;
@@ -115,17 +117,15 @@ public class ShoppingCarMenager {
 			no_data.setVisibility(View.GONE);
 			bottom.setVisibility(View.VISIBLE);
 		}
-		isMoreThan();
-		upCustoms();
 	}
 	public void setPayNoClick(){
 		attention.setVisibility(View.VISIBLE);
-		attention.setText("提示：" + customName+"发货仓库的商品总金额超过 ¥" + bottommorePrice);
+		attention.setText("提示：" + customName+"仓库的商品总金额超过 ¥" + bottommorePrice);
 		pay.setClickable(false);
 		pay.setBackgroundColor(activity.getResources().getColor(R.color.huise));
 	}
 	public void setPayClick(){
-		attention.setVisibility(View.INVISIBLE);
+		attention.setVisibility(View.GONE);
 		pay.setClickable(true);
 		pay.setBackgroundColor(activity.getResources().getColor(R.color.theme));
 	}
@@ -138,10 +138,21 @@ public class ShoppingCarMenager {
 		for(int i = 0; i < list.size(); i ++){
 			double tax = 0;
 			double allprice = 0;
+			int custom_checknum = 0;
+			int custom_num = 0;
 			List<ShoppingGoods> goods = list.get(i).getList();
 			for(int j = 0; j < goods.size(); j ++){
-				if(goods.get(j).getState().equals("G"))
+				if(goods.get(j).getState().equals("G")){
 					tax = tax + goods.get(j).getGoodsPrice() * goods.get(j).getGoodsNums() * goods.get(j).getPostalTaxRate() * 0.01;
+					custom_checknum = custom_checknum + 1;
+				}
+				if(!goods.get(j).getState().equals("S"))
+					custom_num = custom_num + 1;
+			}
+			if(custom_checknum == custom_num){
+				list.get(i).setState("G");
+			}else{
+				list.get(i).setState("");
 			}
 			if(Double.compare(tax, list.get(i).getPostalStandard()) > 0){
 				tax = 0;
@@ -157,5 +168,19 @@ public class ShoppingCarMenager {
 			}
 		}
 		adapter.notifyDataSetChanged();
+	}
+	public void setCustomState(){
+		for(int i = 0; i < list.size(); i ++){
+			for(int j = 0; j < list.get(i).getList().size(); j ++){
+				if(list.get(i).getState().equals("G")){
+					if(!list.get(i).getList().get(j).getState().equals("S"))
+						list.get(i).getList().get(j).setState("G");
+				}else{
+					if(!list.get(i).getList().get(j).getState().equals("S"))
+						list.get(i).getList().get(j).setState("I");
+				}
+			}
+		}
+		setBottom();
 	}
 }

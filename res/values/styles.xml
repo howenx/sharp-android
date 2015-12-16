@@ -152,4 +152,12 @@
         <item name="android:textSize">13sp</item>  
     	<item name="android:textColor">@color/theme</item> 
     </style>
+    <style name="tax01">
+        <item name="android:textSize">12sp</item>  
+    	<item name="android:textColor">@color/huise</item> 
+    </style>
+    <style name="tax02">
+        <item name="android:textSize">12sp</item>  
+    	<item name="android:textColor">@color/red</item> 
+    </style>
 </resources>

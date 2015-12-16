@@ -273,6 +273,7 @@ public class DataParser {
 					custom.setPostFee(obj.getInt("freeShip"));
 				if(obj.has("postalStandard"))
 					custom.setPostalStandard(obj.getInt("postalStandard"));
+				custom.setState("");
 				JSONArray cartsArray = obj.getJSONArray("carts");
 				for(int j = 0; j < cartsArray.length(); j ++){
 					JSONObject goodsObject = cartsArray.getJSONObject(j);

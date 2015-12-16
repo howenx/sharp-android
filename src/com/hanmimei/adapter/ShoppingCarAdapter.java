@@ -89,9 +89,10 @@ public class ShoppingCarAdapter extends BaseAdapter {
 			holder.name = (TextView) convertView.findViewById(R.id.name);
 			holder.price = (TextView) convertView.findViewById(R.id.price);
 			holder.nums = (TextView) convertView.findViewById(R.id.nums);
-			holder.del = (TextView) convertView.findViewById(R.id.delete);
-			holder.jian = (ImageView) convertView.findViewById(R.id.jian);
-			holder.plus = (ImageView) convertView.findViewById(R.id.plus);
+			holder.del = (ImageView) convertView.findViewById(R.id.delete);
+			holder.jian = (TextView) convertView.findViewById(R.id.jian);
+			holder.plus = (TextView) convertView.findViewById(R.id.plus);
+			holder.size = (TextView) convertView.findViewById(R.id.size);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -113,9 +114,6 @@ public class ShoppingCarAdapter extends BaseAdapter {
 							.build().list());
 				}
 			}
-//			else{
-//				data.remove(goods);
-//			}
 		} else {
 			holder.checkBox.setVisibility(View.VISIBLE);
 			holder.checkBox.setImageDrawable(uncheck_Drawable);
@@ -123,6 +121,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		// }
 		imageLoader.displayImage(goods.getGoodsImg(), holder.img, imageOptions);
 		holder.name.setText(goods.getGoodsName());
+		holder.size.setText(goods.getItemColor() + "  " + goods.getItemSize());
 		holder.price.setText("¥" + goods.getGoodsPrice());
 		holder.nums.setText(goods.getGoodsNums() + "");
 		holder.name.setOnClickListener(new OnClickListener() {
@@ -159,6 +158,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 						if(!goods.getState().equals("S"))
 							goods.setGoodsNums(goods.getGoodsNums() - 1);
 						notifyDataSetChanged();
+						ShoppingCarMenager.getInstance().setBottom();
 						goodsDao.insertInTx(data);
 					}
 				}
@@ -358,9 +358,10 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		private TextView name;
 		private TextView price;
 		private TextView nums;
-		private TextView del;
-		private ImageView jian;
-		private ImageView plus;
+		private ImageView del;
+		private TextView jian;
+		private TextView plus;
+		private TextView size;
 	}
 
 }
