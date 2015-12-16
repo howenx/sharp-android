@@ -1,6 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:app1="http://schemas.android.com/apk/res/com.hanmimei"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -27,15 +26,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical" >
-
-                    <com.daimajia.slider.library.SliderLayout
+				<RelativeLayout 
+				    android:layout_width="match_parent"
+				    android:layout_height="wrap_content"
+				    android:id="@+id/viewpager_content">
+				    
+                    <fragment
                         android:id="@+id/slider"
+                        android:name="com.hanmimei.view.CycleViewPager"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        app:auto_cycle="true"
-                        app:indicator_visibility="visible" />
+                        android:layout_height="match_parent" />
 
+				</RelativeLayout>
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1px"
@@ -232,10 +234,10 @@
                         android:textSize="13sp" />
                 </RadioGroup>
 
-		<FrameLayout 
-		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content">
-		    
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
                     <LinearLayout
                         android:id="@+id/content_img"
                         android:layout_width="match_parent"
@@ -257,21 +259,20 @@
                             android:layout_height="wrap_content" />
                     </LinearLayout>
 
-                    <com.hanmimei.view.CustomListView
+                    <ListView
                         android:id="@+id/content_params"
                         android:layout_width="match_parent"
-                        android:visibility="gone"
+                        android:layout_height="match_parent"
                         android:background="@color/white"
-                        android:layout_height="match_parent" />
+                        android:visibility="gone" />
 
-                    <com.hanmimei.view.CustomListView
+                    <ListView
                         android:id="@+id/content_hot"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
                         android:visibility="gone" />
-
-		</FrameLayout>
+                </FrameLayout>
             </LinearLayout>
         </com.hanmimei.view.CustomScrollView>
 
@@ -323,6 +324,16 @@
                 android:text="热卖商品"
                 android:textSize="13sp" />
         </RadioGroup>
+        
+        <ImageView 
+            android:visibility="invisible"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/img_hide"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:contentDescription="@null"
+            />
     </RelativeLayout>
 
     <LinearLayout
@@ -332,28 +343,33 @@
         android:background="@drawable/huise_border"
         android:orientation="horizontal" >
 
-        <ImageView
-            android:id="@+id/like"
+        <FrameLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:contentDescription="@null"
-            android:scaleType="center"
-            android:src="@drawable/icon_like" />
+            android:layout_weight="1" >
 
-        <View
-            android:layout_width="0.1dp"
-            android:layout_height="match_parent"
-            android:background="@color/qianhui" />
+            <ImageView
+                android:id="@+id/shopcart"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:src="@drawable/icon_gouwuche" />
 
-        <ImageView
-            android:id="@+id/car"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:contentDescription="@null"
-            android:scaleType="center"
-            android:src="@drawable/icon_gouwuche2" />
+            <TextView
+                android:id="@+id/num_shopcart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/bg_badgeview"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:text="1"
+                android:textColor="@color/white"
+                android:textSize="10sp" />
+        </FrameLayout>
 
         <TextView
             android:id="@+id/btn_shopcart"

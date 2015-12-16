@@ -74,7 +74,6 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 				Intent intent = new Intent(getActivity(),
 						GoodsDetailActivity.class);
 				intent.putExtra("url", data.get(arg2).getItemUrlAndroid());
-				ToastUtils.Toast(getActivity(), data.get(arg2).getItemId()+"");
 				startActivity(intent);
 			}
 		});

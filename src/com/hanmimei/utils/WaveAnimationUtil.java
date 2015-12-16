@@ -1,12 +1,16 @@
 package com.hanmimei.utils;
 
+import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationSet;
 import android.view.animation.ScaleAnimation;
-import android.view.animation.Animation.AnimationListener;
 import android.widget.ImageView;
+
+import com.nineoldandroids.animation.ObjectAnimator;
+import com.nineoldandroids.animation.ValueAnimator;
 
 public class WaveAnimationUtil {
 
@@ -56,4 +60,14 @@ public class WaveAnimationUtil {
 		});
         imageView.startAnimation(animationSet);
 	}
+	
+	public static void waveAnimation(final View imageView){
+		ValueAnimator animatorY = ObjectAnimator.ofFloat(
+				imageView,"y",0,-100,0).setDuration(1000);
+		ValueAnimator animatorX = ObjectAnimator.ofFloat(
+				imageView,"x",0,-100).setDuration(1000);
+		animatorY.start();
+		animatorX.start();
+	}
+	
 }

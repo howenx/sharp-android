@@ -12,24 +12,24 @@ import java.math.BigDecimal;
 public class HMMGoods {
 
 	private Long id;
-	private Integer themeId; //  主题id
-	private Integer itemId; // 商品id
+	private String themeId; //  主题id
+	private String itemId; // 商品id
 	private String itemImg; // 商品图片
 	private String itemUrl; // 商品详情页链接
 	private String itemUrlAndroid; //商品详情页链接(android 专用)
 	private String itemTitle; // 商品标题
-	private Double itemPrice; // 商品价格
-	private Double itemDiscount; // 商品折扣
-	private Integer itemSoldAmount; // 商品销售量
+	private String itemPrice; // 商品价格
+	private String itemDiscount; // 商品折扣
+	private String itemSoldAmount; // 商品销售量
 	private Boolean orMasterItem = false; // 是否是主题主打宣传商品
-	private Integer collectCount; // 商品收藏数
+	private String collectCount; // 商品收藏数
 	private String masterItemTag; // 如果是主打宣传商品，会需要tag json串
 	private String masterItemImg; // 如果是主宣传商品图片url
 	private String onShelvesAt; //
 	private String offShelvesAt; //
-	private BigDecimal invWeight; // 商品重量
+	private String invWeight; // 商品重量
 	private String invArea; // 发货方式
-	private Integer postalTaxRate; // 税率
+	private String postalTaxRate; // 税率
 	private String invCustoms; //保税区
 
 	// 新添
@@ -55,45 +55,6 @@ public class HMMGoods {
 		this.itemUrlAndroid = itemUrlAndroid;
 	}
 
-	public Integer getPostalTaxRate() {
-		return postalTaxRate;
-	}
-
-	public void setPostalTaxRate(Integer postalTaxRate) {
-		this.postalTaxRate = postalTaxRate;
-	}
-
-	
-
-	public String getInvArea() {
-		return invArea;
-	}
-
-	public void setInvArea(String invArea) {
-		this.invArea = invArea;
-	}
-
-	public void setItemMasterImg(String itemMasterImg) {
-		this.itemMasterImg = itemMasterImg;
-	}
-
-
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
-
-	public HMMGoods() {
-	}
-
-	public HMMGoods(Long id) {
-		this.id = id;
-	}
-
-
 	public Long getId() {
 		return id;
 	}
@@ -102,19 +63,19 @@ public class HMMGoods {
 		this.id = id;
 	}
 
-	public Integer getThemeId() {
+	public String getThemeId() {
 		return themeId;
 	}
 
-	public void setThemeId(Integer themeId) {
+	public void setThemeId(String themeId) {
 		this.themeId = themeId;
 	}
 
-	public Integer getItemId() {
+	public String getItemId() {
 		return itemId;
 	}
 
-	public void setItemId(Integer itemId) {
+	public void setItemId(String itemId) {
 		this.itemId = itemId;
 	}
 
@@ -142,13 +103,27 @@ public class HMMGoods {
 		this.itemTitle = itemTitle;
 	}
 
-	
+	public String getItemPrice() {
+		return itemPrice;
+	}
 
-	public Integer getItemSoldAmount() {
+	public void setItemPrice(String itemPrice) {
+		this.itemPrice = itemPrice;
+	}
+
+	public String getItemDiscount() {
+		return itemDiscount;
+	}
+
+	public void setItemDiscount(String itemDiscount) {
+		this.itemDiscount = itemDiscount;
+	}
+
+	public String getItemSoldAmount() {
 		return itemSoldAmount;
 	}
 
-	public void setItemSoldAmount(Integer itemSoldAmount) {
+	public void setItemSoldAmount(String itemSoldAmount) {
 		this.itemSoldAmount = itemSoldAmount;
 	}
 
@@ -160,11 +135,11 @@ public class HMMGoods {
 		this.orMasterItem = orMasterItem;
 	}
 
-	public Integer getCollectCount() {
+	public String getCollectCount() {
 		return collectCount;
 	}
 
-	public void setCollectCount(Integer collectCount) {
+	public void setCollectCount(String collectCount) {
 		this.collectCount = collectCount;
 	}
 
@@ -200,36 +175,36 @@ public class HMMGoods {
 		this.offShelvesAt = offShelvesAt;
 	}
 
+	public String getInvWeight() {
+		return invWeight;
+	}
+
+	public void setInvWeight(String invWeight) {
+		this.invWeight = invWeight;
+	}
+
+	public String getInvArea() {
+		return invArea;
+	}
+
+	public void setInvArea(String invArea) {
+		this.invArea = invArea;
+	}
+
+	public String getPostalTaxRate() {
+		return postalTaxRate;
+	}
+
+	public void setPostalTaxRate(String postalTaxRate) {
+		this.postalTaxRate = postalTaxRate;
+	}
+
 	public String getInvCustoms() {
 		return invCustoms;
 	}
 
 	public void setInvCustoms(String invCustoms) {
 		this.invCustoms = invCustoms;
-	}
-
-	public Double getItemPrice() {
-		return itemPrice;
-	}
-
-	public void setItemPrice(Double itemPrice) {
-		this.itemPrice = itemPrice;
-	}
-
-	public Double getItemDiscount() {
-		return itemDiscount;
-	}
-
-	public void setItemDiscount(Double itemDiscount) {
-		this.itemDiscount = itemDiscount;
-	}
-
-	public BigDecimal getInvWeight() {
-		return invWeight;
-	}
-
-	public void setInvWeight(BigDecimal invWeight) {
-		this.invWeight = invWeight;
 	}
 
 	public BigDecimal getItemSrcPrice() {
@@ -239,6 +214,19 @@ public class HMMGoods {
 	public void setItemSrcPrice(BigDecimal itemSrcPrice) {
 		this.itemSrcPrice = itemSrcPrice;
 	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public void setItemMasterImg(String itemMasterImg) {
+		this.itemMasterImg = itemMasterImg;
+	}
+
 	
 	
 

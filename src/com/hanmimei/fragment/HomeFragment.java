@@ -145,7 +145,7 @@ public class HomeFragment extends Fragment implements
 		cycleViewPager.setCycle(true);
 
 		// 在加载数据前设置是否循环
-		cycleViewPager.setData(views, dataSliders, mAdCycleViewListener);
+		cycleViewPager.setData(views, dataSliders, null);
 		// 设置轮播
 		cycleViewPager.setWheel(true);
 
@@ -154,13 +154,6 @@ public class HomeFragment extends Fragment implements
 		// 设置圆点指示图标组居中显示，默认靠右
 		cycleViewPager.setIndicatorCenter();
 	}
-	private ImageCycleViewListener mAdCycleViewListener = new ImageCycleViewListener() {
-
-		@Override
-		public void onImageClick(Slider slider, int position, View imageView) {
-		}
-
-	};
 
 	// 加载本地数据
 	private void loadData() {
