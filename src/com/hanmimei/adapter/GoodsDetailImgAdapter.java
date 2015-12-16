@@ -1,91 +1,68 @@
 package com.hanmimei.adapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.hanmimei.R;
-import com.hanmimei.entity.BitmapInfo;
-import com.hanmimei.utils.CommonUtil;
+import com.hanmimei.activity.GoodsDetailImgActivity;
 import com.hanmimei.utils.InitImageLoader;
-import com.squareup.picasso.Picasso;
 
-public class GoodsDetailImgAdapter extends BaseAdapter {
-
-	private List<BitmapInfo> data;
-	private Context context;
-	private LoadCallback mLoadCallback;
-	int screenWidth;
-	int screenHeight;
-
-	public GoodsDetailImgAdapter(List<BitmapInfo> data, Context context,int screenHeight,int screenWidth) {
-		super();
-		this.data = data;
-		this.context = context;
-		this.screenHeight = screenHeight;
-		this.screenWidth = screenWidth;
-	}
-
-	@Override
-	public int getCount() {
-		// TODO Auto-generated method stub
-		return data != null ? data.size() : 0;
-	}
-
-	@Override
-	public Object getItem(int arg0) {
-		// TODO Auto-generated method stub
-		return data != null ? data.get(arg0) : null;
-	}
-
-	@Override
-	public long getItemId(int arg0) {
-		// TODO Auto-generated method stub
-		return arg0;
-	}
-
-	@Override
-	public View getView(final int position, View contentView, ViewGroup arg2) {
-		// TODO Auto-generated method stub
-		ViewHolder holder = null;
-		BitmapInfo info = null;
-		if (contentView == null) {
-			contentView = LayoutInflater.from(context).inflate(
-					R.layout.img_panel, null);
-			info = data.get(position);
-			holder = new ViewHolder(contentView);
-			
-			contentView.setTag(holder);
-		} else {
-			holder = (ViewHolder) contentView.getTag();
-		}
-		
-		info = data.get(position);
-		int viewHeight = (int) (screenWidth/info.getScaleSize());
-		if(viewHeight>screenHeight)
-			viewHeight = screenHeight;
-		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,viewHeight);
-		holder.mImageView.setLayoutParams(lp);
-		InitImageLoader.loadImage(context, info.getUrl(), holder.mImageView);
-		return contentView;
-	}
-
-	private  class ViewHolder {
-		public ImageView mImageView;
-
-		public ViewHolder(View view) {
-			mImageView = (ImageView) view.findViewById(R.id.my_image_view);
-		}
-	}
+/**
+ * 设配器
+ */
+public class GoodsDetailImgAdapter extends BaseAdapter{
 	
-	public interface LoadCallback{
-		public void finish();
-	};
+	private ArrayList<String> urls; 
+	private Context context;
+	
 
+    public GoodsDetailImgAdapter(ArrayList<String> urls, Context context) {
+		super();
+		this.urls = urls;
+		this.context = context;
+	}
+
+	@Override
+    public int getCount() {
+        return Integer.MAX_VALUE;
+    }
+    
+    @Override
+    public Object getItem(int position) {
+        return position;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        if (convertView == null){
+            convertView = LayoutInflater.from(context).inflate(R.layout.goods_detail_img_item_layout, null);
+        }
+        ImageView imageView = (ImageView) convertView.findViewById(R.id.mImageView);
+        InitImageLoader.loadImage(context, urls.get(position%urls.size()), imageView);
+        imageView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(context, GoodsDetailImgActivity.class);
+				intent.putStringArrayListExtra("imgUrls", urls);
+				context.startActivity(intent);
+			}
+		});
+        return convertView;
+    }
 }

@@ -24,12 +24,12 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.daimajia.slider.library.SliderTypes.BaseSliderView;
-import com.daimajia.slider.library.SliderTypes.BaseSliderView.OnSliderClickListener;
-import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
+import com.bigkoo.convenientbanner.CBViewHolderCreator;
+import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.hanmimei.R;
 import com.hanmimei.adapter.GoodsDetailParamAdapter;
 import com.hanmimei.dao.ShoppingGoodsDao;
@@ -44,7 +44,6 @@ import com.hanmimei.entity.GoodsDetail.Stock;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
-import com.hanmimei.entity.Slider;
 import com.hanmimei.entity.Tag;
 import com.hanmimei.entity.User;
 import com.hanmimei.utils.ActionBarUtil;
@@ -56,18 +55,18 @@ import com.hanmimei.utils.InitImageLoader;
 import com.hanmimei.utils.PopupWindowUtil;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.CustomScrollView;
-import com.hanmimei.view.CycleViewPager;
+import com.hanmimei.view.NetworkImageHolderView;
 import com.hanmimei.view.TagCloudView;
-import com.hanmimei.view.CycleViewPager.ImageCycleViewListener;
 import com.hanmimei.view.TagCloudView.OnTagClickListener;
-import com.hanmimei.view.ViewFactory;
+import com.hanmimei.view.viewflow.CircleFlowIndicator;
 
 @SuppressLint("NewApi")
 public class GoodsDetailActivity extends BaseActivity implements
 		OnClickListener, CustomScrollView.OnScrollUpListener,
 		RadioGroup.OnCheckedChangeListener {
 
-	private CycleViewPager slider; // 轮播图控件
+	private ConvenientBanner slider; // 轮播图控件
+	private CircleFlowIndicator cIndicator; // 轮播图控件
 	private TextView discount, itemTitle, itemSrcPrice, itemPrice, area; // 商品折扣
 																			// 标题
 																			// 原价
@@ -81,7 +80,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private RadioGroup indicator_hide, indicator; // 顶部导航栏 中部导航栏
 	private ImageView img_hide;
 
-	private View pager_header,shopcart;
+	private View pager_header,shopcart,back_top;
 
 	private User user;
 	private ShoppingGoodsDao goodsDao;
@@ -113,7 +112,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	 */
 	private void findView() {
 
-		slider = (CycleViewPager)getFragmentManager().findFragmentById(R.id.slider);
+		slider = (ConvenientBanner)findViewById(R.id.slider);
 		View view = findViewById(R.id.viewpager_content);
 		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
 				CommonUtil.getScreenWidth(this),
@@ -134,6 +133,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		pager_header = findViewById(R.id.pager_header);
 		num_shopcart = (TextView) findViewById(R.id.num_shopcart);
 		img_hide = (ImageView) findViewById(R.id.img_hide);
+		back_top =  findViewById(R.id.back_top);
 
 		content_params = (ListView) findViewById(R.id.content_params);
 		FrameLayout.LayoutParams lpm = (FrameLayout.LayoutParams)new FrameLayout.LayoutParams(
@@ -153,6 +153,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		shopcart = findViewById(R.id.shopcart);
 		shopcart.setOnClickListener(this);
 		findViewById(R.id.btn_portalFee).setOnClickListener(this);
+		findViewById(R.id.back_top).setOnClickListener(this);
 
 		indicator.setOnCheckedChangeListener(this);
 
@@ -231,6 +232,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 			break;
 		case R.id.setting:
 
+			break;
+		case R.id.back_top:
+			mScrollView.fullScroll(ScrollView.FOCUS_UP);
 			break;
 		case R.id.btn_cancel:
 			window.dismiss();
@@ -485,65 +489,15 @@ public class GoodsDetailActivity extends BaseActivity implements
 	 *            当前选中子商品
 	 */
 	private void initSliderImage(Stock s) {
-//		List<DefaultSliderView> imageContent = new ArrayList<DefaultSliderView>();
-//		for (String url : s.getItemPreviewImgs()) {
-//			DefaultSliderView defaultSliderView = new DefaultSliderView(this);
-//			defaultSliderView.image(url)
-//					.setScaleType(BaseSliderView.ScaleType.Fit)
-//					.setOnSliderClickListener(new OnSliderClickListener() {
-//
-//						@Override
-//						public void onSliderClick(BaseSliderView slider) {
-//							// 轮播图的点击事件
-//							
-//						}
-//					});
-//			// add your extra information
-//			defaultSliderView.getBundle().putString("extra", s.getInvUrl());
-//			imageContent.add(defaultSliderView);
-//		}
-		//indicator 显示的位置
-//		slider.addSliderAll(imageContent);
-		
-		views.clear();
-		// 将最后一个ImageView添加进来
-		views.add(ViewFactory.getImageView(this,
-				s.getItemPreviewImgs().get(s.getItemPreviewImgs().size() - 1)));
-		for (int i = 0; i < s.getItemPreviewImgs().size(); i++) {
-			views.add(ViewFactory.getImageView(this, s.getItemPreviewImgs().get(i)));
-		}
-		// 将第一个ImageView添加进来
-		views.add(ViewFactory.getImageView(this, s.getItemPreviewImgs().get(0)));
-
-		// 设置循环，在调用setData方法前调用
-		slider.setCycle(true);
-
-		// 在加载数据前设置是否循环
-		slider.setData(views, null, mAdCycleViewListener);
-		// 设置轮播
-		slider.setWheel(false);
-
-		// 设置轮播时间，默认5000ms
-		slider.setTime(2000);
-		// 设置圆点指示图标组居中显示，默认靠右
-		slider.setIndicatorCenter();
+		ArrayList<String> networkImages = new ArrayList<String>(s.getItemPreviewImgs());
+		slider.setPages(new CBViewHolderCreator<NetworkImageHolderView>() {
+            @Override
+            public NetworkImageHolderView createHolder() {
+                return new NetworkImageHolderView();
+            }
+        },networkImages).setPageIndicator(new int[]{R.drawable.ic_page_indicator, R.drawable.ic_page_indicator_focused});
 	}
-	
-	private ImageCycleViewListener mAdCycleViewListener = new ImageCycleViewListener() {
 
-		@Override
-		public void onImageClick(final int position, View imageView) {
-			imageView.setOnClickListener(new OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					ToastUtils.Toast(getActivity(), position+"");
-				}
-			});
-		}
-
-	};
 
 	/**
 	 * 选项卡选中改变事件
@@ -612,7 +566,15 @@ public class GoodsDetailActivity extends BaseActivity implements
 			indicator_hide.setOnCheckedChangeListener(null);
 			return;
 		}
+		
+		if(scrollY>0 && back_top.getVisibility() == View.GONE){
+			back_top.setVisibility(View.VISIBLE);
+		}
 
+		if(scrollY<=0 && back_top.getVisibility() == View.VISIBLE){
+			back_top.setVisibility(View.GONE);
+		}
+		
 	}
 
 }

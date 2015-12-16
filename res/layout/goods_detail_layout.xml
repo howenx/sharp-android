@@ -26,18 +26,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical" >
-				<RelativeLayout 
-				    android:layout_width="match_parent"
-				    android:layout_height="wrap_content"
-				    android:id="@+id/viewpager_content">
-				    
-                    <fragment
-                        android:id="@+id/slider"
-                        android:name="com.hanmimei.view.CycleViewPager"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
 
-				</RelativeLayout>
+                    <FrameLayout
+                        android:id="@+id/viewpager_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <com.bigkoo.convenientbanner.ConvenientBanner
+                            android:id="@+id/slider"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                    </FrameLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1px"
@@ -324,16 +324,24 @@
                 android:text="热卖商品"
                 android:textSize="13sp" />
         </RadioGroup>
-        
-        <ImageView 
-            android:visibility="invisible"
+
+        <ImageView
+            android:id="@+id/img_hide"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:id="@+id/img_hide"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:contentDescription="@null"
-            />
+            android:visibility="invisible" />
+
+        <include
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="15dp"
+            layout="@layout/back_to_top_layout"
+            android:visibility="gone" />
     </RelativeLayout>
 
     <LinearLayout
