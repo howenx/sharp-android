@@ -21,20 +21,14 @@
             android:toYScale="1.0" />
     </set>
     <set>
-        <translate
-            android:duration="350"
+       <translate
+            android:duration="700"
             android:fromXDelta="0.0"
             android:fromYDelta="0.0"
             android:startOffset="600"
-            android:toXDelta="-50"
-            android:toYDelta="-100" />
-        <translate
-            android:duration="350"
-            android:fromXDelta="-50"
-            android:fromYDelta="-100"
-            android:startOffset="950"
-            android:toXDelta="-100"
-            android:toYDelta="0.0" />
+            android:toXDelta="15.0%p"
+            android:toYDelta="-50%p" />
+
 
         <alpha
             android:duration="700"

@@ -22,6 +22,7 @@
     </declare-styleable>
     <declare-styleable name="ViewFlow">
         <attr name="sidebuffer" format="integer" />
+        <attr name="timeSpan" format="integer" />
     </declare-styleable>
     <!-- 滑动的viewpager -->
     <declare-styleable name="CircleFlowIndicator">

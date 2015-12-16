@@ -304,7 +304,7 @@ public class CycleViewPager extends Fragment implements OnPageChangeListener{
 					}
 				});
 			}else{
-				mImageCycleViewListener.onImageClick(position, v);
+				mImageCycleViewListener.onImageClick(null,position, v);
 			}
 			container.addView(v);
 			return v;
@@ -410,6 +410,6 @@ public class CycleViewPager extends Fragment implements OnPageChangeListener{
 		 * @param position
 		 * @param imageView
 		 */
-		public void onImageClick(int position, View imageView);
+		public void onImageClick(List<String> list,int position, View imageView);
 	}
 }
