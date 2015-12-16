@@ -273,8 +273,9 @@ public class GoodsBalanceActivity extends BaseActivity implements
 							settle.getAddress().getName()));
 					phone.setText(getResources().getString(R.string.phone,
 							settle.getAddress().getTel()));
-					idCard.setText(getResources().getString(R.string.idcard,
-							settle.getAddress().getIdCardNum()));
+					idCard.setText(getResources().getString(R.string.idcard,settle.getAddress().getIdCardNum().substring(0, 5) 
+							+ "********" + settle.getAddress().getIdCardNum().substring(14, settle.getAddress().getIdCardNum().length())
+							));
 
 				}else{
 					findViewById(R.id.selectAddress).setVisibility(View.GONE);
