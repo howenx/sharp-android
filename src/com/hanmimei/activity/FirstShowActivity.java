@@ -39,7 +39,7 @@ public class FirstShowActivity extends BaseActivity {
 		util.putString("isLoadNet", "true");
 		String flag = util.getString(FIRST_LOG_FLAG);
 		if (flag == null) {
-			util.putString(FIRST_LOG_FLAG, "not_first");
+//			util.putString(FIRST_LOG_FLAG, "not_first");
 			startActivity(new Intent(FirstShowActivity.this,
 					IndroductionActivity.class));
 			finish();

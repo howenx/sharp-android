@@ -1,14 +1,17 @@
 package com.hanmimei.adapter;
 
 import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,6 +20,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.hanmimei.R;
 import com.hanmimei.activity.BaseActivity;
 import com.hanmimei.activity.GoodsDetailActivity;
@@ -46,6 +50,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 	private Drawable uncheck_Drawable;
 	private ShoppingGoodsDao goodsDao;
 	private int check_nums;
+	private AlertDialog dialog;
 
 	public ShoppingCarAdapter(List<ShoppingGoods> data, Context mContext) {
 		inflater = LayoutInflater.from(mContext);
@@ -129,7 +134,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View arg0) {
 				Intent intent = new Intent(activity, GoodsDetailActivity.class);
-				intent.putExtra("id", goods.getGoodsId());
+				intent.putExtra("url", goods.getGoodsUrl());
 				activity.startActivity(intent);
 			}
 		});
@@ -192,19 +197,8 @@ public class ShoppingCarAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				// 登录状态删除服务器数据，未登录状态删除本地数据
-				if (user != null) {
-					delGoods(goods);
-				} else {
-					if (!goods.getState().equals("S")) {
-						goodsDao.delete(goodsDao
-								.queryBuilder()
-								.where(Properties.GoodsId.eq(goods.getGoodsId()))
-								.build().unique());
-					}
-					data.remove(goods);
-					notifyDataSetChanged();
-					ShoppingCarMenager.getInstance().setBottom();
-				}
+				showDialog(goods);
+				
 			}
 		});
 		holder.checkBox.setOnClickListener(new OnClickListener() {
@@ -227,6 +221,39 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		return convertView;
 	}
 
+	private void showDialog(final ShoppingGoods goods){
+		View view = inflater.inflate(R.layout.dialog_layout, null);
+		dialog = new AlertDialog.Builder(activity).create();
+		dialog.setView(view);
+		dialog.show();
+		view.findViewById(R.id.cancle).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				dialog.dismiss();
+			}
+		});
+		view.findViewById(R.id.besure).setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (user != null) {
+					delGoods(goods);
+				} else {
+					if (!goods.getState().equals("S")) {
+						goodsDao.delete(goodsDao
+								.queryBuilder()
+								.where(Properties.GoodsId.eq(goods.getGoodsId()))
+								.build().unique());
+					}
+					data.remove(goods);
+					notifyDataSetChanged();
+					ShoppingCarMenager.getInstance().setBottom();
+					dialog.dismiss();
+				}
+			}
+		});
+	}
+	
 	private ShoppingGoods delGoods;
 
 	// 删除购物车商品
@@ -311,6 +338,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 					Toast.makeText(activity, "删除失败！", Toast.LENGTH_SHORT)
 							.show();
 				}
+				dialog.dismiss();
 				break;
 			case 2:
 				HMessage hmm = (HMessage) msg.obj;
@@ -349,7 +377,6 @@ public class ShoppingCarAdapter extends BaseAdapter {
 				break;
 			}
 		}
-
 	};
 
 	private class ViewHolder {

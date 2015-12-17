@@ -1,5 +1,6 @@
 package com.hanmimei.utils;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import android.app.Activity;
@@ -109,7 +110,12 @@ public class ShoppingCarMenager {
 			checkBox_b.setImageDrawable(uncheck_Drawable);
 		}
 		pay.setText("结算" +"("+ nums_e + ")");
-		totalPrice_t.setText("总计：" + totalPrice_e);
+		DecimalFormat df = new DecimalFormat("###.00");  
+		if(nums_e != 0){
+			totalPrice_t.setText("总计：" + df.format(totalPrice_e));
+		}else{
+			totalPrice_t.setText("总计：0.00");
+		}
 		if(list.size() <= 0 || list == null){
 			no_data.setVisibility(View.VISIBLE);
 			bottom.setVisibility(View.GONE);
