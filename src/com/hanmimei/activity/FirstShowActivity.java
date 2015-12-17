@@ -54,6 +54,7 @@ public class FirstShowActivity extends BaseActivity {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
+					
 				}
 			}).start();
 		}
