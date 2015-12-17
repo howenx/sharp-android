@@ -188,7 +188,7 @@
                 <RadioGroup
                     android:id="@+id/indicator"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:background="@color/white"
                     android:checkedButton="@+id/guid1"
                     android:gravity="center_vertical"
@@ -197,7 +197,7 @@
                     <RadioButton
                         android:id="@+id/guid1"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1.0"
                         android:background="@drawable/radio_btn_bg"
                         android:button="@null"
@@ -210,7 +210,7 @@
                     <RadioButton
                         android:id="@+id/guid2"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1.0"
                         android:background="@drawable/radio_btn_bg"
                         android:button="@null"
@@ -223,7 +223,7 @@
                     <RadioButton
                         android:id="@+id/guid3"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1.0"
                         android:background="@drawable/radio_btn_bg"
                         android:button="@null"
@@ -279,7 +279,7 @@
         <RadioGroup
             android:id="@+id/indicator_hide"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:background="@color/white"
             android:checkedButton="@+id/guid1_hide"
             android:orientation="horizontal"
@@ -288,7 +288,7 @@
             <RadioButton
                 android:id="@+id/guid1_hide"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1.0"
                 android:background="@drawable/radio_btn_bg"
                 android:button="@null"
@@ -301,7 +301,7 @@
             <RadioButton
                 android:id="@+id/guid2_hide"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1.0"
                 android:background="@drawable/radio_btn_bg"
                 android:button="@null"
@@ -314,7 +314,7 @@
             <RadioButton
                 android:id="@+id/guid3_hide"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1.0"
                 android:background="@drawable/radio_btn_bg"
                 android:button="@null"
@@ -364,19 +364,6 @@
                 android:contentDescription="@null"
                 android:src="@drawable/icon_gouwuche" />
 
-            <TextView
-                android:id="@+id/num_shopcart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/bg_badgeview"
-                android:paddingLeft="2dp"
-                android:paddingRight="2dp"
-                android:text="1"
-                android:textColor="@color/white"
-                android:textSize="10sp" />
         </FrameLayout>
 
         <TextView

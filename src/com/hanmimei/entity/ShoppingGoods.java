@@ -13,7 +13,7 @@ import java.text.DecimalFormat;
 public class ShoppingGoods implements Serializable{
 
     private Long id;
-    private Integer cartId;
+    private Integer cartId = 0;
     private Integer goodsId;
     private String goodsImg;
     private String goodsUrl;

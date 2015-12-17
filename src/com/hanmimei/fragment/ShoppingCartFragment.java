@@ -267,6 +267,7 @@ public class ShoppingCartFragment extends Fragment implements
 				}
 			}
 			shoppingCar.setList(customsList);
+			shoppingCar.setBuyNow(2);
 			if(shoppingCar.getList().size() > 0){
 				if(user !=null){
 					doPay(shoppingCar);

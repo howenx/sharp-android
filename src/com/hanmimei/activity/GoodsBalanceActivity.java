@@ -1,8 +1,10 @@
 package com.hanmimei.activity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -12,6 +14,7 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -30,6 +33,7 @@ import com.hanmimei.entity.GoodsBalance;
 import com.hanmimei.entity.GoodsBalance.Settle;
 import com.hanmimei.entity.GoodsBalance.SingleCustoms;
 import com.hanmimei.entity.HMMAddress;
+import com.hanmimei.entity.OrderSubmit;
 import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.HttpUtils;
@@ -54,6 +58,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 
 	private ShoppingCar car; // 所要显示的商品数据
 	private GoodsBalance goodsBalance; // 本页数据集合
+	private OrderSubmit orderSubmit; //提交订单数据集合
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -63,6 +68,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 		// 获取要购买的数据
 		car = (ShoppingCar) getIntent().getSerializableExtra("car");
 		customslist = car.getList();
+		orderSubmit = new OrderSubmit();
 		findView();
 		adapter = new GoodsBalanceCustomAdapter(customslist, this);
 		mListView.setAdapter(adapter);
@@ -97,6 +103,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 		coupon_denomi = (TextView) findViewById(R.id.coupon_denomi);
 
 		findViewById(R.id.btn_pay_type).setOnClickListener(this);
+		findViewById(R.id.btn_pay).setOnClickListener(this);
 		findViewById(R.id.btn_send_time).setOnClickListener(this);
 		findViewById(R.id.newAddress).setOnClickListener(this);
 		findViewById(R.id.btn_mCoupon).setOnClickListener(this);
@@ -110,6 +117,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 						// 显示选中的支付方式
 						RadioButton btn = (RadioButton) findViewById(arg1);
 						pay_type.setText(btn.getText());
+						orderSubmit.setPayMethod(btn.getTag().toString());
 					}
 				});
 		group_send_time
@@ -120,6 +128,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 						// 显示选中的送达时间
 						RadioButton btn = (RadioButton) findViewById(arg1);
 						send_time.setText(btn.getText());
+						orderSubmit.setShipTime(Integer.parseInt(btn.getTag().toString()));
 					}
 				});
 
@@ -133,9 +142,10 @@ public class GoodsBalanceActivity extends BaseActivity implements
 					coupon_denomi.setText(btn.getText());
 					car.setDenomination(0.00);
 				} else {
-					coupon_denomi.setText("-" + btn.getText());
+					coupon_denomi.setText("-" + btn.getTag(R.id.coupon_de)+"元");
 					car.setDenomination(Double
-							.valueOf(btn.getText().toString()));
+							.parseDouble(btn.getTag(R.id.coupon_de).toString()));
+					orderSubmit.setCouponId(btn.getTag(R.id.coupon_id).toString());
 				}
 				youhui.setText(getResources().getString(R.string.price,
 						car.getDenomination()));
@@ -187,6 +197,9 @@ public class GoodsBalanceActivity extends BaseActivity implements
 			Log.i("selectAddress_id", selectedId + "");
 			startActivityForResult(intnt, 1);
 			break;
+		case R.id.btn_pay:
+			sendData(orderSubmit);
+			break;
 
 		default:
 			break;
@@ -200,14 +213,36 @@ public class GoodsBalanceActivity extends BaseActivity implements
 	 *            被选中的地址id
 	 */
 	private void loadData(Long addressId) {
-		final JSONArray array = JSONPaserTool.ClientSettlePaser(car, addressId);
+		JSONArray array = JSONPaserTool.ClientSettlePaser(car, addressId);
+		orderSubmit.setSettleDtos(array);
+		final JSONObject json = JSONPaserTool.OrderSubmitPaser(orderSubmit);
 		submitTask(new Runnable() {
 
 			@Override
 			public void run() {
 				String result = HttpUtils.post(UrlUtil.POST_CLIENT_SETTLE,
-						array, "id-token", getUser().getToken());
+						json, "id-token", getUser().getToken());
 				Message msg = mHandler.obtainMessage(1, result);
+				mHandler.sendMessage(msg);
+			}
+		});
+	}
+	
+	/**
+	 * 加载网络数据
+	 * 
+	 * @param addressId
+	 *            被选中的地址id
+	 */
+	private void sendData(OrderSubmit os) {
+		final JSONObject json = JSONPaserTool.OrderSubmitPaser(os);
+		submitTask(new Runnable() {
+
+			@Override
+			public void run() {
+				String result = HttpUtils.post(UrlUtil.POST_CLIENT_ORDER_SUBMIT,
+						json, "id-token", getUser().getToken());
+				Message msg = mHandler.obtainMessage(2, result);
 				mHandler.sendMessage(msg);
 			}
 		});
@@ -218,10 +253,18 @@ public class GoodsBalanceActivity extends BaseActivity implements
 		@Override
 		public void handleMessage(Message msg) {
 			// TODO Auto-generated method stub
-			if (msg.what == 1) {
+			switch (msg.what) {
+			case 1:
 				String result = (String) msg.obj;
 				goodsBalance = new Gson().fromJson(result, GoodsBalance.class);
 				initViewData();
+				break;
+			case 2:
+				result = (String) msg.obj;
+				break;
+
+			default:
+				break;
 			}
 		}
 
@@ -265,6 +308,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 					findViewById(R.id.newAddress).setVisibility(View.GONE);
 					
 					selectedId = settle.getAddress().getAddId();
+					orderSubmit.setAddressId(selectedId);
 					address.setText(getResources().getString(
 							R.string.address,
 							settle.getAddress().getDeliveryCity()
@@ -286,23 +330,26 @@ public class GoodsBalanceActivity extends BaseActivity implements
 					List<Coupon> coupons = settle.getCoupons();
 					coupon_num.setText(coupons.size() + "张可用");
 					RadioButton btn = null;
+					LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
 					for (Coupon c : coupons) {
 						btn = getCustomRadioButton();
-						btn.setText(c.getDenomination() + "");
-						group_coupons.addView(btn);
+						btn.setText("满"+c.getLimitQuota()+"减"+c.getDenomination());
+						btn.setTag(R.id.coupon_de,c.getDenomination());
+						btn.setTag(R.id.coupon_id, c.getCoupId());
+						group_coupons.addView(btn,lp);
 					}
 				}
 
 				all_shipfee.setText(getResources().getString(R.string.price,
-						car.getFactShipFee()));
+						car.getFactShipFeeFormat()));
 				all_price.setText(getResources().getString(R.string.price,
-						car.getAllPrice()));
+						car.getAllPriceFormat()));
 				all_portalfee.setText(getResources().getString(R.string.price,
-						car.getFactPortalFee()));
+						car.getFactPortalFeeFormat()));
 				youhui.setText(getResources().getString(R.string.price,
-						car.getDenomination()));
+						car.getDenominationFormat()));
 				all_money.setText(getResources().getString(R.string.all_money,
-						car.getAllMoney()));
+						car.getAllMoneyFormat()));
 				
 				findViewById(R.id.btn_pay).setOnClickListener(this);
 			} else {

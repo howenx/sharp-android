@@ -5,6 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.hanmimei.entity.Customs;
+import com.hanmimei.entity.OrderSubmit;
 import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
 
@@ -28,7 +29,6 @@ public class JSONPaserTool {
 					arrayy.put(jsonn);
 				}
 				json.put("cartDtos", arrayy);
-				json.put("addressId", addressId);
 				array.put(json);
 			}
 		} catch (JSONException e) {
@@ -36,5 +36,26 @@ public class JSONPaserTool {
 			e.printStackTrace();
 		}
 		return array;
+	}
+	
+	public static JSONObject OrderSubmitPaser(OrderSubmit os){
+		JSONObject json = new JSONObject();
+		try {
+			json.put("settleDTOs", os.getSettleDtos());
+			json.put("addressId", os.getAddressId());
+			json.put("couponId", os.getCouponId());
+			json.put("clientIp", os.getClientIp());
+			json.put("clientType", os.getClientType());
+			json.put("shipTime", os.getShipTime());
+//			json.put("orderDesc", os.getOrderDesc());
+			json.put("payMethod", os.getPayMethod());
+			json.put("buyNow", os.getBuyNow());
+			
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return json;
+		
 	}
 }

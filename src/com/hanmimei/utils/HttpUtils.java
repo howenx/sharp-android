@@ -97,6 +97,7 @@ public class HttpUtils {
 		try {
 
 			HttpGet getRequest = new HttpGet(url);
+			getRequest.addHeader("Content-Type", "text/html;charset=UTF-8");  
 			getRequest.addHeader("accept", "application/json");
 			getRequest.addHeader("id-token", token);
 			HttpResponse response = httpClient.execute(getRequest);
