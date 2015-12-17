@@ -180,6 +180,7 @@ public class ShoppingCartFragment extends Fragment implements
 					//
 					ShoppingCarMenager.getInstance().initShoppingCarMenager(activity, adapter ,data, false, attention, check_all, total_price, pay, no_data, bottom);
 					ShoppingCarMenager.getInstance().initDrawable(getActivity());
+					clearPrice();
 					//
 					adapter.notifyDataSetChanged();
 				}else{
@@ -269,6 +270,7 @@ public class ShoppingCartFragment extends Fragment implements
 			shoppingCar.setList(customsList);
 			shoppingCar.setBuyNow(2);
 			if(shoppingCar.getList().size() > 0){
+				user = activity.getUser();
 				if(user !=null){
 					doPay(shoppingCar);
 				}else{
@@ -322,6 +324,7 @@ public class ShoppingCartFragment extends Fragment implements
 				}else if(intent.getAction().equals(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR)){
 					loadData();
 				}else if(intent.getAction().equals(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION)){
+//					clearPrice();
 					loadData();
 				}else if(intent.getAction().equals(AppConstant.MESSAGE_BROADCAST_QUIT_LOGIN_ACTION)){
 					loadData();
@@ -331,13 +334,13 @@ public class ShoppingCartFragment extends Fragment implements
 
 		@Override
 		public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-			clearPrice();
+//			clearPrice();
 			loadData();
 		}
 
 		@Override
 		public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-			clearPrice();
+//			clearPrice();
 			loadData();
 		}
 	

@@ -1,6 +1,7 @@
 package com.hanmimei.activity;
 
 import com.hanmimei.R;
+import com.hanmimei.utils.SharedPreferencesUtil;
 import com.hanmimei.view.viewflow.CircleFlowIndicator;
 import com.hanmimei.view.viewflow.ViewFlow;
 
@@ -23,6 +24,8 @@ public class IndroductionActivity extends BaseActivity {
 	public int[] images = { R.drawable.first_show, R.drawable.first_show,
 			R.drawable.first_show, R.drawable.first_show,
 			R.drawable.first_show, };
+	private static final String FIRST = "first";
+	private static final String FIRST_LOG_FLAG = "first_log_flag";
 	@Override
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
@@ -74,6 +77,9 @@ public class IndroductionActivity extends BaseActivity {
 				holder.experience.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View arg0) {
+						SharedPreferencesUtil util = new SharedPreferencesUtil(
+								IndroductionActivity.this, FIRST);
+						util.putString(FIRST_LOG_FLAG, "not_first");
 						IndroductionActivity.this.startActivity(new Intent(IndroductionActivity.this,MainActivity.class));
 						finish();
 					}

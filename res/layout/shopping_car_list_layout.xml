@@ -24,7 +24,7 @@
         android:id="@+id/mylist"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/attention"
+        android:layout_above="@+id/bottom"
         android:layout_below="@id/top"
         android:background="@color/white"
         android:cacheColorHint="#00000000"

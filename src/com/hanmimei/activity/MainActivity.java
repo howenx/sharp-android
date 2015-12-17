@@ -48,6 +48,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 		setContentView(R.layout.activity_main);
 		ActionBarUtil.setActionBarStyle(this, "", 0, false, this);
 		guanggao = (LinearLayout) findViewById(R.id.guanggao);
+		guanggao.setOnClickListener(this);
 		mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
 		mTabHost.setup(this, getSupportFragmentManager(), R.id.realcontent);
 		findViewById(R.id.close).setOnClickListener(this);
@@ -90,6 +91,9 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 			break;
 		case R.id.gg_img:
 			Toast.makeText(this, "你点击了广告！！！", Toast.LENGTH_SHORT).show();
+			guanggao.setVisibility(View.GONE);
+			break;
+		case R.id.guanggao:
 			guanggao.setVisibility(View.GONE);
 			break;
 		default:
