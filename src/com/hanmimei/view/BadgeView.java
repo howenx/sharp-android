@@ -36,7 +36,7 @@ public class BadgeView extends TextView {
 	public static final int POSITION_CENTER = 5;
 	public static final int POSITION_CENTER_HORIZONTAL = 6;
 	
-	private static final int DEFAULT_MARGIN_DIP = 3;
+	private static final int DEFAULT_MARGIN_DIP = 0;
 	private static final int DEFAULT_LR_PADDING_DIP = 5;
 	private static final int DEFAULT_CORNER_RADIUS_DIP = 8;
 	private static final int DEFAULT_POSITION = POSITION_TOP_RIGHT;
@@ -346,7 +346,7 @@ public class BadgeView extends TextView {
 			break;
 		case POSITION_TOP_RIGHT:
 			lp.gravity = Gravity.RIGHT | Gravity.TOP;
-			lp.setMargins(0, badgeMarginV, badgeMarginH+dipToPixels(9), 0);
+			lp.setMargins(0, badgeMarginV, badgeMarginH, 0);
 			break;
 		case POSITION_BOTTOM_LEFT:
 			lp.gravity = Gravity.LEFT | Gravity.BOTTOM;

@@ -18,7 +18,6 @@ public class ActionBarUtil {
 		actionbar.show();
 		actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 		actionbar.setDisplayShowTitleEnabled(true);
-		actionbar.setTitle("");
 		actionbar.setDisplayShowCustomEnabled(true);
 		actionbar.setCustomView(R.layout.main_header_layout);
 		View view = actionbar.getCustomView();

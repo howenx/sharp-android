@@ -17,20 +17,20 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="130dp" 
-                android:padding="10dp" 
-                android:background="@drawable/white_corner_bg">
+                android:layout_height="130dp"
+                android:background="@drawable/white_corner_bg"
+                android:padding="10dp" >
 
                 <RelativeLayout
                     android:id="@+id/selectAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone">
+                    android:visibility="gone" >
 
                     <ImageView
                         android:id="@+id/icon"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" 
+                        android:layout_height="wrap_content"
                         android:src="@drawable/icon_address" />
 
                     <TextView
@@ -78,8 +78,7 @@
                         android:layout_toRightOf="@id/icon"
                         android:text="北京市朝阳区望京洛娃大厦a坐1303"
                         android:textColor="@color/fontcolor"
-                        android:textSize="12sp" />
-
+                        android:textSize="14sp" />
 
                     <ImageView
                         android:id="@+id/isSelected"
@@ -98,7 +97,6 @@
                         android:text="默认地址"
                         android:textColor="@color/red"
                         android:textSize="12sp" />
-
                 </RelativeLayout>
 
                 <TextView
@@ -179,6 +177,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="工作日双休日与假期均可送货"
+                    android:tag="1"
                     android:textColor="#AA000000"
                     android:textSize="12sp" />
 
@@ -193,6 +192,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="只工作日送货"
+                    android:tag="2"
                     android:textColor="#AA000000"
                     android:textSize="12sp" />
 
@@ -207,6 +207,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="只双休日与假日送货"
+                    android:tag="3"
                     android:textColor="#AA000000"
                     android:textSize="12sp" />
             </RadioGroup>
@@ -243,7 +244,7 @@
                     android:drawableLeft="@drawable/btn_radio_selected"
                     android:drawablePadding="10dp"
                     android:gravity="center_vertical"
-                    android:text="在线支付"
+                    android:text="京东钱包"
                     android:textColor="#AA000000"
                     android:textSize="14sp" />
 
@@ -268,11 +269,12 @@
                 android:visibility="gone" >
 
                 <RadioButton
-                    android:id="@+id/btn_online_pay"
+                    android:id="@+id/pay_jd"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="在线支付"
+                    android:tag="@string/pay_type_jd"
+                    android:text="京东钱包"
                     android:textColor="#AA000000"
                     android:textSize="12sp" />
 
@@ -282,13 +284,29 @@
                     android:background="#cccccc" />
 
                 <RadioButton
-                    android:id="@+id/btn_get_pay"
+                    android:id="@+id/pay_ali"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="货到付款"
+                    android:tag="@string/pay_type_ali"
+                    android:text="支付宝"
                     android:textColor="#AA000000"
                     android:textSize="12sp" />
+                 <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#cccccc" />
+
+                <RadioButton
+                    android:id="@+id/pay_wx"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:tag="@string/pay_type_wx"
+                    android:text="微信支付"
+                    android:textColor="#AA000000"
+                    android:textSize="12sp" />
+                
             </RadioGroup>
 
             <TextView
@@ -297,7 +315,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@color/white"
                 android:padding="10dp"
-                android:text="优惠券"
+                android:text="微信"
                 android:textColor="#AA000000"
                 android:textSize="13sp"
                 android:visibility="gone" />

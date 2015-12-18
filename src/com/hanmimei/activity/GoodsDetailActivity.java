@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,6 +32,7 @@ import android.widget.Toast;
 import com.bigkoo.convenientbanner.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.hanmimei.R;
+import com.hanmimei.activity.listener.SimpleAnimationListener;
 import com.hanmimei.adapter.GoodsDetailParamAdapter;
 import com.hanmimei.dao.ShoppingGoodsDao;
 import com.hanmimei.dao.ShoppingGoodsDao.Properties;
@@ -48,25 +50,22 @@ import com.hanmimei.entity.Tag;
 import com.hanmimei.entity.User;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
-import com.hanmimei.utils.Http2Utils;
-import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.InitImageLoader;
 import com.hanmimei.utils.PopupWindowUtil;
 import com.hanmimei.utils.ToastUtils;
+import com.hanmimei.view.BadgeView;
 import com.hanmimei.view.CustomScrollView;
 import com.hanmimei.view.NetworkImageHolderView;
 import com.hanmimei.view.TagCloudView;
 import com.hanmimei.view.TagCloudView.OnTagClickListener;
-import com.hanmimei.view.viewflow.CircleFlowIndicator;
 
 @SuppressLint("NewApi")
 public class GoodsDetailActivity extends BaseActivity implements
 		OnClickListener, CustomScrollView.OnScrollUpListener,
 		RadioGroup.OnCheckedChangeListener {
 
-	private ConvenientBanner slider; // 轮播图控件
-	private CircleFlowIndicator cIndicator; // 轮播图控件
+	private ConvenientBanner<String> slider; // 轮播图控件
 	private TextView discount, itemTitle, itemSrcPrice, itemPrice, area; // 商品折扣
 																			// 标题
 																			// 原价
@@ -74,13 +73,15 @@ public class GoodsDetailActivity extends BaseActivity implements
 																			// 发货区
 	private TextView num_restrictAmount;
 	private TagCloudView tagCloudView; // 规格标签控件
-	private TextView publicity,num_shopcart; // 优惠信息 /购物车数量å
+	private TextView publicity; // 优惠信息 /购物车数量å
 	private CustomScrollView mScrollView; //
 	private ListView content_params, content_hot; // 商品参数／热卖商品
 	private RadioGroup indicator_hide, indicator; // 顶部导航栏 中部导航栏
-	private ImageView img_hide;
+	private ImageView img_hide,shopcart;
 
-	private View pager_header,shopcart,back_top;
+	private View pager_header,back_top;
+	
+	private BadgeView buyNumView;//显示购买数量的控件
 
 	private User user;
 	private ShoppingGoodsDao goodsDao;
@@ -88,8 +89,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private List<Stock> stocks; // 子商品信息
 	private List<Tag> tags; // 规格标签信息
 	
-	private int shopcart_num=0;
-	private List<ImageView> views = new ArrayList<ImageView>();
+	private int num_shopcart=0;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -112,7 +112,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	 */
 	private void findView() {
 
-		slider = (ConvenientBanner)findViewById(R.id.slider);
+		slider = (ConvenientBanner<String>)findViewById(R.id.slider);
 		View view = findViewById(R.id.viewpager_content);
 		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
 				CommonUtil.getScreenWidth(this),
@@ -131,14 +131,18 @@ public class GoodsDetailActivity extends BaseActivity implements
 		mScrollView = (CustomScrollView) findViewById(R.id.mScrollView);
 		mScrollView.setOnScrollUpListener(this);
 		pager_header = findViewById(R.id.pager_header);
-		num_shopcart = (TextView) findViewById(R.id.num_shopcart);
+		shopcart = (ImageView) findViewById(R.id.shopcart);
+		buyNumView = new BadgeView(this, shopcart);
+		buyNumView.setTextColor(Color.WHITE);
+		buyNumView.setTextSize(10);
+		buyNumView.setBackgroundResource(R.drawable.bg_badgeview);
 		img_hide = (ImageView) findViewById(R.id.img_hide);
 		back_top =  findViewById(R.id.back_top);
 
 		content_params = (ListView) findViewById(R.id.content_params);
 		FrameLayout.LayoutParams lpm = (FrameLayout.LayoutParams)new FrameLayout.LayoutParams(
 				CommonUtil.getScreenWidth(this),
-				CommonUtil.getScreenHeight(this));
+				CommonUtil.getScreenHeight(this)-CommonUtil.dip2px(129)-CommonUtil.getStatusBarHeight(this));
 		content_params.setLayoutParams(lpm);
 		content_params.setFocusable(false);
 		content_hot = (ListView) findViewById(R.id.content_hot);
@@ -150,7 +154,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 		
 		findViewById(R.id.btn_pay).setOnClickListener(this);
 		findViewById(R.id.btn_shopcart).setOnClickListener(this);
-		shopcart = findViewById(R.id.shopcart);
 		shopcart.setOnClickListener(this);
 		findViewById(R.id.btn_portalFee).setOnClickListener(this);
 		findViewById(R.id.back_top).setOnClickListener(this);
@@ -159,28 +162,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 	}
 
-	/**
-	 * 加载数据
-	 * 
-	 */
-	private void loadDataByUrl() {
-		Http2Utils.doGetRequestTask(this, getIntent().getStringExtra("url"),
-				new VolleyJsonCallback() {
-
-					@Override
-					public void onSuccess(String result) {
-						// TODO Auto-generated method stub
-						GoodsDetail detail = DataParser
-								.parserGoodsDetail(result);
-						initGoodsDetail(detail);
-					}
-
-					@Override
-					public void onError() {
-						ToastUtils.Toast(getActivity(), R.string.error);
-					}
-				});
-	}
+	
 
 	@Override
 	public void onClick(View arg0) {
@@ -189,9 +171,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 			return;
 		}
 		switch (arg0.getId()) {
-//		case R.id.back:
-//			finish();
-//			break;
 		case R.id.shopcart:
 			setResult(AppConstant.CAR_TO_GOODS_CODE);
 			startActivity(new Intent(this, ShoppingCarActivity.class));
@@ -204,15 +183,19 @@ public class GoodsDetailActivity extends BaseActivity implements
 			break;
 
 		case R.id.btn_shopcart:
-			Animation anim = AnimationUtils.loadAnimation(this, R.anim.shopcart_anim);
-			img_hide.startAnimation(anim);
+			
 			ShoppingGoods goods = new ShoppingGoods();
 			for (int i = 0; i < stocks.size(); i++) {
 				Stock stock = stocks.get(i);
 				if (stock.getOrMasterInv()) {
-					goods.setGoodsId(stock.getId());
-					goods.setGoodsNums(1);
-					goods.setState("I");
+					if(stock.getState().equals("Y")){
+						goods.setGoodsId(stock.getId());
+						goods.setGoodsNums(1);
+						goods.setState("I");
+					}else{
+						ToastUtils.Toast(this, "请选择商品");
+						return;
+					}
 				}
 			}
 			if (user != null) {
@@ -226,9 +209,22 @@ public class GoodsDetailActivity extends BaseActivity implements
 				}else{
 					goodsDao.insert(goods);
 				}
-				ToastUtils.Toast(this);
 				sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_ADD_CAR));
 			}
+			Animation anim = AnimationUtils.loadAnimation(this, R.anim.shopcart_anim);
+			img_hide.startAnimation(anim);
+			// 动画监听事件
+			anim.setAnimationListener(new SimpleAnimationListener() {
+
+				// 动画的结束
+				@Override
+				public void onAnimationEnd(Animation animation) {
+					num_shopcart++;
+					buyNumView.setText(num_shopcart+ "");//
+					buyNumView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
+					buyNumView.show();
+				}
+			});
 			break;
 		case R.id.setting:
 
@@ -259,16 +255,22 @@ public class GoodsDetailActivity extends BaseActivity implements
 		ShoppingGoods sgoods = null;
 		for (Stock s : stocks) {
 			if (s.getOrMasterInv()) {
-				sgoods = new ShoppingGoods();
-				sgoods.setGoodsId(s.getId());
-				sgoods.setGoodsImg(s.getInvImg());
-				sgoods.setGoodsName(s.getInvTitle());
-				sgoods.setGoodsNums(1);
-				sgoods.setGoodsPrice(s.getItemPrice());
-				sgoods.setInvArea(s.getInvArea());
-				sgoods.setInvCustoms(s.getInvCustoms());
-				sgoods.setPostalTaxRate(s.getPostalTaxRate());
-				sgoods.setPostalStandard(s.getPostalStandard());
+				if(s.getState().equals("Y")){
+					sgoods = new ShoppingGoods();
+					sgoods.setGoodsId(s.getId());
+					sgoods.setGoodsImg(s.getInvImg());
+					sgoods.setGoodsName(s.getInvTitle());
+					sgoods.setGoodsNums(1);
+					sgoods.setGoodsPrice(s.getItemPrice());
+					sgoods.setInvArea(s.getInvArea());
+					sgoods.setInvCustoms(s.getInvCustoms());
+					sgoods.setPostalTaxRate(s.getPostalTaxRate());
+					sgoods.setPostalStandard(s.getPostalStandard());
+					break;
+				}else{
+					ToastUtils.Toast(this, "请选择商品");
+					return;
+				}
 			}
 		}
 		customs.addShoppingGoods(sgoods);
@@ -310,8 +312,26 @@ public class GoodsDetailActivity extends BaseActivity implements
 		view.findViewById(R.id.btn_cancel).setOnClickListener(this);
 		window = PopupWindowUtil.showPopWindow(this, view);
 	}
+	
+	/**
+	 * 加载数据
+	 * 
+	 */
+	private void loadDataByUrl() {
+		submitTask(new Runnable() {
+			
+			@Override
+			public void run() {
+				String result = HttpUtils.get(getIntent().getStringExtra("url"), user.getToken());
+				GoodsDetail detail = DataParser.parserGoodsDetail(result);
+				Message msg = mHandler.obtainMessage(2);
+				msg.obj = detail;
+				mHandler.sendMessage(msg);
+				
+			}
+		});
+	}
 
-	private ShoppingGoods goods;
 	/**
 	 * 发送商品信息添加到购物车
 	 */
@@ -357,7 +377,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 		@Override
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
-			if (msg.what == 1) {
+			switch (msg.what) {
+			case 1:
 				HMessage hm = (HMessage) msg.obj;
 				if (hm.getCode() == 200) {
 					//购物车添加成功，显示提示框
@@ -370,6 +391,14 @@ public class GoodsDetailActivity extends BaseActivity implements
 					Toast.makeText(GoodsDetailActivity.this, hm.getMessage(),
 							Toast.LENGTH_SHORT).show();
 				}
+				break;
+			case 2:
+				GoodsDetail detail = (GoodsDetail) msg.obj;
+				initGoodsDetail(detail);
+				break;
+
+			default:
+				break;
 			}
 		}
 
@@ -396,7 +425,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		publicity.setText(main.getPublicity());
 		tags = new ArrayList<Tag>();
 		// 初始化子商品信息 （-1表示默认选中位置 ）
-		initStocks(-1);
+		initGoodsInfo();
 		// 初始化规格显示
 		tagCloudView.setTags(tags);
 		// 规格标签的点击事件
@@ -407,7 +436,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 				// TODO Auto-generated method stub
 				stocks.get(oldPostion).setOrMasterInv(false);
 				stocks.get(position).setOrMasterInv(true);
-				initStocks(position);
+				initStocks(stocks.get(position));
 			}
 		});
 
@@ -427,23 +456,33 @@ public class GoodsDetailActivity extends BaseActivity implements
 		if(getUser() == null){
 			List<ShoppingGoods> goods = goodsDao.queryBuilder().list();
 			for(ShoppingGoods sg :goods){
-				shopcart_num += sg.getGoodsNums();
+				num_shopcart += sg.getGoodsNums();
 			}
 		}else{
 			
 		}
-		if(shopcart_num == 0){
-			num_shopcart.setVisibility(View.INVISIBLE);
-		}else{
-			num_shopcart.setVisibility(View.VISIBLE);
-			num_shopcart.setText(shopcart_num+"");
+		if(num_shopcart >0){
+			buyNumView.setText(num_shopcart+"");
+			buyNumView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
+			buyNumView.show();
 		}
-		
 	}
 
 	private int curPostalTaxRate; // 当前商品税率
 	private double curItemPrice; // 当前商品价格
 	private int postalStandard;// 关税收费标准
+	
+	private void initGoodsInfo(){
+		Stock stock = null;
+		for (Stock s : stocks) {
+			tags.add(new Tag(s.getItemColor() + " " + s.getItemSize(), s
+					.getState(), s.getOrMasterInv()));
+			if (s.getOrMasterInv()) 
+				stock = s;
+			}
+		initStocks(stock);
+	}
+	
 
 	/**
 	 * 初始化子商品信息
@@ -451,13 +490,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 	 * @param position
 	 *            选中商品位置
 	 */
-	private void initStocks(int position) {
-		for (int index = 0; index < stocks.size(); index++) {
-			Stock s = stocks.get(index);
-			tags.add(new Tag(s.getItemColor() + " " + s.getItemSize(), s
-					.getState(), s.getOrMasterInv()));
-
-			if (s.getOrMasterInv()) {
+	
+	private void initStocks(Stock s) {
 				initSliderImage(s);
 				discount.setText("[" + s.getItemDiscount() + "折]");
 				itemTitle.setText(s.getInvTitle());
@@ -478,8 +512,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 				curItemPrice = s.getItemPrice();
 				postalStandard = s.getPostalStandard();
 				area.setText(s.getInvArea());
-			}
-		}
 	}
 
 	/**

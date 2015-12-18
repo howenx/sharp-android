@@ -29,7 +29,8 @@ public class UrlUtil {
 	public static final String GET_COUPON_LIST_URL = SERVER01 + "/client/coupons/list";
 	
 	//结算页接口
-	public static final String POST_CLIENT_SETTLE = SERVER01 +"/client/settle";
-	public static final String GOODS_DETAIL_URL = SERVER06 +"/comm/detail/web/";
+	public static final String POST_CLIENT_SETTLE = SERVER02 +"/client/settle";
+	public static final String POST_CLIENT_ORDER_SUBMIT = SERVER02 +"/client/order/submit";
+	public static final String GOODS_DETAIL_URL = SERVER03 +"/comm/detail/web/";
 	
 }

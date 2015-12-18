@@ -329,16 +329,21 @@ public class TagCloudView extends ViewGroup{
                 TextView tagView = (TextView) mInflater.inflate(mTagResId, null);
                 final Tag tag = tags.get(i);
                 if (mTagResId == DEFAULT_TAG_RESID) {
-                   if(!tag.getState().equals("Y")){
+                	 if(tag.getOrMasterInv()){
+                     	selectedPos = i;
+                     	if(tag.getState().equals("Y")){
+                     		tagView.setBackgroundResource(selected_background);
+                         	tagView.setTextColor(theme_color);
+                     	}else{
+                     		tagView.setBackgroundResource(state_background);
+                        	tagView.setTextColor(state_color);
+                     	}
+                     }else if(tag.getState().equals("Y")){
+                    	 tagView.setBackgroundResource(default_background);
+                     	tagView.setTextColor(default_color);
+                    }else {
                     	tagView.setBackgroundResource(state_background);
                     	tagView.setTextColor(state_color);
-                    }else  if(tag.getOrMasterInv()){
-                    	selectedPos = i;
-                    	tagView.setBackgroundResource(selected_background);
-                    	tagView.setTextColor(theme_color);
-                    } else{
-                    	tagView.setBackgroundResource(default_background);
-                    	tagView.setTextColor(default_color);
                     }
                     tagView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mTagSize);
                     
@@ -359,8 +364,13 @@ public class TagCloudView extends ViewGroup{
                         	tags.get(finalI).setOrMasterInv(true);
                         	tagViewList.get(finalI).setBackgroundResource(selected_background);
                         	tagViewList.get(finalI).setTextColor(theme_color);
-                        	tagViewList.get(selectedPos).setBackgroundResource(default_background);
-                        	tagViewList.get(selectedPos).setTextColor(default_color);
+                        	if(tags.get(selectedPos).getState().equals("Y")){
+                        		tagViewList.get(selectedPos).setBackgroundResource(default_background);
+                            	tagViewList.get(selectedPos).setTextColor(default_color);
+                        	}else{
+                        		tagViewList.get(selectedPos).setBackgroundResource(state_background);
+                            	tagViewList.get(selectedPos).setTextColor(state_color);
+                        	}
                             onTagClickListener.onTagClick(selectedPos,finalI,tag);
                             selectedPos = finalI;
                         }
