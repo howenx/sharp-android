@@ -30,6 +30,7 @@ import com.hanmimei.entity.Coupon;
 import com.hanmimei.entity.Customs;
 import com.hanmimei.entity.From;
 import com.hanmimei.entity.GoodsBalance;
+import com.hanmimei.entity.OrderInfo;
 import com.hanmimei.entity.GoodsBalance.Settle;
 import com.hanmimei.entity.GoodsBalance.SingleCustoms;
 import com.hanmimei.entity.HMMAddress;
@@ -261,6 +262,10 @@ public class GoodsBalanceActivity extends BaseActivity implements
 				break;
 			case 2:
 				result = (String) msg.obj;
+				OrderInfo info = new Gson().fromJson(result, OrderInfo.class);
+				Intent intent = new Intent(getActivity(), OrderSubmitActivity.class);
+				intent.putExtra("orderInfo", info);
+				startActivity(intent);
 				break;
 
 			default:

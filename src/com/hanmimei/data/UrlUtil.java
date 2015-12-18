@@ -32,5 +32,6 @@ public class UrlUtil {
 	public static final String POST_CLIENT_SETTLE = SERVER02 +"/client/settle";
 	public static final String POST_CLIENT_ORDER_SUBMIT = SERVER02 +"/client/order/submit";
 	public static final String GOODS_DETAIL_URL = SERVER03 +"/comm/detail/web/";
+	public static final String CLIENT_PAY_ORDER_GET = SERVER02 +"/client/pay/order/get/";
 	
 }
