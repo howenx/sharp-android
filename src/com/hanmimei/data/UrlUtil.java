@@ -38,7 +38,7 @@ public class UrlUtil {
 	//获取用户信息接口
 	public static final String GET_USERINFO_URL = SERVER04 + "/api/user/get/info";
 	//获取订单列表接口
-	public static final String GET_ORDER_LIST_URL = SERVER01 + "/client/order";
+	public static final String GET_ORDER_LIST_URL = SERVER02 + "/client/order";
 	//获取优惠券列表接口
 	public static final String GET_COUPON_LIST_URL = SERVER01 + "/client/coupons/list";
 	

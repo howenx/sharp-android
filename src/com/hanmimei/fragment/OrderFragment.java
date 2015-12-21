@@ -2,6 +2,8 @@ package com.hanmimei.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.hanmimei.R;
 import com.hanmimei.activity.BaseActivity;
@@ -29,7 +31,7 @@ public class OrderFragment extends Fragment {
 	private List<Order> data;
 	private OrderPullListAdapter adapter;
 	private Category category;
-	private int state = 0;
+	private int state = 1;
 	private User user;
 	private BaseActivity activity;
 	@Override
@@ -49,12 +51,17 @@ public class OrderFragment extends Fragment {
 		View view = inflater.inflate(R.layout.pulltorefresh_list_layout, null);
 		mListView = (PullToRefreshListView) view.findViewById(R.id.mylist);
 		mListView.setAdapter(adapter);
-		if (category.getId().equals("tag00")) {
-			state = 0;
-		}else if(category.getId().equals("tag01")){
+		mListView.setMode(Mode.DISABLED);
+		if (category.getId().equals("tag01")) {
 			state = 1;
-		}else{
+		}else if(category.getId().equals("tag02")){
 			state = 2;
+		}else if(category.getId().equals("tag03")){
+			state = 3;
+		}else if(category.getId().equals("tag04")){
+			state = 4;
+		}else {
+			state = 5;
 		}
 		loadOrder();
 		return view;
@@ -74,17 +81,29 @@ public class OrderFragment extends Fragment {
 		}).start();
 	}
 	private void getOrderByState(List<Order> orders){
-		if(state == 0){
+		if(state == 1){
 			data.addAll(orders);
-		}else if(state == 1){
+		}else if(state == 2){
 			for(int i = 0; i < orders.size(); i ++){
 				if(orders.get(i).getOrderStatus().equals("I")){
 					data.add(orders.get(i));
 				}
 			}
-		}else{
+		}else if(state == 3){
 			for(int i = 0; i < orders.size(); i ++){
 				if(orders.get(i).getOrderStatus().equals("S")){
+					data.add(orders.get(i));
+				}
+			}
+		}else if(state == 4){
+			for(int i = 0; i < orders.size(); i ++){
+				if(orders.get(i).getOrderStatus().equals("D")){
+					data.add(orders.get(i));
+				}
+			}
+		}else{
+			for(int i = 0; i < orders.size(); i ++){
+				if(orders.get(i).getOrderStatus().equals("R")){
 					data.add(orders.get(i));
 				}
 			}

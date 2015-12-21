@@ -2,49 +2,45 @@ package com.hanmimei.activity;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.view.View.OnClickListener;
+
 import com.hanmimei.R;
 import com.hanmimei.adapter.MyPagerAdapter;
 import com.hanmimei.entity.Category;
 import com.hanmimei.fragment.OrderFragment;
 import com.hanmimei.utils.ActionBarUtil;
 import com.viewpagerindicator.TabPageIndicator;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 public class MyOrderActivity extends BaseActivity implements OnClickListener{
 	
-	private static final String ALL_ID = "tag00";
-	private static final String NO_PAY_ID = "tag01";
-	private static final String PAY_ID = "tag02";
-	private static final String ALL = "全部";
-	private static final String NO_PAY = "待付款";
-	private static final String PAY = "已付款";
+	private static final String TAG_01_ID = "tag01";
+	private static final String TAG_02_ID = "tag02";
+	private static final String TAG_03_ID = "tag03";
+	private static final String TAG_04_ID = "tag04";
+	private static final String TAG_05_ID = "tag05";
+	private static final String TAG_01 = "全部";
+	private static final String TAG_02 = "待付款";
+	private static final String TAG_03 = "待发货";
+	private static final String TAG_04 = "待收货";
+	private static final String TAG_05 = "已完成";
 	private TabPageIndicator indicator;
 	private ViewPager viewPager;
 	private List<Category> data;
 	private List<Fragment> fragmentList;
 	private MyPagerAdapter adapter;
-	private TextView header;
-	private ImageView back;
 	
 	@Override
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
 		setContentView(R.layout.my_order_layout);
 		ActionBarUtil.setActionBarStyle(this, "我的订单", 0, true, null);
-//		getActionBar().hide();
 		indicator = (TabPageIndicator) findViewById(R.id.indicator);
 		viewPager = (ViewPager) findViewById(R.id.pager);
-//		header = (TextView) findViewById(R.id.header);
-//		header.setText("我的订单");
-//		back = (ImageView) findViewById(R.id.back);
-//		back.setVisibility(View.VISIBLE);
-//		back.setOnClickListener(this);
 		initCategory();
 		initFragment();
 	}
@@ -66,9 +62,11 @@ public class MyOrderActivity extends BaseActivity implements OnClickListener{
 
 	private void initCategory() {
 		data = new ArrayList<Category>();
-		data.add(new Category(ALL_ID, ALL));
-		data.add(new Category(NO_PAY_ID, NO_PAY));
-		data.add(new Category(PAY_ID, PAY));
+		data.add(new Category(TAG_01_ID, TAG_01));
+		data.add(new Category(TAG_02_ID, TAG_02));
+		data.add(new Category(TAG_03_ID, TAG_03));
+		data.add(new Category(TAG_04_ID, TAG_04));
+		data.add(new Category(TAG_05_ID, TAG_05));
 	}
 
 	@Override

@@ -212,8 +212,10 @@ public class DataParser {
 						order.setOrderCreateAt(orderObject.getString("orderCreateAt"));
 					if(orderObject.has("orderStatus"))
 						order.setOrderStatus(orderObject.getString("orderStatus"));
-					if(orderObject.has("discount"))
+					if(orderObject.has("discount")){
+						if(!orderObject.getString("discount").equals("null"))
 						order.setDiscount(orderObject.getDouble("discount"));
+					}
 					if(orderObject.has("orderDesc"))
 						order.setOrderDesc(orderObject.getString("orderDesc"));
 					if(orderObject.has("shipFee"))
