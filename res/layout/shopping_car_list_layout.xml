@@ -91,6 +91,7 @@
         android:text="@null"
         android:textColor="@color/huise"
         android:textSize="12sp"
-        android:visibility="gone" />
+        android:visibility="gone" 
+        android:background="@color/white"/>
 
 </RelativeLayout>

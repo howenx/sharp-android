@@ -102,6 +102,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
+		//根据状态判断是否选中，s状态显示一次，未登录状态显示之后删除本地数据，登录状态直接显示后台做处理
 		if (goods.getState().equals("G")) {
 			check_nums = check_nums + 1;
 			holder.checkBox.setVisibility(View.VISIBLE);
@@ -153,11 +154,14 @@ public class ShoppingCarAdapter extends BaseAdapter {
 
 				// 登录状态减少到服务器，未登录状态增减少本地数据库
 				if (user != null) {
+					//数量大于1的时候才可以进行减一操作
 					if (goods.getGoodsNums() > 1)
 						goods.setGoodsNums(goods.getGoodsNums() - 1);
+					//非失效商品，调用接口 更新服务器商品数量
 					if(!goods.getState().equals("S"))
 						upGoods(goods);
 				} else {
+					//数量大于1可以执行减一，s状态直接删除本地数据库数据
 					if (goods.getGoodsNums() > 1) {
 						goodsDao.deleteAll();
 						if(!goods.getState().equals("S"))
@@ -213,7 +217,6 @@ public class ShoppingCarAdapter extends BaseAdapter {
 					goods.setState("G");
 					check_nums = check_nums + 1;
 					notifyDataSetChanged();
-
 					ShoppingCarMenager.getInstance().setBottom();
 				}
 			}
