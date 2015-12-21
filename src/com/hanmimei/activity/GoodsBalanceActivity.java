@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.hanmimei.R;
 import com.hanmimei.adapter.GoodsBalanceCustomAdapter;
+import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.JSONPaserTool;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.Coupon;
@@ -266,6 +267,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 				Intent intent = new Intent(getActivity(), OrderSubmitActivity.class);
 				intent.putExtra("orderInfo", info);
 				startActivity(intent);
+				sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
 				finish();
 				break;
 
