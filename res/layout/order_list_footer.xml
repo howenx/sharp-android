@@ -5,7 +5,7 @@
     android:orientation="vertical" >
     <TextView 
         android:id="@+id/all_price"
-        android:padding="10dp"
+        android:padding="6dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="right"
@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:text="去支付"
-        android:textSize="15sp"
+        android:textSize="14sp"
 		style="@style/submit"/>
 
 </LinearLayout>

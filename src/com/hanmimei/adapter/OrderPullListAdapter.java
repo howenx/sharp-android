@@ -98,6 +98,7 @@ public class OrderPullListAdapter extends BaseAdapter{
 			holder.state.setText("已取消");
 			holder.go_pay.setVisibility(View.GONE);
 		}
+		
 		holder.date.setText(order.getOrderCreateAt());
 		adapter = new OrderListAdapter(order.getList(), activity);
 		holder.listView.setAdapter(adapter);

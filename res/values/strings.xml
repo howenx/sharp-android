@@ -37,5 +37,6 @@
 	
 	<string name="cancel">取消</string>
 	<string name="confirm">确认</string>
+	<string name="order_attention">注意：订单超过24小时，系统会自动取消。请尽快支付！</string>
 	
 </resources>

@@ -45,6 +45,8 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 	private TextView cut_price;
 	private TextView order_price;
 	private TextView cancle;
+	private TextView idcard;
+	private TextView tax;
 	private HMMAddress addressInfo;
 	private List<Sku> list;
 	private CustomListView listView;
@@ -55,7 +57,6 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.order_detail_layout);
-//		getActionBar().hide();
 		order = new Order();
 		addressInfo = new HMMAddress();
 		list = new ArrayList<Sku>();
@@ -78,19 +79,24 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 			order_state.setText("订单状态：已取消");
 			cancle.setVisibility(View.GONE);
 		}
-		pay_from.setText("支付方式：" + order.getPayMethod());
+		String payMethod = "";
+		if(order.getPayMethod().equals("JD")){
+			payMethod = "京东支付";
+		}else if(order.getPayMethod().equals("APAY")){
+			payMethod = "支付宝支付";
+		}else if(order.getPayMethod().equals("WEIXIN")){
+			payMethod = "微信支付";
+		}
+		pay_from.setText("支付方式：" + payMethod);
 		order_date.setText("下单时间：" + order.getOrderCreateAt());
-		pay_from.setText("支付方式：" + order.getPayMethod());
 		name.setText("收货人：" + addressInfo.getName());
 		phone.setText("手机号码：" + addressInfo.getPhone());
+		idcard.setText("身份证：" + addressInfo.getIdCard());
 		address.setText("收货地址：" + addressInfo.getCity() + addressInfo.getAdress());
 		nums.setText("订单总件数：" + list.size());
-		int goods_price = 0;
-		for(int i = 0; i < list.size(); i ++){
-			goods_price = goods_price + list.get(i).getPrice() * list.get(i).getAmount();
-		}
-		total_price.setText("商品总费用：" + goods_price);
+		total_price.setText("商品总费用：" + order.getTotalFee());
 		post_cost.setText("邮费：" + order.getShipFee());
+		tax.setText("行邮税：" + order.getPostalFee());
 		cut_price.setText("已优惠金额：" + order.getDiscount());
 		order_price.setText("订单应付金额：" + order.getPayTotal());
 	}
@@ -115,6 +121,8 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		cut_price = (TextView) findViewById(R.id.cost_price);
 		order_price = (TextView) findViewById(R.id.order_price);
 		cancle = (TextView) findViewById(R.id.send);
+		idcard = (TextView) findViewById(R.id.idcard);
+		tax = (TextView) findViewById(R.id.tax);
 		cancle.setOnClickListener(this);
 	}
 	@Override
