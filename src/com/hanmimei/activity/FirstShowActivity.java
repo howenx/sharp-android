@@ -1,19 +1,13 @@
 package com.hanmimei.activity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-
 import com.hanmimei.R;
 import com.hanmimei.application.MyApplication;
-import com.hanmimei.dao.ShoppingGoodsDao;
 import com.hanmimei.dao.UserDao;
-import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.User;
 import com.hanmimei.utils.DateUtil;
 import com.hanmimei.utils.SharedPreferencesUtil;
@@ -54,6 +48,7 @@ public class FirstShowActivity extends BaseActivity {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
+					
 				}
 			}).start();
 		}
