@@ -70,13 +70,20 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 	}
 	private void initView() {
 		order_code.setText("订单号：" + order.getOrderId());
+//		I:初始化即未支付状态，S:成功，C：取消， F:失败，R:已收货，D:已经发货，J:拒收
 		if(order.getOrderStatus().equals("S")){
-			order_state.setText("订单状态：已支付");
+			order_state.setText("订单状态：待发货");
 			cancle.setVisibility(View.GONE);
 		}else if(order.getOrderStatus().equals("I")){
 			order_state.setText("订单状态：待支付");
-		}else{
+		}else if(order.getOrderStatus().equals("C")){
 			order_state.setText("订单状态：已取消");
+			cancle.setVisibility(View.GONE);
+		}else if(order.getOrderStatus().equals("D")){
+			order_state.setText("订单状态：待收货");
+			cancle.setVisibility(View.GONE);
+		}else{
+			order_state.setText("订单状态：已完成");
 			cancle.setVisibility(View.GONE);
 		}
 		String payMethod = "";

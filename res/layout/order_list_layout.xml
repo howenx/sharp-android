@@ -15,10 +15,10 @@
         android:layout_height="0.1dp"
         android:background="@color/qianhui" />
 
-    <com.hanmimei.view.CustomListView
+    <com.hanmimei.view.HorizontalListView
         android:id="@+id/my_listview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="90dp"
         android:divider="@color/qianhui"
         android:dividerHeight="0.1dp"/>
 
@@ -28,6 +28,7 @@
         android:background="@color/qianhui" />
 
     <include
+        android:id="@+id/bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" 
         layout="@layout/order_list_footer" />

@@ -16,20 +16,28 @@
         android:layout_height="0.1dp"
         android:layout_width="match_parent"
         android:background="@color/qianhui"/>
-    <TextView 
-        android:id="@+id/go_pay"
+    <LinearLayout 
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:layout_marginRight="10dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:gravity="right">
+    <TextView 
+        android:id="@+id/goods_post"
+        style="@style/submit_mid_huise"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:text="去支付"
-        android:textSize="14sp"
-		style="@style/submit"/>
+        android:text="查看物流"
+        android:visibility="gone"/>
+    <TextView 
+        android:id="@+id/go_pay"
+        android:layout_marginLeft="15dp"
+        style="@style/submit_mid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="去支付"/>
+    </LinearLayout>
 
 </LinearLayout>
