@@ -102,6 +102,9 @@
          <activity 
             android:name="com.hanmimei.activity.OrderSubmitActivity"
             android:screenOrientation="portrait" />
+         <activity 
+            android:name="com.hanmimei.activity.OrderTestActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

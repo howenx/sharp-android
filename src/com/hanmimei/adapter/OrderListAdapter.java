@@ -58,6 +58,7 @@ public class OrderListAdapter extends BaseAdapter {
 			holder.name = (TextView) convertView.findViewById(R.id.name);
 			holder.price = (TextView) convertView.findViewById(R.id.price);
 			holder.nums = (TextView) convertView.findViewById(R.id.nums);
+			holder.size = (TextView) convertView.findViewById(R.id.size);
 			convertView.setTag(holder);
 		}else{
 			holder = (ViewHolder) convertView.getTag();
@@ -66,6 +67,7 @@ public class OrderListAdapter extends BaseAdapter {
 		holder.name.setText(sku.getSkuTitle());
 		holder.price.setText("单价： ¥" + sku.getPrice());
 		holder.nums.setText("x" + sku.getAmount());
+		holder.size.setText(sku.getItemColor() + "  " +sku.getItemSize());
 		return convertView;
 	}
 	private class ViewHolder{
@@ -73,6 +75,7 @@ public class OrderListAdapter extends BaseAdapter {
 		private TextView name;
 		private TextView price;
 		private TextView nums;
+		private TextView size;
 	}
 
 }

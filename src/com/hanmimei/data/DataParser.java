@@ -184,10 +184,14 @@ public class DataParser {
 				if(obj.has("address")){
 					JSONObject addObject = obj.getJSONObject("address");
 					HMMAddress adress = new HMMAddress();
-					if(addObject.has("addId"))
-						adress.setAdress_id(addObject.getInt("addId"));
+//					if(addObject.has("addId")){
+//						if(!addObject.getString("addId").equals("null"))
+//						adress.setAdress_id(addObject.getInt("addId"));
+//					}
 					if(addObject.has("tel"))
 						adress.setPhone(addObject.getString("tel"));
+					if(addObject.has("idCardNum"))
+						adress.setIdCard(addObject.getString("idCardNum"));
 					if(addObject.has("name"))
 						adress.setName(addObject.getString("name"));
 					if(addObject.has("deliveryCity"))
@@ -201,7 +205,7 @@ public class DataParser {
 					if(orderObject.has("orderId"))
 						order.setOrderId(orderObject.getInt("orderId")+"");
 					if(orderObject.has("payTotal"))
-						order.setPayTotal(orderObject.getInt("payTotal"));
+						order.setPayTotal(orderObject.getDouble("payTotal"));
 					if(orderObject.has("payMethod"))
 						order.setPayMethod(orderObject.getString("payMethod"));
 					if(orderObject.has("orderCreateAt"))
@@ -209,13 +213,15 @@ public class DataParser {
 					if(orderObject.has("orderStatus"))
 						order.setOrderStatus(orderObject.getString("orderStatus"));
 					if(orderObject.has("discount"))
-						order.setDiscount(orderObject.getInt("discount"));
+						order.setDiscount(orderObject.getDouble("discount"));
 					if(orderObject.has("orderDesc"))
 						order.setOrderDesc(orderObject.getString("orderDesc"));
-					if(orderObject.has("addId"))
-						order.setAddId(orderObject.getInt("addId"));
 					if(orderObject.has("shipFee"))
-						order.setShipFee(orderObject.getInt("shipFee"));
+						order.setShipFee(orderObject.getDouble("shipFee"));
+					if(orderObject.has("totalFee"))
+						order.setTotalFee(orderObject.getDouble("totalFee"));
+					if(orderObject.has("postalFee"))
+						order.setPostalFee(orderObject.getDouble("postalFee"));
 					if(orderObject.has("orderDetailUrl"))
 						order.setOrderDetailUrl(orderObject.getString("orderDetailUrl"));
 				}
