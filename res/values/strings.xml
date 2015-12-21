@@ -34,7 +34,8 @@
 	<string name="pay_type_ali">APAY</string>
 	<string name="pay_type_wx">WEIXIN</string>
 
-	<string name="coupon_de">denomination</string>
-	<string name="coupon_id">couponId</string>
+	
+	<string name="cancel">取消</string>
+	<string name="confirm">确认</string>
 	
 </resources>

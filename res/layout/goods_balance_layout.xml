@@ -108,8 +108,7 @@
                     android:background="@color/theme"
                     android:text="添加收货地址"
                     android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:visibility="gone" />
+                    android:textSize="16sp"/>
             </RelativeLayout>
 
             <com.hanmimei.view.CustomListView
@@ -244,7 +243,7 @@
                     android:drawableLeft="@drawable/btn_radio_selected"
                     android:drawablePadding="10dp"
                     android:gravity="center_vertical"
-                    android:text="京东钱包"
+                    android:text="在线支付"
                     android:textColor="#AA000000"
                     android:textSize="14sp" />
 
@@ -264,7 +263,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/background"
-                android:checkedButton="@+id/btn_online_pay"
+                android:checkedButton="@+id/pay_jd"
                 android:orientation="vertical"
                 android:visibility="gone" >
 
@@ -274,13 +273,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:tag="@string/pay_type_jd"
-                    android:text="京东钱包"
+                    android:text="在线支付"
                     android:textColor="#AA000000"
                     android:textSize="12sp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
+                    android:visibility="gone"
                     android:background="#cccccc" />
 
                 <RadioButton
@@ -290,6 +290,7 @@
                     android:layout_marginLeft="10dp"
                     android:tag="@string/pay_type_ali"
                     android:text="支付宝"
+                    android:visibility="gone"
                     android:textColor="#AA000000"
                     android:textSize="12sp" />
                  <View
@@ -304,6 +305,7 @@
                     android:layout_marginLeft="10dp"
                     android:tag="@string/pay_type_wx"
                     android:text="微信支付"
+                    android:visibility="gone"
                     android:textColor="#AA000000"
                     android:textSize="12sp" />
                 
@@ -538,7 +540,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:background="@color/theme"
+            android:background="#BBBBBB"
             android:gravity="center"
             android:padding="15dp"
             android:text="@string/submit_order"

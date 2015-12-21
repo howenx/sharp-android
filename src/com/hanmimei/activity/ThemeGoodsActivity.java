@@ -1,7 +1,9 @@
 package com.hanmimei.activity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,21 +23,17 @@ import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hanmimei.R;
 import com.hanmimei.adapter.ThemeAdapter;
-import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
-import com.hanmimei.entity.GoodsDetail;
 import com.hanmimei.entity.HMMGoods;
 import com.hanmimei.entity.HMMThemeGoods;
-import com.hanmimei.entity.HMessage;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.Http2Utils;
-import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
+import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.utils.WaveAnimationUtil;
 import com.squareup.picasso.Picasso;
@@ -98,18 +96,42 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		if(getUser() != null){
 			id_token = getUser().getToken();
 		}
-			
-		submitTask(new Runnable() {
+		Map<String,String> headers = new HashMap<String, String>();
+		headers.put("id_token", id_token);
+		Http2Utils.doGetRequestTask(this, headers, url, new VolleyJsonCallback() {
 			
 			@Override
-			public void run() {
+			public void onSuccess(String result) {
 				// TODO Auto-generated method stub
-				String result = HttpUtils.get(url, id_token);
-				Message msg = mHandler.obtainMessage(1);
-				msg.obj = result;
-				mHandler.sendMessage(msg);
+				HMMThemeGoods detail = DataParser.parserThemeItem(result);
+				if (detail.getMessage().getCode() ==200) {
+					initThemeView(detail);
+					data.clear();
+					data.addAll(detail.getThemeList());
+					adapter.notifyDataSetChanged();
+				} else {
+					ToastUtils.Toast(getActivity(), R.string.error);
+				}
+			}
+			
+			@Override
+			public void onError() {
+				// TODO Auto-generated method stub
+				ToastUtils.Toast(getActivity(), R.string.error);
 			}
 		});
+			
+//		submitTask(new Runnable() {
+//			
+//			@Override
+//			public void run() {
+//				// TODO Auto-generated method stub
+//				String result = HttpUtils.get(url, id_token);
+//				Message msg = mHandler.obtainMessage(1);
+//				msg.obj = result;
+//				mHandler.sendMessage(msg);
+//			}
+//		});
 	}
 
 	//初始化主推商品显示

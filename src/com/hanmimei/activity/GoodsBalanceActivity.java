@@ -70,6 +70,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 		car = (ShoppingCar) getIntent().getSerializableExtra("car");
 		customslist = car.getList();
 		orderSubmit = new OrderSubmit();
+		orderSubmit.setBuyNow(car.getBuyNow());
 		findView();
 		adapter = new GoodsBalanceCustomAdapter(customslist, this);
 		mListView.setAdapter(adapter);
@@ -104,7 +105,6 @@ public class GoodsBalanceActivity extends BaseActivity implements
 		coupon_denomi = (TextView) findViewById(R.id.coupon_denomi);
 
 		findViewById(R.id.btn_pay_type).setOnClickListener(this);
-		findViewById(R.id.btn_pay).setOnClickListener(this);
 		findViewById(R.id.btn_send_time).setOnClickListener(this);
 		findViewById(R.id.newAddress).setOnClickListener(this);
 		findViewById(R.id.btn_mCoupon).setOnClickListener(this);
@@ -266,6 +266,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 				Intent intent = new Intent(getActivity(), OrderSubmitActivity.class);
 				intent.putExtra("orderInfo", info);
 				startActivity(intent);
+				finish();
 				break;
 
 			default:
@@ -325,10 +326,13 @@ public class GoodsBalanceActivity extends BaseActivity implements
 					idCard.setText(getResources().getString(R.string.idcard,settle.getAddress().getIdCardNum().substring(0, 5) 
 							+ "********" + settle.getAddress().getIdCardNum().substring(14, settle.getAddress().getIdCardNum().length())
 							));
+					findViewById(R.id.btn_pay).setBackgroundResource(R.color.theme);
+					findViewById(R.id.btn_pay).setOnClickListener(this);
 
 				}else{
 					findViewById(R.id.selectAddress).setVisibility(View.GONE);
 					findViewById(R.id.newAddress).setVisibility(View.VISIBLE);
+
 				}
 				//如果有优惠券则显示优惠券信息
 				if (settle.getCoupons() != null && settle.getCoupons().size()>0) {
@@ -397,7 +401,14 @@ public class GoodsBalanceActivity extends BaseActivity implements
 				findViewById(R.id.isDefault).setVisibility(View.GONE);
 			}
 			loadData(Long.valueOf(selectedId));
+			if(goodsBalance != null){
+				findViewById(R.id.btn_pay).setBackgroundResource(R.color.theme);
+				findViewById(R.id.btn_pay).setOnClickListener(this);
+			}
 		}
 	}
+	
+	
+	
 
 }

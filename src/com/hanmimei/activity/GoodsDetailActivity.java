@@ -1,7 +1,9 @@
 package com.hanmimei.activity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,6 +31,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request.Method;
 import com.bigkoo.convenientbanner.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.hanmimei.R;
@@ -50,6 +53,8 @@ import com.hanmimei.entity.Tag;
 import com.hanmimei.entity.User;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
+import com.hanmimei.utils.Http2Utils;
+import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.InitImageLoader;
 import com.hanmimei.utils.PopupWindowUtil;
@@ -317,12 +322,15 @@ public class GoodsDetailActivity extends BaseActivity implements
 	 * 加载数据
 	 * 
 	 */
+	private String id_token = null;
 	private void loadDataByUrl() {
+		if(user != null)
+			id_token = user.getToken();
 		submitTask(new Runnable() {
 			
 			@Override
 			public void run() {
-				String result = HttpUtils.get(getIntent().getStringExtra("url"), user.getToken());
+				String result = HttpUtils.get(getIntent().getStringExtra("url"), id_token);
 				GoodsDetail detail = DataParser.parserGoodsDetail(result);
 				Message msg = mHandler.obtainMessage(2);
 				msg.obj = detail;

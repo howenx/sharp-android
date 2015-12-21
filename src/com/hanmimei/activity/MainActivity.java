@@ -21,6 +21,7 @@ import com.hanmimei.fragment.HomeFragment;
 import com.hanmimei.fragment.ShoppingCartFragment;
 import com.hanmimei.manager.TabHostManager;
 import com.hanmimei.utils.ActionBarUtil;
+import com.hanmimei.utils.AlertDialogUtil;
 import com.hanmimei.utils.DoJumpUtils;
 import com.hanmimei.utils.ToastUtils;
 

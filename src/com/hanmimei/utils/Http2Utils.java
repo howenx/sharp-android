@@ -1,19 +1,7 @@
 package com.hanmimei.utils;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
 
 import android.content.Context;
 
@@ -22,71 +10,132 @@ import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.hanmimei.activity.BaseActivity;
+
 /**
- * 网络请求工具类 
+ * 网络请求工具类
+ * 
  * @author 刘奇
- *
+ * 
  */
 public class Http2Utils {
 
 	public Http2Utils() {
 		throw new UnsupportedOperationException("cannot be instantiated");
 	}
-	/**
-	 * 实现用户的登录
-	 * @param username  登录用户名
-	 * @param userpwd   登录密码
-	 * @return
-	 */
-	public static String doUserLogin(String username, String userpwd) {
-		HttpClient client = new DefaultHttpClient();
-		HttpPost httpPost = new HttpPost("");
-		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		params.add(new BasicNameValuePair("Uname", username));
-		params.add(new BasicNameValuePair("Pwd", userpwd));
 
-		String result = null;
-		try {
-			// 设置参数
-			httpPost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
-			// 发送请求
-			HttpResponse response = client.execute(httpPost);
-
-			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-				result = EntityUtils.toString(response.getEntity());
-			} else {
-			}
-		} catch (IOException e) {
-			
-		}
-		return result;
-	}
-	
-	/**
-	 * 	实现网络请求数据  
-	 * @param mContext  上下文
-	 * @param url		请求地址
-	 * @param callback	返回数据的回调
-	 */
 	public static void doPostRequestTask(Context mContext, String url,
 			final VolleyJsonCallback callback) {
-		doPostRequestTask(mContext, url, callback, null);
+		doRequestTask(mContext, Method.POST, url, callback, null, null);
 	}
+
+	public static void doPostRequestTask(Context mContext, String url,
+			final VolleyJsonCallback callback, Map<String, String> params) {
+		doRequestTask(mContext, Method.POST, url, callback, params, null);
+	}
+
+	public static void doPostRequestTask(Context mContext,
+			Map<String, String> headers, String url,
+			final VolleyJsonCallback callback) {
+		doRequestTask(mContext, Method.POST, url, callback, null, headers);
+	}
+
+	public static void doPostRequestTask(Context mContext,
+			Map<String, String> headers, String url,
+			final VolleyJsonCallback callback, Map<String, String> params) {
+		doRequestTask(mContext, Method.POST, url, callback, params, headers);
+	}
+
+	public static void doGetRequestTask(Context mContext, String url,
+			final VolleyJsonCallback callback) {
+		doRequestTask(mContext, Method.GET, url, callback, null, null);
+	}
+
+	public static void doGetRequestTask(Context mContext, String url,
+			final VolleyJsonCallback callback, Map<String, String> params) {
+		doRequestTask(mContext, Method.GET, url, callback, params, null);
+	}
+
+	public static void doGetRequestTask(Context mContext,
+			Map<String, String> headers, String url,
+			final VolleyJsonCallback callback) {
+		doRequestTask(mContext, Method.GET, url, callback, null, headers);
+	}
+
+	public static void doGetRequestTask(Context mContext,
+			Map<String, String> headers, String url,
+			final VolleyJsonCallback callback, Map<String, String> params) {
+		doRequestTask(mContext, Method.GET, url, callback, params, headers);
+	}
+
 	/**
-	 * 实现网络请求数据  
-	 * @param mContext  上下文
-	 * @param url		请求地址
-	 * @param callback	返回数据的回调
-	 * @param map		传送数据的键值对
+	 * 实现网络请求数据
+	 * 
+	 * @param mContext
+	 *            上下文
+	 * @param method
+	 *            请求类型
+	 * @param url
+	 *            请求地址
+	 * @param callback
+	 *            返回数据的回调
+	 * @param params
+	 *            传送数据的键值对
+	 * @param headers
+	 *            传送头数据的键值对
 	 */
 
 	// 实现Volley 异步回调请求的结果
-	public static void doPostRequestTask(Context mContext, String url,
-			final VolleyJsonCallback callback, Map<String, String> params) {
+	public static void doRequestTask(Context mContext, int method, String url,
+			final VolleyJsonCallback callback, Map<String, String> params,
+			Map<String, String> headers) {
 		final BaseActivity mActivity = (BaseActivity) mContext;
 		PostStringRequest request = null;
 		try {
-			request = new PostStringRequest(Method.POST, url,
+			request = new PostStringRequest(method, url,
+					new Listener<String>() {
+
+						@Override
+						public void onResponse(String arg0) {
+							callback.onSuccess(arg0);
+						}
+					}, new ErrorListener() {
+
+						@Override
+						public void onErrorResponse(VolleyError arg0) {
+							callback.onError();
+						}
+					}, params, headers);
+		} catch (IOException e) {
+			callback.onError();
+		}
+		mActivity.getMyApplication().getRequestQueue().add(request);
+	}
+
+	/**
+	 * 实现网络请求数据
+	 * 
+	 * @param mContext
+	 *            上下文
+	 * @param method
+	 *            请求类型
+	 * @param url
+	 *            请求地址
+	 * @param callback
+	 *            返回数据的回调
+	 * @param params
+	 *            传送数据的键值对
+	 * @param headers
+	 *            传送头数据的键值对
+	 */
+
+	// 实现Volley 异步回调请求的结果
+	public static void doRequestTask2(Context mContext, int method, String url,
+			final VolleyJsonCallback callback, String params,
+			Map<String, String> headers) {
+		final BaseActivity mActivity = (BaseActivity) mContext;
+		PostStringRequest2 request = null;
+		try {
+			request = new PostStringRequest2(method, headers, url,
 					new Listener<String>() {
 
 						@Override
@@ -105,46 +154,11 @@ public class Http2Utils {
 		}
 		mActivity.getMyApplication().getRequestQueue().add(request);
 	}
-	
-	/**
-	 * 实现网络请求数据  
-	 * @param mContext  上下文
-	 * @param url		请求地址
-	 * @param callback	返回数据的回调
-	 * @param map		传送数据的键值对
-	 */
 
-	// 实现Volley 异步回调请求的结果
-	public static void doGetRequestTask(Context mContext, String url,
-			final VolleyJsonCallback callback){
-		final BaseActivity mActivity = (BaseActivity) mContext;
-		PostStringRequest request = null;
-		try {
-			request = new PostStringRequest(Method.GET, url,
-					new Listener<String>() {
-
-						@Override
-						public void onResponse(String arg0) {
-							callback.onSuccess(arg0);
-						}
-					}, new ErrorListener() {
-
-						@Override
-						public void onErrorResponse(VolleyError arg0) {
-							callback.onError();
-						}
-					});
-			mActivity.getMyApplication().getRequestQueue().add(request);
-		} catch (Exception e) {
-			callback.onError();
-		}
-		
-	}
-
-	
 	// 以下是在同一个类中定义的接口
 	public interface VolleyJsonCallback {
 		void onSuccess(String result);
+
 		void onError();
 	}
 

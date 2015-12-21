@@ -52,7 +52,6 @@ public class JSONPaserTool {
 			json.put("buyNow", os.getBuyNow());
 			
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return json;
