@@ -127,11 +127,20 @@ public class Http2Utils {
 	 * @param headers
 	 *            传送头数据的键值对
 	 */
+	
+	public static void doPostRequestTask2(Context mContext, Map<String, String> headers,String url,
+			final VolleyJsonCallback callback, String params) {
+		doRequestTask2(mContext, Method.POST, headers,url, callback, params);
+	}
+//	public static void doPostRequestTask2(Context mContext, Map<String, String> headers,String url,
+//			final VolleyJsonCallback callback, String params) {
+//		doRequestTask2(mContext, Method.GET, headers,url, callback, params);
+//	}
 
 	// 实现Volley 异步回调请求的结果
-	public static void doRequestTask2(Context mContext, int method, String url,
-			final VolleyJsonCallback callback, String params,
-			Map<String, String> headers) {
+	public static void doRequestTask2(Context mContext, int method,
+			Map<String, String> headers, String url,
+			final VolleyJsonCallback callback, String params) {
 		final BaseActivity mActivity = (BaseActivity) mContext;
 		PostStringRequest2 request = null;
 		try {
