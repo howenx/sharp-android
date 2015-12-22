@@ -7,6 +7,7 @@ import java.util.List;
 public class Order implements Serializable{
 
 	private String orderId;		//订单id
+	private String orderSplitId;		//zi订单id
 	private double payTotal;		//支付总费用
 	private String payMethod;		//充值渠道
 	private String orderCreateAt;			//订单创建时间
@@ -27,6 +28,14 @@ public class Order implements Serializable{
 	
 	public double getPostalFee() {
 		return postalFee;
+	}
+
+	public String getOrderSplitId() {
+		return orderSplitId;
+	}
+
+	public void setOrderSplitId(String orderSplitId) {
+		this.orderSplitId = orderSplitId;
 	}
 
 	public void setPostalFee(double postalFee) {

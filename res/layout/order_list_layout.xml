@@ -18,7 +18,7 @@
     <com.hanmimei.view.HorizontalListView
         android:id="@+id/my_listview"
         android:layout_width="match_parent"
-        android:layout_height="90dp"
+        android:layout_height="100dp"
         android:divider="@color/qianhui"
         android:dividerHeight="0.1dp"/>
 

@@ -8,14 +8,16 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         layout="@layout/main_header_layout" />
-    <TextView 
-        android:padding="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <com.hanmimei.view.TimerTextView  
+        android:id="@+id/attention"  
+        android:layout_marginTop="5dp"
+        android:layout_width="fill_parent"  
+        android:layout_height="wrap_content"  
         android:gravity="center"
-        android:text="@string/order_attention"
-        android:textSize="12sp"
-        android:textColor="@color/red"/>
+        android:textSize="14sp"  
+        android:textColor="@color/red"  
+        android:text="倒计时"  
+        android:visibility="gone"/> 
 
     <ScrollView
         android:layout_width="match_parent"
@@ -39,23 +41,33 @@
                     style="@style/order_font_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="5dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="10dp"
+                    android:paddingBottom="10dp"
                     android:text="@null" />
+                <TextView
+                    android:id="@+id/item_order"
+                    style="@style/order_font_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:text="@null"
+                    android:visibility="gone" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.1dp"
                     android:background="@color/qianhui" />
+                
 
                 <TextView
                     android:id="@+id/order_state"
                     style="@style/order_font_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="15dp"
                     android:text="@null" />
 
                 <TextView
@@ -253,15 +265,32 @@
                     android:text="订单应付金额：¥112.00" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/send"
-                style="@style/submit"
+            <LinearLayout 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="40dp"
+                android:layout_marginBottom="25dp"
                 android:layout_marginTop="25dp"
+                android:orientation="horizontal">
+            <TextView
+                android:id="@+id/send"
+                style="@style/submit_hui"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="取消订单" />
+                android:text="取消订单" 
+                android:visibility="invisible"/>
+            <TextView
+                android:id="@+id/go_pay"
+                android:layout_marginLeft="20dp"
+                style="@style/submit"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="去支付" 
+                android:visibility="invisible"/>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

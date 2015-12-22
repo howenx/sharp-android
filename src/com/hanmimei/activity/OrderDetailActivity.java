@@ -7,17 +7,22 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.hanmimei.R;
+import com.hanmimei.activity.listener.TimeEndListner;
 import com.hanmimei.adapter.OrderDetailListAdapter;
+import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.HMMAddress;
 import com.hanmimei.entity.Order;
+import com.hanmimei.entity.OrderInfo;
 import com.hanmimei.entity.Result;
 import com.hanmimei.entity.Sku;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.view.CustomListView;
+import com.hanmimei.view.TimerTextView;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -25,9 +30,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 @SuppressLint("NewApi") 
-public class OrderDetailActivity extends BaseActivity implements OnClickListener{
+public class OrderDetailActivity extends BaseActivity implements OnClickListener, TimeEndListner{
 
 	private TextView header;
 	private ImageView back;
@@ -45,8 +51,11 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 	private TextView cut_price;
 	private TextView order_price;
 	private TextView cancle;
+	private TextView go_pay;
 	private TextView idcard;
 	private TextView tax;
+	private TimerTextView attention;
+	private TextView item_order_id;
 	private HMMAddress addressInfo;
 	private List<Sku> list;
 	private CustomListView listView;
@@ -69,13 +78,18 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		adapter.notifyDataSetChanged();
 	}
 	private void initView() {
+		long[] times = {0,0,10}; 
 		order_code.setText("订单号：" + order.getOrderId());
 //		I:初始化即未支付状态，S:成功，C：取消， F:失败，R:已收货，D:已经发货，J:拒收
 		if(order.getOrderStatus().equals("S")){
 			order_state.setText("订单状态：待发货");
-			cancle.setVisibility(View.GONE);
 		}else if(order.getOrderStatus().equals("I")){
+			attention.setVisibility(View.VISIBLE);
+			attention.setTimes(times);
+			attention.beginRun();
 			order_state.setText("订单状态：待支付");
+			cancle.setVisibility(View.VISIBLE);
+			go_pay.setVisibility(View.VISIBLE);
 		}else if(order.getOrderStatus().equals("C")){
 			order_state.setText("订单状态：已取消");
 			cancle.setVisibility(View.GONE);
@@ -85,6 +99,10 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		}else{
 			order_state.setText("订单状态：已完成");
 			cancle.setVisibility(View.GONE);
+		}
+		if(!order.getOrderSplitId().equals("null") && !order.getOrderSplitId().equals("")){
+			item_order_id.setVisibility(View.VISIBLE);
+			item_order_id.setText("子订单号：" + order.getOrderSplitId());
 		}
 		String payMethod = "";
 		if(order.getPayMethod().equals("JD")){
@@ -128,9 +146,14 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		cut_price = (TextView) findViewById(R.id.cost_price);
 		order_price = (TextView) findViewById(R.id.order_price);
 		cancle = (TextView) findViewById(R.id.send);
+		go_pay = (TextView) findViewById(R.id.go_pay);
 		idcard = (TextView) findViewById(R.id.idcard);
 		tax = (TextView) findViewById(R.id.tax);
+		attention = (TimerTextView) findViewById(R.id.attention);
+		attention.setTimeEndListner(this);
+		item_order_id = (TextView) findViewById(R.id.item_order);
 		cancle.setOnClickListener(this);
+		go_pay.setOnClickListener(this);
 	}
 	@Override
 	public void onClick(View v) {
@@ -141,6 +164,14 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		case R.id.send:
 			toObject();
 			cancleOrder();
+			break;
+		case R.id.go_pay:
+			OrderInfo orderInfo = new OrderInfo();
+			orderInfo.setOrder(order);
+			Intent intent = new Intent(this, OrderSubmitActivity.class);
+			intent.putExtra("orderInfo", orderInfo);
+			startActivity(intent);
+			finish();
 			break;
 		default:
 			break;
@@ -161,7 +192,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 			
 			@Override
 			public void run() {
-				String result = HttpUtils.post(UrlUtil.CANCLE_ORDER_URL, object, "id-token", getUser().getToken());
+				String result = HttpUtils.get(UrlUtil.CANCLE_ORDER_URL + order.getOrderId(), getUser().getToken());
 				Result isSuccess = DataParser.parserResult(result);
 				Message msg = mHandler.obtainMessage(1);
 				msg.obj = isSuccess;
@@ -174,9 +205,27 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 
 		@Override
 		public void handleMessage(Message msg) {
-			// TODO Auto-generated method stub
 			super.handleMessage(msg);
+			switch (msg.what) {
+			case 1:
+				Result result = (Result) msg.obj;
+				if(result.getCode() == 200){
+					sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_CANCLE_ORDER));
+					finish();
+				}else{
+					Toast.makeText(OrderDetailActivity.this, "取消订单失败！", Toast.LENGTH_SHORT).show();
+				}
+				break;
+
+			default:
+				break;
+			}
 		}
 		
 	};
+	@Override
+	public void isTimeEnd() {
+		cancle.setVisibility(View.GONE);
+		go_pay.setVisibility(View.GONE);
+	}
 }

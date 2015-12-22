@@ -216,6 +216,8 @@ public class DataParser {
 						if(!orderObject.getString("discount").equals("null"))
 						order.setDiscount(orderObject.getDouble("discount"));
 					}
+					if(orderObject.has("orderSplitId"))
+						order.setOrderSplitId(orderObject.getString("orderSplitId"));
 					if(orderObject.has("orderDesc"))
 						order.setOrderDesc(orderObject.getString("orderDesc"));
 					if(orderObject.has("shipFee"))

@@ -34,11 +34,11 @@ public class UrlUtil {
 	//用户注册接口
 	public static final String REGIST_URL = SERVER04 + "/api/reg";
 	//订单状态更新接口
-	public static final String CANCLE_ORDER_URL = SERVER01 + "/client/order/state/update";
+	public static final String CANCLE_ORDER_URL = SERVER01 + "/client/order/cancel/";
 	//获取用户信息接口
 	public static final String GET_USERINFO_URL = SERVER04 + "/api/user/get/info";
 	//获取订单列表接口
-	public static final String GET_ORDER_LIST_URL = SERVER02 + "/client/order";
+	public static final String GET_ORDER_LIST_URL = SERVER01 + "/client/order";
 	//获取优惠券列表接口
 	public static final String GET_COUPON_LIST_URL = SERVER01 + "/client/coupons/list";
 	

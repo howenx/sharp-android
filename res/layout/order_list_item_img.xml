@@ -11,8 +11,8 @@
         android:id="@+id/img"
         android:padding="0.1dp"
         android:scaleType="fitXY"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:src="@null"
         android:contentDescription="@null"
         android:background="@drawable/huise_border"/>
