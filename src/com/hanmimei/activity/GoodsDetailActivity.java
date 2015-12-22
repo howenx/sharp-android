@@ -1,9 +1,7 @@
 package com.hanmimei.activity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,8 +12,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
@@ -29,9 +25,7 @@ import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.Request.Method;
 import com.bigkoo.convenientbanner.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.hanmimei.R;
@@ -55,7 +49,6 @@ import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
-import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.InitImageLoader;
 import com.hanmimei.utils.PopupWindowUtil;
 import com.hanmimei.utils.ToastUtils;
@@ -166,8 +159,61 @@ public class GoodsDetailActivity extends BaseActivity implements
 		indicator.setOnCheckedChangeListener(this);
 
 	}
-
 	
+	//=========================================================================
+	//===============================网络     请求==================================
+	//=========================================================================
+	/**
+	 * 加载数据
+	 */
+	private void loadDataByUrl() {
+		Http2Utils.doGetRequestTask(this, getHeaders(), getIntent().getStringExtra("url"), new VolleyJsonCallback() {
+			
+			@Override
+			public void onSuccess(String result) {
+				GoodsDetail detail = DataParser.parserGoodsDetail(result);
+				initGoodsDetail(detail);
+			}
+			
+			@Override
+			public void onError() {
+				ToastUtils.Toast(getActivity(), R.string.error);
+			}
+		});
+	}
+	
+	/**
+	 * 发送商品信息添加到购物车
+	 */
+	private void sendData(ShoppingGoods goods) {
+		final JSONArray array = toJSONArray(goods);
+		Http2Utils.doPostRequestTask2(this,  getHeaders(), UrlUtil.GET_CAR_LIST_URL, new VolleyJsonCallback() {
+			
+			@Override
+			public void onSuccess(String result) {
+				HMessage hm = DataParser.paserResultMsg(result);
+				if (hm.getCode() == 200) {
+					//购物车添加成功，显示提示框
+					ToastUtils.Toast(GoodsDetailActivity.this);
+					//发送广播 提示购物车更新数据
+					sendBroadcast(new Intent(
+							AppConstant.MESSAGE_BROADCAST_ADD_CAR));
+				} else {
+					//提示添加失败原因
+					ToastUtils.Toast(getActivity(), hm.getMessage());
+				}
+			}
+			
+			@Override
+			public void onError() {
+				ToastUtils.Toast(getActivity(), R.string.error);
+			}
+		}, array.toString());
+	}
+
+	//=========================================================================
+		//===============================点击事件==================================
+		//=========================================================================
 
 	@Override
 	public void onClick(View arg0) {
@@ -244,6 +290,11 @@ public class GoodsDetailActivity extends BaseActivity implements
 			break;
 		}
 	}
+	
+	
+	//=========================================================================
+		//===============================响应方法   ==================================
+		//=========================================================================
 	/**
 	 * 点击立即购买按钮的响应事件
 	 */
@@ -318,47 +369,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		window = PopupWindowUtil.showPopWindow(this, view);
 	}
 	
-	/**
-	 * 加载数据
-	 * 
-	 */
-	private String id_token = null;
-	private void loadDataByUrl() {
-		if(user != null)
-			id_token = user.getToken();
-		submitTask(new Runnable() {
-			
-			@Override
-			public void run() {
-				String result = HttpUtils.get(getIntent().getStringExtra("url"), id_token);
-				GoodsDetail detail = DataParser.parserGoodsDetail(result);
-				Message msg = mHandler.obtainMessage(2);
-				msg.obj = detail;
-				mHandler.sendMessage(msg);
-				
-			}
-		});
-	}
 
-	/**
-	 * 发送商品信息添加到购物车
-	 */
-	private void sendData(ShoppingGoods goods) {
-		final JSONArray array = toJSONArray(goods);
-		submitTask(new Runnable() {
-
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				String result = HttpUtils.post(UrlUtil.GET_CAR_LIST_URL, array,
-						"id-token", user.getToken());
-				HMessage hm = DataParser.paserResultMsg(result);
-				Message msg = mHandler.obtainMessage(1);
-				msg.obj = hm;
-				mHandler.sendMessage(msg);
-			}
-		});
-	}
 	
 	/**
 	 * 拼接商品信息
@@ -379,41 +390,11 @@ public class GoodsDetailActivity extends BaseActivity implements
 		}
 		return array;
 	}
+
 	
-	private Handler mHandler = new Handler() {
-
-		@Override
-		public void handleMessage(Message msg) {
-			super.handleMessage(msg);
-			switch (msg.what) {
-			case 1:
-				HMessage hm = (HMessage) msg.obj;
-				if (hm.getCode() == 200) {
-					//购物车添加成功，显示提示框
-					ToastUtils.Toast(GoodsDetailActivity.this);
-					//发送广播 提示购物车更新数据
-					sendBroadcast(new Intent(
-							AppConstant.MESSAGE_BROADCAST_ADD_CAR));
-				} else {
-					//提示添加失败原因
-					Toast.makeText(GoodsDetailActivity.this, hm.getMessage(),
-							Toast.LENGTH_SHORT).show();
-				}
-				break;
-			case 2:
-				GoodsDetail detail = (GoodsDetail) msg.obj;
-				initGoodsDetail(detail);
-				break;
-
-			default:
-				break;
-			}
-		}
-
-	};
-
-
-
+	//=========================================================================
+		//===============================初始化方法==================================
+		//=========================================================================
 	/**
 	 * 初始化显示商品信息
 	 * 
@@ -441,7 +422,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 			@Override
 			public void onTagClick(int oldPostion, int position, Tag tag) {
-				// TODO Auto-generated method stub
 				stocks.get(oldPostion).setOrMasterInv(false);
 				stocks.get(position).setOrMasterInv(true);
 				initStocks(stocks.get(position));
@@ -544,7 +524,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 	 */
 	@Override
 	public void onCheckedChanged(RadioGroup group, int checkedId) {
-		// TODO Auto-generated method stub
 		switch (checkedId) {
 		case R.id.guid1:
 		case R.id.guid1_hide:

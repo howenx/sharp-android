@@ -1,13 +1,13 @@
 package com.hanmimei.activity;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.view.KeyEvent;
 import android.view.View;
@@ -17,16 +17,13 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.hanmimei.R;
-import com.hanmimei.data.UrlUtil;
-import com.hanmimei.entity.OrderInfo;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtil;
-import com.hanmimei.utils.ToastUtils;
 
-public class OrderSubmitActivity extends BaseActivity {
+public class TestActivity extends BaseActivity {
 
 	private WebView mWebView;
-	private Date startTime; //创建页面时间，用于标志页面过期的起始时间
+	private Date startTime;
 	private boolean isSuccess = false;
 
 	// private Date endTime;
@@ -37,71 +34,93 @@ public class OrderSubmitActivity extends BaseActivity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.order_submit_layout);
-		//初始化actionbar
 		ActionBarUtil.setActionBarStyle(this, "支付", new BackClickListener());
-		OrderInfo orderInfo = (OrderInfo) getIntent().getSerializableExtra(
-				"orderInfo");
-		
 		startTime = new Date();
+
 		mWebView = (WebView) findViewById(R.id.mWebView);
-		
+
 		mWebView.getSettings().setJavaScriptEnabled(true);
 		
 		mWebView.setWebViewClient(new WebViewClient() {
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
-				if (isOverdue(startTime, new Date())) {
-					ToastUtils.Toast(getActivity(), "页面过期");
-					startActivity(new Intent(getActivity(),
-							MyOrderActivity.class));
-					finish();
-					return true;
-				}
 				return false;
 			}
+
+			@Override
+			public void onPageFinished(WebView view, String url) {
+				super.onPageFinished(view, url);
+			}
+			
+			
 		});
-		//获取用户token 添加到header中
-		Map<String, String> extraHeaders = new HashMap<String, String>();
-		extraHeaders.put("id-token", getUser().getToken());
-		 mWebView.loadUrl(UrlUtil.CLIENT_PAY_ORDER_GET
-		 + orderInfo.getOrder().getOrderId(), extraHeaders);
+		
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				try {
+					Thread.sleep(1000*20);
+					mHandler.sendEmptyMessage(1);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				
+			}
+		}).start();
+
+		 mWebView.loadUrl("http://www.baidu.com");
 		 
-		 //添加js交互
 		 mWebView.addJavascriptInterface(new JavaScriptInterface(this),
 					"handler");
 	}
-	//返回按钮点击事件
+	
+	
+	private Handler mHandler = new Handler() {
+
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			super.handleMessage(msg);
+			
+		}
+		
+	};
+
 	private class BackClickListener implements OnClickListener {
 
 		@Override
 		public void onClick(View v) {
-			backEvent();
+			if(!isSuccess) {
+				if(mWebView.canGoBack()){
+					mWebView.goBack();
+				}else{
+					showPayDialog();
+				}
+			} else{
+				finish();
+			}
 		}
 	}
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			//菜单返回按钮点击事件
-			backEvent();
+			if(!isSuccess) {
+				if(mWebView.canGoBack()){
+					mWebView.goBack();
+				}else{
+					showPayDialog();
+				}
+			} else{
+				finish();
+			}
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
 	}
-	
-	private void backEvent(){
-		if(!isSuccess) {
-			if(mWebView.canGoBack()){
-				mWebView.goBack();
-			}else{
-				showPayDialog();
-			}
-		} else{
-			finish();
-		}
-	}
-	
-	//网页调动js方法
+
 	final class JavaScriptInterface {
 
 		private Context context;
@@ -123,13 +142,13 @@ public class OrderSubmitActivity extends BaseActivity {
 		
 		@JavascriptInterface
 		public void clearHistory(){
-			isSuccess = true;
 			mWebView.clearHistory();
 		}
 	}
-	//显示取消支付窗口
+
 	private void showPayDialog() {
 		AlertDialogUtil.showPayDialog(getActivity(), new OnClickListener() {
+
 			@Override
 			public void onClick(View v) {
 				startActivity(new Intent(getActivity(), MyOrderActivity.class));
@@ -137,15 +156,17 @@ public class OrderSubmitActivity extends BaseActivity {
 			}
 		});
 	}
-	
-	//判断是否超时
+
 	private boolean isOverdue(Date startTime, Date endTime) {
 		return endTime.getTime() - startTime.getTime() > formatTime(10);
 	}
-	
-	// 毫秒转化成分钟
-	private long formatTime(long mi) {
-		return mi * 1000 * 60;
+
+	/*
+	 * 毫秒转化
+	 */
+	public static long formatTime(long mi) {
+		long minute = mi * 1000 * 60;
+		return minute;
 	}
 
 }

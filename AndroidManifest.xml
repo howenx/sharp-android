@@ -41,6 +41,7 @@
             android:launchMode="singleTask"/>
         <activity 
             android:name="com.hanmimei.activity.MainActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity 
             android:name="com.hanmimei.activity.ThemeGoodsActivity"
@@ -103,7 +104,7 @@
             android:name="com.hanmimei.activity.OrderSubmitActivity"
             android:screenOrientation="portrait" />
          <activity 
-            android:name="com.hanmimei.activity.OrderTestActivity"
+            android:name="com.hanmimei.activity.TestActivity"
             android:screenOrientation="portrait" />
     </application>
 

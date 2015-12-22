@@ -1,6 +1,5 @@
 package com.hanmimei.activity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -31,13 +30,15 @@ import com.hanmimei.entity.Coupon;
 import com.hanmimei.entity.Customs;
 import com.hanmimei.entity.From;
 import com.hanmimei.entity.GoodsBalance;
-import com.hanmimei.entity.OrderInfo;
 import com.hanmimei.entity.GoodsBalance.Settle;
 import com.hanmimei.entity.GoodsBalance.SingleCustoms;
 import com.hanmimei.entity.HMMAddress;
+import com.hanmimei.entity.OrderInfo;
 import com.hanmimei.entity.OrderSubmit;
 import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.utils.ActionBarUtil;
+import com.hanmimei.utils.Http2Utils;
+import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ToastUtils;
 
@@ -218,16 +219,19 @@ public class GoodsBalanceActivity extends BaseActivity implements
 		JSONArray array = JSONPaserTool.ClientSettlePaser(car, addressId);
 		orderSubmit.setSettleDtos(array);
 		final JSONObject json = JSONPaserTool.OrderSubmitPaser(orderSubmit);
-		submitTask(new Runnable() {
-
+		Http2Utils.doPostRequestTask2(this, getHeaders(), UrlUtil.POST_CLIENT_SETTLE, new VolleyJsonCallback() {
+			
 			@Override
-			public void run() {
-				String result = HttpUtils.post(UrlUtil.POST_CLIENT_SETTLE,
-						json, "id-token", getUser().getToken());
-				Message msg = mHandler.obtainMessage(1, result);
-				mHandler.sendMessage(msg);
+			public void onSuccess(String result) {
+				goodsBalance = new Gson().fromJson(result, GoodsBalance.class);
+				initViewData();
 			}
-		});
+			
+			@Override
+			public void onError() {
+				ToastUtils.Toast(getActivity(), R.string.error);
+			}
+		}, json.toString());
 	}
 	
 	/**

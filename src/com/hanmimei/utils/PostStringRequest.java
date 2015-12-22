@@ -20,40 +20,43 @@ import com.android.volley.toolbox.StringRequest;
 public class PostStringRequest extends StringRequest {
 
 	private Map<String, String> map;
-	private Map<String, String> headers;
+	private Map<String, String> headers  ;
 
-	public PostStringRequest(int method, String url, Listener<String> listener,
-			ErrorListener errorListener) {
+	public PostStringRequest(int method, String url, Listener<String> listener,ErrorListener errorListener) {
 		super(method, url, listener, errorListener);
 
 	}
 
-	public PostStringRequest(String path, Listener<String> listener,
-			ErrorListener errorListener) {
+	public PostStringRequest(String path, Listener<String> listener,ErrorListener errorListener) {
 		super(path, listener, errorListener);
 	}
 
-	public PostStringRequest(int method, String path,
-			Listener<String> listener, ErrorListener errorListener,
-			Map<String, String> map) throws IOException {
+	public PostStringRequest(int method, String path,Listener<String> listener, ErrorListener errorListener,Map<String, String> map) throws IOException {
 		super(method, path, listener, errorListener);
 		if (map != null) {
 			this.map = map;
 		}
 	}
+	
+	public PostStringRequest(int method,Map<String, String> headers, String path,Listener<String> listener, ErrorListener errorListener) throws IOException {
+		super(method, path, listener, errorListener);
+		if (headers != null) {
+			headers.put("accept", "application/json");
+			headers.put("Content-Type", "text/html;charset=UTF-8");
+			this.headers = headers;
+		}
+	}
 
-	public PostStringRequest(int method, String path,
-			Listener<String> listener, ErrorListener errorListener,
-			Map<String, String> params, Map<String, String> headers)
+	public PostStringRequest(int method, String path,Listener<String> listener, ErrorListener errorListener,Map<String, String> params, Map<String, String> headers)
 			throws IOException {
 		super(method, path, listener, errorListener);
 		if (map != null) {
 			this.map = params;
 		}
+		this.headers = new HashMap<String, String>();
 		if (headers != null) {
-			this.headers = new HashMap<String, String>();
-			this.headers.put("Accept", "application/json");
-	        this.headers.put("Content-Type", "application/json; charset=UTF-8");
+			this.headers.put("accept", "application/json");
+			this.headers.put("Content-Type", "text/html;charset=UTF-8");
 			this.headers.putAll(headers);
 		}
 	}

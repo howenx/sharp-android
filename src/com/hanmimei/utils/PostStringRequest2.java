@@ -1,6 +1,8 @@
 package com.hanmimei.utils;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.android.volley.AuthFailureError;
@@ -25,8 +27,10 @@ public class PostStringRequest2 extends StringRequest {
 		if (param != null) {
 			this.param = param;
 		}
+		this.headers = new HashMap<String, String>();
 		if (headers != null) {
-			this.headers = headers;
+			this.headers.put("Content-Type", "application/json");
+			this.headers.putAll(headers);
 		}
 	}
 	
@@ -35,12 +39,10 @@ public class PostStringRequest2 extends StringRequest {
 	public Map<String, String> getHeaders() throws AuthFailureError {
 		return headers;
 	}
-
-	@Override
-	public byte[] getPostBody() throws AuthFailureError {
-		return param.getBytes();
-	}
 	
-	
-
+	@Override  
+	   public byte[] getBody() throws AuthFailureError  
+	   {  
+	return param == null ? super.getBody() : param.getBytes(Charset.forName("UTF-8"));  
+	   }  
 }

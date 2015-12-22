@@ -138,8 +138,6 @@ public class BaseActivity extends AppCompatActivity {
 	}
 	
 	
-	
-
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -164,6 +162,15 @@ public class BaseActivity extends AppCompatActivity {
 		public void submitTask(Runnable runable) {
 			ThreadPoolManager.getInstance().getExecutorService().execute(runable);
 		}
-	
+		//获取token
+	public Map<String,String> getHeaders(){
+		Map<String,String> headers = null;
+		if(getUser() !=null){
+			headers = new HashMap<String, String>();
+			headers.put("id-token", getUser().getToken());
+			return headers;
+		}
+		return null;
+	}
 
 }

@@ -1,9 +1,7 @@
 package com.hanmimei.activity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,8 +10,6 @@ import org.json.JSONObject;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -33,7 +29,6 @@ import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
-import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.utils.WaveAnimationUtil;
 import com.squareup.picasso.Picasso;
@@ -89,16 +84,9 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		img = (ImageView) findViewById(R.id.img);
 		mframeLayout = (FrameLayout) findViewById(R.id.mframeLayout);
 	}
-	String id_token = null;
 	//获取显示数据
 	private void loadUrl() {
-		
-		if(getUser() != null){
-			id_token = getUser().getToken();
-		}
-		Map<String,String> headers = new HashMap<String, String>();
-		headers.put("id_token", id_token);
-		Http2Utils.doGetRequestTask(this, headers, url, new VolleyJsonCallback() {
+		Http2Utils.doGetRequestTask(this, getHeaders(), url, new VolleyJsonCallback() {
 			
 			@Override
 			public void onSuccess(String result) {
@@ -120,18 +108,6 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 				ToastUtils.Toast(getActivity(), R.string.error);
 			}
 		});
-			
-//		submitTask(new Runnable() {
-//			
-//			@Override
-//			public void run() {
-//				// TODO Auto-generated method stub
-//				String result = HttpUtils.get(url, id_token);
-//				Message msg = mHandler.obtainMessage(1);
-//				msg.obj = result;
-//				mHandler.sendMessage(msg);
-//			}
-//		});
 	}
 
 	//初始化主推商品显示
@@ -196,31 +172,5 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 			break;
 		}
 	}
-	
-	
-	private Handler mHandler = new Handler() {
-
-		@Override
-		public void handleMessage(Message msg) {
-			super.handleMessage(msg);
-			switch (msg.what) {
-			case 1:
-				String result = (String) msg.obj;
-				HMMThemeGoods detail = DataParser.parserThemeItem(result);
-				if (detail.getMessage().getCode() ==200) {
-					initThemeView(detail);
-					data.clear();
-					data.addAll(detail.getThemeList());
-					adapter.notifyDataSetChanged();
-				} else {
-					ToastUtils.Toast(getActivity(), R.string.error);
-				}
-				break;
-			default:
-				break;
-			}
-		}
-
-	};
 
 }
