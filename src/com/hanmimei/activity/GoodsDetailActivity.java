@@ -447,7 +447,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 				num_shopcart += sg.getGoodsNums();
 			}
 		}else{
-			
+			if(detail.getCartNum() !=null)
+				num_shopcart = detail.getCartNum();
 		}
 		if(num_shopcart >0){
 			buyNumView.setText(num_shopcart+"");

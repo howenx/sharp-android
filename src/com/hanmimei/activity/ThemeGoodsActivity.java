@@ -25,6 +25,7 @@ import com.hanmimei.adapter.ThemeAdapter;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.entity.HMMGoods;
 import com.hanmimei.entity.HMMThemeGoods;
+import com.hanmimei.manager.BadgeViewManager;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.Http2Utils;
@@ -46,13 +47,15 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 	private HMMGoods themeItem;	//主推商品
 	private ImageView img;	//主推商品图片
 	private FrameLayout mframeLayout;	//主推商品容器  添加tag使用
+	private View cartView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.theme_layout);
-		ActionBarUtil.setActionBarStyle(this, "商品展示",
+		View view = ActionBarUtil.setActionBarStyle(this, "商品展示",
 				R.drawable.white_shoppingcar, true, this);
+		cartView = view.findViewById(R.id.setting);
 		// getActionBar().hide();
 		url = getIntent().getStringExtra("url");
 		data = new ArrayList<HMMGoods>();
@@ -112,6 +115,9 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 
 	//初始化主推商品显示
 	private void initThemeView(HMMThemeGoods detail) {
+		if(detail.getCartNum() !=null){
+			BadgeViewManager.getInstance().showCartNum(this, cartView, detail.getCartNum());
+		}
 		themeItem = detail.getMasterItem();
 		if (themeItem == null)
 			return;

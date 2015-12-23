@@ -9,7 +9,7 @@ public class OrderSubmit {
 	public static final String PAY_TYPE_WX = "WEIXIN";
 	
 	private JSONArray settleDtos;
-	 private Integer addressId;         //用户收获地址ID
+	 private Long addressId;         //用户收获地址ID
 	    private String couponId;        //优惠券ID
 	    private String clientIp ;        //客户端IP
 	    private Integer clientType;     //1.android,2.ios,3.web
@@ -27,7 +27,7 @@ public class OrderSubmit {
 			this.buyNow = 1;
 			this.couponId="";
 			this.payMethod = PAY_TYPE_JD;
-			this.addressId =  0;
+			this.addressId =  Long.parseLong("0");
 			this.clientIp = "127.0.0.1";
 		}
 		public JSONArray getSettleDtos() {
@@ -36,10 +36,10 @@ public class OrderSubmit {
 		public void setSettleDtos(JSONArray settleDtos) {
 			this.settleDtos = settleDtos;
 		}
-		public Integer getAddressId() {
+		public Long getAddressId() {
 			return addressId;
 		}
-		public void setAddressId(Integer addressId) {
+		public void setAddressId(Long addressId) {
 			this.addressId = addressId;
 		}
 		public String getCouponId() {

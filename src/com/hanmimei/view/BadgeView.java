@@ -358,11 +358,11 @@ public class BadgeView extends TextView {
 			break;
 		case POSITION_CENTER:
 			lp.gravity = Gravity.CENTER;
-			lp.setMargins(0, 0, 0, 0);
+			lp.setMargins(0+dipToPixels(9), 0-dipToPixels(9), 0, 0);
 			break;
 		case POSITION_CENTER_HORIZONTAL:
 			lp.gravity = Gravity.CENTER_HORIZONTAL;
-			lp.setMargins(badgeMarginH+dipToPixels(9), badgeMarginV, 0, 0);
+			lp.setMargins(badgeMarginH, badgeMarginV, 0, 0);
 			break;
 			
 		default:
