@@ -167,16 +167,19 @@ public class GoodsDetailActivity extends BaseActivity implements
 	 * 加载数据
 	 */
 	private void loadDataByUrl() {
+		loadingDialog.show();
 		Http2Utils.doGetRequestTask(this, getHeaders(), getIntent().getStringExtra("url"), new VolleyJsonCallback() {
 			
 			@Override
 			public void onSuccess(String result) {
+				loadingDialog.dismiss();
 				GoodsDetail detail = DataParser.parserGoodsDetail(result);
 				initGoodsDetail(detail);
 			}
 			
 			@Override
 			public void onError() {
+				loadingDialog.dismiss();
 				ToastUtils.Toast(getActivity(), R.string.error);
 			}
 		});

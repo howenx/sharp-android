@@ -11,7 +11,8 @@
         android:id="@+id/icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/icon_address" />
+        android:src="@drawable/icon_address"
+        android:contentDescription="@null" />
 
     <TextView
         android:id="@+id/name"
@@ -19,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_toRightOf="@id/icon"
-        android:text="张三"
+        android:text="@null"
         android:textColor="@color/fontcolor"
         android:textSize="14sp" />
 
@@ -32,7 +33,7 @@
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@id/icon"
         android:gravity="center"
-        android:text="13520436754"
+        android:text="@null"
         android:textColor="@color/fontcolor"
         android:textSize="14sp" />
 
@@ -44,7 +45,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@id/icon"
-        android:text="447974947999"
+        android:text="@null"
         android:textColor="@color/fontcolor"
         android:textSize="14sp" />
 
@@ -56,34 +57,9 @@
         android:layout_marginLeft="15dp"
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@id/icon"
-        android:text="北京市朝阳区望京洛娃大厦a坐1303"
+        android:text="@null"
         android:textColor="@color/fontcolor"
         android:textSize="14sp" />
-
-    <!--
-    <TextView 
-        android:id="@+id/update"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="10dp"
-        android:layout_below="@id/adress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="修改"
-        android:textSize="16sp"
-        android:textColor="@color/red"/>
-    <TextView 
-        android:id="@+id/del"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="40dp"
-        android:layout_toLeftOf="@id/update"
-        android:layout_below="@id/adress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="删除"
-        android:textSize="16sp"
-        android:textColor="@color/red"/>
-    -->
 
     <ImageView
         android:id="@+id/isSelected"
@@ -92,7 +68,8 @@
         android:layout_alignRight="@+id/idCard"
         android:layout_centerVertical="true"
         android:visibility="gone"
-        android:src="@drawable/icon_theme_check" />
+        android:src="@drawable/icon_theme_check"
+        android:contentDescription="@null" />
 
     <TextView
          android:id="@+id/isDefault"
@@ -101,7 +78,7 @@
         android:layout_alignBaseline="@+id/name"
         android:layout_alignBottom="@+id/name"
         android:layout_toRightOf="@id/name"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="20dp"
         android:text="默认地址"
         android:visibility="gone"
         android:textColor="@color/red"

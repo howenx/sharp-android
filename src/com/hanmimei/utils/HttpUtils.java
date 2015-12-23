@@ -75,9 +75,7 @@ public class HttpUtils {
 				}
 			}
 
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
+		}catch (Exception e) {
 			// 网络连接有问题
 			e.printStackTrace();
 		} finally {

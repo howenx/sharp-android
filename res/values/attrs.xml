@@ -48,4 +48,14 @@
     <declare-styleable name="RotateTextView">
         <attr name="angle" format="dimension" />
     </declare-styleable>
+     <!-- ==================================================== -->
+     <!-- CustomGifView（播放动态gif图 ）自定义属性 -->
+    <!-- ==================================================== -->
+     <declare-styleable name="GifView">  
+        <attr name="gif" format="reference" />  
+        <attr name="paused" format="boolean" />  
+    </declare-styleable>  
+    <declare-styleable name="CustomTheme">  
+        <attr name="gifViewStyle" format="reference" />  
+    </declare-styleable>  
 </resources>

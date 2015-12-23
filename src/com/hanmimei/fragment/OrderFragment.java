@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
@@ -31,11 +32,14 @@ import com.hanmimei.entity.Category;
 import com.hanmimei.entity.Order;
 import com.hanmimei.entity.User;
 import com.hanmimei.utils.HttpUtils;
+import com.hanmimei.view.CustomGifView;
+import com.hanmimei.view.LoadingDialog;
 
 @SuppressLint("InflateParams")
 public class OrderFragment extends Fragment implements OnRefreshListener2<ListView>{
 
 	private PullToRefreshListView mListView;
+	private TextView no_order;
 	private List<Order> data;
 	private OrderPullListAdapter adapter;
 	private Category category;
@@ -58,6 +62,7 @@ public class OrderFragment extends Fragment implements OnRefreshListener2<ListVi
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.pulltorefresh_list_layout, null);
+		no_order = (TextView) view.findViewById(R.id.no_order);
 		mListView = (PullToRefreshListView) view.findViewById(R.id.mylist);
 		mListView.setAdapter(adapter);
 		mListView.setMode(Mode.PULL_DOWN_TO_REFRESH);
@@ -68,6 +73,7 @@ public class OrderFragment extends Fragment implements OnRefreshListener2<ListVi
 	}
 
 	private void loadOrder() {
+		activity.getLoading().show();
 		if (category.getId().equals("tag01")) {
 			state = 1;
 		} else if (category.getId().equals("tag02")) {
@@ -80,7 +86,6 @@ public class OrderFragment extends Fragment implements OnRefreshListener2<ListVi
 			state = 5;
 		}
 		new Thread(new Runnable() {
-
 			@Override
 			public void run() {
 				String result = HttpUtils.getToken(UrlUtil.GET_ORDER_LIST_URL,
@@ -133,13 +138,20 @@ public class OrderFragment extends Fragment implements OnRefreshListener2<ListVi
 			super.handleMessage(msg);
 			switch (msg.what) {
 			case 1:
+				activity.getLoading().dismiss();
+				mListView.onRefreshComplete();
 				List<Order> orders = (List<Order>) msg.obj;
 				if (orders != null && orders.size() > 0) {
 					data.clear();
 					getOrderByState(orders);
+					if(data.size() > 0){
+						no_order.setVisibility(View.GONE);
+					}else{
+						no_order.setVisibility(View.VISIBLE);
+					}
 					adapter.notifyDataSetChanged();
 				} else {
-
+					no_order.setVisibility(View.VISIBLE);
 				}
 				break;
 

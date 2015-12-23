@@ -153,6 +153,11 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 		city_edit.setText(old_Adress.getCity());
 		adress_edit.setText(old_Adress.getAdress());
 		idCard_edit.setText(old_Adress.getIdCard());
+		if(old_Adress.isDefault()){
+			isDefaut = 1;
+		}else{
+			isDefaut = 0;
+		}
 		check_box.setChecked(old_Adress.isDefault());
 	}
 	//初始化控件

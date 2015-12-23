@@ -15,6 +15,7 @@ import com.hanmimei.dao.DaoSession;
 import com.hanmimei.data.XmlParserHandler;
 import com.hanmimei.entity.User;
 import com.hanmimei.manager.ThreadPoolManager;
+import com.hanmimei.view.LoadingDialog;
 import com.hanmimei.wheel.entity.CityModel;
 import com.hanmimei.wheel.entity.DistrictModel;
 import com.hanmimei.wheel.entity.ProvinceModel;
@@ -143,6 +144,7 @@ public class BaseActivity extends AppCompatActivity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		getSupportActionBar().hide();
+		loadingDialog = new LoadingDialog(this);
 		
 	}
 
@@ -170,6 +172,10 @@ public class BaseActivity extends AppCompatActivity {
 			headers.put("id-token", getUser().getToken());
 		}
 		return headers;
+	}
+	protected LoadingDialog loadingDialog;
+	public LoadingDialog getLoading(){
+		return loadingDialog;
 	}
 
 }

@@ -111,6 +111,7 @@ public class OrderPullListAdapter extends BaseAdapter {
 				Intent intent = new Intent(activity, OrderSubmitActivity.class);
 				intent.putExtra("orderInfo", orderInfo);
 				activity.startActivity(intent);
+				activity.finish();
 			}
 		});
 		holder.orderCode.setText("订单号： " + order.getOrderId());

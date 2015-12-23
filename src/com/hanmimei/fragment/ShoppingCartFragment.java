@@ -133,6 +133,7 @@ public class ShoppingCartFragment extends Fragment implements
 	}
 
 	private void getData() {
+		activity.getLoading().show();
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -148,6 +149,7 @@ public class ShoppingCartFragment extends Fragment implements
 	}
 
 	private void getNetData() {	
+		activity.getLoading().show();
 		new Thread(new Runnable() {
 
 			@Override
@@ -169,6 +171,7 @@ public class ShoppingCartFragment extends Fragment implements
 			super.handleMessage(msg);
 			switch (msg.what) {
 			case 1:
+				activity.getLoading().dismiss();
 				mListView.onRefreshComplete();
 				ShoppingCar car = (ShoppingCar) msg.obj;
 				if(car.getList() != null && car.getList().size() > 0){

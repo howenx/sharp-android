@@ -46,18 +46,21 @@
         android:orientation="vertical"
         android:gravity="center_vertical"
         android:background="#88000000"
-        android:padding="15dp">
+        android:padding="15dp"
+        android:visibility="gone">
         <ImageView 
             android:id="@+id/close"
             android:scaleType="fitEnd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_cha"/>
+            android:src="@drawable/icon_cha"
+            android:contentDescription="@null"/>
         <ImageView 
             android:id="@+id/gg_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scaleType="fitStart"
-            android:src="@drawable/guanggao"/>
+            android:src="@drawable/guanggao"
+            android:contentDescription="@null"/>
     </LinearLayout>
 </RelativeLayout>

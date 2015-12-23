@@ -89,10 +89,12 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 	}
 	//获取显示数据
 	private void loadUrl() {
+		loadingDialog.show();
 		Http2Utils.doGetRequestTask(this, getHeaders(), url, new VolleyJsonCallback() {
 			
 			@Override
 			public void onSuccess(String result) {
+				loadingDialog.dismiss();
 				// TODO Auto-generated method stub
 				HMMThemeGoods detail = DataParser.parserThemeItem(result);
 				if (detail.getMessage().getCode() ==200) {
@@ -107,6 +109,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 			
 			@Override
 			public void onError() {
+				loadingDialog.dismiss();
 				ToastUtils.Toast(getActivity(), R.string.error);
 			}
 		});
