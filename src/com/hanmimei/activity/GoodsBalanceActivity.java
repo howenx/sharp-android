@@ -292,82 +292,13 @@ public class GoodsBalanceActivity extends BaseActivity implements
 			return ;
 			if (goodsBalance.getMessage().getCode() == 200) {
 				Settle settle = goodsBalance.getSettle();
-				//添加商品 行邮税 运费等信息
-				car.setFactPortalFee(settle.getFactPortalFee());
-				car.setFactShipFee(settle.getFactShipFee());
-				car.setPortalFee(settle.getPortalFee());
-				car.setShipFee(settle.getShipFee());
-
-				for (Customs cs : car.getList()) {
-					for (SingleCustoms scs : settle.getSingleCustoms()) {
-						if (cs.getInvCustoms().equals(scs.getInvCustoms())) {
-							cs.setFactPortalFeeSingleCustoms(scs
-									.getFactPortalFeeSingleCustoms());
-							cs.setFactSingleCustomsShipFee(scs
-									.getFactSingleCustomsShipFee());
-							cs.setPortalSingleCustomsFee(scs
-									.getPortalSingleCustomsFee());
-							cs.setShipSingleCustomsFee(scs
-									.getShipSingleCustomsFee());
-							break;
-						}
-					}
-				}
-				//通知显示
-				adapter.notifyDataSetChanged();
+				initGoodsInfo(settle);
 				//如果有默认地址 则显示地址信息
-				if (!settle.getAddress().isEmpty()) {
-					findViewById(R.id.selectAddress).setVisibility(View.VISIBLE);
-					findViewById(R.id.newAddress).setVisibility(View.GONE);
-					
-					selectedId = settle.getAddress().getAddId();
-					orderSubmit.setAddressId(selectedId);
-					address.setText(getResources().getString(
-							R.string.address,
-							settle.getAddress().getDeliveryCity()
-									+ settle.getAddress().getDeliveryDetail()));
-					name.setText(getResources().getString(R.string.name,
-							settle.getAddress().getName()));
-					phone.setText(getResources().getString(R.string.phone,
-							settle.getAddress().getTel()));
-					idCard.setText(getResources().getString(R.string.idcard,settle.getAddress().getIdCardNum().substring(0, 5) 
-							+ "********" + settle.getAddress().getIdCardNum().substring(14, settle.getAddress().getIdCardNum().length())
-							));
-					findViewById(R.id.btn_pay).setBackgroundResource(R.color.theme);
-					findViewById(R.id.btn_pay).setOnClickListener(this);
-
-				}else{
-					findViewById(R.id.selectAddress).setVisibility(View.GONE);
-					findViewById(R.id.newAddress).setVisibility(View.VISIBLE);
-
-				}
+				initAddressInfo(settle);
 				//如果有优惠券则显示优惠券信息
-				if (settle.getCoupons() != null && settle.getCoupons().size()>0) {
-					List<Coupon> coupons = settle.getCoupons();
-					coupon_num.setText(coupons.size() + "张可用");
-					RadioButton btn = null;
-					LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
-					for (Coupon c : coupons) {
-						btn = getCustomRadioButton();
-						btn.setText("满"+c.getLimitQuota()+"减"+c.getDenomination());
-						btn.setTag(R.id.coupon_de,c.getDenomination());
-						btn.setTag(R.id.coupon_id, c.getCoupId());
-						group_coupons.addView(btn,lp);
-					}
-				}
-
-				all_shipfee.setText(getResources().getString(R.string.price,
-						car.getFactShipFeeFormat()));
-				all_price.setText(getResources().getString(R.string.price,
-						car.getAllPriceFormat()));
-				all_portalfee.setText(getResources().getString(R.string.price,
-						car.getFactPortalFeeFormat()));
-				youhui.setText(getResources().getString(R.string.price,
-						car.getDenominationFormat()));
-				all_money.setText(getResources().getString(R.string.all_money,
-						car.getAllMoneyFormat()));
+				initCouponsInfo(settle);
+				initBalanceInfo();
 				
-				findViewById(R.id.btn_pay).setOnClickListener(this);
 			} else {
 				ToastUtils.Toast(this, goodsBalance.getMessage().getMessage());
 				findViewById(R.id.btn_pay).setBackgroundColor(
@@ -377,6 +308,105 @@ public class GoodsBalanceActivity extends BaseActivity implements
 			}
 		
 	}
+	/**
+	 * 初始化地址信息
+	 * @param settle
+	 */
+	private void initAddressInfo(Settle settle){
+		if (!settle.getAddress().isEmpty()) {
+			findViewById(R.id.selectAddress).setVisibility(View.VISIBLE);
+			findViewById(R.id.newAddress).setVisibility(View.GONE);
+			
+			selectedId = settle.getAddress().getAddId();
+			orderSubmit.setAddressId(selectedId);
+			address.setText(getResources().getString(
+					R.string.address,
+					settle.getAddress().getDeliveryCity()
+							+ settle.getAddress().getDeliveryDetail()));
+			name.setText(getResources().getString(R.string.name,
+					settle.getAddress().getName()));
+			phone.setText(getResources().getString(R.string.phone,
+					settle.getAddress().getTel()));
+			idCard.setText(getResources().getString(R.string.idcard,settle.getAddress().getIdCardNum().substring(0, 5) 
+					+ "********" + settle.getAddress().getIdCardNum().substring(14, settle.getAddress().getIdCardNum().length())
+					));
+			findViewById(R.id.btn_pay).setBackgroundResource(R.color.theme);
+			findViewById(R.id.btn_pay).setOnClickListener(this);
+
+		}else{
+			findViewById(R.id.selectAddress).setVisibility(View.GONE);
+			findViewById(R.id.newAddress).setVisibility(View.VISIBLE);
+
+		}
+	}
+	/**
+	 * 初始化商品信息
+	 * @param settle
+	 */
+	private void initGoodsInfo(Settle settle){
+		//添加商品 行邮税 运费等信息
+		car.setFactPortalFee(settle.getFactPortalFee());
+		car.setFactShipFee(settle.getFactShipFee());
+		car.setPortalFee(settle.getPortalFee());
+		car.setShipFee(settle.getShipFee());
+
+		for (Customs cs : car.getList()) {
+			for (SingleCustoms scs : settle.getSingleCustoms()) {
+				if (cs.getInvCustoms().equals(scs.getInvCustoms())) {
+					cs.setFactPortalFeeSingleCustoms(scs
+							.getFactPortalFeeSingleCustoms());
+					cs.setFactSingleCustomsShipFee(scs
+							.getFactSingleCustomsShipFee());
+					cs.setPortalSingleCustomsFee(scs
+							.getPortalSingleCustomsFee());
+					cs.setShipSingleCustomsFee(scs
+							.getShipSingleCustomsFee());
+					break;
+				}
+			}
+		}
+		//通知显示
+		adapter.notifyDataSetChanged();
+	}
+	/**
+	 * 初始化购物券信息
+	 * @param settle
+	 */
+	private void initCouponsInfo(Settle settle){
+		if (settle.getCoupons() != null && settle.getCoupons().size()>0) {
+			List<Coupon> coupons = settle.getCoupons();
+			coupon_num.setText(coupons.size() + "张可用");
+			RadioButton btn = null;
+			LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
+			if(group_coupons.getChildCount()>1){
+				group_coupons.removeViews(1, group_coupons.getChildCount()-1);
+			}
+			for (Coupon c : coupons) {
+				btn = getCustomRadioButton();
+				btn.setText("满"+c.getLimitQuota()+"减"+c.getDenomination());
+				btn.setTag(R.id.coupon_de,c.getDenomination());
+				btn.setTag(R.id.coupon_id, c.getCoupId());
+				group_coupons.addView(btn,lp);
+			}
+			group_coupons.check(R.id.btn_unuse);
+		}
+	}
+	
+	private void initBalanceInfo(){
+		all_shipfee.setText(getResources().getString(R.string.price,
+				car.getFactShipFeeFormat()));
+		all_price.setText(getResources().getString(R.string.price,
+				car.getAllPriceFormat()));
+		all_portalfee.setText(getResources().getString(R.string.price,
+				car.getFactPortalFeeFormat()));
+		youhui.setText(getResources().getString(R.string.price,
+				car.getDenominationFormat()));
+		all_money.setText(getResources().getString(R.string.all_money,
+				car.getAllMoneyFormat()));
+		
+		findViewById(R.id.btn_pay).setOnClickListener(this);
+	}
+
 	
 	
 	private RadioButton getCustomRadioButton() {

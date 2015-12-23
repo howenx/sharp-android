@@ -37,15 +37,6 @@ public class PostStringRequest extends StringRequest {
 			this.map = map;
 		}
 	}
-	
-	public PostStringRequest(int method,Map<String, String> headers, String path,Listener<String> listener, ErrorListener errorListener) throws IOException {
-		super(method, path, listener, errorListener);
-		if (headers != null) {
-			headers.put("accept", "application/json");
-			headers.put("Content-Type", "text/html;charset=UTF-8");
-			this.headers = headers;
-		}
-	}
 
 	public PostStringRequest(int method, String path,Listener<String> listener, ErrorListener errorListener,Map<String, String> params, Map<String, String> headers)
 			throws IOException {
@@ -56,7 +47,6 @@ public class PostStringRequest extends StringRequest {
 		this.headers = new HashMap<String, String>();
 		if (headers != null) {
 			this.headers.put("accept", "application/json");
-			this.headers.put("Content-Type", "text/html;charset=UTF-8");
 			this.headers.putAll(headers);
 		}
 	}

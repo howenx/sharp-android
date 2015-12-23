@@ -132,10 +132,6 @@ public class Http2Utils {
 			final VolleyJsonCallback callback, String params) {
 		doRequestTask2(mContext, Method.POST, headers,url, callback, params);
 	}
-//	public static void doPostRequestTask2(Context mContext, Map<String, String> headers,String url,
-//			final VolleyJsonCallback callback, String params) {
-//		doRequestTask2(mContext, Method.GET, headers,url, callback, params);
-//	}
 
 	// 实现Volley 异步回调请求的结果
 	public static void doRequestTask2(Context mContext, int method,

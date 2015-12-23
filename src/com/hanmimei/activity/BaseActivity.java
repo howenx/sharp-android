@@ -168,9 +168,8 @@ public class BaseActivity extends AppCompatActivity {
 		if(getUser() !=null){
 			headers = new HashMap<String, String>();
 			headers.put("id-token", getUser().getToken());
-			return headers;
 		}
-		return null;
+		return headers;
 	}
 
 }

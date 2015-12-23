@@ -101,13 +101,12 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 					data.addAll(detail.getThemeList());
 					adapter.notifyDataSetChanged();
 				} else {
-					ToastUtils.Toast(getActivity(), R.string.error);
+					ToastUtils.Toast(getActivity(), detail.getMessage().getMessage());
 				}
 			}
 			
 			@Override
 			public void onError() {
-				// TODO Auto-generated method stub
 				ToastUtils.Toast(getActivity(), R.string.error);
 			}
 		});
