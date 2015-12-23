@@ -13,6 +13,17 @@ public class GoodsDetail {
 	private Main main;
 	private List<Stock> stock;
 	private HMessage message;
+	private Integer cartNum;
+	
+	
+
+	public Integer getCartNum() {
+		return cartNum;
+	}
+
+	public void setCartNum(Integer cartNum) {
+		this.cartNum = cartNum;
+	}
 
 	public Main getMain() {
 		return main;

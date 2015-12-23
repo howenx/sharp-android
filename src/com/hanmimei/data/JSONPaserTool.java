@@ -11,7 +11,7 @@ import com.hanmimei.entity.ShoppingGoods;
 
 public class JSONPaserTool {
 
-	public static JSONArray ClientSettlePaser(ShoppingCar car,Long addressId) {
+	public static JSONArray ClientSettlePaser(ShoppingCar car) {
 		JSONArray array = new JSONArray();
 		try {
 			for (Customs cs : car.getList()) {

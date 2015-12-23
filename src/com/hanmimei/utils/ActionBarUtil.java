@@ -12,7 +12,7 @@ import com.hanmimei.activity.BaseActivity;
 
 public class ActionBarUtil {
 
-	public static void setActionBarStyle(Context context, String tag, int img,
+	public static View setActionBarStyle(Context context, String tag, int img,
 			Boolean isBack, OnClickListener l) {
 		final BaseActivity activity = (BaseActivity) context;
 		ActionBar actionbar = activity.getSupportActionBar();
@@ -41,6 +41,7 @@ public class ActionBarUtil {
 		}
 		if (l != null)
 			btn_setting.setOnClickListener(l);
+		return view;
 	}
 
 	public static void setActionBarStyle(Context context, String tag) {

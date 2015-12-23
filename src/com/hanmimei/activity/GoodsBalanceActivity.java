@@ -55,7 +55,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 	private TextView all_price, all_money, youhui, all_portalfee, all_shipfee;
 	private TextView name, phone, address, idCard, coupon_num, coupon_denomi;
 
-	private int selectedId = 0; // 默认地址为0
+	private long selectedId = Long.valueOf("0"); // 默认地址为0
 
 	private GoodsBalanceCustomAdapter adapter;
 
@@ -79,7 +79,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 		mListView.setFocusable(false);
 		all_price.setText(getResources().getString(R.string.price,
 				car.getAllPrice()));
-		loadData(Long.valueOf(selectedId));
+		loadData(selectedId);
 	}
 
 	/**
@@ -216,8 +216,9 @@ public class GoodsBalanceActivity extends BaseActivity implements
 	 *            被选中的地址id
 	 */
 	private void loadData(Long addressId) {
-		JSONArray array = JSONPaserTool.ClientSettlePaser(car, addressId);
+		JSONArray array = JSONPaserTool.ClientSettlePaser(car);
 		orderSubmit.setSettleDtos(array);
+		orderSubmit.setAddressId(addressId);
 		final JSONObject json = JSONPaserTool.OrderSubmitPaser(orderSubmit);
 		Http2Utils.doPostRequestTask2(this, getHeaders(), UrlUtil.POST_CLIENT_SETTLE, new VolleyJsonCallback() {
 			
@@ -406,7 +407,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 			} else {
 				findViewById(R.id.isDefault).setVisibility(View.GONE);
 			}
-			loadData(Long.valueOf(selectedId));
+			loadData(selectedId);
 			if(goodsBalance != null){
 				findViewById(R.id.btn_pay).setBackgroundResource(R.color.theme);
 				findViewById(R.id.btn_pay).setOnClickListener(this);

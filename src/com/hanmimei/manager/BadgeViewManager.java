@@ -28,11 +28,12 @@ public class BadgeViewManager {
 	
 	public void showCartNum(Context context, View target,int num){
 		BadgeView bView = new BadgeView(context, target);
-		bView.setBackgroundResource(R.drawable.bg_badgeview);
-		bView.setBadgePosition(BadgeView.POSITION_CENTER_HORIZONTAL);
-		bView.setTextSize(10);
-		bView.setTextColor(Color.parseColor("#000000"));
+		bView.setBackgroundResource(R.drawable.bg_badgeview2);
+		bView.setBadgePosition(BadgeView.POSITION_CENTER);
+		bView.setTextSize(12);
+		bView.setTextColor(Color.parseColor("#F9616A"));
 		bView.setText(num+"");
+		bView.show();
 	}
 	
 	private static class BadgeViewManagerHolder {

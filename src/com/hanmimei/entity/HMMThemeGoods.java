@@ -4,6 +4,7 @@ import java.util.List;
 
 public class HMMThemeGoods {
 	
+	private Integer cartNum;
 	private HMessage message ;
 	private List<HMMGoods> themeList;
 	public HMessage getMessage() {
@@ -25,10 +26,18 @@ public class HMMThemeGoods {
 				return g;
 		}
 		return null;
+		
+		
 	}
 //	public void setMasterItem(HMMGoods masterItem) {
 //		this.masterItem = masterItem;
 //	}
+	public Integer getCartNum() {
+		return cartNum;
+	}
+	public void setCartNum(Integer cartNum) {
+		this.cartNum = cartNum;
+	}
 	
 	
 	
