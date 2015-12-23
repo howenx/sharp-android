@@ -663,5 +663,20 @@ public class CommonUtil {
 		hashtable.put("91", "国外");
 		return hashtable;
 	}
+	public static long[] getTimer(int time){
+		int minute = 0;
+		int second = 0;
+		int hour = 0;
+		minute = time / 60;  
+        if (minute < 60) {  
+            second = time % 60;  
+        } else {  
+            hour = minute / 60;    
+            minute = minute % 60;  
+            second = time - hour * 3600 - minute * 60;  
+        }
+        long [] timer = {hour, minute, second};
+		return timer;
+	} 
 
 }

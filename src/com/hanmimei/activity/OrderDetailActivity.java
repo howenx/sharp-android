@@ -17,6 +17,7 @@ import com.hanmimei.entity.Order;
 import com.hanmimei.entity.OrderInfo;
 import com.hanmimei.entity.Result;
 import com.hanmimei.entity.Sku;
+import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.view.CustomListView;
 import com.hanmimei.view.TimerTextView;
@@ -71,21 +72,39 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		list = new ArrayList<Sku>();
 		adapter = new OrderDetailListAdapter(list, this);
 		order = (Order) getIntent().getSerializableExtra("order");
-		addressInfo = order.getAdress();
-		list.addAll(order.getList());
+		
 		findView();
-		initView();
-		adapter.notifyDataSetChanged();
+		if(order.getOrderStatus().equals("I")){
+			loadData();
+		}else{
+			addressInfo = order.getAdress();
+			list.addAll(order.getList());
+			initView();
+			adapter.notifyDataSetChanged();
+		}
+	}
+	//当订单的状态为i时，加载详情数据
+	private void loadData() {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				String result = HttpUtils.getToken(UrlUtil.GET_ORDER_LIST_URL+"/" + order.getOrderId(),
+						"id-token", OrderDetailActivity.this.getUser().getToken());
+				List<Order> list = DataParser.parserOrder(result);
+				Message msg = mHandler.obtainMessage(2);
+				msg.obj = list;
+				mHandler.sendMessage(msg);
+			}
+		}).start();
 	}
 	private void initView() {
-		long[] times = {0,0,10}; 
 		order_code.setText("订单号：" + order.getOrderId());
 //		I:初始化即未支付状态，S:成功，C：取消， F:失败，R:已收货，D:已经发货，J:拒收
 		if(order.getOrderStatus().equals("S")){
 			order_state.setText("订单状态：待发货");
 		}else if(order.getOrderStatus().equals("I")){
 			attention.setVisibility(View.VISIBLE);
-			attention.setTimes(times);
+			attention.setTimes(CommonUtil.getTimer(24 * 60 * 60 - order.getCountDown()/1000 - 300));
 			attention.beginRun();
 			order_state.setText("订单状态：待支付");
 			cancle.setVisibility(View.VISIBLE);
@@ -201,8 +220,8 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		}).start();
 	}
 
+	@SuppressLint("HandlerLeak") 
 	private Handler mHandler = new Handler(){
-
 		@Override
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
@@ -216,15 +235,24 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 					Toast.makeText(OrderDetailActivity.this, "取消订单失败！", Toast.LENGTH_SHORT).show();
 				}
 				break;
-
+			case 2:
+				List<Order> orders = (List<Order>) msg.obj;
+				if(orders.size() > 0 && orders != null){
+					order = orders.get(0);
+					addressInfo = order.getAdress();
+					list.addAll(order.getList());
+					initView();
+					adapter.notifyDataSetChanged();
+				}
+				break;
 			default:
 				break;
 			}
-		}
-		
+		}		
 	};
 	@Override
 	public void isTimeEnd() {
+		sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_CANCLE_ORDER));
 		cancle.setVisibility(View.GONE);
 		go_pay.setVisibility(View.GONE);
 	}

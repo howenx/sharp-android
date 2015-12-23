@@ -19,6 +19,7 @@ public class Order implements Serializable{
 	private String orderDetailUrl;		//订单相信页面url
 	private double totalFee;
 	private double postalFee;
+	private int countDown;
 	private List<Sku> list;
 	private HMMAddress adress;
 	private Result result;
@@ -26,6 +27,14 @@ public class Order implements Serializable{
 		super();
 	}
 	
+	public int getCountDown() {
+		return countDown;
+	}
+
+	public void setCountDown(int countDown) {
+		this.countDown = countDown;
+	}
+
 	public double getPostalFee() {
 		return postalFee;
 	}

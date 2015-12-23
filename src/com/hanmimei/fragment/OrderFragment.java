@@ -161,7 +161,6 @@ public class OrderFragment extends Fragment implements OnRefreshListener2<ListVi
 
 	@Override
 	public void onDestroy() {
-		// TODO Auto-generated method stub
 		super.onDestroy();
 		getActivity().unregisterReceiver(netReceiver);
 	}

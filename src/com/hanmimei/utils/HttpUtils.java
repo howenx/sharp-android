@@ -133,6 +133,7 @@ public class HttpUtils {
 		try {
 
 			HttpGet getRequest = new HttpGet(url);
+			getRequest.addHeader("Content-Type", "text/html;charset=UTF-8");  
 			getRequest.addHeader("accept", "application/json");
 			getRequest.addHeader(tokenKey, tokenValue);
 			HttpResponse response = httpClient.execute(getRequest);
@@ -279,7 +280,6 @@ public class HttpUtils {
 			HttpPost httppost = new HttpPost(url);
 			httppost.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
 			response = httpclient.execute(httppost);
-			int code = response.getStatusLine().getStatusCode();
 			// 检验状态码，如果成功接收数据
 			if (response.getStatusLine().getStatusCode() == 200) {
 				result = EntityUtils.toString(response.getEntity());

@@ -228,6 +228,8 @@ public class DataParser {
 						order.setPostalFee(orderObject.getDouble("postalFee"));
 					if(orderObject.has("orderDetailUrl"))
 						order.setOrderDetailUrl(orderObject.getString("orderDetailUrl"));
+					if(orderObject.has("countDown"))
+						order.setCountDown(orderObject.getInt("countDown"));
 				}
 				if(obj.has("sku")){
 					JSONArray skuArray = obj.getJSONArray("sku");

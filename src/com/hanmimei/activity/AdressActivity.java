@@ -190,7 +190,7 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 				if (list != null && list.size() > 0) {
 					data.clear();
 					adapter.notifyDataSetChanged();
-					data.addAll(list);
+					data.addAll(sequenceData(list));
 					adapter.notifyDataSetChanged();
 				}
 				break;
@@ -207,6 +207,18 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 		}
 
 	};
+	private List<HMMAddress> sequenceData(List<HMMAddress> list){
+		List<HMMAddress> addresses = new ArrayList<HMMAddress>();
+		for(int i = 0; i < list.size(); i ++){
+			if(list.get(i).isDefault() == true){
+				addresses.add(0, list.get(i));
+			}else{
+				addresses.add(list.get(i));
+			}
+		}
+		return addresses;
+		
+	}
 
 	private class AdressAdapter extends BaseAdapter {
 
