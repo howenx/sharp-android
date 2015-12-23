@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:layout_gravity="center"
-        android:text="韩秘美"
+        android:text="@null"
         android:textSize="16sp"
         android:textColor="@color/white"/>
     <ImageView 
@@ -19,7 +19,8 @@
         android:layout_gravity="right|center_vertical"
         android:src="@drawable/icon_setting"
         android:scaleType="center"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:contentDescription="@null"/>
 	<ImageView 
 	    android:id="@+id/back"
 	    android:layout_width="@dimen/actionbar_size"

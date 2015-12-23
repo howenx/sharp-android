@@ -216,6 +216,8 @@ public class GoodsBalanceActivity extends BaseActivity implements
 	 *            被选中的地址id
 	 */
 	private void loadData(Long addressId) {
+
+		loadingDialog.show();
 		JSONArray array = JSONPaserTool.ClientSettlePaser(car);
 		orderSubmit.setSettleDtos(array);
 		orderSubmit.setAddressId(addressId);
@@ -224,12 +226,14 @@ public class GoodsBalanceActivity extends BaseActivity implements
 			
 			@Override
 			public void onSuccess(String result) {
+				loadingDialog.dismiss();
 				goodsBalance = new Gson().fromJson(result, GoodsBalance.class);
 				initViewData();
 			}
 			
 			@Override
 			public void onError() {
+				loadingDialog.dismiss();
 				ToastUtils.Toast(getActivity(), R.string.error);
 			}
 		}, json.toString());

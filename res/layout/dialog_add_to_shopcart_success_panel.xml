@@ -22,7 +22,7 @@
             android:drawablePadding="15dp"
             android:drawableTop="@drawable/icon_smile"
             android:gravity="center"
-            android:text="商品已成功添加入购物车"
+            android:text="@string/sucess_goodscar"
             android:textColor="@color/white"
             android:textSize="14sp" />
     </LinearLayout>

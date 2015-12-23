@@ -177,6 +177,8 @@ public class HomeFragment extends Fragment implements
 
 	// 加载网络数据
 	private void getNetData() {
+		if(isUpOrDwom == 0)
+			mActivity.getLoading().show();
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -208,6 +210,7 @@ public class HomeFragment extends Fragment implements
 			super.handleMessage(msg);
 			switch (msg.what) {
 			case 1:
+				mActivity.getLoading().dismiss();
 				mListView.onRefreshComplete();
 				List<Theme> list = (List<Theme>) msg.obj;
 				if (list != null && list.size() > 0) {
@@ -305,7 +308,12 @@ public class HomeFragment extends Fragment implements
 			}
 			break;
 		case SCROLL_STATE_TOUCH_SCROLL:      // 滚动时
-			back_top.setVisibility(View.VISIBLE);
+			if(mListView.getRefreshableView().getFirstVisiblePosition() <= 0){
+				back_top.setVisibility(View.GONE);
+			}else{
+				back_top.setVisibility(View.VISIBLE);
+			}
+//			back_top.setVisibility(View.VISIBLE);
 			break;
 		default:
 			break;

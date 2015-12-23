@@ -11,6 +11,6 @@
         android:layout_height="wrap_content"
         android:textSize="14sp"
         android:textColor="@color/fontcolor"
-        android:text="此处应有掌声"/>
+        android:text="@null"/>
 
 </LinearLayout>

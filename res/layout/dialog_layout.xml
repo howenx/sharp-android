@@ -40,7 +40,7 @@
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="删除"
+        android:text="确定"
         android:textSize="16sp"
         android:textColor="@color/red"
         android:background="@drawable/huise_border"/>

@@ -6,6 +6,18 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.hanmimei.R;
 import com.hanmimei.activity.listener.TimeEndListner;
 import com.hanmimei.adapter.OrderDetailListAdapter;
@@ -17,27 +29,15 @@ import com.hanmimei.entity.Order;
 import com.hanmimei.entity.OrderInfo;
 import com.hanmimei.entity.Result;
 import com.hanmimei.entity.Sku;
+import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.view.CustomListView;
+import com.hanmimei.view.LoadingDialog;
 import com.hanmimei.view.TimerTextView;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-@SuppressLint("NewApi") 
+@SuppressLint({ "NewApi", "InflateParams" }) 
 public class OrderDetailActivity extends BaseActivity implements OnClickListener, TimeEndListner{
-
-	private TextView header;
-	private ImageView back;
 	private Order order;
 	private TextView order_code;
 	private TextView order_state;
@@ -61,7 +61,8 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 	private List<Sku> list;
 	private CustomListView listView;
 	private OrderDetailListAdapter adapter;
-	
+	private AlertDialog dialog;
+	private LayoutInflater inflater;
 	private JSONObject object;
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -72,8 +73,13 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		list = new ArrayList<Sku>();
 		adapter = new OrderDetailListAdapter(list, this);
 		order = (Order) getIntent().getSerializableExtra("order");
-		
+		inflater = LayoutInflater.from(this);
 		findView();
+		if(order.getOrderStatus().equals("D")&&order.getOrderStatus().equals("S")){
+			ActionBarUtil.setActionBarStyle(this, "订单详情");
+		}else{
+			ActionBarUtil.setActionBarStyle(this, "订单详情", R.drawable.icon_delete, true, this);
+		}
 		if(order.getOrderStatus().equals("I")){
 			loadData();
 		}else{
@@ -85,6 +91,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 	}
 	//当订单的状态为i时，加载详情数据
 	private void loadData() {
+		loadingDialog.show();
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -145,11 +152,6 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		order_price.setText("订单应付金额：" + order.getPayTotal());
 	}
 	private void findView() {
-		header = (TextView) findViewById(R.id.header);
-		header.setText("订单详情");
-		back = (ImageView) findViewById(R.id.back);
-		back.setVisibility(View.VISIBLE);
-		back.setOnClickListener(this);
 		order_code = (TextView) findViewById(R.id.order_code);
 		order_state = (TextView) findViewById(R.id.order_state);
 		order_date = (TextView) findViewById(R.id.order_date);
@@ -177,12 +179,8 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.back:
-			finish();
-			break;
 		case R.id.send:
-			toObject();
-			cancleOrder();
+			showDialog();
 			break;
 		case R.id.go_pay:
 			OrderInfo orderInfo = new OrderInfo();
@@ -192,9 +190,53 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 			startActivity(intent);
 			finish();
 			break;
+		case R.id.setting:
+			showDelDialog();
+			break;
 		default:
 			break;
 		}
+	}
+	private void showDelDialog() {
+		View view = inflater.inflate(R.layout.dialog_layout, null);
+		dialog = new AlertDialog.Builder(this).create();
+		dialog.setView(view);
+		dialog.show();
+		view.findViewById(R.id.cancle).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				dialog.dismiss();
+			}
+		});
+		view.findViewById(R.id.besure).setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+			}
+		});
+	}
+	private void showDialog(){
+		View view = inflater.inflate(R.layout.dialog_layout, null);
+		TextView title = (TextView) view.findViewById(R.id.title);
+		title.setText("确定取消订单？");
+		dialog = new AlertDialog.Builder(this).create();
+		dialog.setView(view);
+		dialog.show();
+		view.findViewById(R.id.cancle).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				dialog.dismiss();
+			}
+		});
+		view.findViewById(R.id.besure).setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				toObject();
+				cancleOrder();
+			}
+		});
 	}
 	private void toObject() {
 		object = new JSONObject();
@@ -207,6 +249,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		
 	}
 	private void cancleOrder() {
+		loadingDialog.show();
 		new Thread(new Runnable() {
 			
 			@Override
@@ -227,6 +270,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 			super.handleMessage(msg);
 			switch (msg.what) {
 			case 1:
+				loadingDialog.dismiss();
 				Result result = (Result) msg.obj;
 				if(result.getCode() == 200){
 					sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_CANCLE_ORDER));
@@ -236,6 +280,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 				}
 				break;
 			case 2:
+				loadingDialog.dismiss();
 				List<Order> orders = (List<Order>) msg.obj;
 				if(orders.size() > 0 && orders != null){
 					order = orders.get(0);

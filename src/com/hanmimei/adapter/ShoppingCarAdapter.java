@@ -131,7 +131,6 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		holder.price.setText("¥" + goods.getGoodsPrice());
 		holder.nums.setText(goods.getGoodsNums() + "");
 		holder.name.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View arg0) {
 				Intent intent = new Intent(activity, GoodsDetailActivity.class);
@@ -140,7 +139,6 @@ public class ShoppingCarAdapter extends BaseAdapter {
 			}
 		});
 		holder.img.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View arg0) {
 				Intent intent = new Intent(activity, GoodsDetailActivity.class);
@@ -201,8 +199,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				// 登录状态删除服务器数据，未登录状态删除本地数据
-				showDialog(goods);
-				
+				showDialog(goods);	
 			}
 		});
 		holder.checkBox.setOnClickListener(new OnClickListener() {
@@ -312,7 +309,6 @@ public class ShoppingCarAdapter extends BaseAdapter {
 						+ goods.getGoodsId() + "/" + goods.getGoodsNums());
 				HMessage hm = DataParser.paserResultMsg(result);
 				Message msg = mHandler.obtainMessage(2);
-				// msg.obj = car;
 				msg.obj = hm;
 				mHandler.sendMessage(msg);
 			}
