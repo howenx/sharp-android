@@ -14,7 +14,9 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -32,11 +34,10 @@ import com.hanmimei.entity.Category;
 import com.hanmimei.entity.Order;
 import com.hanmimei.entity.User;
 import com.hanmimei.utils.HttpUtils;
-import com.hanmimei.view.CustomGifView;
-import com.hanmimei.view.LoadingDialog;
 
 @SuppressLint("InflateParams")
-public class OrderFragment extends Fragment implements OnRefreshListener2<ListView>{
+public class OrderFragment extends Fragment implements
+		OnRefreshListener2<ListView>, OnClickListener {
 
 	private PullToRefreshListView mListView;
 	private TextView no_order;
@@ -46,6 +47,8 @@ public class OrderFragment extends Fragment implements OnRefreshListener2<ListVi
 	private int state = 1;
 	private User user;
 	private BaseActivity activity;
+	private LinearLayout no_net;
+	private TextView reload;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,9 @@ public class OrderFragment extends Fragment implements OnRefreshListener2<ListVi
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.pulltorefresh_list_layout, null);
 		no_order = (TextView) view.findViewById(R.id.no_order);
+		no_net = (LinearLayout) view.findViewById(R.id.no_net);
+		reload = (TextView) view.findViewById(R.id.reload);
+		reload.setOnClickListener(this);
 		mListView = (PullToRefreshListView) view.findViewById(R.id.mylist);
 		mListView.setAdapter(adapter);
 		mListView.setMode(Mode.PULL_DOWN_TO_REFRESH);
@@ -141,17 +147,23 @@ public class OrderFragment extends Fragment implements OnRefreshListener2<ListVi
 				activity.getLoading().dismiss();
 				mListView.onRefreshComplete();
 				List<Order> orders = (List<Order>) msg.obj;
-				if (orders != null && orders.size() > 0) {
-					data.clear();
-					getOrderByState(orders);
-					if(data.size() > 0){
-						no_order.setVisibility(View.GONE);
-					}else{
+				if (orders != null) {
+					no_net.setVisibility(View.GONE);
+					if (orders.size() > 0) {
+						data.clear();
+						getOrderByState(orders);
+						if (data.size() > 0) {
+							no_order.setVisibility(View.GONE);
+						} else {
+							no_order.setVisibility(View.VISIBLE);
+						}
+						adapter.notifyDataSetChanged();
+					} else {
 						no_order.setVisibility(View.VISIBLE);
 					}
-					adapter.notifyDataSetChanged();
 				} else {
-					no_order.setVisibility(View.VISIBLE);
+					no_order.setVisibility(View.GONE);
+					no_net.setVisibility(View.VISIBLE);
 				}
 				break;
 
@@ -180,11 +192,12 @@ public class OrderFragment extends Fragment implements OnRefreshListener2<ListVi
 	private class MyBroadCastReceiver extends BroadcastReceiver {
 
 		@Override
-			public void onReceive(Context context, Intent intent) {
-				if (intent.getAction().equals(AppConstant.MESSAGE_BROADCAST_CANCLE_ORDER)){
-					loadOrder();
-				}
+		public void onReceive(Context context, Intent intent) {
+			if (intent.getAction().equals(
+					AppConstant.MESSAGE_BROADCAST_CANCLE_ORDER)) {
+				loadOrder();
 			}
+		}
 	}
 
 	@Override
@@ -195,6 +208,17 @@ public class OrderFragment extends Fragment implements OnRefreshListener2<ListVi
 	@Override
 	public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
 		loadOrder();
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.reload:
+			loadOrder();
+			break;
+		default:
+			break;
+		}
 	}
 
 }

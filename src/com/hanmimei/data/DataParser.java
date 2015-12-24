@@ -174,20 +174,17 @@ public class DataParser {
 		return result;
 	}
 	public static List<Order> parserOrder(String result){
-		List<Order> list = new ArrayList<Order>();
+		List<Order> list = null;
 		try {
 			JSONObject object = new JSONObject(result);
 			JSONArray array = object.getJSONArray("orderList");
+			list = new ArrayList<Order>();
 			for(int i = 0; i < array.length(); i ++){
 				Order order = new Order();
 				JSONObject obj = array.getJSONObject(i);
 				if(obj.has("address")){
 					JSONObject addObject = obj.getJSONObject("address");
 					HMMAddress adress = new HMMAddress();
-//					if(addObject.has("addId")){
-//						if(!addObject.getString("addId").equals("null"))
-//						adress.setAdress_id(addObject.getInt("addId"));
-//					}
 					if(addObject.has("tel"))
 						adress.setPhone(addObject.getString("tel"));
 					if(addObject.has("idCardNum"))
@@ -272,6 +269,7 @@ public class DataParser {
 		HMessage msg = new HMessage();
 		try {
 			JSONObject object = new JSONObject(result);
+			if(object.has("cartList")){
 			JSONArray array = object.getJSONArray("cartList");
 			for(int i = 0; i < array.length(); i ++){
 				JSONObject obj = array.getJSONObject(i);
@@ -339,6 +337,7 @@ public class DataParser {
 				}
 				custom.setList(list);
 				customs.add(custom);
+			}
 			}
 			JSONObject msgObject = object.getJSONObject("message");
 			if(msgObject.has("message"))

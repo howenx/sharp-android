@@ -18,16 +18,7 @@
         android:textSize="18sp"
         android:textColor="@color/white"
         android:background="@drawable/theme_button_bg"/>
-<!-- 
-    <ListView
-        android:id="@+id/list"
-        android:layout_margin="15dp"
-        android:layout_below="@id/header_layout"
-        android:layout_above="@id/add"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="none"/>
-         -->
+    
     <com.baoyz.swipemenulistview.SwipeMenuListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

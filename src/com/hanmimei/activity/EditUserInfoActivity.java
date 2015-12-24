@@ -172,11 +172,17 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 			switch (msg.what) {
 			case 1:
 				HMessage hm = (HMessage) msg.obj;
+				if(hm.getCode() != null){
 				if(hm.getCode() == 200){
 					sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION));
 					finish();
 				}else{
-					Toast.makeText(EditUserInfoActivity.this, "修改失败！" + hm.getMessage(), Toast.LENGTH_SHORT).show();
+					Toast.makeText(EditUserInfoActivity.this, "修改失败,请检查您的网络", Toast.LENGTH_SHORT).show();
+					finish();
+				}
+				}else{
+					Toast.makeText(EditUserInfoActivity.this, "修改失败，请检查您的网络", Toast.LENGTH_SHORT).show();
+					finish();
 				}
 				break;
 

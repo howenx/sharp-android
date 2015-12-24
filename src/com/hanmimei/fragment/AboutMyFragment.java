@@ -9,14 +9,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.TextAppearanceSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import com.hanmimei.R;
 import com.hanmimei.activity.AdressActivity;
 import com.hanmimei.activity.BaseActivity;
@@ -112,7 +110,13 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 		imageOptions = InitImageLoader.initOptions();
 		imageLoader.displayImage(user.getUserImg(), header, imageOptions);
 		user_name.setText(user.getUserName());
-		String show = "    优惠券        " + user.getCouponCount() + "张可用";
+		int couponCount;
+		if(user.getCouponCount() == null){
+			couponCount = 0;
+		}else{
+			couponCount = user.getCouponCount();
+		}
+		String show = "    优惠券        " + couponCount + "张可用";
 		KeyWordUtil.setDifrentFontStyle(getActivity(), youhui, show, 14, show.length());
 
 	}
@@ -183,7 +187,7 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 			switch (msg.what) {
 			case 1:
 				User userinfo = (User) msg.obj;
-				if (userinfo != null) {
+				if (userinfo.getUserName() != null) {
 					user.setUserName(userinfo.getUserName());
 					user.setPhone(userinfo.getPhone());
 					user.setUserImg(userinfo.getUserImg());
@@ -194,7 +198,7 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 					userDao.insert(user);
 					initView();
 				} else {
-
+					initView();
 				}
 				break;
 

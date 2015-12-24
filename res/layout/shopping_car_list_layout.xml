@@ -78,7 +78,6 @@
             android:textColor="@color/white"
             android:textSize="18sp" />
     </LinearLayout>
-
     <TextView
         android:id="@+id/attention"
         android:layout_width="match_parent"
@@ -93,5 +92,11 @@
         android:textSize="12sp"
         android:visibility="gone" 
         android:background="@color/white"/>
+    <include 
+        android:id="@+id/no_net"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        layout="@layout/offline_wuxinhao_layout"
+		android:visibility="gone"/>
 
 </RelativeLayout>

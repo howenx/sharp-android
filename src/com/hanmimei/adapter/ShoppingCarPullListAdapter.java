@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.hanmimei.R;
 import com.hanmimei.entity.Customs;
-import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.utils.KeyWordUtil;
 import com.hanmimei.utils.ShoppingCarMenager;
 import com.hanmimei.view.CustomListView;
