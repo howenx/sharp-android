@@ -2,20 +2,12 @@ package com.hanmimei.adapter;
 
 import java.util.List;
 
-import com.hanmimei.R;
-import com.hanmimei.activity.OrderDetailActivity;
-import com.hanmimei.activity.OrderSubmitActivity;
-import com.hanmimei.entity.Order;
-import com.hanmimei.entity.OrderInfo;
-import com.hanmimei.utils.HttpUtils;
-import com.hanmimei.view.CustomListView;
-import com.hanmimei.view.HorizontalListView;
-
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,6 +20,19 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hanmimei.R;
+import com.hanmimei.activity.BaseActivity;
+import com.hanmimei.activity.OrderDetailActivity;
+import com.hanmimei.activity.OrderSubmitActivity;
+import com.hanmimei.data.AppConstant;
+import com.hanmimei.data.DataParser;
+import com.hanmimei.data.UrlUtil;
+import com.hanmimei.entity.HMessage;
+import com.hanmimei.entity.Order;
+import com.hanmimei.entity.OrderInfo;
+import com.hanmimei.utils.HttpUtils;
+import com.hanmimei.view.HorizontalListView;
+
 @SuppressLint("InflateParams")
 public class OrderPullListAdapter extends BaseAdapter {
 
@@ -35,11 +40,12 @@ public class OrderPullListAdapter extends BaseAdapter {
 	private LayoutInflater inflater;
 	private OrderListAdapter adapter;
 	private Drawable drawable;
-	private Activity activity;
-
+	private BaseActivity activity;
+	private Order orderT;
 	public OrderPullListAdapter(List<Order> data, Context mContext) {
 		this.data = data;
-		activity = (Activity) mContext;
+		orderT =new Order();
+		activity = (BaseActivity) mContext;
 		inflater = LayoutInflater.from(mContext);
 		drawable = activity.getResources().getDrawable(R.drawable.icon_jiantou);
 		drawable.setBounds(0, 0, 40, 40);
@@ -106,12 +112,14 @@ public class OrderPullListAdapter extends BaseAdapter {
 		holder.go_pay.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				OrderInfo orderInfo = new OrderInfo();
-				orderInfo.setOrder(order);
-				Intent intent = new Intent(activity, OrderSubmitActivity.class);
-				intent.putExtra("orderInfo", orderInfo);
-				activity.startActivity(intent);
-				activity.finish();
+				getIsTimeOver(order);
+				orderT = order;
+//				OrderInfo orderInfo = new OrderInfo();
+//				orderInfo.setOrder(order);
+//				Intent intent = new Intent(activity, OrderSubmitActivity.class);
+//				intent.putExtra("orderInfo", orderInfo);
+//				activity.startActivity(intent);
+//				activity.finish();
 			}
 		});
 		holder.orderCode.setText("订单号： " + order.getOrderId());
@@ -146,6 +154,55 @@ public class OrderPullListAdapter extends BaseAdapter {
 		return convertView;
 	}
 
+	private void getIsTimeOver(final Order order) {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				String result = HttpUtils.get(UrlUtil.GET_ORDER_IS_TIME + order.getOrderId(), activity.getUser().getToken());
+				HMessage hMessage = DataParser.paserResultMsg(result);
+				Message msg = mHandler.obtainMessage(1);
+				msg.obj = hMessage;
+				mHandler.sendMessage(msg);
+			}
+		}).start();
+	}
+	
+	private Handler mHandler = new Handler(){
+
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			switch (msg.what) {
+			case 1:
+				HMessage hMessage = (HMessage) msg.obj;
+				if(hMessage.getCode() != null){
+					if(hMessage.getCode() == 200){
+						doPay(orderT);
+					}else{
+						activity.sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_CANCLE_ORDER));
+						Toast.makeText(activity, "订单已经过期，已自动取消", Toast.LENGTH_SHORT).show();
+					}
+				}else{
+					Toast.makeText(activity, "请检查您的网络", Toast.LENGTH_SHORT).show();
+				}
+				
+				break;
+
+			default:
+				break;
+			}
+		}
+		
+	};
+
+	private void doPay(Order order){
+		OrderInfo orderInfo = new OrderInfo();
+		orderInfo.setOrder(order);
+		Intent intent = new Intent(activity, OrderSubmitActivity.class);
+		intent.putExtra("orderInfo", orderInfo);
+		activity.startActivity(intent);
+		activity.finish();
+	}
 	//跳转到订单详情界面的方法
 	private void doJumpDetail(Order order) {
 		Intent intent = new Intent(activity, OrderDetailActivity.class);

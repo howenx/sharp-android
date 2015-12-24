@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -25,6 +26,7 @@ import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.HMMAddress;
+import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.Order;
 import com.hanmimei.entity.OrderInfo;
 import com.hanmimei.entity.Result;
@@ -33,7 +35,6 @@ import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.view.CustomListView;
-import com.hanmimei.view.LoadingDialog;
 import com.hanmimei.view.TimerTextView;
 
 @SuppressLint({ "NewApi", "InflateParams" }) 
@@ -64,6 +65,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 	private AlertDialog dialog;
 	private LayoutInflater inflater;
 	private JSONObject object;
+	private ProgressDialog progressDialog;
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
@@ -203,7 +205,6 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		dialog.setView(view);
 		dialog.show();
 		view.findViewById(R.id.cancle).setOnClickListener(new OnClickListener() {
-			
 			@Override
 			public void onClick(View arg0) {
 				dialog.dismiss();
@@ -212,9 +213,26 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		view.findViewById(R.id.besure).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				dialog.dismiss();
+				delOrder();
 			}
 		});
+	}
+	private void delOrder() {
+		dialog.dismiss();
+		progressDialog = new ProgressDialog(this);
+		progressDialog.setMessage("正在退出...");
+		progressDialog.show();
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				String result = HttpUtils.get(UrlUtil.DEL_ORDER + order.getOrderId(), getUser().getToken());
+				HMessage hMessage = DataParser.paserResultMsg(result);
+				Message msg = mHandler.obtainMessage(3);
+				msg.obj = hMessage;
+				mHandler.sendMessage(msg);
+			}
+		}).start();
 	}
 	private void showDialog(){
 		View view = inflater.inflate(R.layout.dialog_layout, null);
@@ -290,15 +308,33 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 					adapter.notifyDataSetChanged();
 				}
 				break;
+			case 3:
+				progressDialog.dismiss();
+				HMessage hMessage = (HMessage) msg.obj;
+				if(hMessage.getCode() != null){
+					if(hMessage.getCode() == 200){
+						OrderDetailActivity.this.sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_CANCLE_ORDER));
+						finish();
+					}else{
+						Toast.makeText(OrderDetailActivity.this, "删除失败，请检查您的网络", Toast.LENGTH_SHORT).show();
+					}
+				}else{
+					Toast.makeText(OrderDetailActivity.this, "删除失败，请检查您的网络", Toast.LENGTH_SHORT).show();
+				}
+				break;
 			default:
 				break;
 			}
 		}		
 	};
+	private boolean isSendBroad = true;
 	@Override
 	public void isTimeEnd() {
-		sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_CANCLE_ORDER));
-		cancle.setVisibility(View.GONE);
-		go_pay.setVisibility(View.GONE);
+		if(isSendBroad){
+			sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_CANCLE_ORDER));
+			cancle.setVisibility(View.GONE);
+			go_pay.setVisibility(View.GONE);
+			isSendBroad = false;
+		}
 	}
 }

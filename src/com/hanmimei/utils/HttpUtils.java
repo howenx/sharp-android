@@ -19,6 +19,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.AbstractHttpEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -108,9 +109,7 @@ public class HttpUtils {
 				}
 			}
 
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			// 网络连接有问题
 			e.printStackTrace();
 		} finally {
@@ -125,13 +124,12 @@ public class HttpUtils {
 
 	public static String getToken(String url, String tokenKey, String tokenValue) {
 		StringBuilder result = new StringBuilder();
-
 		DefaultHttpClient httpClient = new DefaultHttpClient();
 		InputStream is = null;
 		try {
 
 			HttpGet getRequest = new HttpGet(url);
-			getRequest.addHeader("Content-Type", "text/html;charset=UTF-8");  
+			getRequest.addHeader("Content-Type", "text/json;charset=UTF-8"); 
 			getRequest.addHeader("accept", "application/json");
 			getRequest.addHeader(tokenKey, tokenValue);
 			HttpResponse response = httpClient.execute(getRequest);
@@ -143,7 +141,6 @@ public class HttpUtils {
 					result.append(new String(buffer, 0, len));
 				}
 			}
-
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

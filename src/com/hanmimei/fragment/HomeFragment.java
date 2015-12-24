@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -42,7 +43,6 @@ import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.Slider;
 import com.hanmimei.entity.Theme;
 import com.hanmimei.utils.HttpUtils;
-import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.CycleViewPager;
 import com.hanmimei.view.ViewFactory;
 
@@ -65,6 +65,8 @@ public class HomeFragment extends Fragment implements
 	private List<ImageView> views = new ArrayList<ImageView>();
 	private CycleViewPager cycleViewPager;
 	private RelativeLayout back_top;
+	private LinearLayout no_net;
+	private TextView reload;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -84,6 +86,9 @@ public class HomeFragment extends Fragment implements
 		View view = inflater.inflate(R.layout.home_list_layout, null);
 		mListView = (PullToRefreshListView) view.findViewById(R.id.mylist);
 		back_top = (RelativeLayout) view.findViewById(R.id.back_top);
+		no_net = (LinearLayout) view.findViewById(R.id.no_net);
+		reload = (TextView) view.findViewById(R.id.reload);
+		reload.setOnClickListener(this);
 		back_top.setOnClickListener(this);
 		mListView.setAdapter(adapter);
 		mListView.setMode(Mode.PULL_UP_TO_REFRESH);
@@ -214,6 +219,8 @@ public class HomeFragment extends Fragment implements
 				mListView.onRefreshComplete();
 				List<Theme> list = (List<Theme>) msg.obj;
 				if (list != null && list.size() > 0) {
+					mListView.setVisibility(View.VISIBLE);
+					no_net.setVisibility(View.GONE);
 					sliderDao.deleteAll();
 					sliderDao.insertInTx(sliders_temp);
 					dataSliders.clear();
@@ -226,7 +233,8 @@ public class HomeFragment extends Fragment implements
 					themeDao.insertInTx(data);
 					adapter.notifyDataSetChanged();
 				} else {
-					ToastUtils.Toast(getActivity(), R.string.error);
+					mListView.setVisibility(View.GONE);
+					no_net.setVisibility(View.VISIBLE);
 				}
 				break;
 			case 2:
@@ -285,7 +293,10 @@ public class HomeFragment extends Fragment implements
 			mListView.getRefreshableView().setSelection(0);
 			back_top.setVisibility(View.GONE);
 			break;
-
+		case R.id.reload:
+			no_net.setVisibility(View.GONE);
+			getNetData();
+			break;
 		default:
 			break;
 		}

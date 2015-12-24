@@ -10,6 +10,11 @@ import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.LinearLayout;
+
+import com.hanmimei.R;
 import com.hanmimei.application.MyApplication;
 import com.hanmimei.dao.DaoSession;
 import com.hanmimei.data.XmlParserHandler;
@@ -137,7 +142,6 @@ public class BaseActivity extends AppCompatActivity {
 		MyApplication application = (MyApplication) getApplication();
 		return application.getDaoSession();
 	}
-	
 	
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {

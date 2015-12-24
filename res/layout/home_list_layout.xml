@@ -28,5 +28,11 @@
 		android:layout_alignParentBottom="true"
 		android:layout_alignParentRight="true"
 		android:visibility="gone"/>
+    <include 
+        android:id="@+id/no_net"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        layout="@layout/offline_wuxinhao_layout"
+		android:visibility="gone"/>
 
 </RelativeLayout>
