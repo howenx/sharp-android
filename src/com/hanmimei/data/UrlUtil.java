@@ -38,13 +38,13 @@ public class UrlUtil {
 	//获取用户信息接口
 	public static final String GET_USERINFO_URL = SERVER04 + "/api/user/get/info";
 	//获取订单列表接口
-	public static final String GET_ORDER_LIST_URL = SERVER01 + "/client/order";
+	public static final String GET_ORDER_LIST_URL = SERVER02 + "/client/order";
 	//获取优惠券列表接口
 	public static final String GET_COUPON_LIST_URL = SERVER01 + "/client/coupons/list";
 	
 	//结算页接口
 	public static final String POST_CLIENT_SETTLE = SERVER01 +"/client/settle";
-	public static final String POST_CLIENT_ORDER_SUBMIT = SERVER01 +"/client/order/submit";
+	public static final String POST_CLIENT_ORDER_SUBMIT = SERVER02 +"/client/order/submit";
 	public static final String GOODS_DETAIL_URL = SERVER03 +"/comm/detail/web/";
 	public static final String CLIENT_PAY_ORDER_GET = SERVER01 +"/client/pay/order/get/";
 	
