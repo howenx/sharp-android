@@ -90,6 +90,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 	
 	private BadgeView buyNumView;//显示购买数量的控件
 
+	private PopupWindow shareWindow;
+	private ImageView btn_collect;
+	
 	private User user;
 	private ShoppingGoodsDao goodsDao;
 	private Main main; // 主信息
@@ -97,7 +100,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private List<Tag> tags; // 规格标签信息
 	
 	private int num_shopcart=0;
-	private PopupWindow shareWindow;
+	private boolean isCollected = false ;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -141,6 +144,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		buyNumView.setBackgroundResource(R.drawable.bg_badgeview);
 		img_hide = (ImageView) findViewById(R.id.img_hide);
 		back_top =  findViewById(R.id.back_top);
+		btn_collect =  (ImageView) findViewById(R.id.btn_collect);
 
 		content_params = (ListView) findViewById(R.id.content_params);
 		FrameLayout.LayoutParams lpm = (FrameLayout.LayoutParams)new FrameLayout.LayoutParams(
@@ -162,6 +166,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		findViewById(R.id.back_top).setOnClickListener(this);
 
 		indicator.setOnCheckedChangeListener(this);
+		btn_collect.setOnClickListener(this);
 
 	}
 	
@@ -241,7 +246,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 		case R.id.btn_pay:
 			clickPay();
 			break;
-
+		case R.id.btn_collect:
+			collectGoods();
+			break;
 		case R.id.btn_shopcart:
 			
 			ShoppingGoods goods = new ShoppingGoods();
@@ -379,7 +386,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 					sgoods.setGoodsNums(1);
 					sgoods.setGoodsPrice(s.getItemPrice());
 					sgoods.setInvArea(s.getInvArea());
-					sgoods.setInvArea(s.getInvAreaNm());
+					sgoods.setInvAreaNm(s.getInvAreaNm());
 					sgoods.setInvCustoms(s.getInvCustoms());
 					sgoods.setPostalTaxRate(s.getPostalTaxRate());
 					sgoods.setPostalStandard(s.getPostalStandard());
@@ -392,7 +399,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		}
 		customs.addShoppingGoods(sgoods);
 		customs.setInvArea(sgoods.getInvArea());
-		customs.setInvArea(sgoods.getInvCustoms());
+		customs.setInvAreaNm(sgoods.getInvAreaNm());
 		customs.setInvCustoms(sgoods.getInvCustoms());
 		list.add(customs);
 		car.setList(list);
@@ -451,6 +458,14 @@ public class GoodsDetailActivity extends BaseActivity implements
 			e.printStackTrace();
 		}
 		return array;
+	}
+	
+	private void collectGoods(){
+		if(getUser() == null){
+			startActivity(new Intent(this, LoginActivity.class));
+		}else{
+			
+		}
 	}
 
 	
@@ -663,16 +678,19 @@ public class GoodsDetailActivity extends BaseActivity implements
 	 private UMShareListener umShareListener = new UMShareListener() {
 	        @Override
 	        public void onResult(SHARE_MEDIA platform) {
+	        	shareWindow.dismiss();
 	            Toast.makeText(GoodsDetailActivity.this, platform + " 分享成功", Toast.LENGTH_SHORT).show();
 	        }
 
 	        @Override
 	        public void onError(SHARE_MEDIA platform, Throwable t) {
+	        	shareWindow.dismiss();
 	            Toast.makeText(GoodsDetailActivity.this,platform + " 分享失败", Toast.LENGTH_SHORT).show();
 	        }
 
 	        @Override
 	        public void onCancel(SHARE_MEDIA platform) {
+	        	shareWindow.dismiss();
 	            Toast.makeText(GoodsDetailActivity.this,platform + " 分享取消", Toast.LENGTH_SHORT).show();
 	        }
 	    };

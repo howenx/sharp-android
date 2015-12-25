@@ -26,7 +26,7 @@ public class UrlUtil {
 	//更新用户信息接口
 	public static final String UPDATE_USERINFO = SERVER04 + "/api/user/update";
 	//登录状态请求购物车数据接口
-	public static final String GET_CAR_LIST_URL = SERVER02 + "/client/cart";
+	public static final String GET_CAR_LIST_URL = SERVER01 + "/client/cart";
 	//未登录状态请求购物车数据
 	public static final String SEND_CAR_TO_SERVER_UN = SERVER01 + "/client/cart/verify/amount/";
 	//用户登录接口
@@ -34,21 +34,21 @@ public class UrlUtil {
 	//用户注册接口
 	public static final String REGIST_URL = SERVER04 + "/api/reg";
 	//取消订单
-	public static final String CANCLE_ORDER_URL = SERVER02 + "/client/order/cancel/";
+	public static final String CANCLE_ORDER_URL = SERVER01 + "/client/order/cancel/";
 	//获取用户信息接口
 	public static final String GET_USERINFO_URL = SERVER04 + "/api/user/get/info";
 	//获取订单列表接口
-	public static final String GET_ORDER_LIST_URL = SERVER02 + "/client/order";
+	public static final String GET_ORDER_LIST_URL = SERVER01 + "/client/order";
 	//订单是否过期（是否可以去支付）
-	public static final String GET_ORDER_IS_TIME = SERVER02 + "/client/order/verify/";
+	public static final String GET_ORDER_IS_TIME = SERVER01 + "/client/order/verify/";
 	//删除订单                
-	public static final String DEL_ORDER = SERVER02 + "/client/order/del/";
+	public static final String DEL_ORDER = SERVER01 + "/client/order/del/";
 	//获取优惠券列表接口
 	public static final String GET_COUPON_LIST_URL = SERVER01 + "/client/coupons/list";
 	
 	//结算页接口
 	public static final String POST_CLIENT_SETTLE = SERVER01 +"/client/settle";
-	public static final String POST_CLIENT_ORDER_SUBMIT = SERVER02 +"/client/order/submit";
+	public static final String POST_CLIENT_ORDER_SUBMIT = SERVER01 +"/client/order/submit";
 	public static final String GOODS_DETAIL_URL = SERVER03 +"/comm/detail/web/";
 	public static final String CLIENT_PAY_ORDER_GET = SERVER01 +"/client/pay/order/get/";
 	
