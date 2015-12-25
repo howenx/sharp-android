@@ -59,6 +59,7 @@ import com.hanmimei.view.CustomScrollView;
 import com.hanmimei.view.NetworkImageHolderView;
 import com.hanmimei.view.TagCloudView;
 import com.hanmimei.view.TagCloudView.OnTagClickListener;
+import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
@@ -378,6 +379,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 					sgoods.setGoodsNums(1);
 					sgoods.setGoodsPrice(s.getItemPrice());
 					sgoods.setInvArea(s.getInvArea());
+					sgoods.setInvArea(s.getInvAreaNm());
 					sgoods.setInvCustoms(s.getInvCustoms());
 					sgoods.setPostalTaxRate(s.getPostalTaxRate());
 					sgoods.setPostalStandard(s.getPostalStandard());
@@ -390,6 +392,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		}
 		customs.addShoppingGoods(sgoods);
 		customs.setInvArea(sgoods.getInvArea());
+		customs.setInvArea(sgoods.getInvCustoms());
 		customs.setInvCustoms(sgoods.getInvCustoms());
 		list.add(customs);
 		car.setList(list);
@@ -559,7 +562,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 				curPostalTaxRate = s.getPostalTaxRate();
 				curItemPrice = s.getItemPrice();
 				postalStandard = s.getPostalStandard();
-				area.setText(s.getInvArea());
+				area.setText(s.getInvAreaNm());
 	}
 
 	/**
@@ -680,5 +683,15 @@ public class GoodsDetailActivity extends BaseActivity implements
 	        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
 
 	    }
+	public void onResume() {
+	    super.onResume();
+	    MobclickAgent.onPageStart("GoodsDetailActivity"); //统计页面(仅有Activity的应用中SDK自动调用，不需要单独写。"SplashScreen"为页面名称，可自定义)
+	    MobclickAgent.onResume(this);          //统计时长
+	}
+	public void onPause() {
+	    super.onPause();
+	    MobclickAgent.onPageEnd("GoodsDetailActivity"); // （仅有Activity的应用中SDK自动调用，不需要单独写）保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息。"SplashScreen"为页面名称，可自定义
+	    MobclickAgent.onPause(this);
+	}
 
 }

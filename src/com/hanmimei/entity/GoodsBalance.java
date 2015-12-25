@@ -153,6 +153,14 @@ public class GoodsBalance {
 		private Double factSingleCustomsShipFee; //保税区实际邮费
 		private Double singleCustomsSumFee;		//商品总价格
 		private String invArea;								//邮递fangshi
+		private String invAreaNm;								//邮递fangshi
+		
+		public String getInvAreaNm() {
+			return invAreaNm;
+		}
+		public void setInvAreaNm(String invAreaNm) {
+			this.invAreaNm = invAreaNm;
+		}
 		public String getInvCustoms() {
 			return invCustoms;
 		}

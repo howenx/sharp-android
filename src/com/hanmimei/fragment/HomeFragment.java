@@ -45,6 +45,7 @@ import com.hanmimei.entity.Theme;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.view.CycleViewPager;
 import com.hanmimei.view.ViewFactory;
+import com.umeng.analytics.MobclickAgent;
 
 @SuppressLint({ "NewApi", "InflateParams" })
 public class HomeFragment extends Fragment implements
@@ -329,6 +330,15 @@ public class HomeFragment extends Fragment implements
 		default:
 			break;
 		}
+	}
+	
+	public void onResume() {
+	    super.onResume();
+	    MobclickAgent.onPageStart("HomeFragment"); //统计页面，"MainScreen"为页面名称，可自定义
+	}
+	public void onPause() {
+	    super.onPause();
+	    MobclickAgent.onPageEnd("HomeFragment"); 
 	}
 
 }

@@ -59,7 +59,6 @@
                             android:id="@+id/discount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="[8.9 折]"
                             android:textColor="@color/theme"
                             android:textSize="14sp" />
 
@@ -67,7 +66,6 @@
                             android:id="@+id/itemTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="德国原产德国原产德国原产德国原产德国原产德国原产"
                             android:textColor="#AA000000"
                             android:textSize="14sp" />
                     </LinearLayout>
@@ -85,7 +83,6 @@
                             android:layout_height="wrap_content"
                             android:drawableLeft="@drawable/icon_address"
                             android:gravity="center"
-                            android:text="上海"
                             android:textColor="#cccccc"
                             android:textSize="12sp" />
 
@@ -101,7 +98,6 @@
                             android:background="@color/white"
                             android:gravity="right|end"
                             android:paddingRight="8dp"
-                            android:text="150.00"
                             android:textColor="@color/red"
                             android:textSize="@dimen/font_big" />
 
@@ -112,7 +108,6 @@
                             android:background="@color/white"
                             android:gravity="right|end"
                             android:paddingRight="8dp"
-                            android:text="30.00"
                             android:textColor="#BBBBBB"
                             android:textSize="@dimen/font_small" />
                     </LinearLayout>
@@ -131,7 +126,6 @@
                             android:layout_marginLeft="5dp"
                             android:drawableLeft="@drawable/icon_tanhao"
                             android:gravity="center_vertical"
-                            android:text="上海"
                             android:textColor="#cccccc"
                             android:textSize="@dimen/font_normal"
                             android:visibility="gone" />

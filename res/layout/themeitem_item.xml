@@ -16,8 +16,7 @@
             android:id="@+id/img"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:contentDescription="@null"
-            android:src="@drawable/ic_launcher" />
+            android:contentDescription="@null"/>
 
         <ImageView
             android:id="@+id/sold_out"
@@ -40,7 +39,6 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/dingwei"
                 android:gravity="center"
-                android:text="上海"
                 android:textColor="@color/white"
                 android:textSize="12sp" 
                 android:background="#44000000"/>
@@ -58,7 +56,6 @@
         android:layout_margin="5dp"
         android:ellipsize="end"
         android:maxLines="1"
-        android:text="德国原产奶粉！！！"
         android:textColor="@color/fontcolor"
         android:textSize="14sp" />
 
@@ -89,17 +86,6 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_weight="1" />
-<!-- 
-       <TextView
-                android:id="@+id/area"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/dingwei"
-                android:gravity="center"
-                android:text="上海"
-                android:textColor="#cccccc"
-                android:textSize="12sp" />
-                 -->
     </LinearLayout>
 
 </LinearLayout>

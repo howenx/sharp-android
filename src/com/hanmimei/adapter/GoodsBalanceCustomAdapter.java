@@ -58,7 +58,7 @@ public class GoodsBalanceCustomAdapter extends BaseAdapter {
 			holder = (ViewHolder) arg1.getTag();
 		}
 		Customs c = customs.get(arg0);
-		holder.area_name.setText(c.getInvArea());
+		holder.area_name.setText(c.getInvAreaNm());
 		holder.mListView.setAdapter(new GoodsBalanceAdapter(c.getList(), context));
 		holder.protalFee.setText(context.getResources().getString(R.string.postalFee, c.getFactPortalFeeSingleCustomsFormat()));
 		holder.shipFee.setText(context.getResources().getString(R.string.shipFee, c.getFactSingleCustomsShipFeeFormat()));

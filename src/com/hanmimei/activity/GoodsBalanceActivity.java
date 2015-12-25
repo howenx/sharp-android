@@ -41,6 +41,7 @@ import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ToastUtils;
+import com.umeng.analytics.MobclickAgent;
 
 public class GoodsBalanceActivity extends BaseActivity implements
 		OnClickListener {
@@ -247,45 +248,29 @@ public class GoodsBalanceActivity extends BaseActivity implements
 	 */
 	private void sendData(OrderSubmit os) {
 		final JSONObject json = JSONPaserTool.OrderSubmitPaser(os);
-		submitTask(new Runnable() {
-
+		 Http2Utils.doPostRequestTask2(this, getHeaders(), UrlUtil.POST_CLIENT_ORDER_SUBMIT,new VolleyJsonCallback() {
+			
 			@Override
-			public void run() {
-				String result = HttpUtils.post(UrlUtil.POST_CLIENT_ORDER_SUBMIT,
-						json, "id-token", getUser().getToken());
-				Message msg = mHandler.obtainMessage(2, result);
-				mHandler.sendMessage(msg);
+			public void onSuccess(String result) {
+				OrderInfo info = new Gson().fromJson(result, OrderInfo.class);
+				if(info.getMessage().getCode() == 200){
+					Intent intent = new Intent(getActivity(), OrderSubmitActivity.class);
+					intent.putExtra("orderInfo", info);
+					startActivity(intent);
+					sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
+					finish();
+				}else{
+					ToastUtils.Toast(getActivity(), R.string.error);
+				}
 			}
-		});
+			
+			@Override
+			public void onError() {
+				ToastUtils.Toast(getActivity(), R.string.error);
+			}
+		} , json.toString());
 	}
 
-	private Handler mHandler = new Handler() {
-
-		@Override
-		public void handleMessage(Message msg) {
-			// TODO Auto-generated method stub
-			switch (msg.what) {
-			case 1:
-				String result = (String) msg.obj;
-				goodsBalance = new Gson().fromJson(result, GoodsBalance.class);
-				initViewData();
-				break;
-			case 2:
-				result = (String) msg.obj;
-				OrderInfo info = new Gson().fromJson(result, OrderInfo.class);
-				Intent intent = new Intent(getActivity(), OrderSubmitActivity.class);
-				intent.putExtra("orderInfo", info);
-				startActivity(intent);
-				sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
-				finish();
-				break;
-
-			default:
-				break;
-			}
-		}
-
-	};
 
 	/**
 	 * 初始化添加view数据
@@ -450,6 +435,15 @@ public class GoodsBalanceActivity extends BaseActivity implements
 	}
 	
 	
-	
+	public void onResume() {
+	    super.onResume();
+	    MobclickAgent.onPageStart("GoodsBalanceActivity"); //统计页面(仅有Activity的应用中SDK自动调用，不需要单独写。"SplashScreen"为页面名称，可自定义)
+	    MobclickAgent.onResume(this);          //统计时长
+	}
+	public void onPause() {
+	    super.onPause();
+	    MobclickAgent.onPageEnd("GoodsBalanceActivity"); // （仅有Activity的应用中SDK自动调用，不需要单独写）保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息。"SplashScreen"为页面名称，可自定义
+	    MobclickAgent.onPause(this);
+	}
 
 }

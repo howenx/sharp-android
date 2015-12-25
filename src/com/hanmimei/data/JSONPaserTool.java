@@ -19,6 +19,7 @@ public class JSONPaserTool {
 
 				json.put("invCustoms", cs.getInvCustoms());
 				json.put("invArea", cs.getInvArea());
+				json.put("invAreaNm", cs.getInvAreaNm());
 				JSONArray arrayy = new JSONArray();
 				for(ShoppingGoods sg : cs.getList()){
 					JSONObject jsonn = new JSONObject();

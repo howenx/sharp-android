@@ -23,6 +23,7 @@ import com.hanmimei.manager.TabHostManager;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.DoJumpUtils;
 import com.hanmimei.utils.ToastUtils;
+import com.umeng.analytics.MobclickAgent;
 
 @SuppressLint("NewApi")
 public class MainActivity extends BaseActivity implements OnTabChangeListener,
@@ -124,6 +125,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 				mExitTime = System.currentTimeMillis();
 
 			} else {
+				MobclickAgent.onKillProcess(this);
 				finish();
 				System.exit(0);
 			}
@@ -154,6 +156,15 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 				mTabHost.setCurrentTab(0);
 			}
 		}
+	}
+	
+	public void onResume() {
+	    super.onResume();
+	    MobclickAgent.onResume(this);          //统计时长
+	}
+	public void onPause() {
+	    super.onPause();
+	    MobclickAgent.onPause(this);
 	}
 
 }
