@@ -34,6 +34,7 @@ import com.hanmimei.entity.Category;
 import com.hanmimei.entity.Order;
 import com.hanmimei.entity.User;
 import com.hanmimei.utils.HttpUtils;
+import com.umeng.analytics.MobclickAgent;
 
 @SuppressLint("InflateParams")
 public class OrderFragment extends Fragment implements
@@ -219,6 +220,15 @@ public class OrderFragment extends Fragment implements
 		default:
 			break;
 		}
+	}
+	
+	public void onResume() {
+	    super.onResume();
+	    MobclickAgent.onPageStart("OrderFragment"); //统计页面，"MainScreen"为页面名称，可自定义
+	}
+	public void onPause() {
+	    super.onPause();
+	    MobclickAgent.onPageEnd("OrderFragment"); 
 	}
 
 }

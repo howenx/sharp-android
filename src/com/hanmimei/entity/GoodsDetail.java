@@ -221,6 +221,7 @@ public class GoodsDetail {
 		private String state;
 		private Double shipFee;
 		private String invArea;
+		private String invAreaNm;
 		private Integer restrictAmount;  
 		private Integer restAmount;
 		private String invImg;
@@ -232,6 +233,14 @@ public class GoodsDetail {
 		private Integer postalStandard;// 关税收费标准
 		
 		
+
+		public String getInvAreaNm() {
+			return invAreaNm;
+		}
+
+		public void setInvAreaNm(String invAreaNm) {
+			this.invAreaNm = invAreaNm;
+		}
 
 		public Integer getPostalStandard() {
 			return postalStandard;

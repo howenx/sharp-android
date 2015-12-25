@@ -29,6 +29,7 @@ public class HMMGoods {
 	private String offShelvesAt; //
 	private String invWeight; // 商品重量
 	private String invArea; // 发货方式
+	private String invAreaNm; // 发货方式
 	private String postalTaxRate; // 税率
 	private String invCustoms; //保税区
 
@@ -45,6 +46,14 @@ public class HMMGoods {
 
 	public String getItemMasterImg() {
 		return itemMasterImg;
+	}
+
+	public String getInvAreaNm() {
+		return invAreaNm;
+	}
+
+	public void setInvAreaNm(String invAreaNm) {
+		this.invAreaNm = invAreaNm;
 	}
 
 	public String getItemUrlAndroid() {

@@ -38,6 +38,7 @@ import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.User;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ShoppingCarMenager;
+import com.umeng.analytics.MobclickAgent;
 
 /*
  * 同shoppingcarfragment
@@ -372,6 +373,17 @@ public class ShoppingCarActivity extends BaseActivity implements
 	public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
 //		clearPrice();
 		loadData();
+	}
+	
+	public void onResume() {
+	    super.onResume();
+	    MobclickAgent.onPageStart("ShoppingCarActivity"); //统计页面(仅有Activity的应用中SDK自动调用，不需要单独写。"SplashScreen"为页面名称，可自定义)
+	    MobclickAgent.onResume(this);          //统计时长
+	}
+	public void onPause() {
+	    super.onPause();
+	    MobclickAgent.onPageEnd("ShoppingCarActivity"); // （仅有Activity的应用中SDK自动调用，不需要单独写）保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息。"SplashScreen"为页面名称，可自定义
+	    MobclickAgent.onPause(this);
 	}
 
 }

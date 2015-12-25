@@ -2,6 +2,7 @@ package com.hanmimei.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -10,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.hanmimei.R;
@@ -21,6 +23,7 @@ import com.hanmimei.entity.Coupon;
 import com.hanmimei.entity.Ticket;
 import com.hanmimei.entity.User;
 import com.hanmimei.utils.HttpUtils;
+import com.umeng.analytics.MobclickAgent;
 
 public class CouponFragment extends Fragment {
 
@@ -111,6 +114,14 @@ public class CouponFragment extends Fragment {
 				break;
 			}
 		}
-		
 	};
+	
+	public void onResume() {
+	    super.onResume();
+	    MobclickAgent.onPageStart("CouponFragment"); //统计页面，"MainScreen"为页面名称，可自定义
+	}
+	public void onPause() {
+	    super.onPause();
+	    MobclickAgent.onPageEnd("CouponFragment"); 
+	}
 }

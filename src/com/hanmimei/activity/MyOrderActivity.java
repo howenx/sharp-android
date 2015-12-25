@@ -14,6 +14,7 @@ import com.hanmimei.adapter.MyPagerAdapter;
 import com.hanmimei.entity.Category;
 import com.hanmimei.fragment.OrderFragment;
 import com.hanmimei.utils.ActionBarUtil;
+import com.umeng.analytics.MobclickAgent;
 import com.viewpagerindicator.TabPageIndicator;
 
 public class MyOrderActivity extends BaseActivity implements OnClickListener{
@@ -79,6 +80,15 @@ public class MyOrderActivity extends BaseActivity implements OnClickListener{
 		default:
 			break;
 		}
+	}
+	
+	public void onResume() {
+	    super.onResume();
+	    MobclickAgent.onResume(this);          //统计时长
+	}
+	public void onPause() {
+	    super.onPause();
+	    MobclickAgent.onPause(this);
 	}
 
 }

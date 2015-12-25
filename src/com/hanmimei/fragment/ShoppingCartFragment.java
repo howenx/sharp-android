@@ -24,6 +24,8 @@ import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.User;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ShoppingCarMenager;
+import com.umeng.analytics.MobclickAgent;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -381,6 +383,15 @@ public class ShoppingCartFragment extends Fragment implements OnClickListener,
 	public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
 		// clearPrice();
 		loadData();
+	}
+	
+	public void onResume() {
+	    super.onResume();
+	    MobclickAgent.onPageStart("ShoppingCartFragment"); //统计页面，"MainScreen"为页面名称，可自定义
+	}
+	public void onPause() {
+	    super.onPause();
+	    MobclickAgent.onPageEnd("ShoppingCartFragment"); 
 	}
 
 }

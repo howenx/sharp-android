@@ -34,6 +34,7 @@ import com.hanmimei.utils.KeyWordUtil;
 import com.hanmimei.view.RoundImageView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.umeng.analytics.MobclickAgent;
 
 public class AboutMyFragment extends Fragment implements OnClickListener {
 	// private Drawable authenticate;
@@ -239,6 +240,15 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 
 		}
 
+	}
+	
+	public void onResume() {
+	    super.onResume();
+	    MobclickAgent.onPageStart("AboutMyFragment"); //统计页面，"MainScreen"为页面名称，可自定义
+	}
+	public void onPause() {
+	    super.onPause();
+	    MobclickAgent.onPageEnd("AboutMyFragment"); 
 	}
 
 }
