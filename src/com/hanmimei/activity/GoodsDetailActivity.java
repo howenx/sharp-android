@@ -663,16 +663,19 @@ public class GoodsDetailActivity extends BaseActivity implements
 	 private UMShareListener umShareListener = new UMShareListener() {
 	        @Override
 	        public void onResult(SHARE_MEDIA platform) {
+	        	shareWindow.dismiss();
 	            Toast.makeText(GoodsDetailActivity.this, platform + " 分享成功", Toast.LENGTH_SHORT).show();
 	        }
 
 	        @Override
 	        public void onError(SHARE_MEDIA platform, Throwable t) {
+	        	shareWindow.dismiss();
 	            Toast.makeText(GoodsDetailActivity.this,platform + " 分享失败", Toast.LENGTH_SHORT).show();
 	        }
 
 	        @Override
 	        public void onCancel(SHARE_MEDIA platform) {
+	        	shareWindow.dismiss();
 	            Toast.makeText(GoodsDetailActivity.this,platform + " 分享取消", Toast.LENGTH_SHORT).show();
 	        }
 	    };

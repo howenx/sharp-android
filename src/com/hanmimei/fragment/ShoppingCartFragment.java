@@ -295,6 +295,7 @@ public class ShoppingCartFragment extends Fragment implements OnClickListener,
 					customs.setList(goodsList);
 					customs.setInvArea(data.get(i).getInvArea());
 					customs.setInvCustoms(data.get(i).getInvCustoms());
+					customs.setInvAreaNm(data.get(i).getInvAreaNm());
 					customsList.add(customs);
 				}
 			}
