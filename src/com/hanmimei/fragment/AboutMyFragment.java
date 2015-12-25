@@ -21,6 +21,7 @@ import com.hanmimei.activity.BaseActivity;
 import com.hanmimei.activity.CouponActivity;
 import com.hanmimei.activity.EditUserInfoActivity;
 import com.hanmimei.activity.LoginActivity;
+import com.hanmimei.activity.MyCollectionActivity;
 import com.hanmimei.activity.MyOrderActivity;
 import com.hanmimei.dao.UserDao;
 import com.hanmimei.data.AppConstant;
@@ -145,6 +146,7 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 		youhui.setOnClickListener(this);
 		address.setOnClickListener(this);
 		user_name.setOnClickListener(this);
+		view.findViewById(R.id.collect).setOnClickListener(this);
 	}
 
 	@Override
@@ -164,6 +166,9 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 			break;
 		case R.id.user_name:
 			doJump(EditUserInfoActivity.class);
+			break;
+		case R.id.collect:
+			doJump(MyCollectionActivity.class);
 			break;
 		default:
 			break;

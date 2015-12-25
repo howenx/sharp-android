@@ -65,6 +65,15 @@
 	    android:layout_height="wrap_content"
 	    android:text="    管理收获地址"
 	    style="@style/wode_font_style"/>
+	
+	<TextView 
+	    android:id="@+id/collect"
+	    android:layout_marginTop="15dp"
+	    android:padding="12dp"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:text="    我的收藏"
+	    style="@style/wode_font_style"/>
 	<!--  
 		<TextView 
 	    android:id="@+id/about_card"

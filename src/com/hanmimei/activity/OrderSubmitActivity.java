@@ -13,6 +13,8 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.JavascriptInterface;
+import android.webkit.JsResult;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -61,6 +63,33 @@ public class OrderSubmitActivity extends BaseActivity {
 				return false;
 			}
 		});
+		
+		mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+		
+		mWebView.setWebChromeClient(new WebChromeClient() {
+			 
+		    @Override
+		    public boolean onJsAlert(WebView view, String url, String message,
+		            final JsResult result) {
+		    	String[] tb = { "提示",message, null, "确定" };
+		    	AlertDialogUtil.showCustomDialog(getActivity(), tb,new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						startActivity(new Intent(getActivity(), MyOrderActivity.class));
+						finish();
+					}
+				});
+		        return true;
+		    }
+		 
+		    @Override
+		    public boolean onJsConfirm(WebView view, String url,
+		            String message, final JsResult result) {
+		        return false;
+		    }
+		});
+		
+		
 		//获取用户token 添加到header中
 		Map<String, String> extraHeaders = new HashMap<String, String>();
 		extraHeaders.put("id-token", getUser().getToken());
@@ -70,6 +99,10 @@ public class OrderSubmitActivity extends BaseActivity {
 		 //添加js交互
 		 mWebView.addJavascriptInterface(new JavaScriptInterface(this),
 					"handler");
+		 
+		 
+		 
+		 
 	}
 	//返回按钮点击事件
 	private class BackClickListener implements OnClickListener {

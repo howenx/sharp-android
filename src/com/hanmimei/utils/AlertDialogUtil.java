@@ -31,6 +31,7 @@ public class AlertDialogUtil {
 		String[] tb = { "确认要离开收银台","下单后24小时订单将被取消，请尽快完成支付", "继续支付", "确定离开" };
 		showCustomDialog(context, tb, l);
 	}
+	
 
 
 	/**
