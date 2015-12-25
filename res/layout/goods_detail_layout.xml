@@ -64,10 +64,29 @@
 
                         <TextView
                             android:id="@+id/itemTitle"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:textColor="#AA000000"
                             android:textSize="14sp" />
+                        
+                        <View 
+                            android:layout_width="1px"
+                            android:layout_height="22dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_gravity="center_vertical"
+                            android:background="@color/xian"/>
+                        
+                        
+                        <ImageView 
+                            android:id="@+id/btn_collect"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@null"
+                            
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/shoucang_no"/>
                     </LinearLayout>
 
                     <LinearLayout

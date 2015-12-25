@@ -34,6 +34,8 @@ public class ShoppingGoods implements Serializable{
     private Integer postalLimit;
     private String invCustoms;
 
+    private String invAreaNm;
+
     // KEEP FIELDS - put your custom fields here
     // KEEP FIELDS END
 
@@ -238,11 +240,20 @@ public class ShoppingGoods implements Serializable{
     public void setInvCustoms(String invCustoms) {
         this.invCustoms = invCustoms;
     }
+    
 
     // KEEP METHODS - put your custom methods here
     // KEEP METHODS END
     
-    public Double getPoastalFee(){
+    public String getInvAreaNm() {
+		return invAreaNm;
+	}
+
+	public void setInvAreaNm(String invAreaNm) {
+		this.invAreaNm = invAreaNm;
+	}
+
+	public Double getPoastalFee(){
     	return (double)(goodsNums*goodsPrice*postalTaxRate)/(double)100;
     }
     
