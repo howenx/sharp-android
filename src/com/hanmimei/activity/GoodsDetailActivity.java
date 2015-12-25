@@ -323,25 +323,28 @@ public class GoodsDetailActivity extends BaseActivity implements
 		 new ShareAction(this).setPlatform(SHARE_MEDIA.SINA).setCallback(umShareListener)
          .withMedia(new UMImage(this, shareStock.getInvImg()))
          .withText(shareStock.getInvTitle())
+         .withTargetUrl("http://www.hanmimei.com/")
          .share();
 	}
 	private void shareCircle() {
 		 new ShareAction(this).setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE).setCallback(umShareListener)
          .withMedia(new UMImage(this, shareStock.getInvImg()))
-         .withTitle("标题")
+         .withTitle("全球正品，尽在韩秘美")
          .withText(shareStock.getInvTitle())
+         .withTargetUrl("http://www.hanmimei.com/")
          .share();
 	}
 	private void shareWeiXin() {
 		 new ShareAction(this).setPlatform(SHARE_MEDIA.WEIXIN).setCallback(umShareListener)
          .withMedia(new UMImage(this, shareStock.getInvImg()))
-         .withTitle(shareStock.getInvTitle())
+         .withTitle("全球正品，尽在韩秘美")
          .withText(shareStock.getInvTitle())
+         .withTargetUrl("http://www.hanmimei.com/")
          .share();
 	}
 	private void shareQQ() {
 		 new ShareAction(this).setPlatform(SHARE_MEDIA.QQ).setCallback(umShareListener)
-         .withTitle("韩秘美，韩国正品")
+         .withTitle("全球正品，尽在韩秘美")
          .withMedia(new UMImage(this, shareStock.getInvImg()))
          .withText(shareStock.getInvTitle())
          .withTargetUrl("http://www.hanmimei.com/")
