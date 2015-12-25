@@ -10,6 +10,7 @@ import android.util.Log;
 public class Customs implements Serializable{
 	private String invArea;
 	private String  invCustoms;
+	private String invAreaNm;
 	private List<ShoppingGoods> list;
 	private String state;
 	private int postFee;
@@ -23,6 +24,12 @@ public class Customs implements Serializable{
 	private double factPortalFeeSingleCustoms= 0.00;
 	
 	
+	public String getInvAreaNm() {
+		return invAreaNm;
+	}
+	public void setInvAreaNm(String invAreaNm) {
+		this.invAreaNm = invAreaNm;
+	}
 	public String getState() {
 		return state;
 	}

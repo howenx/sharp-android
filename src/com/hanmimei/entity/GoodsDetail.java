@@ -8,6 +8,7 @@ import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.hanmimei.utils.ToastUtils;
 
 public class GoodsDetail {
 	private Main main;
@@ -16,7 +17,15 @@ public class GoodsDetail {
 	private Integer cartNum;
 	
 	
-
+	public Stock getCurrentStock(){
+		Stock sto = new Stock();
+		for (int i = 0; i < stock.size(); i++) {
+			if (stock.get(i).getOrMasterInv()) {
+				sto = stock.get(i);
+			}
+		}
+		return sto;
+	}
 	public Integer getCartNum() {
 		return cartNum;
 	}
@@ -231,8 +240,6 @@ public class GoodsDetail {
 		private Integer postalTaxRate;
 		private Integer postalStandard;// 关税收费标准
 		
-		
-
 		public Integer getPostalStandard() {
 			return postalStandard;
 		}

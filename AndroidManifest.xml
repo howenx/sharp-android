@@ -7,7 +7,7 @@
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="21" />
-<!-- 添加访问网络的权限-->
+    <!-- 添加访问网络的权限 -->
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -18,94 +18,148 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+
     <application
+        android:name="com.hanmimei.application.MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:name="com.hanmimei.application.MyApplication">
+        android:theme="@style/AppTheme" >
         <activity
             android:name="com.hanmimei.activity.FirstShowActivity"
-            android:screenOrientation="portrait" 
-            android:label="@string/app_name" 
-            android:theme="@style/SplashStyle">
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashStyle" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity 
+        <activity
             android:name="com.hanmimei.activity.IndroductionActivity"
-            android:screenOrientation="portrait" 
-            android:launchMode="singleTask"/>
-        <activity 
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.hanmimei.activity.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
-        <activity 
+        <activity
             android:name="com.hanmimei.activity.ThemeGoodsActivity"
             android:screenOrientation="portrait" />
-        <activity 
-       	 	android:theme="@style/AppThemeForOrder" 
+        <activity
             android:name="com.hanmimei.activity.MyOrderActivity"
-            android:screenOrientation="portrait" />
-        <activity 
-       	 	android:theme="@style/AppThemeForOrder" 
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeForOrder" />
+        <activity
             android:name="com.hanmimei.activity.CouponActivity"
-            android:screenOrientation="portrait" />
-        <activity 
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeForOrder" />
+        <activity
             android:name="com.hanmimei.activity.IdCardActivity"
             android:screenOrientation="portrait" />
-        <activity 
+        <activity
             android:name="com.hanmimei.activity.AdressActivity"
             android:screenOrientation="portrait" />
-        <activity 
+        <activity
             android:name="com.hanmimei.activity.EditAdressActivity"
             android:screenOrientation="portrait" />
-        <activity 
+        <activity
             android:name="com.hanmimei.activity.GoodsDetailActivity"
-            android:screenOrientation="portrait"/>
-        <activity 
-            android:name="com.hanmimei.activity.GoodsDetail2Activity"
-            android:screenOrientation="portrait"/>
-         <activity 
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.hanmimei.activity.OrderDetailActivity"
             android:screenOrientation="portrait" />
-         <activity 
+        <activity
             android:name="com.hanmimei.activity.SettingActivity"
             android:screenOrientation="portrait" />
-         <activity 
+        <activity
             android:name="com.hanmimei.activity.AboutIdCardActivity"
             android:screenOrientation="portrait" />
-         <activity 
+        <activity
             android:name="com.hanmimei.activity.LoginActivity"
             android:screenOrientation="portrait" />
-         <activity 
+        <activity
             android:name="com.hanmimei.activity.RegistActivity"
             android:screenOrientation="portrait" />
-         <activity 
+        <activity
             android:name="com.hanmimei.activity.ForgetPwdActivity"
             android:screenOrientation="portrait" />
-         <activity 
+        <activity
             android:name="com.hanmimei.activity.GoodsBalanceActivity"
             android:screenOrientation="portrait" />
-         <activity 
+        <activity
             android:name="com.hanmimei.activity.ShoppingCarActivity"
-            android:screenOrientation="portrait"  
-            android:launchMode="singleTask"/>
-         <activity 
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.hanmimei.activity.EditUserInfoActivity"
             android:screenOrientation="portrait" />
-         <activity 
+        <activity
             android:name="com.hanmimei.activity.GoodsDetailImgActivity"
             android:screenOrientation="portrait" />
-         <activity 
+        <activity
             android:name="com.hanmimei.activity.OrderSubmitActivity"
             android:screenOrientation="portrait" />
-         <activity 
+        <activity
             android:name="com.hanmimei.activity.TestActivity"
             android:screenOrientation="portrait" />
+
+        <!-- 友盟相关 -->
+        <activity
+            android:name="com.umeng.socialize.editorpage.ShareActivity"
+            android:excludeFromRecents="true"
+            android:theme="@style/Theme.UMDefault" />
+        <!-- 微信平台 -->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- 新浪微博 -->
+        <activity
+            android:name=".wxapi.WBShareActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
+
+        <service
+            android:name="com.sina.weibo.sdk.net.DownloadService"
+            android:exported="false" >
+        </service>
+        <!-- QQ／QQ空间 -->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="tencent100424468" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- 友盟appkey -->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="567bb26867e58e3f670002fd" >
+        </meta-data>
     </application>
 
 </manifest>

@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
@@ -25,6 +26,7 @@ import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bigkoo.convenientbanner.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.ConvenientBanner;
@@ -57,6 +59,12 @@ import com.hanmimei.view.CustomScrollView;
 import com.hanmimei.view.NetworkImageHolderView;
 import com.hanmimei.view.TagCloudView;
 import com.hanmimei.view.TagCloudView.OnTagClickListener;
+import com.umeng.socialize.Config;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
 
 @SuppressLint("NewApi")
 public class GoodsDetailActivity extends BaseActivity implements
@@ -88,17 +96,13 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private List<Tag> tags; // 规格标签信息
 	
 	private int num_shopcart=0;
+	private PopupWindow shareWindow;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		ActionBarUtil.setActionBarStyle(this, "商品详情", R.drawable.fenxiang,
-				true, new OnClickListener() {
-					@Override
-					public void onClick(View arg0) {
-						finish();
-					}
-				});
+				true, this);
 		setContentView(R.layout.goods_detail_layout);
 		findView();
 		loadDataByUrl();
@@ -166,6 +170,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	/**
 	 * 加载数据
 	 */
+	private GoodsDetail detail;
 	private void loadDataByUrl() {
 		loadingDialog.show();
 		Http2Utils.doGetRequestTask(this, getHeaders(), getIntent().getStringExtra("url"), new VolleyJsonCallback() {
@@ -173,7 +178,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 			@Override
 			public void onSuccess(String result) {
 				loadingDialog.dismiss();
-				GoodsDetail detail = DataParser.parserGoodsDetail(result);
+				detail = DataParser.parserGoodsDetail(result);
 				initGoodsDetail(detail);
 			}
 			
@@ -281,7 +286,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 			});
 			break;
 		case R.id.setting:
-
+			showShareboard();
 			break;
 		case R.id.back_top:
 			mScrollView.fullScroll(ScrollView.FOCUS_UP);
@@ -289,12 +294,63 @@ public class GoodsDetailActivity extends BaseActivity implements
 		case R.id.btn_cancel:
 			window.dismiss();
 			break;
+		case R.id.qq:
+			shareQQ();
+			break;
+		case R.id.weixin:
+			shareWeiXin();
+			break;
+		case R.id.weixinq:
+			shareCircle();
+			break;
+		case R.id.sina:
+			shareSina();
+			break;
 		default:
 			break;
 		}
 	}
-	
-	
+	private Stock shareStock;
+	private void shareSina() {
+		 new ShareAction(this).setPlatform(SHARE_MEDIA.SINA).setCallback(umShareListener)
+         .withMedia(new UMImage(this, shareStock.getInvImg()))
+         .withText(shareStock.getInvTitle())
+         .share();
+	}
+	private void shareCircle() {
+		 new ShareAction(this).setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE).setCallback(umShareListener)
+         .withMedia(new UMImage(this, shareStock.getInvImg()))
+         .withTitle("标题")
+         .withText(shareStock.getInvTitle())
+         .share();
+	}
+	private void shareWeiXin() {
+		 new ShareAction(this).setPlatform(SHARE_MEDIA.WEIXIN).setCallback(umShareListener)
+         .withMedia(new UMImage(this, shareStock.getInvImg()))
+         .withTitle(shareStock.getInvTitle())
+         .withText(shareStock.getInvTitle())
+         .share();
+	}
+	private void shareQQ() {
+		 new ShareAction(this).setPlatform(SHARE_MEDIA.QQ).setCallback(umShareListener)
+         .withTitle("韩秘美，韩国正品")
+         .withMedia(new UMImage(this, shareStock.getInvImg()))
+         .withText(shareStock.getInvTitle())
+         .withTargetUrl("http://www.hanmimei.com/")
+         .share();
+	}
+	//分享面板
+	private void showShareboard() {
+		View view = LayoutInflater.from(this).inflate(R.layout.share_layout, null);
+		shareWindow = PopupWindowUtil.showPopWindow(this, view);
+		view.findViewById(R.id.qq).setOnClickListener(this);
+		view.findViewById(R.id.weixin).setOnClickListener(this);
+		view.findViewById(R.id.weixinq).setOnClickListener(this);
+		view.findViewById(R.id.sina).setOnClickListener(this);
+		Config.OpenEditor = true;
+		shareStock = detail.getCurrentStock();
+		
+	}
 	//=========================================================================
 		//===============================响应方法   ==================================
 		//=========================================================================
@@ -599,5 +655,30 @@ public class GoodsDetailActivity extends BaseActivity implements
 		}
 		
 	}
+	
+	//---------------友盟-----------------------
+	 private UMShareListener umShareListener = new UMShareListener() {
+	        @Override
+	        public void onResult(SHARE_MEDIA platform) {
+	            Toast.makeText(GoodsDetailActivity.this, platform + " 分享成功", Toast.LENGTH_SHORT).show();
+	        }
+
+	        @Override
+	        public void onError(SHARE_MEDIA platform, Throwable t) {
+	            Toast.makeText(GoodsDetailActivity.this,platform + " 分享失败", Toast.LENGTH_SHORT).show();
+	        }
+
+	        @Override
+	        public void onCancel(SHARE_MEDIA platform) {
+	            Toast.makeText(GoodsDetailActivity.this,platform + " 分享取消", Toast.LENGTH_SHORT).show();
+	        }
+	    };
+	    @Override
+	    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	        super.onActivityResult(requestCode, resultCode, data);
+	        /** attention to this below ,must add this**/
+	        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+
+	    }
 
 }

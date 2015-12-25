@@ -88,7 +88,7 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 		}else{
 			holder.check.setImageDrawable(uncheck_Drawable);
 		}
-		holder.area.setText(custom.getInvArea() + "发货");
+		holder.area.setText(custom.getInvAreaNm() + "发货");
 		String tax = "";
 		DecimalFormat df = new DecimalFormat("###.00");  
 		if(custom.getTax() != 0){
