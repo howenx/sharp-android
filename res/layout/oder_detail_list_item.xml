@@ -2,41 +2,40 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
+    android:orientation="horizontal" 
     android:background="@color/white">
-
+	<ImageView 
+	    android:id="@+id/img"
+	    android:layout_width="60dp"
+	    android:layout_height="60dp"
+	    android:src="@drawable/ic_launcher"
+	    android:background="@drawable/huise_border"/>
+	<LinearLayout 
+	    android:layout_height="wrap_content"
+	    android:layout_width="match_parent"
+	    android:orientation="vertical">
     <TextView
         android:id="@+id/order_detail"
         style="@style/order_font_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:text="@null" />
-	<LinearLayout 
-	    android:layout_height="wrap_content"
-	    android:layout_width="match_parent"
-	    android:orientation="horizontal">
+        android:text="dddd" />
     <TextView
         android:id="@+id/order_nums"
         style="@style/order_font_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="5dp"
-        android:text="@null" />
+        android:text="ddddd" />
     <TextView
         android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="5dp"
-        android:text="@null" 
+        android:text="dddd" 
         android:textSize="12sp"
         android:textColor="@color/theme"/>
 	</LinearLayout>

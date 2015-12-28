@@ -66,6 +66,7 @@ import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.shareboard.SnsPlatform;
 
 @SuppressLint("NewApi")
 public class GoodsDetailActivity extends BaseActivity implements
@@ -318,22 +319,26 @@ public class GoodsDetailActivity extends BaseActivity implements
 			break;
 		}
 	}
+	//当前的商品
 	private Stock shareStock;
+	//新浪微博分享设置
 	private void shareSina() {
 		 new ShareAction(this).setPlatform(SHARE_MEDIA.SINA).setCallback(umShareListener)
          .withMedia(new UMImage(this, shareStock.getInvImg()))
+         .withTitle("全球正品，尽在韩秘美")	
          .withText(shareStock.getInvTitle())
          .withTargetUrl("http://www.hanmimei.com/")
          .share();
 	}
+	//微信朋友圈分享设置
 	private void shareCircle() {
 		 new ShareAction(this).setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE).setCallback(umShareListener)
          .withMedia(new UMImage(this, shareStock.getInvImg()))
-         .withTitle("全球正品，尽在韩秘美")
-         .withText(shareStock.getInvTitle())
+         .withTitle(shareStock.getInvTitle())
          .withTargetUrl("http://www.hanmimei.com/")
          .share();
 	}
+	//微信分享设置
 	private void shareWeiXin() {
 		 new ShareAction(this).setPlatform(SHARE_MEDIA.WEIXIN).setCallback(umShareListener)
          .withMedia(new UMImage(this, shareStock.getInvImg()))
@@ -342,6 +347,7 @@ public class GoodsDetailActivity extends BaseActivity implements
          .withTargetUrl("http://www.hanmimei.com/")
          .share();
 	}
+	//QQ分享设置
 	private void shareQQ() {
 		 new ShareAction(this).setPlatform(SHARE_MEDIA.QQ).setCallback(umShareListener)
          .withTitle("全球正品，尽在韩秘美")

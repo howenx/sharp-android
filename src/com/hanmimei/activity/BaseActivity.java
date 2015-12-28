@@ -8,10 +8,14 @@ import java.util.Map;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import android.content.ClipboardManager;
+import android.content.ClipboardManager.OnPrimaryClipChangedListener;
+import android.content.Context;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.hanmimei.application.MyApplication;
 import com.hanmimei.dao.DaoSession;
@@ -24,7 +28,7 @@ import com.hanmimei.wheel.entity.DistrictModel;
 import com.hanmimei.wheel.entity.ProvinceModel;
 import com.umeng.analytics.MobclickAgent;
 
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends AppCompatActivity implements OnPrimaryClipChangedListener{
 
 	/**
 	 * 所有省
@@ -157,7 +161,7 @@ public class BaseActivity extends AppCompatActivity {
 		MobclickAgent.setSessionContinueMillis(60000);
 		 MobclickAgent.setDebugMode(true);
 		loadingDialog = new LoadingDialog(this);
-
+		initClipboardManager();
 	}
 
 	public BaseActivity getActivity() {
@@ -194,6 +198,17 @@ public class BaseActivity extends AppCompatActivity {
 
 	public LoadingDialog getLoading() {
 		return loadingDialog;
+	}
+	private ClipboardManager cbm ;
+
+
+	private void initClipboardManager() {
+		cbm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+		cbm.addPrimaryClipChangedListener(this);
+	}
+	@Override
+	public void onPrimaryClipChanged() {
+		Toast.makeText(this, cbm.getText().toString().trim(), Toast.LENGTH_LONG).show();
 	}
 
 }
