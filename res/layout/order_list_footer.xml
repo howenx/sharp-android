@@ -31,6 +31,13 @@
         android:layout_height="wrap_content"
         android:text="查看物流"
         android:visibility="gone"/>
+     <TextView 
+        android:id="@+id/apply_customer"
+        style="@style/submit_mid_huise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="申请售后"
+        android:visibility="gone"/>
     <TextView 
         android:id="@+id/go_pay"
         android:layout_marginLeft="15dp"

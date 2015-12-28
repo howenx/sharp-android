@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/white"
     android:padding="10dp" >
 
@@ -13,55 +13,35 @@
         android:contentDescription="@null"
         android:padding="0.1dp"
         android:scaleType="fitXY"
-        android:src="@null" />
+        android:src="@drawable/ic_launcher" />
 
-    <TextView
-        android:id="@+id/name"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:layout_centerVertical="true"
         android:layout_toRightOf="@id/img"
-        android:ellipsize="end"
-        android:maxLines="2"
-        android:text="@null"
-        android:textColor="@color/fontcolor"
-        android:textSize="14sp" />
+        android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/size"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/name"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_toRightOf="@id/img"
-        android:text="@null"
-        android:textColor="@color/fontcolor"
-        android:textSize="14sp" />
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="韩秘美商品"
+            android:textColor="@color/fontcolor"
+            android:textSize="14sp" />
 
-    <TextView
-        android:id="@+id/price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/size"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="2dp"
-        android:layout_toRightOf="@id/img"
-        android:text="@null"
-        android:textColor="@color/fontcolor"
-        android:textSize="14sp" />
-
-    <TextView
-        android:id="@+id/nums"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/size"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="2dp"
-        android:layout_toRightOf="@id/price"
-        android:text="@null"
-        android:textColor="@color/huise"
-        android:textSize="14sp" />
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="¥100.00"
+            android:textColor="@color/fontcolor"
+            android:textSize="14sp" />
+    </LinearLayout>
 
 </RelativeLayout>

@@ -51,6 +51,7 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 	private TextView address;
 	private TextView order;
 	private TextView youhui;
+	private TextView collect;
 
 	private BaseActivity activity;
 	private User user;
@@ -141,12 +142,14 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 		order.setCompoundDrawables(order_icon, null, jiantou_icon, null);
 		youhui = (TextView) view.findViewById(R.id.youhui);
 		youhui.setCompoundDrawables(youhui_icon, null, jiantou_icon, null);
+		collect = (TextView) view.findViewById(R.id.collect);
+		collect.setCompoundDrawables(youhui_icon, null, jiantou_icon, null);
 		header.setOnClickListener(this);
 		order.setOnClickListener(this);
 		youhui.setOnClickListener(this);
 		address.setOnClickListener(this);
 		user_name.setOnClickListener(this);
-		view.findViewById(R.id.collect).setOnClickListener(this);
+		collect.setOnClickListener(this);
 	}
 
 	@Override

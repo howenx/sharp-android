@@ -103,7 +103,7 @@
             android:name="com.hanmimei.activity.OrderSubmitActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.TestActivity"
+            android:name="com.hanmimei.activity.MyCollectionActivity"
             android:screenOrientation="portrait" />
 
         <!-- 友盟相关 -->

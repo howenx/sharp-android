@@ -124,10 +124,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		themeItem = detail.getMasterItem();
 		if (themeItem == null)
 			return;
-		Picasso.with(this)
-				.load(themeItem.getItemMasterImg())
-				.resize(CommonUtil.getScreenWidth(this),
-						CommonUtil.getScreenWidth(this) *10/12).into(img);
+		Picasso.with(this).load(themeItem.getItemMasterImg()).into(img);
 
 		try {
 			JSONArray array = new JSONArray(themeItem.getMasterItemTag());

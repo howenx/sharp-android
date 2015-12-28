@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.handmark.pulltorefresh.library.PullToRefreshListView 
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ptr="http://schemas.android.com/apk/res-auto" 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" 
-    android:id="@+id/mListView">
+    android:id="@+id/mListView"
+     ptr:ptrDrawable="@drawable/refreshing"
+    >
     
 
 </com.handmark.pulltorefresh.library.PullToRefreshListView>
