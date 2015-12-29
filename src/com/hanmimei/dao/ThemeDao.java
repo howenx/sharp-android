@@ -27,8 +27,10 @@ public class ThemeDao extends AbstractDao<Theme, Long> {
         public final static Property Item_id = new Property(1, Integer.class, "item_id", false, "ITEM_ID");
         public final static Property ThemeImg = new Property(2, String.class, "themeImg", false, "THEME_IMG");
         public final static Property ThemeUrl = new Property(3, String.class, "themeUrl", false, "THEME_URL");
-        public final static Property SortNum = new Property(4, Integer.class, "sortNum", false, "SORT_NUM");
-        public final static Property Tag = new Property(5, String.class, "tag", false, "TAG");
+        public final static Property Width = new Property(4, Integer.class, "width", false, "WIDTH");
+        public final static Property Height = new Property(5, Integer.class, "height", false, "HEIGHT");
+        public final static Property SortNum = new Property(6, Integer.class, "sortNum", false, "SORT_NUM");
+        public final static Property Tag = new Property(7, String.class, "tag", false, "TAG");
     };
 
 
@@ -48,8 +50,10 @@ public class ThemeDao extends AbstractDao<Theme, Long> {
                 "\"ITEM_ID\" INTEGER," + // 1: item_id
                 "\"THEME_IMG\" TEXT," + // 2: themeImg
                 "\"THEME_URL\" TEXT," + // 3: themeUrl
-                "\"SORT_NUM\" INTEGER," + // 4: sortNum
-                "\"TAG\" TEXT);"); // 5: tag
+                "\"WIDTH\" INTEGER," + // 4: width
+                "\"HEIGHT\" INTEGER," + // 5: height
+                "\"SORT_NUM\" INTEGER," + // 6: sortNum
+                "\"TAG\" TEXT);"); // 7: tag
     }
 
     /** Drops the underlying database table. */
@@ -83,14 +87,24 @@ public class ThemeDao extends AbstractDao<Theme, Long> {
             stmt.bindString(4, themeUrl);
         }
  
+        Integer width = entity.getWidth();
+        if (width != null) {
+            stmt.bindLong(5, width);
+        }
+ 
+        Integer height = entity.getHeight();
+        if (height != null) {
+            stmt.bindLong(6, height);
+        }
+ 
         Integer sortNum = entity.getSortNum();
         if (sortNum != null) {
-            stmt.bindLong(5, sortNum);
+            stmt.bindLong(7, sortNum);
         }
  
         String tag = entity.getTag();
         if (tag != null) {
-            stmt.bindString(6, tag);
+            stmt.bindString(8, tag);
         }
     }
 
@@ -108,8 +122,10 @@ public class ThemeDao extends AbstractDao<Theme, Long> {
             cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1), // item_id
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // themeImg
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // themeUrl
-            cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4), // sortNum
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5) // tag
+            cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4), // width
+            cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5), // height
+            cursor.isNull(offset + 6) ? null : cursor.getInt(offset + 6), // sortNum
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7) // tag
         );
         return entity;
     }
@@ -121,8 +137,10 @@ public class ThemeDao extends AbstractDao<Theme, Long> {
         entity.setItem_id(cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1));
         entity.setThemeImg(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setThemeUrl(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
-        entity.setSortNum(cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4));
-        entity.setTag(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setWidth(cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4));
+        entity.setHeight(cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5));
+        entity.setSortNum(cursor.isNull(offset + 6) ? null : cursor.getInt(offset + 6));
+        entity.setTag(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
      }
     
     /** @inheritdoc */

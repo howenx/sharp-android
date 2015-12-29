@@ -13,6 +13,8 @@ public class Theme {
     private Integer item_id;
     private String themeImg;
     private String themeUrl;
+    private Integer width;
+    private Integer height;
     private Integer sortNum;
     private String tag;
 
@@ -26,11 +28,13 @@ public class Theme {
         this.id = id;
     }
 
-    public Theme(Long id, Integer item_id, String themeImg, String themeUrl, Integer sortNum, String tag) {
+    public Theme(Long id, Integer item_id, String themeImg, String themeUrl, Integer width, Integer height, Integer sortNum, String tag) {
         this.id = id;
         this.item_id = item_id;
         this.themeImg = themeImg;
         this.themeUrl = themeUrl;
+        this.width = width;
+        this.height = height;
         this.sortNum = sortNum;
         this.tag = tag;
     }
@@ -65,6 +69,22 @@ public class Theme {
 
     public void setThemeUrl(String themeUrl) {
         this.themeUrl = themeUrl;
+    }
+
+    public Integer getWidth() {
+        return width;
+    }
+
+    public void setWidth(Integer width) {
+        this.width = width;
+    }
+
+    public Integer getHeight() {
+        return height;
+    }
+
+    public void setHeight(Integer height) {
+        this.height = height;
     }
 
     public Integer getSortNum() {

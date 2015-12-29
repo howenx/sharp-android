@@ -28,6 +28,8 @@ public class SliderDao extends AbstractDao<Slider, Long> {
         public final static Property ImgUrl = new Property(2, String.class, "imgUrl", false, "IMG_URL");
         public final static Property Url = new Property(3, String.class, "url", false, "URL");
         public final static Property Type = new Property(4, String.class, "type", false, "TYPE");
+        public final static Property Width = new Property(5, Integer.class, "width", false, "WIDTH");
+        public final static Property Height = new Property(6, Integer.class, "height", false, "HEIGHT");
     };
 
 
@@ -47,7 +49,9 @@ public class SliderDao extends AbstractDao<Slider, Long> {
                 "\"SLIDER_ID\" INTEGER," + // 1: slider_id
                 "\"IMG_URL\" TEXT," + // 2: imgUrl
                 "\"URL\" TEXT," + // 3: url
-                "\"TYPE\" TEXT);"); // 4: type
+                "\"TYPE\" TEXT," + // 4: type
+                "\"WIDTH\" INTEGER," + // 5: width
+                "\"HEIGHT\" INTEGER);"); // 6: height
     }
 
     /** Drops the underlying database table. */
@@ -85,6 +89,16 @@ public class SliderDao extends AbstractDao<Slider, Long> {
         if (type != null) {
             stmt.bindString(5, type);
         }
+ 
+        Integer width = entity.getWidth();
+        if (width != null) {
+            stmt.bindLong(6, width);
+        }
+ 
+        Integer height = entity.getHeight();
+        if (height != null) {
+            stmt.bindLong(7, height);
+        }
     }
 
     /** @inheritdoc */
@@ -101,7 +115,9 @@ public class SliderDao extends AbstractDao<Slider, Long> {
             cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1), // slider_id
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // imgUrl
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // url
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4) // type
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // type
+            cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5), // width
+            cursor.isNull(offset + 6) ? null : cursor.getInt(offset + 6) // height
         );
         return entity;
     }
@@ -114,6 +130,8 @@ public class SliderDao extends AbstractDao<Slider, Long> {
         entity.setImgUrl(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setUrl(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setType(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setWidth(cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5));
+        entity.setHeight(cursor.isNull(offset + 6) ? null : cursor.getInt(offset + 6));
      }
     
     /** @inheritdoc */
