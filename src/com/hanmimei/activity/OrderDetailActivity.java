@@ -77,11 +77,11 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		list = new ArrayList<Sku>();
 		order = (Order) getIntent().getSerializableExtra("order");
 		inflater = LayoutInflater.from(this);
-		findView();
 		if(order.getOrderStatus().equals("R")){
 			isShow = true;
 		}
 		adapter = new OrderDetailListAdapter(list, this, isShow);
+		findView();
 		if(order.getOrderStatus().equals("D")&&order.getOrderStatus().equals("S")){
 			ActionBarUtil.setActionBarStyle(this, "订单详情");
 		}else{

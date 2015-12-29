@@ -1,6 +1,7 @@
 package com.hanmimei.application;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.Volley;
 import com.hanmimei.dao.DaoMaster;
 import com.hanmimei.dao.DaoSession;
@@ -20,7 +21,7 @@ public class MyApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		queue = Volley.newRequestQueue(this);
+		queue = Volley.newRequestQueue(this,new HurlStack());
 		initPlatformConfig();
 	}
 	
