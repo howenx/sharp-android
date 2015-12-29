@@ -9,6 +9,7 @@ import com.umeng.analytics.MobclickAgent;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,6 +32,7 @@ public class IndroductionActivity extends BaseActivity {
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
 		setContentView(R.layout.viewpager_panel);
+		getActivity().setFirst(true);
 		viewFlow = (ViewFlow) findViewById(R.id.my_viewflow);
 		indicator = (CircleFlowIndicator) findViewById(R.id.my_indicator);
 		viewFlow.setmSideBuffer(images.length);
