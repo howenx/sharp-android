@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.hanmimei.R;
 import com.hanmimei.activity.BaseActivity;
-import com.hanmimei.utils.InitImageLoader;
+import com.hanmimei.utils.ImageLoaderUtils;
 import com.hanmimei.view.DragImageView.OnClickListener;
 
 /**
@@ -35,7 +35,7 @@ public class GoodsDetailImgPagerAdapter extends PagerAdapter {
 		for (int i = 0; i < imgUrls.size(); i++) {
 			v = mInflater.inflate(R.layout.good_detail_img_item_layout, null);
 			com.hanmimei.view.DragImageView imageView = (com.hanmimei.view.DragImageView) v.findViewById(R.id.mImageView);
-			InitImageLoader.loadImage(mContext,imgUrls.get(i), imageView);
+			ImageLoaderUtils.loadImage(mContext,imgUrls.get(i), imageView);
 			this.datas.add(v);
 		}
 	}

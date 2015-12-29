@@ -14,7 +14,7 @@ import android.widget.ImageView;
 
 import com.hanmimei.R;
 import com.hanmimei.activity.GoodsDetailImgActivity;
-import com.hanmimei.utils.InitImageLoader;
+import com.hanmimei.utils.ImageLoaderUtils;
 
 /**
  * 设配器
@@ -52,7 +52,7 @@ public class GoodsDetailImgAdapter extends BaseAdapter{
             convertView = LayoutInflater.from(context).inflate(R.layout.goods_detail_img_item_layout, null);
         }
         ImageView imageView = (ImageView) convertView.findViewById(R.id.mImageView);
-        InitImageLoader.loadImage(context, urls.get(position%urls.size()), imageView);
+        ImageLoaderUtils.loadImage(context, urls.get(position%urls.size()), imageView);
         imageView.setOnClickListener(new OnClickListener() {
 			
 			@Override

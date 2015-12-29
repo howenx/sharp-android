@@ -16,23 +16,17 @@ import android.widget.TextView;
 import com.hanmimei.R;
 import com.hanmimei.activity.CustomerServiceActivity;
 import com.hanmimei.entity.Sku;
-import com.hanmimei.utils.InitImageLoader;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
+import com.hanmimei.utils.ImageLoaderUtils;
 
 public class OrderDetailListAdapter extends BaseAdapter {
 
 	private List<Sku> data;
 	private LayoutInflater inflater;
 	private Activity activity;
-	private ImageLoader imageLoader;
-	private DisplayImageOptions imageOptions;
 	
 	public OrderDetailListAdapter(List<Sku> data, Context mContext){
 		this.data = data;
-		imageLoader = InitImageLoader.initLoader(mContext);
 		activity = (Activity) mContext;
-		imageOptions = InitImageLoader.initOptions();
 		inflater = LayoutInflater.from(mContext);
 	}
 	@Override
@@ -67,7 +61,7 @@ public class OrderDetailListAdapter extends BaseAdapter {
 		}else{
 			holder = (ViewHolder) convertView.getTag();
 		}
-		imageLoader.displayImage(sku.getInvImg(), holder.img,imageOptions);
+		ImageLoaderUtils.loadImage(activity, sku.getInvImg(), holder.img);
 		holder.title.setText(position + 1 + "." + sku.getSkuTitle());
 		holder.nums.setText("数量：" + sku.getAmount());
 		holder.price.setText("¥" + sku.getPrice());

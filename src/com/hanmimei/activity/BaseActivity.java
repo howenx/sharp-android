@@ -8,28 +8,32 @@ import java.util.Map;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningAppProcessInfo;
 import android.content.ClipboardManager;
-import android.content.ClipboardManager.OnPrimaryClipChangedListener;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
 import com.hanmimei.application.MyApplication;
 import com.hanmimei.dao.DaoSession;
 import com.hanmimei.data.XmlParserHandler;
 import com.hanmimei.entity.User;
 import com.hanmimei.manager.ThreadPoolManager;
+import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.view.LoadingDialog;
 import com.hanmimei.wheel.entity.CityModel;
 import com.hanmimei.wheel.entity.DistrictModel;
 import com.hanmimei.wheel.entity.ProvinceModel;
 import com.umeng.analytics.MobclickAgent;
 
-public class BaseActivity extends AppCompatActivity implements OnPrimaryClipChangedListener{
+public class BaseActivity extends AppCompatActivity {
 
+	private MyApplication application;
 	/**
 	 * 所有省
 	 */
@@ -161,17 +165,14 @@ public class BaseActivity extends AppCompatActivity implements OnPrimaryClipChan
 		MobclickAgent.setSessionContinueMillis(60000);
 		 MobclickAgent.setDebugMode(true);
 		loadingDialog = new LoadingDialog(this);
-		initClipboardManager();
+		application = (MyApplication) getApplication();
 	}
 
 	public BaseActivity getActivity() {
 		return this;
 	}
 
-	private MyApplication application;
-
 	public User getUser() {
-		application = (MyApplication) getApplication();
 		return application.getLoginUser();
 	}
 
@@ -199,16 +200,105 @@ public class BaseActivity extends AppCompatActivity implements OnPrimaryClipChan
 	public LoadingDialog getLoading() {
 		return loadingDialog;
 	}
-	private ClipboardManager cbm ;
 
-
-	private void initClipboardManager() {
-		cbm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-		cbm.addPrimaryClipChangedListener(this);
-	}
+	@SuppressWarnings("deprecation")
 	@Override
-	public void onPrimaryClipChanged() {
-		Toast.makeText(this, cbm.getText().toString().trim(), Toast.LENGTH_LONG).show();
+	protected void onStop() {
+		if(!isAppOnForeground()){
+			//退出或者app进入后台将口令扔到剪切板
+			ClipboardManager cbm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+			cbm.setText(application.getKouling());
+		}
+		super.onStop();
 	}
+
+	/**
+     * 程序是否在前台运行
+     *  
+     */
+    public boolean isAppOnForeground() {
+            // Returns a list of application processes that are running on the
+            // device
+             
+            ActivityManager activityManager = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+            String packageName = getApplicationContext().getPackageName();
+
+            List<RunningAppProcessInfo> appProcesses = activityManager
+                            .getRunningAppProcesses();
+            if (appProcesses == null)
+                    return false;
+
+            for (RunningAppProcessInfo appProcess : appProcesses) {
+                    // The name of the process that this object is associated with.
+                    if (appProcess.processName.equals(packageName)
+                                    && appProcess.importance == RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+                            return true;
+                    }
+            }
+            return false;
+    }
+    private boolean isFirst = false;
+
+	public boolean isFirst() {
+		return isFirst;
+	}
+
+	public void setFirst(boolean isFirst) {
+		this.isFirst = isFirst;
+	}
+	
+	@SuppressWarnings("deprecation")
+	public void onResume() {
+	    super.onResume();
+	    if(!isFirst){
+	    	ClipboardManager cbm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+			if(cbm.getText().toString().trim().equals("hanmimei")){
+				cbm.setText("");
+//				showKouLing();
+				loadData();
+				application.setKouling("");
+			}	
+			isFirst = false;
+		}
+//	    MobclickAgent.onResume(this);          //统计时长
+	   
+	}
+	private void loadData() {
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				try {
+					Thread.sleep(2000);
+					Message msg = mHandler.obtainMessage(1);
+					mHandler.sendMessage(msg);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+	}
+	private Handler mHandler = new Handler(){
+
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			super.handleMessage(msg);
+			switch (msg.what) {
+			case 1:
+				showKouLing();
+				break;
+
+			default:
+				break;
+			}
+		}
+		
+	};
+
+	private void showKouLing() {
+		 AlertDialogUtils.KouDialog(this, "耐克户外运动经典篮球鞋，nba官方正品，杜兰特专用。", "¥1999","http://e.hiphotos.baidu.com/zhidao/wh%3D600%2C800/sign=4ba6a9c4271f95caa6a09ab0f9275306/77094b36acaf2edd7f60e5538f1001e9380193f3.jpg");
+	}
+    
 
 }

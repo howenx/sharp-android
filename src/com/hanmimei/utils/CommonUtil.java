@@ -36,12 +36,8 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
-
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * 常用工具
@@ -474,22 +470,22 @@ public class CommonUtil {
 			pager.setLayoutParams(params);
 		}
 	}
-
-	public static void loadImg(Activity activity, ImageView img, String url,
-			int w, int h) {
-		ImageLoader imageLoader = InitImageLoader.initLoader(activity);
-		DisplayImageOptions imageOptions = InitImageLoader.initOptions();
-		// 图片的比例适配
-		DisplayMetrics dm = new DisplayMetrics();
-		activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
-		int screenWidth = dm.widthPixels;
-		android.view.ViewGroup.LayoutParams params;
-		params = img.getLayoutParams();
-		params.height = screenWidth * h / w;
-		params.width = screenWidth;
-		img.setLayoutParams(params);
-		imageLoader.displayImage(url, img, imageOptions);
-	}
+//
+//	public static void loadImg(Activity activity, ImageView img, String url,
+//			int w, int h) {
+//		ImageLoader imageLoader = ImageLoaderUtils.initLoader(activity);
+//		DisplayImageOptions imageOptions = ImageLoaderUtils.initOptions();
+//		// 图片的比例适配
+//		DisplayMetrics dm = new DisplayMetrics();
+//		activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+//		int screenWidth = dm.widthPixels;
+//		android.view.ViewGroup.LayoutParams params;
+//		params = img.getLayoutParams();
+//		params.height = screenWidth * h / w;
+//		params.width = screenWidth;
+//		img.setLayoutParams(params);
+//		imageLoader.displayImage(url, img, imageOptions);
+//	}
 
 	public static int dp2px(Context context, int dp) {
 		return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,

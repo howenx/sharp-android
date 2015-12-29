@@ -38,7 +38,7 @@ import com.hanmimei.upload.FileUtils;
 import com.hanmimei.upload.PhotoActivity;
 import com.hanmimei.upload.TestPicActivity;
 import com.hanmimei.utils.ActionBarUtil;
-import com.hanmimei.utils.InitImageLoader;
+import com.hanmimei.utils.ImageLoaderUtils;
 import com.hanmimei.utils.PopupWindowUtil;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.CustomGridView;
@@ -86,7 +86,7 @@ public class CustomerServiceActivity extends BaseActivity implements
 	}
 
 	private void initViewData() {
-		InitImageLoader.loadImage(this, sku.getInvImg(), imgView);
+		ImageLoaderUtils.loadImage(this, sku.getInvImg(), imgView);
 		name.setText(sku.getSkuTitle());
 		price.setText(getResources().getString(R.string.price, sku.getPrice()));
 		num.setText(getResources().getString(R.string.num, sku.getAmount()));

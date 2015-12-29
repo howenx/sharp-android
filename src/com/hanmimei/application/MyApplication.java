@@ -15,6 +15,7 @@ public class MyApplication extends Application {
 	private DaoSession daoSession;
 	private User loginUser;
 	private RequestQueue queue;
+	private String kouling;
 
 	@Override
 	public void onCreate() {
@@ -61,4 +62,11 @@ public class MyApplication extends Application {
 		return daoSession;
 	}
 
+	public String getKouling() {
+		return kouling;
+	}
+
+	public void setKouling(String kouling) {
+		this.kouling = kouling;
+	}
 }
