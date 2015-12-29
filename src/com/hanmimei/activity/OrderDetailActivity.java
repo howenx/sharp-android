@@ -67,6 +67,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 	private LayoutInflater inflater;
 	private JSONObject object;
 	private ProgressDialog progressDialog;
+	private boolean isShow = false;
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
@@ -74,10 +75,13 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		order = new Order();
 		addressInfo = new HMMAddress();
 		list = new ArrayList<Sku>();
-		adapter = new OrderDetailListAdapter(list, this);
 		order = (Order) getIntent().getSerializableExtra("order");
 		inflater = LayoutInflater.from(this);
 		findView();
+		if(order.getOrderStatus().equals("R")){
+			isShow = true;
+		}
+		adapter = new OrderDetailListAdapter(list, this, isShow);
 		if(order.getOrderStatus().equals("D")&&order.getOrderStatus().equals("S")){
 			ActionBarUtil.setActionBarStyle(this, "订单详情");
 		}else{

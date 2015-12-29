@@ -23,9 +23,11 @@ public class OrderDetailListAdapter extends BaseAdapter {
 	private List<Sku> data;
 	private LayoutInflater inflater;
 	private Activity activity;
+	private boolean isShow;
 	
-	public OrderDetailListAdapter(List<Sku> data, Context mContext){
+	public OrderDetailListAdapter(List<Sku> data, Context mContext, boolean isShow){
 		this.data = data;
+		this.isShow = isShow;
 		activity = (Activity) mContext;
 		inflater = LayoutInflater.from(mContext);
 	}
@@ -65,7 +67,11 @@ public class OrderDetailListAdapter extends BaseAdapter {
 		holder.title.setText(position + 1 + "." + sku.getSkuTitle());
 		holder.nums.setText("数量：" + sku.getAmount());
 		holder.price.setText("¥" + sku.getPrice());
-		
+		if(isShow){
+			holder.btn_apply_service.setVisibility(View.VISIBLE);
+		}else{
+			holder.btn_apply_service.setVisibility(View.GONE);
+		}
 		holder.btn_apply_service.setOnClickListener(new OnClickListener() {
 			
 			@Override

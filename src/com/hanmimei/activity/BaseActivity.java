@@ -18,6 +18,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 
 import com.hanmimei.application.MyApplication;
 import com.hanmimei.dao.DaoSession;
@@ -252,12 +253,14 @@ public class BaseActivity extends AppCompatActivity {
 	    super.onResume();
 	    if(!isFirst){
 	    	ClipboardManager cbm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-			if(cbm.getText().toString().trim().equals("hanmimei")){
-				cbm.setText("");
-//				showKouLing();
-				loadData();
-				application.setKouling("");
-			}	
+	    	if(!TextUtils.isEmpty(cbm.getText())){
+	    		if(cbm.getText().toString().trim().equals("hanmimei")){
+					cbm.setText("");
+//					showKouLing();
+					loadData();
+					application.setKouling("");
+				}	
+	    	}
 			isFirst = false;
 		}
 //	    MobclickAgent.onResume(this);          //统计时长
