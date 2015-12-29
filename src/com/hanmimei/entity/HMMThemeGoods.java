@@ -1,5 +1,6 @@
 package com.hanmimei.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HMMThemeGoods {
@@ -14,8 +15,13 @@ public class HMMThemeGoods {
 		this.message = message;
 	}
 	public List<HMMGoods> getThemeList() {
-		
-		return themeList;
+		List<HMMGoods> list = new ArrayList<HMMGoods>();
+		for(HMMGoods g: themeList){
+			if(g.getOrMasterItem())
+				continue;
+			list.add(g);
+		}
+		return list;
 	}
 	public void setThemeList(List<HMMGoods> themeList) {
 		this.themeList = themeList;

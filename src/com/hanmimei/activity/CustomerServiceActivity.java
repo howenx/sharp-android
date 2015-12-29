@@ -60,7 +60,7 @@ public class CustomerServiceActivity extends BaseActivity implements
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.customer_service_layout);
-		ActionBarUtil.setActionBarStyle(this, "申请售后");
+		ActionBarUtil.setActionBarStyle(this, "申请售后服务");
 		sku = (Sku) getIntent().getSerializableExtra("sku");
 		findView();
 	}
