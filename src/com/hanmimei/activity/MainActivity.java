@@ -2,6 +2,7 @@ package com.hanmimei.activity;
 
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -64,6 +65,8 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 		TabHostManager.getInstance().initTabItem(TAB_MY_ID, my_drawable,
 				TAB_MY, AboutMyFragment.class);
 		registerReceivers();
+//		ClipboardManager cbm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+//		Toast.makeText(this, cbm.getText().toString().trim(), Toast.LENGTH_LONG).show();
 	}
 
 	@Override

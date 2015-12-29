@@ -23,9 +23,10 @@ public class MyApplication extends Application {
 		initPlatformConfig();
 	}
 	
+	//初始化PlatformConfig
 	private void initPlatformConfig() {
 	    //微信 appid appsecret
-		PlatformConfig.setWeixin("wx967daebe835fbeac", "5bb696d9ccd75a38c8a0bfe0675559b3");
+		PlatformConfig.setWeixin("wx4ee4a992a10d1253", "b1a54352a4e78028fc54de89b29505a6");
 	    //新浪微博 appkey appsecret
 		PlatformConfig.setSinaWeibo("794664710","0dc274fafeabec336673331c633a115e");
         // QQ和Qzone appid appkey

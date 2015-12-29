@@ -6,9 +6,9 @@
     android:background="@drawable/white_corner_bg"
     android:gravity="center">
     <View 
-        android:layout_height="0.2dp"
+        android:layout_height="1dp"
         android:layout_width="match_parent"
-        android:background="@color/qianhui"/>
+        android:background="@color/theme"/>
     <TextView 
         android:id="@+id/play_photo"
         android:padding="10dp"

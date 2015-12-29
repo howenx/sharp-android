@@ -49,8 +49,8 @@
                         android:id="@+id/price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
                         android:text="$2433"
+						android:layout_marginLeft="5dp"
                         android:textColor="#BBBBBB"
                         android:textSize="12sp" />
 
@@ -135,7 +135,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:focusableInTouchMode="true"
             android:background="@color/white"
             android:orientation="vertical"
             android:padding="10dp" >
@@ -148,7 +147,7 @@
                 android:textSize="15sp" />
 
             <EditText
-                android:id="@+id/discription"
+				android:id="@+id/discription"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginRight="50dp"
@@ -159,8 +158,8 @@
                 android:padding="8dp"
                 android:textSize="13sp" />
         </LinearLayout>
-
-        <LinearLayout
+        
+       <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -180,12 +179,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:horizontalSpacing="8dp"
                 android:numColumns="4"
                 android:stretchMode="columnWidth"
+                android:horizontalSpacing="8dp"
                 android:verticalSpacing="8dp" />
-
-            <TextView
+            
+              <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -193,86 +192,20 @@
                 android:textColor="#BBBBBB"
                 android:textSize="12sp" />
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@color/white"
-            android:orientation="vertical"
-            android:layout_marginBottom="20dp"
-            android:padding="10dp" >
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="联系人信息"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:text="联系人："
-                    android:textColor="#BBBBBB"
-                    android:textSize="14sp" />
-
-                <EditText
-                    android:id="@+id/username"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/edit_input_bg"
-                    android:hint=""
-                    android:padding="5dp"
-                    android:layout_marginRight="50dp"
-                    android:inputType="textPassword"
-                     android:textSize="14sp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:text="联系电话："
-                    android:textColor="#BBBBBB"
-                    android:textSize="14sp" />
-
-                <EditText
-                    android:id="@+id/phone"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:padding="5dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/edit_input_bg"
-                    android:hint=""
-                    android:layout_marginRight="50dp"
-                     android:textSize="14sp"
-                    android:inputType="number" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/btn_next"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/bg_custom_button"
-            android:gravity="center"
-            android:text="提交"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
+        
+       
+       <TextView 
+           android:id="@+id/btn_next"
+           android:layout_width="match_parent"
+           android:layout_height="40dp"
+           android:gravity="center"
+           android:text="下一步"
+           android:textColor="@color/white"
+           android:textSize="16sp"
+           android:layout_margin="10dp"
+           android:background="@drawable/bg_custom_button"
+           />
+       
+        
     </LinearLayout>
-
 </ScrollView>
