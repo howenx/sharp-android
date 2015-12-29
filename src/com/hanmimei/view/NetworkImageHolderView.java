@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import com.bigkoo.convenientbanner.CBPageAdapter;
 import com.hanmimei.R;
 import com.hanmimei.activity.GoodsDetailImgActivity;
-import com.hanmimei.utils.InitImageLoader;
+import com.hanmimei.utils.ImageLoaderUtils;
 
 /**
  * Created by Sai on 15/8/4.
@@ -30,7 +30,7 @@ public class NetworkImageHolderView implements CBPageAdapter.Holder<String>{
     @Override
     public void UpdateUI(final Context context,List<String> datas, final int position, String data) {
         imageView.setImageResource(R.drawable.ic_launcher);
-        InitImageLoader.loadImage(context,data,imageView);
+        ImageLoaderUtils.loadImage(context,data,imageView);
         final ArrayList<String> list = new ArrayList<String>(datas);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override

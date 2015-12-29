@@ -46,7 +46,7 @@ import com.hanmimei.utils.DateUtil;
 import com.hanmimei.utils.HasSDCardUtil;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ImgUtils;
-import com.hanmimei.utils.InitImageLoader;
+import com.hanmimei.utils.ImageLoaderUtils;
 import com.hanmimei.view.RoundImageView;
 import com.umeng.analytics.MobclickAgent;
 
@@ -103,7 +103,7 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 	}
 	//填充数据
 	protected void initView() {
-		InitImageLoader.initLoader(this).displayImage(oldUser.getUserImg(), header, InitImageLoader.initOptions());
+		ImageLoaderUtils.initLoader(this).displayImage(oldUser.getUserImg(), header, ImageLoaderUtils.initOptions());
 		name.setText(oldUser.getUserName());
 		if(oldUser.getSex().equals("M")){
 			sex.setText("男");

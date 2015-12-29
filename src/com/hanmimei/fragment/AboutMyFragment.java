@@ -30,7 +30,7 @@ import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.User;
 import com.hanmimei.utils.DoJumpUtils;
 import com.hanmimei.utils.HttpUtils;
-import com.hanmimei.utils.InitImageLoader;
+import com.hanmimei.utils.ImageLoaderUtils;
 import com.hanmimei.utils.KeyWordUtil;
 import com.hanmimei.view.RoundImageView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -108,8 +108,8 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 
 	public void initView() {
 		user = activity.getUser();
-		imageLoader = InitImageLoader.initLoader(getActivity());
-		imageOptions = InitImageLoader.initOptions();
+		imageLoader = ImageLoaderUtils.initLoader(getActivity());
+		imageOptions = ImageLoaderUtils.initOptions();
 		imageLoader.displayImage(user.getUserImg(), header, imageOptions);
 		user_name.setText(user.getUserName());
 		int couponCount;
@@ -125,8 +125,8 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 
 	private void clearView() {
 		user = activity.getUser();
-		imageLoader = InitImageLoader.initLoader(getActivity());
-		imageOptions = InitImageLoader.initOptions();
+		imageLoader = ImageLoaderUtils.initLoader(getActivity());
+		imageOptions = ImageLoaderUtils.initOptions();
 		imageLoader.displayImage("", header, imageOptions);
 		user_name.setText("点击登录");
 		youhui.setText("    优惠券");

@@ -2,12 +2,8 @@ package com.hanmimei.adapter;
 
 import java.util.List;
 
-import com.hanmimei.R;
-import com.hanmimei.entity.Sku;
-import com.hanmimei.utils.InitImageLoader;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,19 +12,21 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.hanmimei.R;
+import com.hanmimei.entity.Sku;
+import com.hanmimei.utils.ImageLoaderUtils;
+
 @SuppressLint("InflateParams")
 public class OrderListAdapter extends BaseAdapter {
 
 	private List<Sku> data;
 	private LayoutInflater inflater;
-	private ImageLoader imageLoader;
-	private DisplayImageOptions options;
+	private Activity activity;
 
 	public OrderListAdapter(List<Sku> list, Context mContext) {
 		this.data = list;
+		activity = (Activity) mContext;
 		inflater = LayoutInflater.from(mContext);
-		imageLoader = InitImageLoader.initLoader(mContext);
-		options = InitImageLoader.initOptions();
 	}
 
 	@Override
@@ -68,7 +66,7 @@ public class OrderListAdapter extends BaseAdapter {
 			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
-			imageLoader.displayImage(sku.getInvImg(), holder.img, options);
+			ImageLoaderUtils.loadImage(activity, sku.getInvImg(), holder.img);
 			holder.name.setText(sku.getSkuTitle());
 			holder.price.setText("单价： ¥" + sku.getPrice());
 			holder.nums.setText("x" + sku.getAmount());
@@ -84,7 +82,7 @@ public class OrderListAdapter extends BaseAdapter {
 			} else {
 				holderMore = (ViewHolderMore) convertView.getTag();
 			}
-			imageLoader.displayImage(sku.getInvImg(), holderMore.img, options);
+			ImageLoaderUtils.loadImage(activity, sku.getInvImg(), holderMore.img);
 			return convertView;
 		}
 	}

@@ -27,6 +27,8 @@ public class FirstShowActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.first_show_layout);
+		getActivity().setFirst(true);
+		application = (MyApplication) getApplication();
 		//判断是否自动登录
 		loginUser();
 		//判断是否是第一次进入app
@@ -45,7 +47,7 @@ public class FirstShowActivity extends BaseActivity {
 				@Override
 				public void run() {
 					try {
-						Thread.sleep(3000);
+						Thread.sleep(2000);
 						mHandler.obtainMessage(1).sendToTarget();
 					} catch (InterruptedException e) {
 						e.printStackTrace();
@@ -66,7 +68,6 @@ public class FirstShowActivity extends BaseActivity {
 		}else if(difDay <0){
 			userDao.deleteAll();
 		}else{
-			application = (MyApplication) getApplication();
 			application.setLoginUser(user);
 		}
 		}

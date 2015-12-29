@@ -1,8 +1,10 @@
 package com.hanmimei.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.DisplayMetrics;
 import android.widget.ImageView;
 
 import com.hanmimei.R;
@@ -12,7 +14,7 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
-public class InitImageLoader {
+public class ImageLoaderUtils {
 
 	private static ImageLoader imageLoader;
 	private static DisplayImageOptions imageOptions;
@@ -58,17 +60,49 @@ public class InitImageLoader {
 
 		return config;
 	}
-
+	/**
+	 * imageloader加载图片
+	 * @param mContext
+	 * @param url
+	 * @param imgView
+	 */
 	public static void loadImage(Context mContext, String url, ImageView imgView) {
 		initOptions();
 		imageLoader = initLoader(mContext);
 		imageLoader.displayImage(url, imgView, imageOptions);
 	}
-
+	/**
+	 * imageloader加载图片
+	 * @param mContext
+	 * @param url
+	 * @param imgView
+	 * @param l
+	 */
 	public static void loadImage(Context mContext, String url,
 			ImageView imgView, ImageLoadingListener l) {
 		initOptions();
 		imageLoader = initLoader(mContext);
 		imageLoader.displayImage(url, imgView, imageOptions, l);
+	}
+	/**
+	 * imageloader加载图片  
+	 * @param activity
+	 * @param imgView
+	 * @param url
+	 * @param w   宽度
+	 * @param h	高度比例
+	 */
+	public static void loadImage(Activity activity, ImageView imgView, String url,
+			int w, int h) {
+		// 图片的比例适配
+		DisplayMetrics dm = new DisplayMetrics();
+		activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+		int screenWidth = dm.widthPixels;
+		android.view.ViewGroup.LayoutParams params;
+		params = imgView.getLayoutParams();
+		params.height = screenWidth * h / w;
+		params.width = screenWidth;
+		imgView.setLayoutParams(params);
+		loadImage(activity, url, imgView);
 	}
 }

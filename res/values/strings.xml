@@ -34,11 +34,11 @@
 	<string name="pay_type_ali">APAY</string>
 	<string name="pay_type_wx">WEIXIN</string>
 
-	
+	<string name="now_go">立即查看</string>
 	<string name="cancel">取消</string>
 	<string name="confirm">确认</string>
 	<string name="order_attention">注意：订单超过24小时，系统会自动取消。请尽快支付！</string>
 	<string name="top">顶部</string>
 	<string name="sucess_goodscar">商品已成功添加入购物车</string>
-	
+	<string name="kouling">秘美令</string>
 </resources>

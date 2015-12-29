@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.widget.ImageView;
 
 import com.hanmimei.R;
-import com.hanmimei.utils.InitImageLoader;
+import com.hanmimei.utils.ImageLoaderUtils;
 /**
  * ImageView创建工厂
  */
@@ -20,7 +20,7 @@ public class ViewFactory {
 	public static ImageView getImageView(Context context, String url) {
 		ImageView imageView = (ImageView)LayoutInflater.from(context).inflate(
 				R.layout.view_banner, null);
-		InitImageLoader.initLoader(context).displayImage(url, imageView, InitImageLoader.initOptions());
+		ImageLoaderUtils.initLoader(context).displayImage(url, imageView, ImageLoaderUtils.initOptions());
 		return imageView;
 	}
 }

@@ -51,7 +51,7 @@ import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
-import com.hanmimei.utils.InitImageLoader;
+import com.hanmimei.utils.ImageLoaderUtils;
 import com.hanmimei.utils.PopupWindowUtil;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.BadgeView;
@@ -582,7 +582,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 				} else {
 					num_restrictAmount.setVisibility(View.GONE);
 				}
-				InitImageLoader.loadImage(this, s.getInvImg(), img_hide);
+				ImageLoaderUtils.loadImage(this, s.getInvImg(), img_hide);
 				curPostalTaxRate = s.getPostalTaxRate();
 				curItemPrice = s.getItemPrice();
 				postalStandard = s.getPostalStandard();

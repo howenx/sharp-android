@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.hanmimei.R;
 import com.hanmimei.entity.Sku;
-import com.hanmimei.utils.InitImageLoader;
+import com.hanmimei.utils.ImageLoaderUtils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import android.annotation.SuppressLint;
@@ -27,8 +27,8 @@ public class MyCollectionAdapter extends BaseAdapter {
 	public MyCollectionAdapter(List<Sku> list, Context mContext) {
 		this.data = list;
 		inflater = LayoutInflater.from(mContext);
-		imageLoader = InitImageLoader.initLoader(mContext);
-		options = InitImageLoader.initOptions();
+		imageLoader = ImageLoaderUtils.initLoader(mContext);
+		options = ImageLoaderUtils.initOptions();
 	}
 
 	@Override

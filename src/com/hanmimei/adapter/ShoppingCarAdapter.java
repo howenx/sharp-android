@@ -33,17 +33,13 @@ import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.User;
 import com.hanmimei.utils.HttpUtils;
-import com.hanmimei.utils.InitImageLoader;
+import com.hanmimei.utils.ImageLoaderUtils;
 import com.hanmimei.utils.ShoppingCarMenager;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class ShoppingCarAdapter extends BaseAdapter {
 
 	private LayoutInflater inflater;
 	private List<ShoppingGoods> data;
-	private ImageLoader imageLoader;
-	private DisplayImageOptions imageOptions;
 	private BaseActivity activity;
 	private User user;
 	private Drawable check_Drawable;
@@ -54,8 +50,6 @@ public class ShoppingCarAdapter extends BaseAdapter {
 
 	public ShoppingCarAdapter(List<ShoppingGoods> data, Context mContext) {
 		inflater = LayoutInflater.from(mContext);
-		imageLoader = InitImageLoader.initLoader(mContext);
-		imageOptions = InitImageLoader.initOptions();
 		this.data = data;
 		activity = (BaseActivity) mContext;
 		goodsDao = activity.getDaoSession().getShoppingGoodsDao();
@@ -125,7 +119,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 			holder.checkBox.setImageDrawable(uncheck_Drawable);
 		}
 		// }
-		imageLoader.displayImage(goods.getGoodsImg(), holder.img, imageOptions);
+		ImageLoaderUtils.loadImage(activity, goods.getGoodsImg(), holder.img);
 		holder.name.setText(goods.getGoodsName());
 		holder.size.setText(goods.getItemColor() + "  " + goods.getItemSize());
 		holder.price.setText("¥" + goods.getGoodsPrice());

@@ -5,7 +5,6 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Paint;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +16,6 @@ import android.widget.TextView;
 import com.hanmimei.R;
 import com.hanmimei.entity.HMMGoods;
 import com.hanmimei.utils.CommonUtil;
-import com.hanmimei.utils.InitImageLoader;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.squareup.picasso.Picasso;
 
 public class ThemeAdapter extends BaseAdapter {
