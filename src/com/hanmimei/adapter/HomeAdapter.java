@@ -51,7 +51,7 @@ public class HomeAdapter extends BaseAdapter {
 		}else{
 			holder = (ViewHolder) convertView.getTag();
 		}
-		ImageLoaderUtils.loadImage(activity, holder.img, theme.getThemeImg(), 2, 1);
+		ImageLoaderUtils.loadImage(activity, holder.img, theme.getThemeImg(), theme.getWidth(), theme.getHeight());
 		return convertView;
 	}
 	private class ViewHolder{

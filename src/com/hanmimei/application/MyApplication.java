@@ -31,7 +31,7 @@ public class MyApplication extends Application {
 	    //新浪微博 appkey appsecret
 		PlatformConfig.setSinaWeibo("794664710","0dc274fafeabec336673331c633a115e");
         // QQ和Qzone appid appkey
-		PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba"); 
+		PlatformConfig.setQQZone("1104980747", "eDLFyqWCM2GzdkMB"); 
 	}
 
 	public RequestQueue getRequestQueue() {

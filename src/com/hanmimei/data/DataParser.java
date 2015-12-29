@@ -33,8 +33,16 @@ public class DataParser {
 				JSONObject obj = array.getJSONObject(i);
 				if(obj.has("id"))
 					theme.setItem_id(obj.getInt("id"));
-				if (obj.has("themeImg"))
-					theme.setThemeImg(obj.getString("themeImg"));
+				if (obj.has("themeImg")){
+					String urlResult = obj.getString("themeImg");
+					JSONObject themeObject = new JSONObject(urlResult);
+					if(themeObject.has("url"))
+						theme.setThemeImg(themeObject.getString("url"));
+					if(themeObject.has("width"))
+						theme.setWidth(themeObject.getInt("width"));
+					if(themeObject.has("height"))
+						theme.setHeight(themeObject.getInt("height"));
+				}
 				if (obj.has("themeUrl"))
 					theme.setThemeUrl(obj.getString("themeUrl"));
 				list.add(theme);
@@ -56,8 +64,16 @@ public class DataParser {
 			for (int i = 0; i < array.length(); i++) {
 				JSONObject obj = array.getJSONObject(i);
 				Slider slider = new Slider();
-				if (obj.has("url"))
-					slider.setImgUrl(obj.getString("url"));
+				if (obj.has("url")){
+					String sliderResult = obj.getString("url");
+					JSONObject sliderObject = new JSONObject(sliderResult);
+					if(sliderObject.has("url"))
+						slider.setImgUrl(sliderObject.getString("url"));
+					if(sliderObject.has("width"))
+						slider.setWidth(sliderObject.getInt("width"));
+					if(sliderObject.has("height"))
+						slider.setHeight(sliderObject.getInt("height"));
+				}
 				if (obj.has("itemTarget"))
 					slider.setUrl(obj.getString("itemTarget"));
 				if (obj.has("itemTargetAndroid"))
