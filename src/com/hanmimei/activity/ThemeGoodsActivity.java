@@ -24,6 +24,8 @@ import com.hanmimei.R;
 import com.hanmimei.adapter.ThemeAdapter;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.entity.HMMGoods;
+import com.hanmimei.entity.HMMGoods.ImgInfo;
+import com.hanmimei.entity.HMMGoods.ImgTag;
 import com.hanmimei.entity.HMMThemeGoods;
 import com.hanmimei.manager.BadgeViewManager;
 import com.hanmimei.utils.ActionBarUtil;
@@ -42,12 +44,12 @@ import com.umeng.analytics.MobclickAgent;
 public class ThemeGoodsActivity extends BaseActivity implements OnClickListener {
 
 	private String url;
-	private ThemeAdapter adapter;	//商品适配器
-	private GridView gridView;	//
-	private List<HMMGoods> data;//显示的商品数据
-	private HMMGoods themeItem;	//主推商品
-	private ImageView img;	//主推商品图片
-	private FrameLayout mframeLayout;	//主推商品容器  添加tag使用
+	private ThemeAdapter adapter; // 商品适配器
+	private GridView gridView; //
+	private List<HMMGoods> data;// 显示的商品数据
+	private HMMGoods themeItem; // 主推商品
+	private ImageView img; // 主推商品图片
+	private FrameLayout mframeLayout; // 主推商品容器 添加tag使用
 	private View cartView;
 
 	@Override
@@ -64,7 +66,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		findView();
 		gridView.setAdapter(adapter);
 		gridView.setFocusable(false);
-		//获取数据
+		// 获取数据
 		loadUrl();
 
 		gridView.setOnItemClickListener(new OnItemClickListener() {
@@ -82,89 +84,91 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 			}
 		});
 	}
-	//初始化view对象
+
+	// 初始化view对象
 	private void findView() {
 		gridView = (GridView) findViewById(R.id.my_grid);
 		img = (ImageView) findViewById(R.id.img);
 		mframeLayout = (FrameLayout) findViewById(R.id.mframeLayout);
 	}
-	//获取显示数据
+
+	// 获取显示数据
 	private void loadUrl() {
 		loadingDialog.show();
-		Http2Utils.doGetRequestTask(this, getHeaders(), url, new VolleyJsonCallback() {
-			
-			@Override
-			public void onSuccess(String result) {
-				loadingDialog.dismiss();
-				// TODO Auto-generated method stub
-				HMMThemeGoods detail = DataParser.parserThemeItem(result);
-				if (detail.getMessage().getCode() ==200) {
-					initThemeView(detail);
-					data.clear();
-					data.addAll(detail.getThemeList());
-					adapter.notifyDataSetChanged();
-				} else {
-					ToastUtils.Toast(getActivity(), detail.getMessage().getMessage());
-				}
-			}
-			
-			@Override
-			public void onError() {
-				loadingDialog.dismiss();
-				ToastUtils.Toast(getActivity(), R.string.error);
-			}
-		});
+		Http2Utils.doGetRequestTask(this, getHeaders(), url,
+				new VolleyJsonCallback() {
+
+					@Override
+					public void onSuccess(String result) {
+						loadingDialog.dismiss();
+						// TODO Auto-generated method stub
+						HMMThemeGoods detail = DataParser
+								.parserThemeItem(result);
+						if (detail.getMessage().getCode() == 200) {
+							initThemeView(detail);
+							data.clear();
+							data.addAll(detail.getThemeList());
+							adapter.notifyDataSetChanged();
+						} else {
+							ToastUtils.Toast(getActivity(), detail.getMessage()
+									.getMessage());
+						}
+					}
+
+					@Override
+					public void onError() {
+						loadingDialog.dismiss();
+						ToastUtils.Toast(getActivity(), R.string.error);
+					}
+				});
 	}
 
-	//初始化主推商品显示
+	// 初始化主推商品显示
 	private void initThemeView(HMMThemeGoods detail) {
-		if(detail.getCartNum() !=null){
-			BadgeViewManager.getInstance().showCartNum(this, cartView, detail.getCartNum());
+		if (detail.getCartNum() != null) {
+			BadgeViewManager.getInstance().showCartNum(this, cartView,
+					detail.getCartNum());
 		}
 		themeItem = detail.getMasterItem();
 		if (themeItem == null)
 			return;
-		Picasso.with(this).load(themeItem.getItemMasterImg()).into(img);
+		ImgInfo info = themeItem.getItemMasterImgForImgInfo();
+		int width = CommonUtil.getScreenWidth(this);
+		int height = CommonUtil.getScreenWidth(this) * info.getHeight() / info.getWidth();
+		
+		Picasso.with(this).load(info.getUrl()).resize(width, height).into(img);
 
-		try {
-			JSONArray array = new JSONArray(themeItem.getMasterItemTag());
-			int width = CommonUtil.getScreenWidth(this);
-			int height = CommonUtil.getScreenWidth(this)*10 /12;
-			View view = null;
-			for (int i = 0; i < array.length(); i++) {
-				JSONObject json = array.getJSONObject(i);
-				if (json.getInt("angle") > 90) {
-					view = getLayoutInflater().inflate(
-							R.layout.panel_biaoqian_180, null);
-				} else {
-					view = getLayoutInflater().inflate(
-							R.layout.panel_biaoqian_0, null);
-				}
-				//整理显示主推商品小标签
-				TextView tag = (TextView) view.findViewById(R.id.tag);
-				ImageView point_b = (ImageView) view.findViewById(R.id.point_b);
-				WaveAnimationUtil.waveAnimation(point_b, 5.0f);
-				FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
-						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-				lp.setMargins(
-						Integer.valueOf((int) (width * json.getDouble("left"))),
-						Integer.valueOf((int) (height * json.getDouble("top"))),
-						0, 0);
-
-				tag.setText(json.getString("name"));
-				view.setOnClickListener(new OnClickListener() {
-					
-					@Override
-					public void onClick(View arg0) {
-						Intent intent = new Intent(getActivity(),
-								GoodsDetailActivity.class);
-						intent.putExtra("url", themeItem.getItemUrlAndroid());
-						startActivity(intent);
-					}
-				});
-				mframeLayout.addView(view, lp);
+		List<ImgTag> tags = themeItem.getMasterItemTagForTag();
+		View view = null;
+		for (ImgTag tag : tags) {
+			if (tag.getAngle() > 90) {
+				view = getLayoutInflater().inflate(R.layout.panel_biaoqian_180,
+						null);
+			} else {
+				view = getLayoutInflater().inflate(R.layout.panel_biaoqian_0,
+						null);
 			}
-		} catch (JSONException e) {
+			// 整理显示主推商品小标签
+			TextView tagView = (TextView) view.findViewById(R.id.tag);
+			ImageView point_b = (ImageView) view.findViewById(R.id.point_b);
+			WaveAnimationUtil.waveAnimation(point_b, 5.0f);
+			FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
+					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+			lp.setMargins(Integer.valueOf((int) (width * tag.getLeft())),
+					Integer.valueOf((int) (height * tag.getTop())), 0, 0);
+
+			tagView.setText(tag.getName());
+			view.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View arg0) {
+					Intent intent = new Intent(getActivity(),
+							GoodsDetailActivity.class);
+					intent.putExtra("url", themeItem.getItemUrlAndroid());
+					startActivity(intent);
+				}
+			});
+			mframeLayout.addView(view, lp);
 		}
 	}
 
@@ -178,16 +182,20 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 			break;
 		}
 	}
-	
+
 	public void onResume() {
-	    super.onResume();
-	    MobclickAgent.onPageStart("ThemeGoodsActivity"); //统计页面(仅有Activity的应用中SDK自动调用，不需要单独写。"SplashScreen"为页面名称，可自定义)
-	    MobclickAgent.onResume(this);          //统计时长
+		super.onResume();
+		MobclickAgent.onPageStart("ThemeGoodsActivity"); // 统计页面(仅有Activity的应用中SDK自动调用，不需要单独写。"SplashScreen"为页面名称，可自定义)
+		MobclickAgent.onResume(this); // 统计时长
 	}
+
 	public void onPause() {
-	    super.onPause();
-	    MobclickAgent.onPageEnd("ThemeGoodsActivity"); // （仅有Activity的应用中SDK自动调用，不需要单独写）保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息。"SplashScreen"为页面名称，可自定义
-	    MobclickAgent.onPause(this);
+		super.onPause();
+		MobclickAgent.onPageEnd("ThemeGoodsActivity"); // （仅有Activity的应用中SDK自动调用，不需要单独写）保证
+														// onPageEnd 在onPause
+														// 之前调用,因为 onPause
+														// 中会保存信息。"SplashScreen"为页面名称，可自定义
+		MobclickAgent.onPause(this);
 	}
 
 }

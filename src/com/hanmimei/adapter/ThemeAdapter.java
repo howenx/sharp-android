@@ -69,7 +69,7 @@ public class ThemeAdapter extends BaseAdapter {
 		params.height = viewWidth - 10;
 		params.width = viewWidth -10;
 		holder.img.setLayoutParams(params);
-		Picasso.with(activity).load(theme.getItemImg()).into(holder.img);
+		Picasso.with(activity).load(theme.getItemImgForImgInfo().getUrl()).into(holder.img);
 		holder.title.setText(theme.getItemTitle());
 		holder.area.setText(theme.getInvAreaNm());
 		holder.price.setText(activity.getResources().getString(R.string.price, theme.getItemPrice()));
