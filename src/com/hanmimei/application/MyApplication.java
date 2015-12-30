@@ -1,15 +1,14 @@
 package com.hanmimei.application;
 
+import android.app.Application;
+
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.Volley;
 import com.hanmimei.dao.DaoMaster;
-import com.hanmimei.dao.DaoSession;
 import com.hanmimei.dao.DaoMaster.DevOpenHelper;
+import com.hanmimei.dao.DaoSession;
 import com.hanmimei.entity.User;
 import com.umeng.socialize.PlatformConfig;
-
-import android.app.Application;
 
 public class MyApplication extends Application {
 	private DaoMaster daoMaster;

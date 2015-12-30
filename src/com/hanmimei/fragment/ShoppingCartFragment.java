@@ -141,8 +141,7 @@ public class ShoppingCartFragment extends Fragment implements OnClickListener,
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				String result = HttpUtils.post(
-						"http://172.28.3.18:9003/client/cart/get/sku/list",
+				String result = HttpUtils.post(UrlUtil.CAR_LIST_URL,
 						array, "null", "");
 				ShoppingCar car = DataParser.parserShoppingCar(result);
 				Message msg = mHandler.obtainMessage(1);

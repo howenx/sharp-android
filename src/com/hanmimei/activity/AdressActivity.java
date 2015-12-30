@@ -93,6 +93,7 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 	};
 
 	private void loadData() {
+		getLoading().show();
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -187,6 +188,7 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 			super.handleMessage(msg);
 			switch (msg.what) {
 			case 1:
+				getLoading().dismiss();
 				List<HMMAddress> list = (List<HMMAddress>) msg.obj;
 				if (list != null && list.size() > 0) {
 					data.clear();
@@ -198,8 +200,9 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 			case 2:
 				Result result = (Result) msg.obj;
 				if (result.getCode() == 200) {
-					data.remove(index);
-					adapter.notifyDataSetChanged();
+					loadData();
+//					data.remove(index);
+//					adapter.notifyDataSetChanged();
 				}
 				break;
 			default:

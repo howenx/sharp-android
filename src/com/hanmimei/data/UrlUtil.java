@@ -31,6 +31,8 @@ public class UrlUtil {
 	public static final String UPDATE_USERINFO = SERVERY4 + "/api/user/update";
 	//登录状态请求购物车数据接口
 	public static final String GET_CAR_LIST_URL = SERVERY1 + "/client/cart";
+	
+	public static final String CAR_LIST_URL = SERVERY1 + "/client/cart/get/sku/list";
 	//未登录状态请求购物车数据
 	public static final String SEND_CAR_TO_SERVER_UN = SERVERY1 + "/client/cart/verify/amount/";
 	//用户登录接口

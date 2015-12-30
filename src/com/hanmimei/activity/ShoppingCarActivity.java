@@ -32,6 +32,7 @@ import com.hanmimei.adapter.ShoppingCarPullListAdapter;
 import com.hanmimei.dao.ShoppingGoodsDao;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
+import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.Customs;
 import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
@@ -53,6 +54,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 	private TextView pay;
 	private TextView attention;
 	private LinearLayout no_data;
+	private LinearLayout no_net;
 	private List<Customs> data;
 	private ShoppingCarPullListAdapter adapter;
 	private User user;
@@ -123,12 +125,11 @@ public class ShoppingCarActivity extends BaseActivity implements
 	}
 
 	private void getData() {
+		getLoading().show();
 		new Thread(new Runnable() {
-
 			@Override
 			public void run() {
-				String result = HttpUtils.post(
-						"http://172.28.3.18:9003/client/cart/get/sku/list",
+				String result = HttpUtils.post(UrlUtil.CAR_LIST_URL,
 						array, "null", "");
 				ShoppingCar car = DataParser.parserShoppingCar(result);
 				Message msg = mHandler.obtainMessage(1);
@@ -139,12 +140,12 @@ public class ShoppingCarActivity extends BaseActivity implements
 	}
 
 	private void getNetData() {
+		getLoading().show();
 		new Thread(new Runnable() {
 
 			@Override
 			public void run() {
-				String result = HttpUtils.post(
-						"http://172.28.3.18:9003/client/cart",
+				String result = HttpUtils.post(UrlUtil.GET_CAR_LIST_URL,
 						new JSONObject(), "id-token", user.getToken());
 				ShoppingCar car = DataParser.parserShoppingCar(result);
 				Message msg = mHandler.obtainMessage(1);
@@ -161,36 +162,50 @@ public class ShoppingCarActivity extends BaseActivity implements
 			super.handleMessage(msg);
 			switch (msg.what) {
 			case 1:
-				ShoppingCar car = (ShoppingCar) msg.obj;
-				if (car.getList() != null && car.getList().size() > 0) {
-					no_data.setVisibility(View.GONE);
-					bottom.setVisibility(View.VISIBLE);
-					mListView.setVisibility(View.VISIBLE);
-					data.clear();
-					data.addAll(car.getList());
-					//
-					ShoppingCarMenager.getInstance().initShoppingCarMenager(
-							ShoppingCarActivity.this, adapter, data, false,
-							attention, check_all, total_price, pay, no_data,
-							bottom);
-					ShoppingCarMenager.getInstance()
-							.initDrawable(getActivity());
-
-					clearPrice();
-					//
-					adapter.notifyDataSetChanged();
+				getLoading().dismiss();
+				mListView.onRefreshComplete();
+				ShoppingCar car = new ShoppingCar();
+				car = (ShoppingCar) msg.obj;
+				if (car.getMessage() != null) {
+					if (car.getList() != null && car.getList().size() > 0) {
+						no_data.setVisibility(View.GONE);
+						no_net.setVisibility(View.GONE);
+						bottom.setVisibility(View.VISIBLE);
+						mListView.setVisibility(View.VISIBLE);
+						data.clear();
+						data.addAll(car.getList());
+						//
+						ShoppingCarMenager.getInstance()
+								.initShoppingCarMenager(ShoppingCarActivity.this, adapter,
+										data, false, attention, check_all,
+										total_price, pay, no_data, bottom);
+						ShoppingCarMenager.getInstance().initDrawable(
+								getActivity());
+						clearPrice();
+						//
+						adapter.notifyDataSetChanged();
+					} else {
+						bottom.setVisibility(View.GONE);
+						mListView.setVisibility(View.GONE);
+						if(car.getMessage().getCode() == 1010){
+							no_data.setVisibility(View.VISIBLE);
+							no_net.setVisibility(View.GONE);
+						}else{
+							no_data.setVisibility(View.GONE);
+							no_net.setVisibility(View.VISIBLE);
+						}
+					}
 				} else {
 					bottom.setVisibility(View.GONE);
-					no_data.setVisibility(View.VISIBLE);
 					mListView.setVisibility(View.GONE);
+					no_data.setVisibility(View.GONE);
+					no_net.setVisibility(View.VISIBLE);
 				}
 				break;
-
 			default:
 				break;
 			}
 		}
-
 	};
 
 	private void findView() {
@@ -209,6 +224,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 		attention = (TextView) findViewById(R.id.attention);
 		mListView = (PullToRefreshListView) findViewById(R.id.mylist);
 		no_data = (LinearLayout) findViewById(R.id.data_null);
+		no_net = (LinearLayout) findViewById(R.id.no_net);
 		findViewById(R.id.top).setVisibility(View.VISIBLE);
 		findViewById(R.id.back).setVisibility(View.VISIBLE);
 		findViewById(R.id.back).setOnClickListener(this);
