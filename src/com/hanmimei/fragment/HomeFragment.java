@@ -120,7 +120,7 @@ public class HomeFragment extends Fragment implements
 		getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
 		int screenWidth = dm.widthPixels;
 		int width = screenWidth;
-		int height = width / 3;
+		int height = width * 2 /5 ;
 		AbsListView.LayoutParams lp = new AbsListView.LayoutParams(width, height);
 		header_linear.setLayoutParams(lp);
 		

@@ -612,7 +612,7 @@ public class GoodsDetailActivity extends BaseActivity implements
             public NetworkImageHolderView createHolder() {
                 return new NetworkImageHolderView();
             }
-        },networkImages).setPageIndicator(new int[]{R.drawable.ic_page_indicator, R.drawable.ic_page_indicator_focused});
+        },networkImages).setPageIndicator(new int[]{R.drawable.page_indicator, R.drawable.page_indicator_fcoused});
 	}
 
 

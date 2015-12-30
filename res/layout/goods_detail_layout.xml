@@ -165,7 +165,7 @@
                                 android:drawablePadding="7dp"
                                 android:drawableRight="@drawable/icon_help"
                                 android:gravity="center_vertical"
-                                android:text="稅费" />
+                                android:text="税费" />
                         </LinearLayout>
 
                         <TextView
@@ -342,13 +342,15 @@
                     android:textSize="13sp" />
             </RadioGroup>
 
-            <ImageView
+            <com.hanmimei.view.RoundImageView
                 android:id="@+id/img_hide"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:contentDescription="@null"
+                app:border_width="1px"
+                app:border_color="@color/huise"
                 android:visibility="invisible" />
 
             <include
