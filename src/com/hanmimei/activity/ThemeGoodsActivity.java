@@ -109,9 +109,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 								.parserThemeItem(result);
 						if (detail.getMessage().getCode() == 200) {
 							initThemeView(detail);
-							data.clear();
-							data.addAll(detail.getThemeList());
-							adapter.notifyDataSetChanged();
+							
 						} else {
 							findViewById(R.id.no_net).setVisibility(View.VISIBLE);
 							ToastUtils.Toast(getActivity(), detail.getMessage()
@@ -175,6 +173,9 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 			});
 			mframeLayout.addView(view, lp);
 		}
+		data.clear();
+		data.addAll(detail.getThemeList());
+		adapter.notifyDataSetChanged();
 	}
 
 	@Override

@@ -1,6 +1,6 @@
 package com.hanmimei.activity;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -10,9 +10,7 @@ import android.widget.TextView;
 
 import com.hanmimei.R;
 import com.hanmimei.adapter.GoodsDetailImgPagerAdapter;
-import com.hanmimei.entity.HMMGoods.ImgInfo;
 import com.hanmimei.listener.GoodsPageChangeListener;
-import com.hanmimei.view.NetworkImageHolderView.ImgInfos;
 import com.umeng.analytics.MobclickAgent;
 
 public class GoodsDetailImgActivity extends BaseActivity implements OnClickListener {
@@ -20,8 +18,7 @@ public class GoodsDetailImgActivity extends BaseActivity implements OnClickListe
 	private ViewPager mViewPager;
 	private TextView pageNum;
 
-	private ImgInfos imgUrls;
-	private ArrayList<ImgInfo> imgInfos;
+	private List<String> imgUrls;
 	private int position = 0;
 
 	@Override
@@ -29,22 +26,21 @@ public class GoodsDetailImgActivity extends BaseActivity implements OnClickListe
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.good_detail_img_layout);
 
-		imgUrls = (ImgInfos) getIntent().getSerializableExtra("imgUrls");
-		imgInfos = imgUrls.getList();
+		imgUrls = getIntent().getStringArrayListExtra("imgUrls");
 		position = getIntent().getIntExtra("position", 0);
 
 		mViewPager = (ViewPager) findViewById(R.id.mViewPager);
 		findViewById(R.id.btn_back).setOnClickListener(this);
 		pageNum = (TextView) findViewById(R.id.pageNum);
 
-		pageNum.setText((position+1) + "/" + imgInfos.size());
-		mViewPager.setAdapter(new GoodsDetailImgPagerAdapter(this, imgInfos));
+		pageNum.setText((position+1) + "/" + imgUrls.size());
+		mViewPager.setAdapter(new GoodsDetailImgPagerAdapter(this, imgUrls));
 		mViewPager.setCurrentItem(position);
 		mViewPager.addOnPageChangeListener(new GoodsPageChangeListener() {
 
 			@Override
 			public void onPageSelected(int arg0) {
-				pageNum.setText((arg0 + 1) + "/" + imgInfos.size());
+				pageNum.setText((arg0 + 1) + "/" + imgUrls.size());
 			}
 
 		});

@@ -92,17 +92,17 @@ public class ImageLoaderUtils {
 	 * @param w   宽度
 	 * @param h	高度比例
 	 */
-	public static void loadImage(Activity activity, ImageView imgView, String url,
+	public static void loadImage(Context mContext, ImageView imgView, String url,
 			int w, int h) {
 		// 图片的比例适配
 		DisplayMetrics dm = new DisplayMetrics();
-		activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+		((Activity) mContext).getWindowManager().getDefaultDisplay().getMetrics(dm);
 		int screenWidth = dm.widthPixels;
 		android.view.ViewGroup.LayoutParams params;
 		params = imgView.getLayoutParams();
 		params.height = screenWidth * h / w;
 		params.width = screenWidth;
 		imgView.setLayoutParams(params);
-		loadImage(activity, url, imgView);
+		loadImage(mContext, url, imgView);
 	}
 }

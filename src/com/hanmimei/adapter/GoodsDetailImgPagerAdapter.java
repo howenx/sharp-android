@@ -27,7 +27,7 @@ public class GoodsDetailImgPagerAdapter extends PagerAdapter {
 
 	@SuppressLint("InflateParams")
 	public GoodsDetailImgPagerAdapter(Context mContext,
-			final ArrayList<ImgInfo> imgUrls) {
+			final List<String> imgUrls) {
 		datas = new ArrayList<View>();
 		View v = null;
 		final BaseActivity mActivity = (BaseActivity) mContext;
@@ -35,7 +35,7 @@ public class GoodsDetailImgPagerAdapter extends PagerAdapter {
 		for (int i = 0; i < imgUrls.size(); i++) {
 			v = mInflater.inflate(R.layout.good_detail_img_item_layout, null);
 			com.hanmimei.view.DragImageView imageView = (com.hanmimei.view.DragImageView) v.findViewById(R.id.mImageView);
-			ImageLoaderUtils.loadImage(mContext,imgUrls.get(i).getUrl(), imageView);
+			ImageLoaderUtils.loadImage(mContext,imgUrls.get(i), imageView);
 			this.datas.add(v);
 		}
 	}

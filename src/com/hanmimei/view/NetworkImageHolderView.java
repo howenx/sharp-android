@@ -33,32 +33,19 @@ public class NetworkImageHolderView implements CBPageAdapter.Holder<ImgInfo>{
     public void UpdateUI(final Context context,List<ImgInfo> datas, final int position, ImgInfo data) {
         imageView.setImageResource(R.drawable.ic_launcher);
         ImageLoaderUtils.loadImage(context,data.getUrl(),imageView);
-        final ArrayList<ImgInfo> list = new ArrayList<ImgInfo>(datas);
+        final ArrayList<String> list = new ArrayList<String>();
+        for(ImgInfo info :datas){
+        	list.add(info.getUrl());
+        }
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //点击事件
                 Intent intent = new Intent(context, GoodsDetailImgActivity.class);
-                ImgInfos infos= new ImgInfos();
-                infos.setList(list);
-                intent.putExtra("imgUrls", infos);
+                intent.putExtra("imgUrls", list);
                 intent.putExtra("position", position);
                 context.startActivity(intent);
             }
         });
-    }
-    
-    public class ImgInfos implements Serializable{
-    	/**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
-		private ArrayList<ImgInfo> list;
-		public ArrayList<ImgInfo> getList() {
-			return list;
-		}
-		public void setList(ArrayList<ImgInfo> list) {
-			this.list = list;
-		}
     }
 }

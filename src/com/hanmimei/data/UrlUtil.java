@@ -13,6 +13,11 @@ public class UrlUtil {
 	public static final String SERVERY1 = "https://shopping.hanmimei.com";	// 18:9003
 	public static final String SERVERY4 = "https://id.hanmimei.com";	// 18:9004
 	
+	//公网地址
+//		public static final String SERVERY3 = "http://172.28.3.18:9001";	//  18:9001
+//		public static final String SERVERY1 = "http://172.28.3.51:9003";	// 18:9003
+//		public static final String SERVERY4 = "http://172.28.3.51:9004";	// 18:9004
+	
 	//主页数据接口
 	public static final String HOME_LIST_URL = SERVERY3 + "/index/";
 	//地址列表接口

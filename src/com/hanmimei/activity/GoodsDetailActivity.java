@@ -397,7 +397,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 				if(s.getState().equals("Y")){
 					sgoods = new ShoppingGoods();
 					sgoods.setGoodsId(s.getId());
-					sgoods.setGoodsImg(s.getInvImg());
+					sgoods.setGoodsImg(s.getInvImgForObj().getUrl());
 					sgoods.setGoodsName(s.getInvTitle());
 					sgoods.setGoodsNums(1);
 					sgoods.setGoodsPrice(s.getItemPrice());
@@ -591,7 +591,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 				} else {
 					num_restrictAmount.setVisibility(View.GONE);
 				}
-				ImageLoaderUtils.loadImage(this, s.getInvImg(), img_hide);
+				ImageLoaderUtils.loadImage(this, s.getInvImgForObj().getUrl(), img_hide);
 				curPostalTaxRate = s.getPostalTaxRate();
 				curItemPrice = s.getItemPrice();
 				postalStandard = s.getPostalStandard();
