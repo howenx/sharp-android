@@ -10,8 +10,8 @@
         layout="@layout/main_header_layout"/>
     <LinearLayout 
         android:layout_marginTop="50dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -25,7 +25,7 @@
             android:gravity="center"/>
         <EditText 
             android:id="@+id/phone_num"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="10dp"
             android:inputType="number"
             android:hint="请输入手机号"
             style="@style/login_edit_style"
@@ -36,8 +36,8 @@
     </LinearLayout>
      <LinearLayout 
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -51,31 +51,33 @@
             android:gravity="center"/>
         <EditText 
             android:id="@+id/yanzheng"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="10dp"
             android:inputType="number|textCapCharacters"
             android:hint="请输入6位短信验证码"
             style="@style/login_edit_style"
             android:layout_height="wrap_content"
             android:layout_width="0dp"
-            android:layout_weight="7"
+            android:layout_weight="6"
             android:background="@drawable/edit_input_bg"/>
-        <TextView 
-            android:id="@+id/get_yanzheng"
+        
+        <com.hanmimei.view.YanZhengCodeTextView
+       	 	 android:id="@+id/get_yanzheng"
             android:paddingTop="3dp"
             android:paddingBottom="3dp"
             android:layout_height="wrap_content"
             android:layout_width="0dp"
-            android:layout_weight="3"
+            android:layout_weight="4"
             android:layout_marginLeft="10dp"
             android:text="获取验证码"
             android:textSize="14sp"
             android:textColor="@color/white"
             android:background="@drawable/theme_button_bg"
-            android:gravity="center"/>
+            android:gravity="center" /> 
+
     </LinearLayout>
     <LinearLayout 
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -91,7 +93,7 @@
             android:gravity="center"/>
         <EditText 
             android:id="@+id/pwd"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="10dp"
             android:paddingTop="5dp"
             style="@style/login_edit_style"
             android:hint="请输入6-20位密码"

@@ -12,6 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -42,6 +43,7 @@ import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.User;
+import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.DateUtil;
 import com.hanmimei.utils.HasSDCardUtil;
 import com.hanmimei.utils.HttpUtils;
@@ -72,6 +74,7 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 	
 	private User oldUser;
 	private JSONObject object;
+	private ProgressDialog dialog;
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -139,6 +142,8 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 	
 	//更新用户信息到服务器
 	private void UpUserInfo() {
+		dialog = CommonUtil.dialog(this, "正在修改，请稍后...");
+		dialog.show();
 		toObject();
 		new Thread(new Runnable() {
 			@Override
@@ -172,6 +177,7 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 			super.handleMessage(msg);
 			switch (msg.what) {
 			case 1:
+				dialog.dismiss();
 				HMessage hm = (HMessage) msg.obj;
 				if(hm.getCode() != null){
 				if(hm.getCode() == 200){

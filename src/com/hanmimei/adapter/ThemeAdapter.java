@@ -28,7 +28,7 @@ public class ThemeAdapter extends BaseAdapter {
 		this.data = data;
 		activity = (Activity) mContext;
 		inflater = LayoutInflater.from(mContext);
-//		 图片的比例适配
+//		图片的比例适配
 		viewWidth = CommonUtil.getScreenWidth(mContext)/2;
 	}
 	@Override
@@ -88,7 +88,7 @@ public class ThemeAdapter extends BaseAdapter {
 		private TextView title;
 		private TextView price;
 		private TextView old_price;
-		private TextView discount;
+//		private TextView discount;
 		private TextView area;
 	}
 
