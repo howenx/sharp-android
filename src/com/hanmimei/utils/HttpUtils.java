@@ -141,9 +141,7 @@ public class HttpUtils {
 					result.append(new String(buffer, 0, len));
 				}
 			}
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			// 网络连接有问题
 			e.printStackTrace();
 		} finally {
