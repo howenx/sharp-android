@@ -67,7 +67,6 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 				TAB_MY, AboutMyFragment.class);
 		registerReceivers();
 		application = getMyApplication();
-		application.setKouling("hanmimei");
 	}
 
 	@Override

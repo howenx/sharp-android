@@ -262,7 +262,6 @@ public class BaseActivity extends AppCompatActivity {
 	    	}
 			isFirst = false;
 		}
-//	    MobclickAgent.onResume(this);          //统计时长
 	   
 	}
 	private void loadData() {
