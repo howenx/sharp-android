@@ -6,17 +6,10 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
-import com.hanmimei.R;
-import com.hanmimei.data.DataParser;
-import com.hanmimei.data.UrlUtil;
-import com.hanmimei.entity.Result;
-import com.hanmimei.utils.CommonUtil;
-import com.hanmimei.utils.HttpUtils;
-import com.umeng.analytics.MobclickAgent;
-
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -27,15 +20,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hanmimei.R;
+import com.hanmimei.activity.listener.TimeEndListner;
+import com.hanmimei.data.DataParser;
+import com.hanmimei.data.UrlUtil;
+import com.hanmimei.entity.Result;
+import com.hanmimei.utils.CommonUtil;
+import com.hanmimei.utils.HttpUtils;
+import com.hanmimei.view.YanZhengCodeTextView;
+import com.umeng.analytics.MobclickAgent;
+
 @SuppressLint("NewApi") 
-public class RegistActivity extends BaseActivity implements OnClickListener{
+public class RegistActivity extends BaseActivity implements OnClickListener,TimeEndListner{
 
 	private TextView header;
 	private ImageView back;
 	private EditText phone_edit;
 	private EditText yanzheng_edit;
 	private EditText pwd_edit;
-	private TextView get_yanzheng;
+	private YanZhengCodeTextView get_yanzheng;
 	private TextView regist;
 	
 	private String phone;
@@ -47,7 +50,6 @@ public class RegistActivity extends BaseActivity implements OnClickListener{
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.regist_layout);
-//		getActionBar().hide();
 		initView();
 	}
 	private void initView() {
@@ -58,8 +60,9 @@ public class RegistActivity extends BaseActivity implements OnClickListener{
 		back.setOnClickListener(this);
 		phone_edit = (EditText) findViewById(R.id.phone_num);
 		yanzheng_edit = (EditText) findViewById(R.id.yanzheng);
-		get_yanzheng = (TextView) findViewById(R.id.get_yanzheng);
+		get_yanzheng = (YanZhengCodeTextView) findViewById(R.id.get_yanzheng);
 		get_yanzheng.setOnClickListener(this);
+		get_yanzheng.setTimeEndListner(this);
 		pwd_edit = (EditText) findViewById(R.id.pwd);
 		regist = (TextView) findViewById(R.id.regist);
 		regist.setOnClickListener(this);
@@ -122,6 +125,13 @@ public class RegistActivity extends BaseActivity implements OnClickListener{
 		}).start();
 	}
 	private void getYanZheng() {
+		//验证码倒计时，不可点击
+		get_yanzheng.setClickable(false);
+		Drawable background = getResources().getDrawable(R.drawable.huise_button_bg);
+		get_yanzheng.setBackground(background);
+		get_yanzheng.setTimes(60);
+		get_yanzheng.beginRun();
+		//加密
 		msg = CommonUtil.md5(phone + "hmm");
 		new Thread(new Runnable() {
 			@Override
@@ -157,6 +167,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener{
 				}
 				break;
 			case 2:
+				
 				Result code_result = (Result) msg.obj;
 				if(code_result.isSuccess() == true){
 					Toast.makeText(RegistActivity.this, code_result.getMessage(), Toast.LENGTH_SHORT).show();
@@ -172,6 +183,13 @@ public class RegistActivity extends BaseActivity implements OnClickListener{
 		}
 		
 	};
+	@Override
+	public void isTimeEnd() {
+		
+		get_yanzheng.setClickable(true);
+		Drawable background = getResources().getDrawable(R.drawable.theme_button_bg);
+		get_yanzheng.setBackground(background);
+	}
 	
 	public void onResume() {
 	    super.onResume();

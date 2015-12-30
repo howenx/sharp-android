@@ -6,20 +6,18 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-public class TimerTextView extends TextView implements Runnable{  
+public class YanZhengCodeTextView extends TextView implements Runnable{  
     
 	private TimeEndListner timeEndListner;
-    public TimerTextView(Context context, AttributeSet attrs) {  
+    public YanZhengCodeTextView(Context context, AttributeSet attrs) {  
         super(context, attrs);  
         // TODO Auto-generated constructor stub  
     }  
   
-    private long  mhour, mmin, msecond;//天，小时，分钟，秒  
+    private int  msecond;//天，小时，分钟，秒  
     private boolean run=false; //是否启动了  
-    public void setTimes(long[] times) {   
-        mhour = times[0];  
-        mmin = times[1];  
-        msecond = times[2];  
+    public void setTimes(int times) {     
+        msecond = times;  
   
     }  
   
@@ -29,25 +27,7 @@ public class TimerTextView extends TextView implements Runnable{
     private void ComputeTime() {  
         msecond--;  
         if (msecond < 0) {  
-            mmin--; 
-            if(mhour == 0 && mmin < 0){
             	msecond = 0;
-            }else{
-
-    			msecond = 59;
-            }  
-            if (mmin < 0) {
-                mhour--;  
-            	if(mhour < 0){
-            		mmin = 0;
-            	}else{
-                    mmin = 59;  
-            	}
-                if (mhour < 0) {  
-                    // 倒计时结束，一天有24个小时  
-                    mhour = 0;    
-                }  
-            }  
         }  
       
     }  
@@ -73,10 +53,10 @@ public class TimerTextView extends TextView implements Runnable{
             ComputeTime();  
             String strTime;
             if(isEnd()){
-            	strTime = "订单已超过24小时，系统已自动取消！";  
+            	strTime = "获取验证码";  
             	timeEndListner.isTimeEnd();
             }else{
-            	strTime= "倒计时：" + mhour+"小时:"+ mmin+"分钟:"+msecond+"秒";  
+            	strTime= "获取验证码" + msecond +"s";  
             }
             this.setText(strTime);  
             postDelayed(this, 1000);  
@@ -85,7 +65,7 @@ public class TimerTextView extends TextView implements Runnable{
         }  
     }  
     private boolean isEnd(){
-    	if(mhour <= 0 && mmin <= 0&& msecond <= 0){
+    	if(msecond <= 0){
     		return true;
     	}else{
         	return false;
