@@ -1,5 +1,6 @@
 package com.hanmimei.entity;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -58,7 +59,7 @@ public class HMMGoods {
 		return new Gson().fromJson(masterItemTag, new TypeToken<List<ImgTag>>(){}.getType());
 	}
 	
-	public class ImgInfo{
+	public class ImgInfo implements Serializable{
 		private String url;
 		private int width;
 		private int height;

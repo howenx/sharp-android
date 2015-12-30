@@ -8,7 +8,7 @@ import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.hanmimei.utils.ToastUtils;
+import com.hanmimei.entity.HMMGoods.ImgInfo;
 
 public class GoodsDetail {
 	private Main main;
@@ -242,7 +242,20 @@ public class GoodsDetail {
 		private Integer postalStandard;// 关税收费标准
 		
 		
+		public ImgInfo getInvImgForObj(){
+			return new Gson().fromJson(invImg, ImgInfo.class);
+		}
+		public String getInvImg(){
+			return invImg;
+		}
+		
+		public ArrayList<ImgInfo> getItemPreviewImgsForList(){
+			return new Gson().fromJson(itemPreviewImgs, new TypeToken<ArrayList<ImgInfo>>(){}.getType());
+		}
 
+		public String getItemPreviewImgs() {
+			return itemPreviewImgs;
+		}
 		public String getInvAreaNm() {
 			return invAreaNm;
 		}
@@ -320,20 +333,11 @@ public class GoodsDetail {
 			this.invArea = invArea;
 		}
 
-		public String getInvImg() {
-			return invImg;
-		}
 
 		public void setInvImg(String invImg) {
 			this.invImg = invImg;
 		}
 
-		public List<String> getItemPreviewImgs() {
-			List<String> result = new Gson().fromJson(itemPreviewImgs,
-					new TypeToken<List<String>>() {
-					}.getType());
-			return result;
-		}
 
 		public void setItemPreviewImgs(String itemPreviewImgs) {
 			this.itemPreviewImgs = itemPreviewImgs;

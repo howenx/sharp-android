@@ -256,7 +256,6 @@ public class BaseActivity extends AppCompatActivity {
 	    	if(!TextUtils.isEmpty(cbm.getText())){
 	    		if(cbm.getText().toString().trim().equals("hanmimei")){
 					cbm.setText("");
-//					showKouLing();
 					loadData();
 					application.setKouling("");
 				}	

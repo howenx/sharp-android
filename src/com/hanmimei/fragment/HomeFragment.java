@@ -219,7 +219,7 @@ public class HomeFragment extends Fragment implements
 				mActivity.getLoading().dismiss();
 				mListView.onRefreshComplete();
 				List<Theme> list = (List<Theme>) msg.obj;
-				if (list != null && list.size() > 0) {
+				if ((list != null && list.size() > 0) || (sliders_temp.size() > 0 && sliders_temp != null)) {
 					mListView.setVisibility(View.VISIBLE);
 					no_net.setVisibility(View.GONE);
 					sliderDao.deleteAll();

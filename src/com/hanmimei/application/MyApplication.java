@@ -21,7 +21,7 @@ public class MyApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		queue = Volley.newRequestQueue(this,new HurlStack());
+		queue = Volley.newRequestQueue(this);
 		initPlatformConfig();
 	}
 	

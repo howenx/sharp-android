@@ -90,6 +90,8 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		gridView = (GridView) findViewById(R.id.my_grid);
 		img = (ImageView) findViewById(R.id.img);
 		mframeLayout = (FrameLayout) findViewById(R.id.mframeLayout);
+		
+		findViewById(R.id.reload).setOnClickListener(this);
 	}
 
 	// 获取显示数据
@@ -101,6 +103,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 					@Override
 					public void onSuccess(String result) {
 						loadingDialog.dismiss();
+						findViewById(R.id.no_net).setVisibility(View.GONE);
 						// TODO Auto-generated method stub
 						HMMThemeGoods detail = DataParser
 								.parserThemeItem(result);
@@ -110,6 +113,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 							data.addAll(detail.getThemeList());
 							adapter.notifyDataSetChanged();
 						} else {
+							findViewById(R.id.no_net).setVisibility(View.VISIBLE);
 							ToastUtils.Toast(getActivity(), detail.getMessage()
 									.getMessage());
 						}
@@ -118,6 +122,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 					@Override
 					public void onError() {
 						loadingDialog.dismiss();
+						findViewById(R.id.no_net).setVisibility(View.VISIBLE);
 						ToastUtils.Toast(getActivity(), R.string.error);
 					}
 				});
@@ -177,6 +182,9 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		switch (v.getId()) {
 		case R.id.setting:
 			startActivity(new Intent(this, ShoppingCarActivity.class));
+			break;
+		case R.id.reload:
+			loadUrl();
 			break;
 		default:
 			break;

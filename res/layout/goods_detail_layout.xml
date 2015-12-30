@@ -1,405 +1,414 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical" >
+    android:background="@color/white" >
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" >
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
 
-        <com.hanmimei.view.CustomScrollView
-            android:id="@+id/mScrollView"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="0dp"
+            android:layout_weight="1" >
 
-            <LinearLayout
+            <com.hanmimei.view.CustomScrollView
+                android:id="@+id/mScrollView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#ECECEC"
-                android:orientation="vertical" >
+                android:layout_height="match_parent" >
 
                 <LinearLayout
-                    android:id="@+id/pager_header"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="#ECECEC"
                     android:orientation="vertical" >
 
-                    <FrameLayout
-                        android:id="@+id/viewpager_content"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" >
-
-                        <com.bigkoo.convenientbanner.ConvenientBanner
-                            android:id="@+id/slider"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
-                    </FrameLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1px"
-                        android:background="#CCCCCC" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1px"
-                        android:background="#CCCCCC" />
-
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:orientation="horizontal"
-                        android:padding="8dp" >
-
-                        <TextView
-                            android:id="@+id/discount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/theme"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/itemTitle"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-                            android:textColor="#AA000000"
-                            android:textSize="14sp" />
-                        
-                        <View 
-                            android:layout_width="1px"
-                            android:layout_height="22dp"
-                            android:layout_marginRight="8dp"
-                            android:layout_marginLeft="8dp"
-                            android:layout_gravity="center_vertical"
-                            android:background="@color/xian"/>
-                        
-                        
-                        <ImageView 
-                            android:id="@+id/btn_collect"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:contentDescription="@null"
-                            
-                            android:layout_gravity="center_vertical"
-                            android:src="@drawable/shoucang_no"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:orientation="horizontal"
-                        android:padding="@dimen/padding_small" >
-
-                        <TextView
-                            android:id="@+id/area"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawableLeft="@drawable/icon_address"
-                            android:gravity="center"
-                            android:textColor="#cccccc"
-                            android:textSize="12sp" />
-
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="1dp"
-                            android:layout_weight="1" />
-
-                        <TextView
-                            android:id="@+id/itemPrice"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@color/white"
-                            android:gravity="right|end"
-                            android:paddingRight="8dp"
-                            android:textColor="@color/red"
-                            android:textSize="@dimen/font_big" />
-
-                        <TextView
-                            android:id="@+id/itemSrcPrice"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@color/white"
-                            android:gravity="right|end"
-                            android:paddingRight="8dp"
-                            android:textColor="#BBBBBB"
-                            android:textSize="@dimen/font_small" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:orientation="horizontal"
-                        android:padding="@dimen/padding_small" >
-
-                        <TextView
-                            android:id="@+id/restrictAmount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:drawableLeft="@drawable/icon_tanhao"
-                            android:gravity="center_vertical"
-                            android:textColor="#cccccc"
-                            android:textSize="@dimen/font_normal"
-                            android:visibility="gone" />
-
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="1dp"
-                            android:layout_weight="1" />
-
-                        <TextView
-                            android:id="@+id/btn_portalFee"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawablePadding="7dp"
-                            android:drawableRight="@drawable/icon_help"
-                            android:gravity="center_vertical"
-                            android:text="稅费" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:background="@color/white"
-                        android:padding="10dp"
-                        android:text="规格"
-                        android:textColor="#000000"
-                        android:textSize="14sp" />
-
-                    <com.hanmimei.view.TagCloudView
-                        android:id="@+id/tagCloudView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        app:tcvBorder="5dp"
-                        app:tcvCanTagClick="false"
-                        app:tcvItemBorderHorizontal="8dp"
-                        app:tcvItemBorderVertical="6dp"
-                        app:tcvSingleLine="false"
-                        app:tcvTextColor="@color/black" />
-
-                    <TextView
-                        android:id="@+id/publicity"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@color/white"
-                        android:padding="10dp"
-                        android:textColor="#FF7F01"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-                <RadioGroup
-                    android:id="@+id/indicator"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@color/white"
-                    android:checkedButton="@+id/guid1"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal" >
-
-                    <RadioButton
-                        android:id="@+id/guid1"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1.0"
-                        android:background="@drawable/radio_btn_bg"
-                        android:button="@null"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="10dp"
-                        android:text="图文详情"
-                        android:textSize="13sp" />
-
-                    <RadioButton
-                        android:id="@+id/guid2"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1.0"
-                        android:background="@drawable/radio_btn_bg"
-                        android:button="@null"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="10dp"
-                        android:text="商品参数"
-                        android:textSize="13sp" />
-
-                    <RadioButton
-                        android:id="@+id/guid3"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1.0"
-                        android:background="@drawable/radio_btn_bg"
-                        android:button="@null"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="10dp"
-                        android:text="热卖商品"
-                        android:textSize="13sp" />
-                </RadioGroup>
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-
-                    <LinearLayout
-                        android:id="@+id/content_img"
+                        android:id="@+id/pager_header"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical" >
 
-                        <TextView
-                            android:id="@+id/notice"
+                        <FrameLayout
+                            android:id="@+id/viewpager_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" >
+
+                            <com.bigkoo.convenientbanner.ConvenientBanner
+                                android:id="@+id/slider"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+                        </FrameLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:background="#CCCCCC" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:background="#CCCCCC" />
+
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@color/white"
-                            android:padding="@dimen/padding_middle"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/font_small" />
+                            android:orientation="horizontal"
+                            android:padding="8dp" >
 
-                        <com.hanmimei.view.TouchWebView
-                            android:id="@+id/mWebView"
+                            <TextView
+                                android:id="@+id/discount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/theme"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/itemTitle"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:textColor="#AA000000"
+                                android:textSize="14sp" />
+
+                            <View
+                                android:layout_width="1px"
+                                android:layout_height="22dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginRight="8dp"
+                                android:background="@color/xian" />
+
+                            <ImageView
+                                android:id="@+id/btn_collect"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:contentDescription="@null"
+                                android:src="@drawable/shoucang_no" />
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/padding_small" >
+
+                            <TextView
+                                android:id="@+id/area"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/icon_address"
+                                android:gravity="center"
+                                android:textColor="#cccccc"
+                                android:textSize="12sp" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="1dp"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:id="@+id/itemPrice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@color/white"
+                                android:gravity="right|end"
+                                android:paddingRight="8dp"
+                                android:textColor="@color/red"
+                                android:textSize="@dimen/font_big" />
+
+                            <TextView
+                                android:id="@+id/itemSrcPrice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@color/white"
+                                android:gravity="right|end"
+                                android:paddingRight="8dp"
+                                android:textColor="#BBBBBB"
+                                android:textSize="@dimen/font_small" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/padding_small" >
+
+                            <TextView
+                                android:id="@+id/restrictAmount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:drawableLeft="@drawable/icon_tanhao"
+                                android:gravity="center_vertical"
+                                android:textColor="#cccccc"
+                                android:textSize="@dimen/font_normal"
+                                android:visibility="gone" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="1dp"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:id="@+id/btn_portalFee"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="7dp"
+                                android:drawableRight="@drawable/icon_help"
+                                android:gravity="center_vertical"
+                                android:text="稅费" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/white"
+                            android:padding="10dp"
+                            android:text="规格"
+                            android:textColor="#000000"
+                            android:textSize="14sp" />
+
+                        <com.hanmimei.view.TagCloudView
+                            android:id="@+id/tagCloudView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            app:tcvBorder="5dp"
+                            app:tcvCanTagClick="false"
+                            app:tcvItemBorderHorizontal="8dp"
+                            app:tcvItemBorderVertical="6dp"
+                            app:tcvSingleLine="false"
+                            app:tcvTextColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/publicity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/white"
+                            android:padding="10dp"
+                            android:textColor="#FF7F01"
+                            android:textSize="14sp" />
                     </LinearLayout>
 
-                    <ListView
-                        android:id="@+id/content_params"
+                    <RadioGroup
+                        android:id="@+id/indicator"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="40dp"
                         android:background="@color/white"
-                        android:visibility="gone" />
+                        android:checkedButton="@+id/guid1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
 
-                    <ListView
-                        android:id="@+id/content_hot"
+                        <RadioButton
+                            android:id="@+id/guid1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1.0"
+                            android:background="@drawable/radio_btn_bg"
+                            android:button="@null"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="10dp"
+                            android:text="图文详情"
+                            android:textSize="13sp" />
+
+                        <RadioButton
+                            android:id="@+id/guid2"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1.0"
+                            android:background="@drawable/radio_btn_bg"
+                            android:button="@null"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="10dp"
+                            android:text="商品参数"
+                            android:textSize="13sp" />
+
+                        <RadioButton
+                            android:id="@+id/guid3"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1.0"
+                            android:background="@drawable/radio_btn_bg"
+                            android:button="@null"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="10dp"
+                            android:text="热卖商品"
+                            android:textSize="13sp" />
+                    </RadioGroup>
+
+                    <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:visibility="gone" />
-                </FrameLayout>
-            </LinearLayout>
-        </com.hanmimei.view.CustomScrollView>
+                        android:layout_height="wrap_content" >
 
-        <RadioGroup
-            android:id="@+id/indicator_hide"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@color/white"
-            android:checkedButton="@+id/guid1_hide"
-            android:orientation="horizontal"
-            android:visibility="gone" >
+                        <LinearLayout
+                            android:id="@+id/content_img"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical" >
 
-            <RadioButton
-                android:id="@+id/guid1_hide"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1.0"
-                android:background="@drawable/radio_btn_bg"
-                android:button="@null"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="10dp"
-                android:text="图文详情"
-                android:textSize="13sp" />
+                            <TextView
+                                android:id="@+id/notice"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/white"
+                                android:padding="@dimen/padding_middle"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/font_small" />
 
-            <RadioButton
-                android:id="@+id/guid2_hide"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1.0"
-                android:background="@drawable/radio_btn_bg"
-                android:button="@null"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="10dp"
-                android:text="商品参数"
-                android:textSize="13sp" />
+                            <com.hanmimei.view.TouchWebView
+                                android:id="@+id/mWebView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
 
-            <RadioButton
-                android:id="@+id/guid3_hide"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1.0"
-                android:background="@drawable/radio_btn_bg"
-                android:button="@null"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="10dp"
-                android:text="热卖商品"
-                android:textSize="13sp" />
-        </RadioGroup>
+                        <ListView
+                            android:id="@+id/content_params"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/white"
+                            android:visibility="gone" />
 
-        <ImageView
-            android:id="@+id/img_hide"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:contentDescription="@null"
-            android:visibility="invisible" />
+                        <ListView
+                            android:id="@+id/content_hot"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:visibility="gone" />
+                    </FrameLayout>
+                </LinearLayout>
+            </com.hanmimei.view.CustomScrollView>
 
-        <include
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_margin="15dp"
-            layout="@layout/back_to_top_layout"
-            android:visibility="gone" />
-    </RelativeLayout>
+            <RadioGroup
+                android:id="@+id/indicator_hide"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/white"
+                android:checkedButton="@+id/guid1_hide"
+                android:orientation="horizontal"
+                android:visibility="gone" >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_gravity="bottom"
-        android:background="@drawable/huise_border"
-        android:orientation="horizontal" >
+                <RadioButton
+                    android:id="@+id/guid1_hide"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.0"
+                    android:background="@drawable/radio_btn_bg"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    android:text="图文详情"
+                    android:textSize="13sp" />
 
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" >
+                <RadioButton
+                    android:id="@+id/guid2_hide"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.0"
+                    android:background="@drawable/radio_btn_bg"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    android:text="商品参数"
+                    android:textSize="13sp" />
+
+                <RadioButton
+                    android:id="@+id/guid3_hide"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.0"
+                    android:background="@drawable/radio_btn_bg"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    android:text="热卖商品"
+                    android:textSize="13sp" />
+            </RadioGroup>
 
             <ImageView
-                android:id="@+id/shopcart"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
+                android:id="@+id/img_hide"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
                 android:contentDescription="@null"
-                android:src="@drawable/icon_gouwuche" />
+                android:visibility="invisible" />
 
-        </FrameLayout>
+            <include
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_margin="15dp"
+                layout="@layout/back_to_top_layout"
+                android:visibility="gone" />
+        </RelativeLayout>
 
-        <TextView
-            android:id="@+id/btn_shopcart"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:background="#434446"
-            android:gravity="center"
-            android:text="加入购物车"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/huise_border"
+            android:orientation="horizontal" >
 
-        <TextView
-            android:id="@+id/btn_pay"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:background="@color/theme"
-            android:gravity="center"
-            android:text="立即购买"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" >
+
+                <ImageView
+                    android:id="@+id/shopcart"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:src="@drawable/icon_gouwuche" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/btn_shopcart"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:background="#434446"
+                android:gravity="center"
+                android:text="加入购物车"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/btn_pay"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:background="@color/theme"
+                android:gravity="center"
+                android:text="立即购买"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+    <include
+        android:id="@+id/no_net"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        layout="@layout/offline_wuxinhao_layout"
+        android:visibility="gone" />
+
+</FrameLayout>

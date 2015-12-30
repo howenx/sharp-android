@@ -1,5 +1,6 @@
 package com.hanmimei.view;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,13 +12,14 @@ import android.widget.ImageView;
 import com.bigkoo.convenientbanner.CBPageAdapter;
 import com.hanmimei.R;
 import com.hanmimei.activity.GoodsDetailImgActivity;
+import com.hanmimei.entity.HMMGoods.ImgInfo;
 import com.hanmimei.utils.ImageLoaderUtils;
 
 /**
  * Created by Sai on 15/8/4.
  * 网络图片加载例子
  */
-public class NetworkImageHolderView implements CBPageAdapter.Holder<String>{
+public class NetworkImageHolderView implements CBPageAdapter.Holder<ImgInfo>{
     private ImageView imageView;
     @Override
     public View createView(Context context) {
@@ -28,19 +30,35 @@ public class NetworkImageHolderView implements CBPageAdapter.Holder<String>{
     }
 
     @Override
-    public void UpdateUI(final Context context,List<String> datas, final int position, String data) {
+    public void UpdateUI(final Context context,List<ImgInfo> datas, final int position, ImgInfo data) {
         imageView.setImageResource(R.drawable.ic_launcher);
-        ImageLoaderUtils.loadImage(context,data,imageView);
-        final ArrayList<String> list = new ArrayList<String>(datas);
+        ImageLoaderUtils.loadImage(context,data.getUrl(),imageView);
+        final ArrayList<ImgInfo> list = new ArrayList<ImgInfo>(datas);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //点击事件
                 Intent intent = new Intent(context, GoodsDetailImgActivity.class);
-                intent.putStringArrayListExtra("imgUrls", list);
+                ImgInfos infos= new ImgInfos();
+                infos.setList(list);
+                intent.putExtra("imgUrls", infos);
                 intent.putExtra("position", position);
                 context.startActivity(intent);
             }
         });
+    }
+    
+    public class ImgInfos implements Serializable{
+    	/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		private ArrayList<ImgInfo> list;
+		public ArrayList<ImgInfo> getList() {
+			return list;
+		}
+		public void setList(ArrayList<ImgInfo> list) {
+			this.list = list;
+		}
     }
 }

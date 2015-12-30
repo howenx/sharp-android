@@ -42,6 +42,7 @@ import com.hanmimei.entity.Customs;
 import com.hanmimei.entity.GoodsDetail;
 import com.hanmimei.entity.GoodsDetail.Main;
 import com.hanmimei.entity.GoodsDetail.Stock;
+import com.hanmimei.entity.HMMGoods.ImgInfo;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
@@ -66,14 +67,13 @@ import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
-import com.umeng.socialize.shareboard.SnsPlatform;
 
 @SuppressLint("NewApi")
 public class GoodsDetailActivity extends BaseActivity implements
 		OnClickListener, CustomScrollView.OnScrollUpListener,
 		RadioGroup.OnCheckedChangeListener {
 
-	private ConvenientBanner<String> slider; // 轮播图控件
+	private ConvenientBanner<ImgInfo> slider; // 轮播图控件
 	private TextView discount, itemTitle, itemSrcPrice, itemPrice, area; // 商品折扣
 																			// 标题
 																			// 原价
@@ -119,7 +119,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	 */
 	private void findView() {
 
-		slider = (ConvenientBanner<String>)findViewById(R.id.slider);
+		slider = (ConvenientBanner<ImgInfo>)findViewById(R.id.slider);
 		View view = findViewById(R.id.viewpager_content);
 		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
 				CommonUtil.getScreenWidth(this),
@@ -165,11 +165,11 @@ public class GoodsDetailActivity extends BaseActivity implements
 		shopcart.setOnClickListener(this);
 		findViewById(R.id.btn_portalFee).setOnClickListener(this);
 		findViewById(R.id.back_top).setOnClickListener(this);
-
+		findViewById(R.id.reload).setOnClickListener(this);
 		indicator.setOnCheckedChangeListener(this);
 		btn_collect.setOnClickListener(this);
 
-	}
+	} 
 	
 	//=========================================================================
 	//===============================网络     请求==================================
@@ -192,6 +192,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 			@Override
 			public void onError() {
 				loadingDialog.dismiss();
+				findViewById(R.id.no_net).setVisibility(View.VISIBLE);
 				ToastUtils.Toast(getActivity(), R.string.error);
 			}
 		});
@@ -206,6 +207,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 			
 			@Override
 			public void onSuccess(String result) {
+				findViewById(R.id.no_net).setVisibility(View.GONE);
 				HMessage hm = DataParser.paserResultMsg(result);
 				if (hm.getCode() == 200) {
 					//购物车添加成功，显示提示框
@@ -215,12 +217,14 @@ public class GoodsDetailActivity extends BaseActivity implements
 							AppConstant.MESSAGE_BROADCAST_ADD_CAR));
 				} else {
 					//提示添加失败原因
+					findViewById(R.id.no_net).setVisibility(View.VISIBLE);
 					ToastUtils.Toast(getActivity(), hm.getMessage());
 				}
 			}
 			
 			@Override
 			public void onError() {
+				findViewById(R.id.no_net).setVisibility(View.VISIBLE);
 				ToastUtils.Toast(getActivity(), R.string.error);
 			}
 		}, array.toString());
@@ -315,6 +319,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 		case R.id.sina:
 			shareSina();
 			break;
+		case R.id.reload:
+			loadDataByUrl();
+			break;
 		default:
 			break;
 		}
@@ -324,7 +331,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	//新浪微博分享设置
 	private void shareSina() {
 		 new ShareAction(this).setPlatform(SHARE_MEDIA.SINA).setCallback(umShareListener)
-         .withMedia(new UMImage(this, shareStock.getInvImg()))
+         .withMedia(new UMImage(this, shareStock.getInvImgForObj().getUrl()))
          .withTitle("全球正品，尽在韩秘美")	
          .withText(shareStock.getInvTitle())
          .withTargetUrl("http://www.hanmimei.com/")
@@ -333,7 +340,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	//微信朋友圈分享设置
 	private void shareCircle() {
 		 new ShareAction(this).setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE).setCallback(umShareListener)
-         .withMedia(new UMImage(this, shareStock.getInvImg()))
+         .withMedia(new UMImage(this, shareStock.getInvImgForObj().getUrl()))
          .withTitle(shareStock.getInvTitle())
          .withTargetUrl("http://www.hanmimei.com/")
          .share();
@@ -341,7 +348,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	//微信分享设置
 	private void shareWeiXin() {
 		 new ShareAction(this).setPlatform(SHARE_MEDIA.WEIXIN).setCallback(umShareListener)
-         .withMedia(new UMImage(this, shareStock.getInvImg()))
+         .withMedia(new UMImage(this, shareStock.getInvImgForObj().getUrl()))
          .withTitle("全球正品，尽在韩秘美")
          .withText(shareStock.getInvTitle())
          .withTargetUrl("http://www.hanmimei.com/")
@@ -351,7 +358,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private void shareQQ() {
 		 new ShareAction(this).setPlatform(SHARE_MEDIA.QQ).setCallback(umShareListener)
          .withTitle("全球正品，尽在韩秘美")
-         .withMedia(new UMImage(this, shareStock.getInvImg()))
+         .withMedia(new UMImage(this, shareStock.getInvImgForObj().getUrl()))
          .withText(shareStock.getInvTitle())
          .withTargetUrl("http://www.hanmimei.com/")
          .share();
@@ -489,9 +496,11 @@ public class GoodsDetailActivity extends BaseActivity implements
 	 */
 	private void initGoodsDetail(GoodsDetail detail) {
 		if (detail.getMessage().getCode() != 200) {
+			findViewById(R.id.no_net).setVisibility(View.VISIBLE);
 			ToastUtils.Toast(this, detail.getMessage().getMessage());
 			return;
 		}
+		findViewById(R.id.no_net).setVisibility(View.GONE);
 		// 主详情
 		main = detail.getMain();
 		// 子商品信息
@@ -596,7 +605,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	 *            当前选中子商品
 	 */
 	private void initSliderImage(Stock s) {
-		ArrayList<String> networkImages = new ArrayList<String>(s.getItemPreviewImgs());
+		ArrayList<ImgInfo> networkImages = new ArrayList<ImgInfo>(s.getItemPreviewImgsForList());
 		slider.setPages(new CBViewHolderCreator<NetworkImageHolderView>() {
             @Override
             public NetworkImageHolderView createHolder() {

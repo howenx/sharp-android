@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 
 import com.hanmimei.R;
 import com.hanmimei.activity.BaseActivity;
+import com.hanmimei.entity.HMMGoods.ImgInfo;
 import com.hanmimei.utils.ImageLoaderUtils;
-import com.hanmimei.view.DragImageView.OnClickListener;
 
 /**
  * 商品详情页 轮播图展示
@@ -27,7 +27,7 @@ public class GoodsDetailImgPagerAdapter extends PagerAdapter {
 
 	@SuppressLint("InflateParams")
 	public GoodsDetailImgPagerAdapter(Context mContext,
-			final ArrayList<String> imgUrls) {
+			final ArrayList<ImgInfo> imgUrls) {
 		datas = new ArrayList<View>();
 		View v = null;
 		final BaseActivity mActivity = (BaseActivity) mContext;
@@ -35,7 +35,7 @@ public class GoodsDetailImgPagerAdapter extends PagerAdapter {
 		for (int i = 0; i < imgUrls.size(); i++) {
 			v = mInflater.inflate(R.layout.good_detail_img_item_layout, null);
 			com.hanmimei.view.DragImageView imageView = (com.hanmimei.view.DragImageView) v.findViewById(R.id.mImageView);
-			ImageLoaderUtils.loadImage(mContext,imgUrls.get(i), imageView);
+			ImageLoaderUtils.loadImage(mContext,imgUrls.get(i).getUrl(), imageView);
 			this.datas.add(v);
 		}
 	}
