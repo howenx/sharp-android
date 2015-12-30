@@ -80,6 +80,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginRight="8dp"
+                                android:visibility="gone"
                                 android:background="@color/xian" />
 
                             <ImageView
@@ -88,7 +89,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:contentDescription="@null"
-                                android:src="@drawable/shoucang_no" />
+                                android:src="@drawable/shoucang_no" 
+                                android:visibility="gone"/>
                         </LinearLayout>
 
                         <LinearLayout
