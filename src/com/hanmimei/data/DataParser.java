@@ -216,7 +216,7 @@ public class DataParser {
 				if(obj.has("order")){
 					JSONObject orderObject = obj.getJSONObject("order");
 					if(orderObject.has("orderId"))
-						order.setOrderId(orderObject.getInt("orderId")+"");
+						order.setOrderId(orderObject.getString("orderId"));
 					if(orderObject.has("payTotal"))
 						order.setPayTotal(orderObject.getDouble("payTotal"));
 					if(orderObject.has("payMethod"))

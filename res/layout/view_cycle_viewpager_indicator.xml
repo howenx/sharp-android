@@ -5,6 +5,7 @@
     android:orientation="vertical" >
 
     <ImageView 
+         android:layout_margin="5dp"
          android:id="@+id/image_indicator"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"

@@ -40,7 +40,8 @@
         <activity
             android:name="com.hanmimei.activity.IndroductionActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" 
+            android:theme="@style/SplashStyle" />
         <activity
             android:name="com.hanmimei.activity.MainActivity"
             android:launchMode="singleTask"

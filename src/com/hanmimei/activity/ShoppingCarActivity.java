@@ -265,12 +265,14 @@ public class ShoppingCarActivity extends BaseActivity implements
 					customs.setList(goodsList);
 					customs.setInvArea(data.get(i).getInvArea());
 					customs.setInvCustoms(data.get(i).getInvCustoms());
+					customs.setInvAreaNm(data.get(i).getInvAreaNm());
 					customsList.add(customs);
 				}
 			}
 			shoppingCar.setList(customsList);
-			user = getUser();
+			shoppingCar.setBuyNow(2);
 			if (shoppingCar.getList().size() > 0) {
+				user = getUser();
 				if (user != null) {
 					doPay(shoppingCar);
 				} else {
@@ -281,7 +283,6 @@ public class ShoppingCarActivity extends BaseActivity implements
 				Toast.makeText(getActivity(), "请选择商品", Toast.LENGTH_SHORT)
 						.show();
 			}
-			break;
 		default:
 			break;
 		}
