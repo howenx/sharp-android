@@ -392,8 +392,6 @@ public class GoodsBalanceActivity extends BaseActivity implements
 				car.getDenominationFormat()));
 		all_money.setText(getResources().getString(R.string.all_money,
 				car.getAllMoneyFormat()));
-		
-		findViewById(R.id.btn_pay).setOnClickListener(this);
 	}
 
 	

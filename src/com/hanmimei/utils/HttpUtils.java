@@ -127,12 +127,12 @@ public class HttpUtils {
 		DefaultHttpClient httpClient = new DefaultHttpClient();
 		InputStream is = null;
 		try {
-
 			HttpGet getRequest = new HttpGet(url);
 			getRequest.addHeader("Content-Type", "text/json;charset=UTF-8"); 
 			getRequest.addHeader("accept", "application/json");
 			getRequest.addHeader(tokenKey, tokenValue);
 			HttpResponse response = httpClient.execute(getRequest);
+			response.setHeader("Content-type", "text/html;charset=UTF-8");  
 			if (response.getStatusLine().getStatusCode() == 200) {
 				is = response.getEntity().getContent();
 				byte[] buffer = new byte[1024];
