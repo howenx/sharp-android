@@ -14,11 +14,11 @@ import android.widget.TabHost.OnTabChangeListener;
 import android.widget.Toast;
 
 import com.hanmimei.R;
-import com.hanmimei.application.MyApplication;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.fragment.AboutMyFragment;
 import com.hanmimei.fragment.FragmentTabHost;
 import com.hanmimei.fragment.HomeFragment;
+import com.hanmimei.fragment.PinFragment;
 import com.hanmimei.fragment.ShoppingCartFragment;
 import com.hanmimei.manager.TabHostManager;
 import com.hanmimei.utils.ActionBarUtil;
@@ -33,17 +33,19 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 	private static final String TAB_HOME_ID = "tab_01";
 	private static final String TAB_CAR_ID = "tab_02";
 	private static final String TAB_MY_ID = "tab_03";
+	private static final String TAB_PIN_ID = "tab_04";
 	private static final String TAB_HOME = "首页";
 	private static final String TAB_CAR = "购物车";
 	private static final String TAB_MY = "我的";
+	private static final String TAB_PIN = "拼购";
 	private static final int home_drawable = R.drawable.tab_home;
 	private static final int shopping_drawable = R.drawable.tab_shopping;
 	private static final int my_drawable = R.drawable.tab_my;
+	private static final int pingou_drawable = R.drawable.tab_pingou;
 
 	private MainBroadCastReceiver netReceiver;
 	private FragmentTabHost mTabHost;
 	private LinearLayout guanggao;
-	private MyApplication application;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,12 +63,13 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 				R.layout.tab_item_layout);
 		TabHostManager.getInstance().initTabItem(TAB_HOME_ID, home_drawable,
 				TAB_HOME, HomeFragment.class);
+//		TabHostManager.getInstance().initTabItem(TAB_PIN_ID, pingou_drawable,
+//				TAB_PIN, PinFragment.class);
 		TabHostManager.getInstance().initTabItem(TAB_CAR_ID, shopping_drawable,
 				TAB_CAR, ShoppingCartFragment.class);
 		TabHostManager.getInstance().initTabItem(TAB_MY_ID, my_drawable,
 				TAB_MY, AboutMyFragment.class);
 		registerReceivers();
-		application = getMyApplication();
 	}
 
 	@Override

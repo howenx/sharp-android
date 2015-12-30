@@ -5,11 +5,9 @@ import com.hanmimei.utils.SharedPreferencesUtil;
 import com.hanmimei.view.viewflow.CircleFlowIndicator;
 import com.hanmimei.view.viewflow.ViewFlow;
 import com.umeng.analytics.MobclickAgent;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -74,6 +72,7 @@ public class IndroductionActivity extends BaseActivity {
 			}else{
 				holder = (ViewHolder)convertView.getTag();
 			}
+			holder.experience.setVisibility(View.GONE);
 			holder.img.setImageResource(images[position % images.length]);
 			if(position == 4){
 				holder.experience.setVisibility(View.VISIBLE);
