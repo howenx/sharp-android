@@ -350,6 +350,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 							.getPortalSingleCustomsFee());
 					cs.setShipSingleCustomsFee(scs
 							.getShipSingleCustomsFee());
+					cs.setPostalStandard(settle.getPostalStandard());
 					break;
 				}
 			}

@@ -578,7 +578,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 	
 	private void initStocks(Stock s) {
 				initSliderImage(s);
-				discount.setText("[" + s.getItemDiscount() + "折]");
+				if(s.getItemDiscount() >0){
+					discount.setText("[" + s.getItemDiscount() + "折]");
+				}
 				itemTitle.setText(s.getInvTitle());
 				itemSrcPrice.setText(getResources().getString(R.string.price,
 						s.getItemSrcPrice()));

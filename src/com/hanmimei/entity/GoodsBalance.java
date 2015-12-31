@@ -32,8 +32,15 @@ public class GoodsBalance {
 		
 		private List<SingleCustoms> singleCustoms;
 		
+		private int postalStandard;
 		
+		public int getPostalStandard() {
+			return postalStandard;
+		}
 
+		public void setPostalStandard(int postalStandard) {
+			this.postalStandard = postalStandard;
+		}
 
 		public Double getFactPortalFee() {
 			return factPortalFee;

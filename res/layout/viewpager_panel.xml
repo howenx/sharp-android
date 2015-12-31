@@ -23,10 +23,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|bottom"
             android:padding="4dip"
-            app:activeColor="#02AFFD"
+            app:activeColor="@color/theme"
             app:activeType="fill"
+            app:activeRadius="1dp"
             app:circleSeparation="15dip"
-            app:inactiveColor="#ccc"
+            app:inactiveColor="@color/qianhui"
             app:inactiveType="fill"
              />
     </LinearLayout>

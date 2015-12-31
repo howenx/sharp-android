@@ -109,7 +109,6 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 								.parserThemeItem(result);
 						if (detail.getMessage().getCode() == 200) {
 							initThemeView(detail);
-							
 						} else {
 							findViewById(R.id.no_net).setVisibility(View.VISIBLE);
 							ToastUtils.Toast(getActivity(), detail.getMessage()
@@ -154,7 +153,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 			// 整理显示主推商品小标签
 			TextView tagView = (TextView) view.findViewById(R.id.tag);
 			ImageView point_b = (ImageView) view.findViewById(R.id.point_b);
-			WaveAnimationUtil.waveAnimation(point_b, 5.0f);
+			WaveAnimationUtil.waveAnimation(point_b, 4.0f);
 			FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
 					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 			lp.setMargins(Integer.valueOf((int) (width * tag.getLeft())),
