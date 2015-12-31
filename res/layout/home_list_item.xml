@@ -9,7 +9,7 @@
         android:id="@+id/img"
         android:scaleType="fitXY"
         android:layout_width="match_parent"
-        android:layout_height="140dp"
+        android:layout_height="wrap_content"
         android:src="@drawable/ic_launcher"
         android:contentDescription="@null"/>
 

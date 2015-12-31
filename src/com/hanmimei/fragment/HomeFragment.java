@@ -22,6 +22,7 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -108,6 +109,7 @@ public class HomeFragment extends Fragment implements
 		findHeaderView();
 		loadData();
 		addHeaderView();
+		addView();
 		return view;
 	}
 
@@ -131,6 +133,12 @@ public class HomeFragment extends Fragment implements
 	private void addHeaderView() {
 		ListView v = mListView.getRefreshableView();
 		v.addHeaderView(headerView);
+	}
+	private void addView(){
+		ListView v = mListView.getRefreshableView();
+		ImageView imageView = new ImageView(mActivity);
+		imageView.setImageResource(R.drawable.test);
+		v.addHeaderView(imageView);
 	}
 
 	private void initHeaderView() {

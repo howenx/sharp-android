@@ -68,7 +68,7 @@ public class OrderListAdapter extends BaseAdapter {
 			}
 			ImageLoaderUtils.loadImage(activity, sku.getInvImg(), holder.img);
 			holder.name.setText(sku.getSkuTitle());
-			holder.price.setText("单价： ¥" + sku.getPrice());
+			holder.price.setText("单价：¥" + sku.getPrice());
 			holder.nums.setText("x" + sku.getAmount());
 			holder.size.setText(sku.getItemColor() + "  " + sku.getItemSize());
 			return convertView;
