@@ -6,18 +6,18 @@
         <shape>
             <gradient
                 android:angle="270"
-                android:centerColor="#E3E3E3"
-                android:endColor="#E6E6E6"
-                android:startColor="#C8C8C8" />
+                android:centerColor="@color/theme"
+                android:endColor="@color/theme"
+                android:startColor="@color/theme" />
         </shape>
     </item>
     <item android:id="@android:id/progress">
         <clip>
             <shape>
                 <gradient
-                    android:centerColor="#4AEA2F"
-                    android:endColor="#31CE15"
-                    android:startColor="#5FEC46" />
+                    android:centerColor="@color/white"
+                    android:endColor="@color/white"
+                    android:startColor="@color/white" />
             </shape>
         </clip>
     </item>

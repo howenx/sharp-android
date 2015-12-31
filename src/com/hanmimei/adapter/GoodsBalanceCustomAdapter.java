@@ -64,7 +64,7 @@ public class GoodsBalanceCustomAdapter extends BaseAdapter {
 		holder.shipFee.setText(context.getResources().getString(R.string.shipFee, c.getFactSingleCustomsShipFeeFormat()));
 		if(c.getFactPortalFeeSingleCustoms() == 0 && c.getPortalSingleCustomsFee() !=0){
 			holder.biaoqian.setVisibility(View.VISIBLE);
-			holder.biaoqian.setText(context.getResources().getString(R.string.yuanguanshui, c.getPortalSingleCustomsFeeFormat()));
+			holder.biaoqian.setText(context.getResources().getString(R.string.yuanguanshui, c.getPortalSingleCustomsFeeFormat(),c.getPostalStandard()));
 		}else{
 			holder.biaoqian.setVisibility(View.GONE);
 		}
