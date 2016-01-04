@@ -211,12 +211,13 @@ public class GoodsDetailActivity extends BaseActivity implements
 				HMessage hm = DataParser.paserResultMsg(result);
 				if (hm.getCode() == 200) {
 					//购物车添加成功，显示提示框
-					ToastUtils.Toast(GoodsDetailActivity.this);
+//					ToastUtils.Toast(GoodsDetailActivity.this);
+					displayAnimation();
 					//发送广播 提示购物车更新数据
 					sendBroadcast(new Intent(
 							AppConstant.MESSAGE_BROADCAST_ADD_CAR));
 				} else {
-					//提示添加失败原因
+					//提示添加失败原因 
 					findViewById(R.id.no_net).setVisibility(View.VISIBLE);
 					ToastUtils.Toast(getActivity(), hm.getMessage());
 				}
@@ -281,22 +282,10 @@ public class GoodsDetailActivity extends BaseActivity implements
 				}else{
 					goodsDao.insert(goods);
 				}
+				displayAnimation();
 				sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_ADD_CAR));
 			}
-			Animation anim = AnimationUtils.loadAnimation(this, R.anim.shopcart_anim);
-			img_hide.startAnimation(anim);
-			// 动画监听事件
-			anim.setAnimationListener(new SimpleAnimationListener() {
-
-				// 动画的结束
-				@Override
-				public void onAnimationEnd(Animation animation) {
-					num_shopcart++;
-					buyNumView.setText(num_shopcart+ "");//
-					buyNumView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
-					buyNumView.show();
-				}
-			});
+			
 			break;
 		case R.id.setting:
 			showShareboard();
@@ -327,6 +316,26 @@ public class GoodsDetailActivity extends BaseActivity implements
 			break;
 		}
 	}
+	
+	private void displayAnimation(){
+		Animation anim = AnimationUtils.loadAnimation(this, R.anim.shopcart_anim);
+		img_hide.startAnimation(anim);
+		// 动画监听事件
+		anim.setAnimationListener(new SimpleAnimationListener() {
+
+			// 动画的结束
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				num_shopcart++;
+				buyNumView.setText(num_shopcart+ "");//
+				buyNumView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
+				buyNumView.show();
+			}
+		});
+	}
+
+	
+	
 	//当前的商品
 	private Stock shareStock;
 	//新浪微博分享设置
@@ -530,6 +539,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		mWebView.setFocusable(false);
 		TextView notice = (TextView) findViewById(R.id.notice);
 		if (main.getItemNotice() != null) {
+			notice.setVisibility(View.VISIBLE);
 			notice.setText(main.getItemNotice());
 		}
 		content_params.setAdapter(new GoodsDetailParamAdapter(main

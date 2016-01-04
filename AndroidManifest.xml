@@ -124,6 +124,9 @@
         <activity
             android:name="com.hanmimei.upload.TestPicActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.hanmimei.upload.PingouDetailActivity"
+            android:screenOrientation="portrait" />
 
         <!-- 友盟相关 -->
         <activity
