@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ptr="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
+    android:padding="8dp"
     android:background="@drawable/huise_border">
     <ImageView 
         android:id="@+id/img"
@@ -20,19 +21,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxLines="2"
-        android:text="极度诶的急跌的额 和夫人和夫人回复CDCD v草房"
+        android:text="@null"
         android:textSize="13sp"
         android:textColor="@color/fontcolor"/>
     <TextView 
         android:id="@+id/zhekou"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop ="5dp"
         android:layout_toRightOf="@id/img"
         android:layout_below="@id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:text="20%"
+        android:text="@null"
         android:textColor="@color/theme"/>
     <TextView 
         android:id="@+id/zhekoulv"
@@ -42,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="12sp"
-        android:text="折扣率："
+        android:text="@string/zhekoulv"
         android:textColor="@color/huise"/>
     <TextView 
         android:id="@+id/shiprice"
@@ -55,7 +55,7 @@
         android:layout_alignParentRight="true"
         android:gravity="right"
         android:textSize="12sp"
-        android:text="市场价：¥600"
+        android:text="@null"
         android:textColor="@color/huise"/>
     <TextView 
         android:id="@+id/zhekouprice"
@@ -68,13 +68,9 @@
         android:layout_alignParentRight="true"
         android:gravity="right"
         android:textSize="12sp"
-        android:text="折扣价：¥480"
+        android:text="@null"
         android:textColor="@color/theme"/>
     <LinearLayout 
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@id/img"
@@ -83,18 +79,18 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:background="@drawable/huise_border">
+        style="@style/huiboder_pading_syle">
         <TextView 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="拼购打折"
+            android:text="@string/pingoudazhe"
             android:textSize="14sp"
             android:textColor="@color/fontcolor"/>
         <TextView 
             android:id="@+id/pnum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="(2人拼购价)"
+            android:text="@null"
             android:textSize="10sp"
             android:textColor="@color/fontcolor"/>
         <TextView 
@@ -102,7 +98,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
-            android:text="¥400"
+            android:text="@null"
             android:textSize="16sp"
             android:textColor="@color/theme"/>
     </LinearLayout>

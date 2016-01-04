@@ -45,4 +45,7 @@
 	<string name="sucess_goodscar">商品已成功添加入购物车</string>
 	<string name="kouling">秘美令</string>
 	<string name="today_pingou">今日拼购 GROUP PURCHASE</string>
+	<string name="no_order">您还没有相关的订单</string>
+	<string name="zhekoulv">折扣率：</string>
+	<string name="pingoudazhe">拼购打折</string>
 </resources>

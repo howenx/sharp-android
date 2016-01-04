@@ -13,14 +13,14 @@ public class TimerTextView extends TextView implements Runnable{
         super(context, attrs);  
         // TODO Auto-generated constructor stub  
     }  
-  
+    private String tex;
     private long  mhour, mmin, msecond;//天，小时，分钟，秒  
     private boolean run=false; //是否启动了  
-    public void setTimes(long[] times) {   
+    public void setTimes(long[] times, String tex) {   
         mhour = times[0];  
         mmin = times[1];  
         msecond = times[2];  
-  
+        this.tex = tex;
     }  
   
     /** 
@@ -73,10 +73,10 @@ public class TimerTextView extends TextView implements Runnable{
             ComputeTime();  
             String strTime;
             if(isEnd()){
-            	strTime = "订单已超过24小时，系统已自动取消！";  
+            	strTime = tex;  
             	timeEndListner.isTimeEnd();
             }else{
-            	strTime= "倒计时：" + mhour+"小时:"+ mmin+"分钟:"+msecond+"秒";  
+            	strTime= "" + mhour+"小时:"+ mmin+"分钟:"+msecond+"秒";  
             }
             this.setText(strTime);  
             postDelayed(this, 1000);  

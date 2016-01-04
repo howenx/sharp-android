@@ -3,13 +3,13 @@
     xmlns:ptr="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg">
+    android:background="@color/background">
     <com.handmark.pulltorefresh.library.PullToRefreshListView
       		android:layout_width="fill_parent"
       		android:layout_height="match_parent"
       		android:cacheColorHint="#00000000"
       		android:dividerHeight="10dp"
-      		android:divider="@color/bg"
+      		android:divider="@color/background"
       		android:fadingEdge="none"
       		android:fastScrollEnabled="false"
       		android:footerDividersEnabled="false"
@@ -24,7 +24,7 @@
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
 	    android:gravity="center"
-	    android:text="您还没有相关的订单"
+	    android:text="@string/no_order"
 	    android:textSize="20sp"
 	    android:textColor="@color/fontcolor"
 	    android:visibility="gone"/>

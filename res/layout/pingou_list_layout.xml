@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.handmark.pulltorefresh.library.PullToRefreshScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ptr="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg" >
+    android:background="@color/background" 
+    android:scrollbars="none"
+    ptr:ptrDrawable="@drawable/refreshing"
+    android:id="@+id/myscroll" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,7 +35,6 @@
                 android:layout_height="0.1dp"
                 android:layout_weight="1"
                 android:background="@color/xian" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -53,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:textSize="14sp" />
+            android:textSize="13sp" />
 
         <com.hanmimei.view.CustomListView
             android:id="@+id/mylist"
@@ -61,8 +64,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:background="@color/white"
-            android:divider="@color/bg"
+            android:divider="@color/background"
             android:dividerHeight="10dp" />
     </LinearLayout>
 
-</ScrollView>
+</com.handmark.pulltorefresh.library.PullToRefreshScrollView>
