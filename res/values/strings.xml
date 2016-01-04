@@ -46,4 +46,5 @@
 	<string name="kouling">秘美令</string>
 	
 	<string name="pingou_remind">支持开团并邀请%1$s参团，人数不足自动退款，详见下方拼团玩法</string>
+	<string name="today_pingou">今日拼购 GROUP PURCHASE</string>
 </resources>

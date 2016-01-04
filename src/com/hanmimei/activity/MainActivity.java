@@ -63,8 +63,8 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 				R.layout.tab_item_layout);
 		TabHostManager.getInstance().initTabItem(TAB_HOME_ID, home_drawable,
 				TAB_HOME, HomeFragment.class);
-//		TabHostManager.getInstance().initTabItem(TAB_PIN_ID, pingou_drawable,
-//				TAB_PIN, PinFragment.class);
+		TabHostManager.getInstance().initTabItem(TAB_PIN_ID, pingou_drawable,
+				TAB_PIN, PinFragment.class);
 		TabHostManager.getInstance().initTabItem(TAB_CAR_ID, shopping_drawable,
 				TAB_CAR, ShoppingCartFragment.class);
 		TabHostManager.getInstance().initTabItem(TAB_MY_ID, my_drawable,

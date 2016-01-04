@@ -63,7 +63,7 @@
 	    android:padding="12dp"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
-	    android:text="    管理收获地址"
+	    android:text="    管理收货地址"
 	    style="@style/wode_font_style"/>
 	
 	<TextView 

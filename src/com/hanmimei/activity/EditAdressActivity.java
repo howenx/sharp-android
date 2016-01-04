@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -196,7 +198,7 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 			break;
 		case R.id.show:
 			//关闭键盘
-			CommonUtil.closeBoard(this);
+			CommonUtil.closeBoardIfShow(this);
 			parenView = LayoutInflater.from(this).inflate(R.layout.edit_adress_layout, null);
 			pop.showAtLocation(parenView, Gravity.BOTTOM, 0, 0);
 			break;
