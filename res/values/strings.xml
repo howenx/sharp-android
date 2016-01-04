@@ -47,4 +47,7 @@
 	
 	<string name="pingou_remind">支持开团并邀请%1$s参团，人数不足自动退款，详见下方拼团玩法</string>
 	<string name="today_pingou">今日拼购 GROUP PURCHASE</string>
+	<string name="no_order">您还没有相关的订单</string>
+	<string name="zhekoulv">折扣率：</string>
+	<string name="pingoudazhe">拼购打折</string>
 </resources>

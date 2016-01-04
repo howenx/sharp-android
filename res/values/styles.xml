@@ -196,4 +196,11 @@
     </style>
     
     <style name="Theme.UMDefault" parent="android:style/Theme.NoTitleBar"></style>
+    <style name="huiboder_pading_syle">
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:background">@drawable/huise_border</item>
+    </style>
 </resources>
