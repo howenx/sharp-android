@@ -1,6 +1,5 @@
 package com.hanmimei.view;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +11,7 @@ import android.widget.ImageView;
 import com.bigkoo.convenientbanner.CBPageAdapter;
 import com.hanmimei.R;
 import com.hanmimei.activity.GoodsDetailImgActivity;
-import com.hanmimei.entity.HMMGoods.ImgInfo;
+import com.hanmimei.entity.ImgInfo;
 import com.hanmimei.utils.ImageLoaderUtils;
 
 /**

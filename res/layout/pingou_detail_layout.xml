@@ -15,121 +15,129 @@
             android:orientation="vertical" >
 
             <LinearLayout
-                android:id="@+id/header01"
+                android:id="@+id/header02"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
-                <FrameLayout
-                    android:id="@+id/viewpager_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-
-                    <com.bigkoo.convenientbanner.ConvenientBanner
-                        android:id="@+id/slider"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </FrameLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:padding="8dp"
-                    android:text="韩迷妹fasct法系护肤三箭头(野蛮蒂娜水分温暖享受期待发布 大煞风景卡)套装"
-                    android:textColor="@color/fontcolor"
-                    android:textSize="13sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:gravity="right"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp"
-                    android:text="已售：1250件"
-                    android:textColor="@color/huise"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp"
-                    android:text="@string/pingou_remind"
-                    android:textColor="@color/theme"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:orientation="horizontal"
-                android:padding="8dp" >
-
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:id="@+id/header01"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:orientation="vertical" >
 
-                    <TextView
+                    <FrameLayout
+                        android:id="@+id/viewpager_content"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#E26459"
-                        android:gravity="center"
-                        android:padding="10dp"
-                        android:text="45/件"
-                        android:textColor="@color/white"
-                        android:textSize="16sp" />
+                        android:layout_height="wrap_content" >
+
+                        <com.bigkoo.convenientbanner.ConvenientBanner
+                            android:id="@+id/slider"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                    </FrameLayout>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="#3F4041"
-                        android:gravity="center"
-                        android:padding="3dp"
-                        android:text="3人成团"
-                        android:textColor="@color/white"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical" >
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#ECEDEE"
-                        android:gravity="center"
-                        android:padding="10dp"
-                        android:text="88/件"
+                        android:background="@color/white"
+                        android:padding="8dp"
+                        android:text="韩迷妹fasct法系护肤三箭头(野蛮蒂娜水分温暖享受期待发布 大煞风景卡)套装"
                         android:textColor="@color/fontcolor"
-                        android:textSize="16sp" />
+                        android:textSize="13sp" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="#3F4041"
-                        android:gravity="center"
-                        android:padding="3dp"
-                        android:text="3人成团"
-                        android:textColor="@color/white"
-                        android:textSize="14sp" />
-                </LinearLayout>
-            </LinearLayout>
+                        android:background="@color/white"
+                        android:gravity="right"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:text="已售：1250件"
+                        android:textColor="@color/huise"
+                        android:textSize="12sp" />
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:contentDescription="@null"
-                android:src="@drawable/pingou_wanfa" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:text="@string/pingou_remind"
+                        android:textColor="@color/theme"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:padding="8dp" >
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#E26459"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:text="45/件"
+                            android:textColor="@color/white"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#3F4041"
+                            android:gravity="center"
+                            android:padding="3dp"
+                            android:text="3人成团"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#ECEDEE"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:text="88/件"
+                            android:textColor="@color/fontcolor"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#3F4041"
+                            android:gravity="center"
+                            android:padding="3dp"
+                            android:text="3人成团"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/wanfaView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@null"
+                    android:src="@drawable/pingou_wanfa" />
+            </LinearLayout>
 
             <RadioGroup
                 android:id="@+id/indicator"
@@ -148,6 +156,7 @@
                     android:background="@drawable/radio_btn_bg"
                     android:button="@null"
                     android:gravity="center"
+                    android:textColor="@color/indicator_font_color_selector"
                     android:orientation="vertical"
                     android:padding="10dp"
                     android:text="图文详情"
@@ -161,6 +170,7 @@
                     android:background="@drawable/radio_btn_bg"
                     android:button="@null"
                     android:gravity="center"
+                    android:textColor="@color/indicator_font_color_selector"
                     android:orientation="vertical"
                     android:padding="10dp"
                     android:text="商品参数"
@@ -173,12 +183,18 @@
                     android:layout_weight="1.0"
                     android:background="@drawable/radio_btn_bg"
                     android:button="@null"
+                    android:textColor="@color/indicator_font_color_selector"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="10dp"
                     android:text="热卖商品"
                     android:textSize="13sp" />
             </RadioGroup>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/xian" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -193,7 +209,7 @@
                     <com.hanmimei.view.TouchWebView
                         android:id="@+id/mWebView"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="800dp" />
                 </LinearLayout>
 
                 <ListView
@@ -214,67 +230,132 @@
     </com.hanmimei.view.CustomScrollView>
 
     <LinearLayout
-        android:id="@+id/buy_hide"
-                android:layout_width="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/buy_hide"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:visibility="gone" >
+
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:orientation="horizontal"
-                android:visibility="gone"
-                android:padding="8dp" >
+                android:layout_weight="1"
+                android:orientation="vertical" >
 
-                <LinearLayout
-                    android:layout_width="0dp"
+                <TextView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical" >
+                    android:background="#E26459"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="45/件"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#E26459"
-                        android:gravity="center"
-                        android:padding="10dp"
-                        android:text="45/件"
-                        android:textColor="@color/white"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#3F4041"
-                        android:gravity="center"
-                        android:padding="3dp"
-                        android:text="3人成团"
-                        android:textColor="@color/white"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
+                <TextView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical" >
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#ECEDEE"
-                        android:gravity="center"
-                        android:padding="10dp"
-                        android:text="88/件"
-                        android:textColor="@color/fontcolor"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#3F4041"
-                        android:gravity="center"
-                        android:padding="3dp"
-                        android:text="3人成团"
-                        android:textColor="@color/white"
-                        android:textSize="14sp" />
-                </LinearLayout>
+                    android:background="#3F4041"
+                    android:gravity="center"
+                    android:padding="3dp"
+                    android:text="3人成团"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="1"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ECEDEE"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="88/件"
+                    android:textColor="@color/fontcolor"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#3F4041"
+                    android:gravity="center"
+                    android:padding="3dp"
+                    android:text="3人成团"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <RadioGroup
+            android:id="@+id/indicator_hide"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/white"
+            android:checkedButton="@+id/guid1_hide"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone" >
+
+            <RadioButton
+                android:id="@+id/guid1_hide"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0"
+                android:background="@drawable/radio_btn_bg"
+                android:button="@null"
+                android:gravity="center"
+                android:textColor="@color/indicator_font_color_selector"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:text="图文详情"
+                android:textSize="13sp" />
+
+            <RadioButton
+                android:id="@+id/guid2_hide"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0"
+                android:background="@drawable/radio_btn_bg"
+                android:button="@null"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:textColor="@color/indicator_font_color_selector"
+                android:padding="10dp"
+                android:text="商品参数"
+                android:textSize="13sp" />
+
+            <RadioButton
+                android:id="@+id/guid3_hide"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0"
+                android:background="@drawable/radio_btn_bg"
+                android:button="@null"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:textColor="@color/indicator_font_color_selector"
+                android:padding="10dp"
+                android:text="热卖商品"
+                android:textSize="13sp" />
+        </RadioGroup>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/xian" />
+    </LinearLayout>
+
 </FrameLayout>

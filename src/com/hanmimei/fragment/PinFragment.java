@@ -3,18 +3,22 @@ package com.hanmimei.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.hanmimei.R;
-import com.hanmimei.adapter.PingouListAdapter;
-import com.hanmimei.entity.Goods;
-import com.hanmimei.view.CustomListView;
-import com.hanmimei.view.TimerTextView;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+
+import com.hanmimei.R;
+import com.hanmimei.activity.PingouDetailActivity;
+import com.hanmimei.adapter.PingouListAdapter;
+import com.hanmimei.entity.Goods;
+import com.hanmimei.view.CustomListView;
+import com.hanmimei.view.TimerTextView;
 
 
 public class PinFragment extends Fragment {
@@ -51,6 +55,16 @@ public class PinFragment extends Fragment {
 		}
 		adapter.notifyDataSetChanged();
 		timer.beginRun();
+		
+		mListView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				// TODO Auto-generated method stub
+				startActivity(new Intent(getActivity(), PingouDetailActivity.class));
+			}
+		});
 	}
 
 

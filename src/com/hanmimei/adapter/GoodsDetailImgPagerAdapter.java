@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 
 import com.hanmimei.R;
 import com.hanmimei.activity.BaseActivity;
-import com.hanmimei.entity.HMMGoods.ImgInfo;
 import com.hanmimei.utils.ImageLoaderUtils;
 
 /**

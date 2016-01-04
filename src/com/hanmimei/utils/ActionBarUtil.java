@@ -12,8 +12,8 @@ import com.hanmimei.activity.BaseActivity;
 
 public class ActionBarUtil {
 
-	public static View setActionBarStyle(Context context, String tag, int img,
-			Boolean isBack, OnClickListener l) {
+	public static View setActionBarStyle(Context context, String title,
+			int img, Boolean isBack,OnClickListener bl, OnClickListener l) {
 		final BaseActivity activity = (BaseActivity) context;
 		ActionBar actionbar = activity.getSupportActionBar();
 		actionbar.show();
@@ -22,19 +22,23 @@ public class ActionBarUtil {
 		actionbar.setDisplayShowCustomEnabled(true);
 		actionbar.setCustomView(R.layout.main_header_layout);
 		View view = actionbar.getCustomView();
-		TextView title = (TextView) view.findViewById(R.id.header);
+		TextView titleView = (TextView) view.findViewById(R.id.header);
 		ImageView btn_back = (ImageView) view.findViewById(R.id.back);
 		ImageView btn_setting = (ImageView) view.findViewById(R.id.setting);
-		if (isBack)
+		if (isBack) {
 			btn_back.setVisibility(View.VISIBLE);
-		btn_back.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				activity.finish();
+			if(bl !=null){
+				btn_back.setOnClickListener(bl);
+			}else{
+				btn_back.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View arg0) {
+						activity.finish();
+					}
+				});
 			}
-		});
-		title.setText(tag);
+		}
+		titleView.setText(title);
 		if (img != 0) {
 			btn_setting.setVisibility(View.VISIBLE);
 			btn_setting.setImageResource(img);
@@ -44,25 +48,15 @@ public class ActionBarUtil {
 		return view;
 	}
 
-	public static void setActionBarStyle(Context context, String tag) {
-		setActionBarStyle(context, tag, 0, true, null);
+	public static void setActionBarStyle(Context context, String title) {
+		setActionBarStyle(context, title, 0, true, null, null);
 	}
-
-	public static void setActionBarStyle(Context context, String tag,
-			final OnClickListener l) {
-		final BaseActivity activity = (BaseActivity) context;
-		ActionBar actionbar = activity.getSupportActionBar();
-		actionbar.show();
-		actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-		actionbar.setDisplayShowTitleEnabled(true);
-		actionbar.setDisplayShowCustomEnabled(true);
-		actionbar.setCustomView(R.layout.main_header_layout);
-		View view = actionbar.getCustomView();
-		TextView title = (TextView) view.findViewById(R.id.header);
-		ImageView btn_back = (ImageView) view.findViewById(R.id.back);
-		btn_back.setVisibility(View.VISIBLE);
-		btn_back.setOnClickListener(l);
-		title.setText(tag);
+	public static void setActionBarStyle(Context context, String title,OnClickListener bl) {
+		setActionBarStyle(context, title, 0, true, bl, null);
+	}
+	public static View setActionBarStyle(Context context, String title,
+			int img, Boolean isBack,OnClickListener l){
+		return setActionBarStyle(context, title, img, isBack, null, l);
 	}
 
 }

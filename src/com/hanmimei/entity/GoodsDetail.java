@@ -8,7 +8,6 @@ import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.hanmimei.entity.HMMGoods.ImgInfo;
 
 public class GoodsDetail {
 	private Main main;

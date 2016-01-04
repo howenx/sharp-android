@@ -3,10 +3,6 @@ package com.hanmimei.activity;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,9 +20,10 @@ import com.hanmimei.R;
 import com.hanmimei.adapter.ThemeAdapter;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.entity.HMMGoods;
-import com.hanmimei.entity.HMMGoods.ImgInfo;
 import com.hanmimei.entity.HMMGoods.ImgTag;
 import com.hanmimei.entity.HMMThemeGoods;
+import com.hanmimei.entity.ImgInfo;
+import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.manager.BadgeViewManager;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
@@ -80,7 +77,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 				Intent intent = new Intent(getActivity(),
 						GoodsDetailActivity.class);
 				intent.putExtra("url", data.get(arg2).getItemUrlAndroid());
-				startActivity(intent);
+				startActivityForResult(intent,1);
 			}
 		});
 	}
@@ -108,6 +105,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 						HMMThemeGoods detail = DataParser
 								.parserThemeItem(result);
 						if (detail.getMessage().getCode() == 200) {
+							initShopCartView(detail);
 							initThemeView(detail);
 						} else {
 							findViewById(R.id.no_net).setVisibility(View.VISIBLE);
@@ -124,13 +122,27 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 					}
 				});
 	}
+	
+	private void initShopCartView(HMMThemeGoods detail){
+		if(getUser() == null){
+			List<ShoppingGoods>goods = getDaoSession().getShoppingGoodsDao().queryBuilder().list();
+			int num = 0 ;
+			for(ShoppingGoods sg : goods){
+				num += sg.getGoodsNums();
+			}
+			if(num <=0)
+				return;
+			BadgeViewManager.getInstance().showCartNum(this, cartView,num);
+		}else{
+			if (detail.getCartNum() != null) {
+				BadgeViewManager.getInstance().showCartNum(this, cartView,
+						detail.getCartNum());
+			}
+		}
+	}
 
 	// 初始化主推商品显示
 	private void initThemeView(HMMThemeGoods detail) {
-		if (detail.getCartNum() != null) {
-			BadgeViewManager.getInstance().showCartNum(this, cartView,
-					detail.getCartNum());
-		}
 		themeItem = detail.getMasterItem();
 		if (themeItem == null)
 			return;
@@ -167,7 +179,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 					Intent intent = new Intent(getActivity(),
 							GoodsDetailActivity.class);
 					intent.putExtra("url", themeItem.getItemUrlAndroid());
-					startActivity(intent);
+					startActivityForResult(intent,1);
 				}
 			});
 			mframeLayout.addView(view, lp);
@@ -190,6 +202,17 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 			break;
 		}
 	}
+	
+	
+
+	@Override
+	protected void onActivityResult(int arg0, int arg1, Intent arg2) {
+		if(arg1 == 1){
+			if(arg2.getBooleanExtra("isAddCart", false)){
+				loadUrl();
+			}
+		}
+	}
 
 	public void onResume() {
 		super.onResume();
@@ -205,5 +228,13 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 														// 中会保存信息。"SplashScreen"为页面名称，可自定义
 		MobclickAgent.onPause(this);
 	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		BadgeViewManager.getInstance().clearBView();
+	}
+	
+	
 
 }

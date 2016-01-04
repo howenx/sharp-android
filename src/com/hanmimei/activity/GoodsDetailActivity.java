@@ -42,8 +42,8 @@ import com.hanmimei.entity.Customs;
 import com.hanmimei.entity.GoodsDetail;
 import com.hanmimei.entity.GoodsDetail.Main;
 import com.hanmimei.entity.GoodsDetail.Stock;
-import com.hanmimei.entity.HMMGoods.ImgInfo;
 import com.hanmimei.entity.HMessage;
+import com.hanmimei.entity.ImgInfo;
 import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.Tag;
@@ -81,7 +81,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 																			// 发货区
 	private TextView num_restrictAmount;
 	private TagCloudView tagCloudView; // 规格标签控件
-	private TextView publicity; // 优惠信息 /购物车数量å
+	private TextView publicity; // 优惠信息 /购物车数量
 	private CustomScrollView mScrollView; //
 	private ListView content_params, content_hot; // 商品参数／热卖商品
 	private RadioGroup indicator_hide, indicator; // 顶部导航栏 中部导航栏
@@ -101,13 +101,14 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private List<Tag> tags; // 规格标签信息
 	
 	private int num_shopcart=0;
+	private boolean isAddCart = false ;
 	private boolean isCollected = false ;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		ActionBarUtil.setActionBarStyle(this, "商品详情", R.drawable.fenxiang,
-				true, this);
+				true, this ,this);
 		setContentView(R.layout.goods_detail_layout);
 		findView();
 		loadDataByUrl();
@@ -256,7 +257,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 			collectGoods();
 			break;
 		case R.id.btn_shopcart:
-			
+			isAddCart = true;
 			ShoppingGoods goods = new ShoppingGoods();
 			for (int i = 0; i < stocks.size(); i++) {
 				Stock stock = stocks.get(i);
@@ -289,6 +290,12 @@ public class GoodsDetailActivity extends BaseActivity implements
 			break;
 		case R.id.setting:
 			showShareboard();
+			break;
+		case R.id.back:
+			Intent data = new Intent();
+			data.putExtra("isAddCart", isAddCart);
+			setResult(1, data);
+			finish();
 			break;
 		case R.id.back_top:
 			mScrollView.fullScroll(ScrollView.FOCUS_UP);
