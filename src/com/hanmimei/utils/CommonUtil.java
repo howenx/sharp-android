@@ -365,6 +365,14 @@ public class CommonUtil {
 			imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT,
 					InputMethodManager.HIDE_NOT_ALWAYS);
 	}
+    
+    public static void closeBoardIfShow(Activity activity) {
+    	View view = activity.getWindow().peekDecorView();
+    	if (view != null) {
+            InputMethodManager inputmanger = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputmanger.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+	}
 
 	/**
 	 * 用户匿名显示
