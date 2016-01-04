@@ -29,7 +29,7 @@ public class PopupWindowUtil {
 		popWindow.setFocusable(true);
 		popWindow.setOutsideTouchable(true);
 		// 设置弹出屏幕后背景色
-		backgroundAlpha(context, 1.0f);
+		backgroundAlpha(context, 0.7f);
 		// 设置一个默认的popupwindow背景色 实现 点击空白区 关闭popupwindow
 		popWindow.setBackgroundDrawable(new ColorDrawable());
 		popWindow.showAtLocation(contentView, Gravity.BOTTOM, 0, 0);
