@@ -201,11 +201,15 @@ public class GoodsDetailActivity extends BaseActivity implements
 			}
 		});
 	}
-	
+	private HMessage msg;
 	/**
 	 * 发送商品信息添加到购物车
 	 */
 	private void sendData(ShoppingGoods goods) {
+		if(msg != null){
+			ToastUtils.Toast(getActivity(), msg.getMessage());
+			return ;
+		}
 		final JSONArray array = toJSONArray(goods);
 		Http2Utils.doPostRequestTask2(this,  getHeaders(), UrlUtil.GET_CAR_LIST_URL, new VolleyJsonCallback() {
 			
@@ -223,10 +227,12 @@ public class GoodsDetailActivity extends BaseActivity implements
 					buyNumView.show();
 					sendBroadcast(new Intent(
 							AppConstant.MESSAGE_BROADCAST_ADD_CAR));
-				} else {
+				} else if(hm.getCode() == 3001 ||hm.getCode() == 2001 ){
 					//提示添加失败原因 
-//					findViewById(R.id.no_net).setVisibility(View.VISIBLE);
-					ToastUtils.Toast(getActivity(), hm.getMessage());
+					msg = hm;
+					ToastUtils.Toast(getActivity(), msg.getMessage());
+				}else {
+					ToastUtils.Toast(getActivity(), msg.getMessage());
 				}
 			}
 			
@@ -519,6 +525,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		// 初始化子商品信息 （-1表示默认选中位置 ）
 		initGoodsInfo();
 		// 初始化规格显示
+		tagCloudView.removeAllViews();
 		tagCloudView.setTags(tags);
 		// 规格标签的点击事件
 		tagCloudView.setOnTagClickListener(new OnTagClickListener() {
@@ -553,11 +560,15 @@ public class GoodsDetailActivity extends BaseActivity implements
 		}else{
 			if(detail.getCartNum() !=null)
 				num_shopcart = detail.getCartNum();
+			else
+				num_shopcart = 0;
 		}
 		if(num_shopcart >0){
 			buyNumView.setText(num_shopcart+"");
 			buyNumView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
 			buyNumView.show();
+		}else{
+			buyNumView.hide();
 		}
 	}
 
@@ -757,9 +768,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 		@Override
 		protected void onDestroy() {
 			super.onDestroy();
-			BadgeViewManager.getInstance().clearBView();
 			unregisterReceiver(netReceiver);
-			sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
+			sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UPDATE_CARVIEW));
 		}
 	    
 	    

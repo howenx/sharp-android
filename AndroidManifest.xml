@@ -52,6 +52,7 @@
         <activity
             android:name="com.hanmimei.activity.MyOrderActivity"
             android:screenOrientation="portrait"
+            android:launchMode="singleTask"
             android:theme="@style/AppThemeForOrder" />
         <activity
             android:name="com.hanmimei.activity.CouponActivity"

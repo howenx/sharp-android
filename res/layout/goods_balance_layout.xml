@@ -108,7 +108,7 @@
                     android:layout_centerInParent="true"
                     android:background="@drawable/bg_custom_button"
                     android:text="添加收货地址"
-                    android:textColor="@color/white"
+                    android:textColor="@color/btn_font_selector"
                     android:textSize="16sp"/>
             </RelativeLayout>
 
@@ -545,7 +545,7 @@
             android:gravity="center"
             android:padding="15dp"
             android:text="@string/submit_order"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/btn_font_selector"
             android:textSize="16sp" />
     </LinearLayout>
 

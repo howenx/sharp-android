@@ -11,7 +11,47 @@ import com.hanmimei.R;
 import com.hanmimei.activity.BaseActivity;
 
 public class ActionBarUtil {
-
+	/**
+	 * 
+	 * @param context
+	 * @param title  标题
+	 */
+	public static void setActionBarStyle(Context context, String title) {
+		setActionBarStyle(context, title, 0, true, null, null);
+	}
+	/**
+	 * 
+	 * @param context
+	 * @param title 标题
+	 * @param bl 返回按钮的响应事件
+	 */
+	public static void setActionBarStyle(Context context, String title,OnClickListener bl) {
+		setActionBarStyle(context, title, 0, true, bl, null);
+	}
+	/**
+	 * 
+	 * @param context
+	 * @param title	标题
+	 * @param img  右侧按钮的图片
+	 * @param isBack 是否显示返回按钮
+	 * @param l 右侧按钮的响应事件
+	 * @return
+	 */
+	public static View setActionBarStyle(Context context, String title,
+			int img, Boolean isBack,OnClickListener l){
+		return setActionBarStyle(context, title, img, isBack, null, l);
+	}
+	
+	/**
+	 * 
+	 * @param context
+	 * @param title 标题
+	 * @param img 右侧按钮图片
+	 * @param isBack 是否显示返回按钮
+	 * @param bl 返回按钮的响应事件
+	 * @param l 右侧按钮的响应事件
+	 * @return
+	 */
 	public static View setActionBarStyle(Context context, String title,
 			int img, Boolean isBack,OnClickListener bl, OnClickListener l) {
 		final BaseActivity activity = (BaseActivity) context;
@@ -46,17 +86,6 @@ public class ActionBarUtil {
 		if (l != null)
 			btn_setting.setOnClickListener(l);
 		return view;
-	}
-
-	public static void setActionBarStyle(Context context, String title) {
-		setActionBarStyle(context, title, 0, true, null, null);
-	}
-	public static void setActionBarStyle(Context context, String title,OnClickListener bl) {
-		setActionBarStyle(context, title, 0, true, bl, null);
-	}
-	public static View setActionBarStyle(Context context, String title,
-			int img, Boolean isBack,OnClickListener l){
-		return setActionBarStyle(context, title, img, isBack, null, l);
 	}
 
 }

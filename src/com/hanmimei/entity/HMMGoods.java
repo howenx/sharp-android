@@ -24,7 +24,7 @@ public class HMMGoods {
 	private String itemUrlAndroid; //商品详情页链接(android 专用)
 	private String itemTitle; // 商品标题
 	private String itemPrice; // 商品价格
-	private String itemDiscount; // 商品折扣
+	private double itemDiscount; // 商品折扣
 	private String itemSoldAmount; // 商品销售量
 	private Boolean orMasterItem = false; // 是否是主题主打宣传商品
 	private String collectCount; // 商品收藏数
@@ -40,7 +40,7 @@ public class HMMGoods {
 
 	// 新添
 	private String itemMasterImg;
-	private BigDecimal itemSrcPrice; // 主sku原价
+	private String itemSrcPrice; // 主sku原价
 	private String state; // 商品状态
 	
 
@@ -175,11 +175,11 @@ public class HMMGoods {
 		this.itemPrice = itemPrice;
 	}
 
-	public String getItemDiscount() {
+	public double getItemDiscount() {
 		return itemDiscount;
 	}
 
-	public void setItemDiscount(String itemDiscount) {
+	public void setItemDiscount(double itemDiscount) {
 		this.itemDiscount = itemDiscount;
 	}
 
@@ -271,11 +271,11 @@ public class HMMGoods {
 		this.invCustoms = invCustoms;
 	}
 
-	public BigDecimal getItemSrcPrice() {
+	public String getItemSrcPrice() {
 		return itemSrcPrice;
 	}
 
-	public void setItemSrcPrice(BigDecimal itemSrcPrice) {
+	public void setItemSrcPrice(String itemSrcPrice) {
 		this.itemSrcPrice = itemSrcPrice;
 	}
 
