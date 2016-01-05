@@ -344,7 +344,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 		IntentFilter intentFilter = new IntentFilter();
 		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_ADD_CAR);
 //		intentFilter
-//				.addAction(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR);
+//				.addAction(AppConstant.MESSAGE_BROADCAST_SHOPCARNUMS_ACTION);
 		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION);
 		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_QUIT_LOGIN_ACTION);
 		getActivity().registerReceiver(netReceiver, intentFilter);
@@ -365,13 +365,8 @@ public class ShoppingCarActivity extends BaseActivity implements
 					.equals(AppConstant.MESSAGE_BROADCAST_ADD_CAR)) {
 				loadData();
 			} 
-//			else if (intent.getAction().equals(
-//					AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR)) {
-//				loadData();
-//			} 
 			else if (intent.getAction().equals(
 					AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION)) {
-//				clearPrice();
 				loadData();
 			} else if (intent.getAction().equals(
 					AppConstant.MESSAGE_BROADCAST_QUIT_LOGIN_ACTION)) {
