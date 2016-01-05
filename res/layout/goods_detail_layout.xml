@@ -233,7 +233,7 @@
                             android:background="@drawable/radio_btn_bg"
                             android:button="@null"
                             android:gravity="center"
-                            android:orientation="vertical"
+                            android:orientation="vertical" 
                             android:textColor="@color/indicator_font_color_selector"
                             android:padding="10dp"
                             android:text="商品参数"

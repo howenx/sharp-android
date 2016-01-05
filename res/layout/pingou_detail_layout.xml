@@ -44,7 +44,7 @@
                         android:padding="8dp"
                         android:text="韩迷妹fasct法系护肤三箭头(野蛮蒂娜水分温暖享受期待发布 大煞风景卡)套装"
                         android:textColor="@color/fontcolor"
-                        android:textSize="13sp" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:layout_width="match_parent"

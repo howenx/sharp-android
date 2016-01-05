@@ -34,6 +34,7 @@ public class PingouDetailActivity extends BaseActivity implements CustomScrollVi
 		
 	}
 	
+	@SuppressWarnings("unchecked")
 	private void findView(){
 		mScrollView = (CustomScrollView) findViewById(R.id.mScrollView);
 		slider = (ConvenientBanner<ImgInfo>) findViewById(R.id.slider);
@@ -98,8 +99,7 @@ public class PingouDetailActivity extends BaseActivity implements CustomScrollVi
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.wanfaView:
-			startActivity(new Intent(this, PingouLiuChengActivity.class
-					));
+			startActivity(new Intent(this, PingouLiuChengActivity.class));
 			break;
 
 		default:

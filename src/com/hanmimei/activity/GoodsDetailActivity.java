@@ -8,7 +8,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -31,7 +34,6 @@ import android.widget.Toast;
 import com.bigkoo.convenientbanner.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.hanmimei.R;
-import com.hanmimei.activity.listener.SimpleAnimationListener;
 import com.hanmimei.adapter.GoodsDetailParamAdapter;
 import com.hanmimei.dao.ShoppingGoodsDao;
 import com.hanmimei.dao.ShoppingGoodsDao.Properties;
@@ -48,6 +50,7 @@ import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.Tag;
 import com.hanmimei.entity.User;
+import com.hanmimei.manager.BadgeViewManager;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.Http2Utils;
@@ -112,7 +115,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		setContentView(R.layout.goods_detail_layout);
 		findView();
 		loadDataByUrl();
-		// registerReceivers();
+		 registerReceivers();
 	}
 	/**
 	 * 初始化所有view
@@ -212,14 +215,17 @@ public class GoodsDetailActivity extends BaseActivity implements
 				HMessage hm = DataParser.paserResultMsg(result);
 				if (hm.getCode() == 200) {
 					//购物车添加成功，显示提示框
-//					ToastUtils.Toast(GoodsDetailActivity.this);
-					displayAnimation();
+					ToastUtils.Toast(GoodsDetailActivity.this);
 					//发送广播 提示购物车更新数据
+					num_shopcart++;
+					buyNumView.setText(num_shopcart+ "");//
+					buyNumView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
+					buyNumView.show();
 					sendBroadcast(new Intent(
 							AppConstant.MESSAGE_BROADCAST_ADD_CAR));
 				} else {
 					//提示添加失败原因 
-					findViewById(R.id.no_net).setVisibility(View.VISIBLE);
+//					findViewById(R.id.no_net).setVisibility(View.VISIBLE);
 					ToastUtils.Toast(getActivity(), hm.getMessage());
 				}
 			}
@@ -272,6 +278,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 					}
 				}
 			}
+			displayAnimation();
 			if (user != null) {
 				sendData(goods);
 			} else {
@@ -283,7 +290,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 				}else{
 					goodsDao.insert(goods);
 				}
-				displayAnimation();
 				sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_ADD_CAR));
 			}
 			
@@ -292,9 +298,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 			showShareboard();
 			break;
 		case R.id.back:
-			Intent data = new Intent();
-			data.putExtra("isAddCart", isAddCart);
-			setResult(1, data);
 			finish();
 			break;
 		case R.id.back_top:
@@ -327,18 +330,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private void displayAnimation(){
 		Animation anim = AnimationUtils.loadAnimation(this, R.anim.shopcart_anim);
 		img_hide.startAnimation(anim);
-		// 动画监听事件
-		anim.setAnimationListener(new SimpleAnimationListener() {
-
-			// 动画的结束
-			@Override
-			public void onAnimationEnd(Animation animation) {
-				num_shopcart++;
-				buyNumView.setText(num_shopcart+ "");//
-				buyNumView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
-				buyNumView.show();
-			}
-		});
 	}
 
 	
@@ -739,6 +730,40 @@ public class GoodsDetailActivity extends BaseActivity implements
 	        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
 
 	    }
+	    
+	    private CarBroadCastReceiver netReceiver;
+
+		// 广播接收者 注册
+		private void registerReceivers() {
+			netReceiver = new CarBroadCastReceiver();
+			IntentFilter intentFilter = new IntentFilter();
+			intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_ADD_CAR);
+			intentFilter
+					.addAction(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR);
+			getActivity().registerReceiver(netReceiver, intentFilter);
+		}
+
+		private class CarBroadCastReceiver extends BroadcastReceiver {
+
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				if (intent.getAction().equals(
+						AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR)) {
+					loadDataByUrl();
+				}
+			}
+		}
+
+		@Override
+		protected void onDestroy() {
+			super.onDestroy();
+			BadgeViewManager.getInstance().clearBView();
+			unregisterReceiver(netReceiver);
+			sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
+		}
+	    
+	    
+	    
 	public void onResume() {
 	    super.onResume();
 	    MobclickAgent.onPageStart("GoodsDetailActivity"); //统计页面(仅有Activity的应用中SDK自动调用，不需要单独写。"SplashScreen"为页面名称，可自定义)

@@ -57,11 +57,11 @@ public class ToastUtils {
 		Toast toast = new Toast(context);
 		toast.setDuration(Toast.LENGTH_SHORT);
 		TextView view = new TextView(context);
-		view.setPadding(CommonUtil.dip2px(10), 0
-				, CommonUtil.dip2px(10),  0);
+		view.setPadding(CommonUtil.dip2px(15), CommonUtil.dip2px(8)
+				, CommonUtil.dip2px(15),  CommonUtil.dip2px(8));
 		view.setBackgroundResource(R.drawable.bg_toast);
 		view.setTextColor(Color.WHITE);
-		view.setTextSize(12);
+		view.setTextSize(14);
 		view.setText(content);
 		toast.setView(view);
 		toast.show();

@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,6 +21,7 @@ import android.widget.TextView;
 
 import com.hanmimei.R;
 import com.hanmimei.adapter.ThemeAdapter;
+import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.entity.HMMGoods;
 import com.hanmimei.entity.HMMGoods.ImgTag;
@@ -77,9 +81,11 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 				Intent intent = new Intent(getActivity(),
 						GoodsDetailActivity.class);
 				intent.putExtra("url", data.get(arg2).getItemUrlAndroid());
-				startActivityForResult(intent,1);
+				startActivityForResult(intent, 1);
 			}
 		});
+
+		registerReceivers();
 	}
 
 	// 初始化view对象
@@ -87,7 +93,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		gridView = (GridView) findViewById(R.id.my_grid);
 		img = (ImageView) findViewById(R.id.img);
 		mframeLayout = (FrameLayout) findViewById(R.id.mframeLayout);
-		
+
 		findViewById(R.id.reload).setOnClickListener(this);
 	}
 
@@ -108,7 +114,8 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 							initShopCartView(detail);
 							initThemeView(detail);
 						} else {
-							findViewById(R.id.no_net).setVisibility(View.VISIBLE);
+							findViewById(R.id.no_net).setVisibility(
+									View.VISIBLE);
 							ToastUtils.Toast(getActivity(), detail.getMessage()
 									.getMessage());
 						}
@@ -122,18 +129,19 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 					}
 				});
 	}
-	
-	private void initShopCartView(HMMThemeGoods detail){
-		if(getUser() == null){
-			List<ShoppingGoods>goods = getDaoSession().getShoppingGoodsDao().queryBuilder().list();
-			int num = 0 ;
-			for(ShoppingGoods sg : goods){
+
+	private void initShopCartView(HMMThemeGoods detail) {
+		if (getUser() == null) {
+			List<ShoppingGoods> goods = getDaoSession().getShoppingGoodsDao()
+					.queryBuilder().list();
+			int num = 0;
+			for (ShoppingGoods sg : goods) {
 				num += sg.getGoodsNums();
 			}
-			if(num <=0)
+			if (num <= 0)
 				return;
-			BadgeViewManager.getInstance().showCartNum(this, cartView,num);
-		}else{
+			BadgeViewManager.getInstance().showCartNum(this, cartView, num);
+		} else {
 			if (detail.getCartNum() != null) {
 				BadgeViewManager.getInstance().showCartNum(this, cartView,
 						detail.getCartNum());
@@ -148,8 +156,9 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 			return;
 		ImgInfo info = themeItem.getItemMasterImgForImgInfo();
 		int width = CommonUtil.getScreenWidth(this);
-		int height = CommonUtil.getScreenWidth(this) * info.getHeight() / info.getWidth();
-		
+		int height = CommonUtil.getScreenWidth(this) * info.getHeight()
+				/ info.getWidth();
+
 		Picasso.with(this).load(info.getUrl()).resize(width, height).into(img);
 
 		List<ImgTag> tags = themeItem.getMasterItemTagForTag();
@@ -179,7 +188,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 					Intent intent = new Intent(getActivity(),
 							GoodsDetailActivity.class);
 					intent.putExtra("url", themeItem.getItemUrlAndroid());
-					startActivityForResult(intent,1);
+					startActivityForResult(intent, 1);
 				}
 			});
 			mframeLayout.addView(view, lp);
@@ -202,16 +211,35 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 			break;
 		}
 	}
-	
-	
 
-	@Override
-	protected void onActivityResult(int arg0, int arg1, Intent arg2) {
-		if(arg1 == 1){
-			if(arg2.getBooleanExtra("isAddCart", false)){
+	private CarBroadCastReceiver netReceiver;
+
+	// 广播接收者 注册
+	private void registerReceivers() {
+		netReceiver = new CarBroadCastReceiver();
+		IntentFilter intentFilter = new IntentFilter();
+		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_ADD_CAR);
+		intentFilter
+				.addAction(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR);
+		getActivity().registerReceiver(netReceiver, intentFilter);
+	}
+
+	private class CarBroadCastReceiver extends BroadcastReceiver {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			if (intent.getAction().equals(
+					AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR)) {
 				loadUrl();
 			}
 		}
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		BadgeViewManager.getInstance().clearBView();
+		unregisterReceiver(netReceiver);
 	}
 
 	public void onResume() {
@@ -228,13 +256,5 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 														// 中会保存信息。"SplashScreen"为页面名称，可自定义
 		MobclickAgent.onPause(this);
 	}
-
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		BadgeViewManager.getInstance().clearBView();
-	}
-	
-	
 
 }
