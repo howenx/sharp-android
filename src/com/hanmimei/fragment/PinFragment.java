@@ -55,7 +55,7 @@ public class PinFragment extends Fragment implements TimeEndListner, OnRefreshLi
 		mListView = (CustomListView) view.findViewById(R.id.mylist);
 		mListView.setFocusable(false);
 		mListView.setAdapter(adapter);
-		long [] time = {0, 0, 10};
+		long [] time = {0, 3, 10};
 		timer.setTimes(time,"拼购已经结束，请等待下次");
 		loadData();
 		return view;
