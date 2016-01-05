@@ -2,7 +2,9 @@ package com.hanmimei.adapter;
 
 import java.util.List;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,14 +14,17 @@ import android.widget.TextView;
 
 import com.hanmimei.R;
 import com.hanmimei.entity.Goods;
+import com.hanmimei.utils.KeyWordUtil;
 
 public class PingouListAdapter extends BaseAdapter {
 	
 	private LayoutInflater inflater;
 	private List<Goods> data;
+	private Activity activity;
 	
 	public PingouListAdapter(Context mContext,List<Goods> data){
 		this.data = data;
+		activity = (Activity) mContext;
 		inflater = LayoutInflater.from(mContext);
 	}
 
@@ -58,7 +63,7 @@ public class PingouListAdapter extends BaseAdapter {
 		holder.title.setText("韩国发希fascy陆心媛娃娃护手霜 80ml3支深层滋润保湿五件套");
 		holder.zhekou.setText("20%");
 		holder.iniPrice.setText("市场价：¥600");
-		holder.zhePrice.setText("折扣价：¥480");
+		holder.zhePrice.setText(KeyWordUtil.matcherSearchTitle(activity.getResources().getColor(R.color.theme), "折扣价：¥480", "¥480"));
 		holder.pinNum.setText("（4人拼购价）");
 		holder.pinPrice.setText("¥400");
 		return convertView;

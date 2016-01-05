@@ -130,6 +130,9 @@
         <activity
             android:name="com.hanmimei.activity.PingouLiuChengActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.hanmimei.activity.AboutWeActivity"
+            android:screenOrientation="portrait" />
 
         <!-- 友盟相关 -->
         <activity

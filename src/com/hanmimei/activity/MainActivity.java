@@ -81,7 +81,10 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 		} else if (tabId.equals(TAB_CAR_ID)) {
 			ActionBarUtil.setActionBarStyle(this, "购物车", 0, false, this);
 			/** 如果当前选项卡是my */
-		} else if (tabId.equals(TAB_MY_ID)) {
+		} else if (tabId.equals(TAB_PIN_ID)) {
+			ActionBarUtil.setActionBarStyle(this, "拼购", 0, false, this);
+			/** 如果当前选项卡是my */
+		}else if (tabId.equals(TAB_MY_ID)) {
 			ActionBarUtil.setActionBarStyle(this, "", R.drawable.icon_setting,
 					false, this);
 		}

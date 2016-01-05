@@ -20,7 +20,7 @@ public class BadgeViewManager {
 	 * @param mListView
 	 */
 	public void initBadgeViewManager(Context mContext, FragmentTabHost tabHost) {
-		this.view = new BadgeView(mContext, tabHost.getTabWidget(), 1);
+		this.view = new BadgeView(mContext, tabHost.getTabWidget(), 2);
 		view.setBackgroundResource(R.drawable.bg_badgeview);
 		view.setBadgePosition(BadgeView.POSITION_CENTER_HORIZONTAL);
 		view.setTextSize(10);

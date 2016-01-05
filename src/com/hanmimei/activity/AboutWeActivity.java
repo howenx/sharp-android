@@ -2,6 +2,7 @@ package com.hanmimei.activity;
 
 
 import com.hanmimei.R;
+import com.hanmimei.utils.ActionBarUtil;
 import com.umeng.analytics.MobclickAgent;
 
 import android.annotation.SuppressLint;
@@ -14,7 +15,7 @@ public class AboutWeActivity extends BaseActivity {
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.about_we_layout);
-		
+		ActionBarUtil.setActionBarStyle(this, "关于韩秘美");
 	}
 	
 	public void onResume() {

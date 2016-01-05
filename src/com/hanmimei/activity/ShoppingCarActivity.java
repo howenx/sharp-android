@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.hanmimei.R;
@@ -37,8 +38,8 @@ import com.hanmimei.entity.Customs;
 import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.User;
+import com.hanmimei.manager.ShoppingCarMenager;
 import com.hanmimei.utils.HttpUtils;
-import com.hanmimei.utils.ShoppingCarMenager;
 import com.umeng.analytics.MobclickAgent;
 
 /*
@@ -55,6 +56,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 	private TextView attention;
 	private LinearLayout no_data;
 	private LinearLayout no_net;
+	private TextView go_home;
 	private List<Customs> data;
 	private ShoppingCarPullListAdapter adapter;
 	private User user;
@@ -220,9 +222,12 @@ public class ShoppingCarActivity extends BaseActivity implements
 			check_all.setImageDrawable(uncheck_Drawable);
 		}
 		pay = (TextView) findViewById(R.id.pay);
+		go_home = (TextView)findViewById(R.id.go_home);
+		go_home.setOnClickListener(this);
 		pay.setOnClickListener(this);
 		attention = (TextView) findViewById(R.id.attention);
 		mListView = (PullToRefreshListView) findViewById(R.id.mylist);
+		mListView.setMode(Mode.DISABLED);
 		no_data = (LinearLayout) findViewById(R.id.data_null);
 		no_net = (LinearLayout) findViewById(R.id.no_net);
 		findViewById(R.id.top).setVisibility(View.VISIBLE);
@@ -283,6 +288,10 @@ public class ShoppingCarActivity extends BaseActivity implements
 				Toast.makeText(getActivity(), "请选择商品", Toast.LENGTH_SHORT)
 						.show();
 			}
+			break;
+		case R.id.go_home:
+			startActivity(new Intent(this,MainActivity.class));
+			break;
 		default:
 			break;
 		}
@@ -364,8 +373,10 @@ public class ShoppingCarActivity extends BaseActivity implements
 			if (intent.getAction()
 					.equals(AppConstant.MESSAGE_BROADCAST_ADD_CAR)) {
 				loadData();
-			} 
-			else if (intent.getAction().equals(
+			} else if (intent.getAction().equals(
+					AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR)) {
+				loadData();
+			} else if (intent.getAction().equals(
 					AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION)) {
 				loadData();
 			} else if (intent.getAction().equals(

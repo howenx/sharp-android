@@ -82,10 +82,11 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		}
 		adapter = new OrderDetailListAdapter(list, this, isShow);
 		findView();
-		if(order.getOrderStatus().equals("D") ||order.getOrderStatus().equals("S")){
-			ActionBarUtil.setActionBarStyle(this, "订单详情");
-		}else{
+//		order.getOrderStatus().equals("R") ||
+		if(order.getOrderStatus().equals("C")){
 			ActionBarUtil.setActionBarStyle(this, "订单详情", R.drawable.icon_delete, true, this);
+		}else{
+			ActionBarUtil.setActionBarStyle(this, "订单详情");
 		}
 		if(order.getOrderStatus().equals("I")){
 			loadData();

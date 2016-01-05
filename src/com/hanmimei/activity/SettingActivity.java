@@ -5,6 +5,7 @@ import com.hanmimei.application.MyApplication;
 import com.hanmimei.dao.UserDao;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.utils.ActionBarUtil;
+import com.hanmimei.utils.DoJumpUtils;
 import com.umeng.analytics.MobclickAgent;
 
 import android.annotation.SuppressLint;
@@ -76,6 +77,11 @@ public class SettingActivity extends BaseActivity implements OnClickListener{
 		tel = (TextView) findViewById(R.id.tel);
 		del = (TextView) findViewById(R.id.del);
 		exit = (TextView) findViewById(R.id.exit);
+		if(getUser() == null){
+			exit.setVisibility(View.GONE);
+		}else{
+			exit.setVisibility(View.VISIBLE);
+		}
 		about.setCompoundDrawables(about_Drawable, null, null, null);
 		idea.setCompoundDrawables(idea_Drawable, null, null, null);
 		comment.setCompoundDrawables(comment_Drawable, null, null, null);
@@ -92,7 +98,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener{
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.about:
-			
+			DoJumpUtils.doJump(this, AboutWeActivity.class);
 			break;
 		case R.id.idea:
 			break;

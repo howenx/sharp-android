@@ -32,9 +32,9 @@ import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.User;
+import com.hanmimei.manager.ShoppingCarMenager;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ImageLoaderUtils;
-import com.hanmimei.utils.ShoppingCarMenager;
 
 public class ShoppingCarAdapter extends BaseAdapter {
 
@@ -252,6 +252,8 @@ public class ShoppingCarAdapter extends BaseAdapter {
 
 	// 删除购物车商品
 	private void delGoods(final ShoppingGoods goods) {
+		dialog.dismiss();
+		activity.getLoading().show();
 		delGoods = goods;
 		new Thread(new Runnable() {
 
@@ -281,6 +283,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+		activity.getLoading().show();
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -295,6 +298,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 	}
 
 	private void upGoodsN(final ShoppingGoods goods) {
+		activity.getLoading().show();
 		new Thread(new Runnable() {
 
 			@Override
@@ -317,6 +321,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 			super.handleMessage(msg);
 			switch (msg.what) {
 			case 1:
+				activity.getLoading().dismiss();
 				HMessage hm = (HMessage) msg.obj;
 				if (hm != null) {
 					if (hm.getCode() == 200) {
@@ -331,9 +336,9 @@ public class ShoppingCarAdapter extends BaseAdapter {
 					Toast.makeText(activity, "删除失败！", Toast.LENGTH_SHORT)
 							.show();
 				}
-				dialog.dismiss();
 				break;
 			case 2:
+				activity.getLoading().dismiss();
 				HMessage hmm = (HMessage) msg.obj;
 				if (hmm != null) {
 					if (hmm.getCode() == 200) {
@@ -351,6 +356,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 				}
 				break;
 			case 3:
+				activity.getLoading().dismiss();
 				ShoppingCar car = (ShoppingCar) msg.obj;
 				HMessage m = car.getMessage();
 				if (m != null) {

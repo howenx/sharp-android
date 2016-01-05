@@ -93,6 +93,7 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 	}
 
 	private void getUserInfo() {
+		activity.getLoading().show();
 		user = activity.getUser();
 		new Thread(new Runnable() {
 			@Override
@@ -195,6 +196,7 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 			super.handleMessage(msg);
 			switch (msg.what) {
 			case 1:
+				activity.getLoading().dismiss();
 				User userinfo = (User) msg.obj;
 				if (userinfo.getUserName() != null) {
 					user.setUserName(userinfo.getUserName());

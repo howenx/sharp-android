@@ -7,6 +7,7 @@
     android:background="@drawable/huise_border">
     <ImageView 
         android:id="@+id/img"
+        android:padding="0.1dp"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_centerVertical="true"
@@ -22,7 +23,7 @@
         android:layout_height="wrap_content"
         android:maxLines="2"
         android:text="@null"
-        android:textSize="13sp"
+        android:textSize="14sp"
         android:textColor="@color/fontcolor"/>
     <TextView 
         android:id="@+id/zhekou"
@@ -41,35 +42,32 @@
         android:layout_below="@id/zhekou"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="12sp"
+        android:textSize="11sp"
         android:text="@string/zhekoulv"
         android:textColor="@color/huise"/>
     <TextView 
         android:id="@+id/shiprice"
         android:layout_marginTop ="5dp"
-        android:layout_marginLeft="10dp"
         android:layout_toRightOf="@id/zhekou"
         android:layout_below="@id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:gravity="right"
-        android:textSize="12sp"
+        android:textSize="11sp"
         android:text="@null"
         android:textColor="@color/huise"/>
     <TextView 
         android:id="@+id/zhekouprice"
-        android:layout_marginTop ="5dp"
-        android:layout_marginLeft="10dp"
         android:layout_toRightOf="@id/zhekou"
         android:layout_below="@id/shiprice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:gravity="right"
-        android:textSize="12sp"
+        android:textSize="11sp"
         android:text="@null"
-        android:textColor="@color/theme"/>
+        android:textColor="@color/huise"/>
     <LinearLayout 
         android:layout_marginTop="5dp"
         android:layout_marginLeft="10dp"

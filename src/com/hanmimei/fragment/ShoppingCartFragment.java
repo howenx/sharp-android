@@ -2,29 +2,10 @@ package com.hanmimei.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
-import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.hanmimei.R;
-import com.hanmimei.activity.BaseActivity;
-import com.hanmimei.activity.GoodsBalanceActivity;
-import com.hanmimei.activity.LoginActivity;
-import com.hanmimei.adapter.ShoppingCarPullListAdapter;
-import com.hanmimei.dao.ShoppingGoodsDao;
-import com.hanmimei.data.AppConstant;
-import com.hanmimei.data.DataParser;
-import com.hanmimei.data.UrlUtil;
-import com.hanmimei.entity.Customs;
-import com.hanmimei.entity.ShoppingCar;
-import com.hanmimei.entity.ShoppingGoods;
-import com.hanmimei.entity.User;
-import com.hanmimei.utils.HttpUtils;
-import com.hanmimei.utils.ShoppingCarMenager;
-import com.umeng.analytics.MobclickAgent;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -44,6 +25,27 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.hanmimei.R;
+import com.hanmimei.activity.BaseActivity;
+import com.hanmimei.activity.GoodsBalanceActivity;
+import com.hanmimei.activity.LoginActivity;
+import com.hanmimei.adapter.ShoppingCarPullListAdapter;
+import com.hanmimei.dao.ShoppingGoodsDao;
+import com.hanmimei.data.AppConstant;
+import com.hanmimei.data.DataParser;
+import com.hanmimei.data.UrlUtil;
+import com.hanmimei.entity.Customs;
+import com.hanmimei.entity.ShoppingCar;
+import com.hanmimei.entity.ShoppingGoods;
+import com.hanmimei.entity.User;
+import com.hanmimei.manager.ShoppingCarMenager;
+import com.hanmimei.utils.HttpUtils;
+import com.umeng.analytics.MobclickAgent;
 
 public class ShoppingCartFragment extends Fragment implements OnClickListener,
 		OnRefreshListener2<ListView> {
