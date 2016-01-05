@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="theme">#FFF9616A</color>
+    <color name="theme">#e56254</color>
+    <!-- 
+    <color name="theme">#F9616A</color>
+     -->
     <color name="theme_sub">#AAF9616A</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>

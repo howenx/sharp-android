@@ -2,28 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/round_border_wihte"
     android:id="@+id/back_top">
-    <LinearLayout 
-        android:id="@+id/first"
-        android:padding="3dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:orientation="vertical">
         <ImageView 
-            android:layout_width="match_parent"
-            android:layout_height="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:src="@drawable/backtop"
             android:contentDescription="@null"/>
-        <TextView 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/top"
-            android:textSize="10sp"
-            android:textColor="@color/fontcolor"
-            />
-    </LinearLayout>
 
 </RelativeLayout>
