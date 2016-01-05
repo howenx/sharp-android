@@ -225,7 +225,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 	private void delOrder() {
 		dialog.dismiss();
 		progressDialog = new ProgressDialog(this);
-		progressDialog.setMessage("正在退出...");
+		progressDialog.setMessage("正在删除...");
 		progressDialog.show();
 		new Thread(new Runnable() {
 			

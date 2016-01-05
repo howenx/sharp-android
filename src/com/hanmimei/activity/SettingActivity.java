@@ -4,15 +4,19 @@ import com.hanmimei.R;
 import com.hanmimei.application.MyApplication;
 import com.hanmimei.dao.UserDao;
 import com.hanmimei.data.AppConstant;
+import com.hanmimei.utils.ActionBarUtil;
 import com.umeng.analytics.MobclickAgent;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -35,15 +39,15 @@ public class SettingActivity extends BaseActivity implements OnClickListener{
 	private TextView del;
 	private TextView exit;
 	
-	private ProgressDialog dialog;
-	
+	private ProgressDialog pdialog;
+	private AlertDialog dialog;
 	private MyApplication application;
 	private UserDao userDao;
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.setting_layout);
-//		getActionBar().hide();
+		ActionBarUtil.setActionBarStyle(this, "设置");
 		application = (MyApplication) getApplication();
 		userDao = getDaoSession().getUserDao();
 		initDrawable();
@@ -95,6 +99,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener{
 		case R.id.comment:
 			break;
 		case R.id.tel:
+			showDialog();
 			break;
 		case R.id.del:
 			break;
@@ -108,10 +113,31 @@ public class SettingActivity extends BaseActivity implements OnClickListener{
 			break;
 		}
 	}
-	private void doExit() {
-		dialog = new ProgressDialog(this);
-		dialog.setMessage("正在退出...");
+	private void showDialog() {
+		View view = LayoutInflater.from(this).inflate(R.layout.dialog_layout, null);
+		dialog = new AlertDialog.Builder(this).create();
+		TextView title = (TextView) view.findViewById(R.id.title);
+		title.setText("拨打客服电话 400100108888");
+		dialog.setView(view);
 		dialog.show();
+		view.findViewById(R.id.cancle).setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				dialog.dismiss();
+			}
+		});
+		view.findViewById(R.id.besure).setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(Intent.ACTION_CALL,Uri.parse("tel:18612433707")));
+				dialog.dismiss();
+			}
+		});
+	}
+	private void doExit() {
+		pdialog = new ProgressDialog(this);
+		pdialog.setMessage("正在退出...");
+		pdialog.show();
 		new Thread(new Runnable() {
 			
 			@Override
@@ -135,7 +161,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener{
 			super.handleMessage(msg);
 			switch (msg.what) {
 			case 1:
-				dialog.dismiss();
+				pdialog.dismiss();
 				sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_QUIT_LOGIN_ACTION));
 				finish();
 				break;
