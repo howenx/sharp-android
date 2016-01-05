@@ -1,6 +1,7 @@
 package com.hanmimei.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,10 +19,10 @@ public class Customs implements Serializable{
 	private int postalLimit;
 	private int postalStandard;
 	
-	private double portalSingleCustomsFee = 0.00;
-	private double factSingleCustomsShipFee =0.00;
-	private double shipSingleCustomsFee= 0.00;
-	private double factPortalFeeSingleCustoms= 0.00;
+	private BigDecimal portalSingleCustomsFee = new BigDecimal(0);
+	private BigDecimal factSingleCustomsShipFee =new BigDecimal(0);
+	private BigDecimal shipSingleCustomsFee= new BigDecimal(0);
+	private BigDecimal factPortalFeeSingleCustoms= new BigDecimal(0);
 	
 	
 	public String getInvAreaNm() {
@@ -39,37 +40,29 @@ public class Customs implements Serializable{
 	public int getPostFee() {
 		return postFee;
 	}
-	public Double getPortalSingleCustomsFee() {
+	
+	public BigDecimal getPortalSingleCustomsFee() {
 		return portalSingleCustomsFee;
 	}
-	public String getPortalSingleCustomsFeeFormat() {
-		return new DecimalFormat("##0.00").format(portalSingleCustomsFee);
-	}
-	public void setPortalSingleCustomsFee(Double portalSingleCustomsFee) {
+	public void setPortalSingleCustomsFee(BigDecimal portalSingleCustomsFee) {
 		this.portalSingleCustomsFee = portalSingleCustomsFee;
 	}
-	public Double getFactSingleCustomsShipFee() {
+	public BigDecimal getFactSingleCustomsShipFee() {
 		return factSingleCustomsShipFee;
 	}
-	public String getFactSingleCustomsShipFeeFormat() {
-		return new DecimalFormat("##0.00").format(factSingleCustomsShipFee);
-	}
-	public void setFactSingleCustomsShipFee(Double factSingleCustomsShipFee) {
+	public void setFactSingleCustomsShipFee(BigDecimal factSingleCustomsShipFee) {
 		this.factSingleCustomsShipFee = factSingleCustomsShipFee;
 	}
-	public Double getShipSingleCustomsFee() {
+	public BigDecimal getShipSingleCustomsFee() {
 		return shipSingleCustomsFee;
 	}
-	public void setShipSingleCustomsFee(Double shipSingleCustomsFee) {
+	public void setShipSingleCustomsFee(BigDecimal shipSingleCustomsFee) {
 		this.shipSingleCustomsFee = shipSingleCustomsFee;
 	}
-	public Double getFactPortalFeeSingleCustoms() {
+	public BigDecimal getFactPortalFeeSingleCustoms() {
 		return factPortalFeeSingleCustoms;
 	}
-	public String getFactPortalFeeSingleCustomsFormat() {
-		return new DecimalFormat("##0.00").format(factPortalFeeSingleCustoms);
-	}
-	public void setFactPortalFeeSingleCustoms(Double factPortalFeeSingleCustoms) {
+	public void setFactPortalFeeSingleCustoms(BigDecimal factPortalFeeSingleCustoms) {
 		this.factPortalFeeSingleCustoms = factPortalFeeSingleCustoms;
 	}
 	public void setPostFee(int postFee) {

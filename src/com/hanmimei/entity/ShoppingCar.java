@@ -1,6 +1,7 @@
 package com.hanmimei.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.List;
 
@@ -12,11 +13,11 @@ public class ShoppingCar implements Serializable {
 	private HMessage message;
 	private List<Customs> list;
 	
-	private Double shipFee = Double.valueOf(0.00);			//理论邮费
-	private Double portalFee =Double.valueOf(0.00);		//理论行邮税
-	private Double factPortalFee = Double.valueOf(0.00);	//	实际行邮税
-	private Double factShipFee = Double.valueOf(0.00); //实际邮费
-	private Double denomination = Double.valueOf(0.00); //优惠额度
+	private BigDecimal shipFee = new BigDecimal(0);			//理论邮费
+	private BigDecimal portalFee =new BigDecimal(0);		//理论行邮税
+	private BigDecimal factPortalFee = new BigDecimal(0);	//	实际行邮税
+	private BigDecimal factShipFee = new BigDecimal(0); //实际邮费
+	private BigDecimal denomination = new BigDecimal(0); //优惠额度
 	
 	 private Integer buyNow = 1;         //1.立即支付,2.购物车结算
 
@@ -28,15 +29,12 @@ public class ShoppingCar implements Serializable {
 		this.buyNow = buyNow;
 	}
 
-	public Double getDenomination() {
+	public BigDecimal getDenomination() {
 		return denomination;
 	}
-	public String getDenominationFormat() {
-		return new DecimalFormat("##0.00").format(denomination);
-	}
 
-	public void setDenomination(Double denomination) {
-		this.denomination = denomination.doubleValue();
+	public void setDenomination(BigDecimal denomination) {
+		this.denomination = denomination;
 	}
 
 	public HMessage getMessage() {
@@ -55,60 +53,49 @@ public class ShoppingCar implements Serializable {
 		this.list = list;
 	}
 
-	public Double getAllPrice() {
-		Double allPrice = 0.00;
+	public BigDecimal getAllPrice() {
+		BigDecimal allPrice = new BigDecimal(0);
 		for(Customs cs :list){
-			allPrice += cs.getAllPrice();
+			allPrice = allPrice.add(new BigDecimal(cs.getAllPrice()));
 		}
 		return allPrice;
 	}
-	public String getAllPriceFormat(){
-		return new DecimalFormat("##0.00").format(getAllPrice());
-	}
-	public Double getShipFee() {
+	
+	
+	public BigDecimal getShipFee() {
 		return shipFee;
 	}
 
-	public void setShipFee(Double shipFee) {
+	public void setShipFee(BigDecimal shipFee) {
 		this.shipFee = shipFee;
 	}
 
-	public Double getPortalFee() {
+	public BigDecimal getPortalFee() {
 		return portalFee;
 	}
 
-	public void setPortalFee(Double portalFee) {
+	public void setPortalFee(BigDecimal portalFee) {
 		this.portalFee = portalFee;
 	}
 
-	public Double getFactPortalFee() {
+	public BigDecimal getFactPortalFee() {
 		return factPortalFee;
 	}
-	public String getFactPortalFeeFormat() {
-		return new DecimalFormat("##0.00").format(factPortalFee);
-	}
 
-	public void setFactPortalFee(Double factPortalFee) {
+	public void setFactPortalFee(BigDecimal factPortalFee) {
 		this.factPortalFee = factPortalFee;
 	}
 
-	public Double getFactShipFee() {
+	public BigDecimal getFactShipFee() {
 		return factShipFee;
 	}
-	public String getFactShipFeeFormat() {
-		return new DecimalFormat("##0.00").format(factShipFee);
-	}
 
-	public void setFactShipFee(Double factShipFee) {
+	public void setFactShipFee(BigDecimal factShipFee) {
 		this.factShipFee = factShipFee;
 	}
-	
-	
-	public String getAllMoneyFormat(){
-		return  new DecimalFormat("##0.00").format(getAllMoney());
-	}
-	public Double getAllMoney(){
-		return getAllPrice() + this.factPortalFee +this.factShipFee - this.denomination;
+
+	public BigDecimal getAllMoney(){
+		return getAllPrice().add(this.factPortalFee).add(this.factShipFee).subtract(this.denomination) ;
 	}
 
 }

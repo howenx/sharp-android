@@ -121,9 +121,6 @@ public class ShoppingGoods implements Serializable{
     public Double getGoodsPrice() {
         return goodsPrice;
     }
-    public String getGoodsPriceFormat() {
-    	return new DecimalFormat("##0.00").format(goodsPrice);
-    }
 
     public void setGoodsPrice(Double goodsPrice) {
         this.goodsPrice = goodsPrice;

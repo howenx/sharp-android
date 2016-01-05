@@ -1,7 +1,7 @@
 package com.hanmimei.entity;
 
 import java.io.Serializable;
-import java.text.DecimalFormat;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -222,12 +222,12 @@ public class GoodsDetail {
 		private Integer id;
 		private String itemColor;
 		private String itemSize;
-		private Double itemSrcPrice;
-		private Double itemPrice;
-		private Double itemDiscount;
+		private BigDecimal itemSrcPrice;
+		private BigDecimal itemPrice;
+		private BigDecimal itemDiscount;
 		private Boolean orMasterInv;
 		private String state;
-		private Double shipFee;
+		private BigDecimal shipFee;
 		private String invArea;
 		private String invAreaNm;
 		private Integer restrictAmount;  
@@ -358,40 +358,37 @@ public class GoodsDetail {
 			this.invTitle = invTitle;
 		}
 
-		public String getItemSrcPrice() {
-			return new DecimalFormat("##0.00").format(itemSrcPrice);
+		public BigDecimal getItemSrcPrice() {
+			return itemSrcPrice;
 		}
 
-		public void setItemSrcPrice(Double itemSrcPrice) {
+		public void setItemSrcPrice(BigDecimal itemSrcPrice) {
 			this.itemSrcPrice = itemSrcPrice;
 		}
 
-		public String getItemPriceFormat() {
-			return new DecimalFormat("##0.00").format(itemPrice);
-		}
 		
-		public Double getItemPrice() {
+		public BigDecimal getItemPrice() {
 			return itemPrice;
 		}
 
-		public void setItemPrice(Double itemPrice) {
+		public void setItemPrice(BigDecimal itemPrice) {
 			this.itemPrice = itemPrice;
 		}
 
-		public Double getItemDiscount() {
+		public BigDecimal getItemDiscount() {
 			return itemDiscount;
 		}
 
-		public void setItemDiscount(Double itemDiscount) {
+		public void setItemDiscount(BigDecimal itemDiscount) {
 			this.itemDiscount = itemDiscount;
 		}
 
 		
-		public Double getShipFee() {
+		public BigDecimal getShipFee() {
 			return shipFee;
 		}
 
-		public void setShipFee(Double shipFee) {
+		public void setShipFee(BigDecimal shipFee) {
 			this.shipFee = shipFee;
 		}
 

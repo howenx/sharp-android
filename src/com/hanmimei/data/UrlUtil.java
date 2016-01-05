@@ -9,20 +9,16 @@ public class UrlUtil {
 	public static final String SERVER04 = "http://172.28.3.18:9004";	//服务器	
 	
 	//地址
-	public static final String SERVERY3 = "https://api.hanmimei.com";	//  18:9001
-	public static final String SERVERY1 = "https://shopping.hanmimei.com";	// 18:9003
-	public static final String SERVERY4 = "https://id.hanmimei.com";	// 18:9004
-	
+//	public static final String SERVERY3 = "https://api.hanmimei.com";	//  18:9001
+//	public static final String SERVERY1 = "https://shopping.hanmimei.com";	// 18:9003
+//	public static final String SERVERY4 = "https://id.hanmimei.com";	// 18:9004
+//	
 	//公网地址
-<<<<<<< HEAD
-//		public static final String SERVERY3 = "http://172.28.3.18:9001";	//  18:9001
-//		public static final String SERVERY1 = "http://172.28.3.51:9003";	// 18:9003
-//		public static final String SERVERY4 = "http://172.28.3.18:9004";	// 18:9004
-=======
 		public static final String SERVERY3 = "http://172.28.3.18:9001";	//  18:9001
 		public static final String SERVERY1 = "http://172.28.3.18:9003";	// 18:9003
 		public static final String SERVERY4 = "http://172.28.3.18:9004";	// 18:9004
->>>>>>> 6819bd9a620adcc1aba2d3c29af387e27780c607
+
+		public static final String text = "http://172.28.3.51:9001";	// 18:9004
 	
 	//主页数据接口
 	public static final String HOME_LIST_URL = SERVERY3 + "/index/";
@@ -62,6 +58,8 @@ public class UrlUtil {
 	public static final String DEL_ORDER = SERVERY1 + "/client/order/del/";
 	//获取优惠券列表接口
 	public static final String GET_COUPON_LIST_URL = SERVERY1 + "/client/coupons/list";
+	//获取购物车数量接口
+	public static final String GET_CART_NUM_URL = text + "/comm/cart/amount";
 	
 	//结算页接口
 	public static final String POST_CLIENT_SETTLE = SERVERY1 +"/client/settle";

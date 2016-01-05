@@ -24,8 +24,10 @@ import com.hanmimei.R;
 import com.hanmimei.adapter.ThemeAdapter;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
+import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.HMMGoods;
 import com.hanmimei.entity.HMMGoods.ImgTag;
+import com.hanmimei.entity.GoodsDetail;
 import com.hanmimei.entity.HMMThemeGoods;
 import com.hanmimei.entity.ImgInfo;
 import com.hanmimei.entity.ShoppingGoods;
@@ -41,7 +43,7 @@ import com.squareup.picasso.Picasso;
 import com.umeng.analytics.MobclickAgent;
 
 /**
- * @author eric 主题商品的二级界面。
+ * @author vince 主题商品的二级界面。
  */
 @SuppressLint("NewApi")
 public class ThemeGoodsActivity extends BaseActivity implements OnClickListener {
@@ -60,7 +62,8 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.theme_layout);
-		View view = ActionBarUtil.setActionBarStyle(this, "商品展示",R.drawable.white_shoppingcar, true, this);
+		View view = ActionBarUtil.setActionBarStyle(this, "商品展示",
+				R.drawable.white_shoppingcar, true, this);
 		cartView = view.findViewById(R.id.setting);
 		url = getIntent().getStringExtra("url");
 		data = new ArrayList<HMMGoods>();
@@ -94,13 +97,13 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		gridView = (GridView) findViewById(R.id.my_grid);
 		img = (ImageView) findViewById(R.id.img);
 		mframeLayout = (FrameLayout) findViewById(R.id.mframeLayout);
-		
+
 		bView = new BadgeView(this, cartView);
 		bView.setBackgroundResource(R.drawable.bg_badgeview2);
 		bView.setBadgePosition(BadgeView.POSITION_CENTER);
 		bView.setTextSize(12);
 		bView.setTextColor(Color.parseColor("#F9616A"));
-		
+
 		findViewById(R.id.reload).setOnClickListener(this);
 	}
 
@@ -137,6 +140,29 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 				});
 	}
 
+	private void getCartNum() {
+		Http2Utils.doGetRequestTask(this, getHeaders(),
+				UrlUtil.GET_CART_NUM_URL, new VolleyJsonCallback() {
+
+					@Override
+					public void onSuccess(String result) {
+						HMMThemeGoods detail = DataParser
+								.parserThemeItem(result);
+						if (detail.getMessage().getCode() == 200) {
+							initShopCartView(detail);
+						} else {
+							ToastUtils.Toast(getActivity(), detail.getMessage()
+									.getMessage());
+						}
+					}
+
+					@Override
+					public void onError() {
+						ToastUtils.Toast(getActivity(), R.string.error);
+					}
+				});
+	}
+
 	private void initShopCartView(HMMThemeGoods detail) {
 		if (getUser() == null) {
 			List<ShoppingGoods> goods = getDaoSession().getShoppingGoodsDao()
@@ -145,9 +171,9 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 			for (ShoppingGoods sg : goods) {
 				num += sg.getGoodsNums();
 			}
-			if (num <= 0){
+			if (num <= 0) {
 				bView.hide(true);
-			}else{
+			} else {
 				bView.setText(num + "");
 				bView.show();
 			}
@@ -155,7 +181,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 			if (detail.getCartNum() != null) {
 				bView.setText(detail.getCartNum() + "");
 				bView.show();
-			}else{
+			} else {
 				bView.hide();
 			}
 		}
@@ -230,8 +256,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 	private void registerReceivers() {
 		netReceiver = new CarBroadCastReceiver();
 		IntentFilter intentFilter = new IntentFilter();
-		intentFilter
-				.addAction(AppConstant.MESSAGE_BROADCAST_UPDATE_CARVIEW);
+		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_UPDATE_CARVIEW);
 		getActivity().registerReceiver(netReceiver, intentFilter);
 	}
 
@@ -241,7 +266,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		public void onReceive(Context context, Intent intent) {
 			if (intent.getAction().equals(
 					AppConstant.MESSAGE_BROADCAST_UPDATE_CARVIEW)) {
-				loadUrl();
+				getCartNum();
 			}
 		}
 	}

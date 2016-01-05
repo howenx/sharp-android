@@ -135,6 +135,7 @@
                 android:background="#cccccc" />
 
             <RelativeLayout
+                android:id="@+id/btn_send_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
@@ -152,7 +153,6 @@
                     android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/btn_send_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -232,6 +232,7 @@
                 android:background="#cccccc" />
 
             <RelativeLayout
+                android:id="@+id/btn_pay_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
@@ -249,7 +250,6 @@
                     android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/btn_pay_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -275,6 +275,7 @@
                     android:layout_marginLeft="10dp"
                     android:tag="@string/pay_type_jd"
                     android:text="在线支付"
+                    android:button="@drawable/btn_radio_selector"
                     android:textColor="#AA000000"
                     android:textSize="12sp" />
 

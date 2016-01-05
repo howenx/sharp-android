@@ -7,14 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.hanmimei.R;
 import com.hanmimei.entity.Customs;
-import com.hanmimei.entity.ShoppingGoods;
-import com.squareup.picasso.Picasso;
 
 public class GoodsBalanceCustomAdapter extends BaseAdapter {
 	
@@ -60,11 +57,11 @@ public class GoodsBalanceCustomAdapter extends BaseAdapter {
 		Customs c = customs.get(arg0);
 		holder.area_name.setText(c.getInvAreaNm());
 		holder.mListView.setAdapter(new GoodsBalanceAdapter(c.getList(), context));
-		holder.protalFee.setText(context.getResources().getString(R.string.postalFee, c.getFactPortalFeeSingleCustomsFormat()));
-		holder.shipFee.setText(context.getResources().getString(R.string.shipFee, c.getFactSingleCustomsShipFeeFormat()));
-		if(c.getFactPortalFeeSingleCustoms() == 0 && c.getPortalSingleCustomsFee() !=0){
+		holder.protalFee.setText(context.getResources().getString(R.string.postalFee, c.getFactPortalFeeSingleCustoms()));
+		holder.shipFee.setText(context.getResources().getString(R.string.shipFee, c.getFactSingleCustomsShipFee()));
+		if(c.getFactPortalFeeSingleCustoms().doubleValue()== 0 && c.getPortalSingleCustomsFee().doubleValue() !=0){
 			holder.biaoqian.setVisibility(View.VISIBLE);
-			holder.biaoqian.setText(context.getResources().getString(R.string.yuanguanshui, c.getPortalSingleCustomsFeeFormat(),c.getPostalStandard()));
+			holder.biaoqian.setText(context.getResources().getString(R.string.yuanguanshui, c.getPortalSingleCustomsFee(),c.getPostalStandard()));
 		}else{
 			holder.biaoqian.setVisibility(View.GONE);
 		}

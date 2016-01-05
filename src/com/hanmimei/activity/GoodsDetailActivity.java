@@ -88,42 +88,44 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private CustomScrollView mScrollView; //
 	private ListView content_params, content_hot; // 商品参数／热卖商品
 	private RadioGroup indicator_hide, indicator; // 顶部导航栏 中部导航栏
-	private ImageView img_hide,shopcart;
+	private ImageView img_hide, shopcart;
 
-	private View pager_header,back_top;
-	
-	private BadgeView buyNumView;//显示购买数量的控件
+	private View pager_header, back_top;
+
+	private BadgeView buyNumView;// 显示购买数量的控件
 
 	private PopupWindow shareWindow;
 	private ImageView btn_collect;
-	
+
 	private User user;
 	private ShoppingGoodsDao goodsDao;
 	private Main main; // 主信息
 	private List<Stock> stocks; // 子商品信息
 	private List<Tag> tags; // 规格标签信息
-	
-	private int num_shopcart=0;
-	private boolean isAddCart = false ;
-	private boolean isCollected = false ;
+
+	private int num_shopcart = 0;
+	private boolean isAddCart = false;
+	private boolean isCollected = false;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		ActionBarUtil.setActionBarStyle(this, "商品详情", R.drawable.fenxiang,
-				true, this ,this);
+				true, this, this);
 		setContentView(R.layout.goods_detail_layout);
 		findView();
 		loadDataByUrl();
-		 registerReceivers();
+		registerReceivers();
 	}
+
 	/**
 	 * 初始化所有view
+	 * 
 	 * @param savedInstanceState
 	 */
 	private void findView() {
 
-		slider = (ConvenientBanner<ImgInfo>)findViewById(R.id.slider);
+		slider = (ConvenientBanner<ImgInfo>) findViewById(R.id.slider);
 		View view = findViewById(R.id.viewpager_content);
 		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
 				CommonUtil.getScreenWidth(this),
@@ -148,13 +150,14 @@ public class GoodsDetailActivity extends BaseActivity implements
 		buyNumView.setTextSize(10);
 		buyNumView.setBackgroundResource(R.drawable.bg_badgeview);
 		img_hide = (ImageView) findViewById(R.id.img_hide);
-		back_top =  findViewById(R.id.back_top);
-		btn_collect =  (ImageView) findViewById(R.id.btn_collect);
+		back_top = findViewById(R.id.back_top);
+		btn_collect = (ImageView) findViewById(R.id.btn_collect);
 
 		content_params = (ListView) findViewById(R.id.content_params);
-		FrameLayout.LayoutParams lpm = (FrameLayout.LayoutParams)new FrameLayout.LayoutParams(
+		FrameLayout.LayoutParams lpm = (FrameLayout.LayoutParams) new FrameLayout.LayoutParams(
 				CommonUtil.getScreenWidth(this),
-				CommonUtil.getScreenHeight(this)-CommonUtil.dip2px(129)-CommonUtil.getStatusBarHeight(this));
+				CommonUtil.getScreenHeight(this) - CommonUtil.dip2px(129)
+						- CommonUtil.getStatusBarHeight(this));
 		content_params.setLayoutParams(lpm);
 		content_params.setFocusable(false);
 		content_hot = (ListView) findViewById(R.id.content_hot);
@@ -163,7 +166,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 		user = getUser();
 		goodsDao = getDaoSession().getShoppingGoodsDao();
-		
+
 		findViewById(R.id.btn_pay).setOnClickListener(this);
 		findViewById(R.id.btn_shopcart).setOnClickListener(this);
 		shopcart.setOnClickListener(this);
@@ -173,26 +176,28 @@ public class GoodsDetailActivity extends BaseActivity implements
 		indicator.setOnCheckedChangeListener(this);
 		btn_collect.setOnClickListener(this);
 
-	} 
-	
-	//=========================================================================
-	//===============================网络     请求==================================
-	//=========================================================================
+	}
+
+	// =========================================================================
+	// ===============================网络 请求==================================
+	// =========================================================================
 	/**
 	 * 加载数据
 	 */
 	private GoodsDetail detail;
+
 	private void loadDataByUrl() {
 		loadingDialog.show();
-		Http2Utils.doGetRequestTask(this, getHeaders(), getIntent().getStringExtra("url"), new VolleyJsonCallback() {
-			
+		Http2Utils.doGetRequestTask(this, getHeaders(), getIntent()
+				.getStringExtra("url"), new VolleyJsonCallback() {
+
 			@Override
 			public void onSuccess(String result) {
 				loadingDialog.dismiss();
 				detail = DataParser.parserGoodsDetail(result);
 				initGoodsDetail(detail);
 			}
-			
+
 			@Override
 			public void onError() {
 				loadingDialog.dismiss();
@@ -201,56 +206,84 @@ public class GoodsDetailActivity extends BaseActivity implements
 			}
 		});
 	}
+
 	private HMessage msg;
+
 	/**
 	 * 发送商品信息添加到购物车
 	 */
 	private void sendData(ShoppingGoods goods) {
-		if(msg != null){
+		if (msg != null) {
 			ToastUtils.Toast(getActivity(), msg.getMessage());
-			return ;
+			return;
 		}
 		final JSONArray array = toJSONArray(goods);
-		Http2Utils.doPostRequestTask2(this,  getHeaders(), UrlUtil.GET_CAR_LIST_URL, new VolleyJsonCallback() {
-			
-			@Override
-			public void onSuccess(String result) {
-				findViewById(R.id.no_net).setVisibility(View.GONE);
-				HMessage hm = DataParser.paserResultMsg(result);
-				if (hm.getCode() == 200) {
-					//购物车添加成功，显示提示框
-					ToastUtils.Toast(GoodsDetailActivity.this);
-					//发送广播 提示购物车更新数据
-					num_shopcart++;
-					buyNumView.setText(num_shopcart+ "");//
-					buyNumView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
-					buyNumView.show();
-					sendBroadcast(new Intent(
-							AppConstant.MESSAGE_BROADCAST_ADD_CAR));
-				} else if(hm.getCode() == 3001 ||hm.getCode() == 2001 ){
-					//提示添加失败原因 
-					msg = hm;
-					ToastUtils.Toast(getActivity(), msg.getMessage());
-				}else {
-					ToastUtils.Toast(getActivity(), msg.getMessage());
-				}
-			}
-			
-			@Override
-			public void onError() {
-				findViewById(R.id.no_net).setVisibility(View.VISIBLE);
-				ToastUtils.Toast(getActivity(), R.string.error);
-			}
-		}, array.toString());
+		Http2Utils.doPostRequestTask2(this, getHeaders(),
+				UrlUtil.GET_CAR_LIST_URL, new VolleyJsonCallback() {
+
+					@Override
+					public void onSuccess(String result) {
+						findViewById(R.id.no_net).setVisibility(View.GONE);
+						HMessage hm = DataParser.paserResultMsg(result);
+						if (hm.getCode() == 200) {
+							// 购物车添加成功，显示提示框
+							ToastUtils.Toast(GoodsDetailActivity.this);
+							// 发送广播 提示购物车更新数据
+							num_shopcart++;
+							buyNumView.setText(num_shopcart + "");//
+							buyNumView
+									.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
+							buyNumView.show();
+							sendBroadcast(new Intent(
+									AppConstant.MESSAGE_BROADCAST_ADD_CAR));
+						} else if (hm.getCode() == 3001 || hm.getCode() == 2001) {
+							// 提示添加失败原因
+							msg = hm;
+							ToastUtils.Toast(getActivity(), msg.getMessage());
+						} else {
+							ToastUtils.Toast(getActivity(), msg.getMessage());
+						}
+					}
+
+					@Override
+					public void onError() {
+						findViewById(R.id.no_net).setVisibility(View.VISIBLE);
+						ToastUtils.Toast(getActivity(), R.string.error);
+					}
+				}, array.toString());
 	}
 
-	//=========================================================================
-		//===============================点击事件==================================
-		//=========================================================================
+	private void getCartNum() {
+		Http2Utils.doGetRequestTask(this, getHeaders(),
+				UrlUtil.GET_CART_NUM_URL, new VolleyJsonCallback() {
+
+					@Override
+					public void onSuccess(String result) {
+						GoodsDetail detail = DataParser.parserGoodsDetail(result);
+						if (detail.getMessage().getCode() == 200) {
+							// 发送广播 提示购物车更新数据
+							num_shopcart = detail.getCartNum();
+							buyNumView.setText(num_shopcart + "");//
+							buyNumView.show();
+						} else {
+							ToastUtils.Toast(getActivity(), msg.getMessage());
+						}
+					}
+
+					@Override
+					public void onError() {
+						ToastUtils.Toast(getActivity(), R.string.error);
+					}
+				});
+	}
+
+	// =========================================================================
+	// ===============================点击事件==================================
+	// =========================================================================
 
 	@Override
 	public void onClick(View arg0) {
-		if(main == null){
+		if (main == null) {
 			ToastUtils.Toast(this, "正在加载数据");
 			return;
 		}
@@ -274,11 +307,11 @@ public class GoodsDetailActivity extends BaseActivity implements
 			for (int i = 0; i < stocks.size(); i++) {
 				Stock stock = stocks.get(i);
 				if (stock.getOrMasterInv()) {
-					if(stock.getState().equals("Y")){
+					if (stock.getState().equals("Y")) {
 						goods.setGoodsId(stock.getId());
 						goods.setGoodsNums(1);
 						goods.setState("I");
-					}else{
+					} else {
 						ToastUtils.Toast(this, "请选择商品");
 						return;
 					}
@@ -288,17 +321,19 @@ public class GoodsDetailActivity extends BaseActivity implements
 			if (user != null) {
 				sendData(goods);
 			} else {
-				ShoppingGoods goods2 = goodsDao.queryBuilder().where(Properties.GoodsId.eq(goods.getGoodsId())).build().unique();
-				if(goods2 != null){
+				ShoppingGoods goods2 = goodsDao.queryBuilder()
+						.where(Properties.GoodsId.eq(goods.getGoodsId()))
+						.build().unique();
+				if (goods2 != null) {
 					goodsDao.delete(goods2);
 					goods.setGoodsNums(goods2.getGoodsNums() + 1);
 					goodsDao.insert(goods);
-				}else{
+				} else {
 					goodsDao.insert(goods);
 				}
 				sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_ADD_CAR));
 			}
-			
+
 			break;
 		case R.id.setting:
 			showShareboard();
@@ -322,8 +357,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 			shareCircle();
 			break;
 		case R.id.sina:
-//			shareSina();
-			Toast.makeText(this, "新浪微博分享，等待微博审核才可以分享", Toast.LENGTH_SHORT).show();
+			// shareSina();
+			Toast.makeText(this, "新浪微博分享，等待微博审核才可以分享", Toast.LENGTH_SHORT)
+					.show();
 			break;
 		case R.id.reload:
 			loadDataByUrl();
@@ -332,54 +368,65 @@ public class GoodsDetailActivity extends BaseActivity implements
 			break;
 		}
 	}
-	
-	private void displayAnimation(){
-		Animation anim = AnimationUtils.loadAnimation(this, R.anim.shopcart_anim);
+
+	private void displayAnimation() {
+		Animation anim = AnimationUtils.loadAnimation(this,
+				R.anim.shopcart_anim);
 		img_hide.startAnimation(anim);
 	}
 
-	
-	
-	//当前的商品
+	// 当前的商品
 	private Stock shareStock;
-	//新浪微博分享设置
+
+	// 新浪微博分享设置
 	private void shareSina() {
-		 new ShareAction(this).setPlatform(SHARE_MEDIA.SINA).setCallback(umShareListener)
-         .withMedia(new UMImage(this, shareStock.getInvImgForObj().getUrl()))
-         .withTitle("全球正品，尽在韩秘美")	
-         .withText(shareStock.getInvTitle())
-         .withTargetUrl("http://www.hanmimei.com/")
-         .share();
+		new ShareAction(this)
+				.setPlatform(SHARE_MEDIA.SINA)
+				.setCallback(umShareListener)
+				.withMedia(
+						new UMImage(this, shareStock.getInvImgForObj().getUrl()))
+				.withTitle("全球正品，尽在韩秘美").withText(shareStock.getInvTitle())
+				.withTargetUrl("http://www.hanmimei.com/").share();
 	}
-	//微信朋友圈分享设置
+
+	// 微信朋友圈分享设置
 	private void shareCircle() {
-		 new ShareAction(this).setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE).setCallback(umShareListener)
-         .withMedia(new UMImage(this, shareStock.getInvImgForObj().getUrl()))
-         .withTitle(shareStock.getInvTitle())
-         .withTargetUrl("http://www.hanmimei.com/")
-         .share();
+		new ShareAction(this)
+				.setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE)
+				.setCallback(umShareListener)
+				.withMedia(
+						new UMImage(this, shareStock.getInvImgForObj().getUrl()))
+				.withTitle(shareStock.getInvTitle())
+				.withTargetUrl("http://www.hanmimei.com/").share();
 	}
-	//微信分享设置
+
+	// 微信分享设置
 	private void shareWeiXin() {
-		 new ShareAction(this).setPlatform(SHARE_MEDIA.WEIXIN).setCallback(umShareListener)
-         .withMedia(new UMImage(this, shareStock.getInvImgForObj().getUrl()))
-         .withTitle("全球正品，尽在韩秘美")
-         .withText(shareStock.getInvTitle())
-         .withTargetUrl("http://www.hanmimei.com/")
-         .share();
+		new ShareAction(this)
+				.setPlatform(SHARE_MEDIA.WEIXIN)
+				.setCallback(umShareListener)
+				.withMedia(
+						new UMImage(this, shareStock.getInvImgForObj().getUrl()))
+				.withTitle("全球正品，尽在韩秘美").withText(shareStock.getInvTitle())
+				.withTargetUrl("http://www.hanmimei.com/").share();
 	}
-	//QQ分享设置
+
+	// QQ分享设置
 	private void shareQQ() {
-		 new ShareAction(this).setPlatform(SHARE_MEDIA.QQ).setCallback(umShareListener)
-         .withTitle("全球正品，尽在韩秘美")
-         .withMedia(new UMImage(this, shareStock.getInvImgForObj().getUrl()))
-         .withText(shareStock.getInvTitle())
-         .withTargetUrl("http://www.hanmimei.com/")
-         .share();
+		new ShareAction(this)
+				.setPlatform(SHARE_MEDIA.QQ)
+				.setCallback(umShareListener)
+				.withTitle("全球正品，尽在韩秘美")
+				.withMedia(
+						new UMImage(this, shareStock.getInvImgForObj().getUrl()))
+				.withText(shareStock.getInvTitle())
+				.withTargetUrl("http://www.hanmimei.com/").share();
 	}
-	//分享面板
+
+	// 分享面板
 	private void showShareboard() {
-		View view = LayoutInflater.from(this).inflate(R.layout.share_layout, null);
+		View view = LayoutInflater.from(this).inflate(R.layout.share_layout,
+				null);
 		shareWindow = PopupWindowUtil.showPopWindow(this, view);
 		view.findViewById(R.id.qq).setOnClickListener(this);
 		view.findViewById(R.id.weixin).setOnClickListener(this);
@@ -387,16 +434,17 @@ public class GoodsDetailActivity extends BaseActivity implements
 		view.findViewById(R.id.sina).setOnClickListener(this);
 		Config.OpenEditor = true;
 		shareStock = detail.getCurrentStock();
-		
+
 	}
-	//=========================================================================
-		//===============================响应方法   ==================================
-		//=========================================================================
+
+	// =========================================================================
+	// ===============================响应方法 ==================================
+	// =========================================================================
 	/**
 	 * 点击立即购买按钮的响应事件
 	 */
-	private void clickPay(){
-		//未登录跳到登陆页面
+	private void clickPay() {
+		// 未登录跳到登陆页面
 		if (getUser() == null) {
 			startActivity(new Intent(this, LoginActivity.class));
 			return;
@@ -408,20 +456,20 @@ public class GoodsDetailActivity extends BaseActivity implements
 		ShoppingGoods sgoods = null;
 		for (Stock s : stocks) {
 			if (s.getOrMasterInv()) {
-				if(s.getState().equals("Y")){
+				if (s.getState().equals("Y")) {
 					sgoods = new ShoppingGoods();
 					sgoods.setGoodsId(s.getId());
 					sgoods.setGoodsImg(s.getInvImgForObj().getUrl());
 					sgoods.setGoodsName(s.getInvTitle());
 					sgoods.setGoodsNums(1);
-					sgoods.setGoodsPrice(s.getItemPrice());
+					sgoods.setGoodsPrice(s.getItemPrice().doubleValue());
 					sgoods.setInvArea(s.getInvArea());
 					sgoods.setInvAreaNm(s.getInvAreaNm());
 					sgoods.setInvCustoms(s.getInvCustoms());
 					sgoods.setPostalTaxRate(s.getPostalTaxRate());
 					sgoods.setPostalStandard(s.getPostalStandard());
 					break;
-				}else{
+				} else {
 					ToastUtils.Toast(this, "请选择商品");
 					return;
 				}
@@ -437,9 +485,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 		intent.putExtra("car", car);
 		startActivity(intent);
 	}
-	
 
 	PopupWindow window = null;
+
 	/**
 	 * 弹出显示税费的提醒框
 	 */
@@ -450,26 +498,25 @@ public class GoodsDetailActivity extends BaseActivity implements
 				.findViewById(R.id.num_portalfee);
 		TextView prompt = (TextView) view.findViewById(R.id.prompt);
 		Double postalFee = curPostalTaxRate * curItemPrice / 100;
-		
+
 		prompt.setText(getResources().getString(R.string.portalfee_biaozhun,
 				curPostalTaxRate, postalStandard));
-		
-		if (postalFee <= 50){
+
+		if (postalFee <= 50) {
 			num_portalfee.setText(getResources().getString(R.string.price,
 					CommonUtil.DecimalFormat(postalFee)));
 			num_portalfee.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-		}else{
-			postalFee = curItemPrice *100/(100 - curPostalTaxRate) - curItemPrice;
+		} else {
+			postalFee = curItemPrice * 100 / (100 - curPostalTaxRate)
+					- curItemPrice;
 			num_portalfee.setText(getResources().getString(R.string.price,
 					CommonUtil.DecimalFormat(postalFee)));
 		}
-			
+
 		view.findViewById(R.id.btn_cancel).setOnClickListener(this);
 		window = PopupWindowUtil.showPopWindow(this, view);
 	}
-	
 
-	
 	/**
 	 * 拼接商品信息
 	 */
@@ -489,19 +536,18 @@ public class GoodsDetailActivity extends BaseActivity implements
 		}
 		return array;
 	}
-	
-	private void collectGoods(){
-		if(getUser() == null){
+
+	private void collectGoods() {
+		if (getUser() == null) {
 			startActivity(new Intent(this, LoginActivity.class));
-		}else{
-			
+		} else {
+
 		}
 	}
 
-	
-	//=========================================================================
-		//===============================初始化方法==================================
-		//=========================================================================
+	// =========================================================================
+	// ===============================初始化方法==================================
+	// =========================================================================
 	/**
 	 * 初始化显示商品信息
 	 * 
@@ -551,23 +597,23 @@ public class GoodsDetailActivity extends BaseActivity implements
 				.getItemFeatures(), this));
 		content_hot.setAdapter(new GoodsDetailParamAdapter(main
 				.getItemFeatures(), this));
-		
-		if(getUser() == null){
+
+		if (getUser() == null) {
 			List<ShoppingGoods> goods = goodsDao.queryBuilder().list();
-			for(ShoppingGoods sg :goods){
+			for (ShoppingGoods sg : goods) {
 				num_shopcart += sg.getGoodsNums();
 			}
-		}else{
-			if(detail.getCartNum() !=null)
+		} else {
+			if (detail.getCartNum() != null)
 				num_shopcart = detail.getCartNum();
 			else
 				num_shopcart = 0;
 		}
-		if(num_shopcart >0){
-			buyNumView.setText(num_shopcart+"");
+		if (num_shopcart > 0) {
+			buyNumView.setText(num_shopcart + "");
 			buyNumView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
 			buyNumView.show();
-		}else{
+		} else {
 			buyNumView.hide();
 		}
 	}
@@ -575,18 +621,17 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private int curPostalTaxRate; // 当前商品税率
 	private double curItemPrice; // 当前商品价格
 	private int postalStandard;// 关税收费标准
-	
-	private void initGoodsInfo(){
+
+	private void initGoodsInfo() {
 		Stock stock = null;
 		for (Stock s : stocks) {
 			tags.add(new Tag(s.getItemColor() + " " + s.getItemSize(), s
 					.getState(), s.getOrMasterInv()));
-			if (s.getOrMasterInv()) 
+			if (s.getOrMasterInv())
 				stock = s;
-			}
+		}
 		initStocks(stock);
 	}
-	
 
 	/**
 	 * 初始化子商品信息
@@ -594,30 +639,31 @@ public class GoodsDetailActivity extends BaseActivity implements
 	 * @param position
 	 *            选中商品位置
 	 */
-	
+
 	private void initStocks(Stock s) {
-				initSliderImage(s);
-				if(s.getItemDiscount() >0){
-					discount.setText("[" + s.getItemDiscount() + "折]");
-				}
-				itemTitle.setText(s.getInvTitle());
-				itemSrcPrice.setText(getResources().getString(R.string.price,
-						s.getItemSrcPrice()));
-				itemSrcPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-				itemPrice.setText(getResources().getString(R.string.price,
-						s.getItemPriceFormat()));
-				if (s.getRestrictAmount() > 0) {
-					num_restrictAmount.setVisibility(View.VISIBLE);
-					num_restrictAmount.setText(getResources().getString(
-							R.string.restrictAmount, s.getRestrictAmount()));
-				} else {
-					num_restrictAmount.setVisibility(View.GONE);
-				}
-				ImageLoaderUtils.loadImage(this, s.getInvImgForObj().getUrl(), img_hide);
-				curPostalTaxRate = s.getPostalTaxRate();
-				curItemPrice = s.getItemPrice();
-				postalStandard = s.getPostalStandard();
-				area.setText(s.getInvAreaNm());
+		initSliderImage(s);
+		if (s.getItemDiscount().floatValue()>0) {
+			discount.setText("[" + s.getItemDiscount() + "折]");
+			itemSrcPrice.setText(getResources().getString(R.string.price,
+					s.getItemSrcPrice()));
+			itemSrcPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+		}
+		itemTitle.setText(s.getInvTitle());
+		itemPrice.setText(getResources().getString(R.string.price,
+				s.getItemPrice()));
+		if (s.getRestrictAmount() > 0) {
+			num_restrictAmount.setVisibility(View.VISIBLE);
+			num_restrictAmount.setText(getResources().getString(
+					R.string.restrictAmount, s.getRestrictAmount()));
+		} else {
+			num_restrictAmount.setVisibility(View.GONE);
+		}
+		ImageLoaderUtils
+				.loadImage(this, s.getInvImgForObj().getUrl(), img_hide);
+		curPostalTaxRate = s.getPostalTaxRate();
+		curItemPrice = s.getItemPrice().doubleValue();
+		postalStandard = s.getPostalStandard();
+		area.setText(s.getInvAreaNm());
 	}
 
 	/**
@@ -627,15 +673,17 @@ public class GoodsDetailActivity extends BaseActivity implements
 	 *            当前选中子商品
 	 */
 	private void initSliderImage(Stock s) {
-		ArrayList<ImgInfo> networkImages = new ArrayList<ImgInfo>(s.getItemPreviewImgsForList());
+		ArrayList<ImgInfo> networkImages = new ArrayList<ImgInfo>(
+				s.getItemPreviewImgsForList());
 		slider.setPages(new CBViewHolderCreator<NetworkImageHolderView>() {
-            @Override
-            public NetworkImageHolderView createHolder() {
-                return new NetworkImageHolderView();
-            }
-        },networkImages).setPageIndicator(new int[]{R.drawable.page_indicator, R.drawable.page_indicator_fcoused});
+			@Override
+			public NetworkImageHolderView createHolder() {
+				return new NetworkImageHolderView();
+			}
+		}, networkImages).setPageIndicator(
+				new int[] { R.drawable.page_indicator,
+						R.drawable.page_indicator_fcoused });
 	}
-
 
 	/**
 	 * 选项卡选中改变事件
@@ -683,8 +731,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 			break;
 		}
 	}
-	
-	
+
 	@Override
 	public void onScroll(int scrollY, boolean scrollDirection) {
 		// 如果滚动值
@@ -703,86 +750,92 @@ public class GoodsDetailActivity extends BaseActivity implements
 			indicator_hide.setOnCheckedChangeListener(null);
 			return;
 		}
-		
-		if(scrollY>0 && back_top.getVisibility() == View.GONE){
+
+		if (scrollY > 0 && back_top.getVisibility() == View.GONE) {
 			back_top.setVisibility(View.VISIBLE);
 		}
 
-		if(scrollY<=0 && back_top.getVisibility() == View.VISIBLE){
+		if (scrollY <= 0 && back_top.getVisibility() == View.VISIBLE) {
 			back_top.setVisibility(View.GONE);
 		}
-		
+
 	}
-	
-	//---------------友盟-----------------------
-	 private UMShareListener umShareListener = new UMShareListener() {
-	        @Override
-	        public void onResult(SHARE_MEDIA platform) {
-	        	shareWindow.dismiss();
-//	            Toast.makeText(GoodsDetailActivity.this, platform + " 分享成功", Toast.LENGTH_SHORT).show();
-	        }
 
-	        @Override
-	        public void onError(SHARE_MEDIA platform, Throwable t) {
-	        	shareWindow.dismiss();
-//	            Toast.makeText(GoodsDetailActivity.this,platform + " 分享失败", Toast.LENGTH_SHORT).show();
-	        }
-
-	        @Override
-	        public void onCancel(SHARE_MEDIA platform) {
-	        	shareWindow.dismiss();
-//	            Toast.makeText(GoodsDetailActivity.this,platform + " 分享取消", Toast.LENGTH_SHORT).show();
-	        }
-	    };
-	    @Override
-	    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-	        super.onActivityResult(requestCode, resultCode, data);
-	        /** attention to this below ,must add this**/
-	        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
-
-	    }
-	    
-	    private CarBroadCastReceiver netReceiver;
-
-		// 广播接收者 注册
-		private void registerReceivers() {
-			netReceiver = new CarBroadCastReceiver();
-			IntentFilter intentFilter = new IntentFilter();
-			intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_ADD_CAR);
-			intentFilter
-					.addAction(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR);
-			getActivity().registerReceiver(netReceiver, intentFilter);
-		}
-
-		private class CarBroadCastReceiver extends BroadcastReceiver {
-
-			@Override
-			public void onReceive(Context context, Intent intent) {
-				if (intent.getAction().equals(
-						AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR)) {
-					loadDataByUrl();
-				}
-			}
+	// ---------------友盟-----------------------
+	private UMShareListener umShareListener = new UMShareListener() {
+		@Override
+		public void onResult(SHARE_MEDIA platform) {
+			shareWindow.dismiss();
+			// Toast.makeText(GoodsDetailActivity.this, platform + " 分享成功",
+			// Toast.LENGTH_SHORT).show();
 		}
 
 		@Override
-		protected void onDestroy() {
-			super.onDestroy();
-			unregisterReceiver(netReceiver);
-			sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UPDATE_CARVIEW));
+		public void onError(SHARE_MEDIA platform, Throwable t) {
+			shareWindow.dismiss();
+			// Toast.makeText(GoodsDetailActivity.this,platform + " 分享失败",
+			// Toast.LENGTH_SHORT).show();
 		}
-	    
-	    
-	    
-	public void onResume() {
-	    super.onResume();
-	    MobclickAgent.onPageStart("GoodsDetailActivity"); //统计页面(仅有Activity的应用中SDK自动调用，不需要单独写。"SplashScreen"为页面名称，可自定义)
-	    MobclickAgent.onResume(this);          //统计时长
+
+		@Override
+		public void onCancel(SHARE_MEDIA platform) {
+			shareWindow.dismiss();
+			// Toast.makeText(GoodsDetailActivity.this,platform + " 分享取消",
+			// Toast.LENGTH_SHORT).show();
+		}
+	};
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		/** attention to this below ,must add this **/
+		UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+
 	}
+
+	private CarBroadCastReceiver netReceiver;
+
+	// 广播接收者 注册
+	private void registerReceivers() {
+		netReceiver = new CarBroadCastReceiver();
+		IntentFilter intentFilter = new IntentFilter();
+		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_ADD_CAR);
+		intentFilter
+				.addAction(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR);
+		getActivity().registerReceiver(netReceiver, intentFilter);
+	}
+
+	private class CarBroadCastReceiver extends BroadcastReceiver {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			if (intent.getAction().equals(
+					AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR)) {
+				getCartNum();
+			}
+		}
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		unregisterReceiver(netReceiver);
+		sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UPDATE_CARVIEW));
+	}
+
+	public void onResume() {
+		super.onResume();
+		MobclickAgent.onPageStart("GoodsDetailActivity"); // 统计页面(仅有Activity的应用中SDK自动调用，不需要单独写。"SplashScreen"为页面名称，可自定义)
+		MobclickAgent.onResume(this); // 统计时长
+	}
+
 	public void onPause() {
-	    super.onPause();
-	    MobclickAgent.onPageEnd("GoodsDetailActivity"); // （仅有Activity的应用中SDK自动调用，不需要单独写）保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息。"SplashScreen"为页面名称，可自定义
-	    MobclickAgent.onPause(this);
+		super.onPause();
+		MobclickAgent.onPageEnd("GoodsDetailActivity"); // （仅有Activity的应用中SDK自动调用，不需要单独写）保证
+														// onPageEnd 在onPause
+														// 之前调用,因为 onPause
+														// 中会保存信息。"SplashScreen"为页面名称，可自定义
+		MobclickAgent.onPause(this);
 	}
 
 }

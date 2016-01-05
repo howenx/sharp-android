@@ -1,5 +1,6 @@
 package com.hanmimei.activity;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -144,11 +145,10 @@ public class GoodsBalanceActivity extends BaseActivity implements
 				RadioButton btn = (RadioButton) findViewById(checkedId);
 				if (checkedId == R.id.btn_unuse) {
 					coupon_denomi.setText(btn.getText());
-					car.setDenomination(0.00);
+					car.setDenomination(new BigDecimal(0));
 				} else {
 					coupon_denomi.setText("-" + btn.getTag(R.id.coupon_de)+"元");
-					car.setDenomination(Double
-							.parseDouble(btn.getTag(R.id.coupon_de).toString()));
+					car.setDenomination(new BigDecimal(btn.getTag(R.id.coupon_de).toString()));
 					orderSubmit.setCouponId(btn.getTag(R.id.coupon_id).toString());
 				}
 				youhui.setText(getResources().getString(R.string.price,
@@ -387,15 +387,15 @@ public class GoodsBalanceActivity extends BaseActivity implements
 	
 	private void initBalanceInfo(){
 		all_shipfee.setText(getResources().getString(R.string.price,
-				car.getFactShipFeeFormat()));
+				car.getFactShipFee()));
 		all_price.setText(getResources().getString(R.string.price,
-				car.getAllPriceFormat()));
+				car.getAllPrice()));
 		all_portalfee.setText(getResources().getString(R.string.price,
-				car.getFactPortalFeeFormat()));
+				car.getFactPortalFee()));
 		youhui.setText(getResources().getString(R.string.price,
-				car.getDenominationFormat()));
+				car.getDenomination()));
 		all_money.setText(getResources().getString(R.string.all_money,
-				car.getAllMoneyFormat()));
+				car.getAllMoney()));
 	}
 
 	

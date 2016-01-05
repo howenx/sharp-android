@@ -1,5 +1,6 @@
 package com.hanmimei.adapter;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import android.content.Context;
@@ -59,7 +60,7 @@ public class GoodsBalanceAdapter extends BaseAdapter {
 		ShoppingGoods sg = goods.get(arg0);
 		holder.pro_name.setText(sg.getGoodsName());
 		holder.pro_num.setText(context.getResources().getString(R.string.buyNum, sg.getGoodsNums()));
-		holder.pro_price.setText(context.getResources().getString(R.string.price, sg.getGoodsPriceFormat()));
+		holder.pro_price.setText(context.getResources().getString(R.string.price, new BigDecimal(sg.getGoodsPrice())));
 		Picasso.with(context).load(sg.getGoodsImg()).into(holder.pro_img);
 		return arg1;
 	}
