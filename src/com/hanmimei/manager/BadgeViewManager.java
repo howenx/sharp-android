@@ -11,7 +11,6 @@ import com.hanmimei.view.BadgeView;
 public class BadgeViewManager {
 
 	private BadgeView view;
-	private BadgeView bView;
 
 	/**
 	 * 初始化购物车数量管理者
@@ -27,20 +26,6 @@ public class BadgeViewManager {
 		view.setText("0");
 	}
 
-	public void showCartNum(Context context, View target, int num) {
-		if (bView == null) {
-			bView = new BadgeView(context, target);
-			bView.setBackgroundResource(R.drawable.bg_badgeview2);
-			bView.setBadgePosition(BadgeView.POSITION_CENTER);
-			bView.setTextSize(12);
-			bView.setTextColor(Color.parseColor("#F9616A"));
-		}
-		bView.setText(num + "");
-		bView.show();
-	}
-	public void clearBView(){
-		bView =null;
-	}
 
 	private static class BadgeViewManagerHolder {
 		public static final BadgeViewManager instance = new BadgeViewManager();

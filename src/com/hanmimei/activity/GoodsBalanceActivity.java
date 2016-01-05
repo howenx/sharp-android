@@ -248,10 +248,12 @@ public class GoodsBalanceActivity extends BaseActivity implements
 	 */
 	private void sendData(OrderSubmit os) {
 		final JSONObject json = JSONPaserTool.OrderSubmitPaser(os);
+		loadingDialog.show();
 		 Http2Utils.doPostRequestTask2(this, getHeaders(), UrlUtil.POST_CLIENT_ORDER_SUBMIT,new VolleyJsonCallback() {
 			
 			@Override
 			public void onSuccess(String result) {
+				loadingDialog.dismiss();
 				OrderInfo info = new Gson().fromJson(result, OrderInfo.class);
 				if(info.getMessage().getCode() == 200){
 					Intent intent = new Intent(getActivity(), OrderSubmitActivity.class);
@@ -266,6 +268,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 			
 			@Override
 			public void onError() {
+				loadingDialog.dismiss();
 				ToastUtils.Toast(getActivity(), R.string.error);
 			}
 		} , json.toString());

@@ -221,8 +221,8 @@
                             android:gravity="center"
                             android:orientation="vertical"
                             android:padding="10dp"
-                            android:textColor="@color/indicator_font_color_selector"
                             android:text="图文详情"
+                            android:textColor="@color/indicator_font_color_selector"
                             android:textSize="13sp" />
 
                         <RadioButton
@@ -233,10 +233,10 @@
                             android:background="@drawable/radio_btn_bg"
                             android:button="@null"
                             android:gravity="center"
-                            android:orientation="vertical" 
-                            android:textColor="@color/indicator_font_color_selector"
+                            android:orientation="vertical"
                             android:padding="10dp"
                             android:text="商品参数"
+                            android:textColor="@color/indicator_font_color_selector"
                             android:textSize="13sp" />
 
                         <RadioButton
@@ -248,9 +248,9 @@
                             android:button="@null"
                             android:gravity="center"
                             android:orientation="vertical"
-                            android:textColor="@color/indicator_font_color_selector"
                             android:padding="10dp"
                             android:text="热卖商品"
+                            android:textColor="@color/indicator_font_color_selector"
                             android:textSize="13sp" />
                     </RadioGroup>
 
@@ -327,6 +327,7 @@
                         android:orientation="vertical"
                         android:padding="10dp"
                         android:text="图文详情"
+                        android:textColor="@color/indicator_font_color_selector"
                         android:textSize="13sp" />
 
                     <RadioButton
@@ -340,6 +341,7 @@
                         android:orientation="vertical"
                         android:padding="10dp"
                         android:text="商品参数"
+                        android:textColor="@color/indicator_font_color_selector"
                         android:textSize="13sp" />
 
                     <RadioButton
@@ -353,6 +355,7 @@
                         android:orientation="vertical"
                         android:padding="10dp"
                         android:text="热卖商品"
+                        android:textColor="@color/indicator_font_color_selector"
                         android:textSize="13sp" />
                 </RadioGroup>
 
@@ -412,7 +415,7 @@
                 android:background="#434446"
                 android:gravity="center"
                 android:text="加入购物车"
-                android:textColor="@color/white"
+                android:textColor="@color/btn_font_selector"
                 android:textSize="14sp" />
 
             <TextView
@@ -423,7 +426,7 @@
                 android:background="@color/theme"
                 android:gravity="center"
                 android:text="立即购买"
-                android:textColor="@color/white"
+                android:textColor="@color/btn_font_selector"
                 android:textSize="14sp" />
         </LinearLayout>
     </LinearLayout>

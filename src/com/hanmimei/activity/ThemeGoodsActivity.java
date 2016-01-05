@@ -8,6 +8,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -35,6 +36,7 @@ import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.utils.WaveAnimationUtil;
+import com.hanmimei.view.BadgeView;
 import com.squareup.picasso.Picasso;
 import com.umeng.analytics.MobclickAgent;
 
@@ -52,15 +54,14 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 	private ImageView img; // 主推商品图片
 	private FrameLayout mframeLayout; // 主推商品容器 添加tag使用
 	private View cartView;
+	private BadgeView bView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.theme_layout);
-		View view = ActionBarUtil.setActionBarStyle(this, "商品展示",
-				R.drawable.white_shoppingcar, true, this);
+		View view = ActionBarUtil.setActionBarStyle(this, "商品展示",R.drawable.white_shoppingcar, true, this);
 		cartView = view.findViewById(R.id.setting);
-		// getActionBar().hide();
 		url = getIntent().getStringExtra("url");
 		data = new ArrayList<HMMGoods>();
 		adapter = new ThemeAdapter(data, this);
@@ -93,7 +94,13 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		gridView = (GridView) findViewById(R.id.my_grid);
 		img = (ImageView) findViewById(R.id.img);
 		mframeLayout = (FrameLayout) findViewById(R.id.mframeLayout);
-
+		
+		bView = new BadgeView(this, cartView);
+		bView.setBackgroundResource(R.drawable.bg_badgeview2);
+		bView.setBadgePosition(BadgeView.POSITION_CENTER);
+		bView.setTextSize(12);
+		bView.setTextColor(Color.parseColor("#F9616A"));
+		
 		findViewById(R.id.reload).setOnClickListener(this);
 	}
 
@@ -138,13 +145,18 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 			for (ShoppingGoods sg : goods) {
 				num += sg.getGoodsNums();
 			}
-			if (num <= 0)
-				return;
-			BadgeViewManager.getInstance().showCartNum(this, cartView, num);
+			if (num <= 0){
+				bView.hide(true);
+			}else{
+				bView.setText(num + "");
+				bView.show();
+			}
 		} else {
 			if (detail.getCartNum() != null) {
-				BadgeViewManager.getInstance().showCartNum(this, cartView,
-						detail.getCartNum());
+				bView.setText(detail.getCartNum() + "");
+				bView.show();
+			}else{
+				bView.hide();
 			}
 		}
 	}
@@ -218,9 +230,8 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 	private void registerReceivers() {
 		netReceiver = new CarBroadCastReceiver();
 		IntentFilter intentFilter = new IntentFilter();
-		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_ADD_CAR);
 		intentFilter
-				.addAction(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR);
+				.addAction(AppConstant.MESSAGE_BROADCAST_UPDATE_CARVIEW);
 		getActivity().registerReceiver(netReceiver, intentFilter);
 	}
 
@@ -229,7 +240,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			if (intent.getAction().equals(
-					AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR)) {
+					AppConstant.MESSAGE_BROADCAST_UPDATE_CARVIEW)) {
 				loadUrl();
 			}
 		}
@@ -238,7 +249,6 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		BadgeViewManager.getInstance().clearBView();
 		unregisterReceiver(netReceiver);
 	}
 
