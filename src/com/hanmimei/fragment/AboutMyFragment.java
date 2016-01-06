@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hanmimei.R;
@@ -33,8 +34,6 @@ import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ImageLoaderUtils;
 import com.hanmimei.utils.KeyWordUtil;
 import com.hanmimei.view.RoundImageView;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.umeng.analytics.MobclickAgent;
 
 public class AboutMyFragment extends Fragment implements OnClickListener {
@@ -52,11 +51,10 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 	private TextView order;
 	private TextView youhui;
 	private TextView collect;
+	private ImageView sex;
 
 	private BaseActivity activity;
 	private User user;
-	private ImageLoader imageLoader;
-	private DisplayImageOptions imageOptions;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -110,10 +108,14 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 
 	public void initView() {
 		user = activity.getUser();
-		imageLoader = ImageLoaderUtils.initLoader(getActivity());
-		imageOptions = ImageLoaderUtils.initOptions();
-		imageLoader.displayImage(user.getUserImg(), header, imageOptions);
+		ImageLoaderUtils.loadImage(activity, user.getUserImg(), header);
 		user_name.setText(user.getUserName());
+		sex.setVisibility(View.VISIBLE);
+		if(user.getSex().equals("F")){
+			sex.setImageDrawable(activity.getResources().getDrawable(R.drawable.icon_nv));
+		}else{
+			sex.setImageDrawable(activity.getResources().getDrawable(R.drawable.icon_nan));
+		}
 		int couponCount;
 		if(user.getCouponCount() == null){
 			couponCount = 0;
@@ -127,17 +129,17 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 
 	private void clearView() {
 		user = activity.getUser();
-		imageLoader = ImageLoaderUtils.initLoader(getActivity());
-		imageOptions = ImageLoaderUtils.initOptions();
-		imageLoader.displayImage("", header, imageOptions);
+		ImageLoaderUtils.loadImage(activity, "", header);
 		user_name.setText("点击登录");
 		youhui.setText("    优惠券");
+		sex.setVisibility(View.GONE);
 	}
 
 	private void findView(View view) {
 		header = (RoundImageView) view.findViewById(R.id.header);
 		user_name = (TextView) view.findViewById(R.id.user_name);
 		address = (TextView) view.findViewById(R.id.address);
+		sex = (ImageView) view.findViewById(R.id.sex);
 		address.setCompoundDrawables(address_icon, null, jiantou_icon, null);
 		order = (TextView) view.findViewById(R.id.order);
 		order.setCompoundDrawables(order_icon, null, jiantou_icon, null);

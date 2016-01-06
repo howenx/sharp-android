@@ -2,21 +2,20 @@ package com.hanmimei.activity;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-
 import com.hanmimei.R;
+import com.hanmimei.activity.listener.TimeEndListner;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.Result;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.HttpUtils;
+import com.hanmimei.view.YanZhengCodeTextView;
 import com.umeng.analytics.MobclickAgent;
-
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -28,14 +27,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 @SuppressLint("NewApi") 
-public class ForgetPwdActivity extends BaseActivity implements OnClickListener{
+public class ForgetPwdActivity extends BaseActivity implements OnClickListener,TimeEndListner{
 
 	private TextView header;
 	private ImageView back;
 	private EditText phone_edit;
 	private EditText code_edit;
 	private EditText pwd_edit;
-	private TextView get_code;
+	private YanZhengCodeTextView get_code;
 	private TextView send;
 	private TextView new_pwd;
 	private String phone;
@@ -57,13 +56,14 @@ public class ForgetPwdActivity extends BaseActivity implements OnClickListener{
 		back.setVisibility(View.VISIBLE);
 		phone_edit = (EditText) findViewById(R.id.phone_num);
 		code_edit = (EditText) findViewById(R.id.yanzheng);
-		get_code = (TextView) findViewById(R.id.get_yanzheng);
+		get_code = (YanZhengCodeTextView) findViewById(R.id.get_yanzheng);
 		pwd_edit = (EditText) findViewById(R.id.pwd);
 		send = (TextView) findViewById(R.id.regist);
 		new_pwd = (TextView) findViewById(R.id.new_pwd);
 		new_pwd.setText("新密码");
 		back.setOnClickListener(this);
 		get_code.setOnClickListener(this);
+		get_code.setTimeEndListner(this);
 		send.setOnClickListener(this);
 		
 	}
@@ -74,6 +74,7 @@ public class ForgetPwdActivity extends BaseActivity implements OnClickListener{
 			finish();
 			break;
 		case R.id.get_yanzheng:
+			phone = phone_edit.getText().toString();
 			if(!CommonUtil.isPhoneNum(phone)){
 				Toast.makeText(this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
 			}else{
@@ -89,7 +90,13 @@ public class ForgetPwdActivity extends BaseActivity implements OnClickListener{
 	}
 	
 	//获取验证码
-	private void getCode() {
+	private void getCode() {//验证码倒计时，不可点击
+		get_code.setClickable(false);
+		Drawable background = getResources().getDrawable(R.drawable.huise_button_bg);
+		get_code.setBackground(background);
+		get_code.setTimes(60);
+		get_code.beginRun();
+		//加密
 		msg = CommonUtil.md5(phone + "hmm");
 		new Thread(new Runnable() {
 			@Override
@@ -154,8 +161,8 @@ public class ForgetPwdActivity extends BaseActivity implements OnClickListener{
 				dialog.dismiss();
 				Result result = (Result) msg.obj;
 				if(result.isSuccess() == true){
-					Intent intent = new Intent(ForgetPwdActivity.this, MainActivity.class);
-					startActivity(intent);
+//					Intent intent = new Intent(ForgetPwdActivity.this, MainActivity.class);
+//					startActivity(intent);
 					finish();
 				}else if(result.isSuccess() == false){
 					Toast.makeText(ForgetPwdActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
@@ -189,6 +196,12 @@ public class ForgetPwdActivity extends BaseActivity implements OnClickListener{
 	    super.onPause();
 	    MobclickAgent.onPageEnd("ForgetPwdActivity"); // （仅有Activity的应用中SDK自动调用，不需要单独写）保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息。"SplashScreen"为页面名称，可自定义
 	    MobclickAgent.onPause(this);
+	}
+	@Override
+	public void isTimeEnd() {
+		get_code.setClickable(true);
+		Drawable background = getResources().getDrawable(R.drawable.theme_button_bg);
+		get_code.setBackground(background);
 	}
 
 }

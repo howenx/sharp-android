@@ -18,7 +18,7 @@
         <TextView 
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:text="手机号"
+            android:text="@string/phone_num"
             android:textSize="16sp"
             android:textColor="@color/fontcolor"
             android:gravity="center"/>
@@ -26,7 +26,7 @@
             android:id="@+id/phone_num"
             android:layout_marginLeft="15dp"
             android:inputType="number"
-            android:hint="请输入手机号"
+            android:hint="@string/input_phone"
             style="@style/login_edit_style"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
@@ -42,7 +42,7 @@
         <TextView 
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:text="密    码"
+            android:text="@string/pwd"
             android:textSize="16sp"
             android:textColor="@color/fontcolor"
             android:gravity="center"/>
@@ -51,7 +51,7 @@
             android:layout_marginLeft="15dp"
             android:paddingTop="5dp"
             style="@style/login_edit_style"
-            android:hint="请输入密码"
+            android:hint="@string/input_pwd"
             android:inputType="textPassword"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
@@ -83,7 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:text="登录"
+            android:text="@string/login"
             android:textSize="16sp"
             android:textColor="@color/white"
             android:gravity="center"
@@ -94,7 +94,7 @@
             android:layout_height="wrap_content"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:text="注册"
+            android:text="@string/regist"
             android:textSize="16sp"
             android:textColor="@color/white"
             android:gravity="center"

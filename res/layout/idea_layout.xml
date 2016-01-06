@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+        android:background="@color/white">
+    <TextView 
+        android:id="@+id/send"
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:text="提交"
+        style="@style/submit"/>
+    <EditText 
+        android:id="@+id/idea"
+        android:layout_above="@id/send"
+        android:padding="10dp"
+        android:gravity="left|top"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:hint="请输入您宝贵的意见吧～"
+        android:textSize="15sp"
+        android:textColor="@color/huise"/>
+
+</RelativeLayout>

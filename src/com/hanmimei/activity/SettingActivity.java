@@ -101,6 +101,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener{
 			DoJumpUtils.doJump(this, AboutWeActivity.class);
 			break;
 		case R.id.idea:
+			DoJumpUtils.doJump(this, SuggestionActivity.class);
 			break;
 		case R.id.comment:
 			break;
