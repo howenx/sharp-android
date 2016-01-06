@@ -2,52 +2,70 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/background" >
-    <LinearLayout 
-        android:layout_height="wrap_content"
+    android:background="@color/background"
+    android:orientation="vertical" >
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:background="@color/theme"
-        android:gravity="center_horizontal">
-    <com.hanmimei.view.RoundImageView 
-        android:id="@+id/header"
-        android:layout_marginTop="10dp"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:src="@drawable/ic_launcher"/>
-
-    <TextView 
-        android:id="@+id/user_name"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="30dp"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="点击登录"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="@color/white"/>
-	</LinearLayout>
-	
-	<TextView 
-	    android:id="@+id/order"
-	    android:layout_marginTop="15dp"
-	    android:padding="12dp"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:text="    我的订单"
-	    style="@style/wode_font_style"/>
+        android:background="@color/theme"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
 
-	<TextView
-	    android:id="@+id/youhui"
-	    style="@style/wode_font_style"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_marginTop="15dp"
-	    android:padding="12dp"
-	    android:text="    优惠券" />
+        <com.hanmimei.view.RoundImageView
+            android:id="@+id/header"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/icon_default_header" />
 
-	<!-- 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="点击登录"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/sex"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginLeft="5dp"
+                android:contentDescription="@null"
+                android:src="@drawable/icon_nan"
+                android:visibility="gone" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/order"
+        style="@style/wode_font_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:padding="12dp"
+        android:text="    我的订单" />
+
+    <TextView
+        android:id="@+id/youhui"
+        style="@style/wode_font_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:padding="12dp"
+        android:text="    优惠券" />
+
+    <!--
 	<TextView 
 	    android:id="@+id/shenfenzheng"
 	    android:layout_marginTop="15dp"
@@ -56,26 +74,27 @@
 	    android:layout_height="wrap_content"
 	    android:text="    补填身份证"
 	   style="@style/wode_font_style"/>
-	    -->
-	<TextView 
-	    android:id="@+id/address"
-	    android:layout_marginTop="15dp"
-	    android:padding="12dp"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:text="    管理收货地址"
-	    style="@style/wode_font_style"/>
-	
-	<TextView 
-	    android:id="@+id/collect"
-	    android:layout_marginTop="15dp"
-	    android:padding="12dp"
-	    android:visibility="gone"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:text="    我的收藏"
-	    style="@style/wode_font_style"/>
-	<!--  
+    -->
+
+    <TextView
+        android:id="@+id/address"
+        style="@style/wode_font_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:padding="12dp"
+        android:text="    管理收货地址" />
+
+    <TextView
+        android:id="@+id/collect"
+        style="@style/wode_font_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:padding="12dp"
+        android:text="    我的收藏"
+        android:visibility="gone" />
+    <!--
 		<TextView 
 	    android:id="@+id/about_card"
 	    android:layout_marginTop="15dp"
@@ -84,5 +103,6 @@
 	    android:layout_height="wrap_content"
 	    android:text="    关于身份证"
 	    style="@style/wode_font_style"/>
-	    -->
+    -->
+
 </LinearLayout>

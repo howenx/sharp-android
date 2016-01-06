@@ -2,13 +2,10 @@ package com.hanmimei.activity;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,7 +16,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.hanmimei.R;
 import com.hanmimei.activity.listener.TimeEndListner;
 import com.hanmimei.data.DataParser;
@@ -157,8 +153,8 @@ public class RegistActivity extends BaseActivity implements OnClickListener,Time
 				dialog.dismiss();
 				Result result = (Result) msg.obj;
 				if(result.isSuccess() == true){
-					Intent intent = new Intent(RegistActivity.this, MainActivity.class);
-					startActivity(intent);
+//					Intent intent = new Intent(RegistActivity.this, MainActivity.class);
+//					startActivity(intent);
 					finish();
 				}else if(result.isSuccess() == false){
 					Toast.makeText(RegistActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
@@ -185,7 +181,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener,Time
 	};
 	@Override
 	public void isTimeEnd() {
-		
+//		倒计时结束，获取验证码可以点击
 		get_yanzheng.setClickable(true);
 		Drawable background = getResources().getDrawable(R.drawable.theme_button_bg);
 		get_yanzheng.setBackground(background);
