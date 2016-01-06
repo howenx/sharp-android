@@ -14,17 +14,12 @@ public class UrlUtil {
 //	public static final String SERVERY4 = "https://id.hanmimei.com";	// 18:9004
 //	
 	//公网地址
-<<<<<<< HEAD
 		public static final String SERVERY3 = "http://172.28.3.18:9001";	//  18:9001
 		public static final String SERVERY1 = "http://172.28.3.18:9003";	// 18:9003
 		public static final String SERVERY4 = "http://172.28.3.18:9004";	// 18:9004
 
-		public static final String text = "http://172.28.3.51:9001";	// 18:9004
-=======
-//		public static final String SERVERY3 = "http://172.28.3.18:9001";	//  18:9001
-//		public static final String SERVERY1 = "http://172.28.3.51:9003";	// 18:9003
-//		public static final String SERVERY4 = "http://172.28.3.18:9004";	// 18:9004
->>>>>>> b2c8cca629bb3328afb57aa9a5a9106f40498c10
+		public static final String text = "http://172.28.3.18:9001";	// 18:9004
+
 	
 	//主页数据接口
 	public static final String HOME_LIST_URL = SERVERY3 + "/index/";

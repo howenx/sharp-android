@@ -18,8 +18,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="130dp"
-                android:gravity="center_vertical"
                 android:background="@drawable/white_corner_bg"
+                android:gravity="center_vertical"
                 android:padding="10dp" >
 
                 <RelativeLayout
@@ -109,7 +109,7 @@
                     android:background="@drawable/bg_custom_button"
                     android:text="添加收货地址"
                     android:textColor="@color/btn_font_selector"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
             </RelativeLayout>
 
             <com.hanmimei.view.CustomListView
@@ -146,7 +146,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/btn_radio_selected"
-                    android:drawablePadding="10dp"
+                    android:drawablePadding="8dp"
                     android:gravity="center_vertical"
                     android:text="工作日双休日与假期均可送货"
                     android:textColor="#AA000000"
@@ -173,11 +173,11 @@
 
                 <RadioButton
                     android:id="@+id/btn_all_day"
+                    style="@style/btn_radio_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="工作日双休日与假期均可送货"
                     android:tag="1"
+                    android:text="工作日双休日与假期均可送货"
                     android:textColor="#AA000000"
                     android:textSize="12sp" />
 
@@ -188,11 +188,11 @@
 
                 <RadioButton
                     android:id="@+id/btn_work_day"
+                    style="@style/btn_radio_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="只工作日送货"
                     android:tag="2"
+                    android:text="只工作日送货"
                     android:textColor="#AA000000"
                     android:textSize="12sp" />
 
@@ -203,11 +203,11 @@
 
                 <RadioButton
                     android:id="@+id/btn_rest_day"
+                    style="@style/btn_radio_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="只双休日与假日送货"
                     android:tag="3"
+                    android:text="只双休日与假日送货"
                     android:textColor="#AA000000"
                     android:textSize="12sp" />
             </RadioGroup>
@@ -243,7 +243,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/btn_radio_selected"
-                    android:drawablePadding="10dp"
+                    android:drawablePadding="8dp"
                     android:gravity="center_vertical"
                     android:text="在线支付"
                     android:textColor="#AA000000"
@@ -265,70 +265,53 @@
                 android:layout_height="wrap_content"
                 android:background="@color/background"
                 android:checkedButton="@+id/pay_jd"
-                android:orientation="vertical"
-                android:visibility="gone" >
+                android:orientation="vertical" 
+                android:visibility="gone">
 
                 <RadioButton
                     android:id="@+id/pay_jd"
+                    style="@style/btn_radio_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:tag="@string/pay_type_jd"
                     android:text="在线支付"
-                    android:button="@drawable/btn_radio_selector"
                     android:textColor="#AA000000"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                     />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:visibility="gone"
-                    android:background="#cccccc" />
+                    android:background="#cccccc"
+                    android:visibility="gone" />
 
                 <RadioButton
                     android:id="@+id/pay_ali"
+                    style="@style/btn_radio_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:tag="@string/pay_type_ali"
                     android:text="支付宝"
-                    android:visibility="gone"
                     android:textColor="#AA000000"
-                    android:textSize="12sp" />
-                 <View
+                    android:textSize="12sp"
+                    android:visibility="gone" />
+
+                <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:background="#cccccc" />
 
                 <RadioButton
                     android:id="@+id/pay_wx"
+                    style="@style/btn_radio_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:tag="@string/pay_type_wx"
                     android:text="微信支付"
-                    android:visibility="gone"
                     android:textColor="#AA000000"
-                    android:textSize="12sp" />
-                
+                    android:textSize="12sp"
+                    android:visibility="gone" />
             </RadioGroup>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@color/white"
-                android:padding="10dp"
-                android:text="微信"
-                android:textColor="#AA000000"
-                android:textSize="13sp"
-                android:visibility="gone" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="#cccccc"
-                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/btn_mCoupon"
@@ -386,11 +369,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/background"
-                android:paddingLeft="10dp"
                 android:visibility="gone" >
 
                 <RadioButton
                     android:id="@+id/btn_unuse"
+                    style="@style/btn_radio_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="不使用优惠券"
