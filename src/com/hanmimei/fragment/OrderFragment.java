@@ -148,10 +148,10 @@ public class OrderFragment extends Fragment implements
 				activity.getLoading().dismiss();
 				mListView.onRefreshComplete();
 				List<Order> orders = (List<Order>) msg.obj;
+				data.clear();
 				if (orders != null) {
 					no_net.setVisibility(View.GONE);
 					if (orders.size() > 0) {
-						data.clear();
 						getOrderByState(orders);
 						if (data.size() > 0) {
 							no_order.setVisibility(View.GONE);

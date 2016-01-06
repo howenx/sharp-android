@@ -39,6 +39,7 @@ import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.User;
 import com.hanmimei.manager.ShoppingCarMenager;
+import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.HttpUtils;
 import com.umeng.analytics.MobclickAgent;
 
@@ -71,6 +72,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.shopping_car_list_layout);
+		ActionBarUtil.setActionBarStyle(this, "购物车", 0, true, this, null);
 		registerReceivers();
 		goodsDao = getDaoSession().getShoppingGoodsDao();
 		shoppingCar = new ShoppingCar();
@@ -211,8 +213,6 @@ public class ShoppingCarActivity extends BaseActivity implements
 	};
 
 	private void findView() {
-		TextView title = (TextView) findViewById(R.id.header);
-		title.setText("购物车");
 		bottom = (LinearLayout) findViewById(R.id.bottom);
 		total_price = (TextView) findViewById(R.id.total_price);
 		check_all = (ImageView) findViewById(R.id.all);
@@ -230,9 +230,6 @@ public class ShoppingCarActivity extends BaseActivity implements
 		mListView.setMode(Mode.DISABLED);
 		no_data = (LinearLayout) findViewById(R.id.data_null);
 		no_net = (LinearLayout) findViewById(R.id.no_net);
-		findViewById(R.id.top).setVisibility(View.VISIBLE);
-		findViewById(R.id.back).setVisibility(View.VISIBLE);
-		findViewById(R.id.back).setOnClickListener(this);
 		check_all.setOnClickListener(this);
 		adapter = new ShoppingCarPullListAdapter(data, this);
 		mListView.setAdapter(adapter);
