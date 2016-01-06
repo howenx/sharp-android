@@ -139,28 +139,51 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 					}
 				});
 	}
-
+	/**
+	 * 获取购物车数量  并显示
+	 */
 	private void getCartNum() {
-		Http2Utils.doGetRequestTask(this, getHeaders(),
-				UrlUtil.GET_CART_NUM_URL, new VolleyJsonCallback() {
 
-					@Override
-					public void onSuccess(String result) {
-						HMMThemeGoods detail = DataParser
-								.parserThemeItem(result);
-						if (detail.getMessage().getCode() == 200) {
-							initShopCartView(detail);
-						} else {
-							ToastUtils.Toast(getActivity(), detail.getMessage()
-									.getMessage());
+		if (getUser() == null) {
+			List<ShoppingGoods> goods = getDaoSession().getShoppingGoodsDao()
+					.queryBuilder().list();
+			int num = 0;
+			for (ShoppingGoods sg : goods) {
+				num += sg.getGoodsNums();
+			}
+			if (num <= 0) {
+				bView.hide(true);
+			} else {
+				bView.setText(num + "");
+				bView.show(true);
+			}
+		} else {
+			Http2Utils.doGetRequestTask(this, getHeaders(),
+					UrlUtil.GET_CART_NUM_URL, new VolleyJsonCallback() {
+
+						@Override
+						public void onSuccess(String result) {
+							HMMThemeGoods detail = DataParser
+									.parserThemeItem(result);
+							if (detail.getMessage().getCode() == 200) {
+								if (detail.getCartNum() != null) {
+									bView.setText(detail.getCartNum() + "");
+									bView.show();
+								} else {
+									bView.hide();
+								}
+							} else {
+								ToastUtils.Toast(getActivity(), detail
+										.getMessage().getMessage());
+							}
 						}
-					}
 
-					@Override
-					public void onError() {
-						ToastUtils.Toast(getActivity(), R.string.error);
-					}
-				});
+						@Override
+						public void onError() {
+							ToastUtils.Toast(getActivity(), R.string.error);
+						}
+					});
+		}
 	}
 
 	private void initShopCartView(HMMThemeGoods detail) {
@@ -175,14 +198,14 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 				bView.hide(true);
 			} else {
 				bView.setText(num + "");
-				bView.show();
+				bView.show(true);
 			}
 		} else {
 			if (detail.getCartNum() != null) {
 				bView.setText(detail.getCartNum() + "");
-				bView.show();
+				bView.show(true);
 			} else {
-				bView.hide();
+				bView.hide(true);
 			}
 		}
 	}
@@ -256,7 +279,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 	private void registerReceivers() {
 		netReceiver = new CarBroadCastReceiver();
 		IntentFilter intentFilter = new IntentFilter();
-		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_UPDATE_CARVIEW);
+		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR);
 		getActivity().registerReceiver(netReceiver, intentFilter);
 	}
 
@@ -265,7 +288,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			if (intent.getAction().equals(
-					AppConstant.MESSAGE_BROADCAST_UPDATE_CARVIEW)) {
+					AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR)) {
 				getCartNum();
 			}
 		}

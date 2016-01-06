@@ -1,27 +1,20 @@
 package com.hanmimei.data;
 
 public class UrlUtil {
-	public static final String SERVER01 = "http://172.28.3.18:9003"; // 服务器
-	public static final String SERVER02 = "http://172.28.3.51:9003"; //   测试服务器
-	public static final String SERVER05 = "http://172.28.3.51:9004"; //   测试服务器
-	public static final String SERVER06 = "http://172.28.3.51:9001"; //   测试服务器
-	public static final String SERVER03 = "http://172.28.3.18:9001"; // 服务器
-	public static final String SERVER04 = "http://172.28.3.18:9004"; // 服务器
+	
+	
+	//地址
+	public static final String SERVERY3 = "https://api.hanmimei.com";	//  18:9001
+	public static final String SERVERY1 = "https://shopping.hanmimei.com";	// 18:9003
+	public static final String SERVERY4 = "https://id.hanmimei.com";	// 18:9004
+//	
+	//公网地址
+//		public static final String SERVERY3 = "http://172.28.3.18:9001";	//  18:9001
+//		public static final String SERVERY1 = "http://172.28.3.18:9003";	// 18:9003
+//		public static final String SERVERY4 = "http://172.28.3.18:9004";	// 18:9004
 
-	// 地址
-	public static final String SERVERY3 = "https://api.hanmimei.com"; // 18:9001
-	public static final String SERVERY1 = "https://shopping.hanmimei.com"; // 18:9003
-	public static final String SERVERY4 = "https://id.hanmimei.com"; // 18:9004
+	
 
-	public static final String text = "http://172.28.3.51:9001"; // 18:9004
-	// public static final String SERVERY3 = "http://172.28.3.18:9001"; //
-	// 18:9001
-	// public static final String SERVERY1 = "http://172.28.3.51:9003"; //
-	// 18:9003
-	// public static final String SERVERY4 = "http://172.28.3.18:9004"; //
-	// 18:9004
-
-	// 主页数据接口
 	public static final String HOME_LIST_URL = SERVERY3 + "/index/";
 	// 地址列表接口
 	public static final String ADDRESS_LIST_URL = SERVERY4
@@ -68,7 +61,7 @@ public class UrlUtil {
 	public static final String GET_COUPON_LIST_URL = SERVERY1
 			+ "/client/coupons/list";
 	// 获取购物车数量接口
-	public static final String GET_CART_NUM_URL = text + "/comm/cart/amount";
+	public static final String GET_CART_NUM_URL = SERVERY3 + "/comm/cart/amount";
 
 	// 结算页接口
 	public static final String POST_CLIENT_SETTLE = SERVERY1 + "/client/settle";
