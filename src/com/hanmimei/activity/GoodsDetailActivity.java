@@ -251,6 +251,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	}
 
 	private void getCartNum() {
+		
 		if (getUser() == null) {
 			num_shopcart = 0;
 			List<ShoppingGoods> goods = goodsDao.queryBuilder().list();
@@ -264,6 +265,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 				buyNumView.hide(true);
 			}
 		} else {
+			msg = null;
 			Http2Utils.doGetRequestTask(this, getHeaders(),
 					UrlUtil.GET_CART_NUM_URL, new VolleyJsonCallback() {
 
@@ -277,6 +279,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 									buyNumView.setText(num_shopcart + "");
 									buyNumView.show(true);
 								} else {
+									num_shopcart = 0;
 									buyNumView.hide(true);
 								}
 							} else {
