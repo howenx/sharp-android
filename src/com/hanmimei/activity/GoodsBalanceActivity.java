@@ -219,7 +219,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 	 */
 	private void loadData(Long addressId) {
 
-		loadingDialog.show();
+		getLoading().show();
 		JSONArray array = JSONPaserTool.ClientSettlePaser(car);
 		orderSubmit.setSettleDtos(array);
 		orderSubmit.setAddressId(addressId);
@@ -228,14 +228,14 @@ public class GoodsBalanceActivity extends BaseActivity implements
 			
 			@Override
 			public void onSuccess(String result) {
-				loadingDialog.dismiss();
+				getLoading().dismiss();
 				goodsBalance = new Gson().fromJson(result, GoodsBalance.class);
 				initViewData();
 			}
 			
 			@Override
 			public void onError() {
-				loadingDialog.dismiss();
+				getLoading().dismiss();
 				ToastUtils.Toast(getActivity(), R.string.error);
 			}
 		}, json.toString());
@@ -248,12 +248,12 @@ public class GoodsBalanceActivity extends BaseActivity implements
 	 */
 	private void sendData(OrderSubmit os) {
 		final JSONObject json = JSONPaserTool.OrderSubmitPaser(os);
-		loadingDialog.show();
+		getLoading().show();
 		 Http2Utils.doPostRequestTask2(this, getHeaders(), UrlUtil.POST_CLIENT_ORDER_SUBMIT,new VolleyJsonCallback() {
 			
 			@Override
 			public void onSuccess(String result) {
-				loadingDialog.dismiss();
+				getLoading().dismiss();
 				OrderInfo info = new Gson().fromJson(result, OrderInfo.class);
 				if(info.getMessage().getCode() == 200){
 					Intent intent = new Intent(getActivity(), OrderSubmitActivity.class);
@@ -268,7 +268,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 			
 			@Override
 			public void onError() {
-				loadingDialog.dismiss();
+				getLoading().dismiss();
 				ToastUtils.Toast(getActivity(), R.string.error);
 			}
 		} , json.toString());

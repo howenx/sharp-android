@@ -13,20 +13,24 @@ import android.app.ActivityManager.RunningAppProcessInfo;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.res.AssetManager;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.RelativeLayout;
 
+import com.hanmimei.R;
 import com.hanmimei.application.MyApplication;
 import com.hanmimei.dao.DaoSession;
 import com.hanmimei.data.XmlParserHandler;
 import com.hanmimei.entity.User;
 import com.hanmimei.manager.ThreadPoolManager;
 import com.hanmimei.utils.AlertDialogUtils;
+import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.SystemBarTintManager;
 import com.hanmimei.view.LoadingDialog;
 import com.hanmimei.wheel.entity.CityModel;
@@ -165,17 +169,15 @@ public class BaseActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		getSupportActionBar().hide();
 		getSupportActionBar().setElevation(0);
-//		SystemBarTintManager mTintManager = new SystemBarTintManager(this);
-//        mTintManager.setStatusBarTintEnabled(true);
-//        mTintManager.setNavigationBarTintEnabled(true);
-//        mTintManager.setTintColor(Color.parseColor("#512DA8"));
 		MobclickAgent.openActivityDurationTrack(false);
 		MobclickAgent.setSessionContinueMillis(60000);
 		 MobclickAgent.setDebugMode(true);
 		loadingDialog = new LoadingDialog(this);
 		application = (MyApplication) getApplication();
-		getSupportActionBar().setElevation(0);
 	}
+	
+	
+
 
 	public BaseActivity getActivity() {
 		return this;
@@ -204,7 +206,7 @@ public class BaseActivity extends AppCompatActivity {
 		return headers;
 	}
 
-	protected LoadingDialog loadingDialog;
+	private LoadingDialog loadingDialog;
 
 	public LoadingDialog getLoading() {
 		return loadingDialog;
@@ -219,6 +221,13 @@ public class BaseActivity extends AppCompatActivity {
 			cbm.setText(application.getKouling());
 		}
 		super.onStop();
+	}
+	
+	
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
 	}
 
 	/**

@@ -145,7 +145,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 
 	private void getNetData() {
 		getLoading().show();
-		new Thread(new Runnable() {
+		submitTask(new Runnable() {
 
 			@Override
 			public void run() {
@@ -156,7 +156,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 				msg.obj = car;
 				mHandler.sendMessage(msg);
 			}
-		}).start();
+		});
 	}
 
 	private Handler mHandler = new Handler() {

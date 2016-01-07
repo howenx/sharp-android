@@ -106,7 +106,7 @@
                                 android:layout_height="wrap_content"
                                 android:drawableLeft="@drawable/icon_address"
                                 android:gravity="center"
-                                android:textColor="#cccccc"
+                                android:textColor="@color/fontcolor"
                                 android:textSize="12sp" />
 
                             <View
@@ -149,8 +149,7 @@
                                 android:layout_marginLeft="5dp"
                                 android:drawableLeft="@drawable/icon_tanhao"
                                 android:gravity="center"
-                                android:text="dfsf"
-                                android:textColor="#cccccc"
+                                android:textColor="@color/fontcolor"
                                 android:textSize="@dimen/font_normal" />
 
                             <View
@@ -165,6 +164,7 @@
                                 android:drawablePadding="5dp"
                                 android:drawableRight="@drawable/icon_help"
                                 android:gravity="center"
+                                android:textColor="@color/fontcolor"
                                 android:text="税费" />
                         </LinearLayout>
 

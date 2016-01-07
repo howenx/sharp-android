@@ -33,7 +33,7 @@ public class GoodsBalanceCustomAdapter extends BaseAdapter {
 	@Override
 	public Object getItem(int arg0) {
 		// TODO Auto-generated method stub
-		return customs.get(arg0);
+		return customs!=null? customs.get(arg0):null;
 	}
 
 	@Override

@@ -110,13 +110,13 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 
 	// 获取显示数据
 	private void loadUrl() {
-		loadingDialog.show();
+		getLoading().show();
 		Http2Utils.doGetRequestTask(this, getHeaders(), url,
 				new VolleyJsonCallback() {
 
 					@Override
 					public void onSuccess(String result) {
-						loadingDialog.dismiss();
+						getLoading().dismiss();
 						findViewById(R.id.no_net).setVisibility(View.GONE);
 						// TODO Auto-generated method stub
 						HMMThemeGoods detail = DataParser
@@ -134,7 +134,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 
 					@Override
 					public void onError() {
-						loadingDialog.dismiss();
+						getLoading().dismiss();
 						findViewById(R.id.no_net).setVisibility(View.VISIBLE);
 						ToastUtils.Toast(getActivity(), R.string.error);
 					}

@@ -99,7 +99,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 	}
 	//当订单的状态为i时，加载详情数据
 	private void loadData() {
-		loadingDialog.show();
+		getLoading().show();
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -273,7 +273,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		
 	}
 	private void cancleOrder() {
-		loadingDialog.show();
+		getLoading().show();
 		new Thread(new Runnable() {
 			
 			@Override
@@ -294,7 +294,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 			super.handleMessage(msg);
 			switch (msg.what) {
 			case 1:
-				loadingDialog.dismiss();
+				getLoading().dismiss();
 				Result result = (Result) msg.obj;
 				if(result.getCode() == 200){
 					sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_CANCLE_ORDER));
@@ -304,7 +304,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 				}
 				break;
 			case 2:
-				loadingDialog.dismiss();
+				getLoading().dismiss();
 				List<Order> orders = (List<Order>) msg.obj;
 				if(orders.size() > 0 && orders != null){
 					order = orders.get(0);

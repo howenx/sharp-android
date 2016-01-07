@@ -20,7 +20,7 @@ public class ShoppingGoods implements Serializable{
     private String goodsName;
     private Double goodsPrice;
     private Boolean isChecked;
-    private String state;
+    private String state = "I";
     private Integer goodsNums;
     private String itemColor;
     private String itemSize;
