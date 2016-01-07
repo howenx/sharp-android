@@ -67,6 +67,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 	private Drawable uncheck_Drawable;
 
 	private ShoppingCar shoppingCar;
+	private boolean isBack = false;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -166,6 +167,8 @@ public class ShoppingCarActivity extends BaseActivity implements
 			super.handleMessage(msg);
 			switch (msg.what) {
 			case 1:
+				if(isBack)
+					return;
 				getLoading().dismiss();
 				mListView.onRefreshComplete();
 				ShoppingCar car = new ShoppingCar();
@@ -361,6 +364,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 		// TODO Auto-generated method stub
 		super.onDestroy();
 		getActivity().unregisterReceiver(netReceiver);
+		isBack = true;
 	}
 
 	private class CarBroadCastReceiver extends BroadcastReceiver {

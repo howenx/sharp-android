@@ -5,10 +5,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build.VERSION;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.Toast;
@@ -22,6 +25,7 @@ import com.hanmimei.fragment.PinFragment;
 import com.hanmimei.fragment.ShoppingCartFragment;
 import com.hanmimei.manager.TabHostManager;
 import com.hanmimei.utils.ActionBarUtil;
+import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.DoJumpUtils;
 import com.hanmimei.utils.ToastUtils;
 import com.umeng.analytics.MobclickAgent;
@@ -46,16 +50,28 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 	private MainBroadCastReceiver netReceiver;
 	private FragmentTabHost mTabHost;
 	private LinearLayout guanggao;
+//	private View state_bar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+//		if (VERSION.SDK_INT >= 19) {
+//			getWindow().addFlags(
+//					WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//		}
 		setContentView(R.layout.activity_main);
 		ActionBarUtil.setActionBarStyle(this, "", 0, false, this);
+//		state_bar = findViewById(R.id.state_bar);
 		guanggao = (LinearLayout) findViewById(R.id.guanggao);
 		guanggao.setOnClickListener(this);
 		mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
 		mTabHost.setup(this, getSupportFragmentManager(), R.id.realcontent);
+//		if (VERSION.SDK_INT >= 19) {
+//			LayoutParams params;
+//			params = state_bar.getLayoutParams();
+//			params.height = CommonUtil.getStatusBarHeight(this);
+//			state_bar.setLayoutParams(params);
+//		}
 		findViewById(R.id.close).setOnClickListener(this);
 		findViewById(R.id.gg_img).setOnClickListener(this);
 		mTabHost.setOnTabChangedListener(this);
