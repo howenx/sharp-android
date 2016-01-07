@@ -170,13 +170,13 @@ public class ShoppingCarActivity extends BaseActivity implements
 				mListView.onRefreshComplete();
 				ShoppingCar car = new ShoppingCar();
 				car = (ShoppingCar) msg.obj;
+				data.clear();
 				if (car.getMessage() != null) {
 					if (car.getList() != null && car.getList().size() > 0) {
 						no_data.setVisibility(View.GONE);
 						no_net.setVisibility(View.GONE);
 						bottom.setVisibility(View.VISIBLE);
 						mListView.setVisibility(View.VISIBLE);
-						data.clear();
 						data.addAll(car.getList());
 						//
 						ShoppingCarMenager.getInstance()
@@ -187,7 +187,6 @@ public class ShoppingCarActivity extends BaseActivity implements
 								getActivity());
 						clearPrice();
 						//
-						adapter.notifyDataSetChanged();
 					} else {
 						bottom.setVisibility(View.GONE);
 						mListView.setVisibility(View.GONE);
@@ -205,6 +204,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 					no_data.setVisibility(View.GONE);
 					no_net.setVisibility(View.VISIBLE);
 				}
+				adapter.notifyDataSetChanged();
 				break;
 			default:
 				break;
@@ -349,8 +349,8 @@ public class ShoppingCarActivity extends BaseActivity implements
 		netReceiver = new CarBroadCastReceiver();
 		IntentFilter intentFilter = new IntentFilter();
 		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_ADD_CAR);
-//		intentFilter
-//				.addAction(AppConstant.MESSAGE_BROADCAST_SHOPCARNUMS_ACTION);
+		intentFilter
+				.addAction(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR);
 		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION);
 		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_QUIT_LOGIN_ACTION);
 		getActivity().registerReceiver(netReceiver, intentFilter);

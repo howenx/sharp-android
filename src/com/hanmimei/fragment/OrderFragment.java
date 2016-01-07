@@ -158,7 +158,7 @@ public class OrderFragment extends Fragment implements
 						} else {
 							no_order.setVisibility(View.VISIBLE);
 						}
-						adapter.notifyDataSetChanged();
+						
 					} else {
 						no_order.setVisibility(View.VISIBLE);
 					}
@@ -166,6 +166,7 @@ public class OrderFragment extends Fragment implements
 					no_order.setVisibility(View.GONE);
 					no_net.setVisibility(View.VISIBLE);
 				}
+				adapter.notifyDataSetChanged();
 				break;
 
 			default:
