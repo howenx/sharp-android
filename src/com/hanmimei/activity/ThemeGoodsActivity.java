@@ -36,6 +36,7 @@ import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
+import com.hanmimei.utils.ImageLoaderUtils;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.utils.WaveAnimationUtil;
 import com.hanmimei.view.BadgeView;
@@ -219,8 +220,11 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		int width = CommonUtil.getScreenWidth(this);
 		int height = CommonUtil.getScreenWidth(this) * info.getHeight()
 				/ info.getWidth();
-
-		Picasso.with(this).load(info.getUrl()).resize(width, height).into(img);
+		 LayoutParams params = img.getLayoutParams();
+		params.height = height;
+		params.width = width;
+		img.setLayoutParams(params);
+		ImageLoaderUtils.loadImage(this, info.getUrl(), img);
 
 		List<ImgTag> tags = themeItem.getMasterItemTagForTag();
 		View view = null;

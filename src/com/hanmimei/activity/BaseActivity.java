@@ -13,6 +13,7 @@ import android.app.ActivityManager.RunningAppProcessInfo;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -26,6 +27,7 @@ import com.hanmimei.data.XmlParserHandler;
 import com.hanmimei.entity.User;
 import com.hanmimei.manager.ThreadPoolManager;
 import com.hanmimei.utils.AlertDialogUtils;
+import com.hanmimei.utils.SystemBarTintManager;
 import com.hanmimei.view.LoadingDialog;
 import com.hanmimei.wheel.entity.CityModel;
 import com.hanmimei.wheel.entity.DistrictModel;
@@ -162,6 +164,11 @@ public class BaseActivity extends AppCompatActivity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		getSupportActionBar().hide();
+		getSupportActionBar().setElevation(0);
+//		SystemBarTintManager mTintManager = new SystemBarTintManager(this);
+//        mTintManager.setStatusBarTintEnabled(true);
+//        mTintManager.setNavigationBarTintEnabled(true);
+//        mTintManager.setTintColor(Color.parseColor("#512DA8"));
 		MobclickAgent.openActivityDurationTrack(false);
 		MobclickAgent.setSessionContinueMillis(60000);
 		 MobclickAgent.setDebugMode(true);
