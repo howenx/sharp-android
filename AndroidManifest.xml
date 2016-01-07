@@ -120,9 +120,6 @@
             android:name="com.hanmimei.upload.PhotoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.upload.PublishedActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name="com.hanmimei.upload.TestPicActivity"
             android:screenOrientation="portrait" />
         <activity

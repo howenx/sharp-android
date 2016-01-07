@@ -242,10 +242,9 @@ public class GoodsBalanceActivity extends BaseActivity implements
 	}
 	
 	/**
-	 * 加载网络数据
+	 * 提交订单数据
 	 * 
-	 * @param addressId
-	 *            被选中的地址id
+	 * @param os 订单提交信息
 	 */
 	private void sendData(OrderSubmit os) {
 		final JSONObject json = JSONPaserTool.OrderSubmitPaser(os);

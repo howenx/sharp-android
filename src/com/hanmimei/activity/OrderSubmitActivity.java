@@ -22,7 +22,7 @@ import com.hanmimei.R;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.OrderInfo;
 import com.hanmimei.utils.ActionBarUtil;
-import com.hanmimei.utils.AlertDialogUtil;
+import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.ToastUtils;
 import com.umeng.analytics.MobclickAgent;
 
@@ -62,6 +62,9 @@ public class OrderSubmitActivity extends BaseActivity {
 				}
 				return false;
 			}
+			
+			
+			
 		});
 		
 		mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
@@ -72,7 +75,7 @@ public class OrderSubmitActivity extends BaseActivity {
 		    public boolean onJsAlert(WebView view, String url, String message,
 		            final JsResult result) {
 		    	String[] tb = { "提示",message, null, "确定" };
-		    	AlertDialogUtil.showCustomDialog(getActivity(), tb,new OnClickListener() {
+		    	AlertDialogUtils.showCustomDialog(getActivity(), tb,new OnClickListener() {
 					@Override
 					public void onClick(View v) {
 						startActivity(new Intent(getActivity(), MyOrderActivity.class));
@@ -163,7 +166,7 @@ public class OrderSubmitActivity extends BaseActivity {
 	}
 	//显示取消支付窗口
 	private void showPayDialog() {
-		AlertDialogUtil.showPayDialog(getActivity(), new OnClickListener() {
+		AlertDialogUtils.showPayDialog(getActivity(), new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				startActivity(new Intent(getActivity(), MyOrderActivity.class));
