@@ -17,18 +17,12 @@ public class MyApplication extends Application {
 	private User loginUser;
 	private RequestQueue queue;
 	private String kouling;
-	private LoadingDialog loadingDialog;
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		queue = Volley.newRequestQueue(this);
-		loadingDialog = new LoadingDialog(this);
 		initPlatformConfig();
-	}
-	
-	public LoadingDialog getLoading(){
-		return loadingDialog;
 	}
 	
 	//初始化PlatformConfig
