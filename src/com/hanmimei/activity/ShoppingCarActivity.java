@@ -39,6 +39,7 @@ import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.User;
 import com.hanmimei.manager.ShoppingCarMenager;
+import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.HttpUtils;
 import com.umeng.analytics.MobclickAgent;
 
@@ -71,6 +72,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.shopping_car_list_layout);
+		ActionBarUtil.setActionBarStyle(this, "购物车", 0, true, this, null);
 		registerReceivers();
 		goodsDao = getDaoSession().getShoppingGoodsDao();
 		shoppingCar = new ShoppingCar();
@@ -168,13 +170,13 @@ public class ShoppingCarActivity extends BaseActivity implements
 				mListView.onRefreshComplete();
 				ShoppingCar car = new ShoppingCar();
 				car = (ShoppingCar) msg.obj;
+				data.clear();
 				if (car.getMessage() != null) {
 					if (car.getList() != null && car.getList().size() > 0) {
 						no_data.setVisibility(View.GONE);
 						no_net.setVisibility(View.GONE);
 						bottom.setVisibility(View.VISIBLE);
 						mListView.setVisibility(View.VISIBLE);
-						data.clear();
 						data.addAll(car.getList());
 						//
 						ShoppingCarMenager.getInstance()
@@ -185,7 +187,6 @@ public class ShoppingCarActivity extends BaseActivity implements
 								getActivity());
 						clearPrice();
 						//
-						adapter.notifyDataSetChanged();
 					} else {
 						bottom.setVisibility(View.GONE);
 						mListView.setVisibility(View.GONE);
@@ -203,6 +204,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 					no_data.setVisibility(View.GONE);
 					no_net.setVisibility(View.VISIBLE);
 				}
+				adapter.notifyDataSetChanged();
 				break;
 			default:
 				break;
@@ -211,8 +213,6 @@ public class ShoppingCarActivity extends BaseActivity implements
 	};
 
 	private void findView() {
-		TextView title = (TextView) findViewById(R.id.header);
-		title.setText("购物车");
 		bottom = (LinearLayout) findViewById(R.id.bottom);
 		total_price = (TextView) findViewById(R.id.total_price);
 		check_all = (ImageView) findViewById(R.id.all);
@@ -230,9 +230,6 @@ public class ShoppingCarActivity extends BaseActivity implements
 		mListView.setMode(Mode.DISABLED);
 		no_data = (LinearLayout) findViewById(R.id.data_null);
 		no_net = (LinearLayout) findViewById(R.id.no_net);
-		findViewById(R.id.top).setVisibility(View.VISIBLE);
-		findViewById(R.id.back).setVisibility(View.VISIBLE);
-		findViewById(R.id.back).setOnClickListener(this);
 		check_all.setOnClickListener(this);
 		adapter = new ShoppingCarPullListAdapter(data, this);
 		mListView.setAdapter(adapter);
@@ -352,8 +349,8 @@ public class ShoppingCarActivity extends BaseActivity implements
 		netReceiver = new CarBroadCastReceiver();
 		IntentFilter intentFilter = new IntentFilter();
 		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_ADD_CAR);
-//		intentFilter
-//				.addAction(AppConstant.MESSAGE_BROADCAST_SHOPCARNUMS_ACTION);
+		intentFilter
+				.addAction(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR);
 		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION);
 		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_QUIT_LOGIN_ACTION);
 		getActivity().registerReceiver(netReceiver, intentFilter);

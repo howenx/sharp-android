@@ -13,7 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hanmimei.R;
@@ -51,6 +53,8 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 	private TextView order;
 	private TextView youhui;
 	private TextView collect;
+	private TextView youhui_nums;
+	private LinearLayout youhui_linear;
 	private ImageView sex;
 
 	private BaseActivity activity;
@@ -122,8 +126,7 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 		}else{
 			couponCount = user.getCouponCount();
 		}
-		String show = "    优惠券        " + couponCount + "张可用";
-		KeyWordUtil.setDifrentFontStyle(getActivity(), youhui, show, 14, show.length());
+		youhui_nums.setText(couponCount + " 张可用");
 
 	}
 
@@ -131,7 +134,6 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 		user = activity.getUser();
 		ImageLoaderUtils.loadImage(activity, "", header);
 		user_name.setText("点击登录");
-		youhui.setText("    优惠券");
 		sex.setVisibility(View.GONE);
 	}
 
@@ -143,16 +145,19 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 		address.setCompoundDrawables(address_icon, null, jiantou_icon, null);
 		order = (TextView) view.findViewById(R.id.order);
 		order.setCompoundDrawables(order_icon, null, jiantou_icon, null);
+		youhui_linear = (LinearLayout) view.findViewById(R.id.youhui_linear);
 		youhui = (TextView) view.findViewById(R.id.youhui);
-		youhui.setCompoundDrawables(youhui_icon, null, jiantou_icon, null);
-		collect = (TextView) view.findViewById(R.id.collect);
-		collect.setCompoundDrawables(youhui_icon, null, jiantou_icon, null);
+		youhui.setCompoundDrawables(youhui_icon, null, null, null);
+//		collect = (TextView) view.findViewById(R.id.collect);
+//		collect.setCompoundDrawables(youhui_icon, null, null, null);
+		youhui_nums = (TextView) view.findViewById(R.id.youhui_nums);
+		youhui_nums.setCompoundDrawables(null, null, jiantou_icon, null);
 		header.setOnClickListener(this);
 		order.setOnClickListener(this);
-		youhui.setOnClickListener(this);
 		address.setOnClickListener(this);
 		user_name.setOnClickListener(this);
-		collect.setOnClickListener(this);
+//		collect.setOnClickListener(this);
+		youhui_linear.setOnClickListener(this);
 	}
 
 	@Override
@@ -164,9 +169,6 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 		case R.id.order:
 			doJump(MyOrderActivity.class);
 			break;
-		case R.id.youhui:
-			doJump(CouponActivity.class);
-			break;
 		case R.id.address:
 			doJump(AdressActivity.class);
 			break;
@@ -175,6 +177,9 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 			break;
 		case R.id.collect:
 			doJump(MyCollectionActivity.class);
+			break;
+		case R.id.youhui_linear:
+			doJump(CouponActivity.class);
 			break;
 		default:
 			break;

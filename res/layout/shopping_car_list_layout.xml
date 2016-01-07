@@ -6,13 +6,6 @@
     android:background="@color/white" >
 
     <include
-        android:id="@+id/top"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        layout="@layout/main_header_layout"
-        android:visibility="gone" />
-
-    <include
         android:id="@+id/bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,7 +17,7 @@
         android:id="@+id/mylist"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/bottom"
+        android:layout_above="@+id/attention"
         android:layout_below="@id/top"
         android:background="@color/white"
         android:cacheColorHint="#00000000"
@@ -91,7 +84,7 @@
         android:textColor="@color/huise"
         android:textSize="12sp"
         android:visibility="gone" 
-        android:background="@color/white"/>
+        android:background="@android:color/transparent"/>
     <include 
         android:id="@+id/no_net"
         android:layout_height="match_parent"

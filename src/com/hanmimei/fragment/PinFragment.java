@@ -55,7 +55,7 @@ public class PinFragment extends Fragment implements TimeEndListner, OnRefreshLi
 		mListView = (CustomListView) view.findViewById(R.id.mylist);
 		mListView.setFocusable(false);
 		mListView.setAdapter(adapter);
-		long [] time = {0, 3, 10};
+		long [] time = {24, 0, 0};
 		timer.setTimes(time,"拼购已经结束，请等待下次");
 		loadData();
 		return view;
@@ -74,7 +74,6 @@ public class PinFragment extends Fragment implements TimeEndListner, OnRefreshLi
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				// TODO Auto-generated method stub
 				startActivity(new Intent(getActivity(), PingouDetailActivity.class));
 			}
 		});

@@ -43,6 +43,7 @@ import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.User;
+import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.DateUtil;
 import com.hanmimei.utils.HasSDCardUtil;
@@ -79,6 +80,7 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.user_info_layout);
+		ActionBarUtil.setActionBarStyle(this, "修改信息", R.drawable.icon_save, true, this, this);
 		oldUser = getUser();
 		findView();
 		initView();
@@ -99,10 +101,6 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 		up_sex.setOnClickListener(this);
 		parenView = LayoutInflater.from(this).inflate(
 				R.layout.user_info_layout, null);
-		findViewById(R.id.back).setVisibility(View.VISIBLE);
-		findViewById(R.id.back).setOnClickListener(this);
-		TextView title = (TextView) findViewById(R.id.header);
-		title.setText("修改用户信息");
 	}
 	//填充数据
 	protected void initView() {
@@ -121,6 +119,9 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 			popWindow.showAtLocation(parenView, Gravity.BOTTOM, 0, 0);
 			break;
 		case R.id.back:
+			finish();
+			break;
+		case R.id.setting:
 			checkInput();
 			break;
 		case R.id.up_sex:

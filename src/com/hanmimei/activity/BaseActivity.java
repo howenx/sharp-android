@@ -174,6 +174,7 @@ public class BaseActivity extends AppCompatActivity {
 		 MobclickAgent.setDebugMode(true);
 		loadingDialog = new LoadingDialog(this);
 		application = (MyApplication) getApplication();
+		getSupportActionBar().setElevation(0);
 	}
 
 	public BaseActivity getActivity() {
