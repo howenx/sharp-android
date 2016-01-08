@@ -192,7 +192,6 @@ public class GoodsBalanceActivity extends BaseActivity implements
 			Intent intnt = new Intent(this, AdressActivity.class);
 			intnt.putExtra("from", From.GoodsBalanceActivity);
 			intnt.putExtra("selectedId", selectedId);
-			Log.i("newAddress_id", selectedId + "");
 			startActivityForResult(intnt, 1);
 			break;
 		case R.id.selectAddress:

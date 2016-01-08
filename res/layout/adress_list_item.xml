@@ -78,8 +78,8 @@
         android:layout_alignBaseline="@+id/name"
         android:layout_alignBottom="@+id/name"
         android:layout_toRightOf="@id/name"
-        android:layout_marginLeft="20dp"
-        android:text="默认地址"
+        android:layout_marginLeft="10dp"
+        android:text="默认"
         android:visibility="gone"
         android:textColor="@color/red"
         android:textSize="12sp" />

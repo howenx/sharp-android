@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+        android:background="@color/white"
     android:layout_height="match_parent"
-    android:background="@color/white" 
     android:fitsSystemWindows="true" >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="10dp" >
 
@@ -20,9 +20,9 @@
                 android:id="@+id/first"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical" 
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp">
+                android:gravity="center_vertical"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp" >
 
                 <TextView
                     android:layout_width="0dp"
@@ -51,9 +51,9 @@
                 android:id="@+id/two"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical" 
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp">
+                android:gravity="center_vertical"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp" >
 
                 <TextView
                     android:layout_width="0dp"
@@ -70,9 +70,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:background="@null"
-                    android:textSize="14sp" 
-                    android:phoneNumber="true"/>
+                    android:phoneNumber="true"
+                    android:textSize="14sp" />
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.05dp"
@@ -82,9 +83,9 @@
                 android:id="@+id/three"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical" 
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp">
+                android:gravity="center_vertical"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp" >
 
                 <TextView
                     android:layout_width="0dp"
@@ -101,8 +102,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:background="@null"
-                    android:textSize="14sp" 
-                    android:inputType="textVisiblePassword"/>
+                    android:inputType="textVisiblePassword"
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <View
@@ -114,16 +115,16 @@
                 android:id="@+id/show"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical" 
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp">
+                android:gravity="center_vertical"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp" >
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="省市区："
                     android:paddingLeft="5dp"
+                    android:text="省市区："
                     android:textColor="@color/fontcolor"
                     android:textSize="13sp" />
 
@@ -144,9 +145,9 @@
                 android:id="@+id/five"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical" 
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp">
+                android:gravity="center_vertical"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp" >
 
                 <TextView
                     android:layout_width="0dp"
@@ -165,7 +166,8 @@
                     android:background="@null"
                     android:textSize="14sp" />
             </LinearLayout>
-             <View
+
+            <View
                 android:layout_width="match_parent"
                 android:layout_height="0.05dp"
                 android:background="@color/xian" />
@@ -175,13 +177,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp" >
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp" >
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:paddingLeft="5dp"
                     android:text="设为默认:"
                     android:textColor="@color/fontcolor"
@@ -189,34 +191,34 @@
 
                 <CheckBox
                     android:id="@+id/btn_dufault"
-                    android:layout_height="wrap_content"
                     android:layout_width="40dp"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/anniu_selector"
                     android:button="@null" />
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.05dp"
                 android:background="@color/xian" />
         </LinearLayout>
-        
-          <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="提示："
-                    android:layout_margin="5dp"
-                    android:textColor="@color/theme"
-                    android:textSize="13sp" />
-          <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingLeft="5dp"
-					android:layout_marginTop="5dp"
-                    android:text="@string/tishi"
-                    android:textColor="@color/black"
-                    android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="提示："
+            android:textColor="@color/theme"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:paddingLeft="5dp"
+            android:text="@string/tishi"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/add"
@@ -227,9 +229,9 @@
             android:gravity="center"
             android:paddingBottom="7dp"
             android:paddingTop="7dp"
-            android:text="添加"
+            android:text ="添加"
             android:textColor="@color/white"
             android:textSize="16sp" />
     </LinearLayout>
 
-</ScrollView>
+</FrameLayout>

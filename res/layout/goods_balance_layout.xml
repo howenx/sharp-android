@@ -16,10 +16,10 @@
             android:background="@color/background"
             android:orientation="vertical" >
 
-            <RelativeLayout
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:minHeight="120dp"
                 android:background="@drawable/white_corner_bg"
                 android:padding="10dp" >
 
@@ -92,11 +92,12 @@
 
                     <TextView
                         android:id="@+id/isDefault"
+                        android:layout_marginTop="2dp"
+                        android:layout_toRightOf="@id/name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBottom="@+id/name"
-                        android:layout_alignRight="@+id/phone"
-                        android:text="默认地址"
+                        android:layout_marginLeft="10dp"
+                        android:text="默认"
                         android:textColor="@color/red"
                         android:textSize="12sp" />
                 </RelativeLayout>
@@ -106,12 +107,12 @@
                     style="@style/customButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
                     android:background="@drawable/bg_custom_button"
                     android:text="添加收货地址"
+                    android:layout_gravity="center"
                     android:textColor="@color/btn_font_selector"
                     android:textSize="16sp" />
-            </RelativeLayout>
+            </FrameLayout>
 
             <com.hanmimei.view.CustomListView
                 android:id="@+id/mListView"

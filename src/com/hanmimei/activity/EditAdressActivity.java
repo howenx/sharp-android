@@ -1,5 +1,8 @@
 package com.hanmimei.activity;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -265,10 +268,27 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 		}else if(!CommonUtil.IDCardValidate(idCard).equals("")){
 			Toast.makeText(this, CommonUtil.IDCardValidate(idCard), Toast.LENGTH_SHORT).show();
 			return;
+		}else if(!strIsHeFa(name)){
+			Toast.makeText(this, "姓名不能含有特殊字符", Toast.LENGTH_SHORT).show();
+			return;
+		}else if(!strIsHeFa(address)){
+			Toast.makeText(this, "地址不能含有特殊字符", Toast.LENGTH_SHORT).show();
+			return;
 		}else{
 			toObject();
 			addNewAdress();
 		}
+	}
+	private boolean strIsHeFa(String str){
+		String regEx="[`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]"; 
+        Pattern p = Pattern.compile(regEx); 
+        Matcher m = p.matcher(name);                 
+        if(m.find()){
+           return false;
+        }else{
+        	return true;
+        }
+		
 	}
 	
 	//封装json，用于请求参数

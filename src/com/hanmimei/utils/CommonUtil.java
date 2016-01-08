@@ -682,5 +682,18 @@ public class CommonUtil {
         long [] timer = {hour, minute, second};
 		return timer;
 	} 
+	public static String inputName(String name){
+		String result = "";
+		if(name.equals("")){
+			result = "不能为空";
+//			return;
+		}else if(name.length() < 2){
+			result = "不能为空";
+//			return;
+		}else{
+			
+		}
+		return result;
+	}
 
 }
