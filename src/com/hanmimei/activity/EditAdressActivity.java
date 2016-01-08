@@ -241,8 +241,8 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 		address = adress_edit.getText().toString();
 		idCard = idCard_edit.getText().toString();
 		
-		if(!CommonUtil.inputIsName(name,15).equals("")){
-			Toast.makeText(this, "姓名"+ CommonUtil.inputIsName(name,15), Toast.LENGTH_SHORT).show();
+		if(!CommonUtil.inputIsName(name,2,15).equals("")){
+			Toast.makeText(this, "姓名"+ CommonUtil.inputIsName(name,2,15), Toast.LENGTH_SHORT).show();
 			return;
 		}else if(phone.equals("")){
 			Toast.makeText(this, "请输入手机号", Toast.LENGTH_SHORT).show();
@@ -250,8 +250,8 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 		}else if(city.equals("")){
 			Toast.makeText(this, "请选择省市区", Toast.LENGTH_SHORT).show();
 			return;
-		}else if(!CommonUtil.inputIsName(name,50).equals("")){
-			Toast.makeText(this, "地址"+ CommonUtil.inputIsName(name,50), Toast.LENGTH_SHORT).show();
+		}else if(!CommonUtil.inputIsName(address,5,50).equals("")){
+			Toast.makeText(this, "地址"+ CommonUtil.inputIsName(address,5,50), Toast.LENGTH_SHORT).show();
 			return;
 		}else if(!CommonUtil.isPhoneNum(phone)){
 			Toast.makeText(this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
