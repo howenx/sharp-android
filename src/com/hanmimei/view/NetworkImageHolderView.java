@@ -25,12 +25,12 @@ public class NetworkImageHolderView implements CBPageAdapter.Holder<ImgInfo>{
         //你可以通过layout文件来创建，也可以像我一样用代码创建，不一定是Image，任何控件都可以进行翻页
         imageView = new ImageView(context);
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+        imageView.setBackgroundResource(R.color.background);
         return imageView;
     }
 
     @Override
     public void UpdateUI(final Context context,List<ImgInfo> datas, final int position, ImgInfo data) {
-        imageView.setImageResource(R.drawable.ic_launcher);
         ImageLoaderUtils.loadImage(context,data.getUrl(),imageView);
         final ArrayList<String> list = new ArrayList<String>();
         for(ImgInfo info :datas){

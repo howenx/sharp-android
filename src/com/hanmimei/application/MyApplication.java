@@ -25,6 +25,7 @@ public class MyApplication extends Application {
 		initPlatformConfig();
 	}
 	
+	
 	//初始化PlatformConfig
 	private void initPlatformConfig() {
 	    //微信 appid appsecret

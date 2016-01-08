@@ -32,6 +32,7 @@ public class ImageLoaderUtils {
 	public static DisplayImageOptions initOptions() {
 		if (imageOptions == null) {
 			imageOptions = new DisplayImageOptions.Builder()
+					.showImageOnLoading(R.color.background)
 					.showImageForEmptyUri(R.drawable.ic_launcher)
 					.showImageOnFail(R.drawable.ic_launcher)
 					.decodingOptions(initImageLoaderDecodingOptions())

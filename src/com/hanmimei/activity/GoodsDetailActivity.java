@@ -18,8 +18,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -34,6 +35,7 @@ import android.widget.Toast;
 import com.bigkoo.convenientbanner.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.hanmimei.R;
+import com.hanmimei.activity.listener.SimpleAnimationListener;
 import com.hanmimei.adapter.GoodsDetailParamAdapter;
 import com.hanmimei.dao.ShoppingGoodsDao;
 import com.hanmimei.dao.ShoppingGoodsDao.Properties;
@@ -50,7 +52,6 @@ import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.Tag;
 import com.hanmimei.entity.User;
-import com.hanmimei.manager.BadgeViewManager;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.Http2Utils;
@@ -63,6 +64,9 @@ import com.hanmimei.view.CustomScrollView;
 import com.hanmimei.view.NetworkImageHolderView;
 import com.hanmimei.view.TagCloudView;
 import com.hanmimei.view.TagCloudView.OnTagClickListener;
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.AnimatorSet;
+import com.nineoldandroids.animation.ObjectAnimator;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.ShareAction;
@@ -113,6 +117,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		setContentView(R.layout.goods_detail_layout);
 		findView();
 		initGoodsNumView();
+		initAnimatorSetValue();
 		loadDataByUrl();
 		registerReceivers();
 	}
@@ -391,6 +396,10 @@ public class GoodsDetailActivity extends BaseActivity implements
 			addShoppingCartCheck(goods);
 		}
 	}
+	/**
+	 * 加入购物车验证
+	 * @author vince
+	 */
 	ShoppingGoods goods2;
 	private void addShoppingCartCheck(ShoppingGoods goods) {
 		 goods2 = goodsDao.queryBuilder().where(Properties.GoodsId.eq(goods.getGoodsId())).unique();
@@ -423,11 +432,34 @@ public class GoodsDetailActivity extends BaseActivity implements
 					}
 				});
 	}
+	private AnimatorSet set;
+	private void initAnimatorSetValue(){
+		int translationX  = CommonUtil.getScreenWidth(this)*4/11;
+		ObjectAnimator animX = ObjectAnimator.ofFloat(img_hide, "translationX", 0, -translationX);
+		ObjectAnimator animY = ObjectAnimator.ofFloat(img_hide, "translationY", 0,-250,50);
+		ObjectAnimator scaleX = ObjectAnimator.ofFloat(img_hide, "scaleX", 1f, 0.3f);
+		ObjectAnimator scaleY = ObjectAnimator.ofFloat(img_hide, "scaleY", 1f, 0.3f);
+		set = new AnimatorSet();
+		set.playTogether(animX,animY,scaleX,scaleY);
+		set.setDuration(1200);
+		set.setInterpolator(new DecelerateInterpolator());
+		set.addListener(new SimpleAnimationListener() {
+			
+			@Override
+			public void onAnimationStart(Animator arg0) {
+				img_hide.setVisibility(View.VISIBLE);
+			}
+			
+			@Override
+			public void onAnimationEnd(Animator arg0) {
+				img_hide.setVisibility(View.GONE);
+			}
+			
+		});
+	}
 
 	private void displayAnimation() {
-		Animation anim = AnimationUtils.loadAnimation(this,
-				R.anim.shopcart_anim);
-		img_hide.startAnimation(anim);
+		set.start();
 	}
 
 	// 当前的商品

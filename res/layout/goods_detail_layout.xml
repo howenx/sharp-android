@@ -98,15 +98,16 @@
                             android:layout_height="wrap_content"
                             android:background="@color/white"
                             android:orientation="horizontal"
-                            android:padding="@dimen/padding_small" >
+                            android:paddingLeft="8dp" 
+                            android:paddingRight="8dp" >
 
                             <TextView
                                 android:id="@+id/area"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:drawableLeft="@drawable/icon_address"
+                                android:drawableLeft="@drawable/hmm_dingwei_icon"
                                 android:gravity="center"
-                                android:textColor="@color/fontcolor"
+                                android:textColor="@color/fontcolor" 
                                 android:textSize="12sp" />
 
                             <View
@@ -120,7 +121,6 @@
                                 android:layout_height="wrap_content"
                                 android:background="@color/white"
                                 android:gravity="right|end"
-                                android:paddingRight="8dp"
                                 android:textColor="@color/red"
                                 android:textSize="@dimen/font_big" />
 
@@ -130,7 +130,7 @@
                                 android:layout_height="wrap_content"
                                 android:background="@color/white"
                                 android:gravity="right|end"
-                                android:paddingRight="8dp"
+                                android:layout_marginLeft="3dp"
                                 android:textColor="#BBBBBB"
                                 android:textSize="@dimen/font_small" />
                         </LinearLayout>
@@ -140,15 +140,14 @@
                             android:layout_height="wrap_content"
                             android:background="@color/white"
                             android:orientation="horizontal"
-                            android:padding="@dimen/padding_small" >
+                            android:padding="8dp" >
 
                             <TextView
                                 android:id="@+id/restrictAmount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="5dp"
-                                android:drawableLeft="@drawable/icon_tanhao"
                                 android:gravity="center"
+                                 android:drawableLeft="@drawable/hmm_tanhao_icon"
                                 android:textColor="@color/fontcolor"
                                 android:textSize="@dimen/font_normal" />
 
@@ -162,10 +161,10 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:drawablePadding="5dp"
-                                android:drawableRight="@drawable/icon_help"
-                                android:gravity="center"
-                                android:textColor="@color/fontcolor"
-                                android:text="税费" />
+                                android:drawableRight="@drawable/hmm_wenhao_icon"
+                                android:gravity="center_vertical"
+                                android:text="税费"
+                                android:textColor="@color/fontcolor" />
                         </LinearLayout>
 
                         <TextView
@@ -365,17 +364,6 @@
                     android:background="@color/xian" />
             </LinearLayout>
 
-            <com.hanmimei.view.RoundImageView
-                android:id="@+id/img_hide"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:contentDescription="@null"
-                android:visibility="invisible"
-                app:border_color="@color/huise"
-                app:border_width="1px" />
-
             <include
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -430,6 +418,17 @@
                 android:textSize="14sp" />
         </LinearLayout>
     </LinearLayout>
+
+    <com.hanmimei.view.RoundImageView
+        android:id="@+id/img_hide"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="30dp"
+        android:contentDescription="@null"
+        android:visibility="invisible"
+        app:border_color="@color/huise"
+        app:border_width="1px" />
 
     <include
         android:id="@+id/no_net"

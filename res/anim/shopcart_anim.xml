@@ -30,11 +30,6 @@
             android:toYDelta="-50%p" />
 
 
-        <alpha
-            android:duration="700"
-            android:fromAlpha="1.0"
-            android:startOffset="600"
-            android:toAlpha="0.1" />
 
         <scale
             android:duration="700"

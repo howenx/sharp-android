@@ -1,12 +1,19 @@
 package com.hanmimei.entity;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.hanmimei.entity.HMMGoods.ImgTag;
 
 public class HMMThemeGoods {
 	
 	private Integer cartNum;
 	private HMessage message ;
+	private String themeId;
+	private String themeImg;
+	private String masterItemTag;
+	
 	private List<HMMGoods> themeList;
 	public HMessage getMessage() {
 		return message;
@@ -15,36 +22,35 @@ public class HMMThemeGoods {
 		this.message = message;
 	}
 	public List<HMMGoods> getThemeList() {
-		List<HMMGoods> list = new ArrayList<HMMGoods>();
-		for(HMMGoods g: themeList){
-			if(g.getOrMasterItem())
-				continue;
-			list.add(g);
-		}
-		return list;
+		return themeList;
 	}
 	public void setThemeList(List<HMMGoods> themeList) {
 		this.themeList = themeList;
 	}
-	public HMMGoods getMasterItem() {
-		for(HMMGoods g:themeList){
-			if(g.getOrMasterItem())
-				return g;
-		}
-		return null;
-		
-		
-	}
-//	public void setMasterItem(HMMGoods masterItem) {
-//		this.masterItem = masterItem;
-//	}
+	
+
 	public Integer getCartNum() {
 		return cartNum;
 	}
 	public void setCartNum(Integer cartNum) {
 		this.cartNum = cartNum;
 	}
-	
-	
-	
+	public String getThemeId() {
+		return themeId;
+	}
+	public void setThemeId(String themeId) {
+		this.themeId = themeId;
+	}
+	public ImgInfo getThemeImg() {
+		return  new Gson().fromJson(themeImg, ImgInfo.class);
+	}
+	public List<ImgTag> getMasterItemTag(){
+		return new Gson().fromJson(masterItemTag, new TypeToken<List<ImgTag>>(){}.getType());
+	}
+	public void setThemeImg(String themeImg) {
+		this.themeImg = themeImg;
+	}
+	public void setMasterItemTag(String masterItemTag) {
+		this.masterItemTag = masterItemTag;
+	}
 }

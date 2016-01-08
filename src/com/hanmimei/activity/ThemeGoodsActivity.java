@@ -53,7 +53,6 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 	private ThemeAdapter adapter; // 商品适配器
 	private GridView gridView; //
 	private List<HMMGoods> data;// 显示的商品数据
-	private HMMGoods themeItem; // 主推商品
 	private ImageView img; // 主推商品图片
 	private FrameLayout mframeLayout; // 主推商品容器 添加tag使用
 	private View cartView;
@@ -140,8 +139,9 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 					}
 				});
 	}
+
 	/**
-	 * 获取购物车数量  并显示
+	 * 获取购物车数量 并显示
 	 */
 	private void getCartNum() {
 
@@ -213,50 +213,51 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 
 	// 初始化主推商品显示
 	private void initThemeView(HMMThemeGoods detail) {
-		themeItem = detail.getMasterItem();
-		if (themeItem == null)
-			return;
-		ImgInfo info = themeItem.getItemMasterImgForImgInfo();
-		int width = CommonUtil.getScreenWidth(this);
-		int height = CommonUtil.getScreenWidth(this) * info.getHeight()
-				/ info.getWidth();
-		 LayoutParams params = img.getLayoutParams();
-		params.height = height;
-		params.width = width;
-		img.setLayoutParams(params);
-		ImageLoaderUtils.loadImage(this, info.getUrl(), img);
+		ImgInfo themeImg = detail.getThemeImg();
+		if (themeImg != null) {
+			int width = CommonUtil.getScreenWidth(this);
+			int height = CommonUtil.getScreenWidth(this) * themeImg.getHeight()
+					/ themeImg.getWidth();
+			LayoutParams params = img.getLayoutParams();
+			params.height = height;
+			params.width = width;
+			img.setLayoutParams(params);
+			ImageLoaderUtils.loadImage(this, themeImg.getUrl(), img);
 
-		List<ImgTag> tags = themeItem.getMasterItemTagForTag();
-		View view = null;
-		for (ImgTag tag : tags) {
-			if (tag.getAngle() > 90) {
-				view = getLayoutInflater().inflate(R.layout.panel_biaoqian_180,
-						null);
-			} else {
-				view = getLayoutInflater().inflate(R.layout.panel_biaoqian_0,
-						null);
-			}
-			// 整理显示主推商品小标签
-			TextView tagView = (TextView) view.findViewById(R.id.tag);
-			ImageView point_b = (ImageView) view.findViewById(R.id.point_b);
-			WaveAnimationUtil.waveAnimation(point_b, 4.0f);
-			FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
-					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-			lp.setMargins(Integer.valueOf((int) (width * tag.getLeft())),
-					Integer.valueOf((int) (height * tag.getTop())), 0, 0);
-
-			tagView.setText(tag.getName());
-			view.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View arg0) {
-					Intent intent = new Intent(getActivity(),
-							GoodsDetailActivity.class);
-					intent.putExtra("url", themeItem.getItemUrlAndroid());
-					startActivityForResult(intent, 1);
+			List<ImgTag> tags = detail.getMasterItemTag();
+			View view = null;
+			for (ImgTag tag : tags) {
+				if (tag.getAngle() > 90) {
+					view = getLayoutInflater().inflate(
+							R.layout.panel_biaoqian_180, null);
+				} else {
+					view = getLayoutInflater().inflate(
+							R.layout.panel_biaoqian_0, null);
 				}
-			});
-			mframeLayout.addView(view, lp);
+				// 整理显示主推商品小标签
+				TextView tagView = (TextView) view.findViewById(R.id.tag);
+				ImageView point_b = (ImageView) view.findViewById(R.id.point_b);
+				WaveAnimationUtil.waveAnimation(point_b, 4.0f);
+				FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
+						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+				lp.setMargins(Integer.valueOf((int) (width * tag.getLeft())),
+						Integer.valueOf((int) (height * tag.getTop())), 0, 0);
+
+				tagView.setText(tag.getName());
+				view.setTag(tag.getUrl());
+				view.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View arg0) {
+						String url = (String) arg0.getTag();
+						Intent intent = new Intent(getActivity(),
+								GoodsDetailActivity.class);
+						intent.putExtra("url", url);
+						startActivityForResult(intent, 1);
+					}
+				});
+				mframeLayout.addView(view, lp);
+			}
 		}
 		data.clear();
 		data.addAll(detail.getThemeList());
@@ -283,7 +284,8 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 	private void registerReceivers() {
 		netReceiver = new CarBroadCastReceiver();
 		IntentFilter intentFilter = new IntentFilter();
-		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR);
+		intentFilter
+				.addAction(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR);
 		getActivity().registerReceiver(netReceiver, intentFilter);
 	}
 
