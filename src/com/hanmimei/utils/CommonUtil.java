@@ -682,14 +682,14 @@ public class CommonUtil {
         long [] timer = {hour, minute, second};
 		return timer;
 	} 
-	public static String inputIsName(String name, int length){
+	public static String inputIsName(String name, int min, int max){
 		String result = "";
 		if(name.equals("")){
 			result = "不能为空";
-		}else if(name.length() < 2){
-			result = "不能少于两个字符";
-		}else if(name.length() > length){
-			result = "不能多余"+ length+"个字符";
+		}else if(name.length() < min){
+			result = "不能少于" + min + "个字符";
+		}else if(name.length() > max){
+			result = "不能多余"+ max+"个字符";
 		}else if(!strIsHeFa(name)){
 			result = "只能是中文／数字／字母";
 		}

@@ -53,7 +53,8 @@ import com.hanmimei.utils.ImageLoaderUtils;
 import com.hanmimei.view.RoundImageView;
 import com.umeng.analytics.MobclickAgent;
 
-@SuppressLint({ "SdCardPath", "InflateParams" }) public class EditUserInfoActivity extends BaseActivity implements
+@SuppressLint({ "SdCardPath", "InflateParams" }) 
+public class EditUserInfoActivity extends BaseActivity implements
 		OnClickListener {
 
 	private RelativeLayout up_header;
@@ -144,8 +145,8 @@ import com.umeng.analytics.MobclickAgent;
 	// 检查输入是否正确
 	private void checkInput() {
 		name_str = name.getText().toString();
-		if(!CommonUtil.inputIsName(name_str,15).equals("")){
-			Toast.makeText(this, "姓名"+ CommonUtil.inputIsName(name_str,15), Toast.LENGTH_SHORT).show();
+		if(!CommonUtil.inputIsName(name_str,2,15).equals("")){
+			Toast.makeText(this, "姓名"+ CommonUtil.inputIsName(name_str,2,15), Toast.LENGTH_SHORT).show();
 			return;
 		} else {
 			UpUserInfo();

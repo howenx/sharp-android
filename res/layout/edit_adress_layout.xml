@@ -29,7 +29,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingLeft="5dp"
-                    android:text="收货人:"
+                    android:text="收货人姓名:"
                     android:textColor="@color/fontcolor"
                     android:textSize="13sp" />
 
