@@ -9,6 +9,7 @@ import com.hanmimei.activity.listener.TimeEndListner;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.Result;
+import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.view.YanZhengCodeTextView;
@@ -29,8 +30,6 @@ import android.widget.Toast;
 @SuppressLint("NewApi") 
 public class ForgetPwdActivity extends BaseActivity implements OnClickListener,TimeEndListner{
 
-	private TextView header;
-	private ImageView back;
 	private EditText phone_edit;
 	private EditText code_edit;
 	private EditText pwd_edit;
@@ -46,14 +45,10 @@ public class ForgetPwdActivity extends BaseActivity implements OnClickListener,T
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.regist_layout);
-//		getActionBar().hide();
+		ActionBarUtil.setActionBarStyle(this, "忘记密码");
 		initView();
 	}
 	private void initView() {
-		header = (TextView) findViewById(R.id.header);
-		header.setText("忘记密码");
-		back = (ImageView) findViewById(R.id.back);
-		back.setVisibility(View.VISIBLE);
 		phone_edit = (EditText) findViewById(R.id.phone_num);
 		code_edit = (EditText) findViewById(R.id.yanzheng);
 		get_code = (YanZhengCodeTextView) findViewById(R.id.get_yanzheng);
@@ -61,7 +56,6 @@ public class ForgetPwdActivity extends BaseActivity implements OnClickListener,T
 		send = (TextView) findViewById(R.id.regist);
 		new_pwd = (TextView) findViewById(R.id.new_pwd);
 		new_pwd.setText("新密码");
-		back.setOnClickListener(this);
 		get_code.setOnClickListener(this);
 		get_code.setTimeEndListner(this);
 		send.setOnClickListener(this);
@@ -70,9 +64,6 @@ public class ForgetPwdActivity extends BaseActivity implements OnClickListener,T
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.back:
-			finish();
-			break;
 		case R.id.get_yanzheng:
 			phone = phone_edit.getText().toString();
 			if(!CommonUtil.isPhoneNum(phone)){

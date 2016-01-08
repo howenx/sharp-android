@@ -52,7 +52,7 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 	private TextView addAddress;
 	private List<HMMAddress> data;
 	private AdressAdapter adapter;
-	private int index;
+//	private int index;
 	private JSONObject object;
 	private User user;
 	private Integer selectedId = 0;
