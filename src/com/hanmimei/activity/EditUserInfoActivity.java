@@ -144,8 +144,8 @@ import com.umeng.analytics.MobclickAgent;
 	// 检查输入是否正确
 	private void checkInput() {
 		name_str = name.getText().toString();
-		if (name_str.equals("") || name_str.length() > 10) {
-			Toast.makeText(this, "昵称不符合规则", Toast.LENGTH_SHORT).show();
+		if(!CommonUtil.inputIsName(name_str,15).equals("")){
+			Toast.makeText(this, "姓名"+ CommonUtil.inputIsName(name_str,15), Toast.LENGTH_SHORT).show();
 			return;
 		} else {
 			UpUserInfo();
