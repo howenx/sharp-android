@@ -10,24 +10,20 @@ public class HMMThemeGoods {
 	
 	private Integer cartNum;
 	private HMessage message ;
-	private String themeId;
-	private String themeImg;
-	private String masterItemTag;
+	private ThemeList themeList;
 	
-	private List<HMMGoods> themeList;
+	public ThemeList getThemeList() {
+		return themeList;
+	}
+	public void setThemeList(ThemeList themeList) {
+		this.themeList = themeList;
+	}
 	public HMessage getMessage() {
 		return message;
 	}
 	public void setMessage(HMessage message) {
 		this.message = message;
 	}
-	public List<HMMGoods> getThemeList() {
-		return themeList;
-	}
-	public void setThemeList(List<HMMGoods> themeList) {
-		this.themeList = themeList;
-	}
-	
 
 	public Integer getCartNum() {
 		return cartNum;
@@ -35,22 +31,47 @@ public class HMMThemeGoods {
 	public void setCartNum(Integer cartNum) {
 		this.cartNum = cartNum;
 	}
-	public String getThemeId() {
-		return themeId;
+	
+	
+	public class ThemeList{
+		private String themeId;
+		private String themeImg;
+		private String masterItemTag;
+		private String masterItemTagAndroid;	
+		
+		private List<HMMGoods> themeItemList;
+		
+		
+		public List<HMMGoods> getThemeItemList() {
+			return themeItemList;
+		}
+		public void setThemeItemList(List<HMMGoods> themeItemList) {
+			this.themeItemList = themeItemList;
+		}
+		public String getThemeId() {
+			return themeId;
+		}
+		public void setThemeId(String themeId) {
+			this.themeId = themeId;
+		}
+		public ImgInfo getThemeImg() {
+			return  new Gson().fromJson(themeImg, ImgInfo.class);
+		}
+		public List<ImgTag> getMasterItemTag(){
+			return new Gson().fromJson(masterItemTag, new TypeToken<List<ImgTag>>(){}.getType());
+		}
+		public void setThemeImg(String themeImg) {
+			this.themeImg = themeImg;
+		}
+		public void setMasterItemTag(String masterItemTag) {
+			this.masterItemTag = masterItemTag;
+		}
+		public List<ImgTag> getMasterItemTagAndroid() {
+			return new Gson().fromJson(masterItemTagAndroid, new TypeToken<List<ImgTag>>(){}.getType());
+		}
+		public void setMasterItemTagAndroid(String masterItemTagAndroid) {
+			this.masterItemTagAndroid = masterItemTagAndroid;
+		}
 	}
-	public void setThemeId(String themeId) {
-		this.themeId = themeId;
-	}
-	public ImgInfo getThemeImg() {
-		return  new Gson().fromJson(themeImg, ImgInfo.class);
-	}
-	public List<ImgTag> getMasterItemTag(){
-		return new Gson().fromJson(masterItemTag, new TypeToken<List<ImgTag>>(){}.getType());
-	}
-	public void setThemeImg(String themeImg) {
-		this.themeImg = themeImg;
-	}
-	public void setMasterItemTag(String masterItemTag) {
-		this.masterItemTag = masterItemTag;
-	}
+	
 }

@@ -29,6 +29,7 @@ import com.hanmimei.entity.HMMGoods;
 import com.hanmimei.entity.HMMGoods.ImgTag;
 import com.hanmimei.entity.GoodsDetail;
 import com.hanmimei.entity.HMMThemeGoods;
+import com.hanmimei.entity.HMMThemeGoods.ThemeList;
 import com.hanmimei.entity.ImgInfo;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.manager.BadgeViewManager;
@@ -213,55 +214,57 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 
 	// 初始化主推商品显示
 	private void initThemeView(HMMThemeGoods detail) {
-		ImgInfo themeImg = detail.getThemeImg();
-		if (themeImg != null) {
-			int width = CommonUtil.getScreenWidth(this);
-			int height = CommonUtil.getScreenWidth(this) * themeImg.getHeight()
-					/ themeImg.getWidth();
-			LayoutParams params = img.getLayoutParams();
-			params.height = height;
-			params.width = width;
-			img.setLayoutParams(params);
-			ImageLoaderUtils.loadImage(this, themeImg.getUrl(), img);
+		ThemeList themeList = detail.getThemeList();
+		if (themeList == null)
+			return;
+		ImgInfo themeImg = themeList.getThemeImg();
+		int width = CommonUtil.getScreenWidth(this);
+		int height = CommonUtil.getScreenWidth(this) * themeImg.getHeight()
+				/ themeImg.getWidth();
+		LayoutParams params = img.getLayoutParams();
+		params.height = height;
+		params.width = width;
+		img.setLayoutParams(params);
+		ImageLoaderUtils.loadImage(this, themeImg.getUrl(), img);
 
-			List<ImgTag> tags = detail.getMasterItemTag();
-			View view = null;
-			for (ImgTag tag : tags) {
-				if (tag.getAngle() > 90) {
-					view = getLayoutInflater().inflate(
-							R.layout.panel_biaoqian_180, null);
-				} else {
-					view = getLayoutInflater().inflate(
-							R.layout.panel_biaoqian_0, null);
-				}
-				// 整理显示主推商品小标签
-				TextView tagView = (TextView) view.findViewById(R.id.tag);
-				ImageView point_b = (ImageView) view.findViewById(R.id.point_b);
-				WaveAnimationUtil.waveAnimation(point_b, 4.0f);
-				FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
-						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-				lp.setMargins(Integer.valueOf((int) (width * tag.getLeft())),
-						Integer.valueOf((int) (height * tag.getTop())), 0, 0);
-
-				tagView.setText(tag.getName());
-				view.setTag(tag.getUrl());
-				view.setOnClickListener(new OnClickListener() {
-
-					@Override
-					public void onClick(View arg0) {
-						String url = (String) arg0.getTag();
-						Intent intent = new Intent(getActivity(),
-								GoodsDetailActivity.class);
-						intent.putExtra("url", url);
-						startActivityForResult(intent, 1);
-					}
-				});
-				mframeLayout.addView(view, lp);
+		List<ImgTag> tags = themeList.getMasterItemTagAndroid();
+		View view = null;
+		for (ImgTag tag : tags) {
+			if (tag.getAngle() > 90) {
+				view = getLayoutInflater().inflate(R.layout.panel_biaoqian_180,
+						null);
+			} else {
+				view = getLayoutInflater().inflate(R.layout.panel_biaoqian_0,
+						null);
 			}
+			// 整理显示主推商品小标签
+			TextView tagView = (TextView) view.findViewById(R.id.tag);
+			ImageView point_b = (ImageView) view.findViewById(R.id.point_b);
+			WaveAnimationUtil.waveAnimation(point_b, 4.0f);
+			FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
+					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+			lp.setMargins(Integer.valueOf((int) (width * tag.getLeft())),
+					Integer.valueOf((int) (height * tag.getTop())), 0, 0);
+
+			tagView.setText(tag.getName());
+			view.setTag(tag.getUrl());
+			view.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View arg0) {
+					String url = (String) arg0.getTag();
+					Intent intent = new Intent(getActivity(),
+							GoodsDetailActivity.class);
+					intent.putExtra("url", url);
+					startActivityForResult(intent, 1);
+				}
+			});
+			mframeLayout.addView(view, lp);
 		}
 		data.clear();
-		data.addAll(detail.getThemeList());
+		data.addAll(themeList.getThemeItemList());
 		adapter.notifyDataSetChanged();
+
 	}
 
 	@Override
