@@ -31,10 +31,10 @@
 	<string name="all_money">总金额:¥%1$s</string>
 	<string name="submit_order">提交订单</string>
 	
-	<string name="name">姓名:%1$s</string>
-	<string name="phone">联系电话:%1$s</string>
-	<string name="address">送达地址:%1$s</string>
-	<string name="idcard">身份证号:%1$s</string>
+	<string name="name">姓名：%1$s</string>
+	<string name="phone">联系电话：%1$s</string>
+	<string name="address">收货地址：%1$s</string>
+	<string name="idcard">身份证号：%1$s</string>
 	<string name="yuanguanshui">原关税¥%1$s(≤%2$s,免税)</string>
 	<string name="sel_max">您最多可提供数量为%1$s个</string>
 	<string name="upload">您最多上传3张 每张不超过5M,支持JPG,BMP,PNG</string>

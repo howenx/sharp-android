@@ -119,7 +119,8 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 		back.setOnClickListener(this);
 		mListView = (SwipeMenuListView) findViewById(R.id.list);
 		mListView.setAdapter(adapter);
-		mListView.setMenuCreator(creator);
+		if(fromm != From.GoodsBalanceActivity)
+			mListView.setMenuCreator(creator);
 		addAddress = (TextView) findViewById(R.id.add);
 		addAddress.setOnClickListener(this);
 		mListView.setOnMenuItemClickListener(new OnMenuItemClickListener() {
@@ -189,13 +190,13 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 			switch (msg.what) {
 			case 1:
 				getLoading().dismiss();
+				data.clear();
 				List<HMMAddress> list = (List<HMMAddress>) msg.obj;
 				if (list != null && list.size() > 0) {
-					data.clear();
 					adapter.notifyDataSetChanged();
 					data.addAll(sequenceData(list));
-					adapter.notifyDataSetChanged();
 				}
+				adapter.notifyDataSetChanged();
 				break;
 			case 2:
 				Result result = (Result) msg.obj;
@@ -268,7 +269,7 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
-			holder.name.setText("收货人：" + adress.getName());
+			holder.name.setText("姓名：" + adress.getName());
 			holder.phone.setText("联系电话：" + adress.getPhone());
 			holder.id_card.setText("身份证号：" + adress.getIdCard().substring(0, 5) + "********" + adress.getIdCard().substring(14, adress.getIdCard().length()));
 			holder.adress.setText("收货地址：" + adress.getCity() + "  "
