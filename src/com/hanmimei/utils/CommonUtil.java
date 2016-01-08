@@ -682,18 +682,29 @@ public class CommonUtil {
         long [] timer = {hour, minute, second};
 		return timer;
 	} 
-	public static String inputName(String name){
+	public static String inputIsName(String name, int length){
 		String result = "";
 		if(name.equals("")){
 			result = "不能为空";
-//			return;
 		}else if(name.length() < 2){
-			result = "不能为空";
-//			return;
-		}else{
-			
+			result = "不能少于两个字符";
+		}else if(name.length() > length){
+			result = "不能多余"+ length+"个字符";
+		}else if(!strIsHeFa(name)){
+			result = "只能是中文／数字／字母";
 		}
 		return result;
+	}
+	private static boolean strIsHeFa(String str){
+		String pattern = "[a-zA-Z0-9\u4e00-\u9fa5]+";
+        Pattern p = Pattern.compile(pattern); 
+        Matcher m = p.matcher(str);                 
+        if(m.matches()){
+           return true;
+        }else{
+        	return false;
+        }
+		
 	}
 
 }
