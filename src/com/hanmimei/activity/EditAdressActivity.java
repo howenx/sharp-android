@@ -5,7 +5,6 @@ import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -16,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -244,7 +242,10 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 		idCard = idCard_edit.getText().toString();
 		
 		if(name.equals("")){
-			Toast.makeText(this, "请输入姓名", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "您请输入姓名", Toast.LENGTH_SHORT).show();
+			return;
+		}else if(name.length() > 15){
+			Toast.makeText(this, "姓名不能多余15字", Toast.LENGTH_SHORT).show();
 			return;
 		}else if(phone.equals("")){
 			Toast.makeText(this, "请输入手机号", Toast.LENGTH_SHORT).show();
@@ -254,6 +255,9 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 			return;
 		}else if(address.equals("")){
 			Toast.makeText(this, "请输入详细地址", Toast.LENGTH_SHORT).show();
+			return;
+		}else if(address.length() > 50){
+			Toast.makeText(this, "详细地址不能多于50字", Toast.LENGTH_SHORT).show();
 			return;
 		}else if(!CommonUtil.isPhoneNum(phone)){
 			Toast.makeText(this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();

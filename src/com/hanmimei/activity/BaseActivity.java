@@ -16,12 +16,10 @@ import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.LayoutRes;
+import android.os.Build.VERSION;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.view.View;
-import android.widget.RelativeLayout;
 
 import com.hanmimei.R;
 import com.hanmimei.application.MyApplication;
@@ -30,7 +28,6 @@ import com.hanmimei.data.XmlParserHandler;
 import com.hanmimei.entity.User;
 import com.hanmimei.manager.ThreadPoolManager;
 import com.hanmimei.utils.AlertDialogUtils;
-import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.SystemBarTintManager;
 import com.hanmimei.view.LoadingDialog;
 import com.hanmimei.wheel.entity.CityModel;
@@ -174,6 +171,17 @@ public class BaseActivity extends AppCompatActivity {
 		 MobclickAgent.setDebugMode(true);
 		loadingDialog = new LoadingDialog(this);
 		application = (MyApplication) getApplication();
+		//沉浸式状态栏的设置
+		if (VERSION.SDK_INT >= 19) {
+			// 创建状态栏的管理实例  
+		    SystemBarTintManager tintManager = new SystemBarTintManager(this);  
+		    // 激活状态栏设置  
+		    tintManager.setStatusBarTintEnabled(true);  
+		    // 激活导航栏设置  
+		    //tintManager.setNavigationBarTintEnabled(true);  
+		    // 设置一个颜色给系统栏  
+		    tintManager.setTintColor(getResources().getColor(R.color.theme));  
+		}
 	}
 	
 	
@@ -255,20 +263,10 @@ public class BaseActivity extends AppCompatActivity {
             }
             return false;
     }
-    private boolean isFirst = false;
-
-	public boolean isFirst() {
-		return isFirst;
-	}
-
-	public void setFirst(boolean isFirst) {
-		this.isFirst = isFirst;
-	}
 	
 	@SuppressWarnings("deprecation")
 	public void onResume() {
 	    super.onResume();
-	    if(!isFirst){
 	    	ClipboardManager cbm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
 	    	if(!TextUtils.isEmpty(cbm.getText())){
 	    		if(cbm.getText().toString().trim().equals("hanmimei")){
@@ -277,8 +275,6 @@ public class BaseActivity extends AppCompatActivity {
 					application.setKouling("");
 				}	
 	    	}
-			isFirst = false;
-		}
 	   
 	}
 	private void loadData() {

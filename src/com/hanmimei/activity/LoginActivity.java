@@ -2,11 +2,24 @@ package com.hanmimei.activity;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hanmimei.R;
 import com.hanmimei.application.MyApplication;
@@ -18,28 +31,15 @@ import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.Result;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.User;
+import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.DateUtil;
 import com.hanmimei.utils.HttpUtils;
 import com.umeng.analytics.MobclickAgent;
 
-import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-
 @SuppressLint("NewApi")
 public class LoginActivity extends BaseActivity implements OnClickListener {
 
-	private TextView header;
 	private EditText phone_edit;
 	private TextView pwd_edit;
 	private TextView login;
@@ -48,7 +48,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	private String phone;
 	private String pwd;
 	private ProgressDialog dialog;
-	private ImageView back;
 
 	private UserDao userDao;
 	private ShoppingGoodsDao goodsDao;
@@ -59,20 +58,16 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		super.onCreate(arg0);
 		// getActionBar().hide();
 		setContentView(R.layout.login_layout);
+		ActionBarUtil.setActionBarStyle(this, "账号登录");
 		initView();
 	}
 
 	private void initView() {
-		header = (TextView) findViewById(R.id.header);
-		header.setText("账号登录");
 		phone_edit = (EditText) findViewById(R.id.phone_num);
 		pwd_edit = (TextView) findViewById(R.id.pwd);
 		forget = (TextView) findViewById(R.id.forget);
 		login = (TextView) findViewById(R.id.login);
 		regist = (TextView) findViewById(R.id.regist);
-		back = (ImageView) findViewById(R.id.back);
-		back.setVisibility(View.VISIBLE);
-		back.setOnClickListener(this);
 		forget.setOnClickListener(this);
 		login.setOnClickListener(this);
 		regist.setOnClickListener(this);
@@ -91,9 +86,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			break;
 		case R.id.regist:
 			CommonUtil.doJump(this, RegistActivity.class);
-			break;
-		case R.id.back:
-			finish();
 			break;
 		default:
 			break;

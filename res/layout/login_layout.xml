@@ -3,11 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" 
-    android:background="@color/white">
-    <include 
-        android:layout_height="40dp"
-        android:layout_width="match_parent"
-        layout="@layout/main_header_layout"/>
+    android:background="@color/white"
+    android:fitsSystemWindows="true" >
     <LinearLayout 
         android:layout_marginTop="50dp"
         android:layout_marginLeft="15dp"

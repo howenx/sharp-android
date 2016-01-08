@@ -53,7 +53,8 @@ import com.hanmimei.utils.ImageLoaderUtils;
 import com.hanmimei.view.RoundImageView;
 import com.umeng.analytics.MobclickAgent;
 
-public class EditUserInfoActivity extends BaseActivity implements OnClickListener{
+@SuppressLint({ "SdCardPath", "InflateParams" }) public class EditUserInfoActivity extends BaseActivity implements
+		OnClickListener {
 
 	private RelativeLayout up_header;
 	private RelativeLayout up_name;
@@ -61,7 +62,8 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 	private RoundImageView header;
 	private EditText name;
 	private TextView sex;
-	
+	private TextView phone;
+
 	private String header_str = null;
 	private String name_str;
 	private String sex_str;
@@ -72,23 +74,25 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 	private static final String IMAGE_FILE_NAME = "header";
 	private static final int CAMERA_REQUEST_CODE = 1;
 	private Bitmap photo;
-	
+
 	private User oldUser;
 	private JSONObject object;
 	private ProgressDialog dialog;
+
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.user_info_layout);
-		ActionBarUtil.setActionBarStyle(this, "修改信息", R.drawable.icon_save, true, this, this);
+		ActionBarUtil.setActionBarStyle(this, "修改信息", R.drawable.icon_save,
+				true, this, this);
 		oldUser = getUser();
 		findView();
 		initView();
 		initSelectPop();
 		initSexWindow();
 	}
-	
-	//初始化控件
+
+	// 初始化控件
 	private void findView() {
 		header = (RoundImageView) findViewById(R.id.headerImg);
 		up_header = (RelativeLayout) findViewById(R.id.up_header);
@@ -96,22 +100,27 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 		up_sex = (RelativeLayout) findViewById(R.id.up_sex);
 		name = (EditText) findViewById(R.id.name);
 		sex = (TextView) findViewById(R.id.sex);
+		phone = (TextView) findViewById(R.id.phone);
 		up_header.setOnClickListener(this);
 		up_name.setOnClickListener(this);
 		up_sex.setOnClickListener(this);
 		parenView = LayoutInflater.from(this).inflate(
 				R.layout.user_info_layout, null);
 	}
-	//填充数据
+
+	// 填充数据
 	protected void initView() {
-		ImageLoaderUtils.initLoader(this).displayImage(oldUser.getUserImg(), header, ImageLoaderUtils.initOptions());
+		ImageLoaderUtils.initLoader(this).displayImage(oldUser.getUserImg(),
+				header, ImageLoaderUtils.initOptions());
 		name.setText(oldUser.getUserName());
-		if(oldUser.getSex().equals("M")){
+		if (oldUser.getSex().equals("M")) {
 			sex.setText("男");
-		}else{
+		} else {
 			sex.setText("女");
-			}
+		}
+		phone.setText(oldUser.getPhone().substring(0, 3) + "****" + oldUser.getPhone().substring(7, oldUser.getPhone().length()));
 	}
+
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -131,17 +140,19 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 			break;
 		}
 	}
-	//检查输入是否正确
+
+	// 检查输入是否正确
 	private void checkInput() {
 		name_str = name.getText().toString();
-		if(name_str.equals("")){
+		if (name_str.equals("") || name_str.length() > 10) {
+			Toast.makeText(this, "昵称不符合规则", Toast.LENGTH_SHORT).show();
 			return;
-		}else{
+		} else {
 			UpUserInfo();
 		}
 	}
-	
-	//更新用户信息到服务器
+
+	// 更新用户信息到服务器
 	private void UpUserInfo() {
 		dialog = CommonUtil.dialog(this, "正在修改，请稍后...");
 		dialog.show();
@@ -149,7 +160,8 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				String result = HttpUtils.post(UrlUtil.UPDATE_USERINFO, object, "id-token", oldUser.getToken());
+				String result = HttpUtils.post(UrlUtil.UPDATE_USERINFO, object,
+						"id-token", oldUser.getToken());
 				HMessage hm = DataParser.paserResultMsg(result);
 				Message msg = mHandler.obtainMessage(1);
 				msg.obj = hm;
@@ -157,8 +169,8 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 			}
 		}).start();
 	}
-	
-	//封装json，作为请求参数
+
+	// 封装json，作为请求参数
 	private void toObject() {
 		try {
 			object = new JSONObject();
@@ -171,7 +183,9 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 			e.printStackTrace();
 		}
 	}
-	private Handler mHandler = new Handler(){
+
+	@SuppressLint("HandlerLeak") 
+	private Handler mHandler = new Handler() {
 
 		@Override
 		public void handleMessage(Message msg) {
@@ -180,16 +194,19 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 			case 1:
 				dialog.dismiss();
 				HMessage hm = (HMessage) msg.obj;
-				if(hm.getCode() != null){
-				if(hm.getCode() == 200){
-					sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION));
-					finish();
-				}else{
-					Toast.makeText(EditUserInfoActivity.this, "修改失败,请检查您的网络", Toast.LENGTH_SHORT).show();
-					finish();
-				}
-				}else{
-					Toast.makeText(EditUserInfoActivity.this, "修改失败，请检查您的网络", Toast.LENGTH_SHORT).show();
+				if (hm.getCode() != null) {
+					if (hm.getCode() == 200) {
+						sendBroadcast(new Intent(
+								AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION));
+						finish();
+					} else {
+						Toast.makeText(EditUserInfoActivity.this,
+								"修改失败,请检查您的网络", Toast.LENGTH_SHORT).show();
+						finish();
+					}
+				} else {
+					Toast.makeText(EditUserInfoActivity.this, "修改失败，请检查您的网络",
+							Toast.LENGTH_SHORT).show();
 					finish();
 				}
 				break;
@@ -198,9 +215,11 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 				break;
 			}
 		}
-		
+
 	};
-	//初始化性别popwindow
+
+	// 初始化性别popwindow
+	@SuppressWarnings("deprecation")
 	private void initSexWindow() {
 		sexPopupWindow = new PopupWindow(this);
 		View view = LayoutInflater.from(this).inflate(
@@ -212,7 +231,7 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 		sexPopupWindow.setOutsideTouchable(true);
 		sexPopupWindow.setContentView(view);
 		view.findViewById(R.id.men).setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				sex.setText("男");
@@ -221,7 +240,7 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 			}
 		});
 		view.findViewById(R.id.women).setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				sex.setText("女");
@@ -230,8 +249,9 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 			}
 		});
 	}
-	
-	//初始化选择头像popwindow
+
+	// 初始化选择头像popwindow
+	@SuppressWarnings("deprecation")
 	private void initSelectPop() {
 		popWindow = new PopupWindow(this);
 		View view = LayoutInflater.from(this).inflate(
@@ -282,6 +302,7 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 					}
 				});
 	}
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode != RESULT_CANCELED) {
@@ -317,12 +338,33 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 				File file = null;
 				if (data != null)
 					file = getFile(data);
-				    header_str = toBuffer(file);
+//				isSizeMore(file);
+				header_str = toBuffer(file);
 
 				break;
 			}
 		}
 	}
+
+//	private boolean isSizeMore(File file) {
+//		long size = 0;
+//		try {
+//			if (file.exists()) {
+//				FileInputStream fis = null;
+//				fis = new FileInputStream(file);
+//				size = fis.available();
+//			} else {
+//				file.createNewFile();
+//				Log.e("获取文件大小", "文件不存在!");
+//			}
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//
+//		return false;
+//	}
+
 	// 将文件转成流 base64
 	private String toBuffer(File file) {
 		byte b[] = null;
@@ -341,6 +383,7 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 		}
 		return new String(Base64.encode(b, Base64.NO_WRAP));
 	}
+
 	// 得到file 并展示到imageview
 	@SuppressWarnings("deprecation")
 	private File getFile(Intent data) {
@@ -352,8 +395,10 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 		}
 		return saveBitmapFile(photo);
 	}
+
 	private static String IMG_PATH = "/mnt/sdcard/hanmimei/header"; // 图片本地存储路径
 	private String file_name = ""; // 图片本地存储的名称
+
 	// 将图片保存至本地制定文件夹
 	@SuppressLint("SdCardPath")
 	private File saveBitmapFile(Bitmap bitmap) {
@@ -377,16 +422,21 @@ public class EditUserInfoActivity extends BaseActivity implements OnClickListene
 		}
 		return file;
 	}
-	
+
 	public void onResume() {
-	    super.onResume();
-	    MobclickAgent.onPageStart("EditUserInfoActivity"); //统计页面(仅有Activity的应用中SDK自动调用，不需要单独写。"SplashScreen"为页面名称，可自定义)
-	    MobclickAgent.onResume(this);          //统计时长
+		super.onResume();
+		MobclickAgent.onPageStart("EditUserInfoActivity"); // 统计页面(仅有Activity的应用中SDK自动调用，不需要单独写。"SplashScreen"为页面名称，可自定义)
+		MobclickAgent.onResume(this); // 统计时长
 	}
+
 	public void onPause() {
-	    super.onPause();
-	    MobclickAgent.onPageEnd("EditUserInfoActivity"); // （仅有Activity的应用中SDK自动调用，不需要单独写）保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息。"SplashScreen"为页面名称，可自定义
-	    MobclickAgent.onPause(this);
+		super.onPause();
+		MobclickAgent.onPageEnd("EditUserInfoActivity"); // （仅有Activity的应用中SDK自动调用，不需要单独写）保证
+															// onPageEnd
+															// 在onPause 之前调用,因为
+															// onPause
+															// 中会保存信息。"SplashScreen"为页面名称，可自定义
+		MobclickAgent.onPause(this);
 	}
 
 }

@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AppCompatActivity;
 
 import com.hanmimei.R;
 import com.hanmimei.application.MyApplication;
+import com.hanmimei.dao.DaoSession;
 import com.hanmimei.dao.UserDao;
 import com.hanmimei.entity.User;
 import com.hanmimei.utils.DateUtil;
@@ -15,7 +17,7 @@ import com.hanmimei.utils.SharedPreferencesUtil;
 import com.umeng.analytics.MobclickAgent;
 
 @SuppressLint("NewApi")
-public class FirstShowActivity extends BaseActivity {
+public class FirstShowActivity extends AppCompatActivity {
 
 	private static final String FIRST = "first";
 	private static final String FIRST_LOG_FLAG = "first_log_flag";
@@ -27,7 +29,7 @@ public class FirstShowActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.first_show_layout);
-		getActivity().setFirst(true);
+		getSupportActionBar().hide();
 		application = (MyApplication) getApplication();
 		//判断是否自动登录
 		loginUser();
@@ -119,4 +121,9 @@ public class FirstShowActivity extends BaseActivity {
 	    MobclickAgent.onPageEnd("FirstShowActivity"); // （仅有Activity的应用中SDK自动调用，不需要单独写）保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息。"SplashScreen"为页面名称，可自定义
 	    MobclickAgent.onPause(this);
 	}
+	private DaoSession getDaoSession() {
+		MyApplication application = (MyApplication) getApplication();
+		return application.getDaoSession();
+	}
+
 }

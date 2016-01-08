@@ -2,8 +2,10 @@ package com.hanmimei.activity;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.graphics.drawable.Drawable;
@@ -13,14 +15,15 @@ import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.hanmimei.R;
 import com.hanmimei.activity.listener.TimeEndListner;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.Result;
+import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.view.YanZhengCodeTextView;
@@ -29,8 +32,6 @@ import com.umeng.analytics.MobclickAgent;
 @SuppressLint("NewApi") 
 public class RegistActivity extends BaseActivity implements OnClickListener,TimeEndListner{
 
-	private TextView header;
-	private ImageView back;
 	private EditText phone_edit;
 	private EditText yanzheng_edit;
 	private EditText pwd_edit;
@@ -46,14 +47,10 @@ public class RegistActivity extends BaseActivity implements OnClickListener,Time
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.regist_layout);
+		ActionBarUtil.setActionBarStyle(this, "账号注册");
 		initView();
 	}
 	private void initView() {
-		header = (TextView) findViewById(R.id.header);
-		header.setText("账号注册");
-		back = (ImageView) findViewById(R.id.back);
-		back.setVisibility(View.VISIBLE);
-		back.setOnClickListener(this);
 		phone_edit = (EditText) findViewById(R.id.phone_num);
 		yanzheng_edit = (EditText) findViewById(R.id.yanzheng);
 		get_yanzheng = (YanZhengCodeTextView) findViewById(R.id.get_yanzheng);
@@ -67,9 +64,6 @@ public class RegistActivity extends BaseActivity implements OnClickListener,Time
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.back:
-			finish();
-			break;
 		case R.id.get_yanzheng:
 			phone = phone_edit.getText().toString();
 			if(!CommonUtil.isPhoneNum(phone)){

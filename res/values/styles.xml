@@ -19,6 +19,7 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="actionBarStyle"> @style/MyActionBarStyle</item>
          <item name="vpiTabPageIndicatorStyle">@style/CustomTabPageIndicator</item>
+         <item name="android:windowTranslucentStatus">true</item>
          
     </style>
     
@@ -43,6 +44,7 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="actionBarStyle"> @style/MyActionBarStyle</item>
          <item name="vpiTabPageIndicatorStyle">@style/OrderTabPageIndicator</item>
+         <item name="android:windowTranslucentStatus">true</item>
     </style>
     
     <style name="wode_font_style">
