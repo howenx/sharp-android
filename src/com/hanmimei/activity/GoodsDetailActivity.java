@@ -199,7 +199,11 @@ public class GoodsDetailActivity extends BaseActivity implements
 		}
 
 		if (num > 0) {
-			goodsNumView.setText(num + "");
+			if(num <=99){
+				goodsNumView.setText(num + "");
+			}else{
+				goodsNumView.setText("...");
+			}
 			goodsNumView.show(true);
 		} else {
 			goodsNumView.hide(true);

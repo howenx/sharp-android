@@ -102,7 +102,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		bView = new BadgeView(this, cartView);
 		bView.setBackgroundResource(R.drawable.bg_badgeview2);
 		bView.setBadgePosition(BadgeView.POSITION_CENTER);
-		bView.setTextSize(12);
+		bView.setTextSize(10);
 		bView.setTextColor(Color.parseColor("#F9616A"));
 
 		findViewById(R.id.reload).setOnClickListener(this);
@@ -204,7 +204,11 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 			}
 		} else {
 			if (detail.getCartNum() != null) {
-				bView.setText(detail.getCartNum() + "");
+				if(detail.getCartNum() <=99){
+					bView.setText(detail.getCartNum() + "");
+				}else{
+					bView.setText("...");
+				}
 				bView.show(true);
 			} else {
 				bView.hide(true);

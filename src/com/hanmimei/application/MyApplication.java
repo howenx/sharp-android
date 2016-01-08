@@ -1,6 +1,7 @@
 package com.hanmimei.application;
 
 import android.app.Application;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -8,7 +9,7 @@ import com.hanmimei.dao.DaoMaster;
 import com.hanmimei.dao.DaoMaster.DevOpenHelper;
 import com.hanmimei.dao.DaoSession;
 import com.hanmimei.entity.User;
-import com.hanmimei.view.LoadingDialog;
+import com.hanmimei.utils.ToastUtils;
 import com.umeng.socialize.PlatformConfig;
 
 public class MyApplication extends Application {
@@ -17,11 +18,13 @@ public class MyApplication extends Application {
 	private User loginUser;
 	private RequestQueue queue;
 	private String kouling;
+	private Toast toast;
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		queue = Volley.newRequestQueue(this);
+//		toast = ToastUtils.initToast(this);
 		initPlatformConfig();
 	}
 	

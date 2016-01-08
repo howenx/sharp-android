@@ -13,13 +13,14 @@ import android.app.ActivityManager.RunningAppProcessInfo;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.os.Build.VERSION;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Build.VERSION;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import com.hanmimei.R;
 import com.hanmimei.application.MyApplication;
@@ -159,6 +160,8 @@ public class BaseActivity extends AppCompatActivity {
 		MyApplication application = (MyApplication) getApplication();
 		return application.getDaoSession();
 	}
+	
+	private Toast toast;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {

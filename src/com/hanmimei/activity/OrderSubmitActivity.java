@@ -55,8 +55,7 @@ public class OrderSubmitActivity extends BaseActivity {
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
 				if (isOverdue(startTime, new Date())) {
 					ToastUtils.Toast(getActivity(), "页面过期");
-					startActivity(new Intent(getActivity(),
-							MyOrderActivity.class));
+					startActivity(new Intent(getActivity(),MyOrderActivity.class));
 					finish();
 					return true;
 				}
@@ -182,7 +181,7 @@ public class OrderSubmitActivity extends BaseActivity {
 	
 	// 毫秒转化成分钟
 	private long formatTime(long mi) {
-		return mi * 1000 * 60;
+		return mi * 1000 *60;
 	}
 	
 	public void onResume() {
