@@ -44,6 +44,7 @@ public class DragImageView extends ImageView {
 	private float beforeLenght, afterLenght;// 两触点距离
 
 	private float scale_temp;// 缩放比例
+	private float scale;
 
 	/**
 	 * 模式 NONE：无 DRAG：拖拽. ZOOM:缩放
@@ -255,7 +256,7 @@ public class DragImageView extends ImageView {
 
 			if (Math.abs(gapLenght) > 5f) {
 				scale_temp = afterLenght / beforeLenght;// 求的缩放的比例
-
+				scale = scale_temp;
 				this.setScale(scale_temp);
 
 				beforeLenght = afterLenght;
@@ -518,7 +519,8 @@ public class DragImageView extends ImageView {
 		public void run() {
 			if (mIsWaitDoubleClick) {
 				mIsWaitDoubleClick = false;
-//				mOnClickListener.OnClick();
+				if(mOnClickListener !=null)
+					mOnClickListener.OnClick();
 			} else {
 
 			}
@@ -535,10 +537,17 @@ public class DragImageView extends ImageView {
 			postDelayed(mTimerForSecondClick, MAX_DOUBLE_CLICK_INTERVAL);
 		}
 	}
-
+	
 	public void onDoubleClick() {
 //		mDoubleClickListener.OnDoubleClick();
-//		setFrame(current_Left*2, current_Top*2, current_Right*2, current_Bottom*2);
+		if(mode == MODE.NONE ){
+			if(scale == scale_temp){  
+				scale = scale + 0.5f;  
+            }  else if(scale == scale_temp + 0.5f){  
+            	scale = scale - 0.5f;  
+            }  
+			this.setScale(scale);  
+		}
 	}
 	
 	private OnClickListener mOnClickListener;

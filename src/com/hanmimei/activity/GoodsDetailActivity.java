@@ -157,7 +157,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 		content_params = (ListView) findViewById(R.id.content_params);
 		FrameLayout.LayoutParams lpm = (FrameLayout.LayoutParams) new FrameLayout.LayoutParams(
 				CommonUtil.getScreenWidth(this),
-				CommonUtil.getScreenHeight(this) - CommonUtil.dip2px(129)
+				CommonUtil.getScreenHeight(this) - getResources().getDimensionPixelSize(R.dimen.actionbar_size)-indicator.getMeasuredHeight()
+						-getResources().getDimensionPixelSize(R.dimen.navigationbar_size)
 						- CommonUtil.getStatusBarHeight(this));
 		content_params.setLayoutParams(lpm);
 		content_params.setFocusable(false);
@@ -260,7 +261,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 						HMessage hm = DataParser.paserResultMsg(result);
 						if (hm.getCode() == 200) {
 							// 购物车添加成功，显示提示框
-							ToastUtils.Toast(GoodsDetailActivity.this);
+							ToastUtils.Toast(GoodsDetailActivity.this,hm.getMessage());
 							num_shopcart++;
 							showGoodsNums();
 						} else if (hm.getCode() == 3001 || hm.getCode() == 2001) {
@@ -421,7 +422,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 						HMessage hm = DataParser.paserResultMsg(result);
 						if (hm.getCode() == 200) {
 							// 购物车添加成功，显示提示框
-							ToastUtils.Toast(GoodsDetailActivity.this);
+							ToastUtils.Toast(GoodsDetailActivity.this,hm.getMessage());
 							goods2.setGoodsNums(goods2.getGoodsNums()+1);
 							goodsDao.insertOrReplace(goods2);
 							showGoodsNums();

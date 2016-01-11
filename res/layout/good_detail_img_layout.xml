@@ -6,26 +6,17 @@
     android:background="#000000"
     android:fitsSystemWindows="true" >
     
-     <android.support.v4.view.ViewPager
-        android:id="@+id/mViewPager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
+     <com.diegocarloslima.byakugallery.lib.GalleryViewPager 
+    android:id="@+id/mViewPager"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:padding="10dp">
         
-        <ImageView
-            android:id="@+id/btn_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:clickable="true"
-            android:contentDescription="@null"
-            android:src="@drawable/fanhui" />
+        
 
         <TextView
             android:id="@+id/pageNum"

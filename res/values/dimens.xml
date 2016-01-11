@@ -5,6 +5,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     
     <dimen name="actionbar_size">39dp</dimen>
+    <dimen name="navigationbar_size">45dp</dimen>
     
     <dimen name="actionbar_title_size">18dp</dimen>
     <dimen name="tab_host_size">45dp</dimen>
