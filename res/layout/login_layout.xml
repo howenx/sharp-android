@@ -5,8 +5,19 @@
     android:orientation="vertical" 
     android:background="@color/white"
     android:fitsSystemWindows="true" >
-    <LinearLayout 
+    <TextView 
         android:layout_marginTop="50dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="15dp"
+        android:id="@+id/attention"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@null"
+        android:textSize="12sp"
+        android:textColor="@color/theme"
+        android:visibility="invisible"/>
+    <LinearLayout 
+        android:layout_marginTop="5dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_width="match_parent"
@@ -23,6 +34,7 @@
             android:id="@+id/phone_num"
             android:layout_marginLeft="15dp"
             android:inputType="number"
+            android:maxLength="11"
             android:hint="@string/input_phone"
             style="@style/login_edit_style"
             android:layout_height="wrap_content"
@@ -47,6 +59,7 @@
             android:id="@+id/pwd"
             android:layout_marginLeft="15dp"
             android:paddingTop="5dp"
+            android:maxLength="12"
             style="@style/login_edit_style"
             android:hint="@string/input_pwd"
             android:inputType="textPassword"

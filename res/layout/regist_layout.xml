@@ -5,8 +5,19 @@
     android:orientation="vertical" 
     android:background="@color/white"
     android:fitsSystemWindows="true" >
-    <LinearLayout 
+     <TextView 
         android:layout_marginTop="50dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="15dp"
+        android:id="@+id/attention"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@null"
+        android:textSize="12sp"
+        android:textColor="@color/theme"
+        android:visibility="invisible"/>
+    <LinearLayout 
+        android:layout_marginTop="5dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_width="match_parent"
@@ -22,6 +33,7 @@
             android:gravity="center"/>
         <EditText 
             android:id="@+id/phone_num"
+            android:maxLength="11"
             android:layout_marginLeft="10dp"
             android:inputType="number"
             android:hint="@string/input_phone"
@@ -49,6 +61,7 @@
         <EditText 
             android:id="@+id/yanzheng"
             android:layout_marginLeft="10dp"
+            android:maxLength="8"
             android:inputType="number|textCapCharacters"
             android:hint="@string/input_code"
             style="@style/login_edit_style"
@@ -92,6 +105,7 @@
             android:id="@+id/pwd"
             android:layout_marginLeft="10dp"
             android:paddingTop="5dp"
+            android:maxLength="12"
             style="@style/login_edit_style"
             android:hint="@string/input_pwd"
             android:inputType="textPassword"

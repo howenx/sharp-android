@@ -85,13 +85,16 @@ public class OrderFragment extends Fragment implements
 			state = 1;
 		} else if (category.getId().equals("tag02")) {
 			state = 2;
-		} else if (category.getId().equals("tag03")) {
-			state = 3;
-		} else if (category.getId().equals("tag04")) {
-			state = 4;
-		} else {
-			state = 5;
 		}
+//		else if (category.getId().equals("tag03")) {
+//			state = 3;
+//		} 
+		else if (category.getId().equals("tag04")) {
+			state = 4;
+		} 
+//		else {
+//			state = 5;
+//		}
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -114,25 +117,28 @@ public class OrderFragment extends Fragment implements
 					data.add(orders.get(i));
 				}
 			}
-		} else if (state == 3) {
-			for (int i = 0; i < orders.size(); i++) {
-				if (orders.get(i).getOrderStatus().equals("S")) {
-					data.add(orders.get(i));
-				}
-			}
-		} else if (state == 4) {
+		} 
+//		else if (state == 3) {
+//			for (int i = 0; i < orders.size(); i++) {
+//				if (orders.get(i).getOrderStatus().equals("S")) {
+//					data.add(orders.get(i));
+//				}
+//			}
+//		}
+		else if (state == 4) {
 			for (int i = 0; i < orders.size(); i++) {
 				if (orders.get(i).getOrderStatus().equals("D")) {
 					data.add(orders.get(i));
 				}
 			}
-		} else {
-			for (int i = 0; i < orders.size(); i++) {
-				if (orders.get(i).getOrderStatus().equals("R")) {
-					data.add(orders.get(i));
-				}
-			}
 		}
+//		else {
+//			for (int i = 0; i < orders.size(); i++) {
+//				if (orders.get(i).getOrderStatus().equals("R")) {
+//					data.add(orders.get(i));
+//				}
+//			}
+//		}
 
 	}
 
