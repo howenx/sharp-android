@@ -19,7 +19,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hanmimei.R;
 import com.hanmimei.application.MyApplication;
@@ -48,7 +47,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	private String phone;
 	private String pwd;
 	private ProgressDialog dialog;
-
+	private TextView attention;
 	private UserDao userDao;
 	private ShoppingGoodsDao goodsDao;
 	private User user;
@@ -68,6 +67,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		forget = (TextView) findViewById(R.id.forget);
 		login = (TextView) findViewById(R.id.login);
 		regist = (TextView) findViewById(R.id.regist);
+		attention = (TextView) findViewById(R.id.attention);
 		forget.setOnClickListener(this);
 		login.setOnClickListener(this);
 		regist.setOnClickListener(this);
@@ -96,10 +96,12 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		phone = phone_edit.getText().toString();
 		pwd = pwd_edit.getText().toString();
 		if (!CommonUtil.isPhoneNum(phone)) {
-			Toast.makeText(this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
+//			Toast.makeText(this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
+			setAttention("请输入正确的手机号");
 			return;
 		} else if (pwd.equals("")) {
-			Toast.makeText(this, "请输入密码", Toast.LENGTH_SHORT).show();
+//			Toast.makeText(this, "请输入密码", Toast.LENGTH_SHORT).show();
+			setAttention("请输入密码");
 			return;
 		} else {
 			doLogin();
@@ -156,11 +158,13 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 						finish();
 					}
 				} else if (result.isSuccess() == false) {
-					Toast.makeText(LoginActivity.this, result.getMessage(),
-							Toast.LENGTH_SHORT).show();
+//					Toast.makeText(LoginActivity.this, result.getMessage(),
+//							Toast.LENGTH_SHORT).show();
+					setAttention("提示：" + result.getMessage());
 				} else {
-					Toast.makeText(LoginActivity.this, "网络连接异常，请检查网络",
-							Toast.LENGTH_SHORT).show();
+//					Toast.makeText(LoginActivity.this, "网络连接异常，请检查网络",
+//							Toast.LENGTH_SHORT).show();
+					setAttention("网络连接异常，请检查网络");
 				}
 				break;
 			case 2:
@@ -169,12 +173,33 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 						AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION));
 				finish();
 				break;
+			case 3:
+				attention.setVisibility(View.INVISIBLE);
+				break;
 			default:
 				break;
 			}
 		}
 
 	};
+	
+	private void setAttention(String att){
+		attention.setText(att);
+		attention.setVisibility(View.VISIBLE);
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				try {
+					Thread.sleep(3000);
+					Message msg = mHandler.obtainMessage(3);
+					mHandler.sendMessage(msg);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+	}
 	private List<ShoppingGoods> list;
 
 	private void sendShoppingCar() {

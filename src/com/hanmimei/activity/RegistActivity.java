@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hanmimei.R;
 import com.hanmimei.activity.listener.TimeEndListner;
@@ -37,7 +36,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener,Time
 	private EditText pwd_edit;
 	private YanZhengCodeTextView get_yanzheng;
 	private TextView regist;
-	
+	private TextView attention;
 	private String phone;
 	private String yanzheng;
 	private String pwd;
@@ -54,6 +53,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener,Time
 		phone_edit = (EditText) findViewById(R.id.phone_num);
 		yanzheng_edit = (EditText) findViewById(R.id.yanzheng);
 		get_yanzheng = (YanZhengCodeTextView) findViewById(R.id.get_yanzheng);
+		attention = (TextView) findViewById(R.id.attention);
 		get_yanzheng.setOnClickListener(this);
 		get_yanzheng.setTimeEndListner(this);
 		pwd_edit = (EditText) findViewById(R.id.pwd);
@@ -67,7 +67,8 @@ public class RegistActivity extends BaseActivity implements OnClickListener,Time
 		case R.id.get_yanzheng:
 			phone = phone_edit.getText().toString();
 			if(!CommonUtil.isPhoneNum(phone)){
-				Toast.makeText(this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
+//				Toast.makeText(this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
+				setAttention("请输入正确的手机号");
 			}else{
 				getYanZheng();
 			}
@@ -84,13 +85,16 @@ public class RegistActivity extends BaseActivity implements OnClickListener,Time
 		yanzheng = yanzheng_edit.getText().toString();
 		pwd = pwd_edit.getText().toString();
 		if(!CommonUtil.isPhoneNum(phone)){
-			Toast.makeText(this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
+//			Toast.makeText(this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
+			setAttention("请输入正确的手机号");
 			return;
 		}else if(yanzheng.length() != 6){
-			Toast.makeText(this, "请输入6位验证码", Toast.LENGTH_SHORT).show();
+//			Toast.makeText(this, "请输入6位验证码", Toast.LENGTH_SHORT).show();
+			setAttention("请输入6位验证码");
 			return;
-		}else if(pwd.length() < 6 || pwd.length() > 20){
-			Toast.makeText(this, "请输入6-20位密码", Toast.LENGTH_SHORT).show();
+		}else if(pwd.length() < 6 || pwd.length() > 12){
+//			Toast.makeText(this, "请输入6-20位密码", Toast.LENGTH_SHORT).show();
+			setAttention("请输入6-20位密码");
 			return;
 		}else{
 			doRegist();
@@ -137,6 +141,24 @@ public class RegistActivity extends BaseActivity implements OnClickListener,Time
 			}
 		}).start();
 	}
+	private void setAttention(String att){
+		attention.setText(att);
+		attention.setVisibility(View.VISIBLE);
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				try {
+					Thread.sleep(3000);
+					Message msg = mHandler.obtainMessage(3);
+					mHandler.sendMessage(msg);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+	}
+	
 	private Handler mHandler = new Handler(){
 
 		@Override
@@ -151,21 +173,29 @@ public class RegistActivity extends BaseActivity implements OnClickListener,Time
 //					startActivity(intent);
 					finish();
 				}else if(result.isSuccess() == false){
-					Toast.makeText(RegistActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
+//					Toast.makeText(RegistActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
+					setAttention(result.getMessage());
 				}else{
-					Toast.makeText(RegistActivity.this, "网络连接异常，请检查网络", Toast.LENGTH_SHORT).show();
+//					Toast.makeText(RegistActivity.this, "网络连接异常，请检查网络", Toast.LENGTH_SHORT).show();
+					setAttention("网络连接异常，请检查网络");
 				}
 				break;
 			case 2:
 				
 				Result code_result = (Result) msg.obj;
 				if(code_result.isSuccess() == true){
-					Toast.makeText(RegistActivity.this, code_result.getMessage(), Toast.LENGTH_SHORT).show();
+//					Toast.makeText(RegistActivity.this, code_result.getMessage(), Toast.LENGTH_SHORT).show();
+					setAttention(code_result.getMessage());
 				}else if(code_result.isSuccess() == false){
-					Toast.makeText(RegistActivity.this, code_result.getMessage(), Toast.LENGTH_SHORT).show();
+//					Toast.makeText(RegistActivity.this, code_result.getMessage(), Toast.LENGTH_SHORT).show();
+					setAttention(code_result.getMessage());
 				}else{
-					Toast.makeText(RegistActivity.this, "网络连接异常，请检查网络", Toast.LENGTH_SHORT).show();
+//					Toast.makeText(RegistActivity.this, "网络连接异常，请检查网络", Toast.LENGTH_SHORT).show();
+					setAttention("网络连接异常，请检查网络");
 				}
+				break;
+			case 3:
+				attention.setVisibility(View.INVISIBLE);
 				break;
 			default:
 				break;

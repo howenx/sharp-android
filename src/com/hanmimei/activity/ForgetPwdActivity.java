@@ -2,8 +2,21 @@ package com.hanmimei.activity;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.EditText;
+import android.widget.TextView;
+
 import com.hanmimei.R;
 import com.hanmimei.activity.listener.TimeEndListner;
 import com.hanmimei.data.DataParser;
@@ -14,18 +27,6 @@ import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.view.YanZhengCodeTextView;
 import com.umeng.analytics.MobclickAgent;
-import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
-import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 @SuppressLint("NewApi") 
 public class ForgetPwdActivity extends BaseActivity implements OnClickListener,TimeEndListner{
@@ -41,6 +42,7 @@ public class ForgetPwdActivity extends BaseActivity implements OnClickListener,T
 	private String pwd;
 	private String msg;
 	private ProgressDialog dialog;
+	private TextView attention;
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
@@ -54,6 +56,8 @@ public class ForgetPwdActivity extends BaseActivity implements OnClickListener,T
 		get_code = (YanZhengCodeTextView) findViewById(R.id.get_yanzheng);
 		pwd_edit = (EditText) findViewById(R.id.pwd);
 		send = (TextView) findViewById(R.id.regist);
+		attention = (TextView) findViewById(R.id.attention);
+		send.setText("确定");
 		new_pwd = (TextView) findViewById(R.id.new_pwd);
 		new_pwd.setText("新密码");
 		get_code.setOnClickListener(this);
@@ -67,7 +71,8 @@ public class ForgetPwdActivity extends BaseActivity implements OnClickListener,T
 		case R.id.get_yanzheng:
 			phone = phone_edit.getText().toString();
 			if(!CommonUtil.isPhoneNum(phone)){
-				Toast.makeText(this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
+//				Toast.makeText(this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
+				setAttention("请输入正确的手机号");
 			}else{
 				getCode();
 			}
@@ -110,13 +115,16 @@ public class ForgetPwdActivity extends BaseActivity implements OnClickListener,T
 		yanzheng = code_edit.getText().toString();
 		pwd = pwd_edit.getText().toString();
 		if(!CommonUtil.isPhoneNum(phone)){
-			Toast.makeText(this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
+//			Toast.makeText(this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
+			setAttention("请输入正确的手机号");
 			return;
 		}else if(yanzheng.length() != 6){
-			Toast.makeText(this, "请输入6位验证码", Toast.LENGTH_SHORT).show();
+//			Toast.makeText(this, "请输入6位验证码", Toast.LENGTH_SHORT).show();
+			setAttention("请输入6位验证码");
 			return;
-		}else if(pwd.length() < 6 || pwd.length() > 20){
-			Toast.makeText(this, "请输入6-20位密码", Toast.LENGTH_SHORT).show();
+		}else if(pwd.length() < 6 || pwd.length() > 12){
+//			Toast.makeText(this, "请输入6-20位密码", Toast.LENGTH_SHORT).show();
+			setAttention("请输入6-12位密码");
 			return;
 		}else{
 			doUpPwd();
@@ -156,20 +164,28 @@ public class ForgetPwdActivity extends BaseActivity implements OnClickListener,T
 //					startActivity(intent);
 					finish();
 				}else if(result.isSuccess() == false){
-					Toast.makeText(ForgetPwdActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
+//					Toast.makeText(ForgetPwdActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
+					setAttention(result.getMessage());
 				}else{
-					Toast.makeText(ForgetPwdActivity.this, "网络连接异常，请检查网络", Toast.LENGTH_SHORT).show();
+//					Toast.makeText(ForgetPwdActivity.this, "网络连接异常，请检查网络", Toast.LENGTH_SHORT).show();
+					setAttention("网络连接异常，请检查网络");
 				}
 				break;
 			case 2:
 				Result code_result = (Result) msg.obj;
 				if(code_result.isSuccess() == true){
-					Toast.makeText(ForgetPwdActivity.this, code_result.getMessage(), Toast.LENGTH_SHORT).show();
+//					Toast.makeText(ForgetPwdActivity.this, code_result.getMessage(), Toast.LENGTH_SHORT).show();
+					setAttention(code_result.getMessage());
 				}else if(code_result.isSuccess() == false){
-					Toast.makeText(ForgetPwdActivity.this, code_result.getMessage(), Toast.LENGTH_SHORT).show();
+//					Toast.makeText(ForgetPwdActivity.this, code_result.getMessage(), Toast.LENGTH_SHORT).show();
+					setAttention(code_result.getMessage());
 				}else{
-					Toast.makeText(ForgetPwdActivity.this, "网络连接异常，请检查网络", Toast.LENGTH_SHORT).show();
+//					Toast.makeText(ForgetPwdActivity.this, "网络连接异常，请检查网络", Toast.LENGTH_SHORT).show();
+					setAttention("网络连接异常，请检查网络");
 				}
+				break;
+			case 3:
+				attention.setVisibility(View.INVISIBLE);
 				break;
 			default:
 				break;
@@ -177,6 +193,23 @@ public class ForgetPwdActivity extends BaseActivity implements OnClickListener,T
 		}
 		
 	};
+	private void setAttention(String att){
+		attention.setText(att);
+		attention.setVisibility(View.VISIBLE);
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				try {
+					Thread.sleep(3000);
+					Message msg = mHandler.obtainMessage(3);
+					mHandler.sendMessage(msg);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+	}
 	
 	public void onResume() {
 	    super.onResume();
