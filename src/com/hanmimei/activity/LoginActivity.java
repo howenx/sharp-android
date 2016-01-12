@@ -32,7 +32,6 @@ import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.HMessage;
-import com.hanmimei.entity.Result;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.User;
 import com.hanmimei.utils.ActionBarUtil;
@@ -88,14 +87,20 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.forget:
-			CommonUtil.doJump(this, ForgetPwdActivity.class);
+			CommonUtil.doJump(this, ForgetPhoneActivity.class);
+//			Intent intent1 = new Intent(this, CheckPhoneActivity.class);
+//			intent1.putExtra("use", "forget");
+//			startActivity(intent1);
 			// showDialog();
 			break;
 		case R.id.login:
 			checkInput();
 			break;
 		case R.id.regist:
-			CommonUtil.doJump(this, RegistActivity.class);
+			CommonUtil.doJump(this, CheckPhoneActivity.class);
+//			Intent intent = new Intent(this, CheckPhoneActivity.class);
+//			intent.putExtra("use", "regist");
+//			startActivity(intent);
 			break;
 		case R.id.refresh:
 			loadImg();

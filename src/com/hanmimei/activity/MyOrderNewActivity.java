@@ -7,9 +7,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.support.v7.widget.LinearLayoutCompat.LayoutParams;
-import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -19,24 +16,30 @@ import com.hanmimei.adapter.MyPagerAdapter;
 import com.hanmimei.entity.Category;
 import com.hanmimei.fragment.OrderFragment;
 import com.hanmimei.utils.ActionBarUtil;
-import com.umeng.analytics.MobclickAgent;
-import com.viewpagerindicator.TabPageIndicator;
 
 public class MyOrderNewActivity extends BaseActivity implements OnClickListener, OnPageChangeListener{
 	private static final String TAG_01_ID = "tag01";
 	private static final String TAG_02_ID = "tag02";
 //	private static final String TAG_03_ID = "tag03";
 	private static final String TAG_04_ID = "tag04";
-//	private static final String TAG_05_ID = "tag05";
+	private static final String TAG_05_ID = "tag05";
 	private static final String TAG_01 = "全部";
 	private static final String TAG_02 = "待付款";
 //	private static final String TAG_03 = "待发货";
 	private static final String TAG_04 = "待收货";
-//	private static final String TAG_05 = "已完成"
+	private static final String TAG_05 = "待评价";
 	private ViewPager viewPager;
 	private List<Category> data;
 	private List<Fragment> fragmentList;
 	private MyPagerAdapter adapter;
+	private TextView t1;
+	private TextView t2;
+	private TextView t3;
+	private TextView t4;
+	private TextView c1;
+	private TextView c2;
+	private TextView c3;
+	private TextView c4;
 	
 	@Override
 	protected void onCreate(Bundle bundle) {
@@ -44,12 +47,24 @@ public class MyOrderNewActivity extends BaseActivity implements OnClickListener,
 		setContentView(R.layout.order_list_layout_new);
 		ActionBarUtil.setActionBarStyle(this, "我的订单", 0, true, null);
 		viewPager = (ViewPager) findViewById(R.id.viewpager);
-		initTop();
+		viewPager.setOnPageChangeListener(this);
+		initTopListner();
 		initCategory();
 		initFragment();
 	}
-	private void initTop() {
-		
+	private void initTopListner() {
+		t1 = (TextView) findViewById(R.id.t1);
+		t2 = (TextView) findViewById(R.id.t2);
+		t3 = (TextView) findViewById(R.id.t3);
+		t4 = (TextView) findViewById(R.id.t4);
+		c1 = (TextView) findViewById(R.id.cursor1);
+		c2 = (TextView) findViewById(R.id.cursor2);
+		c3 = (TextView) findViewById(R.id.cursor3);
+		c4 = (TextView) findViewById(R.id.cursor4);
+		findViewById(R.id.tv_guid1).setOnClickListener(this);
+		findViewById(R.id.tv_guid2).setOnClickListener(this);
+		findViewById(R.id.tv_guid3).setOnClickListener(this);
+		findViewById(R.id.tv_guid4).setOnClickListener(this);
 	}
 	private void initFragment() {
 		fragmentList = new ArrayList<Fragment>();
@@ -71,27 +86,73 @@ public class MyOrderNewActivity extends BaseActivity implements OnClickListener,
 		data.add(new Category(TAG_02_ID, TAG_02));
 //		data.add(new Category(TAG_03_ID, TAG_03));
 		data.add(new Category(TAG_04_ID, TAG_04));
-//		data.add(new Category(TAG_05_ID, TAG_05));
+		data.add(new Category(TAG_05_ID, TAG_05));
 	}
 	@Override
-	public void onClick(View arg0) {
-		// TODO Auto-generated method stub
-		
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.tv_guid1:
+			viewPager.setCurrentItem(0);
+			break;
+		case R.id.tv_guid2:
+			viewPager.setCurrentItem(1);
+			break;
+		case R.id.tv_guid3:
+			viewPager.setCurrentItem(2);
+			break;
+		case R.id.tv_guid4:
+			viewPager.setCurrentItem(3);
+			break;
+		default:
+			break;
+		}
 	}
 	@Override
 	public void onPageScrollStateChanged(int arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+		}
 	@Override
 	public void onPageScrolled(int arg0, float arg1, int arg2) {
-		// TODO Auto-generated method stub
-		
 	}
 	@Override
 	public void onPageSelected(int arg0) {
-		// TODO Auto-generated method stub
+		switch (arg0) {
+		case 0:
+			setTopSelected(t1, c1);
+			setTopUnSelected(t2, c2);
+			setTopUnSelected(t3, c3);
+			setTopUnSelected(t4, c4);
+			break;
+		case 1:
+			setTopSelected(t2, c2);
+			setTopUnSelected(t1, c1);
+			setTopUnSelected(t3, c3);
+			setTopUnSelected(t4, c4);
+			break;
+		case 2:
+			setTopSelected(t3, c3);
+			setTopUnSelected(t2, c2);
+			setTopUnSelected(t1, c1);
+			setTopUnSelected(t4, c4);
+			break;
+		case 3:
+			setTopSelected(t4, c4);
+			setTopUnSelected(t2, c2);
+			setTopUnSelected(t3, c3);
+			setTopUnSelected(t1, c1);
+			break;
+		default:
+			break;
+		}
 		
+	}
+	
+	private void setTopSelected(TextView textView,TextView cusor){
+		textView.setTextColor(getResources().getColor(R.color.theme));
+		cusor.setVisibility(View.VISIBLE);
+	}
+	private void setTopUnSelected(TextView textView,TextView cusor){
+		textView.setTextColor(getResources().getColor(R.color.fontcolor));
+		cusor.setVisibility(View.INVISIBLE);
 	}
 
 
