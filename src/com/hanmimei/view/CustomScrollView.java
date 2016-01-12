@@ -1,20 +1,11 @@
 package com.hanmimei.view;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-
-import com.hanmimei.view.ScrollZoomView.OnScrollUpListener;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.GestureDetector;
-import android.view.GestureDetector.SimpleOnGestureListener;
-import android.view.MotionEvent;
-import android.view.View;
-import android.webkit.WebView;
 import android.widget.ScrollView;
-import android.widget.Scroller;
 
 /**
  * 自定义ScrollView，解决：ScrollView嵌套ViewPager，导致ViewPager不能滑动的问题

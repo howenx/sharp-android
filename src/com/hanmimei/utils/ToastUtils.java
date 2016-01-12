@@ -14,9 +14,7 @@ public class ToastUtils {
 
 	private static String oldMsg;
 	protected static SuperToast toast = null;
-	private static long oneTime = 0;
-	private static long twoTime = 0;
-	private static int duration = SuperToast.Duration.SHORT;
+	private static int duration = SuperToast.Duration.VERY_SHORT;
 
 	public static void cancel() {
 		if (toast == null)
@@ -47,18 +45,19 @@ public class ToastUtils {
 						oldMsg = s;
 						toast.setText(s);
 						toast.show();
-					} 
+					}
 				}
 			});
 			toast.setText(s);
 			toast.setTextSize(12);
 			toast.show();
-//			oneTime = System.currentTimeMillis();
 		} else {
-//			twoTime = System.currentTimeMillis();
 			oldMsg = s;
+			if(toast.isShowing())
+				return;
+			toast.setText(s);
+			toast.show();	
 		}
-//		oneTime = twoTime;
 	}
 
 	/**
