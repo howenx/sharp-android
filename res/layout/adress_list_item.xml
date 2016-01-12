@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/icon_address"
+        android:visibility="invisible"
         android:contentDescription="@null" />
 
     <TextView
@@ -65,7 +66,6 @@
         android:id="@+id/isSelected"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/idCard"
         android:layout_centerVertical="true"
         android:visibility="gone"
         android:src="@drawable/icon_theme_check"
@@ -83,5 +83,14 @@
         android:visibility="gone"
         android:textColor="@color/red"
         android:textSize="12sp" />
+
+    <ImageView
+        android:id="@+id/btn_xiugai"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignRight="@+id/idCard"
+        android:layout_alignTop="@+id/name"
+        android:contentDescription="@null"
+        android:src="@drawable/hmm_address_xiugai" />
 
 </RelativeLayout>
