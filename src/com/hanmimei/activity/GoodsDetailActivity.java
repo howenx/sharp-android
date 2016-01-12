@@ -252,16 +252,19 @@ public class GoodsDetailActivity extends BaseActivity implements
 			return;
 		}
 		JSONArray array = toJSONArray(goods);
+		getLoading().show();
 		Http2Utils.doPostRequestTask2(this, getHeaders(),
 				UrlUtil.GET_CAR_LIST_URL, new VolleyJsonCallback() {
 
 					@Override
 					public void onSuccess(String result) {
+						getLoading().dismiss();
 						findViewById(R.id.no_net).setVisibility(View.GONE);
 						HMessage hm = DataParser.paserResultMsg(result);
 						if (hm.getCode() == 200) {
 							// 购物车添加成功，显示提示框
-							ToastUtils.Toast(GoodsDetailActivity.this,hm.getMessage());
+							displayAnimation();
+//							ToastUtils.Toast(GoodsDetailActivity.this,hm.getMessage());
 							num_shopcart++;
 							showGoodsNums();
 						} else if (hm.getCode() == 3001 || hm.getCode() == 2001) {
@@ -275,6 +278,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 					@Override
 					public void onError() {
+						getLoading().dismiss();
 						ToastUtils.Toast(getActivity(), R.string.error);
 					}
 				}, array.toString());
@@ -394,7 +398,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 			ToastUtils.Toast(this, "请选择商品");
 			return;
 		}
-		displayAnimation();
+		
 		if (getUser() != null) {
 			sendData(goods);
 		} else {
@@ -413,16 +417,19 @@ public class GoodsDetailActivity extends BaseActivity implements
 			goods2.setGoodsId(goods.getGoodsId());
 			goods2.setGoodsNums(0);
 		}
+		getLoading().show();
 		Http2Utils.doGetRequestTask(this, UrlUtil.SEND_CAR_TO_SERVER_UN
 				+ goods2.getGoodsId() + "/" + (goods2.getGoodsNums()+1),
 				new VolleyJsonCallback() {
 
 					@Override
 					public void onSuccess(String result) {
+						getLoading().dismiss();
 						HMessage hm = DataParser.paserResultMsg(result);
 						if (hm.getCode() == 200) {
 							// 购物车添加成功，显示提示框
-							ToastUtils.Toast(GoodsDetailActivity.this,hm.getMessage());
+//							ToastUtils.Toast(GoodsDetailActivity.this,hm.getMessage());
+							displayAnimation();
 							goods2.setGoodsNums(goods2.getGoodsNums()+1);
 							goodsDao.insertOrReplace(goods2);
 							showGoodsNums();
@@ -433,6 +440,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 					@Override
 					public void onError() {
+						getLoading().dismiss();
 						ToastUtils.Toast(getActivity(), R.string.error);
 					}
 				});
@@ -914,6 +922,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 	public void onPause() {
 		super.onPause();
+		ToastUtils.cancel();
 		MobclickAgent.onPageEnd("GoodsDetailActivity"); // （仅有Activity的应用中SDK自动调用，不需要单独写）保证
 														// onPageEnd 在onPause
 														// 之前调用,因为 onPause

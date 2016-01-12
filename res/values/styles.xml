@@ -19,7 +19,6 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="actionBarStyle"> @style/MyActionBarStyle</item>
          <item name="vpiTabPageIndicatorStyle">@style/CustomTabPageIndicator</item>
-         <item name="android:windowTranslucentStatus">true</item>
          
     </style>
     
@@ -44,7 +43,6 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="actionBarStyle"> @style/MyActionBarStyle</item>
          <item name="vpiTabPageIndicatorStyle">@style/OrderTabPageIndicator</item>
-         <item name="android:windowTranslucentStatus">true</item>
     </style>
     
     <style name="wode_font_style">
@@ -158,7 +156,7 @@
     <style name="CustomDialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item><!-- 边框 -->  
         <item name="android:windowIsFloating">true</item><!-- 是否浮现在activity之上 -->  
-        <item name="android:windowIsTranslucent">false</item><!-- 半透明 -->  
+        <item name="android:windowIsTranslucent">true</item><!-- 半透明 -->  
         <item name="android:windowNoTitle">true</item><!-- 无标题 -->  
         <item name="android:windowBackground">@android:color/transparent</item><!-- 自己想要的背景 -->  
         <item name="android:backgroundDimEnabled">true</item><!-- 模糊 --> 

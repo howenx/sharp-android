@@ -154,12 +154,14 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 		city_edit.setText(old_Adress.getCity());
 		adress_edit.setText(old_Adress.getAdress());
 		idCard_edit.setText(old_Adress.getIdCard());
+		
+		check_box.setChecked(old_Adress.isDefault());
 		if(old_Adress.isDefault()){
 			isDefaut = 1;
+			check_box.setClickable(false);
 		}else{
 			isDefaut = 0;
 		}
-		check_box.setChecked(old_Adress.isDefault());
 	}
 	//初始化控件
 	private void findView() {
@@ -174,6 +176,7 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 			
 			@Override
 			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+				
 				if(arg1){
 					isDefaut = 1;
 				}else{
