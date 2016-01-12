@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -34,7 +33,6 @@ import com.hanmimei.entity.User;
 import com.hanmimei.utils.DoJumpUtils;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ImageLoaderUtils;
-import com.hanmimei.utils.KeyWordUtil;
 import com.hanmimei.view.RoundImageView;
 import com.umeng.analytics.MobclickAgent;
 
@@ -69,17 +67,17 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 
 	private void initIcon() {
 		address_icon = getResources().getDrawable(R.drawable.icon_address);
-		address_icon.setBounds(0, 0, 40, 40);
+		address_icon.setBounds(0, 0, 45, 45);
 		order_icon = getResources().getDrawable(R.drawable.icon_dingdan);
-		order_icon.setBounds(0, 0, 40, 40);
+		order_icon.setBounds(0, 0, 45, 45);
 		shenfen_icon = getResources().getDrawable(R.drawable.icon_shenfenzheng);
-		shenfen_icon.setBounds(0, 0, 40, 40);
+		shenfen_icon.setBounds(0, 0, 45, 45);
 		youhui_icon = getResources().getDrawable(R.drawable.icon_youhuiquan);
-		youhui_icon.setBounds(0, 0, 40, 40);
+		youhui_icon.setBounds(0, 0, 45, 45);
 		about_icon = getResources().getDrawable(R.drawable.icon_about);
-		about_icon.setBounds(0, 0, 40, 40);
+		about_icon.setBounds(0, 0, 45, 45);
 		jiantou_icon = getResources().getDrawable(R.drawable.icon_jiantou);
-		jiantou_icon.setBounds(0, 0, 40, 40);
+		jiantou_icon.setBounds(0, 0, 45, 45);
 	}
 
 	@Override

@@ -28,6 +28,8 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
 public class HttpUtils {
@@ -87,6 +89,31 @@ public class HttpUtils {
 
 		return result.toString();
 
+	}
+	public static Bitmap getImg(String url) {
+//		StringBuilder result = new StringBuilder();
+		Bitmap bitmap = null;
+		DefaultHttpClient httpClient = new DefaultHttpClient();
+		InputStream is = null;
+		try {
+
+			HttpGet getRequest = new HttpGet(url);
+			getRequest.addHeader("accept", "application/json");
+			HttpResponse response = httpClient.execute(getRequest);
+			if (response.getStatusLine().getStatusCode() == 200) {
+				is = response.getEntity().getContent();
+				bitmap = BitmapFactory.decodeStream(is);
+			}
+
+		}catch (Exception e) {
+			// 网络连接有问题
+			e.printStackTrace();
+		} finally {
+			if (is != null) {
+				httpClient.getConnectionManager().shutdown();
+			}
+		}
+		return bitmap;
 	}
 	public static String get(String url, String token) {
 		StringBuilder result = new StringBuilder();

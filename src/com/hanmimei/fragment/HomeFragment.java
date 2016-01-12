@@ -133,12 +133,6 @@ public class HomeFragment extends Fragment implements
 		ListView v = mListView.getRefreshableView();
 		v.addHeaderView(headerView);
 	}
-//	private void addView(){
-//		ListView v = mListView.getRefreshableView();
-//		ImageView imageView = new ImageView(mActivity);
-//		imageView.setImageResource(R.drawable.test);
-//		v.addHeaderView(imageView);
-//	}
 
 	private void initHeaderView() {
 		headerView.setVisibility(View.VISIBLE);
@@ -247,6 +241,7 @@ public class HomeFragment extends Fragment implements
 				break;
 			case 2:
 				mListView.onRefreshComplete();
+				mListView.setMode(Mode.DISABLED);
 				List<Theme> list_more = (List<Theme>) msg.obj;
 				if (list_more != null && list_more.size() > 0) {
 					data.addAll(list_more);

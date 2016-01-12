@@ -151,19 +151,19 @@ public class DataParser {
 		}
 		return result;
 	}
-	public static Result parserUpImg(String str){
-		Result result = new Result();
-		try {
-			JSONObject object = new JSONObject(str);
-			if(object.has("message"))
-				result.setMessage(object.getString("message"));
-			if(object.has("code"))
-				result.setCode(object.getInt("code"));
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
+//	public static Result parserUpImg(String str){
+//		Result result = new Result();
+//		try {
+//			JSONObject object = new JSONObject(str);
+//			if(object.has("message"))
+//				result.setMessage(object.getString("message"));
+//			if(object.has("code"))
+//				result.setCode(object.getInt("code"));
+//		} catch (JSONException e) {
+//			e.printStackTrace();
+//		}
+//		return result;
+//	}
 
 
 	
@@ -378,6 +378,10 @@ public class DataParser {
 				msg.setMessage(obj.getString("message"));
 			if(obj.has("code"))
 				msg.setCode(obj.getInt("code"));
+			if(object.has("token"))
+				msg.setTag(object.getString("token"));
+			if(object.has("expired"))
+				msg.setTime(object.getInt("expired"));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

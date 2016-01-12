@@ -19,7 +19,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hanmimei.R;
 import com.hanmimei.activity.BaseActivity;
@@ -35,6 +34,7 @@ import com.hanmimei.entity.User;
 import com.hanmimei.manager.ShoppingCarMenager;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ImageLoaderUtils;
+import com.hanmimei.utils.ToastUtils;
 
 public class ShoppingCarAdapter extends BaseAdapter {
 
@@ -119,6 +119,14 @@ public class ShoppingCarAdapter extends BaseAdapter {
 			holder.checkBox.setImageDrawable(uncheck_Drawable);
 		}
 		// }
+
+		if(goods.getGoodsNums() >= goods.getRestrictAmount()){
+			holder.plus.setTextColor(activity.getResources().getColor(R.color.qianhui));
+			holder.plus.setClickable(false);
+		}else{
+			holder.plus.setTextColor(activity.getResources().getColor(R.color.fontcolor));
+			holder.plus.setClickable(true);
+		}
 		ImageLoaderUtils.loadImage(activity, goods.getGoodsImg(), holder.img);
 		holder.name.setText(goods.getGoodsName());
 		holder.size.setText(goods.getItemColor() + "  " + goods.getItemSize());
@@ -183,12 +191,10 @@ public class ShoppingCarAdapter extends BaseAdapter {
 						if(!goods.getState().equals("S"))
 							upGoodsN(goods);
 					}
-				} else {
-//					Toast.makeText(activity,
-//							"本商品限购" + goods.getRestrictAmount() + "件",
-//							Toast.LENGTH_SHORT).show();
-//					holder.nums.setTextColor(color);
-				}
+				} 
+//				else {
+//					ToastUtils.Toast(activity, "本商品限购" + goods.getRestrictAmount() + "件");
+//				}
 			}
 		});
 		holder.del.setOnClickListener(new OnClickListener() {
@@ -331,12 +337,10 @@ public class ShoppingCarAdapter extends BaseAdapter {
 						notifyDataSetChanged();
 						ShoppingCarMenager.getInstance().setBottom();
 					} else {
-						Toast.makeText(activity, hm.getMessage(),
-								Toast.LENGTH_SHORT).show();
+						ToastUtils.Toast(activity, hm.getMessage());
 					}
 				} else {
-					Toast.makeText(activity, "删除失败！", Toast.LENGTH_SHORT)
-							.show();
+					ToastUtils.Toast(activity, "删除失败！");
 				}
 				break;
 			case 2:
@@ -349,12 +353,10 @@ public class ShoppingCarAdapter extends BaseAdapter {
 						goodsDao.deleteAll();
 						goodsDao.insertInTx(data);
 					} else {
-						Toast.makeText(activity, hmm.getMessage(),
-								Toast.LENGTH_SHORT).show();
+//						ToastUtils.Toast(activity, hmm.getMessage());
 					}
 				} else {
-					Toast.makeText(activity, "操作失败！", Toast.LENGTH_SHORT)
-							.show();
+//					ToastUtils.Toast(activity, "操作失败！");
 				}
 				break;
 			case 3:
@@ -366,12 +368,10 @@ public class ShoppingCarAdapter extends BaseAdapter {
 						notifyDataSetChanged();
 						ShoppingCarMenager.getInstance().setBottom();
 					} else {
-						Toast.makeText(activity, m.getMessage(),
-								Toast.LENGTH_SHORT).show();
+//						ToastUtils.Toast(activity, m.getMessage());
 					}
 				} else {
-					Toast.makeText(activity, "操作失败！", Toast.LENGTH_SHORT)
-							.show();
+//					ToastUtils.Toast(activity, "操作失败！");
 				}
 				break;
 			default:

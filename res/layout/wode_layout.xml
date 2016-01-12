@@ -83,15 +83,14 @@
 	</LinearLayout>
     <!--
 	<TextView 
-	    android:id="@+id/shenfenzheng"
+	    android:id="@+id/pintuan"
 	    android:layout_marginTop="15dp"
 	    android:padding="12dp"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
-	    android:text="    补填身份证"
+	    android:text="    我的拼团"
 	   style="@style/wode_font_style"/>
     -->
-
     <TextView
         android:id="@+id/address"
         style="@style/wode_font_style"
@@ -111,15 +110,5 @@
         android:padding="12dp"
         android:text="    我的收藏"
         android:visibility="gone" />
-    <!--
-		<TextView 
-	    android:id="@+id/about_card"
-	    android:layout_marginTop="15dp"
-	    android:padding="12dp"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:text="    关于身份证"
-	    style="@style/wode_font_style"/>
-    -->
 
 </LinearLayout>

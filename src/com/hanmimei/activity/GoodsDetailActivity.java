@@ -108,12 +108,14 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private List<Tag> tags; // 规格标签信息
 
 	private int num_shopcart = 0;
+	
+	private HMessage msg = null;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		ActionBarUtil.setActionBarStyle(this, "商品详情", R.drawable.fenxiang,
-				true, this, this);
+				true, null, this);
 		setContentView(R.layout.goods_detail_layout);
 		findView();
 		initGoodsNumView();
@@ -241,16 +243,11 @@ public class GoodsDetailActivity extends BaseActivity implements
 		});
 	}
 
-	private HMessage msg;
 
 	/**
 	 * 发送商品信息添加到购物车
 	 */
 	private void sendData(ShoppingGoods goods) {
-		if (msg != null) {
-			ToastUtils.Toast(getActivity(), msg.getMessage());
-			return;
-		}
 		JSONArray array = toJSONArray(goods);
 		getLoading().show();
 		Http2Utils.doPostRequestTask2(this, getHeaders(),
@@ -264,15 +261,14 @@ public class GoodsDetailActivity extends BaseActivity implements
 						if (hm.getCode() == 200) {
 							// 购物车添加成功，显示提示框
 							displayAnimation();
-//							ToastUtils.Toast(GoodsDetailActivity.this,hm.getMessage());
 							num_shopcart++;
 							showGoodsNums();
 						} else if (hm.getCode() == 3001 || hm.getCode() == 2001) {
 							// 提示添加失败原因
 							msg = hm;
-							ToastUtils.Toast(getActivity(), msg.getMessage());
+							ToastUtils.Toast(getActivity(), hm.getMessage());
 						} else {
-							ToastUtils.Toast(getActivity(), msg.getMessage());
+							ToastUtils.Toast(getActivity(), hm.getMessage());
 						}
 					}
 
@@ -285,11 +281,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 	}
 
 	private void getGoodsNums() {
-
 		if (getUser() == null) {
 			showGoodsNums();
 		} else {
-			msg = null;
 			Http2Utils.doGetRequestTask(this, getHeaders(),
 					UrlUtil.GET_CART_NUM_URL, new VolleyJsonCallback() {
 
@@ -305,8 +299,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 								}
 								showGoodsNums();
 							} else {
-								ToastUtils.Toast(getActivity(),
-										msg.getMessage());
+								ToastUtils.Toast(getActivity(),detail.getMessage().getMessage());
 							}
 						}
 
@@ -348,9 +341,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 		case R.id.setting:
 			showShareboard();
 			break;
-		case R.id.back:
-			finish();
-			break;
 		case R.id.back_top:
 			mScrollView.fullScroll(ScrollView.FOCUS_UP);
 			break;
@@ -385,6 +375,10 @@ public class GoodsDetailActivity extends BaseActivity implements
 	 * @author vince
 	 */
 	private void addToShoppingCart() {
+		if(msg !=null){
+			ToastUtils.Toast(this, msg.getMessage());
+			return;
+		}
 		ShoppingGoods goods = null;
 		for (Stock stock : stocks) {
 			if (stock.getOrMasterInv() && stock.getState().equals("Y")) {
@@ -433,6 +427,10 @@ public class GoodsDetailActivity extends BaseActivity implements
 							goods2.setGoodsNums(goods2.getGoodsNums()+1);
 							goodsDao.insertOrReplace(goods2);
 							showGoodsNums();
+						} else if (hm.getCode() == 3001 || hm.getCode() == 2001) {
+							// 提示添加失败原因
+							msg = hm;
+							ToastUtils.Toast(getActivity(), hm.getMessage());
 						} else {
 							ToastUtils.Toast(getActivity(), hm.getMessage());
 						}

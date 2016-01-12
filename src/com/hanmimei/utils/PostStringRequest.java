@@ -44,6 +44,7 @@ public class PostStringRequest extends StringRequest {
 		if (map != null) {
 			this.map = params;
 		}
+		
 		this.headers = new HashMap<String, String>();
 		if (headers != null) {
 			this.headers.put("accept", "application/json");
