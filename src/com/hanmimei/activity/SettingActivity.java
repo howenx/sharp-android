@@ -62,7 +62,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener{
 		comment_Drawable = getResources().getDrawable(R.drawable.iconfont_comment);
 		comment_Drawable.setBounds(0, 0, 45, 45);
 		tel_Drawable = getResources().getDrawable(R.drawable.iconfont_lianxiwomen);
-		tel_Drawable.setBounds(0, 0, 40, 40);
+		tel_Drawable.setBounds(0, 0, 45, 45);
 		del_Drawable = getResources().getDrawable(R.drawable.iconfont_qingchuhuancun);
 		del_Drawable.setBounds(0, 0, 40, 40);
 	}
