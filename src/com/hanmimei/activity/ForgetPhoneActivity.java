@@ -47,6 +47,10 @@ public class ForgetPhoneActivity extends BaseActivity implements
 	private ImageView jiaoyanImg;
 	private EditText codeEditText;
 	private AlertDialog imgDialog;
+<<<<<<< HEAD
+=======
+	private ImageView clear_phone;
+>>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,6 +70,11 @@ public class ForgetPhoneActivity extends BaseActivity implements
 		phone.addTextChangedListener(mTextWatcher);
 		attention.setVisibility(View.INVISIBLE);
 		findViewById(R.id.bom_re).setVisibility(View.GONE);
+<<<<<<< HEAD
+=======
+		clear_phone = (ImageView) findViewById(R.id.clear_phone);
+		clear_phone.setOnClickListener(this);
+>>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
 	}
 
 	TextWatcher mTextWatcher = new TextWatcher() {
@@ -96,6 +105,14 @@ public class ForgetPhoneActivity extends BaseActivity implements
 				next.setClickable(false);
 				next.setOnClickListener(null);
 			}
+<<<<<<< HEAD
+=======
+			if (s.length() != 0) {
+				clear_phone.setVisibility(View.VISIBLE);
+			} else {
+				clear_phone.setVisibility(View.INVISIBLE);
+			}
+>>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
 		}
 	};
 
@@ -123,6 +140,13 @@ public class ForgetPhoneActivity extends BaseActivity implements
 			finish();
 			break;
 
+<<<<<<< HEAD
+=======
+		// 清空手机号的输入
+		case R.id.clear_phone:
+			phone.setText("");
+			break;
+>>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
 		default:
 			break;
 		}
@@ -222,6 +246,10 @@ public class ForgetPhoneActivity extends BaseActivity implements
 	}
 
 	private String code;
+<<<<<<< HEAD
+=======
+	private TextView code_attention;
+>>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
 
 	private void showCodeDialog() {
 		View view = LayoutInflater.from(this).inflate(R.layout.dialog_layout,
@@ -232,6 +260,10 @@ public class ForgetPhoneActivity extends BaseActivity implements
 		TextView title = (TextView) view.findViewById(R.id.title);
 		jiaoyanImg = (ImageView) view.findViewById(R.id.img);
 		codeEditText = (EditText) view.findViewById(R.id.code);
+<<<<<<< HEAD
+=======
+		code_attention = (TextView) view.findViewById(R.id.attention);
+>>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
 		view.findViewById(R.id.linear).setVisibility(View.VISIBLE);
 		title.setText("安全校验");
 		view.findViewById(R.id.cancle).setOnClickListener(
@@ -247,12 +279,25 @@ public class ForgetPhoneActivity extends BaseActivity implements
 
 					@Override
 					public void onClick(View v) {
+<<<<<<< HEAD
 						code = codeEditText.getText().toString();
 						if (code.equals("")) {
 
 						}
 						imgDialog.dismiss();
 						checkPhone();
+=======
+						code_attention.setVisibility(View.GONE);
+						code = codeEditText.getText().toString();
+						if (code.length() != 4 || !CommonUtil.isJiaoYan(code)) {
+							code_attention.setText("验证码格式不正确");
+							code_attention.setVisibility(View.VISIBLE);
+							return;
+						} else {
+							imgDialog.dismiss();
+							checkPhone();
+						}
+>>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
 					}
 				});
 		view.findViewById(R.id.refresh).setOnClickListener(

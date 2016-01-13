@@ -20,6 +20,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
+<<<<<<< HEAD
+=======
+import android.widget.ImageView;
+>>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
 import android.widget.TextView;
 
 import com.hanmimei.R;
@@ -41,6 +45,10 @@ public class CheckPhoneActivity extends BaseActivity implements OnClickListener 
 	private TextView attention;
 
 	private AlertDialog alertDialog;
+<<<<<<< HEAD
+=======
+	private ImageView clear_phone;
+>>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,6 +66,11 @@ public class CheckPhoneActivity extends BaseActivity implements OnClickListener 
 		next.setClickable(false);
 		go_login.setOnClickListener(this);
 		phone.addTextChangedListener(mTextWatcher);
+<<<<<<< HEAD
+=======
+		clear_phone = (ImageView) findViewById(R.id.clear_phone);
+		clear_phone.setOnClickListener(this);
+>>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
 	}
 
 	TextWatcher mTextWatcher = new TextWatcher() {
@@ -88,6 +101,14 @@ public class CheckPhoneActivity extends BaseActivity implements OnClickListener 
 				next.setClickable(false);
 				next.setOnClickListener(null);
 			}
+<<<<<<< HEAD
+=======
+			if (s.length() != 0) {
+				clear_phone.setVisibility(View.VISIBLE);
+			} else {
+				clear_phone.setVisibility(View.INVISIBLE);
+			}
+>>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
 		}
 	};
 
@@ -114,7 +135,14 @@ public class CheckPhoneActivity extends BaseActivity implements OnClickListener 
 			DoJumpUtils.doJump(this, ForgetPhoneActivity.class);
 			finish();
 			break;
+<<<<<<< HEAD
 
+=======
+		// 清空手机号的输入
+		case R.id.clear_phone:
+			phone.setText("");
+			break;
+>>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
 		default:
 			break;
 		}

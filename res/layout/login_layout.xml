@@ -19,6 +19,7 @@
         android:textSize="12sp"
         android:visibility="invisible" />
 
+<<<<<<< HEAD
     <LinearLayout
         android:layout_marginTop="50dp"
         android:layout_width="match_parent"
@@ -27,12 +28,25 @@
         android:orientation="horizontal" >
 
         <TextView
+=======
+    <RelativeLayout
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/text1"
+>>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:gravity="center"
             android:text="@string/phone_num"
             android:textColor="@color/fontcolor"
+<<<<<<< HEAD
             android:textSize="16sp" />
 
         <EditText
@@ -47,6 +61,35 @@
             android:maxLength="12"
             android:paddingTop="5dp" />
     </LinearLayout>
+=======
+            android:layout_centerVertical="true"
+            android:textSize="16sp" />
+
+        <ImageView 
+            android:id="@+id/clear_phone"
+            android:padding="3dp"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_guanbi"
+            android:visibility="invisible"/>
+        <EditText
+            android:id="@+id/phone_num"
+            android:layout_toRightOf="@id/text1"
+            android:layout_toLeftOf="@id/clear_phone"
+            style="@style/login_edit_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:hint="@string/input_phone"
+            android:inputType="number"
+            android:maxLength="11"
+            android:paddingTop="5dp" />
+    </RelativeLayout>
+>>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
 
     <View
         android:layout_width="match_parent"
@@ -55,20 +98,34 @@
         android:layout_marginRight="10dp"
         android:background="@color/qianhui" />
 
+<<<<<<< HEAD
     <LinearLayout
+=======
+    <RelativeLayout
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+>>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="horizontal" >
 
         <TextView
+<<<<<<< HEAD
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+=======
+            android:id="@+id/text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+>>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
             android:layout_margin="15dp"
             android:gravity="center"
             android:text="@string/pwd"
             android:textColor="@color/fontcolor"
             android:textSize="16sp" />
+<<<<<<< HEAD
 
         <EditText
             android:id="@+id/pwd"
@@ -76,12 +133,47 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+=======
+        <ImageView 
+            android:id="@+id/show_pwd"
+            android:padding="3dp"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_kejian"/>
+        
+        <ImageView 
+            android:id="@+id/clear_pwd"
+            android:padding="3dp"
+            android:layout_toLeftOf="@id/show_pwd"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_guanbi"
+            android:visibility="invisible"/>
+
+        <EditText
+            android:id="@+id/pwd"
+            android:layout_toRightOf="@id/text2"
+            android:layout_toLeftOf="@id/clear_pwd"
+            style="@style/login_edit_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+>>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
             android:background="@null"
             android:hint="@string/input_pwd"
             android:inputType="textPassword"
             android:maxLength="12"
             android:paddingTop="5dp" />
+<<<<<<< HEAD
     </LinearLayout>
+=======
+    </RelativeLayout>
+>>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
 
     <TextView
         android:id="@+id/login"

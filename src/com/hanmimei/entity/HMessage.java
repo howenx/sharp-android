@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class HMessage implements Serializable{
 	private String message;
-	private Integer code;
+	private Integer code ;
 	private String tag;
 	private int time;
 	

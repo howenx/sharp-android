@@ -1,5 +1,8 @@
 package com.hanmimei.activity;
 
+import github.chenupt.multiplemodel.viewpager.ModelPagerAdapter;
+import github.chenupt.multiplemodel.viewpager.PagerModelManager;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,28 +18,27 @@ import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
-import android.webkit.WebView;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.RadioGroup;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.astuetz.PagerSlidingTabStrip;
 import com.bigkoo.convenientbanner.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.ConvenientBanner;
+import com.cpoopc.scrollablelayoutlib.ScrollableLayout;
+import com.cpoopc.scrollablelayoutlib.ScrollableLayout.OnScrollListener;
 import com.hanmimei.R;
+import com.hanmimei.activity.fragment.ImgFragment;
+import com.hanmimei.activity.fragment.ParamsFragment;
 import com.hanmimei.activity.listener.SimpleAnimationListener;
-import com.hanmimei.adapter.GoodsDetailParamAdapter;
 import com.hanmimei.dao.ShoppingGoodsDao;
 import com.hanmimei.dao.ShoppingGoodsDao.Properties;
 import com.hanmimei.data.AppConstant;
@@ -60,13 +62,13 @@ import com.hanmimei.utils.ImageLoaderUtils;
 import com.hanmimei.utils.PopupWindowUtil;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.BadgeView;
-import com.hanmimei.view.CustomScrollView;
 import com.hanmimei.view.NetworkImageHolderView;
 import com.hanmimei.view.TagCloudView;
 import com.hanmimei.view.TagCloudView.OnTagClickListener;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
+import com.test.cp.myscrolllayout.fragment.base.ScrollAbleFragment;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.ShareAction;
@@ -74,11 +76,11 @@ import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
+import com.ypy.eventbus.EventBus;
 
 @SuppressLint("NewApi")
 public class GoodsDetailActivity extends BaseActivity implements
-		OnClickListener, CustomScrollView.OnScrollUpListener,
-		RadioGroup.OnCheckedChangeListener {
+		OnClickListener {
 
 	private ConvenientBanner<ImgInfo> slider; // 轮播图控件
 	private TextView discount, itemTitle, itemSrcPrice, itemPrice, area; // 商品折扣
@@ -89,17 +91,17 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private TextView num_restrictAmount;
 	private TagCloudView tagCloudView; // 规格标签控件
 	private TextView publicity; // 优惠信息 /购物车数量
-	private CustomScrollView mScrollView; //
-	private ListView content_params, content_hot; // 商品参数／热卖商品
-	private RadioGroup indicator_hide, indicator; // 顶部导航栏 中部导航栏
 	private ImageView img_hide, shopcart;
-
-	private View pager_header, back_top;
 
 	private BadgeView goodsNumView;// 显示购买数量的控件
 
 	private PopupWindow shareWindow;
 	private ImageView btn_collect;
+
+	private View back_top;
+	private ScrollableLayout mScrollLayout;
+	private ViewPager viewPager;
+	private PagerSlidingTabStrip pagerSlidingTabStrip;
 
 	private User user;
 	private ShoppingGoodsDao goodsDao;
@@ -109,11 +111,13 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 	private int num_shopcart = 0;
 
+	private HMessage msg = null;
+
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		ActionBarUtil.setActionBarStyle(this, "商品详情", R.drawable.fenxiang,
-				true, this, this);
+				true, null, this);
 		setContentView(R.layout.goods_detail_layout);
 		findView();
 		initGoodsNumView();
@@ -141,30 +145,17 @@ public class GoodsDetailActivity extends BaseActivity implements
 		tagCloudView = (TagCloudView) findViewById(R.id.tagCloudView);
 		publicity = (TextView) findViewById(R.id.publicity);
 		num_restrictAmount = (TextView) findViewById(R.id.restrictAmount);
-		indicator_hide = (RadioGroup) findViewById(R.id.indicator_hide);
-		indicator = (RadioGroup) findViewById(R.id.indicator);
 		discount = (TextView) findViewById(R.id.discount);
 		area = (TextView) findViewById(R.id.area);
-		mScrollView = (CustomScrollView) findViewById(R.id.mScrollView);
-		mScrollView.setOnScrollUpListener(this);
-		pager_header = findViewById(R.id.pager_header);
 		shopcart = (ImageView) findViewById(R.id.shopcart);
+		back_top = findViewById(R.id.back_top);
 
 		img_hide = (ImageView) findViewById(R.id.img_hide);
-		back_top = findViewById(R.id.back_top);
 		btn_collect = (ImageView) findViewById(R.id.btn_collect);
 
-		content_params = (ListView) findViewById(R.id.content_params);
-		FrameLayout.LayoutParams lpm = (FrameLayout.LayoutParams) new FrameLayout.LayoutParams(
-				CommonUtil.getScreenWidth(this),
-				CommonUtil.getScreenHeight(this) - getResources().getDimensionPixelSize(R.dimen.actionbar_size)-indicator.getMeasuredHeight()
-						-getResources().getDimensionPixelSize(R.dimen.navigationbar_size)
-						- CommonUtil.getStatusBarHeight(this));
-		content_params.setLayoutParams(lpm);
-		content_params.setFocusable(false);
-		content_hot = (ListView) findViewById(R.id.content_hot);
-		content_hot.setLayoutParams(lpm);
-		content_hot.setFocusable(false);
+		viewPager = (ViewPager) findViewById(R.id.view_pager);
+		mScrollLayout = (ScrollableLayout) findViewById(R.id.mScrollLayout);
+		pagerSlidingTabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
 
 		user = getUser();
 		goodsDao = getDaoSession().getShoppingGoodsDao();
@@ -175,7 +166,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 		findViewById(R.id.btn_portalFee).setOnClickListener(this);
 		findViewById(R.id.back_top).setOnClickListener(this);
 		findViewById(R.id.reload).setOnClickListener(this);
-		indicator.setOnCheckedChangeListener(this);
 		btn_collect.setOnClickListener(this);
 
 	}
@@ -200,9 +190,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 		}
 
 		if (num > 0) {
-			if(num <=99){
+			if (num <= 99) {
 				goodsNumView.setText(num + "");
-			}else{
+			} else {
 				goodsNumView.setText("...");
 			}
 			goodsNumView.show(true);
@@ -241,16 +231,10 @@ public class GoodsDetailActivity extends BaseActivity implements
 		});
 	}
 
-	private HMessage msg;
-
 	/**
 	 * 发送商品信息添加到购物车
 	 */
 	private void sendData(ShoppingGoods goods) {
-		if (msg != null) {
-			ToastUtils.Toast(getActivity(), msg.getMessage());
-			return;
-		}
 		JSONArray array = toJSONArray(goods);
 		getLoading().show();
 		Http2Utils.doPostRequestTask2(this, getHeaders(),
@@ -264,15 +248,18 @@ public class GoodsDetailActivity extends BaseActivity implements
 						if (hm.getCode() == 200) {
 							// 购物车添加成功，显示提示框
 							displayAnimation();
+<<<<<<< HEAD
 //							ToastUtils.Toast(GoodsDetailActivity.this,hm.getMessage());
+=======
+>>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
 							num_shopcart++;
 							showGoodsNums();
 						} else if (hm.getCode() == 3001 || hm.getCode() == 2001) {
 							// 提示添加失败原因
 							msg = hm;
-							ToastUtils.Toast(getActivity(), msg.getMessage());
+							ToastUtils.Toast(getActivity(), hm.getMessage());
 						} else {
-							ToastUtils.Toast(getActivity(), msg.getMessage());
+							ToastUtils.Toast(getActivity(), hm.getMessage());
 						}
 					}
 
@@ -285,11 +272,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 	}
 
 	private void getGoodsNums() {
-
 		if (getUser() == null) {
 			showGoodsNums();
 		} else {
-			msg = null;
 			Http2Utils.doGetRequestTask(this, getHeaders(),
 					UrlUtil.GET_CART_NUM_URL, new VolleyJsonCallback() {
 
@@ -305,8 +290,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 								}
 								showGoodsNums();
 							} else {
-								ToastUtils.Toast(getActivity(),
-										msg.getMessage());
+								ToastUtils.Toast(getActivity(), detail
+										.getMessage().getMessage());
 							}
 						}
 
@@ -348,11 +333,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 		case R.id.setting:
 			showShareboard();
 			break;
-		case R.id.back:
-			finish();
-			break;
 		case R.id.back_top:
-			mScrollView.fullScroll(ScrollView.FOCUS_UP);
+			mScrollLayout.scrollTo(0, 0);
 			break;
 		case R.id.btn_cancel:
 			window.dismiss();
@@ -385,6 +367,10 @@ public class GoodsDetailActivity extends BaseActivity implements
 	 * @author vince
 	 */
 	private void addToShoppingCart() {
+		if (msg != null) {
+			ToastUtils.Toast(this, msg.getMessage());
+			return;
+		}
 		ShoppingGoods goods = null;
 		for (Stock stock : stocks) {
 			if (stock.getOrMasterInv() && stock.getState().equals("Y")) {
@@ -398,28 +384,36 @@ public class GoodsDetailActivity extends BaseActivity implements
 			ToastUtils.Toast(this, "请选择商品");
 			return;
 		}
+<<<<<<< HEAD
 		
+=======
+
+>>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
 		if (getUser() != null) {
 			sendData(goods);
 		} else {
 			addShoppingCartCheck(goods);
 		}
 	}
+
 	/**
 	 * 加入购物车验证
+	 * 
 	 * @author vince
 	 */
 	ShoppingGoods goods2;
+
 	private void addShoppingCartCheck(ShoppingGoods goods) {
-		 goods2 = goodsDao.queryBuilder().where(Properties.GoodsId.eq(goods.getGoodsId())).unique();
-		if(goods2 == null){
+		goods2 = goodsDao.queryBuilder()
+				.where(Properties.GoodsId.eq(goods.getGoodsId())).unique();
+		if (goods2 == null) {
 			goods2 = new ShoppingGoods();
 			goods2.setGoodsId(goods.getGoodsId());
 			goods2.setGoodsNums(0);
 		}
 		getLoading().show();
 		Http2Utils.doGetRequestTask(this, UrlUtil.SEND_CAR_TO_SERVER_UN
-				+ goods2.getGoodsId() + "/" + (goods2.getGoodsNums()+1),
+				+ goods2.getGoodsId() + "/" + (goods2.getGoodsNums() + 1),
 				new VolleyJsonCallback() {
 
 					@Override
@@ -428,11 +422,21 @@ public class GoodsDetailActivity extends BaseActivity implements
 						HMessage hm = DataParser.paserResultMsg(result);
 						if (hm.getCode() == 200) {
 							// 购物车添加成功，显示提示框
+<<<<<<< HEAD
 //							ToastUtils.Toast(GoodsDetailActivity.this,hm.getMessage());
 							displayAnimation();
 							goods2.setGoodsNums(goods2.getGoodsNums()+1);
+=======
+							// ToastUtils.Toast(GoodsDetailActivity.this,hm.getMessage());
+							displayAnimation();
+							goods2.setGoodsNums(goods2.getGoodsNums() + 1);
+>>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
 							goodsDao.insertOrReplace(goods2);
 							showGoodsNums();
+						} else if (hm.getCode() == 3001 || hm.getCode() == 2001) {
+							// 提示添加失败原因
+							msg = hm;
+							ToastUtils.Toast(getActivity(), hm.getMessage());
 						} else {
 							ToastUtils.Toast(getActivity(), hm.getMessage());
 						}
@@ -445,29 +449,35 @@ public class GoodsDetailActivity extends BaseActivity implements
 					}
 				});
 	}
+
 	private AnimatorSet set;
-	private void initAnimatorSetValue(){
-		int translationX  = CommonUtil.getScreenWidth(this)*4/11;
-		ObjectAnimator animX = ObjectAnimator.ofFloat(img_hide, "translationX", 0, -translationX);
-		ObjectAnimator animY = ObjectAnimator.ofFloat(img_hide, "translationY", 0,-250,50);
-		ObjectAnimator scaleX = ObjectAnimator.ofFloat(img_hide, "scaleX", 1f, 0.3f);
-		ObjectAnimator scaleY = ObjectAnimator.ofFloat(img_hide, "scaleY", 1f, 0.3f);
+
+	private void initAnimatorSetValue() {
+		int translationX = CommonUtil.getScreenWidth(this) * 4 / 11;
+		ObjectAnimator animX = ObjectAnimator.ofFloat(img_hide, "translationX",
+				0, -translationX);
+		ObjectAnimator animY = ObjectAnimator.ofFloat(img_hide, "translationY",
+				0, -250, 50);
+		ObjectAnimator scaleX = ObjectAnimator.ofFloat(img_hide, "scaleX", 1f,
+				0.3f);
+		ObjectAnimator scaleY = ObjectAnimator.ofFloat(img_hide, "scaleY", 1f,
+				0.3f);
 		set = new AnimatorSet();
-		set.playTogether(animX,animY,scaleX,scaleY);
+		set.playTogether(animX, animY, scaleX, scaleY);
 		set.setDuration(1200);
 		set.setInterpolator(new DecelerateInterpolator());
 		set.addListener(new SimpleAnimationListener() {
-			
+
 			@Override
 			public void onAnimationStart(Animator arg0) {
 				img_hide.setVisibility(View.VISIBLE);
 			}
-			
+
 			@Override
 			public void onAnimationEnd(Animator arg0) {
 				img_hide.setVisibility(View.GONE);
 			}
-			
+
 		});
 	}
 
@@ -683,23 +693,62 @@ public class GoodsDetailActivity extends BaseActivity implements
 				initStocks(stocks.get(position));
 			}
 		});
-
-		// 初始化选项卡显示内容
-		WebView mWebView = (WebView) findViewById(R.id.mWebView);
-		mWebView.loadData(main.getItemDetailImgss(), "text/html", "UTF-8");
-		mWebView.setFocusable(false);
-		TextView notice = (TextView) findViewById(R.id.notice);
-		if (main.getItemNotice() != null) {
-			notice.setVisibility(View.VISIBLE);
-			notice.setText(main.getItemNotice());
-		}
-		content_params.setAdapter(new GoodsDetailParamAdapter(main
-				.getItemFeatures(), this));
-		content_hot.setAdapter(new GoodsDetailParamAdapter(main
-				.getItemFeatures(), this));
 		initShopcartNum();
-
+		initFragmentPager(main);
 	}
+	
+	private void initFragmentPager(Main main){
+		List<String> categorylist = new ArrayList<String>();
+		categorylist.add("图文详情");
+		categorylist.add("商品参数");
+		categorylist.add("热门商品");
+		
+		final List<ScrollAbleFragment> fragmentlist = new ArrayList<ScrollAbleFragment>();
+		ScrollAbleFragment imgFragment = ImgFragment.newInstance(main.getItemNotice(), main.getItemDetailImgs());
+		ScrollAbleFragment parFragment = ParamsFragment.newInstance(main.getItemFeaturess());
+		ScrollAbleFragment gridViewFragment = ParamsFragment.newInstance(main.getItemFeaturess());
+		fragmentlist.add(imgFragment);
+		fragmentlist.add(parFragment);
+		fragmentlist.add(gridViewFragment);
+		
+		PagerModelManager factory = new PagerModelManager();
+		factory.addCommonFragment(fragmentlist, categorylist);
+		ModelPagerAdapter adapter = new ModelPagerAdapter(getSupportFragmentManager(), factory);
+		viewPager.setAdapter(adapter);
+		 mScrollLayout.getHelper().setCurrentScrollableContainer(fragmentlist.get(0));
+	     pagerSlidingTabStrip.setViewPager(viewPager);
+	     mScrollLayout.setOnScrollListener(new OnScrollListener() {
+			
+			@Override
+			public void onScroll(int currentY, int maxY) {
+				if(currentY >1 && back_top.getVisibility() == View.GONE){
+					back_top.setVisibility(View.VISIBLE);
+				}
+				if(currentY <=1 && back_top.getVisibility() == View.VISIBLE){
+					back_top.setVisibility(View.GONE);
+				}
+			}
+		});
+	     pagerSlidingTabStrip.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+	            @Override
+	            public void onPageScrolled(int i, float v, int i2) {
+	            }
+
+	            @Override
+	            public void onPageSelected(int i) {
+	                Log.e("onPageSelected", "page:" + i);
+	                /** 标注当前页面 **/
+	                mScrollLayout.getHelper().setCurrentScrollableContainer(fragmentlist.get(i));
+	            }
+
+	            @Override
+	            public void onPageScrollStateChanged(int i) {
+
+	            }
+	        });
+	     viewPager.setCurrentItem(0);
+	}
+	
 
 	private int curPostalTaxRate; // 当前商品税率
 	private double curItemPrice; // 当前商品价格
@@ -775,82 +824,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 						R.drawable.page_indicator_fcoused });
 	}
 
-	/**
-	 * 选项卡选中改变事件
-	 */
-	@Override
-	public void onCheckedChanged(RadioGroup group, int checkedId) {
-		switch (checkedId) {
-		case R.id.guid1:
-		case R.id.guid1_hide:
-			findViewById(R.id.content_img).setVisibility(View.VISIBLE);
-			content_params.setVisibility(View.GONE);
-			content_hot.setVisibility(View.GONE);
-			if (indicator_hide.getVisibility() == View.GONE) {
-				indicator_hide.check(R.id.guid1_hide);
-			} else {
-				indicator.check(R.id.guid1);
-			}
-			break;
-		case R.id.guid2:
-		case R.id.guid2_hide:
-			findViewById(R.id.content_img).setVisibility(View.GONE);
-			content_params.setVisibility(View.VISIBLE);
-			content_hot.setVisibility(View.GONE);
-			if (indicator_hide.getVisibility() == View.GONE) {
-				indicator_hide.check(R.id.guid2_hide);
-			} else {
-				indicator.check(R.id.guid2);
-				content_params.requestFocusFromTouch();
-				content_params.setSelection(0);
-			}
-			break;
-		case R.id.guid3:
-		case R.id.guid3_hide:
-			findViewById(R.id.content_img).setVisibility(View.GONE);
-			content_params.setVisibility(View.GONE);
-			content_hot.setVisibility(View.VISIBLE);
-			if (indicator_hide.getVisibility() == View.GONE) {
-				indicator_hide.check(R.id.guid3_hide);
-			} else {
-				indicator.check(R.id.guid3);
-			}
-			break;
-
-		default:
-			break;
-		}
-	}
-
-	@Override
-	public void onScroll(int scrollY, boolean scrollDirection) {
-		// 如果滚动值
-		if (scrollY >= pager_header.getMeasuredHeight()
-				&& indicator_hide.getVisibility() == View.GONE) {
-			indicator_hide.setVisibility(View.VISIBLE);
-			indicator.setOnCheckedChangeListener(null);
-			indicator_hide.setOnCheckedChangeListener(this);
-			return;
-		}
-
-		if (scrollY < pager_header.getMeasuredHeight()
-				&& indicator_hide.getVisibility() == View.VISIBLE) {
-			indicator_hide.setVisibility(View.GONE);
-			indicator.setOnCheckedChangeListener(this);
-			indicator_hide.setOnCheckedChangeListener(null);
-			return;
-		}
-
-		if (scrollY > 0 && back_top.getVisibility() == View.GONE) {
-			back_top.setVisibility(View.VISIBLE);
-		}
-
-		if (scrollY <= 0 && back_top.getVisibility() == View.VISIBLE) {
-			back_top.setVisibility(View.GONE);
-		}
-
-	}
-
 	// ---------------友盟-----------------------
 	private UMShareListener umShareListener = new UMShareListener() {
 		@Override
@@ -901,10 +874,16 @@ public class GoodsDetailActivity extends BaseActivity implements
 		public void onReceive(Context context, Intent intent) {
 			if (intent.getAction().equals(
 					AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR)) {
+				msg = null;
 				getGoodsNums();
 			}
 		}
 	}
+	
+    // Handle scroll event from fragments
+    public void onEvent(Boolean b){
+//        dragLayout.setTouchMode(b);
+    }
 
 	@Override
 	protected void onDestroy() {
@@ -918,11 +897,18 @@ public class GoodsDetailActivity extends BaseActivity implements
 		super.onResume();
 		MobclickAgent.onPageStart("GoodsDetailActivity"); // 统计页面(仅有Activity的应用中SDK自动调用，不需要单独写。"SplashScreen"为页面名称，可自定义)
 		MobclickAgent.onResume(this); // 统计时长
+		 EventBus.getDefault().register(this);
 	}
+	
+
 
 	public void onPause() {
 		super.onPause();
 		ToastUtils.cancel();
+<<<<<<< HEAD
+=======
+		 EventBus.getDefault().unregister(this);
+>>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
 		MobclickAgent.onPageEnd("GoodsDetailActivity"); // （仅有Activity的应用中SDK自动调用，不需要单独写）保证
 														// onPageEnd 在onPause
 														// 之前调用,因为 onPause
