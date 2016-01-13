@@ -55,6 +55,10 @@
             android:launchMode="singleTask"
             android:theme="@style/AppThemeForOrder" />
         <activity
+            android:name="com.hanmimei.activity.MyOrderNewActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"/>
+        <activity
             android:name="com.hanmimei.activity.CouponActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeForOrder" />
@@ -84,6 +88,12 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.hanmimei.activity.RegistActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.hanmimei.activity.CheckPhoneActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.hanmimei.activity.ForgetPhoneActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.hanmimei.activity.ForgetPwdActivity"

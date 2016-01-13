@@ -17,25 +17,16 @@
         android:textColor="@color/theme"
         android:visibility="invisible"
         android:background="#ffeedd"/>
-     <TextView 
-         android:id="@+id/phone"
-        android:layout_margin="15dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/send_yan_to_phone"
-        android:textSize="14sp"
-        android:textColor="@color/huise"/>
-     <!-- 
    <LinearLayout 
-        android:padding="15dp"
+          android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@color/white">
         <TextView 
+            android:layout_margin="15dp"
             android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
             android:text="@string/phone_num"
             android:textSize="16sp"
             android:textColor="@color/fontcolor"
@@ -43,16 +34,20 @@
         <EditText 
             android:id="@+id/phone_num"
             android:maxLength="11"
-            android:layout_marginLeft="10dp"
             android:inputType="number"
             android:hint="@string/input_phone"
             style="@style/login_edit_style"
             android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_gravity="center_vertical"
             android:background="@null"/>
     </LinearLayout>
-     -->
+    <View 
+        android:layout_height="0.1dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="match_parent"
+        android:background="@color/qianhui"/>
       <LinearLayout 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -121,6 +116,7 @@
             android:layout_gravity="center_vertical"
             android:background="@null"/>
     </LinearLayout>
+    <!-- 
     <View 
         android:layout_height="0.1dp"
         android:layout_marginLeft="10dp"
@@ -152,7 +148,7 @@
             android:layout_gravity="center_vertical"
             android:background="@null"/>
     </LinearLayout>
-
+ -->
        <TextView 
            android:layout_marginLeft="15dp"
            android:layout_marginRight="15dp"
@@ -161,7 +157,7 @@
             android:padding="8dp"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:text="@string/regist"
+            android:text="@string/confirm"
             android:textSize="16sp"
             android:textColor="@color/white"
             android:gravity="center"

@@ -66,8 +66,9 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 		ActionBarUtil.setActionBarStyle(this, "管理地址", 0, true, null);
 		user = getUser();
 		fromm = getIntent().getIntExtra("from", From.AboutMyFragment);
-		if (fromm == From.GoodsBalanceActivity)
+		if (fromm == From.GoodsBalanceActivity){
 			selectedId = getIntent().getLongExtra("selectedId", 0);
+		}
 		findView();
 		loadData();
 
@@ -144,14 +145,6 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 					finish();
 					return;
 				}
-				Intent intent = new Intent(AdressActivity.this,
-						EditAdressActivity.class);
-				Bundle bundle = new Bundle();
-				bundle.putSerializable("address", data.get(position));
-				intent.putExtras(bundle);
-				intent.putExtra("isWhat", 1);
-				AdressActivity.this.startActivityForResult(intent,
-						AppConstant.ADR_UP_SU);
 			}
 		});
 	}
@@ -265,6 +258,9 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 						.findViewById(R.id.isDefault);
 				holder.isSelected = (ImageView) convertView
 						.findViewById(R.id.isSelected);
+				holder.icon = (ImageView) convertView
+						.findViewById(R.id.icon);
+				holder.btn_xiugai = convertView.findViewById(R.id.btn_xiugai);
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolder) convertView.getTag();
@@ -274,17 +270,34 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 			holder.id_card.setText("身份证号：" + adress.getIdCard().substring(0, 5) + "********" + adress.getIdCard().substring(14, adress.getIdCard().length()));
 			holder.adress.setText("收货地址：" + adress.getCity() + "  "
 					+ adress.getAdress());
+			holder.btn_xiugai.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View arg0) {
+					Intent intent = new Intent(AdressActivity.this,
+							EditAdressActivity.class);
+					Bundle bundle = new Bundle();
+					bundle.putSerializable("address", adress);
+					intent.putExtras(bundle);
+					intent.putExtra("isWhat", 1);
+					AdressActivity.this.startActivityForResult(intent,
+							AppConstant.ADR_UP_SU);
+				}
+			});
 			if (adress.isDefault()) {
 				holder.isDefault.setVisibility(View.VISIBLE);
 			} else {
 				holder.isDefault.setVisibility(View.GONE);
 			}
 			if (fromm == From.GoodsBalanceActivity) {
+				holder.icon.setVisibility(View.INVISIBLE);
 				if (adress.getAdress_id() == selectedId) {
 					holder.isSelected.setVisibility(View.VISIBLE);
 				} else {
 					holder.isSelected.setVisibility(View.GONE);
 				}
+			}else{
+				holder.icon.setVisibility(View.VISIBLE);
 			}
 
 			return convertView;
@@ -296,7 +309,8 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 			private TextView adress;
 			private TextView id_card;
 			private TextView isDefault;
-			private ImageView isSelected;
+			private ImageView isSelected,icon;
+			private View btn_xiugai;
 		}
 
 	}

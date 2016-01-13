@@ -58,7 +58,7 @@ public class ForgetPwdActivity extends BaseActivity implements OnClickListener,T
 		send = (TextView) findViewById(R.id.regist);
 		attention = (TextView) findViewById(R.id.attention);
 		send.setText("确定");
-		new_pwd = (TextView) findViewById(R.id.new_pwd);
+//		new_pwd = (TextView) findViewById(R.id.new_pwd);
 		new_pwd.setText("新密码");
 		get_code.setOnClickListener(this);
 		get_code.setTimeEndListner(this);
