@@ -15,10 +15,22 @@
         android:text="确定删除？"
         android:textSize="16sp"
         android:textColor="@color/fontcolor"/>
+     <TextView 
+        android:layout_margin="10dp"
+         android:paddingTop="2dp"
+         android:paddingBottom="2dp"
+        android:paddingLeft="15dp"
+        android:id="@+id/attention"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@null"
+        android:textSize="12sp"
+        android:textColor="@color/theme"
+        android:visibility="gone"
+        android:background="#ffeedd"/>
     <LinearLayout 
         android:id="@+id/linear"
         android:padding="7dp"
-        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -29,6 +41,7 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
+        android:inputType="textVisiblePassword"
         android:hint="请填写校验码"
         android:textSize="14sp"
         android:background="@null"/>

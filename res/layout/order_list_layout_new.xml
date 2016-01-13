@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:background="@color/background" >
 
         <RelativeLayout
             android:id="@+id/tv_guid1"
@@ -70,7 +71,8 @@
                 android:textSize="10sp" 
                 android:textStyle="bold"
                 android:textColor="@color/white"
-                android:background="@drawable/nums_bg_radio"/>
+                android:background="@drawable/nums_bg_radio"
+                android:visibility="invisible"/>
             <TextView
         		android:id="@+id/cursor2"
         		android:layout_below="@id/t2"
@@ -111,7 +113,8 @@
                 android:textSize="10sp" 
                 android:textStyle="bold"
                 android:textColor="@color/white"
-                android:background="@drawable/nums_bg_radio"/>
+                android:background="@drawable/nums_bg_radio"
+                android:visibility="invisible"/>
             <TextView
         		android:id="@+id/cursor3"
         		android:layout_below="@id/t3"
@@ -152,7 +155,8 @@
                 android:textSize="10sp" 
                 android:textStyle="bold"
                 android:textColor="@color/white"
-                android:background="@drawable/nums_bg_radio"/>
+                android:background="@drawable/nums_bg_radio"
+                android:visibility="invisible"/>
             <TextView
         		android:id="@+id/cursor4"
         		android:layout_below="@id/t4"
@@ -169,6 +173,7 @@
     
 
     <android.support.v4.view.ViewPager
+        android:layout_marginTop="5dp"
         android:id="@+id/viewpager"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

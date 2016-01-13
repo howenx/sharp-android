@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hanmimei.R;
@@ -41,6 +42,7 @@ public class CheckPhoneActivity extends BaseActivity implements OnClickListener 
 	private TextView attention;
 
 	private AlertDialog alertDialog;
+	private ImageView clear_phone;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,6 +60,8 @@ public class CheckPhoneActivity extends BaseActivity implements OnClickListener 
 		next.setClickable(false);
 		go_login.setOnClickListener(this);
 		phone.addTextChangedListener(mTextWatcher);
+		clear_phone = (ImageView) findViewById(R.id.clear_phone);
+		clear_phone.setOnClickListener(this);
 	}
 
 	TextWatcher mTextWatcher = new TextWatcher() {
@@ -88,6 +92,11 @@ public class CheckPhoneActivity extends BaseActivity implements OnClickListener 
 				next.setClickable(false);
 				next.setOnClickListener(null);
 			}
+			if (s.length() != 0) {
+				clear_phone.setVisibility(View.VISIBLE);
+			} else {
+				clear_phone.setVisibility(View.INVISIBLE);
+			}
 		}
 	};
 
@@ -114,7 +123,10 @@ public class CheckPhoneActivity extends BaseActivity implements OnClickListener 
 			DoJumpUtils.doJump(this, ForgetPhoneActivity.class);
 			finish();
 			break;
-
+		// 清空手机号的输入
+		case R.id.clear_phone:
+			phone.setText("");
+			break;
 		default:
 			break;
 		}

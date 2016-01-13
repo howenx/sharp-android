@@ -47,6 +47,7 @@ public class ForgetPhoneActivity extends BaseActivity implements
 	private ImageView jiaoyanImg;
 	private EditText codeEditText;
 	private AlertDialog imgDialog;
+	private ImageView clear_phone;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,6 +67,8 @@ public class ForgetPhoneActivity extends BaseActivity implements
 		phone.addTextChangedListener(mTextWatcher);
 		attention.setVisibility(View.INVISIBLE);
 		findViewById(R.id.bom_re).setVisibility(View.GONE);
+		clear_phone = (ImageView) findViewById(R.id.clear_phone);
+		clear_phone.setOnClickListener(this);
 	}
 
 	TextWatcher mTextWatcher = new TextWatcher() {
@@ -96,6 +99,11 @@ public class ForgetPhoneActivity extends BaseActivity implements
 				next.setClickable(false);
 				next.setOnClickListener(null);
 			}
+			if (s.length() != 0) {
+				clear_phone.setVisibility(View.VISIBLE);
+			} else {
+				clear_phone.setVisibility(View.INVISIBLE);
+			}
 		}
 	};
 
@@ -123,6 +131,10 @@ public class ForgetPhoneActivity extends BaseActivity implements
 			finish();
 			break;
 
+		// 清空手机号的输入
+		case R.id.clear_phone:
+			phone.setText("");
+			break;
 		default:
 			break;
 		}
@@ -222,6 +234,7 @@ public class ForgetPhoneActivity extends BaseActivity implements
 	}
 
 	private String code;
+	private TextView code_attention;
 
 	private void showCodeDialog() {
 		View view = LayoutInflater.from(this).inflate(R.layout.dialog_layout,
@@ -232,6 +245,7 @@ public class ForgetPhoneActivity extends BaseActivity implements
 		TextView title = (TextView) view.findViewById(R.id.title);
 		jiaoyanImg = (ImageView) view.findViewById(R.id.img);
 		codeEditText = (EditText) view.findViewById(R.id.code);
+		code_attention = (TextView) view.findViewById(R.id.attention);
 		view.findViewById(R.id.linear).setVisibility(View.VISIBLE);
 		title.setText("安全校验");
 		view.findViewById(R.id.cancle).setOnClickListener(
@@ -247,12 +261,16 @@ public class ForgetPhoneActivity extends BaseActivity implements
 
 					@Override
 					public void onClick(View v) {
+						code_attention.setVisibility(View.GONE);
 						code = codeEditText.getText().toString();
-						if (code.equals("")) {
-
+						if (code.length() != 4 || !CommonUtil.isJiaoYan(code)) {
+							code_attention.setText("验证码格式不正确");
+							code_attention.setVisibility(View.VISIBLE);
+							return;
+						} else {
+							imgDialog.dismiss();
+							checkPhone();
 						}
-						imgDialog.dismiss();
-						checkPhone();
 					}
 				});
 		view.findViewById(R.id.refresh).setOnClickListener(

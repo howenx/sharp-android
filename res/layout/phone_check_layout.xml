@@ -23,20 +23,33 @@
         android:text="@string/send_yan_to_phone"
         android:textSize="14sp"
         android:textColor="@color/huise"/>
-    <LinearLayout 
+    <RelativeLayout 
         android:padding="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@color/white">
         <TextView 
+            android:id="@+id/text1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/phone_num"
             android:textSize="16sp"
             android:textColor="@color/fontcolor"/>
+        <ImageView 
+            android:id="@+id/clear_phone"
+            android:padding="3dp"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_guanbi"
+            android:visibility="invisible"/>
         <EditText 
             android:id="@+id/phone"
+            android:layout_toRightOf="@id/text1"
+            android:layout_toLeftOf="@id/clear_phone"
             android:maxLength="11"
             android:layout_marginLeft="15dp"
             android:layout_width="match_parent"
@@ -46,7 +59,7 @@
             android:textColor="@color/fontcolor"
             android:inputType="number"
             android:background="@null"/>
-    </LinearLayout>
+    </RelativeLayout>
     <TextView 
         android:id="@+id/next"
         android:layout_margin="15dp"
