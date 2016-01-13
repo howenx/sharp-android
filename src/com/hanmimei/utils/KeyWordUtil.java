@@ -3,14 +3,14 @@ package com.hanmimei.utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.hanmimei.R;
-
 import android.content.Context;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.TextAppearanceSpan;
 import android.widget.TextView;
+
+import com.hanmimei.R;
 
 public class KeyWordUtil {
 	

@@ -27,12 +27,10 @@ import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.HMMGoods;
 import com.hanmimei.entity.HMMGoods.ImgTag;
-import com.hanmimei.entity.GoodsDetail;
 import com.hanmimei.entity.HMMThemeGoods;
 import com.hanmimei.entity.HMMThemeGoods.ThemeList;
 import com.hanmimei.entity.ImgInfo;
 import com.hanmimei.entity.ShoppingGoods;
-import com.hanmimei.manager.BadgeViewManager;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.Http2Utils;
@@ -41,7 +39,6 @@ import com.hanmimei.utils.ImageLoaderUtils;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.utils.WaveAnimationUtil;
 import com.hanmimei.view.BadgeView;
-import com.squareup.picasso.Picasso;
 import com.umeng.analytics.MobclickAgent;
 
 /**

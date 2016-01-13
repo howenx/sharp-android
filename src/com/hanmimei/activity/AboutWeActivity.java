@@ -1,12 +1,12 @@
 package com.hanmimei.activity;
 
 
+import android.annotation.SuppressLint;
+import android.os.Bundle;
+
 import com.hanmimei.R;
 import com.hanmimei.utils.ActionBarUtil;
 import com.umeng.analytics.MobclickAgent;
-
-import android.annotation.SuppressLint;
-import android.os.Bundle;
 
 @SuppressLint("NewApi") 
 public class AboutWeActivity extends BaseActivity {

@@ -1,8 +1,5 @@
 package com.hanmimei.utils;
 
-import com.hanmimei.R;
-import com.hanmimei.view.CustomDialog;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v7.app.AlertDialog;
@@ -11,6 +8,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.hanmimei.R;
+import com.hanmimei.view.CustomDialog;
 /**
  * 弹窗工具类
  * @author vince

@@ -8,9 +8,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.google.gson.Gson;
-import com.hanmimei.entity.HMMAddress;
 import com.hanmimei.entity.Customs;
 import com.hanmimei.entity.GoodsDetail;
+import com.hanmimei.entity.HMMAddress;
 import com.hanmimei.entity.HMMThemeGoods;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.Order;

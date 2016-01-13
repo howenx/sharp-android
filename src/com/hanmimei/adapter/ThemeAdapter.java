@@ -17,7 +17,6 @@ import com.hanmimei.R;
 import com.hanmimei.entity.HMMGoods;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.ImageLoaderUtils;
-import com.squareup.picasso.Picasso;
 
 public class ThemeAdapter extends BaseAdapter {
 	private List<HMMGoods> data;

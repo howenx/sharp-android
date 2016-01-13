@@ -8,7 +8,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Environment;
 
-import com.hanmimei.utils.ToastUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 /** * 本应用数据清除管理器 */

@@ -1,7 +1,6 @@
 package com.hanmimei.adapter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;

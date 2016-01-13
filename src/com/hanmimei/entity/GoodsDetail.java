@@ -1,6 +1,5 @@
 package com.hanmimei.entity;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;

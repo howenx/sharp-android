@@ -1,8 +1,6 @@
 package com.hanmimei.view;
 
 
-import com.hanmimei.R;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -18,7 +16,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
+
+import com.hanmimei.R;
 
 public class RoundImageView extends ImageView {
 	private static final ScaleType SCALE_TYPE = ScaleType.CENTER_CROP;

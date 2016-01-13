@@ -3,6 +3,7 @@ package com.hanmimei.manager;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.hanmimei.R;
 import com.hanmimei.adapter.ShoppingCarPullListAdapter;
 import com.hanmimei.entity.Customs;

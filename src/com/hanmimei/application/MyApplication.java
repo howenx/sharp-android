@@ -9,7 +9,6 @@ import com.hanmimei.dao.DaoMaster;
 import com.hanmimei.dao.DaoMaster.DevOpenHelper;
 import com.hanmimei.dao.DaoSession;
 import com.hanmimei.entity.User;
-import com.hanmimei.utils.ToastUtils;
 import com.umeng.socialize.PlatformConfig;
 
 public class MyApplication extends Application {

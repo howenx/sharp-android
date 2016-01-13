@@ -26,7 +26,6 @@ import com.hanmimei.activity.EditUserInfoActivity;
 import com.hanmimei.activity.LoginActivity;
 import com.hanmimei.activity.MyCollectionActivity;
 import com.hanmimei.activity.MyOrderActivity;
-import com.hanmimei.activity.MyOrderActivity;
 import com.hanmimei.dao.UserDao;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;

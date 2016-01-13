@@ -1,7 +1,5 @@
 package com.hanmimei.view;
 
-import com.hanmimei.R;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -10,6 +8,8 @@ import android.graphics.Movie;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
+
+import com.hanmimei.R;
 
 public class CustomGifView extends View{
 	/** 

@@ -1,19 +1,16 @@
 package com.hanmimei.activity.fragment;
 
-import github.chenupt.dragtoplayout.AttachUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.TextView;
 
+import com.cpoopc.scrollablelayoutlib.ScrollAbleFragment;
 import com.cpoopc.scrollablelayoutlib.ScrollableHelper;
 import com.hanmimei.R;
-import com.test.cp.myscrolllayout.fragment.base.ScrollAbleFragment;
-import com.ypy.eventbus.EventBus;
 
 public class ImgFragment extends ScrollAbleFragment  implements ScrollableHelper.ScrollableContainer {
 	

@@ -1,10 +1,8 @@
 package com.hanmimei.utils;
 
 import android.content.Context;
-import android.view.View;
 
 import com.github.johnpersano.supertoasts.SuperToast;
-import com.github.johnpersano.supertoasts.SuperToast.OnDismissListener;
 
 public class ToastUtils {
 

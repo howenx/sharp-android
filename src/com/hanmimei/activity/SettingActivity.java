@@ -1,13 +1,5 @@
 package com.hanmimei.activity;
 
-import com.hanmimei.R;
-import com.hanmimei.application.MyApplication;
-import com.hanmimei.dao.UserDao;
-import com.hanmimei.data.AppConstant;
-import com.hanmimei.utils.ActionBarUtil;
-import com.hanmimei.utils.DoJumpUtils;
-import com.umeng.analytics.MobclickAgent;
-
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -22,6 +14,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.hanmimei.R;
+import com.hanmimei.application.MyApplication;
+import com.hanmimei.dao.UserDao;
+import com.hanmimei.data.AppConstant;
+import com.hanmimei.utils.ActionBarUtil;
+import com.hanmimei.utils.DoJumpUtils;
+import com.umeng.analytics.MobclickAgent;
 
 @SuppressLint("NewApi") 
 public class SettingActivity extends BaseActivity implements OnClickListener{

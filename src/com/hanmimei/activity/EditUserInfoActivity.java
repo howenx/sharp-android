@@ -48,8 +48,8 @@ import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.DateUtil;
 import com.hanmimei.utils.HasSDCardUtil;
 import com.hanmimei.utils.HttpUtils;
-import com.hanmimei.utils.ImgUtils;
 import com.hanmimei.utils.ImageLoaderUtils;
+import com.hanmimei.utils.ImgUtils;
 import com.hanmimei.view.RoundImageView;
 import com.umeng.analytics.MobclickAgent;
 

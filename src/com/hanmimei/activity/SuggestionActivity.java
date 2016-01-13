@@ -1,9 +1,5 @@
 package com.hanmimei.activity;
 
-import com.hanmimei.R;
-import com.hanmimei.utils.ActionBarUtil;
-import com.hanmimei.utils.CommonUtil;
-
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,6 +8,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.hanmimei.R;
+import com.hanmimei.utils.ActionBarUtil;
+import com.hanmimei.utils.CommonUtil;
 
 public class SuggestionActivity extends BaseActivity implements OnClickListener{
 
