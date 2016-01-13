@@ -35,28 +35,21 @@ public class ToastUtils {
 			toast.setAnimations(SuperToast.Animations.FLYIN);
 			toast.setDuration(duration);
 			toast.setBackground(SuperToast.Background.BLACK);
-			toast.setOnDismissListener(new OnDismissListener() {
-				
-				@Override
-				public void onDismiss(View view) {
-					if(toast == null)
-						return;
-					if (!s.equals(oldMsg)) {
-						oldMsg = s;
-						toast.setText(s);
-						toast.show();
-					}
-				}
-			});
+			oldMsg = s;
 			toast.setText(s);
 			toast.setTextSize(12);
 			toast.show();
 		} else {
-			oldMsg = s;
-			if(toast.isShowing())
-				return;
-			toast.setText(s);
-			toast.show();	
+			if(toast.isShowing()){
+				if(!oldMsg.equals(s)){
+					toast.setText(s);
+					toast.show();
+				}
+				oldMsg = s;
+			}else{
+				toast.setText(s);
+				toast.show();
+			}
 		}
 	}
 

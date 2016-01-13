@@ -2,7 +2,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white" 
     android:fitsSystemWindows="true" >
 
     <LinearLayout
@@ -15,355 +14,208 @@
             android:layout_height="0dp"
             android:layout_weight="1" >
 
-            <com.hanmimei.view.CustomScrollView
-                android:id="@+id/mScrollView"
+            <com.cpoopc.scrollablelayoutlib.ScrollableLayout
+                android:id="@+id/mScrollLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent"
+                android:background="@color/background"
+                android:orientation="vertical" >
 
                 <LinearLayout
+                    android:id="@+id/pager_header"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#ECECEC"
                     android:orientation="vertical" >
 
-                    <LinearLayout
-                        android:id="@+id/pager_header"
+                    <FrameLayout
+                        android:id="@+id/viewpager_content"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical" >
+                        android:layout_height="wrap_content" >
 
-                        <FrameLayout
-                            android:id="@+id/viewpager_content"
+                        <com.bigkoo.convenientbanner.ConvenientBanner
+                            android:id="@+id/slider"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" >
-
-                            <com.bigkoo.convenientbanner.ConvenientBanner
-                                android:id="@+id/slider"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent" />
-                        </FrameLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1px"
-                            android:background="#CCCCCC" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1px"
-                            android:background="#CCCCCC" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/white"
-                            android:orientation="horizontal"
-                            android:padding="8dp" >
-
-                            <TextView
-                                android:id="@+id/discount"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/theme"
-                                android:textSize="14sp" />
-
-                            <TextView
-                                android:id="@+id/itemTitle"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:textColor="#AA000000"
-                                android:textSize="14sp" />
-
-                            <View
-                                android:layout_width="1px"
-                                android:layout_height="22dp"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="8dp"
-                                android:layout_marginRight="8dp"
-                                android:background="@color/xian"
-                                android:visibility="gone" />
-
-                            <ImageView
-                                android:id="@+id/btn_collect"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:contentDescription="@null"
-                                android:src="@drawable/shoucang_no"
-                                android:visibility="gone" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/white"
-                            android:orientation="horizontal"
-                            android:paddingLeft="8dp" 
-                            android:paddingRight="8dp" >
-
-                            <TextView
-                                android:id="@+id/area"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:drawableLeft="@drawable/hmm_dingwei_icon"
-                                android:gravity="center"
-                                android:textColor="@color/fontcolor" 
-                                android:textSize="12sp" />
-
-                            <View
-                                android:layout_width="0dp"
-                                android:layout_height="1dp"
-                                android:layout_weight="1" />
-
-                            <TextView
-                                android:id="@+id/itemPrice"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@color/white"
-                                android:gravity="right|end"
-                                android:textColor="@color/red"
-                                android:textSize="@dimen/font_big" />
-
-                            <TextView
-                                android:id="@+id/itemSrcPrice"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@color/white"
-                                android:gravity="right|end"
-                                android:layout_marginLeft="3dp"
-                                android:textColor="#BBBBBB"
-                                android:textSize="@dimen/font_small" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/white"
-                            android:orientation="horizontal"
-                            android:padding="8dp" >
-
-                            <TextView
-                                android:id="@+id/restrictAmount"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                 android:drawableLeft="@drawable/hmm_tanhao_icon"
-                                android:textColor="@color/fontcolor"
-                                android:textSize="@dimen/font_normal" />
-
-                            <View
-                                android:layout_width="0dp"
-                                android:layout_height="1dp"
-                                android:layout_weight="1" />
-
-                            <TextView
-                                android:id="@+id/btn_portalFee"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:drawablePadding="5dp"
-                                android:drawableRight="@drawable/hmm_wenhao_icon"
-                                android:gravity="center_vertical"
-                                android:text="税费"
-                                android:textColor="@color/fontcolor" />
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:background="@color/white"
-                            android:padding="10dp"
-                            android:text="规格"
-                            android:textColor="#000000"
-                            android:textSize="14sp" />
-
-                        <com.hanmimei.view.TagCloudView
-                            android:id="@+id/tagCloudView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/white"
-                            app:tcvBorder="5dp"
-                            app:tcvCanTagClick="false"
-                            app:tcvItemBorderHorizontal="8dp"
-                            app:tcvItemBorderVertical="6dp"
-                            app:tcvSingleLine="false"
-                            app:tcvTextColor="@color/black" />
-
-                        <TextView
-                            android:id="@+id/publicity"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp"
-                            android:layout_marginTop="10dp"
-                            android:background="@color/white"
-                            android:padding="10dp"
-                            android:textColor="#FF7F01"
-                            android:textSize="14sp" />
-                    </LinearLayout>
-
-                    <RadioGroup
-                        android:id="@+id/indicator"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:background="@color/white"
-                        android:checkedButton="@+id/guid1"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal" >
-
-                        <RadioButton
-                            android:id="@+id/guid1"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1.0"
-                            android:background="@drawable/radio_btn_bg"
-                            android:button="@null"
-                            android:gravity="center"
-                            android:orientation="vertical"
-                            android:padding="10dp"
-                            android:text="图文详情"
-                            android:textColor="@color/indicator_font_color_selector"
-                            android:textSize="13sp" />
-
-                        <RadioButton
-                            android:id="@+id/guid2"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1.0"
-                            android:background="@drawable/radio_btn_bg"
-                            android:button="@null"
-                            android:gravity="center"
-                            android:orientation="vertical"
-                            android:padding="10dp"
-                            android:text="商品参数"
-                            android:textColor="@color/indicator_font_color_selector"
-                            android:textSize="13sp" />
-
-                        <RadioButton
-                            android:id="@+id/guid3"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1.0"
-                            android:background="@drawable/radio_btn_bg"
-                            android:button="@null"
-                            android:gravity="center"
-                            android:orientation="vertical"
-                            android:padding="10dp"
-                            android:text="热卖商品"
-                            android:textColor="@color/indicator_font_color_selector"
-                            android:textSize="13sp" />
-                    </RadioGroup>
+                            android:layout_height="match_parent" />
+                    </FrameLayout>
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1px"
-                        android:background="@color/xian" />
+                        android:background="#CCCCCC" />
 
-                    <FrameLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" >
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="horizontal"
+                        android:padding="8dp" >
 
-                        <LinearLayout
-                            android:id="@+id/content_img"
-                            android:layout_width="match_parent"
+                        <TextView
+                            android:id="@+id/discount"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical" >
+                            android:textColor="@color/theme"
+                            android:textSize="14sp" />
 
-                            <TextView
-                                android:id="@+id/notice"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@color/white"
-                                android:padding="@dimen/padding_middle"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/font_small"
-                                android:visibility="gone" />
+                        <TextView
+                            android:id="@+id/itemTitle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="#AA000000"
+                            android:textSize="14sp" />
 
-                            <com.hanmimei.view.TouchWebView
-                                android:id="@+id/mWebView"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
-                        </LinearLayout>
-
-                        <ListView
-                            android:id="@+id/content_params"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@color/white"
+                        <View
+                            android:layout_width="1px"
+                            android:layout_height="22dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp"
+                            android:background="@color/xian"
                             android:visibility="gone" />
 
-                        <ListView
-                            android:id="@+id/content_hot"
-                            android:layout_width="match_parent"
+                        <ImageView
+                            android:id="@+id/btn_collect"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:contentDescription="@null"
+                            android:src="@drawable/shoucang_no"
+                            android:visibility="gone" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="horizontal"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp" >
+
+                        <TextView
+                            android:id="@+id/area"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/hmm_dingwei_icon"
+                            android:gravity="center"
+                            android:textColor="@color/fontcolor"
+                            android:textSize="12sp" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:id="@+id/itemPrice"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@color/white"
-                            android:visibility="gone" />
-                    </FrameLayout>
+                            android:gravity="right|end"
+                            android:textColor="@color/red"
+                            android:textSize="@dimen/font_big" />
+
+                        <TextView
+                            android:id="@+id/itemSrcPrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="3dp"
+                            android:background="@color/white"
+                            android:gravity="right|end"
+                            android:textColor="#BBBBBB"
+                            android:textSize="@dimen/font_small" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="horizontal"
+                        android:padding="8dp" >
+
+                        <TextView
+                            android:id="@+id/restrictAmount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/hmm_tanhao_icon"
+                            android:gravity="center"
+                            android:textColor="@color/fontcolor"
+                            android:textSize="@dimen/font_normal" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:id="@+id/btn_portalFee"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="5dp"
+                            android:drawableRight="@drawable/hmm_wenhao_icon"
+                            android:gravity="center_vertical"
+                            android:text="税费"
+                            android:textColor="@color/fontcolor" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/white"
+                        android:padding="10dp"
+                        android:text="规格"
+                        android:textColor="#000000"
+                        android:textSize="14sp" />
+
+                    <com.hanmimei.view.TagCloudView
+                        android:id="@+id/tagCloudView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        app:tcvBorder="5dp"
+                        app:tcvCanTagClick="false"
+                        app:tcvItemBorderHorizontal="8dp"
+                        app:tcvItemBorderVertical="6dp"
+                        app:tcvSingleLine="false"
+                        app:tcvTextColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/publicity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/white"
+                        android:padding="10dp"
+                        android:textColor="#FF7F01"
+                        android:textSize="14sp" />
                 </LinearLayout>
-            </com.hanmimei.view.CustomScrollView>
+                <!-- content view -->
+<RelativeLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+    
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
-
-                <RadioGroup
-                    android:id="@+id/indicator_hide"
+                <com.astuetz.PagerSlidingTabStrip
+                    android:id="@+id/tabs"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@color/white"
-                    android:checkedButton="@+id/guid1_hide"
-                    android:orientation="horizontal"
-                    android:visibility="gone" >
-
-                    <RadioButton
-                        android:id="@+id/guid1_hide"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1.0"
-                        android:background="@drawable/radio_btn_bg"
-                        android:button="@null"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="10dp"
-                        android:text="图文详情"
-                        android:textColor="@color/indicator_font_color_selector"
-                        android:textSize="13sp" />
-
-                    <RadioButton
-                        android:id="@+id/guid2_hide"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1.0"
-                        android:background="@drawable/radio_btn_bg"
-                        android:button="@null"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="10dp"
-                        android:text="商品参数"
-                        android:textColor="@color/indicator_font_color_selector"
-                        android:textSize="13sp" />
-
-                    <RadioButton
-                        android:id="@+id/guid3_hide"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1.0"
-                        android:background="@drawable/radio_btn_bg"
-                        android:button="@null"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="10dp"
-                        android:text="热卖商品"
-                        android:textColor="@color/indicator_font_color_selector"
-                        android:textSize="13sp" />
-                </RadioGroup>
-
-                <View
+                    android:layout_height="@dimen/actionbar_size"
+                    android:textColor="@color/indicator_font_color_selector"
+                    app:pstsDividerColor="@android:color/transparent"
+                    app:pstsIndicatorColor="@color/theme"
+                    app:pstsIndicatorHeight="2dp"
+                    app:pstsShouldExpand="true"
+                    app:pstsUnderlineHeight="2dp" />
+</RelativeLayout>
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/view_pager"
                     android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="@color/xian" />
-            </LinearLayout>
+                    android:layout_height="match_parent"
+                    android:background="@color/white" >
+                </android.support.v4.view.ViewPager>
+            </com.cpoopc.scrollablelayoutlib.ScrollableLayout>
 
             <include
                 android:layout_width="40dp"

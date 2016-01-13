@@ -120,13 +120,7 @@ public class GoodsDetail {
 			this.offShelvesAt = offShelvesAt;
 		}
 
-		public List<String> getItemDetailImgs() {
-			List<String> result = new Gson().fromJson(itemDetailImgs,
-					new TypeToken<List<String>>() {
-					}.getType());
-			return result;
-		}
-		public String getItemDetailImgss() {
+		public String getItemDetailImgs() {
 			return itemDetailImgs;
 		}
 
@@ -135,7 +129,7 @@ public class GoodsDetail {
 		}
 
 		public List<ItemFeature> getItemFeatures() {
-			List<ItemFeature> list = new ArrayList<GoodsDetail.ItemFeature>();
+			List<ItemFeature> list = new ArrayList<ItemFeature>();
 			Map<String, String> map = new Gson().fromJson(itemFeatures,
 					new TypeToken<Map<String, String>>() {
 					}.getType());
@@ -149,6 +143,10 @@ public class GoodsDetail {
 			return list;
 		}
 
+		public String getItemFeaturess() {
+			return itemFeatures;
+		}
+		
 		public void setItemFeatures(String itemFeatures) {
 			this.itemFeatures = itemFeatures;
 		}
@@ -417,41 +415,5 @@ public class GoodsDetail {
 		}
 	}
 
-	public class ItemFeature implements Serializable {
-
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
-
-		private String key;
-		private String value;
-
-		public ItemFeature(String key, String value) {
-			super();
-			this.key = key;
-			this.value = value;
-		}
-
-		public ItemFeature() {
-			super();
-			// TODO Auto-generated constructor stub
-		}
-
-		public String getKey() {
-			return key;
-		}
-
-		public void setKey(String key) {
-			this.key = key;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		public void setValue(String value) {
-			this.value = value;
-		}
-	}
+	
 }

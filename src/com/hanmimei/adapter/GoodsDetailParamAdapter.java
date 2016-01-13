@@ -10,7 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.hanmimei.R;
-import com.hanmimei.entity.GoodsDetail.ItemFeature;
+import com.hanmimei.entity.ItemFeature;
 
 public class GoodsDetailParamAdapter extends BaseAdapter{
 	

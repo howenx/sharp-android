@@ -71,6 +71,9 @@
             android:name="com.hanmimei.activity.GoodsDetailActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name="com.hanmimei.activity.GoodsDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.hanmimei.activity.OrderDetailActivity"
             android:screenOrientation="portrait" />
         <activity
