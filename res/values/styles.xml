@@ -95,17 +95,26 @@
     </style>
 	<style name="submit">
         <item name="android:background">@drawable/theme_button_bg</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/white</item>
-        <item name="android:paddingBottom">8dp</item>
-        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingTop">10dp</item>
+    </style>
+    <style name="my_login_regist">
+        <item name="android:background">@drawable/white_corner_bg</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/theme</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingRight">15dp</item>
     </style>
     <style name="submit_hui">
         <item name="android:background">@drawable/huise_button_bg</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:paddingBottom">8dp</item>
-        <item name="android:paddingTop">8dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/huise</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingTop">10dp</item>
     </style>
     <style name="submit_mid">
         <item name="android:background">@drawable/theme_button_bg</item>

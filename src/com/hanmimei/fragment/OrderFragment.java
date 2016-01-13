@@ -33,6 +33,7 @@ import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.Category;
 import com.hanmimei.entity.Order;
 import com.hanmimei.entity.User;
+import com.hanmimei.manager.OrderNumsMenager;
 import com.hanmimei.utils.HttpUtils;
 import com.umeng.analytics.MobclickAgent;
 
@@ -109,6 +110,7 @@ public class OrderFragment extends Fragment implements
 	}
 
 	private void getOrderByState(List<Order> orders) {
+		showNums(orders);
 		if (state == 1) {
 			data.addAll(orders);
 		} else if (state == 2) {
@@ -140,6 +142,20 @@ public class OrderFragment extends Fragment implements
 //			}
 //		}
 
+	}
+
+	private void showNums(List<Order> orders) {
+		int nums_1 = 0,nums_2 = 0,nums_3 = 0;
+		for(int i = 0; i < orders.size(); i ++){
+			if (orders.get(i).getOrderStatus().equals("I")) {
+				nums_1 = nums_1 + 1;
+			}else if(orders.get(i).getOrderStatus().equals("D")){
+				nums_2 = nums_2 + 1;
+			}else if(orders.get(i).getOrderStatus().equals("R")){
+				nums_3 = nums_3 + 1;
+			}
+		}
+		OrderNumsMenager.getInstance().numsChanged(nums_1, nums_2, nums_3);
 	}
 
 	@SuppressLint("HandlerLeak")

@@ -20,10 +20,12 @@ import android.widget.TextView;
 import com.hanmimei.R;
 import com.hanmimei.activity.AdressActivity;
 import com.hanmimei.activity.BaseActivity;
+import com.hanmimei.activity.CheckPhoneActivity;
 import com.hanmimei.activity.CouponActivity;
 import com.hanmimei.activity.EditUserInfoActivity;
 import com.hanmimei.activity.LoginActivity;
 import com.hanmimei.activity.MyCollectionActivity;
+import com.hanmimei.activity.MyOrderActivity;
 import com.hanmimei.activity.MyOrderActivity;
 import com.hanmimei.dao.UserDao;
 import com.hanmimei.data.AppConstant;
@@ -54,6 +56,8 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 	private TextView youhui_nums;
 	private LinearLayout youhui_linear;
 	private ImageView sex;
+	private TextView login;
+	private TextView regist;
 
 	private BaseActivity activity;
 	private User user;
@@ -112,7 +116,10 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 		user = activity.getUser();
 		ImageLoaderUtils.loadImage(activity, user.getUserImg(), header);
 		user_name.setText(user.getUserName());
+		user_name.setVisibility(View.VISIBLE);
 		sex.setVisibility(View.VISIBLE);
+		login.setVisibility(View.GONE);
+		regist.setVisibility(View.GONE);
 		if(user.getSex().equals("F")){
 			sex.setImageDrawable(activity.getResources().getDrawable(R.drawable.icon_nv));
 		}else{
@@ -130,9 +137,11 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 
 	private void clearView() {
 		user = activity.getUser();
+		user_name.setVisibility(View.INVISIBLE);
 		ImageLoaderUtils.loadImage(activity, "", header);
-		user_name.setText("点击登录");
 		sex.setVisibility(View.GONE);
+		login.setVisibility(View.VISIBLE);
+		regist.setVisibility(View.VISIBLE);
 	}
 
 	private void findView(View view) {
@@ -149,6 +158,8 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 //		collect = (TextView) view.findViewById(R.id.collect);
 //		collect.setCompoundDrawables(youhui_icon, null, null, null);
 		youhui_nums = (TextView) view.findViewById(R.id.youhui_nums);
+		login = (TextView) view.findViewById(R.id.login);
+		regist = (TextView) view.findViewById(R.id.regist);
 		youhui_nums.setCompoundDrawables(null, null, jiantou_icon, null);
 		header.setOnClickListener(this);
 		order.setOnClickListener(this);
@@ -156,6 +167,8 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 		user_name.setOnClickListener(this);
 //		collect.setOnClickListener(this);
 		youhui_linear.setOnClickListener(this);
+		login.setOnClickListener(this);
+		regist.setOnClickListener(this);
 	}
 
 	@Override
@@ -178,6 +191,12 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 			break;
 		case R.id.youhui_linear:
 			doJump(CouponActivity.class);
+			break;
+		case R.id.login:
+			DoJumpUtils.doJump(activity, LoginActivity.class);
+			break;
+		case R.id.regist:
+			DoJumpUtils.doJump(activity, CheckPhoneActivity.class);
 			break;
 		default:
 			break;
