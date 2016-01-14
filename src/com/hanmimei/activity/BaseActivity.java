@@ -160,7 +160,7 @@ public class BaseActivity extends AppCompatActivity {
 		MyApplication application = (MyApplication) getApplication();
 		return application.getDaoSession();
 	}
-	
+
 	private Toast toast;
 
 	@Override
@@ -171,24 +171,21 @@ public class BaseActivity extends AppCompatActivity {
 		getSupportActionBar().setElevation(0);
 		MobclickAgent.openActivityDurationTrack(false);
 		MobclickAgent.setSessionContinueMillis(60000);
-		 MobclickAgent.setDebugMode(true);
+		MobclickAgent.setDebugMode(true);
 		loadingDialog = new LoadingDialog(this);
 		application = (MyApplication) getApplication();
-		//沉浸式状态栏的设置
+		// 沉浸式状态栏的设置
 		if (VERSION.SDK_INT >= 19) {
-			// 创建状态栏的管理实例  
-		    SystemBarTintManager tintManager = new SystemBarTintManager(this);  
-		    // 激活状态栏设置  
-		    tintManager.setStatusBarTintEnabled(true);  
-		    // 激活导航栏设置  
-		    //tintManager.setNavigationBarTintEnabled(true);  
-		    // 设置一个颜色给系统栏  
-		    tintManager.setTintColor(getResources().getColor(R.color.theme));  
+			// 创建状态栏的管理实例
+			SystemBarTintManager tintManager = new SystemBarTintManager(this);
+			// 激活状态栏设置
+			tintManager.setStatusBarTintEnabled(true);
+			// 激活导航栏设置
+			// tintManager.setNavigationBarTintEnabled(true);
+			// 设置一个颜色给系统栏
+			tintManager.setTintColor(getResources().getColor(R.color.theme));
 		}
 	}
-	
-	
-
 
 	public BaseActivity getActivity() {
 		return this;
@@ -217,6 +214,13 @@ public class BaseActivity extends AppCompatActivity {
 		return headers;
 	}
 
+	// 获取null  token
+	public Map<String, String> getNullHeaders() {
+		Map<String, String> headers = new HashMap<String, String>();
+		headers.put("null", "");
+		return headers;
+	}
+
 	private LoadingDialog loadingDialog;
 
 	public LoadingDialog getLoading() {
@@ -226,15 +230,13 @@ public class BaseActivity extends AppCompatActivity {
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onStop() {
-		if(!isAppOnForeground()){
-			//退出或者app进入后台将口令扔到剪切板
+		if (!isAppOnForeground()) {
+			// 退出或者app进入后台将口令扔到剪切板
 			ClipboardManager cbm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
 			cbm.setText(application.getKouling());
 		}
 		super.onStop();
 	}
-	
-	
 
 	@Override
 	protected void onDestroy() {
@@ -242,47 +244,49 @@ public class BaseActivity extends AppCompatActivity {
 	}
 
 	/**
-     * 程序是否在前台运行
-     *  
-     */
-    public boolean isAppOnForeground() {
-            // Returns a list of application processes that are running on the
-            // device
-             
-            ActivityManager activityManager = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
-            String packageName = getApplicationContext().getPackageName();
+	 * 程序是否在前台运行
+	 * 
+	 */
+	public boolean isAppOnForeground() {
+		// Returns a list of application processes that are running on the
+		// device
 
-            List<RunningAppProcessInfo> appProcesses = activityManager
-                            .getRunningAppProcesses();
-            if (appProcesses == null)
-                    return false;
+		ActivityManager activityManager = (ActivityManager) getApplicationContext()
+				.getSystemService(Context.ACTIVITY_SERVICE);
+		String packageName = getApplicationContext().getPackageName();
 
-            for (RunningAppProcessInfo appProcess : appProcesses) {
-                    // The name of the process that this object is associated with.
-                    if (appProcess.processName.equals(packageName)
-                                    && appProcess.importance == RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
-                            return true;
-                    }
-            }
-            return false;
-    }
-	
+		List<RunningAppProcessInfo> appProcesses = activityManager
+				.getRunningAppProcesses();
+		if (appProcesses == null)
+			return false;
+
+		for (RunningAppProcessInfo appProcess : appProcesses) {
+			// The name of the process that this object is associated with.
+			if (appProcess.processName.equals(packageName)
+					&& appProcess.importance == RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	@SuppressWarnings("deprecation")
 	public void onResume() {
-	    super.onResume();
-	    	ClipboardManager cbm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-	    	if(!TextUtils.isEmpty(cbm.getText())){
-	    		if(cbm.getText().toString().trim().equals("hanmimei")){
-					cbm.setText("");
-					loadData();
-					application.setKouling("");
-				}	
-	    	}
-	   
+		super.onResume();
+		ClipboardManager cbm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+		if (!TextUtils.isEmpty(cbm.getText())) {
+			if (cbm.getText().toString().trim().equals("hanmimei")) {
+				cbm.setText("");
+				loadData();
+				application.setKouling("");
+			}
+		}
+
 	}
+
 	private void loadData() {
 		new Thread(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				try {
@@ -295,7 +299,8 @@ public class BaseActivity extends AppCompatActivity {
 			}
 		}).start();
 	}
-	private Handler mHandler = new Handler(){
+
+	private Handler mHandler = new Handler() {
 
 		@Override
 		public void handleMessage(Message msg) {
@@ -310,12 +315,16 @@ public class BaseActivity extends AppCompatActivity {
 				break;
 			}
 		}
-		
+
 	};
 
 	private void showKouLing() {
-		 AlertDialogUtils.KouDialog(this, "耐克户外运动经典篮球鞋，nba官方正品，杜兰特专用。", "¥1999","http://e.hiphotos.baidu.com/zhidao/wh%3D600%2C800/sign=4ba6a9c4271f95caa6a09ab0f9275306/77094b36acaf2edd7f60e5538f1001e9380193f3.jpg");
+		AlertDialogUtils
+				.KouDialog(
+						this,
+						"耐克户外运动经典篮球鞋，nba官方正品，杜兰特专用。",
+						"¥1999",
+						"http://e.hiphotos.baidu.com/zhidao/wh%3D600%2C800/sign=4ba6a9c4271f95caa6a09ab0f9275306/77094b36acaf2edd7f60e5538f1001e9380193f3.jpg");
 	}
-    
 
 }

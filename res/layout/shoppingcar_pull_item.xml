@@ -37,14 +37,7 @@
         android:textSize="10sp"
         android:textColor="@color/red"/>
     </LinearLayout>
-    <TextView 
-        android:id="@+id/custom_total"
-        android:layout_marginLeft="36dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:textColor="@color/huise"
-        android:text="提示：同一保税区仓库商品总金额不能超过1000"/>
+    
 
     <View
         android:layout_width="match_parent"

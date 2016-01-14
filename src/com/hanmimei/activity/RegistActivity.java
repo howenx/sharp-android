@@ -11,10 +11,7 @@ import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-<<<<<<< HEAD
-=======
 import android.content.Intent;
->>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -38,12 +35,8 @@ import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.HMessage;
-<<<<<<< HEAD
-import com.hanmimei.entity.Result;
-=======
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.User;
->>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.DateUtil;
@@ -69,10 +62,6 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 	private String pwd_agin;
 	private String msg;
 	private ProgressDialog dialog;
-<<<<<<< HEAD
-	
-	private boolean isRegist;
-=======
 
 	private boolean isRegist;
 
@@ -81,21 +70,10 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 	private ImageView show_pwd;
 	private ImageView show_pwd2;
 
->>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.regist_layout);
-<<<<<<< HEAD
-		if(getIntent().getStringExtra("from").equals("forget")){
-			isRegist = false;
-			ActionBarUtil.setActionBarStyle(this, "找回密码");
-		}else{
-			isRegist = true;
-			ActionBarUtil.setActionBarStyle(this, "账号注册");
-		}
-		
-=======
 		if (getIntent().getStringExtra("from").equals("forget")) {
 			isRegist = false;
 			ActionBarUtil.setActionBarStyle(this, "找回密码");
@@ -104,7 +82,6 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 			ActionBarUtil.setActionBarStyle(this, "账号注册");
 		}
 
->>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
 		initView();
 	}
 
@@ -119,13 +96,6 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 		pwd_edit = (EditText) findViewById(R.id.pwd);
 		pwd_agin_edit = (EditText) findViewById(R.id.two_pwd);
 		regist = (TextView) findViewById(R.id.regist);
-<<<<<<< HEAD
-		if(!isRegist)
-			regist.setText("重置");
-		regist.setOnClickListener(this);
-		phone_TextView.setText("已经发送验证码至  " + phone.substring(0, 3) + "****" + phone.substring(8, phone.length()));
-		getYanZheng();
-=======
 		clear_pwd = (ImageView) findViewById(R.id.clear_pwd);
 		clear_pwd2 = (ImageView) findViewById(R.id.clear_pwd2);
 		show_pwd = (ImageView) findViewById(R.id.show_pwd);
@@ -144,7 +114,6 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 		goodsDao = getDaoSession().getShoppingGoodsDao();
 		pwd_edit.addTextChangedListener(pwdWatcher);
 		pwd_agin_edit.addTextChangedListener(pwd2Watcher);
->>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
 	}
 
 	// 密码输入的监听
@@ -241,22 +210,6 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 		yanzheng = yanzheng_edit.getText().toString();
 		pwd = pwd_edit.getText().toString();
 		pwd_agin = pwd_agin_edit.getText().toString();
-<<<<<<< HEAD
-		if(yanzheng.length() != 6){
-//			Toast.makeText(this, "请输入6位验证码", Toast.LENGTH_SHORT).show();
-			setAttention("请输入6位验证码");
-			return;
-		}else if(pwd.length() < 6 || pwd.length() > 12){
-//			Toast.makeText(this, "请输入6-20位密码", Toast.LENGTH_SHORT).show();
-			setAttention("请输入6-12位密码");
-			return;
-		}else if(!CommonUtil.isPassWord(pwd)){
-			setAttention("密码必须位数字和字母的组合");
-			return;
-		}else if(!pwd.equals(pwd_agin)){
-			setAttention("两次输入的密码不一致");
-		}else{
-=======
 		if (yanzheng.length() != 6) {
 			setAttention("请输入6位验证码");
 			return;
@@ -269,7 +222,6 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 		} else if (!pwd.equals(pwd_agin)) {
 			setAttention("两次输入的密码不一致");
 		} else {
->>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
 			doRegist();
 		}
 	}
@@ -285,18 +237,11 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 				params.add(new BasicNameValuePair("phone", phone));
 				params.add(new BasicNameValuePair("code", yanzheng));
 				params.add(new BasicNameValuePair("password", pwd));
-<<<<<<< HEAD
-				if(isRegist){
-					result = HttpUtils.postCommon(UrlUtil.REGIST_URL, params);
-				}else{
-					result = HttpUtils.postCommon(UrlUtil.RESET_PWD_URL, params);
-=======
 				if (isRegist) {
 					result = HttpUtils.postCommon(UrlUtil.REGIST_URL, params);
 				} else {
 					result = HttpUtils
 							.postCommon(UrlUtil.RESET_PWD_URL, params);
->>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
 				}
 				HMessage hMessage = DataParser.paserResultMsg(result);
 				Message msg = mHandler.obtainMessage(1);
@@ -357,15 +302,6 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 			case 1:
 				dialog.dismiss();
 				HMessage result = (HMessage) msg.obj;
-<<<<<<< HEAD
-				if(result.getCode() != null){
-					if(result.getCode() == 200){
-						finish();
-					}else{
-						setAttention(result.getMessage());
-					}
-				}else{
-=======
 				if (result.getCode() != null) {
 					if (result.getCode() == 200) {
 						if (isRegist) {
@@ -377,20 +313,10 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 						setAttention(result.getMessage());
 					}
 				} else {
->>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
 					setAttention("网络连接异常，请检查网络");
 				}
 				break;
 			case 2:
-<<<<<<< HEAD
-				
-				Result code_result = (Result) msg.obj;
-				if(code_result.isSuccess() == true){
-					setAttention(code_result.getMessage());
-				}else if(code_result.isSuccess() == false){
-					setAttention(code_result.getMessage());
-				}else{
-=======
 				HMessage code_result = (HMessage) msg.obj;
 				if (code_result.getCode() != null) {
 					if (code_result.getCode() == 200) {
@@ -407,7 +333,6 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 						setAttention("验证码发送失败！");
 					}
 				} else {
->>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
 					setAttention("网络连接异常，请检查网络");
 				}
 				break;
@@ -470,8 +395,6 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 		get_yanzheng.setClickable(true);
 		get_yanzheng.setText("获取验证码");
 		get_yanzheng.setTextColor(getResources().getColor(R.color.theme));
-<<<<<<< HEAD
-=======
 	}
 
 	private List<ShoppingGoods> list;
@@ -491,7 +414,6 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 				}
 			}).start();
 		}
->>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
 	}
 
 	private JSONArray array;

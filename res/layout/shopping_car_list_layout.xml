@@ -5,7 +5,17 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:fitsSystemWindows="true"  >
-
+	<TextView
+        android:id="@+id/attention"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffeedd"
+        android:paddingBottom="3dp"
+        android:paddingLeft="15dp"
+        android:paddingTop="3dp"
+        android:text="提示：同一保税区商品总额有限制，请注意"
+        android:textColor="@color/theme"
+        android:textSize="12sp"/>
     <include
         android:id="@+id/bottom"
         android:layout_width="match_parent"
@@ -13,13 +23,13 @@
         android:layout_alignParentBottom="true"
         layout="@layout/shopping_car_bottom_new"
         android:visibility="visible" />
-
+	
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/mylist"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/attention"
-        android:layout_below="@id/top"
+        android:layout_above="@+id/bottom"
+        android:layout_below="@id/attention"
         android:background="@color/white"
         android:cacheColorHint="#00000000"
         android:divider="@color/qianhui"
@@ -72,20 +82,6 @@
             android:textColor="@color/white"
             android:textSize="18sp" />
     </LinearLayout>
-    <TextView
-        android:id="@+id/attention"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/bottom"
-        android:gravity="right"
-        android:paddingBottom="2dp"
-        android:paddingRight="10dp"
-        android:paddingTop="2dp"
-        android:text="@null"
-        android:textColor="@color/huise"
-        android:textSize="12sp"
-        android:visibility="gone" 
-        android:background="@android:color/transparent"/>
     <include 
         android:id="@+id/no_net"
         android:layout_height="match_parent"

@@ -3,9 +3,6 @@ package com.hanmimei.view;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.hanmimei.R;
-import com.hanmimei.entity.Tag;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -18,6 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.hanmimei.R;
+import com.hanmimei.entity.Tag;
 
 
 /**

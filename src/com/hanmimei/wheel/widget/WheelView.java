@@ -22,15 +22,10 @@ package com.hanmimei.wheel.widget;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.hanmimei.R;
-import com.hanmimei.wheel.widget.adapter.WheelViewAdapter;
-
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.GradientDrawable.Orientation;
@@ -40,6 +35,9 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Interpolator;
 import android.widget.LinearLayout;
+
+import com.hanmimei.R;
+import com.hanmimei.wheel.widget.adapter.WheelViewAdapter;
 
 /**
  * Numeric wheel view.

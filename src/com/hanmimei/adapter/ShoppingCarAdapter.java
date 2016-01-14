@@ -331,7 +331,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 			case 1:
 				activity.getLoading().dismiss();
 				HMessage hm = (HMessage) msg.obj;
-				if (hm != null) {
+				if (hm.getCode() != null) {
 					if (hm.getCode() == 200) {
 						data.remove(delGoods);
 						notifyDataSetChanged();
@@ -346,17 +346,17 @@ public class ShoppingCarAdapter extends BaseAdapter {
 			case 2:
 				activity.getLoading().dismiss();
 				HMessage hmm = (HMessage) msg.obj;
-				if (hmm != null) {
+				if (hmm.getCode() != null) {
 					if (hmm.getCode() == 200) {
 						notifyDataSetChanged();
 						ShoppingCarMenager.getInstance().setBottom();
 						goodsDao.deleteAll();
 						goodsDao.insertInTx(data);
 					} else {
-//						ToastUtils.Toast(activity, hmm.getMessage());
+						ToastUtils.Toast(activity, hmm.getMessage());
 					}
 				} else {
-//					ToastUtils.Toast(activity, "操作失败！");
+					ToastUtils.Toast(activity, "操作失败！");
 				}
 				break;
 			case 3:
@@ -368,10 +368,10 @@ public class ShoppingCarAdapter extends BaseAdapter {
 						notifyDataSetChanged();
 						ShoppingCarMenager.getInstance().setBottom();
 					} else {
-//						ToastUtils.Toast(activity, m.getMessage());
+						ToastUtils.Toast(activity, m.getMessage());
 					}
 				} else {
-//					ToastUtils.Toast(activity, "操作失败！");
+					ToastUtils.Toast(activity, "操作失败！");
 				}
 				break;
 			default:

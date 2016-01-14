@@ -3,6 +3,7 @@ package com.hanmimei.manager;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.hanmimei.R;
 import com.hanmimei.adapter.ShoppingCarPullListAdapter;
 import com.hanmimei.entity.Customs;
@@ -125,13 +127,12 @@ public class ShoppingCarMenager {
 		}
 	}
 	public void setPayNoClick(){
-		attention.setVisibility(View.VISIBLE);
-		attention.setText("提示：" + customName+"仓库的商品总金额超过 ¥" + bottommorePrice);
+		attention.setText("超额提示：" + customName+"商品总额超过 ¥" + bottommorePrice);
 		pay.setClickable(false);
 		pay.setBackgroundColor(activity.getResources().getColor(R.color.huise));
 	}
 	public void setPayClick(){
-		attention.setVisibility(View.GONE);
+		attention.setText("友情提示：同一保税区商品总额有限制");
 		pay.setClickable(true);
 		pay.setBackgroundColor(activity.getResources().getColor(R.color.theme));
 	}

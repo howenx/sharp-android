@@ -33,6 +33,7 @@ import android.widget.Toast;
 import com.astuetz.PagerSlidingTabStrip;
 import com.bigkoo.convenientbanner.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.ConvenientBanner;
+import com.cpoopc.scrollablelayoutlib.ScrollAbleFragment;
 import com.cpoopc.scrollablelayoutlib.ScrollableLayout;
 import com.cpoopc.scrollablelayoutlib.ScrollableLayout.OnScrollListener;
 import com.hanmimei.R;
@@ -68,7 +69,6 @@ import com.hanmimei.view.TagCloudView.OnTagClickListener;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
-import com.test.cp.myscrolllayout.fragment.base.ScrollAbleFragment;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.ShareAction;
@@ -248,10 +248,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 						if (hm.getCode() == 200) {
 							// 购物车添加成功，显示提示框
 							displayAnimation();
-<<<<<<< HEAD
 //							ToastUtils.Toast(GoodsDetailActivity.this,hm.getMessage());
-=======
->>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
 							num_shopcart++;
 							showGoodsNums();
 						} else if (hm.getCode() == 3001 || hm.getCode() == 2001) {
@@ -384,11 +381,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 			ToastUtils.Toast(this, "请选择商品");
 			return;
 		}
-<<<<<<< HEAD
 		
-=======
 
->>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
 		if (getUser() != null) {
 			sendData(goods);
 		} else {
@@ -422,15 +416,12 @@ public class GoodsDetailActivity extends BaseActivity implements
 						HMessage hm = DataParser.paserResultMsg(result);
 						if (hm.getCode() == 200) {
 							// 购物车添加成功，显示提示框
-<<<<<<< HEAD
 //							ToastUtils.Toast(GoodsDetailActivity.this,hm.getMessage());
 							displayAnimation();
 							goods2.setGoodsNums(goods2.getGoodsNums()+1);
-=======
 							// ToastUtils.Toast(GoodsDetailActivity.this,hm.getMessage());
 							displayAnimation();
 							goods2.setGoodsNums(goods2.getGoodsNums() + 1);
->>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
 							goodsDao.insertOrReplace(goods2);
 							showGoodsNums();
 						} else if (hm.getCode() == 3001 || hm.getCode() == 2001) {
@@ -905,10 +896,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	public void onPause() {
 		super.onPause();
 		ToastUtils.cancel();
-<<<<<<< HEAD
-=======
 		 EventBus.getDefault().unregister(this);
->>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
 		MobclickAgent.onPageEnd("GoodsDetailActivity"); // （仅有Activity的应用中SDK自动调用，不需要单独写）保证
 														// onPageEnd 在onPause
 														// 之前调用,因为 onPause

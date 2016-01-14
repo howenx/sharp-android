@@ -2,7 +2,6 @@ package com.hanmimei.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.List;
 
 public class ShoppingCar implements Serializable {

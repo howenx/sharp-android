@@ -33,6 +33,8 @@ import com.hanmimei.entity.Result;
 import com.hanmimei.entity.Sku;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
+import com.hanmimei.utils.Http2Utils;
+import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.view.CustomListView;
 import com.hanmimei.view.TimerTextView;
@@ -100,18 +102,41 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 	//当订单的状态为i时，加载详情数据
 	private void loadData() {
 		getLoading().show();
-		new Thread(new Runnable() {
+//		new Thread(new Runnable() {
+//			@Override
+//			public void run() {
+//				String result = HttpUtils.getToken(UrlUtil.GET_ORDER_LIST_URL+"/" + order.getOrderId(),
+//						"id-token", OrderDetailActivity.this.getUser().getToken());
+//				List<Order> list = DataParser.parserOrder(result);
+//				Message msg = mHandler.obtainMessage(2);
+//				msg.obj = list;
+//				mHandler.sendMessage(msg);
+//			}
+//		}).start();
+		Http2Utils.doGetRequestTask(this, getHeaders(), UrlUtil.GET_ORDER_LIST_URL+"/" + order.getOrderId(), new VolleyJsonCallback() {
+			
 			@Override
-			public void run() {
-				String result = HttpUtils.getToken(UrlUtil.GET_ORDER_LIST_URL+"/" + order.getOrderId(),
-						"id-token", OrderDetailActivity.this.getUser().getToken());
-				List<Order> list = DataParser.parserOrder(result);
-				Message msg = mHandler.obtainMessage(2);
-				msg.obj = list;
-				mHandler.sendMessage(msg);
+			public void onSuccess(String result) {
+				List<Order> orders = DataParser.parserOrder(result);
+				getLoading().dismiss();
+				if(orders.size() > 0 && orders != null){
+					order = orders.get(0);
+					addressInfo = order.getAdress();
+					list.addAll(order.getList());
+					initView();
+					adapter.notifyDataSetChanged();
+				}else{
+					
+				}
 			}
-		}).start();
-	}
+			
+			@Override
+			public void onError() {
+				
+			}
+		});
+		
+	};
 	private void initView() {
 		order_code.setText("订单号：" + order.getOrderId());
 //		I:初始化即未支付状态，S:成功，C：取消， F:失败，R:已收货，D:已经发货，J:拒收
@@ -303,17 +328,17 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 					Toast.makeText(OrderDetailActivity.this, "取消订单失败！", Toast.LENGTH_SHORT).show();
 				}
 				break;
-			case 2:
-				getLoading().dismiss();
-				List<Order> orders = (List<Order>) msg.obj;
-				if(orders.size() > 0 && orders != null){
-					order = orders.get(0);
-					addressInfo = order.getAdress();
-					list.addAll(order.getList());
-					initView();
-					adapter.notifyDataSetChanged();
-				}
-				break;
+//			case 2:
+//				getLoading().dismiss();
+//				List<Order> orders = (List<Order>) msg.obj;
+//				if(orders.size() > 0 && orders != null){
+//					order = orders.get(0);
+//					addressInfo = order.getAdress();
+//					list.addAll(order.getList());
+//					initView();
+//					adapter.notifyDataSetChanged();
+//				}
+//				break;
 			case 3:
 				progressDialog.dismiss();
 				HMessage hMessage = (HMessage) msg.obj;

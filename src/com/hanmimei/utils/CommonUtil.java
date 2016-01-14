@@ -619,8 +619,6 @@ public class CommonUtil {
 			return false;
 		}
 	}
-<<<<<<< HEAD
-=======
 	public static boolean isJiaoYan(String str) {
 		Pattern pattern = Pattern.compile("(?![^0-9a-zA-Z]+$)[a-zA-Z0-9]{4}");
 		Matcher isNum = pattern.matcher(str);
@@ -630,7 +628,6 @@ public class CommonUtil {
 			return false;
 		}
 	}
->>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
 	/**
 	 * 功能：判断字符串是否为日期格式
 	 * 

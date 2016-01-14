@@ -140,25 +140,19 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 		switch (v.getId()) {
 		case R.id.forget:
 			CommonUtil.doJump(this, ForgetPhoneActivity.class);
-<<<<<<< HEAD
 //			Intent intent1 = new Intent(this, CheckPhoneActivity.class);
 //			intent1.putExtra("use", "forget");
 //			startActivity(intent1);
 			// showDialog();
-=======
->>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
 			break;
 		case R.id.login:
 			checkInput();
 			break;
 		case R.id.regist:
 			CommonUtil.doJump(this, CheckPhoneActivity.class);
-<<<<<<< HEAD
 //			Intent intent = new Intent(this, CheckPhoneActivity.class);
 //			intent.putExtra("use", "regist");
 //			startActivity(intent);
-=======
->>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
 			break;
 		case R.id.refresh:
 			loadImg();

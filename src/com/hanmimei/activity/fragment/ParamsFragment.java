@@ -1,7 +1,5 @@
 package com.hanmimei.activity.fragment;
 
-import github.chenupt.dragtoplayout.AttachUtil;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -11,17 +9,15 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.ListView;
 
+import com.cpoopc.scrollablelayoutlib.ScrollAbleFragment;
 import com.cpoopc.scrollablelayoutlib.ScrollableHelper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.hanmimei.R;
 import com.hanmimei.adapter.GoodsDetailParamAdapter;
 import com.hanmimei.entity.ItemFeature;
-import com.test.cp.myscrolllayout.fragment.base.ScrollAbleFragment;
-import com.ypy.eventbus.EventBus;
 
 public class ParamsFragment extends ScrollAbleFragment  implements ScrollableHelper.ScrollableContainer{
 	

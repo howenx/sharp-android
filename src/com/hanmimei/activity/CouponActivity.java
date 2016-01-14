@@ -2,10 +2,12 @@ package com.hanmimei.activity;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+
 import com.hanmimei.R;
 import com.hanmimei.adapter.MyPagerAdapter;
 import com.hanmimei.entity.Category;

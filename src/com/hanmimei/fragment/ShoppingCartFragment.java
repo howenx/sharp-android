@@ -13,8 +13,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,7 +42,8 @@ import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.User;
 import com.hanmimei.manager.ShoppingCarMenager;
-import com.hanmimei.utils.HttpUtils;
+import com.hanmimei.utils.Http2Utils;
+import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.umeng.analytics.MobclickAgent;
 
 public class ShoppingCartFragment extends Fragment implements OnClickListener,
@@ -103,7 +102,8 @@ public class ShoppingCartFragment extends Fragment implements OnClickListener,
 	}
 
 	private void getLocalData() {
-		List<ShoppingGoods> list = goodsDao.queryBuilder().build().list();
+		List<ShoppingGoods> list = new ArrayList<ShoppingGoods>();
+		list = goodsDao.queryBuilder().build().list();
 		if (list != null && list.size() > 0) {
 			mListView.setVisibility(View.VISIBLE);
 			no_data.setVisibility(View.GONE);
@@ -140,87 +140,85 @@ public class ShoppingCartFragment extends Fragment implements OnClickListener,
 
 	private void getData() {
 		activity.getLoading().show();
-		new Thread(new Runnable() {
+		Http2Utils.doPostRequestTask2(activity,activity.getNullHeaders(),UrlUtil.CAR_LIST_URL,new VolleyJsonCallback() {
+			
 			@Override
-			public void run() {
-				String result = HttpUtils.post(UrlUtil.CAR_LIST_URL,
-						array, "null", "");
+			public void onSuccess(String result) {
 				ShoppingCar car = DataParser.parserShoppingCar(result);
-				Message msg = mHandler.obtainMessage(1);
-				msg.obj = car;
-				mHandler.sendMessage(msg);
+				afterLoadData(car);
 			}
-		}).start();
-	}
-
-	private void getNetData() {
-		activity.getLoading().show();
-		new Thread(new Runnable() {
-
+			
 			@Override
-			public void run() {
-				String result = HttpUtils.post(UrlUtil.GET_CAR_LIST_URL,
-						new JSONObject(), "id-token", user.getToken());
-				ShoppingCar car = DataParser.parserShoppingCar(result);
-				Message msg = mHandler.obtainMessage(1);
-				msg.obj = car;
-				mHandler.sendMessage(msg);
-			}
-		}).start();
-	}
-
-	private Handler mHandler = new Handler() {
-
-		@Override
-		public void handleMessage(Message msg) {
-			super.handleMessage(msg);
-			switch (msg.what) {
-			case 1:
+			public void onError() {
 				activity.getLoading().dismiss();
-				mListView.onRefreshComplete();
-				ShoppingCar car = new ShoppingCar();
-				car = (ShoppingCar) msg.obj;
-				data.clear();
-				if (car.getMessage() != null) {
-					if (car.getList() != null && car.getList().size() > 0) {
-						no_data.setVisibility(View.GONE);
-						no_net.setVisibility(View.GONE);
-						bottom.setVisibility(View.VISIBLE);
-						mListView.setVisibility(View.VISIBLE);
-						data.addAll(car.getList());
-						//
-						ShoppingCarMenager.getInstance()
-								.initShoppingCarMenager(activity, adapter,
-										data, false, attention, check_all,
-										total_price, pay, no_data, bottom);
-						ShoppingCarMenager.getInstance().initDrawable(
-								getActivity());
-						clearPrice();
-						//
-					} else {
-						bottom.setVisibility(View.GONE);
-						mListView.setVisibility(View.GONE);
-						if(car.getMessage().getCode() == 1010){
-							no_data.setVisibility(View.VISIBLE);
-							no_net.setVisibility(View.GONE);
-						}else{
-							no_data.setVisibility(View.GONE);
-							no_net.setVisibility(View.VISIBLE);
-						}
-					}
-				} else {
-					bottom.setVisibility(View.GONE);
-					mListView.setVisibility(View.GONE);
+				bottom.setVisibility(View.GONE);
+				mListView.setVisibility(View.GONE);
+				no_data.setVisibility(View.GONE);
+				no_net.setVisibility(View.VISIBLE);
+			}
+		},array.toString());
+	}
+
+	private void afterLoadData(ShoppingCar car){
+		activity.getLoading().dismiss();
+		mListView.onRefreshComplete();
+		data.clear();
+		if (car.getMessage() != null) {
+			if (car.getList() != null && car.getList().size() > 0) {
+				no_data.setVisibility(View.GONE);
+				no_net.setVisibility(View.GONE);
+				bottom.setVisibility(View.VISIBLE);
+				mListView.setVisibility(View.VISIBLE);
+				data.addAll(car.getList());
+				//
+				ShoppingCarMenager.getInstance()
+						.initShoppingCarMenager(activity, adapter,
+								data, false, attention, check_all,
+								total_price, pay, no_data, bottom);
+				ShoppingCarMenager.getInstance().initDrawable(
+						getActivity());
+				clearPrice();
+				//
+			} else {
+				bottom.setVisibility(View.GONE);
+				mListView.setVisibility(View.GONE);
+				if(car.getMessage().getCode() == 1010){
+					no_data.setVisibility(View.VISIBLE);
+					no_net.setVisibility(View.GONE);
+				}else{
 					no_data.setVisibility(View.GONE);
 					no_net.setVisibility(View.VISIBLE);
 				}
-				adapter.notifyDataSetChanged();
-				break;
-			default:
-				break;
 			}
+		} else {
+			bottom.setVisibility(View.GONE);
+			mListView.setVisibility(View.GONE);
+			no_data.setVisibility(View.GONE);
+			no_net.setVisibility(View.VISIBLE);
 		}
-	};
+		adapter.notifyDataSetChanged();
+	}
+	private void getNetData() {
+		activity.getLoading().show();
+		Http2Utils.doPostRequestTask2(activity,activity.getHeaders(),UrlUtil.GET_CAR_LIST_URL,new VolleyJsonCallback() {
+			
+			@Override
+			public void onSuccess(String result) {
+				ShoppingCar car = DataParser.parserShoppingCar(result);
+				afterLoadData(car);
+			}
+			
+			@Override
+			public void onError() {
+				activity.getLoading().dismiss();
+				bottom.setVisibility(View.GONE);
+				mListView.setVisibility(View.GONE);
+				no_data.setVisibility(View.GONE);
+				no_net.setVisibility(View.VISIBLE);
+			}
+		},new JSONObject().toString());
+	}
+
 
 	private void findView(View view) {
 		bottom = (LinearLayout) view.findViewById(R.id.bottom);

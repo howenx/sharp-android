@@ -1,10 +1,10 @@
 package com.hanmimei.view;
 
-import com.hanmimei.activity.listener.TimeEndListner;
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.TextView;
+
+import com.hanmimei.activity.listener.TimeEndListner;
 
 public class TimerTextView extends TextView implements Runnable{  
     

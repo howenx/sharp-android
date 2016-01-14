@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.View.MeasureSpec;
 
 public class WrapContentHeightViewPager extends ViewPager{
 	public WrapContentHeightViewPager(Context context) {

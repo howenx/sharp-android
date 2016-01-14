@@ -1,13 +1,8 @@
 package com.hanmimei.manager;
 
-import java.util.List;
 import android.content.Context;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.hanmimei.adapter.ShoppingCarPullListAdapter;
-import com.hanmimei.entity.Customs;
 
 public class OrderNumsMenager {
 

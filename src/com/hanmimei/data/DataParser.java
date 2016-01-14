@@ -1,5 +1,6 @@
 package com.hanmimei.data;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,9 +9,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.google.gson.Gson;
-import com.hanmimei.entity.HMMAddress;
 import com.hanmimei.entity.Customs;
 import com.hanmimei.entity.GoodsDetail;
+import com.hanmimei.entity.HMMAddress;
 import com.hanmimei.entity.HMMThemeGoods;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.Order;
@@ -259,7 +260,7 @@ public class DataParser {
 						if(skuObject.has("price"))
 							sku.setPrice(skuObject.getInt("price"));
 						if(skuObject.has("skuTitle"))
-							sku.setSkuTitle(skuObject.getString("skuTitle"));
+								sku.setSkuTitle(decode2(skuObject.getString("skuTitle")));
 						if(skuObject.has("invImg"))
 							sku.setInvImg(skuObject.getString("invImg"));
 						if(skuObject.has("invUrl"))
@@ -279,6 +280,32 @@ public class DataParser {
 		}
 		return list;
 	}
+	public static String decode2(String s) {
+        StringBuilder sb = new StringBuilder(s.length());
+        char[] chars = s.toCharArray();
+        for (int i = 0; i < chars.length; i++) {
+            char c = chars[i];
+            if (c == '\\' && chars[i + 1] == 'u') {
+                char cc = 0;
+                for (int j = 0; j < 4; j++) {
+                    char ch = Character.toLowerCase(chars[i + 2 + j]);
+                    if ('0' <= ch && ch <= '9' || 'a' <= ch && ch <= 'f') {
+                        cc |= (Character.digit(ch, 16) << (3 - j) * 4);
+                    } else {
+                        cc = 0;
+                        break;
+                    }
+                }
+                if (cc > 0) {
+                    i += 5;
+                    sb.append(cc);
+                    continue;
+                }
+            }
+            sb.append(c);
+        }
+        return sb.toString();
+    }
 	public static ShoppingCar parserShoppingCar(String result){
 		ShoppingCar car = new ShoppingCar();
 		List<Customs> customs = new ArrayList<Customs>();

@@ -95,37 +95,22 @@
             android:gravity="center" /> 
 
     </LinearLayout>
-<<<<<<< HEAD
-      <LinearLayout 
-=======
       <RelativeLayout 
->>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
           android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@color/white">
         <TextView 
-<<<<<<< HEAD
-            android:layout_margin="15dp"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-=======
             android:id="@+id/text1"
             android:layout_margin="15dp"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_centerVertical="true"
->>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
             android:text="@string/set_pwd"
             android:textSize="16sp"
             android:textColor="@color/fontcolor"
             android:gravity="center"/>
-<<<<<<< HEAD
-        <EditText 
-            android:id="@+id/pwd"
-            android:paddingTop="5dp"
-=======
         <ImageView 
             android:id="@+id/show_pwd"
             android:padding="3dp"
@@ -150,7 +135,6 @@
             android:id="@+id/pwd"
             android:layout_toRightOf="@id/text1"
             android:layout_toLeftOf="@id/clear_pwd"
->>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
             android:maxLength="12"
             style="@style/login_edit_style"
             android:hint="@string/input_pwd_do"
@@ -159,38 +143,24 @@
             android:layout_width="match_parent"
             android:layout_gravity="center_vertical"
             android:background="@null"/>
-<<<<<<< HEAD
-    </LinearLayout>
-=======
     </RelativeLayout>
->>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
     <View 
         android:layout_height="0.1dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_width="match_parent"
         android:background="@color/qianhui"/>
-<<<<<<< HEAD
-   <LinearLayout 
-=======
    <RelativeLayout 
->>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@color/white">
         <TextView 
-<<<<<<< HEAD
-            android:layout_margin="15dp"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-=======
             android:id="@+id/text2"
             android:layout_margin="15dp"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_centerVertical="true"
->>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
             android:text="@string/besure_pwd"
             android:textSize="16sp"
             android:textColor="@color/fontcolor"
@@ -216,11 +186,8 @@
             android:visibility="invisible"/>
         <EditText 
             android:id="@+id/two_pwd"
-<<<<<<< HEAD
-=======
             android:layout_toRightOf="@id/text2"
             android:layout_toLeftOf="@id/clear_pwd2"
->>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
             android:paddingTop="5dp"
             android:maxLength="12"
             style="@style/login_edit_style"
@@ -228,14 +195,8 @@
             android:inputType="textPassword"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-<<<<<<< HEAD
-            android:layout_gravity="center_vertical"
-            android:background="@null"/>
-    </LinearLayout>
-=======
             android:background="@null"/>
     </RelativeLayout>
->>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
 
        <TextView 
            android:layout_marginLeft="15dp"

@@ -1,8 +1,6 @@
 package com.hanmimei.manager;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.view.View;
 
 import com.hanmimei.R;
 import com.hanmimei.fragment.FragmentTabHost;

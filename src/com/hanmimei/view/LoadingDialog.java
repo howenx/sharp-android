@@ -3,6 +3,7 @@ package com.hanmimei.view;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
+
 import com.hanmimei.R;
 
 public class LoadingDialog extends AlertDialog {

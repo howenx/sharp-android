@@ -34,6 +34,8 @@ import com.hanmimei.entity.Category;
 import com.hanmimei.entity.Order;
 import com.hanmimei.entity.User;
 import com.hanmimei.manager.OrderNumsMenager;
+import com.hanmimei.utils.Http2Utils;
+import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.HttpUtils;
 import com.umeng.analytics.MobclickAgent;
 
@@ -96,18 +98,44 @@ public class OrderFragment extends Fragment implements
 //		else {
 //			state = 5;
 //		}
-		new Thread(new Runnable() {
+		Http2Utils.doGetRequestTask(activity,activity.getHeaders(), UrlUtil.GET_ORDER_LIST_URL, new VolleyJsonCallback() {
+			
 			@Override
-			public void run() {
-				String result = HttpUtils.getToken(UrlUtil.GET_ORDER_LIST_URL,
-						"id-token", user.getToken());
+			public void onSuccess(String result) {
 				List<Order> list = DataParser.parserOrder(result);
-				Message msg = mHandler.obtainMessage(1);
-				msg.obj = list;
-				mHandler.sendMessage(msg);
+				activity.getLoading().dismiss();
+				mListView.onRefreshComplete();
+				data.clear();
+				if (list != null) {
+					no_net.setVisibility(View.GONE);
+					if (list.size() > 0) {
+						getOrderByState(list);
+						if (data.size() > 0) {
+							no_order.setVisibility(View.GONE);
+						} else {
+							no_order.setVisibility(View.VISIBLE);
+						}
+						
+					} else {
+						no_order.setVisibility(View.VISIBLE);
+					}
+				} else {
+					no_order.setVisibility(View.GONE);
+					no_net.setVisibility(View.VISIBLE);
+				}
+				adapter.notifyDataSetChanged();
 			}
-		}).start();
+			
+			@Override
+			public void onError() {
+				activity.getLoading().dismiss();
+				no_order.setVisibility(View.GONE);
+				no_net.setVisibility(View.VISIBLE);
+			}
+		});
+		
 	}
+	
 
 	private void getOrderByState(List<Order> orders) {
 		showNums(orders);
@@ -158,45 +186,7 @@ public class OrderFragment extends Fragment implements
 		OrderNumsMenager.getInstance().numsChanged(nums_1, nums_2, nums_3);
 	}
 
-	@SuppressLint("HandlerLeak")
-	private Handler mHandler = new Handler() {
 
-		@SuppressWarnings("unchecked")
-		@Override
-		public void handleMessage(Message msg) {
-			super.handleMessage(msg);
-			switch (msg.what) {
-			case 1:
-				activity.getLoading().dismiss();
-				mListView.onRefreshComplete();
-				List<Order> orders = (List<Order>) msg.obj;
-				data.clear();
-				if (orders != null) {
-					no_net.setVisibility(View.GONE);
-					if (orders.size() > 0) {
-						getOrderByState(orders);
-						if (data.size() > 0) {
-							no_order.setVisibility(View.GONE);
-						} else {
-							no_order.setVisibility(View.VISIBLE);
-						}
-						
-					} else {
-						no_order.setVisibility(View.VISIBLE);
-					}
-				} else {
-					no_order.setVisibility(View.GONE);
-					no_net.setVisibility(View.VISIBLE);
-				}
-				adapter.notifyDataSetChanged();
-				break;
-
-			default:
-				break;
-			}
-		}
-
-	};
 	private MyBroadCastReceiver netReceiver;
 
 	// 广播接收者 注册

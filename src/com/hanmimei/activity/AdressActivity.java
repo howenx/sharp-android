@@ -39,7 +39,10 @@ import com.hanmimei.entity.Result;
 import com.hanmimei.entity.User;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
+import com.hanmimei.utils.Http2Utils;
+import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.HttpUtils;
+import com.hanmimei.utils.ToastUtils;
 import com.umeng.analytics.MobclickAgent;
 
 @SuppressLint("NewApi")
@@ -92,25 +95,33 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 			menu.addMenuItem(deleteItem);
 		}
 	};
-
+	//VOLLEY框架加载网络数据
 	private void loadData() {
+		//加载动画
 		getLoading().show();
-		new Thread(new Runnable() {
+		Http2Utils.doGetRequestTask(this, getHeaders(), UrlUtil.ADDRESS_LIST_URL, new VolleyJsonCallback() {
+			
 			@Override
-			public void run() {
-				String result = HttpUtils.getToken(UrlUtil.ADDRESS_LIST_URL,
-						"id-token", user.getToken());
+			public void onSuccess(String result) {
+				//请求成功
+				getLoading().dismiss();
 				List<HMMAddress> list = DataParser.parserAddressList(result);
-				Message msg = mHandler.obtainMessage(1);
-				msg.obj = list;
-				mHandler.sendMessage(msg);
+				data.clear();
+				if (list != null && list.size() > 0) {
+					data.addAll(sequenceData(list));
+				}
+				adapter.notifyDataSetChanged();
 			}
-		}).start();
+			@Override
+			public void onError() {
+				//请求失败
+				getLoading().dismiss();
+			}
+		});
 	}
 
 	private void findView() {
 		inflater = LayoutInflater.from(this);
-//		adress = new HMMAddress();
 		data = new ArrayList<HMMAddress>();
 		adapter = new AdressAdapter(this, data);
 		header = (TextView) findViewById(R.id.header);
@@ -124,6 +135,7 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 			mListView.setMenuCreator(creator);
 		addAddress = (TextView) findViewById(R.id.add);
 		addAddress.setOnClickListener(this);
+		//侧滑事件
 		mListView.setOnMenuItemClickListener(new OnMenuItemClickListener() {
 			@Override
 			public void onMenuItemClick(int position, SwipeMenu menu, int index) {
@@ -175,36 +187,6 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 		}
 	}
 
-	private Handler mHandler = new Handler() {
-
-		@Override
-		public void handleMessage(Message msg) {
-			super.handleMessage(msg);
-			switch (msg.what) {
-			case 1:
-				getLoading().dismiss();
-				data.clear();
-				List<HMMAddress> list = (List<HMMAddress>) msg.obj;
-				if (list != null && list.size() > 0) {
-					adapter.notifyDataSetChanged();
-					data.addAll(sequenceData(list));
-				}
-				adapter.notifyDataSetChanged();
-				break;
-			case 2:
-				Result result = (Result) msg.obj;
-				if (result.getCode() == 200) {
-					loadData();
-//					data.remove(index);
-//					adapter.notifyDataSetChanged();
-				}
-				break;
-			default:
-				break;
-			}
-		}
-
-	};
 	private List<HMMAddress> sequenceData(List<HMMAddress> list){
 		List<HMMAddress> addresses = new ArrayList<HMMAddress>();
 		for(int i = 0; i < list.size(); i ++){
@@ -329,19 +311,25 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 		}
 		delAddress();
 	}
-
+	
 	private void delAddress() {
-		new Thread(new Runnable() {
+		Http2Utils.doGetRequestTask(this, getHeaders(), UrlUtil.ADDRESS_DEL_URL, new VolleyJsonCallback() {
+			
 			@Override
-			public void run() {
-				String result = HttpUtils.post(UrlUtil.ADDRESS_DEL_URL, object,
-						"id-token", user.getToken());
+			public void onSuccess(String result) {
 				Result mResult = DataParser.parserResult(result);
-				Message msg = mHandler.obtainMessage(2);
-				msg.obj = mResult;
-				mHandler.sendMessage(msg);
+				if (mResult.getCode() == 200) {
+					loadData();
+				}else{
+					ToastUtils.Toast(AdressActivity.this, "删除失败");
+				}
 			}
-		}).start();
+			
+			@Override
+			public void onError() {
+				ToastUtils.Toast(AdressActivity.this, "删除失败");
+			}
+		});
 	}
 	
 	public void onResume() {

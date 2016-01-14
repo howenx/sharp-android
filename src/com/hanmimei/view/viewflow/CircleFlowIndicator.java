@@ -1,7 +1,5 @@
 package com.hanmimei.view.viewflow;
 
-import com.hanmimei.R;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -13,6 +11,8 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
+
+import com.hanmimei.R;
 
 
 

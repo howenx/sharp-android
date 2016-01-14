@@ -15,9 +15,9 @@
  */
 
 package com.hanmimei.wheel.widget.adapter;
-import com.hanmimei.wheel.widget.WheelAdapter;
-
 import android.content.Context;
+
+import com.hanmimei.wheel.widget.WheelAdapter;
 
 /**
  * Adapter class for old wheel adapter (deprecated WheelAdapter class).

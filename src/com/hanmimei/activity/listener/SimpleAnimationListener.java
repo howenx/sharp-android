@@ -3,9 +3,6 @@ package com.hanmimei.activity.listener;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.Animator.AnimatorListener;
 
-import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
-
 public class SimpleAnimationListener implements AnimatorListener {
 
 	@Override

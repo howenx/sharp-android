@@ -26,11 +26,6 @@ import com.hanmimei.activity.EditUserInfoActivity;
 import com.hanmimei.activity.LoginActivity;
 import com.hanmimei.activity.MyCollectionActivity;
 import com.hanmimei.activity.MyOrderActivity;
-<<<<<<< HEAD
-import com.hanmimei.activity.MyOrderNewActivity;
-=======
-import com.hanmimei.activity.MyOrderActivity;
->>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
 import com.hanmimei.dao.UserDao;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
@@ -182,7 +177,7 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 			doJump(EditUserInfoActivity.class);
 			break;
 		case R.id.order:
-			doJump(MyOrderNewActivity.class);
+			doJump(MyOrderActivity.class);
 			break;
 		case R.id.address:
 			doJump(AdressActivity.class);

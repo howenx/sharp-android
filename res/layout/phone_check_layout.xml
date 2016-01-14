@@ -23,30 +23,19 @@
         android:text="@string/send_yan_to_phone"
         android:textSize="14sp"
         android:textColor="@color/huise"/>
-<<<<<<< HEAD
-    <LinearLayout 
-=======
     <RelativeLayout 
->>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
         android:padding="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@color/white">
         <TextView 
-<<<<<<< HEAD
-=======
             android:id="@+id/text1"
->>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/phone_num"
             android:textSize="16sp"
             android:textColor="@color/fontcolor"/>
-<<<<<<< HEAD
-        <EditText 
-            android:id="@+id/phone"
-=======
         <ImageView 
             android:id="@+id/clear_phone"
             android:padding="3dp"
@@ -61,7 +50,6 @@
             android:id="@+id/phone"
             android:layout_toRightOf="@id/text1"
             android:layout_toLeftOf="@id/clear_phone"
->>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
             android:maxLength="11"
             android:layout_marginLeft="15dp"
             android:layout_width="match_parent"
@@ -71,11 +59,7 @@
             android:textColor="@color/fontcolor"
             android:inputType="number"
             android:background="@null"/>
-<<<<<<< HEAD
-    </LinearLayout>
-=======
     </RelativeLayout>
->>>>>>> 79a1e5a750fc8bd6fcd734288177ecd526a7e3d3
     <TextView 
         android:id="@+id/next"
         android:layout_margin="15dp"
