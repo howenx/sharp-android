@@ -107,6 +107,8 @@ public class CheckPhoneActivity extends BaseActivity implements OnClickListener 
 			finish();
 			break;
 		case R.id.next:
+			//关闭键盘
+			CommonUtil.closeBoardIfShow(this);
 			phone_num = phone.getText().toString();
 			if (!CommonUtil.isPhoneNum(phone_num)) {
 				setAttention("请填写正确的手机号");

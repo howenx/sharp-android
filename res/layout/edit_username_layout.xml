@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <include 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/attention_text_layout"/>
+    <EditText 
+        android:id="@+id/name"
+        android:padding="5dp"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@null"
+        android:textSize="14sp"
+        android:textColor="@color/huise"
+        android:background="@color/white"/>
+    <TextView 
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:textColor="@color/huise"
+        android:text="@string/edit_user_info"/>
+    <TextView 
+        android:id="@+id/send"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@color/theme"
+        android:textColor="@color/white"
+		style="@style/login_edit_style"
+        android:text="@string/save"/>
+
+</LinearLayout>

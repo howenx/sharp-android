@@ -111,6 +111,7 @@ public class ShoppingCartFragment extends Fragment implements OnClickListener,
 			toJsonArray(list);
 			getData();
 		} else {
+			attention.setVisibility(View.INVISIBLE);
 			bottom.setVisibility(View.GONE);
 			no_data.setVisibility(View.VISIBLE);
 			mListView.setVisibility(View.GONE);
@@ -151,6 +152,7 @@ public class ShoppingCartFragment extends Fragment implements OnClickListener,
 			@Override
 			public void onError() {
 				activity.getLoading().dismiss();
+				attention.setVisibility(View.INVISIBLE);
 				bottom.setVisibility(View.GONE);
 				mListView.setVisibility(View.GONE);
 				no_data.setVisibility(View.GONE);
@@ -165,6 +167,7 @@ public class ShoppingCartFragment extends Fragment implements OnClickListener,
 		data.clear();
 		if (car.getMessage() != null) {
 			if (car.getList() != null && car.getList().size() > 0) {
+				attention.setVisibility(View.VISIBLE);
 				no_data.setVisibility(View.GONE);
 				no_net.setVisibility(View.GONE);
 				bottom.setVisibility(View.VISIBLE);
@@ -174,15 +177,16 @@ public class ShoppingCartFragment extends Fragment implements OnClickListener,
 				ShoppingCarMenager.getInstance()
 						.initShoppingCarMenager(activity, adapter,
 								data, false, attention, check_all,
-								total_price, pay, no_data, bottom);
+								total_price, pay, no_data, bottom,mListView);
 				ShoppingCarMenager.getInstance().initDrawable(
 						getActivity());
 				clearPrice();
 				//
 			} else {
+				attention.setVisibility(View.INVISIBLE);
 				bottom.setVisibility(View.GONE);
 				mListView.setVisibility(View.GONE);
-				if(car.getMessage().getCode() == 1010){
+				if(car.getMessage().getCode() == 1015){
 					no_data.setVisibility(View.VISIBLE);
 					no_net.setVisibility(View.GONE);
 				}else{
@@ -191,6 +195,7 @@ public class ShoppingCartFragment extends Fragment implements OnClickListener,
 				}
 			}
 		} else {
+			attention.setVisibility(View.INVISIBLE);
 			bottom.setVisibility(View.GONE);
 			mListView.setVisibility(View.GONE);
 			no_data.setVisibility(View.GONE);
@@ -211,6 +216,7 @@ public class ShoppingCartFragment extends Fragment implements OnClickListener,
 			@Override
 			public void onError() {
 				activity.getLoading().dismiss();
+				attention.setVisibility(View.INVISIBLE);
 				bottom.setVisibility(View.GONE);
 				mListView.setVisibility(View.GONE);
 				no_data.setVisibility(View.GONE);

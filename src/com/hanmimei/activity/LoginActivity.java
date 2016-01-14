@@ -97,6 +97,11 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 		goodsDao = getDaoSession().getShoppingGoodsDao();
 		phone_edit.addTextChangedListener(phoneWatcher);
 		pwd_edit.addTextChangedListener(pwdWatcher);
+		User loginUser = userDao.queryBuilder().build().unique();
+		if(loginUser!=null){
+			phone_edit.setText(loginUser.getPhone());
+			Selection.setSelection((Spannable)phone_edit.getText(), phone_edit.getText().toString().length());
+		}
 	}
 	//手机号输入的监听
 	TextWatcher phoneWatcher = new TextWatcher() {
@@ -140,19 +145,14 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 		switch (v.getId()) {
 		case R.id.forget:
 			CommonUtil.doJump(this, ForgetPhoneActivity.class);
-//			Intent intent1 = new Intent(this, CheckPhoneActivity.class);
-//			intent1.putExtra("use", "forget");
-//			startActivity(intent1);
-			// showDialog();
 			break;
 		case R.id.login:
+			//关闭键盘
+			CommonUtil.closeBoardIfShow(this);
 			checkInput();
 			break;
 		case R.id.regist:
 			CommonUtil.doJump(this, CheckPhoneActivity.class);
-//			Intent intent = new Intent(this, CheckPhoneActivity.class);
-//			intent.putExtra("use", "regist");
-//			startActivity(intent);
 			break;
 		case R.id.refresh:
 			loadImg();
@@ -266,6 +266,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 				if(result.getCode() != null){
 				if (result.getCode() == 200) {
 					User user = new User();
+					user.setPhone(phone);
 					user.setUserId(0);
 					user.setToken(result.getTag());
 					user.setIsBind(false);
@@ -280,15 +281,11 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 							&& goodsDao.queryBuilder().build().list().size() > 0) {
 						sendShoppingCar();
 					} else {
-						// startActivity(intent);
 						sendBroadcast(new Intent(
 								AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION));
 						finish();
 					}
 				} else if (result.getCode() == 4001) {
-					// Toast.makeText(LoginActivity.this, result.getMessage(),
-					// Toast.LENGTH_SHORT).show();
-					// setAttention("提示：" + result.getMessage());
 					if (!isDialogShow)
 						showDialog();
 					loadImg();
@@ -386,7 +383,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 
 	private void showDialog() {
 		isDialogShow = true;
-		View view = LayoutInflater.from(this).inflate(R.layout.dialog_layout,
+		View view = LayoutInflater.from(this).inflate(R.layout.img_save_layout,
 				null);
 		imgDialog = new AlertDialog.Builder(this).create();
 		imgDialog.setView(view);
@@ -395,7 +392,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 		jiaoyanImg = (ImageView) view.findViewById(R.id.img);
 		codeEditText = (EditText) view.findViewById(R.id.code);
 		code_attention = (TextView) view.findViewById(R.id.attention);
-		view.findViewById(R.id.linear).setVisibility(View.VISIBLE);
 		title.setText("安全校验");
 		view.findViewById(R.id.cancle).setOnClickListener(this);
 		view.findViewById(R.id.besure).setOnClickListener(this);
@@ -406,33 +402,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 		jiaoyanImg.setImageBitmap(bitmap);
 	}
 
-//	private MyBroadCastReceiver netReceiver;
-
-//	// 广播接收者 注册
-//	private void registerReceivers() {
-//		netReceiver = new MyBroadCastReceiver();
-//		IntentFilter intentFilter = new IntentFilter();
-//		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_REGIST_OK_ACTION);
-//		getActivity().registerReceiver(netReceiver, intentFilter);
-//	}
-//
-//	@Override
-//	public void onDestroy() {
-//		// TODO Auto-generated method stub
-//		super.onDestroy();
-//		getActivity().unregisterReceiver(netReceiver);
-//	}
-//
-//	private class MyBroadCastReceiver extends BroadcastReceiver {
-//
-//		@Override
-//		public void onReceive(Context context, Intent intent) {
-//			if (intent.getAction()
-//					.equals(AppConstant.MESSAGE_BROADCAST_REGIST_OK_ACTION)) {
-//				doLogin();
-//			} 
-//		}
-//	}
 
 	public void onResume() {
 		super.onResume();

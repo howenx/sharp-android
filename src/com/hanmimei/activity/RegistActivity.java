@@ -166,6 +166,8 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 			getYanZheng();
 			break;
 		case R.id.regist:
+			//关闭键盘
+			CommonUtil.closeBoardIfShow(this);
 			checkInput();
 			break;
 			//清空手机号的输入

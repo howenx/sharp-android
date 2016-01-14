@@ -19,6 +19,7 @@ import com.hanmimei.R;
 import com.hanmimei.application.MyApplication;
 import com.hanmimei.dao.UserDao;
 import com.hanmimei.data.AppConstant;
+import com.hanmimei.entity.User;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.DoJumpUtils;
 import com.umeng.analytics.MobclickAgent;
@@ -150,8 +151,11 @@ public class SettingActivity extends BaseActivity implements OnClickListener{
 			@Override
 			public void run() {
 				try {
+					User user = new User();
+					user.setPhone(getUser().getPhone());
 					application.clearLoginUser();
 					userDao.deleteAll();
+					userDao.insert(user);
 					Thread.sleep(1500);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
