@@ -166,7 +166,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 				ShoppingCarMenager.getInstance()
 						.initShoppingCarMenager(ShoppingCarActivity.this, adapter,
 								data, false, attention, check_all,
-								total_price, pay, no_data, bottom);
+								total_price, pay, no_data, bottom,mListView);
 				ShoppingCarMenager.getInstance().initDrawable(
 						getActivity());
 				clearPrice();

@@ -113,6 +113,8 @@ public class ForgetPhoneActivity extends BaseActivity implements
 			finish();
 			break;
 		case R.id.next:
+			//关闭键盘
+			CommonUtil.closeBoardIfShow(this);
 			phone_num = phone.getText().toString();
 			if (!CommonUtil.isPhoneNum(phone_num)) {
 				setAttention("请填写正确的手机号");
@@ -237,7 +239,7 @@ public class ForgetPhoneActivity extends BaseActivity implements
 	private TextView code_attention;
 
 	private void showCodeDialog() {
-		View view = LayoutInflater.from(this).inflate(R.layout.dialog_layout,
+		View view = LayoutInflater.from(this).inflate(R.layout.img_save_layout,
 				null);
 		imgDialog = new AlertDialog.Builder(this).create();
 		imgDialog.setView(view);
@@ -246,7 +248,6 @@ public class ForgetPhoneActivity extends BaseActivity implements
 		jiaoyanImg = (ImageView) view.findViewById(R.id.img);
 		codeEditText = (EditText) view.findViewById(R.id.code);
 		code_attention = (TextView) view.findViewById(R.id.attention);
-		view.findViewById(R.id.linear).setVisibility(View.VISIBLE);
 		title.setText("安全校验");
 		view.findViewById(R.id.cancle).setOnClickListener(
 				new OnClickListener() {
@@ -261,12 +262,6 @@ public class ForgetPhoneActivity extends BaseActivity implements
 
 					@Override
 					public void onClick(View v) {
-						code = codeEditText.getText().toString();
-						if (code.equals("")) {
-
-						}
-						imgDialog.dismiss();
-						checkPhone();
 						code_attention.setVisibility(View.GONE);
 						code = codeEditText.getText().toString();
 						if (code.length() != 4 || !CommonUtil.isJiaoYan(code)) {

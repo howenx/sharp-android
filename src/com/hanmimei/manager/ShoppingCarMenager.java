@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.hanmimei.R;
 import com.hanmimei.adapter.ShoppingCarPullListAdapter;
 import com.hanmimei.entity.Customs;
@@ -24,6 +25,7 @@ public class ShoppingCarMenager {
 	private LinearLayout no_data;
 	private LinearLayout bottom;
 	private TextView attention;
+	private PullToRefreshListView mListView;
 	//
 	private int nums_e = 0;
 	private double totalPrice_e = 0;
@@ -47,7 +49,7 @@ public class ShoppingCarMenager {
 		check_Drawable = mContext.getResources().getDrawable(R.drawable.checked);
 		uncheck_Drawable = mContext.getResources().getDrawable(R.drawable.check_un);
 	}
-	public void initShoppingCarMenager(Context mContext, ShoppingCarPullListAdapter adapter, List<Customs> list, boolean isSelected, TextView attention, ImageView checkBox, TextView totalPrice, TextView pay, LinearLayout no_data, LinearLayout bottom){
+	public void initShoppingCarMenager(Context mContext, ShoppingCarPullListAdapter adapter, List<Customs> list, boolean isSelected, TextView attention, ImageView checkBox, TextView totalPrice, TextView pay, LinearLayout no_data, LinearLayout bottom,PullToRefreshListView mListView){
 		this.activity = (Activity) mContext;
 		this.adapter = adapter;
 		this.list.clear();
@@ -59,6 +61,7 @@ public class ShoppingCarMenager {
 		this.pay = pay;
 		this.no_data = no_data;
 		this.bottom = bottom;
+		this.mListView = mListView;
 	}
 	public List<Customs> getData(){
 		return list;
@@ -119,20 +122,24 @@ public class ShoppingCarMenager {
 			totalPrice_t.setText("总计：0.00");
 		}
 		if(list.size() <= 0 || list == null){
+			mListView.setVisibility(View.GONE);
+			attention.setVisibility(View.INVISIBLE);
 			no_data.setVisibility(View.VISIBLE);
 			bottom.setVisibility(View.GONE);
 		}else{
+			mListView.setVisibility(View.VISIBLE);
+			attention.setVisibility(View.VISIBLE);
 			no_data.setVisibility(View.GONE);
 			bottom.setVisibility(View.VISIBLE);
 		}
 	}
 	public void setPayNoClick(){
-		attention.setText("超额提示：" + customName+"商品总额超过 ¥" + bottommorePrice);
+			attention.setText("超额提示：" + customName+"商品总额超过 ¥" + bottommorePrice);
 		pay.setClickable(false);
 		pay.setBackgroundColor(activity.getResources().getColor(R.color.huise));
 	}
 	public void setPayClick(){
-		attention.setText("友情提示：同一保税区商品总额有限制");
+			attention.setText("友情提示：同一保税区商品总额有限制");
 		pay.setClickable(true);
 		pay.setBackgroundColor(activity.getResources().getColor(R.color.theme));
 	}

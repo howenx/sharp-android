@@ -413,9 +413,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 						HMessage hm = DataParser.paserResultMsg(result);
 						if (hm.getCode() == 200) {
 							// 购物车添加成功，显示提示框
-//							ToastUtils.Toast(GoodsDetailActivity.this,hm.getMessage());
-							displayAnimation();
-							goods2.setGoodsNums(goods2.getGoodsNums()+1);
 							// ToastUtils.Toast(GoodsDetailActivity.this,hm.getMessage());
 							displayAnimation();
 							goods2.setGoodsNums(goods2.getGoodsNums() + 1);

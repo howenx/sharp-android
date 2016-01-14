@@ -54,6 +54,7 @@
 	<string name="now_go">立即查看</string>
 	<string name="cancel">取消</string>
 	<string name="confirm">确认</string>
+	<string name="save">保存</string>
 	<string name="order_attention">注意：订单超过24小时，系统会自动取消。请尽快支付！</string>
 	<string name="top">顶部</string>
 	<string name="sucess_goodscar">商品已成功添加入购物车</string>
@@ -65,5 +66,6 @@
 	<string name="zhekoulv">折扣率：</string>
 	<string name="pingoudazhe">拼购打折</string>
 	<string name="send_yan_to_phone">我们将发送验证码到你的手机。</string>
+	<string name="edit_user_info">1.字符个数应在2-12位之间\n2.与韩秘美有冲突的昵称，韩秘美将保留收回的权利\n3.创建或更改昵称，请遵守相关法律法规</string>
 	
 </resources>

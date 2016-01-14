@@ -46,10 +46,12 @@ import com.hanmimei.entity.User;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.DateUtil;
+import com.hanmimei.utils.DoJumpUtils;
 import com.hanmimei.utils.HasSDCardUtil;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ImageLoaderUtils;
 import com.hanmimei.utils.ImgUtils;
+import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.RoundImageView;
 import com.umeng.analytics.MobclickAgent;
 
@@ -61,13 +63,12 @@ public class EditUserInfoActivity extends BaseActivity implements
 	private RelativeLayout up_name;
 	private RelativeLayout up_sex;
 	private RoundImageView header;
-	private EditText name;
+	private TextView name;
 	private TextView sex;
 	private TextView phone;
 
 	private String header_str = null;
-	private String name_str;
-	private String sex_str;
+	private String sex_str = "null";
 
 	private PopupWindow popWindow;
 	private PopupWindow sexPopupWindow;
@@ -84,8 +85,7 @@ public class EditUserInfoActivity extends BaseActivity implements
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.user_info_layout);
-		ActionBarUtil.setActionBarStyle(this, "修改信息", R.drawable.icon_save,
-				true, this, this);
+		ActionBarUtil.setActionBarStyle(this, "修改信息");
 		oldUser = getUser();
 		findView();
 		initView();
@@ -99,7 +99,7 @@ public class EditUserInfoActivity extends BaseActivity implements
 		up_header = (RelativeLayout) findViewById(R.id.up_header);
 		up_name = (RelativeLayout) findViewById(R.id.up_name);
 		up_sex = (RelativeLayout) findViewById(R.id.up_sex);
-		name = (EditText) findViewById(R.id.name);
+		name = (TextView) findViewById(R.id.name);
 		sex = (TextView) findViewById(R.id.sex);
 		phone = (TextView) findViewById(R.id.phone);
 		up_header.setOnClickListener(this);
@@ -131,25 +131,16 @@ public class EditUserInfoActivity extends BaseActivity implements
 		case R.id.back:
 			finish();
 			break;
-		case R.id.setting:
-			checkInput();
-			break;
 		case R.id.up_sex:
 			sexPopupWindow.showAtLocation(parenView, Gravity.CENTER, 0, 0);
 			break;
+		case R.id.up_name:
+			Intent intent = new Intent(this,EditUserNameActivity.class);
+			intent.putExtra("name", oldUser.getUserName());
+			startActivityForResult(intent, AppConstant.UP_USER_NAME_CODE);
+			break;
 		default:
 			break;
-		}
-	}
-
-	// 检查输入是否正确
-	private void checkInput() {
-		name_str = name.getText().toString();
-		if(!CommonUtil.inputIsName(name_str,2,15).equals("")){
-			Toast.makeText(this, "姓名"+ CommonUtil.inputIsName(name_str,2,15), Toast.LENGTH_SHORT).show();
-			return;
-		} else {
-			UpUserInfo();
 		}
 	}
 
@@ -157,7 +148,6 @@ public class EditUserInfoActivity extends BaseActivity implements
 	private void UpUserInfo() {
 		dialog = CommonUtil.dialog(this, "正在修改，请稍后...");
 		dialog.show();
-		toObject();
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -172,17 +162,18 @@ public class EditUserInfoActivity extends BaseActivity implements
 	}
 
 	// 封装json，作为请求参数
-	private void toObject() {
+	private void toObject(int what) {
 		try {
 			object = new JSONObject();
-			object.put("nickname", name_str);
-			object.put("phoneNum", oldUser.getPhone());
-			object.put("birthday", null);
-			object.put("gender", sex_str);
-			object.put("photoUrl", header_str);
+			if(what == 1){
+				object.put("gender", sex_str);
+			}else if(what == 0){
+				object.put("photoUrl", header_str);
+			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+		UpUserInfo();
 	}
 
 	@SuppressLint("HandlerLeak") 
@@ -201,14 +192,10 @@ public class EditUserInfoActivity extends BaseActivity implements
 								AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION));
 						finish();
 					} else {
-						Toast.makeText(EditUserInfoActivity.this,
-								"修改失败,请检查您的网络", Toast.LENGTH_SHORT).show();
-						finish();
+						ToastUtils.Toast(EditUserInfoActivity.this,"修改失败,请检查您的网络");
 					}
 				} else {
-					Toast.makeText(EditUserInfoActivity.this, "修改失败，请检查您的网络",
-							Toast.LENGTH_SHORT).show();
-					finish();
+					ToastUtils.Toast(EditUserInfoActivity.this,"修改失败,请检查您的网络");
 				}
 				break;
 
@@ -238,6 +225,7 @@ public class EditUserInfoActivity extends BaseActivity implements
 				sex.setText("男");
 				sex_str = "M";
 				sexPopupWindow.dismiss();
+				toObject(1);
 			}
 		});
 		view.findViewById(R.id.women).setOnClickListener(new OnClickListener() {
@@ -247,6 +235,7 @@ public class EditUserInfoActivity extends BaseActivity implements
 				sex.setText("女");
 				sex_str = "F";
 				sexPopupWindow.dismiss();
+				toObject(1);
 			}
 		});
 	}
@@ -339,32 +328,16 @@ public class EditUserInfoActivity extends BaseActivity implements
 				File file = null;
 				if (data != null)
 					file = getFile(data);
-//				isSizeMore(file);
 				header_str = toBuffer(file);
-
+				toObject(0);
 				break;
 			}
 		}
+		if(requestCode == AppConstant.UP_USER_NAME_CODE){
+			
+			name.setText(data.getStringExtra("name"));
+		}
 	}
-
-//	private boolean isSizeMore(File file) {
-//		long size = 0;
-//		try {
-//			if (file.exists()) {
-//				FileInputStream fis = null;
-//				fis = new FileInputStream(file);
-//				size = fis.available();
-//			} else {
-//				file.createNewFile();
-//				Log.e("获取文件大小", "文件不存在!");
-//			}
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//
-//		return false;
-//	}
 
 	// 将文件转成流 base64
 	private String toBuffer(File file) {

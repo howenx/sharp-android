@@ -66,21 +66,6 @@
             android:layout_marginRight="15dp"
             android:src="@drawable/icon_jiantou"
             android:visibility="invisible" />
-
-        <EditText
-            android:id="@+id/name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingRight="3dp"
-            android:background="@null"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="15dp"
-            android:layout_toRightOf="@id/mm"
-            android:layout_toLeftOf="@id/tjian"
-            android:gravity="right"
-            android:text="hmm135208"
-            android:textColor="@color/fontcolor"
-            android:textSize="14sp" />
 <!-- 
         <TextView
             android:id="@+id/name"
@@ -93,6 +78,28 @@
             android:textColor="@color/fontcolor"
             android:textSize="14sp" />
              -->
+
+
+        <ImageView
+            android:id="@+id/njian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/icon_jiantou" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:layout_toLeftOf="@id/njian"
+            android:text="女dhjehjde"
+            android:textColor="@color/fontcolor"
+            android:textSize="14sp" />
+
     </RelativeLayout>
 
     <View
