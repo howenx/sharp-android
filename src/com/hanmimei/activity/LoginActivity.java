@@ -221,10 +221,12 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 		if (!CommonUtil.isPhoneNum(phone)) {
 			setAttention("请输入正确的手机号");
 			return;
-		} else if (!CommonUtil.isPassWord(pwd)) {
-			setAttention("密码为数字和字母组合");
-			return;
-		} else if(pwd.length()<6){
+		} 
+//		else if (!CommonUtil.isPassWord(pwd)) {
+//			setAttention("密码为数字和字母组合");
+//			return;
+//		} 
+		else if(pwd.length()<6){
 			setAttention("密码至少应为6位");
 		}else {
 			doLogin();

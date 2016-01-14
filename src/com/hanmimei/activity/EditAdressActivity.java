@@ -15,9 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -37,6 +34,8 @@ import com.hanmimei.wheel.widget.OnWheelChangedListener;
 import com.hanmimei.wheel.widget.WheelView;
 import com.hanmimei.wheel.widget.adapter.ArrayWheelAdapter;
 import com.umeng.analytics.MobclickAgent;
+import com.zcw.togglebutton.ToggleButton;
+import com.zcw.togglebutton.ToggleButton.OnToggleChanged;
 
 @SuppressLint("NewApi") 
 public class EditAdressActivity extends BaseActivity implements OnClickListener,OnWheelChangedListener{
@@ -49,7 +48,7 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 	private TextView city_edit;
 	private EditText adress_edit;
 	private TextView add_adre;
-	private CheckBox check_box;
+	private ToggleButton check_box;
 	private String name;
 	private String phone;
 	private String city;
@@ -154,13 +153,18 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 		city_edit.setText(old_Adress.getCity());
 		adress_edit.setText(old_Adress.getAdress());
 		idCard_edit.setText(old_Adress.getIdCard());
-		
-		check_box.setChecked(old_Adress.isDefault());
+		if(old_Adress.isDefault()){
+			
+		}else{
+			
+		}
 		if(old_Adress.isDefault()){
 			isDefaut = 1;
+			check_box.setToggleOn();
 			check_box.setClickable(false);
 		}else{
 			isDefaut = 0;
+			check_box.setToggleOff();
 		}
 	}
 	//初始化控件
@@ -171,13 +175,12 @@ public class EditAdressActivity extends BaseActivity implements OnClickListener,
 		city_edit = (TextView) findViewById(R.id.city);
 		adress_edit = (EditText) findViewById(R.id.address);
 		idCard_edit = (EditText) findViewById(R.id.card);
-		check_box = (CheckBox) findViewById(R.id.btn_dufault);
-		check_box.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+		check_box = (ToggleButton) findViewById(R.id.btn_dufault);
+		check_box.setOnToggleChanged(new OnToggleChanged() {
 			
 			@Override
-			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
-				
-				if(arg1){
+			public void onToggle(boolean on) {
+				if(on){
 					isDefaut = 1;
 				}else{
 					isDefaut = 0;

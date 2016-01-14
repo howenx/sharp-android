@@ -12,14 +12,13 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.cpoopc.scrollablelayoutlib.ScrollAbleFragment;
-import com.cpoopc.scrollablelayoutlib.ScrollableHelper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.hanmimei.R;
 import com.hanmimei.adapter.GoodsDetailParamAdapter;
 import com.hanmimei.entity.ItemFeature;
 
-public class ParamsFragment extends ScrollAbleFragment  implements ScrollableHelper.ScrollableContainer{
+public class ParamsFragment extends ScrollAbleFragment{
 	
 
 	public static ParamsFragment newInstance(String itemFeatures) {

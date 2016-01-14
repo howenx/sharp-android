@@ -53,6 +53,9 @@ public class OrderFragment extends Fragment implements
 	private BaseActivity activity;
 	private LinearLayout no_net;
 	private TextView reload;
+	
+
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -134,6 +137,52 @@ public class OrderFragment extends Fragment implements
 			}
 		});
 		
+		Http2Utils.doGetRequestTask(getActivity(), activity.getHeaders(), UrlUtil.GET_ORDER_LIST_URL, new VolleyJsonCallback(){
+
+			@Override
+			public void onSuccess(String result) {
+				// TODO Auto-generated method stub
+				List<Order> orders = DataParser.parserOrder(result);
+				mListView.onRefreshComplete();
+				data.clear();
+				if (orders != null) {
+					no_net.setVisibility(View.GONE);
+					if (orders.size() > 0) {
+						getOrderByState(orders);
+						if (data.size() > 0) {
+							no_order.setVisibility(View.GONE);
+						} else {
+							no_order.setVisibility(View.VISIBLE);
+						}
+						
+					} else {
+						no_order.setVisibility(View.VISIBLE);
+					}
+				} else {
+					no_order.setVisibility(View.GONE);
+					no_net.setVisibility(View.VISIBLE);
+				}
+				adapter.notifyDataSetChanged();
+			}
+
+			@Override
+			public void onError() {
+				no_order.setVisibility(View.GONE);
+				no_net.setVisibility(View.VISIBLE);
+			}
+			
+		});
+//		new Thread(new Runnable() {
+//			@Override
+//			public void run() {
+//				String result = HttpUtils.getToken(UrlUtil.GET_ORDER_LIST_URL,
+//						"id-token", user.getToken());
+//				
+//				Message msg = mHandler.obtainMessage(1);
+//				msg.obj = list;
+//				mHandler.sendMessage(msg);
+//			}
+//		}).start();
 	}
 	
 

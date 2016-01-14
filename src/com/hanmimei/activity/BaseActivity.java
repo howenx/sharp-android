@@ -30,6 +30,7 @@ import com.hanmimei.entity.User;
 import com.hanmimei.manager.ThreadPoolManager;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.SystemBarTintManager;
+import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.LoadingDialog;
 import com.hanmimei.wheel.entity.CityModel;
 import com.hanmimei.wheel.entity.DistrictModel;
@@ -235,6 +236,7 @@ public class BaseActivity extends AppCompatActivity {
 			ClipboardManager cbm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
 			cbm.setText(application.getKouling());
 		}
+		ToastUtils.cancel();
 		super.onStop();
 	}
 

@@ -1,8 +1,5 @@
 package com.hanmimei.activity;
 
-import github.chenupt.multiplemodel.viewpager.ModelPagerAdapter;
-import github.chenupt.multiplemodel.viewpager.PagerModelManager;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +37,7 @@ import com.hanmimei.R;
 import com.hanmimei.activity.fragment.ImgFragment;
 import com.hanmimei.activity.fragment.ParamsFragment;
 import com.hanmimei.activity.listener.SimpleAnimationListener;
+import com.hanmimei.adapter.GoodsDetailPagerAdapter;
 import com.hanmimei.dao.ShoppingGoodsDao;
 import com.hanmimei.dao.ShoppingGoodsDao.Properties;
 import com.hanmimei.data.AppConstant;
@@ -76,7 +74,6 @@ import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
-import com.ypy.eventbus.EventBus;
 
 @SuppressLint("NewApi")
 public class GoodsDetailActivity extends BaseActivity implements
@@ -689,24 +686,22 @@ public class GoodsDetailActivity extends BaseActivity implements
 	}
 	
 	private void initFragmentPager(Main main){
-		List<String> categorylist = new ArrayList<String>();
-		categorylist.add("图文详情");
-		categorylist.add("商品参数");
-		categorylist.add("热门商品");
+		List<String> titles = new ArrayList<String>();
+		titles.add("图文详情");
+		titles.add("商品参数");
+		titles.add("热门商品");
 		
-		final List<ScrollAbleFragment> fragmentlist = new ArrayList<ScrollAbleFragment>();
+		final List<ScrollAbleFragment> fragments = new ArrayList<ScrollAbleFragment>();
 		ScrollAbleFragment imgFragment = ImgFragment.newInstance(main.getItemNotice(), main.getItemDetailImgs());
 		ScrollAbleFragment parFragment = ParamsFragment.newInstance(main.getItemFeaturess());
 		ScrollAbleFragment gridViewFragment = ParamsFragment.newInstance(main.getItemFeaturess());
-		fragmentlist.add(imgFragment);
-		fragmentlist.add(parFragment);
-		fragmentlist.add(gridViewFragment);
+		fragments.add(imgFragment);
+		fragments.add(parFragment);
+		fragments.add(gridViewFragment);
 		
-		PagerModelManager factory = new PagerModelManager();
-		factory.addCommonFragment(fragmentlist, categorylist);
-		ModelPagerAdapter adapter = new ModelPagerAdapter(getSupportFragmentManager(), factory);
+		GoodsDetailPagerAdapter adapter = new GoodsDetailPagerAdapter(getSupportFragmentManager(), fragments,titles);
 		viewPager.setAdapter(adapter);
-		 mScrollLayout.getHelper().setCurrentScrollableContainer(fragmentlist.get(0));
+		 mScrollLayout.getHelper().setCurrentScrollableContainer(fragments.get(0));
 	     pagerSlidingTabStrip.setViewPager(viewPager);
 	     mScrollLayout.setOnScrollListener(new OnScrollListener() {
 			
@@ -729,7 +724,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	            public void onPageSelected(int i) {
 	                Log.e("onPageSelected", "page:" + i);
 	                /** 标注当前页面 **/
-	                mScrollLayout.getHelper().setCurrentScrollableContainer(fragmentlist.get(i));
+	                mScrollLayout.getHelper().setCurrentScrollableContainer(fragments.get(i));
 	            }
 
 	            @Override
@@ -888,15 +883,12 @@ public class GoodsDetailActivity extends BaseActivity implements
 		super.onResume();
 		MobclickAgent.onPageStart("GoodsDetailActivity"); // 统计页面(仅有Activity的应用中SDK自动调用，不需要单独写。"SplashScreen"为页面名称，可自定义)
 		MobclickAgent.onResume(this); // 统计时长
-		 EventBus.getDefault().register(this);
 	}
 	
 
 
 	public void onPause() {
 		super.onPause();
-		ToastUtils.cancel();
-		 EventBus.getDefault().unregister(this);
 		MobclickAgent.onPageEnd("GoodsDetailActivity"); // （仅有Activity的应用中SDK自动调用，不需要单独写）保证
 														// onPageEnd 在onPause
 														// 之前调用,因为 onPause

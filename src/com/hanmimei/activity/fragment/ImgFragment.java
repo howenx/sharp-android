@@ -2,6 +2,7 @@ package com.hanmimei.activity.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,10 +10,9 @@ import android.webkit.WebView;
 import android.widget.TextView;
 
 import com.cpoopc.scrollablelayoutlib.ScrollAbleFragment;
-import com.cpoopc.scrollablelayoutlib.ScrollableHelper;
 import com.hanmimei.R;
 
-public class ImgFragment extends ScrollAbleFragment  implements ScrollableHelper.ScrollableContainer {
+public class ImgFragment extends ScrollAbleFragment   {
 	
 
 	public static ImgFragment newInstance(String noticeInfo,String data) {
@@ -39,7 +39,7 @@ public class ImgFragment extends ScrollAbleFragment  implements ScrollableHelper
 		mWebView.loadData(data, "text/html", "UTF-8");
 		
 		TextView notice = (TextView) view.findViewById(R.id.notice);
-		if(noticeInfo == null){
+		if(TextUtils.isEmpty(noticeInfo)){
 			notice.setVisibility(View.GONE);
 		}else{
 			notice.setVisibility(View.VISIBLE);
