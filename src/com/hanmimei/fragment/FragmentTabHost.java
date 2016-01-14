@@ -333,14 +333,22 @@ public class FragmentTabHost extends TabHost implements
 					ft.show(newTab.fragment);
 				}
 			}
-
 			mLastTab = newTab;
+//			mOnTabClickListener.onTabClick(newTab.tag);
 		}
 		return ft;
 	}
 
 	public int getLastTab() {
 		return lastTab;
+	}
+	
+	private OnTabClickListener mOnTabClickListener;
+	public void setOnTabClickListener(OnTabClickListener mOnTabClickListener){
+		this.mOnTabClickListener = mOnTabClickListener;
+	};
+	public interface OnTabClickListener{
+		public void onTabClick(String tabId);
 	}
 	
 //	public int getCurrent

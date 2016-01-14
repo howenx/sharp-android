@@ -176,7 +176,7 @@ public class BaseActivity extends AppCompatActivity {
 		loadingDialog = new LoadingDialog(this);
 		application = (MyApplication) getApplication();
 		// 沉浸式状态栏的设置
-		if (VERSION.SDK_INT >= 19) {
+//		if (VERSION.SDK_INT >= 19) {
 			// 创建状态栏的管理实例
 			SystemBarTintManager tintManager = new SystemBarTintManager(this);
 			// 激活状态栏设置
@@ -185,7 +185,7 @@ public class BaseActivity extends AppCompatActivity {
 			// tintManager.setNavigationBarTintEnabled(true);
 			// 设置一个颜色给系统栏
 			tintManager.setTintColor(getResources().getColor(R.color.theme));
-		}
+//		}
 	}
 
 	public BaseActivity getActivity() {

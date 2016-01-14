@@ -313,7 +313,7 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 	}
 	
 	private void delAddress() {
-		Http2Utils.doGetRequestTask(this, getHeaders(), UrlUtil.ADDRESS_DEL_URL, new VolleyJsonCallback() {
+		Http2Utils.doPostRequestTask2(this, getHeaders(), UrlUtil.ADDRESS_DEL_URL, new VolleyJsonCallback() {
 			
 			@Override
 			public void onSuccess(String result) {
@@ -329,7 +329,7 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 			public void onError() {
 				ToastUtils.Toast(AdressActivity.this, "删除失败");
 			}
-		});
+		},object.toString());
 	}
 	
 	public void onResume() {

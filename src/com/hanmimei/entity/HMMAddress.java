@@ -58,6 +58,9 @@ public class HMMAddress implements Serializable{
 	public String getIdCard() {
 		return idCard;
 	}
+	public String getIdCardd() {
+		return idCard.substring(0,5)+ "********" +idCard.substring(14, idCard.length());
+	}
 
 	public void setIdCard(String idCard) {
 		this.idCard = idCard;

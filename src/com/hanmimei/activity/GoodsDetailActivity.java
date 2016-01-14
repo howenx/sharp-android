@@ -328,7 +328,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 			showShareboard();
 			break;
 		case R.id.back_top:
-			mScrollLayout.scrollTo(0, 0);
+			mScrollLayout.scrollToTop();
 			break;
 		case R.id.btn_cancel:
 			window.dismiss();
@@ -413,9 +413,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 						HMessage hm = DataParser.paserResultMsg(result);
 						if (hm.getCode() == 200) {
 							// 购物车添加成功，显示提示框
-//							ToastUtils.Toast(GoodsDetailActivity.this,hm.getMessage());
-							displayAnimation();
-							goods2.setGoodsNums(goods2.getGoodsNums()+1);
 							// ToastUtils.Toast(GoodsDetailActivity.this,hm.getMessage());
 							displayAnimation();
 							goods2.setGoodsNums(goods2.getGoodsNums() + 1);
@@ -692,7 +689,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		titles.add("热门商品");
 		
 		final List<ScrollAbleFragment> fragments = new ArrayList<ScrollAbleFragment>();
-		ScrollAbleFragment imgFragment = ImgFragment.newInstance(main.getItemNotice(), main.getItemDetailImgs());
+		ScrollAbleFragment imgFragment = ImgFragment.newInstance( main.getItemDetailImgs());
 		ScrollAbleFragment parFragment = ParamsFragment.newInstance(main.getItemFeaturess());
 		ScrollAbleFragment gridViewFragment = ParamsFragment.newInstance(main.getItemFeaturess());
 		fragments.add(imgFragment);

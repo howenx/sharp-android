@@ -36,6 +36,7 @@ import com.hanmimei.entity.OrderInfo;
 import com.hanmimei.entity.OrderSubmit;
 import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.utils.ActionBarUtil;
+import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
@@ -65,7 +66,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
-		ActionBarUtil.setActionBarStyle(this, "支付结算");
+		ActionBarUtil.setActionBarStyle(this, "支付结算",this);
 		setContentView(R.layout.goods_balance_layout);
 		// 获取要购买的数据
 		car = (ShoppingCar) getIntent().getSerializableExtra("car");
@@ -200,6 +201,9 @@ public class GoodsBalanceActivity extends BaseActivity implements
 		case R.id.btn_pay:
 			sendData(orderSubmit);
 			break;
+		case R.id.back:
+			finish();
+			break;
 
 		default:
 			break;
@@ -323,7 +327,17 @@ public class GoodsBalanceActivity extends BaseActivity implements
 		}else{
 			findViewById(R.id.selectAddress).setVisibility(View.GONE);
 			findViewById(R.id.newAddress).setVisibility(View.VISIBLE);
-
+			String[] tb = { "请添加收货地址",null, "取消", "确定" };
+			AlertDialogUtils.showCustomDialog(this, tb, new OnClickListener() {
+				
+				@Override
+				public void onClick(View arg0) {
+					Intent intnt = new Intent(getActivity(), AdressActivity.class);
+					intnt.putExtra("from", From.GoodsBalanceActivity);
+					intnt.putExtra("selectedId", selectedId);
+					startActivityForResult(intnt, 1);
+				}
+			});
 		}
 	}
 	/**
@@ -416,7 +430,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 			phone.setText(getResources().getString(R.string.phone,
 					adress.getPhone()));
 			idCard.setText(getResources().getString(R.string.idcard,
-					adress.getIdCard()));
+					adress.getIdCardd()));
 			selectedId = adress.getAdress_id();
 			if (adress.isDefault()) {
 				findViewById(R.id.isDefault).setVisibility(View.VISIBLE);

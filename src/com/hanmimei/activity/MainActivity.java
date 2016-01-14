@@ -45,6 +45,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 	private MainBroadCastReceiver netReceiver;
 	private FragmentTabHost mTabHost;
 	private LinearLayout guanggao;
+	private boolean loading = true;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +63,8 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 				R.layout.tab_item_layout);
 		TabHostManager.getInstance().initTabItem(TAB_HOME_ID, home_drawable,
 				TAB_HOME, HomeFragment.class);
-//		TabHostManager.getInstance().initTabItem(TAB_PIN_ID, pingou_drawable,
-//				TAB_PIN, PinFragment.class);
+		// TabHostManager.getInstance().initTabItem(TAB_PIN_ID, pingou_drawable,
+		// TAB_PIN, PinFragment.class);
 		TabHostManager.getInstance().initTabItem(TAB_CAR_ID, shopping_drawable,
 				TAB_CAR, ShoppingCartFragment.class);
 		TabHostManager.getInstance().initTabItem(TAB_MY_ID, my_drawable,
@@ -83,7 +84,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 		} else if (tabId.equals(TAB_PIN_ID)) {
 			ActionBarUtil.setActionBarStyle(this, "拼购", 0, false, this);
 			/** 如果当前选项卡是my */
-		}else if (tabId.equals(TAB_MY_ID)) {
+		} else if (tabId.equals(TAB_MY_ID)) {
 			ActionBarUtil.setActionBarStyle(this, "", R.drawable.icon_setting,
 					false, this);
 		}
@@ -119,6 +120,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 		}
 		return super.onKeyDown(keyCode, event);
 	}
+
 	private long mExitTime;
 
 	/**
@@ -138,7 +140,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 				System.exit(0);
 			}
 		}
-	
+
 	}
 
 	@Override
@@ -147,7 +149,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 		unregisterReceiver(netReceiver);
 	}
 
-//广播接收者 注册
+	// 广播接收者 注册
 	private void registerReceivers() {
 		netReceiver = new MainBroadCastReceiver();
 		IntentFilter intentFilter = new IntentFilter();
@@ -165,14 +167,10 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 			}
 		}
 	}
-	
-
 
 	public void onPause() {
-	    super.onPause();
-	    MobclickAgent.onPause(this);
+		super.onPause();
+		MobclickAgent.onPause(this);
 	}
-	
-	
 
 }

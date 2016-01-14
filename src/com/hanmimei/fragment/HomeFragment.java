@@ -68,6 +68,8 @@ public class HomeFragment extends Fragment implements
 	private RelativeLayout back_top;
 	private LinearLayout no_net;
 	private TextView reload;
+	
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -81,6 +83,7 @@ public class HomeFragment extends Fragment implements
 		themeDao = mActivity.getDaoSession().getThemeDao();
 		sliderDao = mActivity.getDaoSession().getSliderDao();
 	}
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -327,7 +330,6 @@ public class HomeFragment extends Fragment implements
 			}else{
 				back_top.setVisibility(View.VISIBLE);
 			}
-//			back_top.setVisibility(View.VISIBLE);
 			break;
 		default:
 			break;
