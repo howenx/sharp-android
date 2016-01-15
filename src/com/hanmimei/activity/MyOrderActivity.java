@@ -23,12 +23,12 @@ public class MyOrderActivity extends BaseActivity implements OnClickListener, On
 	private static final String TAG_02_ID = "tag02";
 //	private static final String TAG_03_ID = "tag03";
 	private static final String TAG_04_ID = "tag04";
-	private static final String TAG_05_ID = "tag05";
+//	private static final String TAG_05_ID = "tag05";
 	private static final String TAG_01 = "全部";
 	private static final String TAG_02 = "待付款";
 //	private static final String TAG_03 = "待发货";
 	private static final String TAG_04 = "待收货";
-	private static final String TAG_05 = "待评价";
+//	private static final String TAG_05 = "待评价";
 	private ViewPager viewPager;
 	private List<Category> data;
 	private List<Fragment> fragmentList;
@@ -94,7 +94,7 @@ public class MyOrderActivity extends BaseActivity implements OnClickListener, On
 		data.add(new Category(TAG_02_ID, TAG_02));
 //		data.add(new Category(TAG_03_ID, TAG_03));
 		data.add(new Category(TAG_04_ID, TAG_04));
-		data.add(new Category(TAG_05_ID, TAG_05));
+//		data.add(new Category(TAG_05_ID, TAG_05));
 	}
 	@Override
 	public void onClick(View v) {

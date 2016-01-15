@@ -73,6 +73,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 		
 		BadgeViewManager.getInstance().initBadgeViewManager(this, mTabHost);
 		registerReceivers();
+		BadgeViewManager.getInstance().initBadgeViewManager(this, mTabHost);
 	}
 
 	@Override

@@ -41,6 +41,7 @@ import com.hanmimei.entity.Customs;
 import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.User;
+import com.hanmimei.manager.BadgeViewManager;
 import com.hanmimei.manager.ShoppingCarMenager;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
@@ -160,13 +161,27 @@ public class ShoppingCartFragment extends Fragment implements OnClickListener,
 			}
 		},array.toString());
 	}
+	
+	private int getShoppingCarNum(List<Customs> list){
+		int nums = 0;
+		for(int i = 0; i < list.size(); i ++){
+			List<ShoppingGoods> goods = list.get(i).getList();
+			for(int j = 0; j < goods.size(); j ++){
+				nums = nums + goods.get(j).getGoodsNums();
+			}
+		}
+		return nums ;
+	}
 
 	private void afterLoadData(ShoppingCar car){
 		activity.getLoading().dismiss();
 		mListView.onRefreshComplete();
 		data.clear();
+		BadgeViewManager.getInstance().setShopCartGoodsNum(0);
 		if (car.getMessage() != null) {
 			if (car.getList() != null && car.getList().size() > 0) {
+				
+				BadgeViewManager.getInstance().setShopCartGoodsNum(getShoppingCarNum(car.getList()));
 				attention.setVisibility(View.VISIBLE);
 				no_data.setVisibility(View.GONE);
 				no_net.setVisibility(View.GONE);
@@ -343,7 +358,6 @@ public class ShoppingCartFragment extends Fragment implements OnClickListener,
 	private void registerReceivers() {
 		netReceiver = new CarBroadCastReceiver();
 		IntentFilter intentFilter = new IntentFilter();
-		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_ADD_CAR);
 		intentFilter
 				.addAction(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR);
 		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION);
@@ -362,10 +376,7 @@ public class ShoppingCartFragment extends Fragment implements OnClickListener,
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			if (intent.getAction()
-					.equals(AppConstant.MESSAGE_BROADCAST_ADD_CAR)) {
-				loadData();
-			} else if (intent.getAction().equals(
+			if (intent.getAction().equals(
 					AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR)) {
 				loadData();
 			} else if (intent.getAction().equals(

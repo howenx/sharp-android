@@ -31,7 +31,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -46,7 +45,6 @@ import com.hanmimei.entity.User;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.DateUtil;
-import com.hanmimei.utils.DoJumpUtils;
 import com.hanmimei.utils.HasSDCardUtil;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ImageLoaderUtils;
@@ -66,7 +64,7 @@ public class EditUserInfoActivity extends BaseActivity implements
 	private TextView name;
 	private TextView sex;
 	private TextView phone;
-
+	
 	private String header_str = null;
 	private String sex_str = "null";
 
@@ -80,6 +78,7 @@ public class EditUserInfoActivity extends BaseActivity implements
 	private User oldUser;
 	private JSONObject object;
 	private ProgressDialog dialog;
+	private boolean isHeader;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -166,8 +165,10 @@ public class EditUserInfoActivity extends BaseActivity implements
 		try {
 			object = new JSONObject();
 			if(what == 1){
+				isHeader = false;
 				object.put("gender", sex_str);
 			}else if(what == 0){
+				isHeader = true;
 				object.put("photoUrl", header_str);
 			}
 		} catch (JSONException e) {
@@ -188,9 +189,13 @@ public class EditUserInfoActivity extends BaseActivity implements
 				HMessage hm = (HMessage) msg.obj;
 				if (hm.getCode() != null) {
 					if (hm.getCode() == 200) {
+						if(isHeader){
+							header.setImageDrawable(headerDrawable);
+						}else{
+							setSex();
+						}
 						sendBroadcast(new Intent(
 								AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION));
-						finish();
 					} else {
 						ToastUtils.Toast(EditUserInfoActivity.this,"修改失败,请检查您的网络");
 					}
@@ -205,6 +210,13 @@ public class EditUserInfoActivity extends BaseActivity implements
 		}
 
 	};
+	private void setSex(){
+		if(sex_str.equals("M")){
+			sex.setText("男");
+		}else{
+			sex.setText("女");
+		}
+	}
 
 	// 初始化性别popwindow
 	@SuppressWarnings("deprecation")
@@ -222,7 +234,6 @@ public class EditUserInfoActivity extends BaseActivity implements
 
 			@Override
 			public void onClick(View v) {
-				sex.setText("男");
 				sex_str = "M";
 				sexPopupWindow.dismiss();
 				toObject(1);
@@ -232,7 +243,6 @@ public class EditUserInfoActivity extends BaseActivity implements
 
 			@Override
 			public void onClick(View v) {
-				sex.setText("女");
 				sex_str = "F";
 				sexPopupWindow.dismiss();
 				toObject(1);
@@ -333,8 +343,7 @@ public class EditUserInfoActivity extends BaseActivity implements
 				break;
 			}
 		}
-		if(requestCode == AppConstant.UP_USER_NAME_CODE){
-			
+		if(resultCode == AppConstant.UP_USER_NAME_CODE){
 			name.setText(data.getStringExtra("name"));
 		}
 	}
@@ -364,11 +373,12 @@ public class EditUserInfoActivity extends BaseActivity implements
 		Bundle extras = data.getExtras();
 		if (extras != null) {
 			photo = extras.getParcelable("data");
-			Drawable drawable = new BitmapDrawable(photo);
-			header.setImageDrawable(drawable);
+			headerDrawable = new BitmapDrawable(photo);
+//			header.setImageDrawable(drawable);
 		}
 		return saveBitmapFile(photo);
 	}
+	private Drawable headerDrawable;
 
 	private static String IMG_PATH = "/mnt/sdcard/hanmimei/header"; // 图片本地存储路径
 	private String file_name = ""; // 图片本地存储的名称
