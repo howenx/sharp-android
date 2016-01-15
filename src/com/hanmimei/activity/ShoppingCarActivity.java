@@ -347,7 +347,6 @@ public class ShoppingCarActivity extends BaseActivity implements
 	private void registerReceivers() {
 		netReceiver = new CarBroadCastReceiver();
 		IntentFilter intentFilter = new IntentFilter();
-		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_ADD_CAR);
 		intentFilter
 				.addAction(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR);
 		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION);
@@ -367,10 +366,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			if (intent.getAction()
-					.equals(AppConstant.MESSAGE_BROADCAST_ADD_CAR)) {
-				loadData();
-			} else if (intent.getAction().equals(
+			if (intent.getAction().equals(
 					AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR)) {
 				loadData();
 			} else if (intent.getAction().equals(

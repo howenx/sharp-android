@@ -100,7 +100,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private ViewPager viewPager;
 	private PagerSlidingTabStrip pagerSlidingTabStrip;
 
-	private User user;
+//	private User user;
 	private ShoppingGoodsDao goodsDao;
 	private Main main; // 主信息
 	private List<Stock> stocks; // 子商品信息
@@ -154,7 +154,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		mScrollLayout = (ScrollableLayout) findViewById(R.id.mScrollLayout);
 		pagerSlidingTabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
 
-		user = getUser();
+//		user = getUser();
 		goodsDao = getDaoSession().getShoppingGoodsDao();
 
 		findViewById(R.id.btn_pay).setOnClickListener(this);
@@ -845,7 +845,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private void registerReceivers() {
 		netReceiver = new CarBroadCastReceiver();
 		IntentFilter intentFilter = new IntentFilter();
-		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_ADD_CAR);
 		intentFilter
 				.addAction(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR);
 		getActivity().registerReceiver(netReceiver, intentFilter);

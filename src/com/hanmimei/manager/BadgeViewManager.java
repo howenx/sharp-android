@@ -17,9 +17,10 @@ public class BadgeViewManager {
 	 * @param mListView
 	 */
 	public void initBadgeViewManager(Context mContext, FragmentTabHost tabHost) {
-		this.view = new BadgeView(mContext, tabHost.getTabWidget(), 2);
+		this.view = new BadgeView(mContext, tabHost.getTabWidget(), 1);
+		view.setTextColor(mContext.getResources().getColor(R.color.white));
 		view.setBackgroundResource(R.drawable.bg_badgeview);
-		view.setBadgePosition(BadgeView.POSITION_CENTER_HORIZONTAL);
+		view.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
 		view.setTextSize(10);
 		view.setText("0");
 	}
@@ -34,6 +35,7 @@ public class BadgeViewManager {
 	}
 
 	public void setShopCartGoodsNum(int num) {
+		nums = num;
 		if (num <= 0) {
 			view.hide();
 			return;
@@ -41,9 +43,19 @@ public class BadgeViewManager {
 		view.setText(num + "");
 		view.show();
 	}
+	private int nums;
 
 	public int getBadgeViewText() {
 		return Integer.valueOf(view.getText().toString());
+	}
+	public void addShoppingCarNum(int addnum){
+		nums = nums + addnum;
+		view.setText(nums + "");
+		view.show();
+		if (nums <= 0) {
+			view.hide();
+			return;
+		}
 	}
 
 }

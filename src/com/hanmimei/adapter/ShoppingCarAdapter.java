@@ -31,6 +31,7 @@ import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.User;
+import com.hanmimei.manager.BadgeViewManager;
 import com.hanmimei.manager.ShoppingCarMenager;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ImageLoaderUtils;
@@ -47,6 +48,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 	private ShoppingGoodsDao goodsDao;
 	private int check_nums;
 	private AlertDialog dialog;
+	private boolean isAdd;
 
 	public ShoppingCarAdapter(List<ShoppingGoods> data, Context mContext) {
 		inflater = LayoutInflater.from(mContext);
@@ -151,7 +153,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		holder.jian.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-
+				isAdd = false;
 				// 登录状态减少到服务器，未登录状态增减少本地数据库
 				if (user != null) {
 					//数量大于1的时候才可以进行减一操作
@@ -179,6 +181,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 
 			@Override
 			public void onClick(View v) {
+				isAdd = true;
 				if (goods.getGoodsNums() < goods.getRestrictAmount()
 						|| goods.getRestrictAmount() == 0) {
 					// 登录状态增加到服务器，未登录状态增加到本地数据库
@@ -192,9 +195,9 @@ public class ShoppingCarAdapter extends BaseAdapter {
 							upGoodsN(goods);
 					}
 				} 
-//				else {
-//					ToastUtils.Toast(activity, "本商品限购" + goods.getRestrictAmount() + "件");
-//				}
+				else {
+					ToastUtils.Toast(activity, "本商品限购" + goods.getRestrictAmount() + "件");
+				}
 			}
 		});
 		holder.del.setOnClickListener(new OnClickListener() {
@@ -334,6 +337,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 				if (hm.getCode() != null) {
 					if (hm.getCode() == 200) {
 						data.remove(delGoods);
+						BadgeViewManager.getInstance().addShoppingCarNum(-delGoods.getGoodsNums());
 						notifyDataSetChanged();
 						ShoppingCarMenager.getInstance().setBottom();
 					} else {
@@ -352,6 +356,11 @@ public class ShoppingCarAdapter extends BaseAdapter {
 						ShoppingCarMenager.getInstance().setBottom();
 						goodsDao.deleteAll();
 						goodsDao.insertInTx(data);
+						if(isAdd){
+							BadgeViewManager.getInstance().addShoppingCarNum(1);
+						}else{
+							BadgeViewManager.getInstance().addShoppingCarNum(-1);
+						}
 					} else {
 						ToastUtils.Toast(activity, hmm.getMessage());
 					}
@@ -367,6 +376,11 @@ public class ShoppingCarAdapter extends BaseAdapter {
 					if (m.getCode() == 200) {
 						notifyDataSetChanged();
 						ShoppingCarMenager.getInstance().setBottom();
+						if(isAdd){
+							BadgeViewManager.getInstance().addShoppingCarNum(1);
+						}else{
+							BadgeViewManager.getInstance().addShoppingCarNum(-1);
+						}
 					} else {
 						ToastUtils.Toast(activity, m.getMessage());
 					}

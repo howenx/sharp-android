@@ -12,8 +12,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -41,7 +39,6 @@ import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
-import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ToastUtils;
 import com.umeng.analytics.MobclickAgent;
 
@@ -61,6 +58,7 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 	private long selectedId = 0;
 
 	private int fromm = From.AboutMyFragment;
+
 
 	@Override
 	protected void onCreate(Bundle bundle) {

@@ -12,7 +12,6 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hanmimei.R;
@@ -28,7 +27,6 @@ import com.umeng.analytics.MobclickAgent;
 public class SettingActivity extends BaseActivity implements OnClickListener{
 
 	private TextView header;
-	private ImageView back;
 	private Drawable about_Drawable;
 	private Drawable idea_Drawable;
 	private Drawable comment_Drawable;
@@ -113,9 +111,6 @@ public class SettingActivity extends BaseActivity implements OnClickListener{
 			break;
 		case R.id.exit:
 			doExit();
-			break;
-		case R.id.back:
-			finish();
 			break;
 		default:
 			break;

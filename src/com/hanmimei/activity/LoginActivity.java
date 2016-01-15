@@ -186,10 +186,12 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 			//密码的隐藏显示
 		case R.id.show_pwd:
 			if(!isPwdShow){
+				show_pwd.setImageDrawable(getResources().getDrawable(R.drawable.icon_show));
 				isPwdShow = true;
 				pwd_edit.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
 				Selection.setSelection((Spannable)pwd_edit.getText(), pwd_edit.getText().toString().length());
 			}else{
+				show_pwd.setImageDrawable(getResources().getDrawable(R.drawable.icon_kejian));
 				isPwdShow = false;
 				pwd_edit.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 				Selection.setSelection((Spannable)pwd_edit.getText(), pwd_edit.getText().toString().length());

@@ -15,8 +15,8 @@
 
         <RelativeLayout
             android:id="@+id/tv_guid1"
-            android:paddingRight="10dp"
-            android:paddingLeft="10dp"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.0">
@@ -44,8 +44,8 @@
 
        <RelativeLayout
             android:id="@+id/tv_guid2"
-            android:paddingRight="10dp"
-            android:paddingLeft="10dp"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.0">
@@ -86,8 +86,8 @@
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/tv_guid3"
-            android:paddingRight="10dp"
-            android:paddingLeft="10dp"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.0">
@@ -126,13 +126,15 @@
         		android:visibility="invisible"/>
             
         </RelativeLayout>
+        
         <RelativeLayout
             android:id="@+id/tv_guid4"
             android:paddingRight="10dp"
             android:paddingLeft="10dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.0">
+            android:layout_weight="1.0"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/t4"

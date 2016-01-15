@@ -19,6 +19,7 @@ import com.hanmimei.fragment.AboutMyFragment;
 import com.hanmimei.fragment.FragmentTabHost;
 import com.hanmimei.fragment.HomeFragment;
 import com.hanmimei.fragment.ShoppingCartFragment;
+import com.hanmimei.manager.BadgeViewManager;
 import com.hanmimei.manager.TabHostManager;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.DoJumpUtils;
@@ -70,6 +71,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 		TabHostManager.getInstance().initTabItem(TAB_MY_ID, my_drawable,
 				TAB_MY, AboutMyFragment.class);
 		registerReceivers();
+		BadgeViewManager.getInstance().initBadgeViewManager(this, mTabHost);
 	}
 
 	@Override
