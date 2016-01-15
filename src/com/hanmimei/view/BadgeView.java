@@ -37,7 +37,7 @@ public class BadgeView extends TextView {
 	public static final int POSITION_CENTER_HORIZONTAL = 6;
 	
 	private static final int DEFAULT_MARGIN_DIP = 0;
-	private static final int DEFAULT_LR_PADDING_DIP = 5;
+	private static final int DEFAULT_LR_PADDING_DIP = 3;
 	private static final int DEFAULT_CORNER_RADIUS_DIP = 8;
 	private static final int DEFAULT_POSITION = POSITION_TOP_RIGHT;
 	

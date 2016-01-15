@@ -2,21 +2,18 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
     android:background="#000000"
     android:fitsSystemWindows="true" >
-    
-     <com.diegocarloslima.byakugallery.lib.GalleryViewPager 
-    android:id="@+id/mViewPager"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
+
+    <com.diegocarloslima.byakugallery.lib.GalleryViewPager
+        android:id="@+id/mViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:padding="10dp">
-        
-        
+        android:padding="10dp"  >
 
         <TextView
             android:id="@+id/pageNum"
@@ -27,9 +24,5 @@
             android:textColor="@color/white"
             android:textSize="30sp" />
     </RelativeLayout>
-
-   
-
-    
 
 </FrameLayout>

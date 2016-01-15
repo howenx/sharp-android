@@ -33,7 +33,7 @@ public class GoodsDetailImgActivity extends BaseActivity {
 		pageNum.setText((position + 1) + "/" + imgUrls.size());
 		mViewPager.setAdapter(new GoodsDetailImgPagerAdapter(
 				getSupportFragmentManager(), imgUrls));
-		mViewPager.setOffscreenPageLimit(1);
+		mViewPager.setOffscreenPageLimit(imgUrls.size());
 		mViewPager.setCurrentItem(position);
 		mViewPager.addOnPageChangeListener(new GoodsPageChangeListener() {
 

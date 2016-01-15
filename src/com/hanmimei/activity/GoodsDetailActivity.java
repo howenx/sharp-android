@@ -53,6 +53,7 @@ import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.Tag;
 import com.hanmimei.entity.User;
+import com.hanmimei.listener.GoodsPageChangeListener;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.Http2Utils;
@@ -170,7 +171,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private void initGoodsNumView() {
 		goodsNumView = new BadgeView(this, shopcart);
 		goodsNumView.setTextColor(Color.WHITE);
-		goodsNumView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
+		goodsNumView.setBadgePosition(BadgeView.POSITION_CENTER_HORIZONTAL);
 		goodsNumView.setTextSize(10);
 		goodsNumView.setBackgroundResource(R.drawable.bg_badgeview);
 	}
@@ -245,7 +246,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 						if (hm.getCode() == 200) {
 							// 购物车添加成功，显示提示框
 							displayAnimation();
-//							ToastUtils.Toast(GoodsDetailActivity.this,hm.getMessage());
+							// ToastUtils.Toast(GoodsDetailActivity.this,hm.getMessage());
 							num_shopcart++;
 							showGoodsNums();
 						} else if (hm.getCode() == 3001 || hm.getCode() == 2001) {
@@ -378,7 +379,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 			ToastUtils.Toast(this, "请选择商品");
 			return;
 		}
-		
 
 		if (getUser() != null) {
 			sendData(goods);
@@ -681,57 +681,55 @@ public class GoodsDetailActivity extends BaseActivity implements
 		initShopcartNum();
 		initFragmentPager(main);
 	}
-	
-	private void initFragmentPager(Main main){
+
+	private void initFragmentPager(Main main) {
 		List<String> titles = new ArrayList<String>();
 		titles.add("图文详情");
 		titles.add("商品参数");
 		titles.add("热门商品");
-		
+
 		final List<ScrollAbleFragment> fragments = new ArrayList<ScrollAbleFragment>();
-		ScrollAbleFragment imgFragment = ImgFragment.newInstance( main.getItemDetailImgs());
-		ScrollAbleFragment parFragment = ParamsFragment.newInstance(main.getItemFeaturess());
-		ScrollAbleFragment gridViewFragment = ParamsFragment.newInstance(main.getItemFeaturess());
+		ScrollAbleFragment imgFragment = ImgFragment.newInstance(main
+				.getItemDetailImgs());
+		ScrollAbleFragment parFragment = ParamsFragment.newInstance(main
+				.getItemFeaturess());
+		ScrollAbleFragment gridViewFragment = ParamsFragment.newInstance(main
+				.getItemFeaturess());
 		fragments.add(imgFragment);
 		fragments.add(parFragment);
 		fragments.add(gridViewFragment);
-		
-		GoodsDetailPagerAdapter adapter = new GoodsDetailPagerAdapter(getSupportFragmentManager(), fragments,titles);
+
+		GoodsDetailPagerAdapter adapter = new GoodsDetailPagerAdapter(
+				getSupportFragmentManager(), fragments, titles);
 		viewPager.setAdapter(adapter);
-		 mScrollLayout.getHelper().setCurrentScrollableContainer(fragments.get(0));
-	     pagerSlidingTabStrip.setViewPager(viewPager);
-	     mScrollLayout.setOnScrollListener(new OnScrollListener() {
-			
+		viewPager.setOffscreenPageLimit(3);
+		mScrollLayout.getHelper().setCurrentScrollableContainer(
+				fragments.get(0));
+		pagerSlidingTabStrip.setViewPager(viewPager);
+		mScrollLayout.setOnScrollListener(new OnScrollListener() {
+
 			@Override
 			public void onScroll(int currentY, int maxY) {
-				if(currentY >1 && back_top.getVisibility() == View.GONE){
+				if (currentY > 1 && back_top.getVisibility() == View.GONE) {
 					back_top.setVisibility(View.VISIBLE);
 				}
-				if(currentY <=1 && back_top.getVisibility() == View.VISIBLE){
+				if (currentY <= 1 && back_top.getVisibility() == View.VISIBLE) {
 					back_top.setVisibility(View.GONE);
 				}
 			}
 		});
-	     pagerSlidingTabStrip.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-	            @Override
-	            public void onPageScrolled(int i, float v, int i2) {
-	            }
+		pagerSlidingTabStrip
+				.setOnPageChangeListener(new GoodsPageChangeListener() {
 
-	            @Override
-	            public void onPageSelected(int i) {
-	                Log.e("onPageSelected", "page:" + i);
-	                /** 标注当前页面 **/
-	                mScrollLayout.getHelper().setCurrentScrollableContainer(fragments.get(i));
-	            }
+					@Override
+					public void onPageSelected(int i) {
+						/** 标注当前页面 **/
+						mScrollLayout.getHelper().setCurrentScrollableContainer(fragments.get(i));
+					}
 
-	            @Override
-	            public void onPageScrollStateChanged(int i) {
-
-	            }
-	        });
-	     viewPager.setCurrentItem(0);
+				});
+		viewPager.setCurrentItem(0);
 	}
-	
 
 	private int curPostalTaxRate; // 当前商品税率
 	private double curItemPrice; // 当前商品价格
@@ -862,11 +860,11 @@ public class GoodsDetailActivity extends BaseActivity implements
 			}
 		}
 	}
-	
-    // Handle scroll event from fragments
-    public void onEvent(Boolean b){
-//        dragLayout.setTouchMode(b);
-    }
+
+	// Handle scroll event from fragments
+	public void onEvent(Boolean b) {
+		// dragLayout.setTouchMode(b);
+	}
 
 	@Override
 	protected void onDestroy() {
@@ -881,8 +879,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 		MobclickAgent.onPageStart("GoodsDetailActivity"); // 统计页面(仅有Activity的应用中SDK自动调用，不需要单独写。"SplashScreen"为页面名称，可自定义)
 		MobclickAgent.onResume(this); // 统计时长
 	}
-	
-
 
 	public void onPause() {
 		super.onPause();
