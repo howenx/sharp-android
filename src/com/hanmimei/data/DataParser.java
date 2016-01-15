@@ -1,6 +1,5 @@
 package com.hanmimei.data;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +13,7 @@ import com.hanmimei.entity.GoodsDetail;
 import com.hanmimei.entity.HMMAddress;
 import com.hanmimei.entity.HMMThemeGoods;
 import com.hanmimei.entity.HMessage;
+import com.hanmimei.entity.Home;
 import com.hanmimei.entity.Order;
 import com.hanmimei.entity.Result;
 import com.hanmimei.entity.ShoppingCar;
@@ -24,6 +24,78 @@ import com.hanmimei.entity.Theme;
 import com.hanmimei.entity.User;
 
 public class DataParser {
+	public static Home parserHomeData(String result) {	
+		Home home = new Home();
+		List<Theme> list = new ArrayList<Theme>();
+		try {
+			JSONObject object = new JSONObject(result);
+			JSONArray array = object.getJSONArray("theme");
+			for (int i = 0; i < array.length(); i++) {
+				Theme theme = new Theme();
+				JSONObject obj = array.getJSONObject(i);
+				if(obj.has("id"))
+					theme.setItem_id(obj.getInt("id"));
+				if (obj.has("themeImg")){
+					String urlResult = obj.getString("themeImg");
+					JSONObject themeObject = new JSONObject(urlResult);
+					if(themeObject.has("url"))
+						theme.setThemeImg(themeObject.getString("url"));
+					if(themeObject.has("width"))
+						theme.setWidth(themeObject.getInt("width"));
+					if(themeObject.has("height"))
+						theme.setHeight(themeObject.getInt("height"));
+				}
+				if (obj.has("themeUrl"))
+					theme.setThemeUrl(obj.getString("themeUrl"));
+				list.add(theme);
+
+			}
+			List<Slider> sliders = new ArrayList<Slider>();
+			if(object.has("slider")){
+			JSONArray array2 = object.getJSONArray("slider");
+			for (int i = 0; i < array2.length(); i++) {
+				JSONObject obj = array2.getJSONObject(i);
+				Slider slider = new Slider();
+				if (obj.has("url")){
+					String sliderResult = obj.getString("url");
+					JSONObject sliderObject = new JSONObject(sliderResult);
+					if(sliderObject.has("url"))
+						slider.setImgUrl(sliderObject.getString("url"));
+					if(sliderObject.has("width"))
+						slider.setWidth(sliderObject.getInt("width"));
+					if(sliderObject.has("height"))
+						slider.setHeight(sliderObject.getInt("height"));
+				}
+				if (obj.has("itemTarget"))
+					slider.setUrl(obj.getString("itemTarget"));
+				if (obj.has("itemTargetAndroid"))
+					slider.setUrl(obj.getString("itemTargetAndroid"));
+				if(obj.has("targetType"))
+					slider.setType(obj.getString("targetType"));
+				sliders.add(slider);
+			}
+			}
+			HMessage hMessage = new HMessage();
+			if(object.has("message")){
+				JSONObject object2 = object.getJSONObject("message");
+				if(object2.has("message"))
+					hMessage.setMessage(object2.getString("message"));
+				if(object2.has("code"))
+					hMessage.setCode(object2.getInt("code"));
+			}
+			if(object.has("page_count"))
+				home.setPage_count(object.getInt("page_count"));
+			home.setSliders(sliders);
+			home.sethMessage(hMessage);
+			home.setThemes(list);
+			
+
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return home;
+
+	}
 	public static List<Theme> parserHome(String result) {
 		List<Theme> list = new ArrayList<Theme>();
 		try {

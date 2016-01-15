@@ -167,8 +167,10 @@ public class ShoppingCarAdapter extends BaseAdapter {
 					//数量大于1可以执行减一，s状态直接删除本地数据库数据
 					if (goods.getGoodsNums() > 1) {
 						goodsDao.deleteAll();
-						if(!goods.getState().equals("S"))
+						if(!goods.getState().equals("S")){
 							goods.setGoodsNums(goods.getGoodsNums() - 1);
+							BadgeViewManager.getInstance().addShoppingCarNum(-1);
+						}
 						notifyDataSetChanged();
 						ShoppingCarMenager.getInstance().setBottom();
 						goodsDao.insertInTx(data);

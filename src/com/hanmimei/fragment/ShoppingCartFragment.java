@@ -112,6 +112,7 @@ public class ShoppingCartFragment extends Fragment implements OnClickListener,
 			toJsonArray(list);
 			getData();
 		} else {
+			BadgeViewManager.getInstance().setShopCartGoodsNum(0);
 			attention.setVisibility(View.INVISIBLE);
 			bottom.setVisibility(View.GONE);
 			no_data.setVisibility(View.VISIBLE);
