@@ -142,8 +142,15 @@ public class BaseActivity extends AppCompatActivity {
 			ClipboardManager cbm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
 			cbm.setText(application.getKouling());
 		}
-		ToastUtils.cancel();
 		super.onStop();
+	}
+	
+	
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		ToastUtils.cancel();
 	}
 
 	@Override
