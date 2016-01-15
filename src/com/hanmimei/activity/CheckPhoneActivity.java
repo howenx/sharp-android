@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.hanmimei.R;
 import com.hanmimei.data.DataParser;
+import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
@@ -144,8 +145,7 @@ public class CheckPhoneActivity extends BaseActivity implements OnClickListener 
 			public void run() {
 				List<NameValuePair> params = new ArrayList<NameValuePair>();
 				params.add(new BasicNameValuePair("phone", phone_num));
-				String result = HttpUtils.postCommon(
-						"http://172.28.3.51:9004/reg/verify", params);
+				String result = HttpUtils.postCommon(UrlUtil.CHECK_PHONE_REGIST, params);
 				HMessage hMessage = DataParser.paserResultMsg(result);
 				Message msg = mHandler.obtainMessage(1);
 				msg.obj = hMessage;

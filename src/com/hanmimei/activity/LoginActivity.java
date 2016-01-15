@@ -209,7 +209,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 			@Override
 			public void run() {
 				Bitmap bitmap = HttpUtils
-						.getImg("http://172.28.3.51:9004/getImageCodes/" + Math.round(Math.random()*1000000));
+						.getImg(UrlUtil.GET_IMG_CODE + Math.round(Math.random()*1000000));
 				Message msg = mHandler.obtainMessage(4);
 				msg.obj = bitmap;
 				mHandler.sendMessage(msg);
