@@ -63,6 +63,7 @@ public class FirstShowActivity extends AppCompatActivity {
 	private void loginUser() {
 		userDao = getDaoSession().getUserDao();
 		user = userDao.queryBuilder().build().unique();
+		if(user != null){
 		if(user.getToken() != null){
 		int difDay = DateUtil.getDate(user.getExpired());
 		if(difDay < 24 && difDay >=0){
@@ -71,6 +72,7 @@ public class FirstShowActivity extends AppCompatActivity {
 			userDao.deleteAll();
 		}else{
 			application.setLoginUser(user);
+		}
 		}
 		}
 	}

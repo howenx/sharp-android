@@ -26,7 +26,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
@@ -40,9 +39,11 @@ import com.hanmimei.dao.SliderDao;
 import com.hanmimei.dao.ThemeDao;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
+import com.hanmimei.entity.Home;
 import com.hanmimei.entity.Slider;
 import com.hanmimei.entity.Theme;
 import com.hanmimei.utils.HttpUtils;
+import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.CycleViewPager;
 import com.hanmimei.view.ViewFactory;
 import com.umeng.analytics.MobclickAgent;
@@ -69,6 +70,8 @@ public class HomeFragment extends Fragment implements
 	private LinearLayout no_net;
 	private TextView reload;
 	
+	
+	private int pullNum = 1;
 
 
 	@Override
@@ -182,9 +185,6 @@ public class HomeFragment extends Fragment implements
 		getNetData();
 
 	}
-
-	private List<Slider> sliders_temp;
-
 	// 加载网络数据
 	private void getNetData() {
 		if(isUpOrDwom == 0)
@@ -196,15 +196,14 @@ public class HomeFragment extends Fragment implements
 					Thread.sleep(1000);
 					String result = HttpUtils
 							.get(UrlUtil.HOME_LIST_URL + pageIndex);
-					List<Theme> list = DataParser.parserHome(result);
-					sliders_temp = DataParser.parserSlider(result);
+					Home home = DataParser.parserHomeData(result);
 					Message msg;
 					if (isUpOrDwom == 0) {
 						msg = mHandler.obtainMessage(1);
 					} else {
 						msg = mHandler.obtainMessage(2);
 					}
-					msg.obj = list;
+					msg.obj = home;
 					mHandler.sendMessage(msg);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
@@ -213,6 +212,33 @@ public class HomeFragment extends Fragment implements
 		}).start();
 	}
 
+
+	private void afterLoadData(Home home, boolean isNew) {
+		List<Theme> list = home.getThemes();
+		List<Slider> sliders = home.getSliders();
+		if ((list != null && list.size() > 0)) {
+			if(isNew){
+				data.clear();
+				data.addAll(list);
+				themeDao.deleteAll();
+				themeDao.insertInTx(data);
+			}else{
+				themeDao.insertInTx(list);
+				data.addAll(list);
+			}
+			adapter.notifyDataSetChanged();
+		}
+		if(sliders != null && sliders.size() > 0){
+			sliderDao.deleteAll();
+			sliderDao.insertInTx(sliders);
+			dataSliders.clear();
+			dataSliders.addAll(sliders);
+			initHeaderView();
+		}
+		if(home.getPage_count() <= pullNum){
+			mListView.setMode(Mode.DISABLED);
+		}
+	}
 	private Handler mHandler = new Handler() {
 
 		@Override
@@ -222,40 +248,36 @@ public class HomeFragment extends Fragment implements
 			case 1:
 				mActivity.getLoading().dismiss();
 				mListView.onRefreshComplete();
-				List<Theme> list = (List<Theme>) msg.obj;
-				if ((list != null && list.size() > 0) || (sliders_temp.size() > 0 && sliders_temp != null)) {
+				Home home = (Home) msg.obj;
+				if(home.gethMessage() != null){
 					mListView.setVisibility(View.VISIBLE);
 					no_net.setVisibility(View.GONE);
-					sliderDao.deleteAll();
-					sliderDao.insertInTx(sliders_temp);
-					dataSliders.clear();
-					dataSliders.addAll(sliders_temp);
-					if (dataSliders != null && dataSliders.size() > 0)
-						initHeaderView();
-					data.clear();
-					data.addAll(list);
-					themeDao.deleteAll();
-					themeDao.insertInTx(data);
-					adapter.notifyDataSetChanged();
-				} else {
+					if(home.gethMessage().getCode() == 200){
+						afterLoadData(home,true);
+					}else{
+						ToastUtils.Toast(mActivity, home.gethMessage().getMessage());
+					}
+				}else{
 					mListView.setVisibility(View.GONE);
 					no_net.setVisibility(View.VISIBLE);
 				}
 				break;
 			case 2:
 				mListView.onRefreshComplete();
-				mListView.setMode(Mode.DISABLED);
-				List<Theme> list_more = (List<Theme>) msg.obj;
-				if (list_more != null && list_more.size() > 0) {
-					data.addAll(list_more);
-					adapter.notifyDataSetChanged();
-					Toast.makeText(mContext,
-							"小美为您加载了 " + list_more.size() + " 条新数据",
-							Toast.LENGTH_SHORT).show();
-				} else {
-					pageIndex--;
-					Toast.makeText(mContext, "暂无更多数据！！！", Toast.LENGTH_SHORT)
-							.show();
+				Home home2 = (Home) msg.obj;
+				if(home2.gethMessage() != null){
+					mListView.setVisibility(View.VISIBLE);
+					no_net.setVisibility(View.GONE);
+					if(home2.gethMessage().getCode() == 200){
+						pullNum = pullNum + 1;
+						afterLoadData(home2,false);
+						ToastUtils.Toast(mActivity, "小美为您加载了 " + home2.getThemes().size() + " 条新数据");
+					}else{
+						ToastUtils.Toast(mActivity, home2.gethMessage().getMessage());
+					}
+				}else{
+					mListView.setVisibility(View.GONE);
+					no_net.setVisibility(View.VISIBLE);
 				}
 				break;
 			default:

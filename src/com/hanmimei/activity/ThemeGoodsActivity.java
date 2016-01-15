@@ -40,6 +40,8 @@ import com.hanmimei.view.BadgeView;
 import com.ui.tag.TagInfo;
 import com.ui.tag.TagInfo.Type;
 import com.ui.tag.TagView;
+import com.ui.tag.TagView.TagViewListener;
+import com.ui.tag.TagViewLeft;
 import com.ui.tag.TagViewRight;
 import com.umeng.analytics.MobclickAgent;
 
@@ -233,7 +235,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
 				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		List<ImgTag> tags = themeList.getMasterItemTagAndroid();
-		TagView tagView =null;
+	
 		for (ImgTag tag : tags) {
 			
 			TagInfo tagInfo = new TagInfo();
@@ -245,23 +247,39 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 				tagInfo.direct = com.ui.tag.TagInfo.Direction.Left;
 			}
 			
-			tagInfo.leftMargin = (int) tag.getLeft();	//根据屏幕密度计算使动画中心在点击点，15dp是margin
-			tagInfo.topMargin = (int)tag.getTop();
+			tagInfo.leftMargin = (int)  (width * tag.getLeft());	//根据屏幕密度计算使动画中心在点击点，15dp是margin
+			tagInfo.topMargin = (int)(height * tag.getTop());
 			tagInfo.rightMargin = 0;
 			tagInfo.bottomMargin = 0;
-			tagInfo.type = Type.Exists;
-			if (tagInfo.direct == com.ui.tag.TagInfo.Direction.Right) {
-				tagView = new TagViewRight(this);
-			} else {
-				tagView = new com.ui.tag.TagViewLeft(this);
-			}
-			tagView.setData(tagInfo);
-			mframeLayout.addView(tagView,lp);
+			tagInfo.type = Type.OfficalPoint;
+			tagInfo.targetUrl = tag.getUrl();
+			addTagInfo(tagInfo, lp);
 		}
 		data.clear();
 		data.addAll(themeList.getThemeItemList());
 		adapter.notifyDataSetChanged();
 
+	}
+	
+	private void addTagInfo(TagInfo tagInfo,FrameLayout.LayoutParams lp){
+		TagView tagView =null;
+		if (tagInfo.direct == com.ui.tag.TagInfo.Direction.Right) {
+			tagView = new TagViewRight(this,null);
+		} else {
+			tagView = new TagViewLeft(this,null);
+		}
+		tagView.setData(tagInfo);
+		tagView.setTagViewListener(new TagViewListener() {
+			
+			@Override
+			public void onTagViewClicked(View view, TagInfo info) {
+				Intent intent = new Intent(getActivity(),GoodsDetailActivity.class);
+				intent.putExtra("url", url);
+				startActivityForResult(intent, 1);
+			}
+		});
+		lp.setMargins(tagInfo.leftMargin, tagInfo.topMargin, tagInfo.rightMargin, tagInfo.bottomMargin);
+		mframeLayout.addView(tagView,lp);
 	}
 
 	@Override

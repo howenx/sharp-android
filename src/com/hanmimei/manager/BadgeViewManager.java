@@ -39,9 +39,13 @@ public class BadgeViewManager {
 		if (num <= 0) {
 			view.hide();
 			return;
+		}else if(num >= 100){
+			view.setText("...");
+			view.show();
+		}else{
+			view.setText(num + "");
+			view.show();
 		}
-		view.setText(num + "");
-		view.show();
 	}
 	private int nums;
 
@@ -50,11 +54,15 @@ public class BadgeViewManager {
 	}
 	public void addShoppingCarNum(int addnum){
 		nums = nums + addnum;
-		view.setText(nums + "");
-		view.show();
 		if (nums <= 0) {
 			view.hide();
 			return;
+		}else if(nums >= 100){
+			view.setText("...");
+			view.show();
+		}else{
+			view.setText(nums + "");
+			view.show();
 		}
 	}
 
