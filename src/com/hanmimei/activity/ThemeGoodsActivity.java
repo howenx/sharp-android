@@ -18,7 +18,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.hanmimei.R;
 import com.hanmimei.adapter.ThemeAdapter;
@@ -37,8 +36,11 @@ import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ImageLoaderUtils;
 import com.hanmimei.utils.ToastUtils;
-import com.hanmimei.utils.WaveAnimationUtil;
 import com.hanmimei.view.BadgeView;
+import com.ui.tag.TagInfo;
+import com.ui.tag.TagInfo.Type;
+import com.ui.tag.TagView;
+import com.ui.tag.TagViewRight;
 import com.umeng.analytics.MobclickAgent;
 
 /**
@@ -228,39 +230,33 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		img.setLayoutParams(params);
 		ImageLoaderUtils.loadImage(this, themeImg.getUrl(), img);
 
+		FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
+				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		List<ImgTag> tags = themeList.getMasterItemTagAndroid();
-		View view = null;
+		TagView tagView =null;
 		for (ImgTag tag : tags) {
+			
+			TagInfo tagInfo = new TagInfo();
+			tagInfo.bid = 2L;
+			tagInfo.bname = tag.getName();
 			if (tag.getAngle() > 90) {
-				view = getLayoutInflater().inflate(R.layout.panel_biaoqian_180,
-						null);
+				tagInfo.direct = com.ui.tag.TagInfo.Direction.Right;
 			} else {
-				view = getLayoutInflater().inflate(R.layout.panel_biaoqian_0,
-						null);
+				tagInfo.direct = com.ui.tag.TagInfo.Direction.Left;
 			}
-			// 整理显示主推商品小标签
-			TextView tagView = (TextView) view.findViewById(R.id.tag);
-			ImageView point_b = (ImageView) view.findViewById(R.id.point_b);
-			WaveAnimationUtil.waveAnimation(point_b, 4.0f);
-			FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
-					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-			lp.setMargins(Integer.valueOf((int) (width * tag.getLeft())),
-					Integer.valueOf((int) (height * tag.getTop())), 0, 0);
-
-			tagView.setText(tag.getName());
-			view.setTag(tag.getUrl());
-			view.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View arg0) {
-					String url = (String) arg0.getTag();
-					Intent intent = new Intent(getActivity(),
-							GoodsDetailActivity.class);
-					intent.putExtra("url", url);
-					startActivityForResult(intent, 1);
-				}
-			});
-			mframeLayout.addView(view, lp);
+			
+			tagInfo.leftMargin = (int) tag.getLeft();	//根据屏幕密度计算使动画中心在点击点，15dp是margin
+			tagInfo.topMargin = (int)tag.getTop();
+			tagInfo.rightMargin = 0;
+			tagInfo.bottomMargin = 0;
+			tagInfo.type = Type.Exists;
+			if (tagInfo.direct == com.ui.tag.TagInfo.Direction.Right) {
+				tagView = new TagViewRight(this);
+			} else {
+				tagView = new com.ui.tag.TagViewLeft(this);
+			}
+			tagView.setData(tagInfo);
+			mframeLayout.addView(tagView,lp);
 		}
 		data.clear();
 		data.addAll(themeList.getThemeItemList());

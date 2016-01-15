@@ -89,14 +89,14 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private TextView num_restrictAmount;
 	private TagCloudView tagCloudView; // 规格标签控件
 	private TextView publicity; // 优惠信息 /购物车数量
-	private ImageView img_hide, shopcart;
+	private ImageView img_hide;
 
 	private BadgeView goodsNumView;// 显示购买数量的控件
 
 	private PopupWindow shareWindow;
 	private ImageView btn_collect;
 
-	private View back_top;
+	private View back_top,shopcart;
 	private ScrollableLayout mScrollLayout;
 	private ViewPager viewPager;
 	private PagerSlidingTabStrip pagerSlidingTabStrip;
@@ -145,7 +145,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		num_restrictAmount = (TextView) findViewById(R.id.restrictAmount);
 		discount = (TextView) findViewById(R.id.discount);
 		area = (TextView) findViewById(R.id.area);
-		shopcart = (ImageView) findViewById(R.id.shopcart);
+		shopcart =  findViewById(R.id.shopcart);
 		back_top = findViewById(R.id.back_top);
 
 		img_hide = (ImageView) findViewById(R.id.img_hide);
