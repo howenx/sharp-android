@@ -274,7 +274,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 			@Override
 			public void onTagViewClicked(View view, TagInfo info) {
 				Intent intent = new Intent(getActivity(),GoodsDetailActivity.class);
-				intent.putExtra("url", url);
+				intent.putExtra("url", info.targetUrl);
 				startActivityForResult(intent, 1);
 			}
 		});
