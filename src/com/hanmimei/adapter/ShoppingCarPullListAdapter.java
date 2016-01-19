@@ -1,6 +1,5 @@
 package com.hanmimei.adapter;
 
-import java.text.DecimalFormat;
 import java.util.List;
 
 import android.app.Activity;
@@ -90,14 +89,14 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 		}
 		holder.area.setText(custom.getInvAreaNm());
 		String tax = "";
-		DecimalFormat df = new DecimalFormat("###.00");  
-		if(custom.getTax() != 0){
+		
+		if(Double.valueOf(custom.getTax()) != 0){
 			holder.tax.setVisibility(View.VISIBLE);
-			if(Double.compare(custom.getTax(), custom.getPostalStandard()) > 0){
-				tax = "行邮税:¥" + df.format(custom.getTax());
+			if(Double.valueOf(custom.getTax())-custom.getPostalStandard() > 0){
+				tax = "行邮税:¥" + custom.getTax();
 				KeyWordUtil.setDifrentFontColor(activity, holder.tax, tax, 4, tax.length());
 			}else{
-				tax = "行邮税:¥" + df.format(custom.getTax()) + "（免）";
+				tax = "行邮税:¥" + custom.getTax() + "（免）";
 				KeyWordUtil.setDifrentFontColor(activity, holder.tax, tax, 4, tax.length());
 			}
 		}else{

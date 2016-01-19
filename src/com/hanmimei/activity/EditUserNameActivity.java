@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.text.Selection;
+import android.text.Spannable;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -39,6 +41,7 @@ public class EditUserNameActivity extends BaseActivity implements OnClickListene
 		ActionBarUtil.setActionBarStyle(this, "修改昵称");
 		nameText = (EditText) findViewById(R.id.name);
 		nameText.setText(getIntent().getStringExtra("name"));
+		Selection.setSelection((Spannable)nameText.getText(), nameText.getText().toString().length());
 		save = (TextView) findViewById(R.id.send);
 		save.setOnClickListener(this);
 	}

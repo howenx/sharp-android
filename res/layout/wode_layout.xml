@@ -32,7 +32,7 @@
                 android:id="@+id/user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="未登录"
+                android:text="登录／注册"
                 android:textColor="@color/white"
                 android:textSize="17sp"
                 android:textStyle="bold" 
@@ -59,6 +59,15 @@
         android:drawableRight="@drawable/icon_jiantou"
         android:padding="12dp"
         android:text="    我的订单" />
+    <TextView 
+	    android:id="@+id/pintuan"
+	    android:layout_marginTop="15dp"
+	    android:padding="12dp"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:text="    我的拼团"
+	   style="@style/wode_font_style"
+        android:drawableRight="@drawable/icon_jiantou"/>
 	<LinearLayout 
 	    android:id="@+id/youhui_linear"
         android:layout_marginTop="15dp"

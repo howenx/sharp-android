@@ -46,7 +46,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 	private MainBroadCastReceiver netReceiver;
 	private FragmentTabHost mTabHost;
 	private LinearLayout guanggao;
-	private boolean loading = true;
+//	private boolean loading = true;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +74,13 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 		BadgeViewManager.getInstance().initBadgeViewManager(this, mTabHost);
 		registerReceivers();
 		BadgeViewManager.getInstance().initBadgeViewManager(this, mTabHost);
+		mTabHost.getTabWidget().getChildAt(0).setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mTabHost.setCurrentTab(0);
+				sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UP_HOME_ACTION));
+			}
+		});
 	}
 
 	@Override
@@ -104,7 +111,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 			guanggao.setVisibility(View.GONE);
 			break;
 		case R.id.gg_img:
-			Toast.makeText(this, "你点击了广告！！！", Toast.LENGTH_SHORT).show();
+			ToastUtils.Toast(this, "你点击了广告！！！");
 			guanggao.setVisibility(View.GONE);
 			break;
 		case R.id.guanggao:

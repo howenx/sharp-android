@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.hanmimei.R;
 import com.hanmimei.entity.Sku;
+import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.ImageLoaderUtils;
 
 @SuppressLint("InflateParams")
@@ -68,11 +69,12 @@ public class OrderListAdapter extends BaseAdapter {
 			}
 			ImageLoaderUtils.loadImage(activity, sku.getInvImg(), holder.img);
 			holder.name.setText(sku.getSkuTitle());
-			holder.price.setText("单价：¥" + sku.getPrice());
+			holder.price.setText("单价：¥" + CommonUtil.doubleTrans(sku.getPrice()));
 			holder.nums.setText("x" + sku.getAmount());
 			holder.size.setText(sku.getItemColor() + "  " + sku.getItemSize());
 			return convertView;
 		} else {
+			//多图显示布局
 			if (convertView == null) {
 				holderMore = new ViewHolderMore();
 				convertView = inflater.inflate(R.layout.order_list_item_img,

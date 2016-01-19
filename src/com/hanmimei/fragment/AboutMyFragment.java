@@ -17,10 +17,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.hanmimei.MyPinTuanActivity;
 import com.hanmimei.R;
 import com.hanmimei.activity.AdressActivity;
 import com.hanmimei.activity.BaseActivity;
-import com.hanmimei.activity.CheckPhoneActivity;
 import com.hanmimei.activity.CouponActivity;
 import com.hanmimei.activity.EditUserInfoActivity;
 import com.hanmimei.activity.LoginActivity;
@@ -55,7 +55,7 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 	private TextView youhui_nums;
 	private LinearLayout youhui_linear;
 	private ImageView sex;
-
+	private TextView pintuan;
 	private BaseActivity activity;
 	private User user;
 
@@ -131,8 +131,8 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 
 	private void clearView() {
 		user = activity.getUser();
-		user_name.setText("未登录");
-		ImageLoaderUtils.loadImage(activity, "", header);
+		user_name.setText("登录／注册");
+		header.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.icon_default_header));
 		sex.setVisibility(View.GONE);
 	}
 
@@ -151,12 +151,15 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 //		collect.setCompoundDrawables(youhui_icon, null, null, null);
 		youhui_nums = (TextView) view.findViewById(R.id.youhui_nums);
 		youhui_nums.setCompoundDrawables(null, null, jiantou_icon, null);
+		pintuan = (TextView) view.findViewById(R.id.pintuan);
+		pintuan.setVisibility(View.GONE);
 		header.setOnClickListener(this);
 		order.setOnClickListener(this);
 		address.setOnClickListener(this);
 		user_name.setOnClickListener(this);
 //		collect.setOnClickListener(this);
 		youhui_linear.setOnClickListener(this);
+		pintuan.setOnClickListener(this);
 	}
 
 	@Override
@@ -179,6 +182,9 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 			break;
 		case R.id.youhui_linear:
 			doJump(CouponActivity.class);
+			break;
+		case R.id.pintuan:
+			doJump(MyPinTuanActivity.class);
 			break;
 		default:
 			break;

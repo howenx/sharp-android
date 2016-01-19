@@ -16,6 +16,10 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.hanmimei.activity.CheckPhoneActivity;
+import com.hanmimei.activity.RegistActivity;
+import com.hanmimei.entity.HMessage;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -30,6 +34,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -39,6 +45,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.TextView;
 
 /**
  * 常用工具
@@ -727,6 +734,43 @@ public class CommonUtil {
 	public static int getRandom(){
 		Random random = new Random();
 		return random.nextInt();
+	}
+	public static String doubleTrans(double num){
+	    if(num % 1.0 == 0){
+		        return String.valueOf((long)num);
+	    }
+	    return String.valueOf(num);
+	}
+	public static void setAttention(final TextView attention,String str){
+		attention.setText(str);
+		attention.setVisibility(View.VISIBLE);
+		final Handler mHandler = new Handler() {
+
+			@Override
+			public void handleMessage(Message msg) {
+				super.handleMessage(msg);
+				switch (msg.what) {
+				case 1:
+					attention.setVisibility(View.INVISIBLE);
+					break;
+				default:
+					break;
+				}
+			}
+		};
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				try {
+					Thread.sleep(2000);
+					Message msg = mHandler.obtainMessage(1);
+					mHandler.sendMessage(msg);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
 	}
 
 }

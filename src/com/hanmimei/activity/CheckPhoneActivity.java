@@ -112,7 +112,7 @@ public class CheckPhoneActivity extends BaseActivity implements OnClickListener 
 			CommonUtil.closeBoardIfShow(this);
 			phone_num = phone.getText().toString();
 			if (!CommonUtil.isPhoneNum(phone_num)) {
-				setAttention("请填写正确的手机号");
+				CommonUtil.setAttention(attention,"请填写正确的手机号");
 				return;
 			} else {
 				checkPhone();
@@ -174,11 +174,8 @@ public class CheckPhoneActivity extends BaseActivity implements OnClickListener 
 						showDialog();
 					}
 				} else {
-
+					CommonUtil.setAttention(attention, "网络连接异常，请检查网络");
 				}
-				break;
-			case 2:
-				attention.setVisibility(View.INVISIBLE);
 				break;
 			default:
 				break;
@@ -198,23 +195,5 @@ public class CheckPhoneActivity extends BaseActivity implements OnClickListener 
 		besure.setText("找回密码");
 		view.findViewById(R.id.cancle).setOnClickListener(this);
 		view.findViewById(R.id.besure).setOnClickListener(this);
-	}
-
-	private void setAttention(String att) {
-		attention.setText(att);
-		attention.setVisibility(View.VISIBLE);
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				try {
-					Thread.sleep(3000);
-					Message msg = mHandler.obtainMessage(2);
-					mHandler.sendMessage(msg);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		}).start();
 	}
 }

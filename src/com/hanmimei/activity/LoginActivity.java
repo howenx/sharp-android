@@ -221,16 +221,15 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 		phone = phone_edit.getText().toString();
 		pwd = pwd_edit.getText().toString();
 		if (!CommonUtil.isPhoneNum(phone)) {
-			setAttention("请输入正确的手机号");
+//			setAttention("请输入正确的手机号");
+			CommonUtil.setAttention(attention, "请输入正确的手机号");
 			return;
-		} 
-//		else if (!CommonUtil.isPassWord(pwd)) {
-//			setAttention("密码为数字和字母组合");
-//			return;
-//		} 
-		else if(pwd.length()<6){
-			setAttention("密码至少应为6位");
-		}else {
+		} else if(pwd.length()<6){
+			CommonUtil.setAttention(attention,"密码至少应为6位");
+		} else if (!CommonUtil.isPassWord(pwd)) {
+			CommonUtil.setAttention(attention, "密码为数字和字母组合");
+			return;
+		} else {
 			doLogin();
 		}
 	}
@@ -292,12 +291,12 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 						showDialog();
 					loadImg();
 				} else {
-					 setAttention(result.getMessage());
+					CommonUtil.setAttention(attention,result.getMessage());
 				}
 				}else {
 					// Toast.makeText(LoginActivity.this, "网络连接异常，请检查网络",
 					// Toast.LENGTH_SHORT).show();
-					setAttention("网络连接异常，请检查网络");
+					CommonUtil.setAttention(attention,"网络连接异常，请检查网络");
 				}
 				break;
 			case 2:
@@ -305,9 +304,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 				sendBroadcast(new Intent(
 						AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION));
 				finish();
-				break;
-			case 3:
-				attention.setVisibility(View.INVISIBLE);
 				break;
 			case 4:
 				Bitmap bitmap = (Bitmap) msg.obj;
@@ -320,24 +316,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 		}
 
 	};
-
-	private void setAttention(String att) {
-		attention.setText(att);
-		attention.setVisibility(View.VISIBLE);
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				try {
-					Thread.sleep(3000);
-					Message msg = mHandler.obtainMessage(3);
-					mHandler.sendMessage(msg);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		}).start();
-	}
 
 	private List<ShoppingGoods> list;
 

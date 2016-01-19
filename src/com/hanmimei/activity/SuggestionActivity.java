@@ -7,32 +7,28 @@ import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.hanmimei.R;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
+import com.hanmimei.utils.ToastUtils;
 
 public class SuggestionActivity extends BaseActivity implements OnClickListener{
 
-	private TextView send;
 	private EditText editText;
 	private String str;
 	private ProgressDialog dialog;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.idea_layout);
-		ActionBarUtil.setActionBarStyle(this, "意见反馈");
+		ActionBarUtil.setActionBarStyle(this, "意见反馈", R.drawable.icon_save, this);
 		editText = (EditText) findViewById(R.id.idea);
-		send = (TextView) findViewById(R.id.send);
-		send.setOnClickListener(this);
 	}
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.send:
+		case R.id.setting:
 			checkInput();
 			break;
 		default:
@@ -44,7 +40,7 @@ public class SuggestionActivity extends BaseActivity implements OnClickListener{
 		if(!str.equals("")){
 			doSend();
 		}else{
-			editText.setError("输入不能为空");
+			ToastUtils.Toast(this, "输入不能为空");
 		}
 	}
 	private void doSend() {

@@ -20,7 +20,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
@@ -40,6 +39,7 @@ import com.hanmimei.manager.ShoppingCarMenager;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
+import com.hanmimei.utils.ToastUtils;
 import com.umeng.analytics.MobclickAgent;
 
 /*
@@ -84,6 +84,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 	}
 
 	private void loadData() {
+		mListView.setVisibility(View.GONE);
 		user = getUser();
 		if (user != null) {
 			getNetData();
@@ -95,9 +96,10 @@ public class ShoppingCarActivity extends BaseActivity implements
 	private void getLocalData() {
 		List<ShoppingGoods> list = goodsDao.queryBuilder().build().list();
 		if (list != null && list.size() > 0) {
-			mListView.setVisibility(View.VISIBLE);
-			no_data.setVisibility(View.GONE);
-			bottom.setVisibility(View.VISIBLE);
+//			attention.setVisibility(View.VISIBLE);
+//			mListView.setVisibility(View.VISIBLE);
+//			no_data.setVisibility(View.GONE);
+//			bottom.setVisibility(View.VISIBLE);
 			toJsonArray(list);
 			getData();
 		} else {
@@ -161,6 +163,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 				no_net.setVisibility(View.GONE);
 				bottom.setVisibility(View.VISIBLE);
 				mListView.setVisibility(View.VISIBLE);
+				attention.setVisibility(View.VISIBLE);
 				data.addAll(car.getList());
 				//
 				ShoppingCarMenager.getInstance()
@@ -174,7 +177,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 			} else {
 				bottom.setVisibility(View.GONE);
 				mListView.setVisibility(View.GONE);
-				if(car.getMessage().getCode() == 1010){
+				if(car.getMessage().getCode() == 1015){
 					no_data.setVisibility(View.VISIBLE);
 					no_net.setVisibility(View.GONE);
 				}else{
@@ -207,6 +210,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 				mListView.setVisibility(View.GONE);
 				no_data.setVisibility(View.GONE);
 				no_net.setVisibility(View.VISIBLE);
+				attention.setVisibility(View.INVISIBLE);
 			}
 		},new JSONObject().toString());
 	}
@@ -226,7 +230,8 @@ public class ShoppingCarActivity extends BaseActivity implements
 		pay.setOnClickListener(this);
 		attention = (TextView) findViewById(R.id.attention);
 		mListView = (PullToRefreshListView) findViewById(R.id.mylist);
-		mListView.setMode(Mode.DISABLED);
+		mListView.setVisibility(View.GONE);
+		mListView.setMode(Mode.PULL_DOWN_TO_REFRESH);
 		no_data = (LinearLayout) findViewById(R.id.data_null);
 		no_net = (LinearLayout) findViewById(R.id.no_net);
 		check_all.setOnClickListener(this);
@@ -281,8 +286,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 				}
 
 			} else {
-				Toast.makeText(getActivity(), "请选择商品", Toast.LENGTH_SHORT)
-						.show();
+				ToastUtils.Toast(this, "请选择商品");
 			}
 			break;
 		case R.id.go_home:

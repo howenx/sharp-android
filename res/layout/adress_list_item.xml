@@ -9,9 +9,9 @@
 
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/icon_address"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/icon_ad"
         android:visibility="invisible"
         android:contentDescription="@null" />
 
@@ -19,7 +19,7 @@
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
+        android:layout_marginLeft="10dp"
         android:layout_toRightOf="@id/icon"
         android:text="@null"
         android:textColor="@color/fontcolor"
@@ -30,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/name"
-        android:layout_marginLeft="15dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@id/icon"
         android:gravity="center"
@@ -43,7 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/phone"
-        android:layout_marginLeft="15dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@id/icon"
         android:text="@null"
@@ -55,7 +55,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/idCard"
-        android:layout_marginLeft="15dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@id/icon"
         android:text="@null"

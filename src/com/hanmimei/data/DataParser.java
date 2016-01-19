@@ -335,8 +335,8 @@ public class DataParser {
 								sku.setSkuTitle(decode2(skuObject.getString("skuTitle")));
 						if(skuObject.has("invImg"))
 							sku.setInvImg(skuObject.getString("invImg"));
-						if(skuObject.has("invUrl"))
-							sku.setInvUrl(skuObject.getString("invUrl"));
+						if(skuObject.has("invAndroidUrl"))
+							sku.setInvUrl(skuObject.getString("invAndroidUrl"));
 						if(skuObject.has("itemColor"))
 							sku.setItemColor(skuObject.getString("itemColor"));
 						if(skuObject.has("itemSize"))
@@ -403,6 +403,7 @@ public class DataParser {
 				if(obj.has("invAreaNm"))
 					custom.setInvAreaNm(obj.getString("invAreaNm"));
 				custom.setState("");
+				custom.setTax("0");
 				JSONArray cartsArray = obj.getJSONArray("carts");
 				for(int j = 0; j < cartsArray.length(); j ++){
 					JSONObject goodsObject = cartsArray.getJSONObject(j);

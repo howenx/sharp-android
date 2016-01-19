@@ -26,7 +26,6 @@ import com.umeng.analytics.MobclickAgent;
 @SuppressLint("NewApi") 
 public class SettingActivity extends BaseActivity implements OnClickListener{
 
-	private TextView header;
 	private Drawable about_Drawable;
 	private Drawable idea_Drawable;
 	private Drawable comment_Drawable;

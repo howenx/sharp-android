@@ -41,6 +41,9 @@ public class ActionBarUtil {
 			int img, Boolean isBack,OnClickListener l){
 		return setActionBarStyle(context, title, img, isBack, null, l);
 	}
+	public static void setActionBarStyle(Context context, String title,int img,OnClickListener l) {
+		setActionBarStyle(context, title, img, true, null, l);
+	}
 	
 	/**
 	 * 

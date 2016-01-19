@@ -1,12 +1,11 @@
 package com.hanmimei.manager;
 
-import java.text.DecimalFormat;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,9 +15,9 @@ import android.widget.TextView;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.hanmimei.R;
 import com.hanmimei.adapter.ShoppingCarPullListAdapter;
-import com.hanmimei.data.AppConstant;
 import com.hanmimei.entity.Customs;
 import com.hanmimei.entity.ShoppingGoods;
+import com.hanmimei.utils.CommonUtil;
 
 public class ShoppingCarMenager {
 	private ImageView checkBox_b;
@@ -117,11 +116,10 @@ public class ShoppingCarMenager {
 			checkBox_b.setImageDrawable(uncheck_Drawable);
 		}
 		pay.setText("结算" +"("+ nums_e + ")");
-		DecimalFormat df = new DecimalFormat("###.00");  
 		if(nums_e != 0){
-			totalPrice_t.setText("总计：" + df.format(totalPrice_e));
+			totalPrice_t.setText("总计：¥" + CommonUtil.doubleTrans(totalPrice_e));
 		}else{
-			totalPrice_t.setText("总计：0.00");
+			totalPrice_t.setText("总计：¥0");
 		}
 		if(list.size() <= 0 || list == null){
 			mListView.setVisibility(View.GONE);
@@ -136,12 +134,12 @@ public class ShoppingCarMenager {
 		}
 	}
 	public void setPayNoClick(){
-			attention.setText("超额提示：" + customName+"商品总额超过 ¥" + bottommorePrice);
+		attention.setText("超额提示：" + customName+"商品总额超过 ¥" + bottommorePrice);
 		pay.setClickable(false);
 		pay.setBackgroundColor(activity.getResources().getColor(R.color.huise));
 	}
 	public void setPayClick(){
-			attention.setText("友情提示：同一保税区商品总额有限制");
+		attention.setText("友情提示：同一保税区商品总额有限制");
 		pay.setClickable(true);
 		pay.setBackgroundColor(activity.getResources().getColor(R.color.theme));
 	}
@@ -181,7 +179,8 @@ public class ShoppingCarMenager {
 //			}else{
 //				list.get(i).setTax(tax);
 //			}
-			list.get(i).setTax(tax);
+			String o = new BigDecimal(tax).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString();
+			list.get(i).setTax(o);
 		}
 		adapter.notifyDataSetChanged();
 	}

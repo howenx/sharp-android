@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hanmimei"
     android:versionCode="11"
-    android:versionName="0.1.1" >
+    android:versionName="0.1.2" >
 
     <uses-sdk
         android:minSdkVersion="11"
@@ -142,7 +142,9 @@
         <activity
             android:name="com.hanmimei.activity.SuggestionActivity"
             android:screenOrientation="portrait" />
-
+		<activity
+            android:name="com.hanmimei.activity.HmmServiceActivity"
+            android:screenOrientation="portrait" />
         <!-- 友盟相关 -->
         <activity
             android:name="com.umeng.socialize.editorpage.ShareActivity"

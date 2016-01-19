@@ -6,8 +6,10 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -37,6 +39,7 @@ import com.hanmimei.activity.ThemeGoodsActivity;
 import com.hanmimei.adapter.HomeAdapter;
 import com.hanmimei.dao.SliderDao;
 import com.hanmimei.dao.ThemeDao;
+import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.Home;
@@ -85,6 +88,7 @@ public class HomeFragment extends Fragment implements
 		adapter = new HomeAdapter(data, mContext);
 		themeDao = mActivity.getDaoSession().getThemeDao();
 		sliderDao = mActivity.getDaoSession().getSliderDao();
+		registerReceivers();
 	}
 	
 	@Override
@@ -227,6 +231,8 @@ public class HomeFragment extends Fragment implements
 				data.addAll(list);
 			}
 			adapter.notifyDataSetChanged();
+			if(isNew)
+				mListView.getRefreshableView().setSelection(0);
 		}
 		if(sliders != null && sliders.size() > 0){
 			sliderDao.deleteAll();
@@ -357,7 +363,30 @@ public class HomeFragment extends Fragment implements
 			break;
 		}
 	}
-	
+	private MyBroadCastReceiver myReceiver;
+	// 广播接收者 注册
+		private void registerReceivers() {
+			myReceiver = new MyBroadCastReceiver();
+			IntentFilter intentFilter = new IntentFilter();
+			intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_UP_HOME_ACTION);
+			getActivity().registerReceiver(myReceiver, intentFilter);
+		}
+		private class MyBroadCastReceiver extends BroadcastReceiver {
+
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				if (intent.getAction().equals(
+						AppConstant.MESSAGE_BROADCAST_UP_HOME_ACTION)) {
+					loadData();
+				}
+			}
+		}
+		@Override
+		public void onDestroy() {
+			// TODO Auto-generated method stub
+			super.onDestroy();
+			getActivity().unregisterReceiver(myReceiver);
+		}
 	public void onResume() {
 	    super.onResume();
 	    MobclickAgent.onPageStart("HomeFragment"); //统计页面，"MainScreen"为页面名称，可自定义

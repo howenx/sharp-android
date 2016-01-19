@@ -30,6 +30,7 @@ import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.Order;
 import com.hanmimei.entity.OrderInfo;
+import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.view.HorizontalListView;
 
@@ -127,7 +128,7 @@ public class OrderPullListAdapter extends BaseAdapter {
 //		根据订单state判断订单的状态，I:初始化即未支付状态，S:成功，C：取消， F:失败，R:已收货，D:已经发货，J:拒收
 		if (order.getOrderStatus().equals("I")) {
 			holder.all_price.setVisibility(View.VISIBLE);
-			holder.all_price.setText("应付金额： ¥" + order.getPayTotal());
+			holder.all_price.setText("应付金额： ¥" + CommonUtil.doubleTrans(order.getPayTotal()));
 			holder.state.setText("待支付");
 			holder.goods_post.setVisibility(View.GONE);
 			holder.go_pay.setVisibility(View.VISIBLE);

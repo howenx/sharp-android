@@ -16,6 +16,8 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +38,7 @@ import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.HttpUtils;
+import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.CustomListView;
 import com.hanmimei.view.TimerTextView;
 import com.umeng.analytics.MobclickAgent;
@@ -102,17 +105,6 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 	//当订单的状态为i时，加载详情数据
 	private void loadData() {
 		getLoading().show();
-//		new Thread(new Runnable() {
-//			@Override
-//			public void run() {
-//				String result = HttpUtils.getToken(UrlUtil.GET_ORDER_LIST_URL+"/" + order.getOrderId(),
-//						"id-token", OrderDetailActivity.this.getUser().getToken());
-//				List<Order> list = DataParser.parserOrder(result);
-//				Message msg = mHandler.obtainMessage(2);
-//				msg.obj = list;
-//				mHandler.sendMessage(msg);
-//			}
-//		}).start();
 		Http2Utils.doGetRequestTask(this, getHeaders(), UrlUtil.GET_ORDER_LIST_URL+"/" + order.getOrderId(), new VolleyJsonCallback() {
 			
 			@Override
@@ -124,15 +116,16 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 					addressInfo = order.getAdress();
 					list.addAll(order.getList());
 					initView();
+					adapter.setOrderId(order.getOrderId(), order.getOrderSplitId());
 					adapter.notifyDataSetChanged();
 				}else{
-					
+					ToastUtils.Toast(OrderDetailActivity.this, "加载数据失败");
 				}
 			}
 			
 			@Override
 			public void onError() {
-				
+				ToastUtils.Toast(OrderDetailActivity.this, "加载数据失败,请检查您的网络");
 			}
 		});
 		
@@ -174,15 +167,15 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		pay_from.setText("支付方式：" + payMethod);
 		order_date.setText("下单时间：" + order.getOrderCreateAt());
 		name.setText("收货人：" + addressInfo.getName());
-		phone.setText("手机号码：" + addressInfo.getPhone());
-		idcard.setText("身份证：" + addressInfo.getIdCard());
+		phone.setText("手机号码：" + addressInfo.getPhone().substring(0, 3) + "****" + addressInfo.getPhone().substring(7, addressInfo.getPhone().length()));
+		idcard.setText("身份证：" + addressInfo.getIdCard().substring(0, 5) + "********" + addressInfo.getIdCard().substring(14, addressInfo.getIdCard().length()));
 		address.setText("收货地址：" + addressInfo.getCity() + addressInfo.getAdress());
 		nums.setText("订单总件数：" + list.size());
-		total_price.setText("商品总费用：" + order.getTotalFee());
-		post_cost.setText("邮费：" + order.getShipFee());
-		tax.setText("行邮税：" + order.getPostalFee());
-		cut_price.setText("已优惠金额：" + order.getDiscount());
-		order_price.setText("订单应付金额：" + order.getPayTotal());
+		total_price.setText("商品总费用：" + CommonUtil.doubleTrans(order.getTotalFee()));
+		post_cost.setText("邮费：" + CommonUtil.doubleTrans(order.getShipFee()));
+		tax.setText("行邮税：" + CommonUtil.doubleTrans(order.getPostalFee()));
+		cut_price.setText("已优惠金额：" + CommonUtil.doubleTrans(order.getDiscount()));
+		order_price.setText("订单应付金额：" + CommonUtil.doubleTrans(order.getPayTotal()));
 	}
 	private void findView() {
 		order_code = (TextView) findViewById(R.id.order_code);
@@ -208,6 +201,17 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		item_order_id = (TextView) findViewById(R.id.item_order);
 		cancle.setOnClickListener(this);
 		go_pay.setOnClickListener(this);
+		listView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				Intent intent = new Intent(OrderDetailActivity.this,
+						GoodsDetailActivity.class);
+				intent.putExtra("url", list.get(arg2).getInvUrl());
+				startActivity(intent);
+			}
+		});
 	}
 	@Override
 	public void onClick(View v) {

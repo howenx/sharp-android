@@ -19,6 +19,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +29,6 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hanmimei.R;
 import com.hanmimei.data.AppConstant;
@@ -40,6 +41,7 @@ import com.hanmimei.entity.User;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.HttpUtils;
+import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.wheel.entity.CityModel;
 import com.hanmimei.wheel.entity.DistrictModel;
 import com.hanmimei.wheel.entity.ProvinceModel;
@@ -121,6 +123,9 @@ public class EditAdressActivity extends BaseActivity implements
 	 */
 	private String mCurrentDistrictName = "";
 
+	
+	private boolean phoneFirstDel = true;
+	private boolean cardFirstDel = true;
 	@Override
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
@@ -206,10 +211,16 @@ public class EditAdressActivity extends BaseActivity implements
 	private void initView() {
 		add_adre.setText("保存修改");
 		name_edit.setText(old_Adress.getName());
-		phone_edit.setText(old_Adress.getPhone());
+		phone_edit.setText(old_Adress.getPhone().substring(0, 3)
+				+ "****"
+				+ old_Adress.getPhone().substring(7,
+						old_Adress.getPhone().length()));
 		city_edit.setText(old_Adress.getCity());
 		adress_edit.setText(old_Adress.getAdress());
-		idCard_edit.setText(old_Adress.getIdCard());
+		idCard_edit.setText(old_Adress.getIdCard().substring(0, 5)
+				+ "********"
+				+ old_Adress.getIdCard().substring(14,
+						old_Adress.getIdCard().length()));
 		if (old_Adress.isDefault()) {
 			isDefaut = 1;
 			check_box.setToggleOn();
@@ -218,6 +229,55 @@ public class EditAdressActivity extends BaseActivity implements
 			isDefaut = 0;
 			check_box.setToggleOff();
 		}
+		phone_edit.addTextChangedListener(new TextWatcher() {
+			int startLength;
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				phone_up = true;
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				startLength = s.length();
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				if(phoneFirstDel){
+					if(s.length() < startLength){
+						phone_edit.setText("");
+						phoneFirstDel = false;
+					}
+				}
+			}
+		});
+		idCard_edit.addTextChangedListener(new TextWatcher() {
+			int startLength ;
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				idcard_up = true;
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				startLength = s.length();
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				if(cardFirstDel){
+					if(s.length() < startLength){
+						idCard_edit.setText("");
+						cardFirstDel = false;
+					}
+				}
+			}
+		});
+
 	}
 
 	// 初始化控件
@@ -242,7 +302,11 @@ public class EditAdressActivity extends BaseActivity implements
 		});
 		add_adre.setOnClickListener(this);
 		findViewById(R.id.show).setOnClickListener(this);
+
 	}
+
+	private boolean idcard_up = false;
+	private boolean phone_up = false;
 
 	@Override
 	public void onClick(View v) {
@@ -301,32 +365,42 @@ public class EditAdressActivity extends BaseActivity implements
 
 	// 检查输入
 	private void checkInfo() {
+		if(isWhat != 1){
+			phone_up = true;
+			idcard_up = true;
+		}
 		name = name_edit.getText().toString();
-		phone = phone_edit.getText().toString();
+		if (phone_up) {
+			phone = phone_edit.getText().toString();
+		} else {
+			phone = old_Adress.getPhone();
+		}
+		if (idcard_up) {
+			idCard = idCard_edit.getText().toString();
+		} else {
+			idCard = old_Adress.getIdCard();
+		}
 		city = city_edit.getText().toString();
 		address = adress_edit.getText().toString();
-		idCard = idCard_edit.getText().toString();
 
 		if (!CommonUtil.inputIsName(name, 2, 15).equals("")) {
-			Toast.makeText(this, "姓名" + CommonUtil.inputIsName(name, 2, 15),
-					Toast.LENGTH_SHORT).show();
+			ToastUtils.Toast(this, "姓名" + CommonUtil.inputIsName(name, 2, 15));
 			return;
 		} else if (phone.equals("")) {
-			Toast.makeText(this, "请输入手机号", Toast.LENGTH_SHORT).show();
+			ToastUtils.Toast(this, "请输入手机号");
 			return;
 		} else if (city.equals("")) {
-			Toast.makeText(this, "请选择省市区", Toast.LENGTH_SHORT).show();
+			ToastUtils.Toast(this, "请选择省市区");
 			return;
 		} else if (!CommonUtil.inputIsName(address, 5, 50).equals("")) {
-			Toast.makeText(this, "地址" + CommonUtil.inputIsName(address, 5, 50),
-					Toast.LENGTH_SHORT).show();
+			ToastUtils.Toast(this,
+					"地址" + CommonUtil.inputIsName(address, 5, 50));
 			return;
 		} else if (!CommonUtil.isPhoneNum(phone)) {
-			Toast.makeText(this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
+			ToastUtils.Toast(this, "请输入正确的手机号");
 			return;
 		} else if (!CommonUtil.IDCardValidate(idCard).equals("")) {
-			Toast.makeText(this, CommonUtil.IDCardValidate(idCard),
-					Toast.LENGTH_SHORT).show();
+			ToastUtils.Toast(this, CommonUtil.IDCardValidate(idCard));
 			return;
 		} else {
 			toObject();
@@ -408,9 +482,8 @@ public class EditAdressActivity extends BaseActivity implements
 					}
 					finish();
 				} else {
-					Toast.makeText(EditAdressActivity.this,
-							result.getCode() + "   " + result.getMessage(),
-							Toast.LENGTH_SHORT).show();
+					ToastUtils.Toast(EditAdressActivity.this, result.getCode()
+							+ "   " + result.getMessage());
 				}
 
 				dialog.dismiss();

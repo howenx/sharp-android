@@ -13,16 +13,17 @@
         android:paddingBottom="3dp"
         android:paddingLeft="15dp"
         android:paddingTop="3dp"
-        android:text="提示：同一保税区商品总额有限制，请注意"
+        android:text="@null"
         android:textColor="@color/theme"
-        android:textSize="12sp"/>
+        android:textSize="12sp"
+        android:visibility="invisible"/>
     <include
         android:id="@+id/bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         layout="@layout/shopping_car_bottom_new"
-        android:visibility="visible" />
+        android:visibility="gone" />
 	
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/mylist"
@@ -40,7 +41,6 @@
         android:headerDividersEnabled="false"
         android:scrollbars="none"
         android:smoothScrollbar="true"
-        android:visibility="visible"
         ptr:ptrDrawable="@drawable/refreshing"
         ptr:ptrShowIndicator="false" />
 

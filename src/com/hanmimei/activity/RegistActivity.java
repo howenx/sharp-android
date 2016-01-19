@@ -42,6 +42,7 @@ import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.DateUtil;
 import com.hanmimei.utils.DoJumpUtils;
 import com.hanmimei.utils.HttpUtils;
+import com.hanmimei.utils.KeyWordUtil;
 import com.hanmimei.view.YanZhengCodeTextView;
 import com.umeng.analytics.MobclickAgent;
 
@@ -62,6 +63,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 	private String pwd_agin;
 	private String msg;
 	private ProgressDialog dialog;
+	private TextView agree_us;
 
 	private boolean isRegist;
 
@@ -100,12 +102,18 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 		clear_pwd2 = (ImageView) findViewById(R.id.clear_pwd2);
 		show_pwd = (ImageView) findViewById(R.id.show_pwd);
 		show_pwd2 = (ImageView) findViewById(R.id.show_pwd2);
+		agree_us = (TextView) findViewById(R.id.agree_us);
 		clear_pwd.setOnClickListener(this);
 		clear_pwd2.setOnClickListener(this);
 		show_pwd.setOnClickListener(this);
 		show_pwd2.setOnClickListener(this);
-		if (!isRegist)
+		if (!isRegist){
 			regist.setText("重置");
+		}else{
+			agree_us.setText(KeyWordUtil.matcherSearchTitle(getResources().getColor(R.color.theme), getResources().getString(R.string.regist_agree_us), getResources().getString(R.string.regist_agree_us_key)));
+			agree_us.setOnClickListener(this);
+			agree_us.setVisibility(View.VISIBLE);
+		}
 		regist.setOnClickListener(this);
 		phone_TextView.setText("已经发送验证码至  " + phone.substring(0, 3) + "****"
 				+ phone.substring(8, phone.length()));
@@ -205,6 +213,9 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 				Selection.setSelection((Spannable)pwd_agin_edit.getText(), pwd_agin_edit.getText().toString().length());
 			}
 			break;
+		case R.id.agree_us:
+			DoJumpUtils.doJump(this, HmmServiceActivity.class);
+			break;
 		default:
 			break;
 		}
@@ -217,16 +228,16 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 		pwd = pwd_edit.getText().toString();
 		pwd_agin = pwd_agin_edit.getText().toString();
 		if (yanzheng.length() != 6) {
-			setAttention("请输入6位验证码");
+			CommonUtil.setAttention(attention,"请输入6位验证码");
 			return;
 		} else if (pwd.length() < 6 || pwd.length() > 12) {
-			setAttention("请输入6-12位密码");
+			CommonUtil.setAttention(attention,"请输入6-12位密码");
 			return;
 		} else if (!CommonUtil.isPassWord(pwd)) {
-			setAttention("密码必须位数字和字母的组合");
+			CommonUtil.setAttention(attention,"密码必须位数字和字母的组合");
 			return;
 		} else if (!pwd.equals(pwd_agin)) {
-			setAttention("两次输入的密码不一致");
+			CommonUtil.setAttention(attention,"两次输入的密码不一致");
 		} else {
 			doRegist();
 		}
@@ -281,24 +292,6 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 		}).start();
 	}
 
-	private void setAttention(String att) {
-		attention.setText(att);
-		attention.setVisibility(View.VISIBLE);
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				try {
-					Thread.sleep(3000);
-					Message msg = mHandler.obtainMessage(3);
-					mHandler.sendMessage(msg);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		}).start();
-	}
-
 	private Handler mHandler = new Handler() {
 
 		@Override
@@ -318,34 +311,31 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 							
 						}
 					} else {
-						setAttention(result.getMessage());
+						CommonUtil.setAttention(attention,result.getMessage());
 					}
 				} else {
-					setAttention("网络连接异常，请检查网络");
+					CommonUtil.setAttention(attention,"网络连接异常，请检查网络");
 				}
 				break;
 			case 2:
 				HMessage code_result = (HMessage) msg.obj;
 				if (code_result.getCode() != null) {
 					if (code_result.getCode() == 200) {
-						setAttention("验证码发送成功！");
+						CommonUtil.setAttention(attention,"验证码发送成功！");
 					} else if (code_result.getCode() == 5005) {
 						get_yanzheng.stopRun();
 						get_yanzheng.setText("获取验证码");
 						get_yanzheng.setClickable(false);
 						get_yanzheng.setTextColor(getResources().getColor(
 								R.color.huise));
-						setAttention(code_result.getMessage());
+						CommonUtil.setAttention(attention,code_result.getMessage());
 					} else {
 						isTimeEnd();
-						setAttention("验证码发送失败！");
+						CommonUtil.setAttention(attention,"验证码发送失败！");
 					}
 				} else {
-					setAttention("网络连接异常，请检查网络");
+					CommonUtil.setAttention(attention,"网络连接异常，请检查网络");
 				}
-				break;
-			case 3:
-				attention.setVisibility(View.INVISIBLE);
 				break;
 			case 4:
 				HMessage mhMessage = (HMessage) msg.obj;
@@ -374,10 +364,10 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 									MainActivity.class);
 						}
 					} else {
-						setAttention("注册成功，自动登录失败，请自行登陆");
+						CommonUtil.setAttention(attention,"注册成功，自动登录失败，请自行登陆");
 					}
 				} else {
-					setAttention("注册成功，自动登录失败，请自行登陆");
+					CommonUtil.setAttention(attention,"注册成功，自动登录失败，请自行登陆");
 				}
 				break;
 			case 5:

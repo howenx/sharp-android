@@ -123,7 +123,7 @@ public class ForgetPhoneActivity extends BaseActivity implements
 			CommonUtil.closeBoardIfShow(this);
 			phone_num = phone.getText().toString();
 			if (!CommonUtil.isPhoneNum(phone_num)) {
-				setAttention("请填写正确的手机号");
+				CommonUtil.setAttention(attention,"请填写正确的手机号");
 				return;
 			} else {
 				showCodeDialog();
@@ -202,14 +202,11 @@ public class ForgetPhoneActivity extends BaseActivity implements
 						intent.putExtra("from", "forget");
 						startActivity(intent);
 					} else {
-						setAttention(hMessage.getMessage());
+						CommonUtil.setAttention(attention,hMessage.getMessage());
 					}
 				} else {
-
+					CommonUtil.setAttention(attention,"网络连接异常，请检查网络");
 				}
-				break;
-			case 2:
-				attention.setVisibility(View.INVISIBLE);
 				break;
 			case 3:
 				Bitmap bitmap = (Bitmap) msg.obj;
@@ -288,23 +285,6 @@ public class ForgetPhoneActivity extends BaseActivity implements
 				});
 	}
 
-	private void setAttention(String att) {
-		attention.setText(att);
-		attention.setVisibility(View.VISIBLE);
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				try {
-					Thread.sleep(3000);
-					Message msg = mHandler.obtainMessage(2);
-					mHandler.sendMessage(msg);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		}).start();
-	}
 	
 	private MyBroadCastReceiver netReceiver;
 

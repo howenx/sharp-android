@@ -24,6 +24,8 @@ public class OrderDetailListAdapter extends BaseAdapter {
 	private LayoutInflater inflater;
 	private Activity activity;
 	private boolean isShow;
+	private String orderId;
+	private String childId;
 	
 	public OrderDetailListAdapter(List<Sku> data, Context mContext, boolean isShow){
 		this.data = data;
@@ -89,5 +91,9 @@ public class OrderDetailListAdapter extends BaseAdapter {
 		private TextView nums;
 		private TextView price;
 		private TextView btn_apply_service;
+	}
+	public void setOrderId(String orderId,String childId){
+		this.orderId = orderId;
+		this.childId = childId;
 	}
 }

@@ -33,6 +33,7 @@ import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.User;
 import com.hanmimei.manager.BadgeViewManager;
 import com.hanmimei.manager.ShoppingCarMenager;
+import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ImageLoaderUtils;
 import com.hanmimei.utils.ToastUtils;
@@ -132,7 +133,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		ImageLoaderUtils.loadImage(activity, goods.getGoodsImg(), holder.img);
 		holder.name.setText(goods.getGoodsName());
 		holder.size.setText(goods.getItemColor() + "  " + goods.getItemSize());
-		holder.price.setText("¥" + goods.getGoodsPrice());
+		holder.price.setText("¥" + CommonUtil.doubleTrans(goods.getGoodsPrice()));
 		holder.nums.setText(goods.getGoodsNums() + "");
 		holder.name.setOnClickListener(new OnClickListener() {
 			@Override

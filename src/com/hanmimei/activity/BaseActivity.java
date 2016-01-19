@@ -177,8 +177,7 @@ public class BaseActivity extends AppCompatActivity {
 
 		for (RunningAppProcessInfo appProcess : appProcesses) {
 			// The name of the process that this object is associated with.
-			if (appProcess.processName.equals(packageName)
-					&& appProcess.importance == RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+			if (appProcess.processName.equals(packageName) && appProcess.importance == RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
 				return true;
 			}
 		}
