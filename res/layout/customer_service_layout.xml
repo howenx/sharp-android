@@ -233,7 +233,7 @@
                     android:hint=""
                     android:padding="5dp"
                     android:layout_marginRight="50dp"
-                    android:inputType="textPassword"
+                    android:inputType="text"
                      android:textSize="14sp"/>
             </LinearLayout>
 
@@ -260,7 +260,7 @@
                     android:hint=""
                     android:layout_marginRight="50dp"
                      android:textSize="14sp"
-                    android:inputType="number" />
+                    android:inputType="phone" />
             </LinearLayout>
         </LinearLayout>
 

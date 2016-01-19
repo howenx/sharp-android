@@ -29,7 +29,7 @@
 	<string name="discount">%1$s折</string>
 	<string name="error">数据请求失败</string>
 	
-	<string name="restrictAmount">限购数量:%1$s</string>
+	<string name="restrictAmount">%1$s件</string>
 	<string name="shipFee">运费:¥%1$s</string>
 	<string name="postalFee">行邮税:¥%1$s</string>
 	<string name="buyNum">购买数量:%1$s</string>
@@ -40,7 +40,7 @@
 	<string name="phone">联系电话：%1$s</string>
 	<string name="address">收货地址：%1$s</string>
 	<string name="idcard">身份证号：%1$s</string>
-	<string name="yuanguanshui">原关税¥%1$s(≤%2$s,免税)</string>
+	<string name="yuanguanshui">原行邮税¥%1$s(≤%2$s,免税)</string>
 	<string name="sel_max">您最多可提供数量为%1$s个</string>
 	<string name="upload">您最多上传3张 每张不超过5M,支持JPG,BMP,PNG</string>
 	<string name="num">数量:%1$s</string>

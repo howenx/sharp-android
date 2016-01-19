@@ -4,15 +4,15 @@ public class UrlUtil {
 	
 	
 		//阿里云
-	public static final String SERVERY3 = "https://api.hanmimei.com";	
-	public static final String SERVERY1 = "https://shopping.hanmimei.com";	
-	public static final String SERVERY4 = "https://id.hanmimei.com";	
+//	public static final String SERVERY3 = "https://api.hanmimei.com";	
+//	public static final String SERVERY1 = "https://shopping.hanmimei.com";	
+//	public static final String SERVERY4 = "https://id.hanmimei.com";	
 //	
 	
 		//51
-//		public static final String SERVERY3 = "http://172.28.3.51:9001";	//  18:9001
-//		public static final String SERVERY1 = "http://172.28.3.51:9003";	// 18:9003
-//		public static final String SERVERY4 = "http://172.28.3.51:9004";	// 18:9004
+		public static final String SERVERY3 = "http://172.28.3.51:9001";	//  18:9001
+		public static final String SERVERY1 = "http://172.28.3.51:9003";	// 18:9003
+		public static final String SERVERY4 = "http://172.28.3.51:9004";	// 18:9004
 
 		//18
 //		public static final String SERVERY3 = "http://172.28.3.18:9001";	//  18:9001
@@ -76,11 +76,14 @@ public class UrlUtil {
 
 	// 结算页接口
 	public static final String POST_CLIENT_SETTLE = SERVERY1 + "/client/settle";
+	//订单提交接口
 	public static final String POST_CLIENT_ORDER_SUBMIT = SERVERY1
 			+ "/client/order/submit";
-	public static final String GOODS_DETAIL_URL = SERVERY3
-			+ "/comm/detail/web/";
+	//
 	public static final String CLIENT_PAY_ORDER_GET = SERVERY1
 			+ "/client/pay/order/get/";
+	//退货申请接口
+	public static final  String CUSTOMER_SERVICE_APPLY = SERVERY1
+			+"/client/order/apply/refund";
 
 }

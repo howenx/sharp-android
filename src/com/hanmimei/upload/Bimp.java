@@ -43,4 +43,12 @@ public class Bimp {
 		}
 		return bitmap;
 	}
+	
+	public static void clearAll(){
+		for(Bitmap b:bmp)
+			b.recycle();
+		bmp.clear();
+		drr.clear();
+		max= 0;
+	}
 }

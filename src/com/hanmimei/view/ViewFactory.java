@@ -20,7 +20,7 @@ public class ViewFactory {
 	public static ImageView getImageView(Context context, String url) {
 		ImageView imageView = (ImageView)LayoutInflater.from(context).inflate(
 				R.layout.view_banner, null);
-		ImageLoaderUtils.initLoader(context).displayImage(url, imageView, ImageLoaderUtils.initOptions());
+		ImageLoaderUtils.loadImage(url, imageView);
 		return imageView;
 	}
 }

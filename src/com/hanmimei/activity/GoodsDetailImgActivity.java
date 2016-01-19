@@ -3,6 +3,7 @@ package com.hanmimei.activity;
 import java.util.List;
 
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.diegocarloslima.byakugallery.lib.GalleryViewPager;
@@ -11,7 +12,7 @@ import com.hanmimei.adapter.GoodsDetailImgPagerAdapter;
 import com.hanmimei.listener.GoodsPageChangeListener;
 import com.umeng.analytics.MobclickAgent;
 
-public class GoodsDetailImgActivity extends BaseActivity {
+public class GoodsDetailImgActivity extends AppCompatActivity {
 
 	private GalleryViewPager mViewPager;
 	private TextView pageNum;
@@ -23,6 +24,7 @@ public class GoodsDetailImgActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.good_detail_img_layout);
+		getSupportActionBar().hide();
 
 		imgUrls = getIntent().getStringArrayListExtra("imgUrls");
 		position = getIntent().getIntExtra("position", 0);

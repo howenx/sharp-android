@@ -17,6 +17,8 @@ import android.widget.RelativeLayout;
 
 import com.hanmimei.R;
 import com.hanmimei.activity.BaseActivity;
+import com.hanmimei.entity.BusEvent;
+import com.ypy.eventbus.EventBus;
 
 public class PhotoActivity extends BaseActivity {
 
@@ -50,7 +52,6 @@ public class PhotoActivity extends BaseActivity {
 		Button photo_bt_exit = (Button) findViewById(R.id.photo_bt_exit);
 		photo_bt_exit.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-
 				finish();
 			}
 		});
@@ -89,12 +90,13 @@ public class PhotoActivity extends BaseActivity {
 				for(int i=0;i<del.size();i++){				
 					FileUtils.delFile(del.get(i)+".JPEG"); 
 				}
+				EventBus.getDefault().post(new BusEvent(BusEvent.ACTION_DELETE));  
 				finish();
 			}
 		});
 
 		pager = (ViewPager) findViewById(R.id.viewpager);
-		pager.setOnPageChangeListener(pageChangeListener);
+		pager.addOnPageChangeListener(pageChangeListener);
 		for (int i = 0; i < bmp.size(); i++) {
 			initListViews(bmp.get(i));//
 		}
@@ -112,8 +114,8 @@ public class PhotoActivity extends BaseActivity {
 		ImageView img = new ImageView(this);// 构造textView对象
 		img.setBackgroundColor(0xff000000);
 		img.setImageBitmap(bm);
-		img.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
-				LayoutParams.FILL_PARENT));
+		img.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
+				LayoutParams.MATCH_PARENT));
 		listViews.add(img);// 添加view
 	}
 

@@ -51,13 +51,8 @@ import com.umeng.analytics.MobclickAgent;
 @SuppressLint("NewApi")
 public class ThemeGoodsActivity extends BaseActivity implements OnClickListener {
 
-	private String url;
 	private ThemeAdapter adapter; // 商品适配器
-	private GridView gridView; //
 	private List<HMMGoods> data;// 显示的商品数据
-	private ImageView img; // 主推商品图片
-	private FrameLayout mframeLayout; // 主推商品容器 添加tag使用
-	private View cartView;
 	private BadgeView bView;
 
 	@Override
@@ -66,11 +61,11 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		setContentView(R.layout.theme_layout);
 		View view = ActionBarUtil.setActionBarStyle(this, "商品展示",
 				R.drawable.white_shoppingcar, true, this);
-		cartView = view.findViewById(R.id.setting);
-		url = getIntent().getStringExtra("url");
+		View cartView = view.findViewById(R.id.setting);
 		data = new ArrayList<HMMGoods>();
 		adapter = new ThemeAdapter(data, this);
-		findView();
+		findView(cartView);
+		GridView gridView = (GridView) findViewById(R.id.my_grid);
 		gridView.setAdapter(adapter);
 		gridView.setFocusable(false);
 		// 获取数据
@@ -81,9 +76,8 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				if (!data.get(arg2).getState().equals("Y")) {
+				if (!data.get(arg2).getState().equals("Y")) 
 					return;
-				}
 				Intent intent = new Intent(getActivity(),
 						GoodsDetailActivity.class);
 				intent.putExtra("url", data.get(arg2).getItemUrlAndroid());
@@ -95,11 +89,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 	}
 
 	// 初始化view对象
-	private void findView() {
-		gridView = (GridView) findViewById(R.id.my_grid);
-		img = (ImageView) findViewById(R.id.img);
-		mframeLayout = (FrameLayout) findViewById(R.id.mframeLayout);
-
+	private void findView(View cartView) {
 		bView = new BadgeView(this, cartView);
 		bView.setBackgroundResource(R.drawable.bg_badgeview2);
 		bView.setBadgePosition(BadgeView.POSITION_CENTER);
@@ -112,7 +102,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 	// 获取显示数据
 	private void loadUrl() {
 		getLoading().show();
-		Http2Utils.doGetRequestTask(this, getHeaders(), url,
+		Http2Utils.doGetRequestTask(this, getHeaders(), getIntent().getStringExtra("url"),
 				new VolleyJsonCallback() {
 
 					@Override
@@ -226,6 +216,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		int width = CommonUtil.getScreenWidth(this);
 		int height = CommonUtil.getScreenWidth(this) * themeImg.getHeight()
 				/ themeImg.getWidth();
+		ImageView img = (ImageView) findViewById(R.id.img); // 主推商品图片
 		LayoutParams params = img.getLayoutParams();
 		params.height = height;
 		params.width = width;
@@ -279,6 +270,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 			}
 		});
 		lp.setMargins(tagInfo.leftMargin, tagInfo.topMargin, tagInfo.rightMargin, tagInfo.bottomMargin);
+		FrameLayout mframeLayout = (FrameLayout) findViewById(R.id.mframeLayout); // 主推商品容器 添加tag使用
 		mframeLayout.addView(tagView,lp);
 	}
 
@@ -319,6 +311,12 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 	}
 
 	@Override
+	protected void onStop() {
+		super.onStop();
+		findViewById(R.id.reload).setOnClickListener(null);
+	}
+
+	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 		unregisterReceiver(netReceiver);
@@ -333,9 +331,6 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 	public void onPause() {
 		super.onPause();
 		MobclickAgent.onPageEnd("ThemeGoodsActivity"); // （仅有Activity的应用中SDK自动调用，不需要单独写）保证
-														// onPageEnd 在onPause
-														// 之前调用,因为 onPause
-														// 中会保存信息。"SplashScreen"为页面名称，可自定义
 		MobclickAgent.onPause(this);
 	}
 

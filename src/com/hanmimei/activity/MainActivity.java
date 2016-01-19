@@ -9,8 +9,11 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TabHost.OnTabChangeListener;
+import android.widget.TabHost.TabSpec;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hanmimei.R;
@@ -20,7 +23,6 @@ import com.hanmimei.fragment.FragmentTabHost;
 import com.hanmimei.fragment.HomeFragment;
 import com.hanmimei.fragment.ShoppingCartFragment;
 import com.hanmimei.manager.BadgeViewManager;
-import com.hanmimei.manager.TabHostManager;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.DoJumpUtils;
 import com.hanmimei.utils.ToastUtils;
@@ -30,18 +32,18 @@ import com.umeng.analytics.MobclickAgent;
 public class MainActivity extends BaseActivity implements OnTabChangeListener,
 		OnClickListener {
 
-	private static final String TAB_HOME_ID = "tab_01";
-	private static final String TAB_CAR_ID = "tab_02";
-	private static final String TAB_MY_ID = "tab_03";
-	private static final String TAB_PIN_ID = "tab_04";
-	private static final String TAB_HOME = "首页";
-	private static final String TAB_CAR = "购物车";
-	private static final String TAB_MY = "我的";
-	private static final String TAB_PIN = "拼购";
-	private static final int home_drawable = R.drawable.tab_home;
-	private static final int shopping_drawable = R.drawable.tab_shopping;
-	private static final int my_drawable = R.drawable.tab_my;
-	private static final int pingou_drawable = R.drawable.tab_pingou;
+	private String TAB_HOME_ID = "tab_01";
+	private String TAB_CAR_ID = "tab_02";
+	private String TAB_MY_ID = "tab_03";
+	private String TAB_PIN_ID = "tab_04";
+	private String TAB_HOME = "首页";
+	private String TAB_CAR = "购物车";
+	private String TAB_MY = "我的";
+	private String TAB_PIN = "拼购";
+	private int home_drawable = R.drawable.tab_home;
+	private int shopping_drawable = R.drawable.tab_shopping;
+	private int my_drawable = R.drawable.tab_my;
+	private int pingou_drawable = R.drawable.tab_pingou;
 
 	private MainBroadCastReceiver netReceiver;
 	private FragmentTabHost mTabHost;
@@ -60,17 +62,13 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 		findViewById(R.id.close).setOnClickListener(this);
 		findViewById(R.id.gg_img).setOnClickListener(this);
 		mTabHost.setOnTabChangedListener(this);
-		TabHostManager.getInstance().initTabHostManager(this, mTabHost,
-				R.layout.tab_item_layout);
-		TabHostManager.getInstance().initTabItem(TAB_HOME_ID, home_drawable,
-				TAB_HOME, HomeFragment.class);
+
+		addTabItem(TAB_HOME_ID, home_drawable, TAB_HOME, HomeFragment.class);
 		// TabHostManager.getInstance().initTabItem(TAB_PIN_ID, pingou_drawable,
 		// TAB_PIN, PinFragment.class);
-		TabHostManager.getInstance().initTabItem(TAB_CAR_ID, shopping_drawable,
-				TAB_CAR, ShoppingCartFragment.class);
-		TabHostManager.getInstance().initTabItem(TAB_MY_ID, my_drawable,
-				TAB_MY, AboutMyFragment.class);
-		
+		addTabItem(TAB_CAR_ID, shopping_drawable, TAB_CAR,ShoppingCartFragment.class);
+		addTabItem(TAB_MY_ID, my_drawable, TAB_MY, AboutMyFragment.class);
+
 		BadgeViewManager.getInstance().initBadgeViewManager(this, mTabHost);
 		registerReceivers();
 		BadgeViewManager.getInstance().initBadgeViewManager(this, mTabHost);
@@ -100,6 +98,33 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 					false, this);
 		}
 	}
+
+	/**
+	 * 初始化tab
+	 * 
+	 * @param tag
+	 *            标签
+	 * @param title
+	 *            tab 标题
+	 * @param img
+	 *            tab 图标
+	 * @param clzss
+	 *            显示fragment
+	 */
+	@SuppressLint("InflateParams")
+	private void addTabItem(String tag, int img, String title, Class<?> clzss) {
+		View indaicatorView = getLayoutInflater().inflate(
+				R.layout.tab_item_layout, null);
+		ImageView tabIcon = (ImageView) indaicatorView.findViewById(R.id.img);
+		TextView tabTitle = (TextView) indaicatorView.findViewById(R.id.name);
+		if (tabIcon != null && img != 0)
+			tabIcon.setImageResource(img);
+		if (tabTitle != null && title != null)
+			tabTitle.setText(title);
+		TabSpec tab = mTabHost.newTabSpec(tag).setIndicator(indaicatorView);
+		mTabHost.addTab(tab, clzss, null);
+	}
+	
 
 	@Override
 	public void onClick(View v) {

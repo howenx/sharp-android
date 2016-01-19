@@ -22,14 +22,10 @@ public class MyCollectionAdapter extends BaseAdapter {
 
 	private List<Sku> data;
 	private LayoutInflater inflater;
-	private ImageLoader imageLoader;
-	private DisplayImageOptions options;
 
 	public MyCollectionAdapter(List<Sku> list, Context mContext) {
 		this.data = list;
 		inflater = LayoutInflater.from(mContext);
-		imageLoader = ImageLoaderUtils.initLoader(mContext);
-		options = ImageLoaderUtils.initOptions();
 	}
 
 	@Override
@@ -65,7 +61,7 @@ public class MyCollectionAdapter extends BaseAdapter {
 			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
-//			imageLoader.displayImage(sku.getInvImg(), holder.img, options);
+//			ImageLoaderUtils.loadImage(sku.getInvImg(), holder.img);
 //			holder.name.setText(sku.getSkuTitle());
 //			holder.price.setText("单价： ¥" + sku.getPrice());
 //			holder.nums.setText("x" + sku.getAmount());
