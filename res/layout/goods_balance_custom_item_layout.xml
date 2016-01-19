@@ -57,7 +57,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_mianshui"
-            android:padding="1dp"
+            android:paddingLeft="2dp"
+            android:paddingTop="1dp"
+            android:paddingBottom="1dp"
+            android:paddingRight="2dp"
             android:textSize="10sp"
             android:layout_marginLeft="@dimen/margin_horizontal_middle"
             android:textColor="@color/white"/>

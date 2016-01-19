@@ -22,7 +22,7 @@
     
     <application
         android:name="com.hanmimei.application.MyApplication"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
@@ -39,7 +39,6 @@
         </activity>
         <activity
             android:name="com.hanmimei.activity.IndroductionActivity"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait" 
             android:theme="@style/SplashStyle" />
         <activity
@@ -117,7 +116,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.hanmimei.activity.CustomerServiceActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" 
+			android:windowSoftInputMode="stateVisible|adjustResize"   />
         <activity
             android:name="com.hanmimei.upload.BitmapCache"
             android:screenOrientation="portrait" />
@@ -128,7 +128,7 @@
             android:name="com.hanmimei.upload.PhotoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.upload.TestPicActivity"
+            android:name="com.hanmimei.upload.AlbumActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.hanmimei.activity.PingouDetailActivity"

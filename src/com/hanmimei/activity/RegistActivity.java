@@ -313,7 +313,9 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 						if (isRegist) {
 							doLogin();
 						} else {
+							sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_FORGET_OK_ACTION));
 							finish();
+							
 						}
 					} else {
 						setAttention(result.getMessage());

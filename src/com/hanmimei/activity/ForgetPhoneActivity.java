@@ -8,7 +8,10 @@ import org.apache.http.message.BasicNameValuePair;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
@@ -25,7 +28,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hanmimei.R;
+import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
+import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
@@ -55,6 +60,7 @@ public class ForgetPhoneActivity extends BaseActivity implements
 		ActionBarUtil.setActionBarStyle(this, "找回密码");
 		setContentView(R.layout.phone_check_layout);
 		findView();
+		registerReceivers();
 	}
 
 	private void findView() {
@@ -148,8 +154,7 @@ public class ForgetPhoneActivity extends BaseActivity implements
 			@Override
 			public void run() {
 				Bitmap bitmap = HttpUtils
-						.getImg("http://172.28.3.51:9004/getImageCodes/"
-								+ Math.round(Math.random() * 1000000));
+						.getImg(UrlUtil.GET_IMG_CODE+ Math.round(Math.random() * 1000000));
 				Message msg = mHandler.obtainMessage(3);
 				msg.obj = bitmap;
 				mHandler.sendMessage(msg);
@@ -168,8 +173,7 @@ public class ForgetPhoneActivity extends BaseActivity implements
 				List<NameValuePair> params = new ArrayList<NameValuePair>();
 				params.add(new BasicNameValuePair("phone", phone_num));
 				params.add(new BasicNameValuePair("code", code));
-				result = HttpUtils.postCommon(
-						"http://172.28.3.51:9004/reset/verify", params);
+				result = HttpUtils.postCommon(UrlUtil.CHECK_PHONE_FORGET, params);
 				HMessage hMessage = DataParser.paserResultMsg(result);
 				Message msg = mHandler.obtainMessage(1);
 				msg.obj = hMessage;
@@ -300,5 +304,31 @@ public class ForgetPhoneActivity extends BaseActivity implements
 				}
 			}
 		}).start();
+	}
+	
+	private MyBroadCastReceiver netReceiver;
+
+	// 广播接收者 注册
+	private void registerReceivers() {
+		netReceiver = new MyBroadCastReceiver();
+		IntentFilter intentFilter = new IntentFilter();
+		intentFilter
+				.addAction(AppConstant.MESSAGE_BROADCAST_FORGET_OK_ACTION);
+		getActivity().registerReceiver(netReceiver, intentFilter);
+	}
+	private class MyBroadCastReceiver extends BroadcastReceiver {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			if (intent.getAction().equals(
+					AppConstant.MESSAGE_BROADCAST_FORGET_OK_ACTION)) {
+				finish();
+			} 
+		}
+	}
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		unregisterReceiver(netReceiver);
 	}
 }

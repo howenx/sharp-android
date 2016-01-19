@@ -110,8 +110,7 @@ public class EditUserInfoActivity extends BaseActivity implements
 
 	// 填充数据
 	protected void initView() {
-		ImageLoaderUtils.initLoader(this).displayImage(oldUser.getUserImg(),
-				header, ImageLoaderUtils.initOptions());
+		ImageLoaderUtils.loadImage(oldUser.getUserImg(),header);
 		name.setText(oldUser.getUserName());
 		if (oldUser.getSex().equals("M")) {
 			sex.setText("男");

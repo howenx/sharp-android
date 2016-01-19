@@ -66,10 +66,6 @@ public class SettingActivity extends BaseActivity implements OnClickListener{
 		del_Drawable.setBounds(0, 0, 40, 40);
 	}
 	private void initView() {
-		header = (TextView) findViewById(R.id.header);
-		header.setText("设置");
-		findViewById(R.id.back).setVisibility(View.VISIBLE);
-		findViewById(R.id.back).setOnClickListener(this);
 		about = (TextView) findViewById(R.id.about);
 		idea = (TextView) findViewById(R.id.idea);
 		comment = (TextView) findViewById(R.id.comment);

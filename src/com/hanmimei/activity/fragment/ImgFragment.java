@@ -45,8 +45,14 @@ public class ImgFragment extends ScrollAbleFragment   {
 
 	@Override
 	public View getScrollableView() {
-		// TODO Auto-generated method stub
 		return mWebView;
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		mWebView.removeAllViews();
+		mWebView.destroy();
 	}
 	
 }

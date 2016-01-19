@@ -14,9 +14,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
 
-import com.hanmimei.activity.BaseActivity;
-
-public class BitmapCache extends BaseActivity {
+public class BitmapCache  {
 
 	public Handler h = new Handler();
 	public final String TAG = getClass().getSimpleName();
@@ -80,7 +78,7 @@ public class BitmapCache extends BaseActivity {
 					
 				}
 				if (thumb == null) {
-					thumb = TestPicActivity.bimap;
+					thumb = AlbumActivity.bimap;
 				}
 				Log.e(TAG, "-------thumb------"+thumb);
 				put(path, thumb);

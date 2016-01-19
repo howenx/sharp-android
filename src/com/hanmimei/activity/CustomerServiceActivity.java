@@ -9,11 +9,9 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
@@ -31,17 +29,23 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.hanmimei.R;
+import com.hanmimei.data.UrlUtil;
+import com.hanmimei.entity.RefundVo;
 import com.hanmimei.entity.Sku;
+import com.hanmimei.upload.AlbumActivity;
 import com.hanmimei.upload.Bimp;
 import com.hanmimei.upload.FileUtils;
 import com.hanmimei.upload.PhotoActivity;
-import com.hanmimei.upload.TestPicActivity;
 import com.hanmimei.utils.ActionBarUtil;
+import com.hanmimei.utils.Http2Utils;
+import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ImageLoaderUtils;
 import com.hanmimei.utils.PopupWindowUtil;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.CustomGridView;
+import com.umeng.socialize.utils.Log;
 
 public class CustomerServiceActivity extends BaseActivity implements
 		OnClickListener {
@@ -50,10 +54,9 @@ public class CustomerServiceActivity extends BaseActivity implements
 	private Sku sku;
 	private ImageView imgView;
 	private TextView name, price, num, apply_num, num_sel_max;
-	private EditText discription;
+	private EditText discription,username,phone;
 	private CustomGridView mGridView;
 	private List<Drawable> imgList;
-	private List<File> fileList;
 	private GridAdapter adapter;
 	
 	@Override
@@ -76,6 +79,8 @@ public class CustomerServiceActivity extends BaseActivity implements
 		apply_num = (TextView) findViewById(R.id.apply_num);
 		num_sel_max = (TextView) findViewById(R.id.num_sel_max);
 		discription = (EditText) findViewById(R.id.discription);
+		username = (EditText) findViewById(R.id.username);
+		phone = (EditText) findViewById(R.id.phone);
 		mGridView = (CustomGridView) findViewById(R.id.mGridView);
 
 		findViewById(R.id.jian).setOnClickListener(this);
@@ -95,7 +100,6 @@ public class CustomerServiceActivity extends BaseActivity implements
 				sku.getAmount()));
 		imgList = new ArrayList<Drawable>();
 		imgList.add(getResources().getDrawable(R.drawable.ic_launcher));
-		fileList = new ArrayList<File>();
 		adapter = new GridAdapter(this);
 		adapter.update();
 		mGridView.setAdapter(adapter);
@@ -152,9 +156,10 @@ public class CustomerServiceActivity extends BaseActivity implements
 			break;
 		case R.id.play_photo:
 			photo();
+			window.dismiss();
 			break;
 		case R.id.my_photo:
-			Intent intent = new Intent(this,TestPicActivity.class);
+			Intent intent = new Intent(this,AlbumActivity.class);
 			startActivity(intent);
 			window.dismiss();
 			break;
@@ -169,24 +174,57 @@ public class CustomerServiceActivity extends BaseActivity implements
 			ToastUtils.Toast(this, "请填写问题描述");
 			return;
 		}
+		if(TextUtils.isEmpty(username.getText())){
+			ToastUtils.Toast(this, "请填写联系人姓名");
+			return;
+		}
+		if(TextUtils.isEmpty(phone.getText())){
+			ToastUtils.Toast(this, "请填写联系方式");
+			return;
+		}
+		Http2Utils.doPostRequestTask2(this, getHeaders(), UrlUtil.CUSTOMER_SERVICE_APPLY, new VolleyJsonCallback() {
+			
+			@Override
+			public void onSuccess(String result) {
+				Log.i(result);
+				ToastUtils.Toast(getActivity(), result);
+			}
+			
+			@Override
+			public void onError() {
+				ToastUtils.Toast(getActivity(), "saodifasdlfljaskdf");
+			}
+		}, toJsonString());
 		
 	}
+	
+	private String toJsonString(){
+		RefundVo vo = new RefundVo();
+		vo.setOrderId(getIntent().getStringExtra("orderId"));
+		vo.setReason(discription.getText().toString());
+		vo.setAmount(apply_num.getText().toString());
+		vo.setContactName(username.getText().toString());
+		vo.setContactTel(phone.getText().toString());
+		return new Gson().toJson(vo);
+	}
+	
 
-	private static final int TAKE_PICTURE = 0x000000;
-	private String path = "";
+	private static final int TAKE_PICTURE = 110;
+	private String capturePath = "";
 
 	public void photo() {
-		if(Bimp.drr.size()>=Bimp.MAX_SIZE+1){
+		if(Bimp.drr.size()>=Bimp.MAX_SIZE){
 			ToastUtils.Toast(this, "最多上传3张");
 			return;
 		}
 		Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		File file = new File(Environment.getExternalStorageDirectory()
-				+ "/HMM/", String.valueOf(System.currentTimeMillis())
-				+ ".jpg");
-		path = file.getPath();
-		Uri imageUri = Uri.fromFile(file);
-		openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+		String out_file_path = FileUtils.SAVED_IMAGE_DIR_PATH;  
+        File dir = new File(out_file_path);  
+        if (!dir.exists()) {  
+            dir.mkdirs();  
+        }
+        capturePath = FileUtils.SAVED_IMAGE_DIR_PATH + System.currentTimeMillis() + ".jpg";  
+        openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(capturePath)));  
 		startActivityForResult(openCameraIntent, TAKE_PICTURE);
 	}
 	
@@ -195,8 +233,8 @@ public class CustomerServiceActivity extends BaseActivity implements
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch (requestCode) {
 		case TAKE_PICTURE:
-			if (Bimp.drr.size() < 9 && resultCode == RESULT_OK) {
-				Bimp.drr.add(path);
+			if (Bimp.drr.size() < Bimp.MAX_SIZE && resultCode == RESULT_OK) {
+				Bimp.drr.add(capturePath);
 			}
 			break;
 		}
@@ -264,10 +302,9 @@ public class CustomerServiceActivity extends BaseActivity implements
 			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
-
+			holder.image.setVisibility(View.VISIBLE);
 			if (position == Bimp.bmp.size()) {
-				holder.image.setImageBitmap(BitmapFactory.decodeResource(
-						getResources(), R.drawable.icon_addpic_unfocused));
+				holder.image.setImageResource(R.drawable.icon_addpic_unfocused);
 				if (position == Bimp.MAX_SIZE) {
 					holder.image.setVisibility(View.GONE);
 				}
@@ -317,7 +354,6 @@ public class CustomerServiceActivity extends BaseActivity implements
 								message.what = 1;
 								handler.sendMessage(message);
 							} catch (IOException e) {
-
 								e.printStackTrace();
 							}
 						}
@@ -327,15 +363,6 @@ public class CustomerServiceActivity extends BaseActivity implements
 		}
 	}
 
-	public String getString(String s) {
-		String path = null;
-		if (s == null)
-			return "";
-		for (int i = s.length() - 1; i > 0; i++) {
-			s.charAt(i);
-		}
-		return path;
-	}
 
 	protected void onRestart() {
 		adapter.update();
@@ -345,6 +372,7 @@ public class CustomerServiceActivity extends BaseActivity implements
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
+		Bimp.clearAll();
 		FileUtils.deleteDir();
 	}
 

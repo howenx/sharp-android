@@ -30,6 +30,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
+import android.os.Environment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -55,6 +56,20 @@ public class CommonUtil {
 
 	private final static int MAX_NUM_PIXELS = 320 * 490;
 	private final static int MIN_SIDE_LENGTH = 350;
+	
+	
+	/**
+	 * 判断是否存在SDCard
+	 * @return
+	 */
+	public static boolean hasSdcard(){
+		String state = Environment.getExternalStorageState();
+		if(state.equals(Environment.MEDIA_MOUNTED)){
+			return true;
+		}else{
+			return false;
+		}
+	}
 
 	/**
 	 * 

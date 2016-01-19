@@ -11,7 +11,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -63,8 +62,6 @@ public class ShoppingCartFragment extends Fragment implements OnClickListener,
 	private BaseActivity activity;
 	private User user;
 	private ShoppingGoodsDao goodsDao;
-	private Drawable check_Drawable;
-	private Drawable uncheck_Drawable;
 	private LinearLayout no_net;
 	private TextView reload;
 
@@ -75,10 +72,6 @@ public class ShoppingCartFragment extends Fragment implements OnClickListener,
 		goodsDao = activity.getDaoSession().getShoppingGoodsDao();
 		data = new ArrayList<Customs>();
 		shoppingCar = new ShoppingCar();
-		check_Drawable = activity.getResources()
-				.getDrawable(R.drawable.checked);
-		uncheck_Drawable = activity.getResources().getDrawable(
-				R.drawable.check_un);
 	}
 
 	@Override
@@ -247,9 +240,9 @@ public class ShoppingCartFragment extends Fragment implements OnClickListener,
 		total_price = (TextView) view.findViewById(R.id.total_price);
 		check_all = (ImageView) view.findViewById(R.id.all);
 		if (ShoppingCarMenager.getInstance().getChecked()) {
-			check_all.setImageDrawable(check_Drawable);
+			check_all.setImageResource(R.drawable.checked);
 		} else {
-			check_all.setImageDrawable(uncheck_Drawable);
+			check_all.setImageResource(R.drawable.check_un);
 		}
 		pay = (TextView) view.findViewById(R.id.pay);
 		attention = (TextView) view.findViewById(R.id.attention);
@@ -295,10 +288,10 @@ public class ShoppingCartFragment extends Fragment implements OnClickListener,
 		switch (v.getId()) {
 		case R.id.all:
 			if (ShoppingCarMenager.getInstance().getChecked()) {
-				check_all.setImageDrawable(uncheck_Drawable);
+				check_all.setImageResource(R.drawable.checked);
 				clearPrice();
 			} else {
-				check_all.setImageDrawable(check_Drawable);
+				check_all.setImageResource(R.drawable.check_un);
 				doPrice();
 			}
 			break;

@@ -20,7 +20,7 @@ import com.hanmimei.activity.BaseActivity;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.utils.ActionBarUtil;
 
-public class TestPicActivity extends BaseActivity {
+public class AlbumActivity extends BaseActivity {
 	// ArrayList<Entity> dataList;//用来装载数据源的列表
 	List<ImageBucket> dataList;
 	GridView gridView;
@@ -61,7 +61,7 @@ public class TestPicActivity extends BaseActivity {
 	 */
 	private void initView() {
 		gridView = (GridView) findViewById(R.id.gridview);
-		adapter = new ImageBucketAdapter(TestPicActivity.this, dataList);
+		adapter = new ImageBucketAdapter(AlbumActivity.this, dataList);
 		gridView.setAdapter(adapter);
 
 		gridView.setOnItemClickListener(new OnItemClickListener() {
@@ -69,9 +69,9 @@ public class TestPicActivity extends BaseActivity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Intent intent = new Intent(TestPicActivity.this,
+				Intent intent = new Intent(AlbumActivity.this,
 						ImageGridActivity.class);
-				intent.putExtra(TestPicActivity.EXTRA_IMAGE_LIST,
+				intent.putExtra(AlbumActivity.EXTRA_IMAGE_LIST,
 						(Serializable) dataList.get(position).imageList);
 				startActivity(intent);
 			}

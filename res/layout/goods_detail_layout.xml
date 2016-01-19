@@ -137,7 +137,8 @@
                             android:id="@+id/restrictAmount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:drawableLeft="@drawable/hmm_tanhao_icon"
+                            android:drawableLeft="@drawable/iconfont_xian"
+                            android:text="11"
                             android:gravity="center"
                             android:textColor="@color/fontcolor"
                             android:textSize="@dimen/font_normal" />
@@ -151,10 +152,10 @@
                             android:id="@+id/btn_portalFee"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:drawablePadding="5dp"
-                            android:drawableRight="@drawable/hmm_wenhao_icon"
-                            android:gravity="center_vertical"
-                            android:text="税费"
+                            android:drawablePadding="3dp"
+                            android:drawableRight="@drawable/hmm_icon_shui"
+                            android:gravity="center"
+                            android:text="行邮税"
                             android:textColor="@color/fontcolor" />
                     </LinearLayout>
 
@@ -236,6 +237,7 @@
             android:orientation="horizontal" >
 
             <FrameLayout
+                android:id="@+id/btn_shopcart"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" >
@@ -251,7 +253,7 @@
             </FrameLayout>
 
             <TextView
-                android:id="@+id/btn_shopcart"
+                android:id="@+id/btn_add_shopcart"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"

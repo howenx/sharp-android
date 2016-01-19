@@ -25,23 +25,19 @@ import com.hanmimei.R;
 import com.hanmimei.application.MyApplication;
 import com.hanmimei.dao.DaoSession;
 import com.hanmimei.entity.User;
-import com.hanmimei.manager.ThreadPoolManager;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.SystemBarTintManager;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.LoadingDialog;
-import com.umeng.analytics.MobclickAgent;
 
 public class BaseActivity extends AppCompatActivity {
 
-	private MyApplication application;
-
+	private LoadingDialog loadingDialog;
 	/*
 	 * 获得用于数据库管理的DaoSession
 	 */
 	public DaoSession getDaoSession() {
-		MyApplication application = (MyApplication) getApplication();
-		return application.getDaoSession();
+		return getMyApplication().getDaoSession();
 	}
 
 	@Override
@@ -50,11 +46,7 @@ public class BaseActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		getSupportActionBar().hide();
 		getSupportActionBar().setElevation(0);
-		MobclickAgent.openActivityDurationTrack(false);
-		MobclickAgent.setSessionContinueMillis(60000);
-		MobclickAgent.setDebugMode(true);
 		loadingDialog = new LoadingDialog(this);
-		application = (MyApplication) getApplication();
 		// 沉浸式状态栏的设置
 		if (VERSION.SDK_INT >= 19) {
 			setTranslucentStatus(true);  
@@ -99,17 +91,13 @@ public class BaseActivity extends AppCompatActivity {
 	}
 
 	public User getUser() {
-		return application.getLoginUser();
+		return getMyApplication().getLoginUser();
 	}
 
 	public MyApplication getMyApplication() {
 		return (MyApplication) this.getApplication();
 	}
 
-	// 线程池 管理网络提交事务
-	public void submitTask(Runnable runable) {
-		ThreadPoolManager.getInstance().getExecutorService().execute(runable);
-	}
 
 	// 获取token
 	public Map<String, String> getHeaders() {
@@ -128,7 +116,6 @@ public class BaseActivity extends AppCompatActivity {
 		return headers;
 	}
 
-	private LoadingDialog loadingDialog;
 
 	public LoadingDialog getLoading() {
 		return loadingDialog;
@@ -140,7 +127,7 @@ public class BaseActivity extends AppCompatActivity {
 		if (!isAppOnForeground()) {
 			// 退出或者app进入后台将口令扔到剪切板
 			ClipboardManager cbm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-			cbm.setText(application.getKouling());
+			cbm.setText(getMyApplication().getKouling());
 		}
 		super.onStop();
 	}
@@ -192,47 +179,47 @@ public class BaseActivity extends AppCompatActivity {
 		if (!TextUtils.isEmpty(cbm.getText())) {
 			if (cbm.getText().toString().trim().equals("hanmimei")) {
 				cbm.setText("");
-				loadData();
-				application.setKouling("");
+//				loadData();
+				getMyApplication().setKouling("");
 			}
 		}
 
 	}
 
-	private void loadData() {
-		new Thread(new Runnable() {
+//	private void loadData() {
+//		new Thread(new Runnable() {
+//
+//			@Override
+//			public void run() {
+//				try {
+//					Thread.sleep(2000);
+//					Message msg = mHandler.obtainMessage(1);
+//					mHandler.sendMessage(msg);
+//				} catch (InterruptedException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		}).start();
+//	}
 
-			@Override
-			public void run() {
-				try {
-					Thread.sleep(2000);
-					Message msg = mHandler.obtainMessage(1);
-					mHandler.sendMessage(msg);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		}).start();
-	}
-
-	@SuppressLint("HandlerLeak")
-	private Handler mHandler = new Handler() {
-
-		@Override
-		public void handleMessage(Message msg) {
-			// TODO Auto-generated method stub
-			super.handleMessage(msg);
-			switch (msg.what) {
-			case 1:
-				showKouLing();
-				break;
-
-			default:
-				break;
-			}
-		}
-
-	};
+//	@SuppressLint("HandlerLeak")
+//	private Handler mHandler = new Handler() {
+//
+//		@Override
+//		public void handleMessage(Message msg) {
+//			// TODO Auto-generated method stub
+//			super.handleMessage(msg);
+//			switch (msg.what) {
+//			case 1:
+//				showKouLing();
+//				break;
+//
+//			default:
+//				break;
+//			}
+//		}
+//
+//	};
 	private void showKouLing() {
 		AlertDialogUtils
 				.KouDialog(
