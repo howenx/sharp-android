@@ -48,14 +48,14 @@ import com.umeng.analytics.MobclickAgent;
 /**
  * @author vince 主题商品的二级界面。
  */
-public class ThemeGoodsActivity extends BaseActivity implements OnClickListener,WaveSwipeRefreshLayout.OnRefreshListener {
+public class ThemeGoodsActivity extends BaseActivity implements OnClickListener {
 
 	private ThemeAdapter adapter; // 商品适配器
 	private List<HMMGoods> data;// 显示的商品数据
 	private BadgeView bView;
 
 	FrameLayout mframeLayout; // 主推商品容器 添加tag使用
-	private WaveSwipeRefreshLayout mWaveSwipeRefreshLayout;
+//	private WaveSwipeRefreshLayout mWaveSwipeRefreshLayout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -101,20 +101,20 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener,
 		mframeLayout = (FrameLayout) findViewById(R.id.mframeLayout);
 		findViewById(R.id.reload).setOnClickListener(this);
 		
-		mWaveSwipeRefreshLayout = (WaveSwipeRefreshLayout) findViewById(R.id.main_swipe);
-		mWaveSwipeRefreshLayout.setColorSchemeColors(Color.WHITE, Color.WHITE);
-		mWaveSwipeRefreshLayout.setOnRefreshListener(this);
+//		mWaveSwipeRefreshLayout = (WaveSwipeRefreshLayout) findViewById(R.id.main_swipe);
+//		mWaveSwipeRefreshLayout.setColorSchemeColors(Color.WHITE, Color.WHITE);
+//		mWaveSwipeRefreshLayout.setOnRefreshListener(this);
 	}
 
 	// 获取显示数据
 	private void loadUrl() {
-		mWaveSwipeRefreshLayout.setRefreshing(true);
+		getLoading().show();
 		Http2Utils.doGetRequestTask(this, getHeaders(), getIntent()
 				.getStringExtra("url"), new VolleyJsonCallback() {
 
 			@Override
 			public void onSuccess(String result) {
-				mWaveSwipeRefreshLayout.setRefreshing(false);
+				getLoading().dismiss();
 				findViewById(R.id.no_net).setVisibility(View.GONE);
 				// TODO Auto-generated method stub
 				HMMThemeGoods detail = DataParser.parserThemeItem(result);
@@ -130,7 +130,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener,
 
 			@Override
 			public void onError() {
-				mWaveSwipeRefreshLayout.setRefreshing(false);
+				getLoading().dismiss();
 				findViewById(R.id.no_net).setVisibility(View.VISIBLE);
 				ToastUtils.Toast(getActivity(), R.string.error);
 			}
@@ -339,8 +339,8 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener,
 		MobclickAgent.onPause(this);
 	}
 
-	@Override
-	public void onRefresh() {
-		loadUrl();
-	}
+//	@Override
+//	public void onRefresh() {
+//		loadUrl();
+//	}
 }

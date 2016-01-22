@@ -4,12 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"  >
-    <jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/main_swipe"
-        app:background_color = "@color/theme"
-        android:layout_below="@+id/toolbar" >
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -46,7 +40,6 @@
                 android:verticalSpacing="10dp" />
         </LinearLayout>
     </ScrollView>
-    </jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout>
 
     <include
         android:id="@+id/no_net"

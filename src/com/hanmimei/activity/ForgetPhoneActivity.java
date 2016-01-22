@@ -263,6 +263,7 @@ public class ForgetPhoneActivity extends BaseActivity implements
 
 					@Override
 					public void onClick(View v) {
+						CommonUtil.closeBoard(ForgetPhoneActivity.this);
 						code_attention.setVisibility(View.GONE);
 						code = codeEditText.getText().toString();
 						if (code.length() != 4 || !CommonUtil.isJiaoYan(code)) {
