@@ -18,6 +18,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     
     <application
@@ -200,6 +202,11 @@
             android:name="UMENG_APPKEY"
             android:value="567bb26867e58e3f670002fd" >
         </meta-data>
+        
+        <!-- 设置AppKey -->
+       <meta-data android:name="TESTIN_APPKEY" android:value="74ff42195a7da0bb1f0e917d0ae16a20"/>
+       <!-- 设置渠道信息 -->
+       <meta-data android:name="TESTIN_CHANNEL" android:value=""/>
     </application>
 
 </manifest>
