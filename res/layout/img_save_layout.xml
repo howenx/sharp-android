@@ -32,15 +32,14 @@
         android:id="@+id/linear"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:padding="2dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:background="@drawable/huise_border">
     <EditText 
         android:id="@+id/code"
-        android:layout_margin="8dp"
+        android:layout_marginLeft="10dp"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
@@ -50,12 +49,12 @@
         android:background="@null"/>
     <ImageView 
         android:id="@+id/img"
-        android:background="@drawable/huise_border"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:src="@null"/>
     <ImageView 
         android:id="@+id/refresh"
+        android:layout_marginRight="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/icon_shuaxin"/>

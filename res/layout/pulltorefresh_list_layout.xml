@@ -25,8 +25,9 @@
 	    android:layout_height="match_parent"
 	    android:gravity="center"
 	    android:text="@string/no_order"
-	    android:textSize="20sp"
-	    android:textColor="@color/fontcolor"
+	    android:textSize="16sp"
+	    android:textColor="@color/huise"
+	    android:background="@color/white"
 	    android:visibility="gone"/>
 	<include 
         android:id="@+id/no_net"

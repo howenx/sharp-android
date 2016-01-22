@@ -2,10 +2,8 @@ package com.hanmimei.activity;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -20,7 +18,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.hanmimei.R;
 import com.hanmimei.activity.listener.TimeEndListner;
 import com.hanmimei.adapter.OrderDetailListAdapter;

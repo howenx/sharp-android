@@ -17,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.hanmimei.MyPinTuanActivity;
 import com.hanmimei.R;
 import com.hanmimei.activity.AdressActivity;
 import com.hanmimei.activity.BaseActivity;
@@ -26,6 +25,7 @@ import com.hanmimei.activity.EditUserInfoActivity;
 import com.hanmimei.activity.LoginActivity;
 import com.hanmimei.activity.MyCollectionActivity;
 import com.hanmimei.activity.MyOrderActivity;
+import com.hanmimei.activity.MyPinTuanActivity;
 import com.hanmimei.dao.UserDao;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
@@ -132,7 +132,7 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 
 	private void clearView() {
 		user = activity.getUser();
-		user_name.setText("登录／注册");
+		user_name.setText("登录/注册");
 		header.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.icon_default_header));
 		sex.setVisibility(View.GONE);
 	}

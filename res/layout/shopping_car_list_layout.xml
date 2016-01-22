@@ -61,26 +61,26 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:gravity="center"
             android:text="购物车是空的"
             android:textColor="@color/huise"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/go_home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:background="@color/theme"
+            android:background="@drawable/theme_border"
             android:gravity="center"
             android:paddingBottom="5dp"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
             android:paddingTop="5dp"
             android:text="去逛逛"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:textColor="@color/theme"
+            android:textSize="16sp" />
     </LinearLayout>
     <include 
         android:id="@+id/no_net"

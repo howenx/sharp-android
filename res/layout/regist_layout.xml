@@ -211,14 +211,27 @@
             android:textColor="@color/white"
             android:gravity="center"
             android:background="@drawable/theme_button_bg"/>
+       <LinearLayout 
+           android:layout_margin="15dp"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal">
        <TextView 
            android:id="@+id/agree_us"
-           android:layout_margin="15dp"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:text="@string/regist_agree_us"
            android:textSize="12sp"
            android:textColor="@color/huise"
            android:visibility="gone"/>
-
+       <TextView 
+           android:id="@+id/yinsi"
+           android:layout_marginLeft="15dp"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="@string/regist_agree_us02"
+           android:textSize="12sp"
+           android:textColor="@color/theme"
+           android:visibility="gone"/>
+		</LinearLayout>
 </LinearLayout>

@@ -85,5 +85,12 @@ public class UrlUtil {
 	//退货申请接口
 	public static final  String CUSTOMER_SERVICE_APPLY = SERVERY1
 			+"/client/order/apply/refund";
+	
+	//关于我们
+	public static final String ABOUT_WE = SERVERY3 + "/comm/views/about";
+	//服务条款
+	public static final String SERVICE = SERVERY3 + "/comm/views/agreement";
+	//隐私协议
+	public static final String AGREEMENT = SERVERY3 + "/comm/views/privacy";
 
 }

@@ -294,8 +294,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 					CommonUtil.setAttention(attention,result.getMessage());
 				}
 				}else {
-					// Toast.makeText(LoginActivity.this, "网络连接异常，请检查网络",
-					// Toast.LENGTH_SHORT).show();
 					CommonUtil.setAttention(attention,"网络连接异常，请检查网络");
 				}
 				break;
