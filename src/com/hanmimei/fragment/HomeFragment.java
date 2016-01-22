@@ -243,6 +243,8 @@ public class HomeFragment extends Fragment implements
 		}
 		if(home.getPage_count() <= pullNum){
 			mListView.setMode(Mode.DISABLED);
+		}else{
+			mListView.setMode(Mode.PULL_UP_TO_REFRESH);
 		}
 	}
 	private Handler mHandler = new Handler() {
@@ -346,14 +348,14 @@ public class HomeFragment extends Fragment implements
 		switch (scrollState) {
 		case SCROLL_STATE_IDLE:  //屏幕停止滚动
 			// 判断滚动到顶部
-			if(mListView.getRefreshableView().getFirstVisiblePosition() == 0){
+			if(mListView.getRefreshableView().getFirstVisiblePosition() <= 4){
 				back_top.setVisibility(View.GONE);
 			}else{
 				back_top.setVisibility(View.VISIBLE);
 			}
 			break;
 		case SCROLL_STATE_TOUCH_SCROLL:      // 滚动时
-			if(mListView.getRefreshableView().getFirstVisiblePosition() <= 0){
+			if(mListView.getRefreshableView().getFirstVisiblePosition() <= 4){
 				back_top.setVisibility(View.GONE);
 			}else{
 				back_top.setVisibility(View.VISIBLE);
@@ -377,6 +379,9 @@ public class HomeFragment extends Fragment implements
 			public void onReceive(Context context, Intent intent) {
 				if (intent.getAction().equals(
 						AppConstant.MESSAGE_BROADCAST_UP_HOME_ACTION)) {
+					pageIndex = 1;
+					isUpOrDwom = 0;
+					pullNum = 1;
 					loadData();
 				}
 			}

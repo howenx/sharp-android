@@ -48,8 +48,8 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/xian" />
+        android:layout_height="0.1px"
+        android:background="@color/qianhui" />
 
     <TextView
         android:id="@+id/title"
@@ -57,15 +57,15 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:ellipsize="end"
-        android:lines="2"
+        android:maxLines="2"
         android:textColor="@color/fontcolor"
-        android:textSize="14sp" />
+        android:textSize="13sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="bottom"
-        android:layout_margin="5dp"
+        android:layout_marginLeft="5dp"
         android:orientation="horizontal" >
 
         <TextView

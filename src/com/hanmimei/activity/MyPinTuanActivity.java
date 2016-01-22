@@ -1,10 +1,12 @@
-package com.hanmimei;
+package com.hanmimei.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.hanmimei.activity.BaseActivity;
+import com.hanmimei.R;
+import com.hanmimei.R.id;
+import com.hanmimei.R.layout;
 
 public class MyPinTuanActivity extends BaseActivity {
 

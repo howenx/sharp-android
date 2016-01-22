@@ -326,7 +326,7 @@ public class DataParser {
 						JSONObject skuObject = skuArray.getJSONObject(j);
 						Sku sku = new Sku();
 						if(skuObject.has("skuId"))
-							sku.setSkuId(skuObject.getInt("skuId"));
+							sku.setSkuId(skuObject.getString("skuId"));
 						if(skuObject.has("amount"))
 							sku.setAmount(skuObject.getInt("amount"));
 						if(skuObject.has("price"))

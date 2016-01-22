@@ -23,9 +23,8 @@ public class IndroductionActivity extends AppCompatActivity {
 
 	private ViewFlow viewFlow;
 	private CircleFlowIndicator indicator;
-	public int[] images = { R.drawable.first_show, R.drawable.first_show,
-			R.drawable.first_show, R.drawable.first_show,
-			R.drawable.first_show, };
+	public int[] images = { R.drawable.intro_1, R.drawable.intro_2,
+			R.drawable.intro_3};
 	private static final String FIRST = "first";
 	private static final String FIRST_LOG_FLAG = "first_log_flag";
 	@Override
@@ -76,9 +75,9 @@ public class IndroductionActivity extends AppCompatActivity {
 			}
 			holder.experience.setVisibility(View.GONE);
 			holder.img.setImageResource(images[position % images.length]);
-			if(position == 4){
-				holder.experience.setVisibility(View.VISIBLE);
-				holder.experience.setOnClickListener(new OnClickListener() {
+			if(position == images.length - 1){
+//				holder.experience.setVisibility(View.VISIBLE);
+				holder.img.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View arg0) {
 						SharedPreferencesUtil util = new SharedPreferencesUtil(

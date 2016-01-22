@@ -9,8 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,11 +30,9 @@ import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.Category;
 import com.hanmimei.entity.Order;
-import com.hanmimei.entity.User;
 import com.hanmimei.manager.OrderNumsMenager;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
-import com.hanmimei.utils.HttpUtils;
 import com.umeng.analytics.MobclickAgent;
 
 @SuppressLint("InflateParams")
@@ -49,7 +45,6 @@ public class OrderFragment extends Fragment implements
 	private OrderPullListAdapter adapter;
 	private Category category;
 	private int state = 1;
-	private User user;
 	private BaseActivity activity;
 	private LinearLayout no_net;
 	private TextView reload;
@@ -65,7 +60,6 @@ public class OrderFragment extends Fragment implements
 		Bundle bundle = getArguments();
 		category = (Category) bundle.getSerializable("category");
 		activity = (BaseActivity) getActivity();
-		user = activity.getUser();
 	}
 
 	@Override

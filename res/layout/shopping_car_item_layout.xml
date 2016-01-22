@@ -34,7 +34,7 @@
             android:layout_width="65dp"
             android:layout_height="28dp"
             android:gravity="center"
-            android:text="15.00"
+            android:text="@null"
             android:textSize="16sp"
             android:textColor="@color/theme"/>
     <LinearLayout 
@@ -79,7 +79,7 @@
             android:id="@+id/delete"
             android:scaleType="fitCenter"
             android:layout_width="wrap_content"
-            android:layout_height="28dp"
+            android:layout_height="25dp"
             android:layout_alignParentRight="true"
             android:layout_below="@id/img"
             android:src="@drawable/icon_delete_hui"/>
@@ -94,7 +94,7 @@
             android:layout_height="wrap_content"
             android:maxLines="2"
             android:ellipsize="end"
-            android:text="nienideindiendneidiendiendiendindienidneidneindiendienidne"
+            android:text="@null"
             android:textColor="@color/fontcolor"
             android:textSize="14sp"/>
         <TextView 
@@ -103,7 +103,7 @@
             android:layout_below="@id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="15.00"
+            android:text="@null"
             android:textSize="14sp"
             android:textColor="@color/huise"/>
        

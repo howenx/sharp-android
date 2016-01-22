@@ -16,10 +16,6 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.hanmimei.activity.CheckPhoneActivity;
-import com.hanmimei.activity.RegistActivity;
-import com.hanmimei.entity.HMessage;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -34,12 +30,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
-<<<<<<< HEAD
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-=======
-import android.os.Environment;
->>>>>>> f2d5b05b6e7d11d939c641c1e746ac6247e57b48
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -710,6 +703,7 @@ public class CommonUtil {
 		hashtable.put("91", "国外");
 		return hashtable;
 	}
+	//是将转换
 	public static long[] getTimer(int time){
 		int minute = 0;
 		int second = 0;
@@ -725,6 +719,7 @@ public class CommonUtil {
         long [] timer = {hour, minute, second};
 		return timer;
 	} 
+	//校验用户名
 	public static String inputIsName(String name, int min, int max){
 		String result = "";
 		if(name.equals("")){
@@ -749,6 +744,7 @@ public class CommonUtil {
         }
 		
 	}
+	//生成随机数
 	public static int getRandom(){
 		Random random = new Random();
 		return random.nextInt();
@@ -759,6 +755,7 @@ public class CommonUtil {
 	    }
 	    return String.valueOf(num);
 	}
+	//设置提示内容显示内容以及方式
 	public static void setAttention(final TextView attention,String str){
 		attention.setText(str);
 		attention.setVisibility(View.VISIBLE);

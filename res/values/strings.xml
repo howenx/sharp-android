@@ -68,5 +68,6 @@
 	<string name="send_yan_to_phone">我们将发送验证码到你的手机。</string>
 	<string name="edit_user_info">1.字符个数应在2-12位之间\n2.与韩秘美有冲突的昵称，韩秘美将保留收回的权利\n3.创建或更改昵称，请遵守相关法律法规</string>
 	<string name="regist_agree_us">注册即视为同意 韩秘美服务条款</string>
+	<string name="regist_agree_us02">韩秘美隐私条款</string>
 	<string name="regist_agree_us_key">韩秘美服务条款</string>
 </resources>
