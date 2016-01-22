@@ -84,6 +84,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 	}
 
 	private void loadData() {
+		attention.setVisibility(View.INVISIBLE);
 		mListView.setVisibility(View.GONE);
 		user = getUser();
 		if (user != null) {
