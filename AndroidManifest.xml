@@ -204,7 +204,7 @@
         </meta-data>
         
         <!-- 设置AppKey -->
-       <meta-data android:name="TESTIN_APPKEY" android:value="74ff42195a7da0bb1f0e917d0ae16a20"/>
+       <meta-data android:name="TESTIN_APPKEY" android:value="058ce4b48f9c7d6ddf2f835b0d5774bf"/>
        <!-- 设置渠道信息 -->
        <meta-data android:name="TESTIN_CHANNEL" android:value=""/>
     </application>
