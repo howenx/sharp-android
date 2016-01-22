@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,12 +25,13 @@ import com.hanmimei.entity.OrderInfo;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.ToastUtils;
+import com.hanmimei.view.ProgressWebView2;
 import com.umeng.analytics.MobclickAgent;
 
 public class OrderSubmitActivity extends BaseActivity {
 
-	private WebView mWebView;
-	private Date startTime; //创建页面时间，用于标志页面过期的起始时间
+	private ProgressWebView2 mWebView;
+	private Date startTime; // 创建页面时间，用于标志页面过期的起始时间
 	private boolean isSuccess = false;
 
 	// private Date endTime;
@@ -40,73 +42,87 @@ public class OrderSubmitActivity extends BaseActivity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.order_submit_layout);
-		//初始化actionbar
+		// 初始化actionbar
 		ActionBarUtil.setActionBarStyle(this, "支付", new BackClickListener());
 		OrderInfo orderInfo = (OrderInfo) getIntent().getSerializableExtra(
 				"orderInfo");
-		
+
 		startTime = new Date();
-		mWebView = (WebView) findViewById(R.id.mWebView);
-		
+		mWebView = (ProgressWebView2) findViewById(R.id.mWebView);
+
 		mWebView.getSettings().setJavaScriptEnabled(true);
-		
+
 		mWebView.setWebViewClient(new WebViewClient() {
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
 				if (isOverdue(startTime, new Date())) {
 					ToastUtils.Toast(getActivity(), "页面过期");
-					startActivity(new Intent(getActivity(),MyOrderActivity.class));
+					startActivity(new Intent(getActivity(),
+							MyOrderActivity.class));
 					finish();
 					return true;
 				}
 				return false;
 			}
-			
-			
-			
+
 		});
-		
+
 		mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-		
-		mWebView.setWebChromeClient(new WebChromeClient() {
-			 
-		    @Override
-		    public boolean onJsAlert(WebView view, String url, String message,
-		            final JsResult result) {
-		    	String[] tb = { "提示",message, null, "确定" };
-		    	AlertDialogUtils.showCustomDialog(getActivity(), tb,new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						startActivity(new Intent(getActivity(), MyOrderActivity.class));
-						finish();
-					}
-				});
-		        return true;
-		    }
-		 
-		    @Override
-		    public boolean onJsConfirm(WebView view, String url,
-		            String message, final JsResult result) {
-		        return false;
-		    }
-		});
-		
-		
-		//获取用户token 添加到header中
+		mWebView.setWebChromeClient(new NewWebChromeClient());
+
+		// 获取用户token 添加到header中
 		Map<String, String> extraHeaders = new HashMap<String, String>();
 		extraHeaders.put("id-token", getUser().getToken());
-		 mWebView.loadUrl(UrlUtil.CLIENT_PAY_ORDER_GET
-		 + orderInfo.getOrder().getOrderId(), extraHeaders);
-		 
-		 //添加js交互
-		 mWebView.addJavascriptInterface(new JavaScriptInterface(this),
-					"handler");
-		 
-		 
-		 
-		 
+		mWebView.loadUrl(UrlUtil.CLIENT_PAY_ORDER_GET
+				+ orderInfo.getOrder().getOrderId(), extraHeaders);
+
+		// 添加js交互
+		mWebView.addJavascriptInterface(new JavaScriptInterface(this),
+				"handler");
+
 	}
-	//返回按钮点击事件
+
+	private class NewWebChromeClient extends WebChromeClient {
+
+		@Override
+        public void onProgressChanged(WebView view, int newProgress) {
+        	Log.i("newProgress", newProgress+"");
+            if (newProgress >= 100) {
+            	mWebView.getProgressBar().setVisibility(View.GONE);
+            } else {
+                if (mWebView.getProgressBar().getVisibility() == View.GONE)
+                	mWebView.getProgressBar().setVisibility(View.VISIBLE);
+                mWebView.getProgressBar().setProgress(newProgress);
+            }
+            super.onProgressChanged(view, newProgress);
+        }
+		
+		
+		
+		@Override
+		public boolean onJsAlert(WebView view, String url, String message,
+				final JsResult result) {
+			String[] tb = { "提示", message, null, "确定" };
+			AlertDialogUtils.showCustomDialog(getActivity(), tb,
+					new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							startActivity(new Intent(getActivity(),
+									MyOrderActivity.class));
+							finish();
+						}
+					});
+			return true;
+		}
+
+		@Override
+		public boolean onJsConfirm(WebView view, String url, String message,
+				final JsResult result) {
+			return false;
+		}
+	}
+
+	// 返回按钮点击事件
 	private class BackClickListener implements OnClickListener {
 
 		@Override
@@ -118,26 +134,26 @@ public class OrderSubmitActivity extends BaseActivity {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			//菜单返回按钮点击事件
+			// 菜单返回按钮点击事件
 			backEvent();
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
 	}
-	
-	private void backEvent(){
-		if(!isSuccess) {
-			if(mWebView.canGoBack()){
+
+	private void backEvent() {
+		if (!isSuccess) {
+			if (mWebView.canGoBack()) {
 				mWebView.goBack();
-			}else{
+			} else {
 				showPayDialog();
 			}
-		} else{
+		} else {
 			finish();
 		}
 	}
-	
-	//网页调动js方法
+
+	// 网页调动js方法
 	final class JavaScriptInterface {
 
 		private Context context;
@@ -145,25 +161,28 @@ public class OrderSubmitActivity extends BaseActivity {
 		public JavaScriptInterface(Context context) {
 			this.context = context;
 		}
+
 		@JavascriptInterface
 		public void openOrder() {
 			Intent intent = new Intent(context, MyOrderActivity.class);
 			startActivity(intent);
 			finish();
 		}
+
 		@JavascriptInterface
 		public void openHome() {
 			Intent intent = new Intent(context, MainActivity.class);
 			startActivity(intent);
 		}
-		
+
 		@JavascriptInterface
-		public void clearHistory(){
+		public void clearHistory() {
 			isSuccess = true;
 			mWebView.clearHistory();
 		}
 	}
-	//显示取消支付窗口
+
+	// 显示取消支付窗口
 	private void showPayDialog() {
 		AlertDialogUtils.showPayDialog(getActivity(), new OnClickListener() {
 			@Override
@@ -173,26 +192,30 @@ public class OrderSubmitActivity extends BaseActivity {
 			}
 		});
 	}
-	
-	//判断是否超时
+
+	// 判断是否超时
 	private boolean isOverdue(Date startTime, Date endTime) {
 		return endTime.getTime() - startTime.getTime() > formatTime(10);
 	}
-	
+
 	// 毫秒转化成分钟
 	private long formatTime(long mi) {
-		return mi * 1000 *60;
+		return mi * 1000 * 60;
 	}
-	
+
 	public void onResume() {
-	    super.onResume();
-	    MobclickAgent.onPageStart("OrderSubmitActivity"); //统计页面(仅有Activity的应用中SDK自动调用，不需要单独写。"SplashScreen"为页面名称，可自定义)
-	    MobclickAgent.onResume(this);          //统计时长
+		super.onResume();
+		MobclickAgent.onPageStart("OrderSubmitActivity"); // 统计页面(仅有Activity的应用中SDK自动调用，不需要单独写。"SplashScreen"为页面名称，可自定义)
+		MobclickAgent.onResume(this); // 统计时长
 	}
+
 	public void onPause() {
-	    super.onPause();
-	    MobclickAgent.onPageEnd("OrderSubmitActivity"); // （仅有Activity的应用中SDK自动调用，不需要单独写）保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息。"SplashScreen"为页面名称，可自定义
-	    MobclickAgent.onPause(this);
+		super.onPause();
+		MobclickAgent.onPageEnd("OrderSubmitActivity"); // （仅有Activity的应用中SDK自动调用，不需要单独写）保证
+														// onPageEnd 在onPause
+														// 之前调用,因为 onPause
+														// 中会保存信息。"SplashScreen"为页面名称，可自定义
+		MobclickAgent.onPause(this);
 	}
 
 }

@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingBottom="10dp" 
     android:background="@drawable/huise_border">
 
     <FrameLayout
@@ -27,8 +26,7 @@
             android:background="#44000000"
             android:contentDescription="@null"
             android:scaleType="center"
-            android:src="@drawable/yishouwan"
-            android:visibility="gone" />
+            android:src="@drawable/yishouwan" />
          <TextView
                 android:id="@+id/area"
                 android:paddingLeft="8dp"
@@ -65,7 +63,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="bottom"
-        android:layout_margin="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
         android:orientation="horizontal" >
 
         <TextView

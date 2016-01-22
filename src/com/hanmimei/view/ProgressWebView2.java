@@ -3,6 +3,8 @@ package com.hanmimei.view;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
@@ -15,36 +17,33 @@ import com.hanmimei.R;
  * @author http://blog.csdn.net/finddreams
  */ 
 @SuppressWarnings("deprecation")
-public class ProgressWebView extends WebView {
+public class ProgressWebView2 extends WebView {
 
-    private ProgressBar progressbar;
+    private NumberProgressBar progressbar;
    
     
-    public ProgressWebView(Context context){
+    public ProgressWebView2(Context context){
    	 super(context);
-   	 	progressbar = new ProgressBar(context, null, android.R.attr.progressBarStyleHorizontal);
-        progressbar.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, 10, 0, 0));
-        Drawable draw =context.getResources().getDrawable(R.drawable.progress_bar_states);
-        progressbar.setProgressDrawable(draw);
-        addView(progressbar);
-        setWebViewClient(new WebViewClient(){});
-        setWebChromeClient(new WebChromeClient());
+   	 initProgressbar(context, null);
    }
 
-    public ProgressWebView(Context context, AttributeSet attrs) {
+    public ProgressWebView2(Context context, AttributeSet attrs) {
         super(context, attrs);
-        progressbar = new ProgressBar(context, null,android.R.attr.progressBarStyleHorizontal);
-        progressbar.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,10, 0, 0));
-        Drawable drawable = context.getResources().getDrawable(R.drawable.progress_bar_states); 
-        progressbar.setProgressDrawable(drawable);
+        initProgressbar(context, attrs);
+    }
+    
+    private void initProgressbar(Context context, AttributeSet attrs){
+    	progressbar = new NumberProgressBar(context, null, android.R.attr.progressBarStyleHorizontal);
+        progressbar.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, 0, 0));
+        progressbar.setReachedBarColor(getResources().getColor(R.color.theme));
+        progressbar.setProgressTextColor(getResources().getColor(R.color.theme));
         addView(progressbar);
-        setWebViewClient(new WebViewClient(){});
-        setWebChromeClient(new WebChromeClient());
     }
 
-    public class WebChromeClient extends android.webkit.WebChromeClient {
+    public class HWebChromeClient extends android.webkit.WebChromeClient {
         @Override
         public void onProgressChanged(WebView view, int newProgress) {
+        	Log.i("newProgress", newProgress+"");
             if (newProgress >= 100) {
                 progressbar.setVisibility(GONE);
             } else {
@@ -54,14 +53,14 @@ public class ProgressWebView extends WebView {
             }
             super.onProgressChanged(view, newProgress);
         }
-
     }
     
-    public ProgressBar getProgressBar(){
+    public NumberProgressBar getProgressBar(){
     	return progressbar;
     }
+    
 
-    @Override
+	@Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
     	LayoutParams lp = (LayoutParams) progressbar.getLayoutParams();
         lp.x = l;

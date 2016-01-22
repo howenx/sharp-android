@@ -15,7 +15,7 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 import com.hanmimei.R;
-import com.hanmimei.application.MyApplication;
+import com.hanmimei.application.HMMApplication;
 import com.hanmimei.dao.UserDao;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.entity.User;
@@ -40,14 +40,14 @@ public class SettingActivity extends BaseActivity implements OnClickListener{
 	
 	private ProgressDialog pdialog;
 	private AlertDialog dialog;
-	private MyApplication application;
+	private HMMApplication application;
 	private UserDao userDao;
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.setting_layout);
 		ActionBarUtil.setActionBarStyle(this, "设置");
-		application = (MyApplication) getApplication();
+		application = (HMMApplication) getApplication();
 		userDao = getDaoSession().getUserDao();
 		initDrawable();
 		initView();

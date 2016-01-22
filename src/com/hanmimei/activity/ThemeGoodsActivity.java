@@ -3,16 +3,17 @@ package com.hanmimei.activity;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.FrameLayout;
@@ -48,12 +49,13 @@ import com.umeng.analytics.MobclickAgent;
 /**
  * @author vince 主题商品的二级界面。
  */
-@SuppressLint("NewApi")
 public class ThemeGoodsActivity extends BaseActivity implements OnClickListener {
 
 	private ThemeAdapter adapter; // 商品适配器
 	private List<HMMGoods> data;// 显示的商品数据
 	private BadgeView bView;
+
+	FrameLayout mframeLayout; // 主推商品容器 添加tag使用
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +78,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				if (!data.get(arg2).getState().equals("Y")) 
+				if (!data.get(arg2).getState().equals("Y"))
 					return;
 				Intent intent = new Intent(getActivity(),
 						GoodsDetailActivity.class);
@@ -95,41 +97,39 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		bView.setBadgePosition(BadgeView.POSITION_CENTER);
 		bView.setTextSize(10);
 		bView.setTextColor(Color.parseColor("#F9616A"));
-
+		mframeLayout = (FrameLayout) findViewById(R.id.mframeLayout);
 		findViewById(R.id.reload).setOnClickListener(this);
 	}
 
 	// 获取显示数据
 	private void loadUrl() {
 		getLoading().show();
-		Http2Utils.doGetRequestTask(this, getHeaders(), getIntent().getStringExtra("url"),
-				new VolleyJsonCallback() {
+		Http2Utils.doGetRequestTask(this, getHeaders(), getIntent()
+				.getStringExtra("url"), new VolleyJsonCallback() {
 
-					@Override
-					public void onSuccess(String result) {
-						getLoading().dismiss();
-						findViewById(R.id.no_net).setVisibility(View.GONE);
-						// TODO Auto-generated method stub
-						HMMThemeGoods detail = DataParser
-								.parserThemeItem(result);
-						if (detail.getMessage().getCode() == 200) {
-							initShopCartView(detail);
-							initThemeView(detail);
-						} else {
-							findViewById(R.id.no_net).setVisibility(
-									View.VISIBLE);
-							ToastUtils.Toast(getActivity(), detail.getMessage()
-									.getMessage());
-						}
-					}
+			@Override
+			public void onSuccess(String result) {
+				getLoading().dismiss();
+				findViewById(R.id.no_net).setVisibility(View.GONE);
+				// TODO Auto-generated method stub
+				HMMThemeGoods detail = DataParser.parserThemeItem(result);
+				if (detail.getMessage().getCode() == 200) {
+					initShopCartView(detail);
+					initThemeView(detail);
+				} else {
+					findViewById(R.id.no_net).setVisibility(View.VISIBLE);
+					ToastUtils.Toast(getActivity(), detail.getMessage()
+							.getMessage());
+				}
+			}
 
-					@Override
-					public void onError() {
-						getLoading().dismiss();
-						findViewById(R.id.no_net).setVisibility(View.VISIBLE);
-						ToastUtils.Toast(getActivity(), R.string.error);
-					}
-				});
+			@Override
+			public void onError() {
+				getLoading().dismiss();
+				findViewById(R.id.no_net).setVisibility(View.VISIBLE);
+				ToastUtils.Toast(getActivity(), R.string.error);
+			}
+		});
 	}
 
 	/**
@@ -195,9 +195,9 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 			}
 		} else {
 			if (detail.getCartNum() != null) {
-				if(detail.getCartNum() <=99){
+				if (detail.getCartNum() <= 99) {
 					bView.setText(detail.getCartNum() + "");
-				}else{
+				} else {
 					bView.setText("...");
 				}
 				bView.show(true);
@@ -217,61 +217,62 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		int height = CommonUtil.getScreenWidth(this) * themeImg.getHeight()
 				/ themeImg.getWidth();
 		ImageView img = (ImageView) findViewById(R.id.img); // 主推商品图片
-		LayoutParams params = img.getLayoutParams();
+		LayoutParams params = mframeLayout.getLayoutParams();
 		params.height = height;
 		params.width = width;
-		img.setLayoutParams(params);
+		mframeLayout.setLayoutParams(params);
 		ImageLoaderUtils.loadImage(this, themeImg.getUrl(), img);
 
-		FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
-				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		List<ImgTag> tags = themeList.getMasterItemTagAndroid();
-	
+
 		for (ImgTag tag : tags) {
-			
+
 			TagInfo tagInfo = new TagInfo();
 			tagInfo.bid = 2L;
 			tagInfo.bname = tag.getName();
-			if (tag.getAngle() > 90) {
-				tagInfo.direct = com.ui.tag.TagInfo.Direction.Right;
-			} else {
-				tagInfo.direct = com.ui.tag.TagInfo.Direction.Left;
-			}
-			
-			tagInfo.leftMargin = (int)  (width * tag.getLeft());	//根据屏幕密度计算使动画中心在点击点，15dp是margin
-			tagInfo.topMargin = (int)(height * tag.getTop());
-			tagInfo.rightMargin = 0;
-			tagInfo.bottomMargin = 0;
+			tagInfo.direct = tag.getAngle() > 90 ? com.ui.tag.TagInfo.Direction.Right
+					: com.ui.tag.TagInfo.Direction.Left;
 			tagInfo.type = Type.OfficalPoint;
 			tagInfo.targetUrl = tag.getUrl();
-			addTagInfo(tagInfo, lp);
+
+			final TagView tagView = tagInfo.direct == com.ui.tag.TagInfo.Direction.Right ? new TagViewRight(
+					this, null) : new TagViewLeft(this, null);
+			tagView.setData(tagInfo);
+			tagView.setTagViewListener(new TagViewListener() {
+
+				@Override
+				public void onTagViewClicked(View view, TagInfo info) {
+					Intent intent = new Intent(getActivity(),
+							GoodsDetailActivity.class);
+					intent.putExtra("url", info.targetUrl);
+					startActivityForResult(intent, 1);
+				}
+			});
+
+			if (tagInfo.direct == com.ui.tag.TagInfo.Direction.Right) {
+				tagInfo.leftMargin = 0;
+				tagInfo.topMargin = (int) (height * tag.getTop());
+				tagInfo.rightMargin = (int) (width - width * tag.getLeft());
+				Log.i("width", tagInfo.rightMargin + "");
+				tagInfo.bottomMargin = 0;
+			} else {
+				tagInfo.leftMargin = (int) (width * tag.getLeft()); // 根据屏幕密度计算使动画中心在点击点，15dp是margin
+				tagInfo.topMargin = (int) (height * tag.getTop());
+				tagInfo.rightMargin = 0;
+				tagInfo.bottomMargin = 0;
+			}
+			FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
+					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+
+			lp.setMargins(tagInfo.leftMargin, tagInfo.topMargin,
+					tagInfo.rightMargin, tagInfo.bottomMargin);
+			mframeLayout.addView(tagView, lp);
+
 		}
 		data.clear();
 		data.addAll(themeList.getThemeItemList());
 		adapter.notifyDataSetChanged();
 
-	}
-	
-	private void addTagInfo(TagInfo tagInfo,FrameLayout.LayoutParams lp){
-		TagView tagView =null;
-		if (tagInfo.direct == com.ui.tag.TagInfo.Direction.Right) {
-			tagView = new TagViewRight(this,null);
-		} else {
-			tagView = new TagViewLeft(this,null);
-		}
-		tagView.setData(tagInfo);
-		tagView.setTagViewListener(new TagViewListener() {
-			
-			@Override
-			public void onTagViewClicked(View view, TagInfo info) {
-				Intent intent = new Intent(getActivity(),GoodsDetailActivity.class);
-				intent.putExtra("url", info.targetUrl);
-				startActivityForResult(intent, 1);
-			}
-		});
-		lp.setMargins(tagInfo.leftMargin, tagInfo.topMargin, tagInfo.rightMargin, tagInfo.bottomMargin);
-		FrameLayout mframeLayout = (FrameLayout) findViewById(R.id.mframeLayout); // 主推商品容器 添加tag使用
-		mframeLayout.addView(tagView,lp);
 	}
 
 	@Override
@@ -313,7 +314,6 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 	@Override
 	protected void onStop() {
 		super.onStop();
-		findViewById(R.id.reload).setOnClickListener(null);
 	}
 
 	@Override

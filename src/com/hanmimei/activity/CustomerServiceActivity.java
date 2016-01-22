@@ -7,6 +7,8 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -29,40 +31,44 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.dd.processbutton.ProcessButton;
 import com.google.gson.Gson;
 import com.hanmimei.R;
 import com.hanmimei.data.UrlUtil;
-import com.hanmimei.entity.RefundVo;
+import com.hanmimei.entity.GoodsBalance;
+import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.Sku;
 import com.hanmimei.upload.AlbumActivity;
 import com.hanmimei.upload.Bimp;
 import com.hanmimei.upload.FileUtils;
 import com.hanmimei.upload.PhotoActivity;
 import com.hanmimei.utils.ActionBarUtil;
-import com.hanmimei.utils.Http2Utils;
+import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ImageLoaderUtils;
 import com.hanmimei.utils.PopupWindowUtil;
 import com.hanmimei.utils.ToastUtils;
+import com.hanmimei.utils.upload.Http3Utils;
+import com.hanmimei.utils.upload.MultipartRequestParams;
 import com.hanmimei.view.CustomGridView;
-import com.umeng.socialize.utils.Log;
+import com.hanmimei.view.UDialog;
+import com.hanmimei.view.UDialog.CallBack;
 
 public class CustomerServiceActivity extends BaseActivity implements
 		OnClickListener {
 
-
 	private Sku sku;
 	private ImageView imgView;
 	private TextView name, price, num, apply_num, num_sel_max;
-	private EditText discription,username,phone;
+	private EditText discription;
 	private CustomGridView mGridView;
 	private List<Drawable> imgList;
 	private GridAdapter adapter;
-	
+
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.customer_service_layout);
+		setContentView(R.layout.customer_service_main_layout);
 		ActionBarUtil.setActionBarStyle(this, "申请售后服务");
 		sku = (Sku) getIntent().getSerializableExtra("sku");
 		findView();
@@ -79,8 +85,6 @@ public class CustomerServiceActivity extends BaseActivity implements
 		apply_num = (TextView) findViewById(R.id.apply_num);
 		num_sel_max = (TextView) findViewById(R.id.num_sel_max);
 		discription = (EditText) findViewById(R.id.discription);
-		username = (EditText) findViewById(R.id.username);
-		phone = (EditText) findViewById(R.id.phone);
 		mGridView = (CustomGridView) findViewById(R.id.mGridView);
 
 		findViewById(R.id.jian).setOnClickListener(this);
@@ -159,7 +163,7 @@ public class CustomerServiceActivity extends BaseActivity implements
 			window.dismiss();
 			break;
 		case R.id.my_photo:
-			Intent intent = new Intent(this,AlbumActivity.class);
+			Intent intent = new Intent(this, AlbumActivity.class);
 			startActivity(intent);
 			window.dismiss();
 			break;
@@ -168,67 +172,104 @@ public class CustomerServiceActivity extends BaseActivity implements
 			break;
 		}
 	}
-	
+
+	private UDialog dialog;
+
 	private void next() {
-		if(TextUtils.isEmpty(discription.getText())){
+		if (TextUtils.isEmpty(discription.getText())) {
 			ToastUtils.Toast(this, "请填写问题描述");
 			return;
 		}
-		if(TextUtils.isEmpty(username.getText())){
-			ToastUtils.Toast(this, "请填写联系人姓名");
-			return;
-		}
-		if(TextUtils.isEmpty(phone.getText())){
-			ToastUtils.Toast(this, "请填写联系方式");
-			return;
-		}
-		Http2Utils.doPostRequestTask2(this, getHeaders(), UrlUtil.CUSTOMER_SERVICE_APPLY, new VolleyJsonCallback() {
+		dialog = new UDialog(this);
+		dialog.setCallBack(new CallBack() {
+
+			@Override
+			public void onClick(ProcessButton button, String name, String phone) {
+				submitData(button, name, phone);
+			}
+
+			@Override
+			public void onCompleteClick() {
+				getActivity().finish();
+			}
+		});
+		dialog.setOnDismissListener(new OnDismissListener() {
 			
 			@Override
-			public void onSuccess(String result) {
-				Log.i(result);
-				ToastUtils.Toast(getActivity(), result);
+			public void onDismiss(DialogInterface arg0) {
+				if(dialog.getState()){
+					finish();
+				}else{
+					getMyApplication().getRequestQueue().cancelAll(UrlUtil.CUSTOMER_SERVICE_APPLY);
+				}
 			}
-			
-			@Override
-			public void onError() {
-				ToastUtils.Toast(getActivity(), "saodifasdlfljaskdf");
-			}
-		}, toJsonString());
-		
+		});
+		dialog.show();
 	}
-	
-	private String toJsonString(){
-		RefundVo vo = new RefundVo();
-		vo.setOrderId(getIntent().getStringExtra("orderId"));
-		vo.setReason(discription.getText().toString());
-		vo.setAmount(apply_num.getText().toString());
-		vo.setContactName(username.getText().toString());
-		vo.setContactTel(phone.getText().toString());
-		return new Gson().toJson(vo);
+
+	private void submitData(final ProcessButton button, String name,
+			String phone) {
+		MultipartRequestParams params = new MultipartRequestParams();
+
+		params.put("orderId", getIntent().getStringExtra("orderId"));
+		params.put("splitOrderId", getIntent().getStringExtra("splitOrderId"));
+		params.put("skuId", sku.getSkuId() + "");
+		params.put("reason", discription.getText().toString());
+		params.put("amount", apply_num.getText().toString());
+		params.put("contactName", name);
+		params.put("contactTel", phone);
+		for (int i = 0; i < Bimp.drr.size(); i++) {
+			String path = Bimp.drr.get(i);
+			params.put("refundImg" + i, new File(path));
+		}
+
+		Http3Utils.doPostRequestTask(this, getHeaders(),
+				UrlUtil.CUSTOMER_SERVICE_APPLY, new VolleyJsonCallback() {
+
+					@Override
+					public void onSuccess(String result) {
+						GoodsBalance b = new Gson().fromJson(result,
+								GoodsBalance.class);
+						HMessage msg = b.getMessage();
+						if (msg.getCode() == 200) {
+							button.setProgress(100);
+						} else {
+							ToastUtils.Toast(getActivity(), msg.getMessage());
+							button.setProgress(-1);
+							dialog.dismiss();
+							CommonUtil.closeBoardIfShow(getActivity());
+						}
+					}
+
+					@Override
+					public void onError() {
+						ToastUtils.Toast(getActivity(), R.string.error);
+						button.setProgress(-1);
+					}
+				}, params);
 	}
-	
 
 	private static final int TAKE_PICTURE = 110;
 	private String capturePath = "";
 
 	public void photo() {
-		if(Bimp.drr.size()>=Bimp.MAX_SIZE){
+		if (Bimp.drr.size() >= Bimp.MAX_SIZE) {
 			ToastUtils.Toast(this, "最多上传3张");
 			return;
 		}
 		Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		String out_file_path = FileUtils.SAVED_IMAGE_DIR_PATH;  
-        File dir = new File(out_file_path);  
-        if (!dir.exists()) {  
-            dir.mkdirs();  
-        }
-        capturePath = FileUtils.SAVED_IMAGE_DIR_PATH + System.currentTimeMillis() + ".jpg";  
-        openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(capturePath)));  
+		String out_file_path = FileUtils.SAVED_IMAGE_DIR_PATH;
+		File dir = new File(out_file_path);
+		if (!dir.exists()) {
+			dir.mkdirs();
+		}
+		capturePath = FileUtils.SAVED_IMAGE_DIR_PATH
+				+ System.currentTimeMillis() + ".jpg";
+		openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+				Uri.fromFile(new File(capturePath)));
 		startActivityForResult(openCameraIntent, TAKE_PICTURE);
 	}
-	
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch (requestCode) {
@@ -239,7 +280,6 @@ public class CustomerServiceActivity extends BaseActivity implements
 			break;
 		}
 	}
-	
 
 	@SuppressLint("HandlerLeak")
 	public class GridAdapter extends BaseAdapter {
@@ -293,8 +333,8 @@ public class CustomerServiceActivity extends BaseActivity implements
 			ViewHolder holder = null;
 			if (convertView == null) {
 
-				convertView = inflater.inflate(R.layout.upload_item_published_grida,
-						parent, false);
+				convertView = inflater.inflate(
+						R.layout.upload_item_published_grida, parent, false);
 				holder = new ViewHolder();
 				holder.image = (ImageView) convertView
 						.findViewById(R.id.item_grida_image);
@@ -363,17 +403,18 @@ public class CustomerServiceActivity extends BaseActivity implements
 		}
 	}
 
-
 	protected void onRestart() {
 		adapter.update();
 		super.onRestart();
 	}
-	
+
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 		Bimp.clearAll();
 		FileUtils.deleteDir();
 	}
+	
+	
 
 }

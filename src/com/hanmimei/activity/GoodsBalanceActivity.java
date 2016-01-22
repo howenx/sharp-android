@@ -61,12 +61,12 @@ public class GoodsBalanceActivity extends BaseActivity implements
 
 	private ShoppingCar car; // 所要显示的商品数据
 	private GoodsBalance goodsBalance; // 本页数据集合
-	private OrderSubmit orderSubmit; //提交订单数据集合
+	private OrderSubmit orderSubmit; // 提交订单数据集合
 
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
-		ActionBarUtil.setActionBarStyle(this, "支付结算",this);
+		ActionBarUtil.setActionBarStyle(this, "支付结算", this);
 		setContentView(R.layout.goods_balance_layout);
 		// 获取要购买的数据
 		car = (ShoppingCar) getIntent().getSerializableExtra("car");
@@ -131,7 +131,8 @@ public class GoodsBalanceActivity extends BaseActivity implements
 						// 显示选中的送达时间
 						RadioButton btn = (RadioButton) findViewById(arg1);
 						send_time.setText(btn.getText());
-						orderSubmit.setShipTime(Integer.parseInt(btn.getTag().toString()));
+						orderSubmit.setShipTime(Integer.parseInt(btn.getTag()
+								.toString()));
 					}
 				});
 
@@ -145,9 +146,12 @@ public class GoodsBalanceActivity extends BaseActivity implements
 					coupon_denomi.setText(btn.getText());
 					car.setDenomination(new BigDecimal(0));
 				} else {
-					coupon_denomi.setText("-" + btn.getTag(R.id.coupon_de)+"元");
-					car.setDenomination(new BigDecimal(btn.getTag(R.id.coupon_de).toString()));
-					orderSubmit.setCouponId(btn.getTag(R.id.coupon_id).toString());
+					coupon_denomi.setText("-" + btn.getTag(R.id.coupon_de)
+							+ "元");
+					car.setDenomination(new BigDecimal(btn.getTag(
+							R.id.coupon_de).toString()));
+					orderSubmit.setCouponId(btn.getTag(R.id.coupon_id)
+							.toString());
 				}
 				youhui.setText(getResources().getString(R.string.price,
 						car.getDenomination()));
@@ -157,7 +161,6 @@ public class GoodsBalanceActivity extends BaseActivity implements
 		});
 
 	}
-	
 
 	@Override
 	public void onClick(View v) {
@@ -223,56 +226,62 @@ public class GoodsBalanceActivity extends BaseActivity implements
 		orderSubmit.setSettleDtos(array);
 		orderSubmit.setAddressId(addressId);
 		final JSONObject json = JSONPaserTool.OrderSubmitPaser(orderSubmit);
-		Http2Utils.doPostRequestTask2(this, getHeaders(), UrlUtil.POST_CLIENT_SETTLE, new VolleyJsonCallback() {
-			
-			@Override
-			public void onSuccess(String result) {
-				getLoading().dismiss();
-				goodsBalance = new Gson().fromJson(result, GoodsBalance.class);
-				initViewData();
-			}
-			
-			@Override
-			public void onError() {
-				getLoading().dismiss();
-				ToastUtils.Toast(getActivity(), R.string.error);
-			}
-		}, json.toString());
+		Http2Utils.doPostRequestTask2(this, getHeaders(),
+				UrlUtil.POST_CLIENT_SETTLE, new VolleyJsonCallback() {
+
+					@Override
+					public void onSuccess(String result) {
+						getLoading().dismiss();
+						goodsBalance = new Gson().fromJson(result,
+								GoodsBalance.class);
+						initViewData();
+					}
+
+					@Override
+					public void onError() {
+						getLoading().dismiss();
+						ToastUtils.Toast(getActivity(), R.string.error);
+					}
+				}, json.toString());
 	}
-	
+
 	/**
 	 * 提交订单数据
 	 * 
-	 * @param os 订单提交信息
+	 * @param os
+	 *            订单提交信息
 	 */
 	private void sendData(OrderSubmit os) {
 		final JSONObject json = JSONPaserTool.OrderSubmitPaser(os);
 		getLoading().show();
-		 Http2Utils.doPostRequestTask2(this, getHeaders(), UrlUtil.POST_CLIENT_ORDER_SUBMIT,new VolleyJsonCallback() {
-			
-			@Override
-			public void onSuccess(String result) {
-				getLoading().dismiss();
-				OrderInfo info = new Gson().fromJson(result, OrderInfo.class);
-				if(info.getMessage().getCode() == 200){
-					Intent intent = new Intent(getActivity(), OrderSubmitActivity.class);
-					intent.putExtra("orderInfo", info);
-					startActivity(intent);
-					sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
-					finish();
-				}else{
-					ToastUtils.Toast(getActivity(), R.string.error);
-				}
-			}
-			
-			@Override
-			public void onError() {
-				getLoading().dismiss();
-				ToastUtils.Toast(getActivity(), R.string.error);
-			}
-		} , json.toString());
-	}
+		Http2Utils.doPostRequestTask2(this, getHeaders(),
+				UrlUtil.POST_CLIENT_ORDER_SUBMIT, new VolleyJsonCallback() {
 
+					@Override
+					public void onSuccess(String result) {
+						getLoading().dismiss();
+						OrderInfo info = new Gson().fromJson(result,
+								OrderInfo.class);
+						if (info.getMessage().getCode() == 200) {
+							Intent intent = new Intent(getActivity(),
+									OrderSubmitActivity.class);
+							intent.putExtra("orderInfo", info);
+							startActivity(intent);
+							sendBroadcast(new Intent(
+									AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
+							finish();
+						} else {
+							ToastUtils.Toast(getActivity(), R.string.error);
+						}
+					}
+
+					@Override
+					public void onError() {
+						getLoading().dismiss();
+						ToastUtils.Toast(getActivity(), R.string.error);
+					}
+				}, json.toString());
+	}
 
 	/**
 	 * 初始化添加view数据
@@ -280,34 +289,36 @@ public class GoodsBalanceActivity extends BaseActivity implements
 	private void initViewData() {
 
 		if (goodsBalance == null)
-			return ;
-			if (goodsBalance.getMessage().getCode() == 200) {
-				Settle settle = goodsBalance.getSettle();
-				initGoodsInfo(settle);
-				//如果有默认地址 则显示地址信息
-				initAddressInfo(settle);
-				//如果有优惠券则显示优惠券信息
-				initCouponsInfo(settle);
-				initBalanceInfo();
-				
-			} else {
-				ToastUtils.Toast(this, goodsBalance.getMessage().getMessage());
-				findViewById(R.id.btn_pay).setBackgroundColor(
-						Color.parseColor("#9F9F9F"));
-				findViewById(R.id.selectAddress).setVisibility(View.GONE);
-				findViewById(R.id.newAddress).setVisibility(View.VISIBLE);
-			}
-		
+			return;
+		if (goodsBalance.getMessage().getCode() == 200) {
+			Settle settle = goodsBalance.getSettle();
+			initGoodsInfo(settle);
+			// 如果有默认地址 则显示地址信息
+			initAddressInfo(settle);
+			// 如果有优惠券则显示优惠券信息
+			initCouponsInfo(settle);
+			initBalanceInfo();
+
+		} else {
+			ToastUtils.Toast(this, goodsBalance.getMessage().getMessage());
+			findViewById(R.id.btn_pay).setBackgroundColor(
+					Color.parseColor("#9F9F9F"));
+			findViewById(R.id.selectAddress).setVisibility(View.GONE);
+			findViewById(R.id.newAddress).setVisibility(View.VISIBLE);
+		}
+
 	}
+
 	/**
 	 * 初始化地址信息
+	 * 
 	 * @param settle
 	 */
-	private void initAddressInfo(Settle settle){
+	private void initAddressInfo(Settle settle) {
 		if (!settle.getAddress().isEmpty()) {
 			findViewById(R.id.selectAddress).setVisibility(View.VISIBLE);
 			findViewById(R.id.newAddress).setVisibility(View.GONE);
-			
+
 			selectedId = settle.getAddress().getAddId();
 			orderSubmit.setAddressId(selectedId);
 			address.setText(getResources().getString(
@@ -318,21 +329,29 @@ public class GoodsBalanceActivity extends BaseActivity implements
 					settle.getAddress().getName()));
 			phone.setText(getResources().getString(R.string.phone,
 					settle.getAddress().getTel()));
-			idCard.setText(getResources().getString(R.string.idcard,settle.getAddress().getIdCardNum().substring(0, 5) 
-					+ "********" + settle.getAddress().getIdCardNum().substring(14, settle.getAddress().getIdCardNum().length())
-					));
+			idCard.setText(getResources().getString(
+					R.string.idcard,
+					settle.getAddress().getIdCardNum().substring(0, 5)
+							+ "********"
+							+ settle.getAddress()
+									.getIdCardNum()
+									.substring(
+											14,
+											settle.getAddress().getIdCardNum()
+													.length())));
 			findViewById(R.id.btn_pay).setBackgroundResource(R.color.theme);
 			findViewById(R.id.btn_pay).setOnClickListener(this);
 
-		}else{
+		} else {
 			findViewById(R.id.selectAddress).setVisibility(View.GONE);
 			findViewById(R.id.newAddress).setVisibility(View.VISIBLE);
-			String[] tb = { "请添加收货地址",null, "取消", "确定" };
+			String[] tb = { "请添加收货地址", null, "取消", "确定" };
 			AlertDialogUtils.showCustomDialog(this, tb, new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View arg0) {
-					Intent intnt = new Intent(getActivity(), AdressActivity.class);
+					Intent intnt = new Intent(getActivity(),
+							AdressActivity.class);
 					intnt.putExtra("from", From.GoodsBalanceActivity);
 					intnt.putExtra("selectedId", selectedId);
 					startActivityForResult(intnt, 1);
@@ -340,12 +359,14 @@ public class GoodsBalanceActivity extends BaseActivity implements
 			});
 		}
 	}
+
 	/**
 	 * 初始化商品信息
+	 * 
 	 * @param settle
 	 */
-	private void initGoodsInfo(Settle settle){
-		//添加商品 行邮税 运费等信息
+	private void initGoodsInfo(Settle settle) {
+		// 添加商品 行邮税 运费等信息
 		car.setFactPortalFee(settle.getFactPortalFee());
 		car.setFactShipFee(settle.getFactShipFee());
 		car.setPortalFee(settle.getPortalFee());
@@ -360,41 +381,43 @@ public class GoodsBalanceActivity extends BaseActivity implements
 							.getFactSingleCustomsShipFee());
 					cs.setPortalSingleCustomsFee(scs
 							.getPortalSingleCustomsFee());
-					cs.setShipSingleCustomsFee(scs
-							.getShipSingleCustomsFee());
+					cs.setShipSingleCustomsFee(scs.getShipSingleCustomsFee());
 					cs.setPostalStandard(settle.getPostalStandard());
 					break;
 				}
 			}
 		}
-		//通知显示
+		// 通知显示
 		adapter.notifyDataSetChanged();
 	}
+
 	/**
 	 * 初始化购物券信息
+	 * 
 	 * @param settle
 	 */
-	private void initCouponsInfo(Settle settle){
-		if (settle.getCoupons() != null && settle.getCoupons().size()>0) {
+	private void initCouponsInfo(Settle settle) {
+		if (settle.getCoupons() != null && settle.getCoupons().size() > 0) {
 			List<Coupon> coupons = settle.getCoupons();
 			coupon_num.setText(coupons.size() + "张可用");
 			RadioButton btn = null;
-			LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
-			if(group_coupons.getChildCount()>1){
-				group_coupons.removeViews(1, group_coupons.getChildCount()-1);
+			LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT,
+					LayoutParams.WRAP_CONTENT);
+			if (group_coupons.getChildCount() > 1) {
+				group_coupons.removeViews(1, group_coupons.getChildCount() - 1);
 			}
 			for (Coupon c : coupons) {
 				btn = getCustomRadioButton();
-				btn.setText("满"+c.getLimitQuota()+"减"+c.getDenomination());
-				btn.setTag(R.id.coupon_de,c.getDenomination());
+				btn.setText("满" + c.getLimitQuota() + "减" + c.getDenomination());
+				btn.setTag(R.id.coupon_de, c.getDenomination());
 				btn.setTag(R.id.coupon_id, c.getCoupId());
-				group_coupons.addView(btn,lp);
+				group_coupons.addView(btn, lp);
 			}
 			group_coupons.check(R.id.btn_unuse);
 		}
 	}
-	
-	private void initBalanceInfo(){
+
+	private void initBalanceInfo() {
 		all_shipfee.setText(getResources().getString(R.string.price,
 				car.getFactShipFee()));
 		all_price.setText(getResources().getString(R.string.price,
@@ -407,54 +430,61 @@ public class GoodsBalanceActivity extends BaseActivity implements
 				car.getAllMoney()));
 	}
 
-	
-	
 	private RadioButton getCustomRadioButton() {
 		return (RadioButton) getLayoutInflater().inflate(
 				R.layout.panel_radiobutton, null);
 	}
 
-
 	@Override
 	protected void onActivityResult(int arg0, int arg1, Intent arg2) {
 		super.onActivityResult(arg0, arg1, arg2);
 		if (arg1 == 1) {
-			findViewById(R.id.newAddress).setVisibility(View.GONE);
-			findViewById(R.id.selectAddress).setVisibility(View.VISIBLE);
 			HMMAddress adress = (HMMAddress) arg2
 					.getSerializableExtra("address");
-			address.setText(getResources().getString(R.string.address,
-					adress.getCity() + adress.getAdress()));
-			name.setText(getResources().getString(R.string.name,
-					adress.getName()));
-			phone.setText(getResources().getString(R.string.phone,
-					adress.getPhone()));
-			idCard.setText(getResources().getString(R.string.idcard,
-					adress.getIdCardd()));
 			selectedId = adress.getAdress_id();
-			if (adress.isDefault()) {
-				findViewById(R.id.isDefault).setVisibility(View.VISIBLE);
-			} else {
-				findViewById(R.id.isDefault).setVisibility(View.GONE);
+			if (selectedId != 0) {
+				findViewById(R.id.newAddress).setVisibility(View.GONE);
+				findViewById(R.id.selectAddress).setVisibility(View.VISIBLE);
+				address.setText(getResources().getString(R.string.address,
+						adress.getCity() + adress.getAdress()));
+				name.setText(getResources().getString(R.string.name,
+						adress.getName()));
+				phone.setText(getResources().getString(R.string.phone,
+						adress.getPhone()));
+				idCard.setText(getResources().getString(R.string.idcard,
+						adress.getIdCardd()));
+
+				if (adress.isDefault()) {
+					findViewById(R.id.isDefault).setVisibility(View.VISIBLE);
+				} else {
+					findViewById(R.id.isDefault).setVisibility(View.GONE);
+				}
+			}else{
+				findViewById(R.id.newAddress).setVisibility(View.VISIBLE);
+				findViewById(R.id.selectAddress).setVisibility(View.GONE);
 			}
 			loadData(selectedId);
-			if(goodsBalance != null){
+			if (goodsBalance != null) {
 				findViewById(R.id.btn_pay).setBackgroundResource(R.color.theme);
 				findViewById(R.id.btn_pay).setOnClickListener(this);
 			}
 		}
 	}
-	
-	
+
 	public void onResume() {
-	    super.onResume();
-	    MobclickAgent.onPageStart("GoodsBalanceActivity"); //统计页面(仅有Activity的应用中SDK自动调用，不需要单独写。"SplashScreen"为页面名称，可自定义)
-	    MobclickAgent.onResume(this);          //统计时长
+		super.onResume();
+		MobclickAgent.onPageStart("GoodsBalanceActivity"); // 统计页面(仅有Activity的应用中SDK自动调用，不需要单独写。"SplashScreen"为页面名称，可自定义)
+		MobclickAgent.onResume(this); // 统计时长
 	}
+
 	public void onPause() {
-	    super.onPause();
-	    MobclickAgent.onPageEnd("GoodsBalanceActivity"); // （仅有Activity的应用中SDK自动调用，不需要单独写）保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息。"SplashScreen"为页面名称，可自定义
-	    MobclickAgent.onPause(this);
+		super.onPause();
+		MobclickAgent.onPageEnd("GoodsBalanceActivity"); // （仅有Activity的应用中SDK自动调用，不需要单独写）保证
+															// onPageEnd
+															// 在onPause 之前调用,因为
+															// onPause
+															// 中会保存信息。"SplashScreen"为页面名称，可自定义
+		MobclickAgent.onPause(this);
 	}
 
 }

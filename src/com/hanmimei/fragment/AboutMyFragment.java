@@ -79,6 +79,7 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 		about_icon.setBounds(0, 0, 45, 45);
 		jiantou_icon = getResources().getDrawable(R.drawable.icon_jiantou);
 		jiantou_icon.setBounds(0, 0, 45, 45);
+		
 	}
 
 	@Override

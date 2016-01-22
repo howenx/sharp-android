@@ -4,7 +4,9 @@ import java.io.File;
 
 import android.app.Application;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.RequestQueue.RequestFilter;
 import com.android.volley.toolbox.Volley;
 import com.hanmimei.R;
 import com.hanmimei.dao.DaoMaster;
@@ -18,13 +20,12 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.PlatformConfig;
 
-public class MyApplication extends Application {
+public class HMMApplication extends Application {
 	private DaoMaster daoMaster;
 	private DaoSession daoSession;
 	private User loginUser;
@@ -38,7 +39,7 @@ public class MyApplication extends Application {
 		queue = Volley.newRequestQueue(this);
 		initPlatformConfig();
 		MobclickAgent.openActivityDurationTrack(false);
-//		MobclickAgent.setSessionContinueMillis(60000);
+		MobclickAgent.setSessionContinueMillis(60000);
 //		MobclickAgent.setDebugMode(true);
 		ImageLoader.getInstance().init(initImageLoaderConfiguration());
 	}
@@ -51,11 +52,9 @@ public class MyApplication extends Application {
 		          .threadPriority(Thread.NORM_PRIORITY -2)   
 		          .denyCacheImageMultipleSizesInMemory()   
 		           .memoryCache(new UsingFreqLimitedMemoryCache(2* 1024 * 1024)) //你可以通过自己的内存缓存实现   
-		           .memoryCacheSize(2 * 1024 * 1024)   
 		           .diskCache(new UnlimitedDiscCache(cacheDir))//自定义缓存路径   
-		          .diskCacheSize(50 * 1024 * 1024)     
+		           .diskCacheSize(50 * 1024 * 1024)     
 		          .diskCacheFileNameGenerator(new Md5FileNameGenerator())//将保存的时候的URI名称用MD5 加密   
-		           .diskCacheFileCount(100) //缓存的文件数量
 		           .imageDownloader(new BaseImageDownloader(this,5 * 1000, 30 * 1000)) // connectTimeout (5 s), readTimeout (30 s)超时时间   
 		           .defaultDisplayImageOptions(initImageLoaderDisplayImageOptions())
 		           .build();

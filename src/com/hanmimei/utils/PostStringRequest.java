@@ -45,8 +45,9 @@ public class PostStringRequest extends StringRequest {
 		}
 		
 		this.headers = new HashMap<String, String>();
+		this.headers.put("accept", "application/json");
+		this.headers.put("Content-Disposition", "form-data");
 		if (headers != null) {
-			this.headers.put("accept", "application/json");
 			this.headers.putAll(headers);
 		}
 	}
@@ -61,6 +62,7 @@ public class PostStringRequest extends StringRequest {
 	public Map<String, String> getHeaders() throws AuthFailureError {
 		return headers;
 	}
+	
 	
 	
 

@@ -86,7 +86,7 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 			deleteItem.setBackground(new ColorDrawable(Color
 					.parseColor("#e56254")));
 			// 设置删除的宽度
-			deleteItem.setWidth(CommonUtil.dp2px(AdressActivity.this, 90));
+			deleteItem.setWidth(CommonUtil.dip2px(90));
 			// 设置图标
 			deleteItem.setIcon(R.drawable.icon_delete);
 			// 增加到menu中

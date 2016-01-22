@@ -19,7 +19,7 @@ public class FileUtils {
 			if (!isFileExist("")) {
 				File tempf = createSDDir("");
 			}
-			File f = new File(SAVED_IMAGE_DIR_PATH, picName + ".JPEG"); 
+			File f = new File(SAVED_IMAGE_DIR_PATH, picName + ".jpeg"); 
 			if (f.exists()) {
 				f.delete();
 			}

@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.hanmimei.R;
 import com.hanmimei.entity.ShoppingGoods;
+import com.hanmimei.utils.ImageLoaderUtils;
 import com.squareup.picasso.Picasso;
 
 public class GoodsBalanceAdapter extends BaseAdapter {
@@ -60,7 +61,7 @@ public class GoodsBalanceAdapter extends BaseAdapter {
 		holder.pro_name.setText(sg.getGoodsName());
 		holder.pro_num.setText(context.getResources().getString(R.string.buyNum, sg.getGoodsNums()));
 		holder.pro_price.setText(context.getResources().getString(R.string.price, new BigDecimal(sg.getGoodsPrice())));
-		Picasso.with(context).load(sg.getGoodsImg()).into(holder.pro_img);
+		ImageLoaderUtils.loadImage(sg.getGoodsImg(), holder.pro_img);
 		return arg1;
 	}
 	

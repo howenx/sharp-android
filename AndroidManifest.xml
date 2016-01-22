@@ -21,7 +21,7 @@
 
     
     <application
-        android:name="com.hanmimei.application.MyApplication"
+        android:name="com.hanmimei.application.HMMApplication"
         android:allowBackup="false"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
@@ -117,10 +117,7 @@
         <activity
             android:name="com.hanmimei.activity.CustomerServiceActivity"
             android:screenOrientation="portrait" 
-			android:windowSoftInputMode="stateVisible|adjustResize"   />
-        <activity
-            android:name="com.hanmimei.upload.BitmapCache"
-            android:screenOrientation="portrait" />
+			android:windowSoftInputMode="adjustPan"   />
         <activity
             android:name="com.hanmimei.upload.ImageGridActivity"
             android:screenOrientation="portrait" />

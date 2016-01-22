@@ -12,8 +12,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Build.VERSION;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -22,7 +20,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.hanmimei.R;
-import com.hanmimei.application.MyApplication;
+import com.hanmimei.application.HMMApplication;
 import com.hanmimei.dao.DaoSession;
 import com.hanmimei.entity.User;
 import com.hanmimei.utils.AlertDialogUtils;
@@ -63,7 +61,7 @@ public class BaseActivity extends AppCompatActivity {
 			}	
 		}
 	}
-	@SuppressLint("NewApi") 
+	@SuppressLint("NewApi")
 	private void setStatus(){
 	            Window window = getWindow();
 	            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
@@ -94,8 +92,8 @@ public class BaseActivity extends AppCompatActivity {
 		return getMyApplication().getLoginUser();
 	}
 
-	public MyApplication getMyApplication() {
-		return (MyApplication) this.getApplication();
+	public HMMApplication getMyApplication() {
+		return (HMMApplication) this.getApplication();
 	}
 
 

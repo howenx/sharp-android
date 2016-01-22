@@ -51,7 +51,7 @@ public class ThemeAdapter extends BaseAdapter {
 		HMMGoods theme = data.get(position);
 		ViewHolder holder = null;
 		if(convertView == null){
-			convertView = inflater.inflate(R.layout.themeitem_item, null);
+			convertView = inflater.inflate(R.layout.theme_item_layout, null);
 			holder = new ViewHolder();
 			holder.img = (ImageView) convertView.findViewById(R.id.img);
 			holder.title = (TextView) convertView.findViewById(R.id.title);

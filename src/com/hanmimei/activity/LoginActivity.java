@@ -30,7 +30,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hanmimei.R;
-import com.hanmimei.application.MyApplication;
+import com.hanmimei.application.HMMApplication;
 import com.hanmimei.dao.ShoppingGoodsDao;
 import com.hanmimei.dao.UserDao;
 import com.hanmimei.data.AppConstant;
@@ -273,7 +273,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 					user.setIsBind(false);
 					user.setExpired(DateUtil.turnToDate(result.getTime()));
 					user.setLast_login(DateUtil.getCurrentDate());
-					MyApplication application = (MyApplication) getApplication();
+					HMMApplication application = (HMMApplication) getApplication();
 					application.setLoginUser(user);
 					// 登录用户存储到本地sql
 					userDao.deleteAll();

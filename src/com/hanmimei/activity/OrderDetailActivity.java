@@ -99,6 +99,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 			addressInfo = order.getAdress();
 			list.addAll(order.getList());
 			initView();
+			adapter.setOrderId(order.getOrderId(), order.getOrderSplitId());
 			adapter.notifyDataSetChanged();
 		}
 	}
@@ -116,8 +117,8 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 					addressInfo = order.getAdress();
 					list.addAll(order.getList());
 					initView();
-					adapter.setOrderId(order.getOrderId(), order.getOrderSplitId());
 					adapter.notifyDataSetChanged();
+					adapter.setOrderId(order.getOrderId(), order.getOrderSplitId());
 				}else{
 					ToastUtils.Toast(OrderDetailActivity.this, "加载数据失败");
 				}

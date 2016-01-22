@@ -1,7 +1,10 @@
 package com.hanmimei.utils;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -15,10 +18,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import com.hanmimei.activity.CheckPhoneActivity;
-import com.hanmimei.activity.RegistActivity;
-import com.hanmimei.entity.HMessage;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -34,14 +33,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
-<<<<<<< HEAD
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-=======
-import android.os.Environment;
->>>>>>> f2d5b05b6e7d11d939c641c1e746ac6247e57b48
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
@@ -66,17 +63,17 @@ public class CommonUtil {
 
 	private final static int MAX_NUM_PIXELS = 320 * 490;
 	private final static int MIN_SIDE_LENGTH = 350;
-	
-	
+
 	/**
 	 * 判断是否存在SDCard
+	 * 
 	 * @return
 	 */
-	public static boolean hasSdcard(){
+	public static boolean hasSdcard() {
 		String state = Environment.getExternalStorageState();
-		if(state.equals(Environment.MEDIA_MOUNTED)){
+		if (state.equals(Environment.MEDIA_MOUNTED)) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
@@ -224,7 +221,6 @@ public class CommonUtil {
 	public static int dip2px(float dipValue) {
 		final float scale = Resources.getSystem().getDisplayMetrics().density;
 		return (int) (dipValue * scale + 0.5f);
-
 	}
 
 	/**
@@ -285,13 +281,11 @@ public class CommonUtil {
 		return degree;
 	}
 
-	/*
+	/**
 	 * 旋转图片
 	 * 
 	 * @param angle
-	 * 
 	 * @param bitmap
-	 * 
 	 * @return Bitmap
 	 */
 	public static Bitmap rotaingImageView(int angle, Bitmap bitmap) {
@@ -344,6 +338,12 @@ public class CommonUtil {
 		}
 	}
 
+	/**
+	 * 获取屏幕宽度
+	 * 
+	 * @param context
+	 * @return
+	 */
 	public static int getScreenWidth(Context context) {
 
 		DisplayMetrics dm = new DisplayMetrics();
@@ -353,6 +353,12 @@ public class CommonUtil {
 		return screenWidth;
 	}
 
+	/**
+	 * 获取屏幕高度
+	 * 
+	 * @param context
+	 * @return
+	 */
 	public static int getScreenHeight(Context context) {
 
 		DisplayMetrics dm = new DisplayMetrics();
@@ -391,13 +397,19 @@ public class CommonUtil {
 			imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT,
 					InputMethodManager.HIDE_NOT_ALWAYS);
 	}
-    
-    public static void closeBoardIfShow(Activity activity) {
-    	View view = activity.getWindow().peekDecorView();
-    	if (view != null) {
-            InputMethodManager inputmanger = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-            inputmanger.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
+
+	/**
+	 * 隐藏键盘
+	 * 
+	 * @param mcontext
+	 */
+	public static void closeBoardIfShow(Activity activity) {
+		View view = activity.getWindow().peekDecorView();
+		if (view != null) {
+			InputMethodManager inputmanger = (InputMethodManager) activity
+					.getSystemService(Context.INPUT_METHOD_SERVICE);
+			inputmanger.hideSoftInputFromWindow(view.getWindowToken(), 0);
+		}
 	}
 
 	/**
@@ -432,6 +444,11 @@ public class CommonUtil {
 
 	}
 
+	/**
+	 * 获取当前时间
+	 * 
+	 * @return
+	 */
 	@SuppressLint("SimpleDateFormat")
 	public static String getCurTime() {
 		SimpleDateFormat formatter = new SimpleDateFormat(
@@ -440,15 +457,24 @@ public class CommonUtil {
 		return formatter.format(curDate);
 	}
 
-	/*
+	/**
 	 * activity跳转
+	 * 
+	 * @param mcContext
+	 * @param clazz
 	 */
+
 	public static void doJump(Context mcContext, Class clazz) {
 		Intent intent = new Intent(mcContext, clazz);
 		mcContext.startActivity(intent);
 	}
 
-	// 判断手机格式 正则
+	/**
+	 * 判断手机格式 正则
+	 * 
+	 * @param nums
+	 * @return
+	 */
 	public static boolean isPhoneNum(String nums) {
 		/*
 		 * 判断前两位 13/15/17/18
@@ -460,14 +486,25 @@ public class CommonUtil {
 			return nums.matches(telRegex);
 	}
 
-	// 等待窗
+	/**
+	 * 等待窗
+	 * 
+	 * @param mContext
+	 * @param msg
+	 * @return
+	 */
 	public static ProgressDialog dialog(Context mContext, String msg) {
 		ProgressDialog dialog = new ProgressDialog(mContext);
 		dialog.setMessage(msg);
 		return dialog;
 	}
 
-	// MD5加密
+	/**
+	 * MD5加密
+	 * 
+	 * @param string
+	 * @return
+	 */
 	public static String md5(String string) {
 		byte[] hash;
 		try {
@@ -488,49 +525,11 @@ public class CommonUtil {
 		return hex.toString();
 	}
 
-	/**
-	 * 重新设置viewPager高度
-	 * 
-	 * @param position
-	 */
-	public static void resetViewPagerHeight(ViewPager pager, int position) {
-		View child = pager.getChildAt(position);
-		if (child != null) {
-			child.measure(0, 0);
-			int h = child.getMeasuredHeight();
-			LinearLayout.LayoutParams params = (LayoutParams) pager
-					.getLayoutParams();
-			params.height = h;
-			pager.setLayoutParams(params);
-		}
-	}
-//
-//	public static void loadImg(Activity activity, ImageView img, String url,
-//			int w, int h) {
-//		ImageLoader imageLoader = ImageLoaderUtils.initLoader(activity);
-//		DisplayImageOptions imageOptions = ImageLoaderUtils.initOptions();
-//		// 图片的比例适配
-//		DisplayMetrics dm = new DisplayMetrics();
-//		activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
-//		int screenWidth = dm.widthPixels;
-//		android.view.ViewGroup.LayoutParams params;
-//		params = img.getLayoutParams();
-//		params.height = screenWidth * h / w;
-//		params.width = screenWidth;
-//		img.setLayoutParams(params);
-//		imageLoader.displayImage(url, img, imageOptions);
-//	}
-
-	public static int dp2px(Context context, int dp) {
-		return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
-				context.getResources().getDisplayMetrics());
-	}
-
 	public static String DecimalFormat(Double format) {
 		return new DecimalFormat("##0.00").format(format);
 	}
 
-	//身份证校验
+	// 身份证校验
 	public static String IDCardValidate(String IDStr) {
 		String errorInfo = "";// 记录错误信息
 		String[] ValCodeArr = { "1", "0", "x", "9", "8", "7", "6", "5", "4",
@@ -635,8 +634,10 @@ public class CommonUtil {
 			return false;
 		}
 	}
+
 	public static boolean isPassWord(String str) {
-		Pattern pattern = Pattern.compile("^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}");
+		Pattern pattern = Pattern
+				.compile("^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}");
 		Matcher isNum = pattern.matcher(str);
 		if (isNum.matches()) {
 			return true;
@@ -644,6 +645,7 @@ public class CommonUtil {
 			return false;
 		}
 	}
+
 	public static boolean isJiaoYan(String str) {
 		Pattern pattern = Pattern.compile("(?![^0-9a-zA-Z]+$)[a-zA-Z0-9]{4}");
 		Matcher isNum = pattern.matcher(str);
@@ -653,6 +655,7 @@ public class CommonUtil {
 			return false;
 		}
 	}
+
 	/**
 	 * 功能：判断字符串是否为日期格式
 	 * 
@@ -710,56 +713,62 @@ public class CommonUtil {
 		hashtable.put("91", "国外");
 		return hashtable;
 	}
-	public static long[] getTimer(int time){
+
+	public static long[] getTimer(int time) {
 		int minute = 0;
 		int second = 0;
 		int hour = 0;
-		minute = time / 60;  
-        if (minute < 60) {  
-            second = time % 60;  
-        } else {  
-            hour = minute / 60;    
-            minute = minute % 60;  
-            second = time - hour * 3600 - minute * 60;  
-        }
-        long [] timer = {hour, minute, second};
+		minute = time / 60;
+		if (minute < 60) {
+			second = time % 60;
+		} else {
+			hour = minute / 60;
+			minute = minute % 60;
+			second = time - hour * 3600 - minute * 60;
+		}
+		long[] timer = { hour, minute, second };
 		return timer;
-	} 
-	public static String inputIsName(String name, int min, int max){
+	}
+
+	public static String inputIsName(String name, int min, int max) {
 		String result = "";
-		if(name.equals("")){
+		if (name.equals("")) {
 			result = "不能为空";
-		}else if(name.length() < min){
+		} else if (name.length() < min) {
 			result = "不能少于" + min + "个字符";
-		}else if(name.length() > max){
-			result = "不能多余"+ max+"个字符";
-		}else if(!strIsHeFa(name)){
+		} else if (name.length() > max) {
+			result = "不能多余" + max + "个字符";
+		} else if (!strIsHeFa(name)) {
 			result = "只能是中文／数字／字母";
 		}
 		return result;
 	}
-	private static boolean strIsHeFa(String str){
+
+	private static boolean strIsHeFa(String str) {
 		String pattern = "[a-zA-Z0-9\u4e00-\u9fa5]+";
-        Pattern p = Pattern.compile(pattern); 
-        Matcher m = p.matcher(str);                 
-        if(m.matches()){
-           return true;
-        }else{
-        	return false;
-        }
-		
+		Pattern p = Pattern.compile(pattern);
+		Matcher m = p.matcher(str);
+		if (m.matches()) {
+			return true;
+		} else {
+			return false;
+		}
+
 	}
-	public static int getRandom(){
+
+	public static int getRandom() {
 		Random random = new Random();
 		return random.nextInt();
 	}
-	public static String doubleTrans(double num){
-	    if(num % 1.0 == 0){
-		        return String.valueOf((long)num);
-	    }
-	    return String.valueOf(num);
+
+	public static String doubleTrans(double num) {
+		if (num % 1.0 == 0) {
+			return String.valueOf((long) num);
+		}
+		return String.valueOf(num);
 	}
-	public static void setAttention(final TextView attention,String str){
+
+	public static void setAttention(final TextView attention, String str) {
 		attention.setText(str);
 		attention.setVisibility(View.VISIBLE);
 		final Handler mHandler = new Handler() {
@@ -777,7 +786,7 @@ public class CommonUtil {
 			}
 		};
 		new Thread(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				try {
@@ -789,6 +798,37 @@ public class CommonUtil {
 				}
 			}
 		}).start();
+	}
+
+	/**
+	 * 将文件转成流 base64
+	 * 
+	 * @param file
+	 * @return
+	 */
+	public static String Base64(File file) {
+		byte b[] = null;
+		try {
+			InputStream in = new FileInputStream(file);
+
+			b = new byte[(int) file.length()];
+			try {
+				in.read(b);
+				in.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return new String(Base64.encode(b, Base64.NO_WRAP));
+	}
+
+	public static  int measureViewWidth(View view) {
+		int w = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
+		int h = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
+		view.measure(w, h);
+		return view.getMeasuredWidth();
 	}
 
 }

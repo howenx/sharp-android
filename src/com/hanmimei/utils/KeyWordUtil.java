@@ -80,4 +80,10 @@ public class KeyWordUtil {
 	        styledText.setSpan(new TextAppearanceSpan(mContext, R.style.tax02), mid+1, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); 
 	        textView.setText(styledText, TextView.BufferType.SPANNABLE);
 		}
+		//同一textview  不同字体颜色设置 mid截止到 end 
+		public static void setDifferentFontColor(Context mContext, TextView textView, String font, int start, int end){
+			SpannableString styledText = new SpannableString(font);  
+			styledText.setSpan(new TextAppearanceSpan(mContext, R.style.tax02), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);  
+			textView.setText(styledText, TextView.BufferType.SPANNABLE);
+		}
 }

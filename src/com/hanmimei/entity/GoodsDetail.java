@@ -195,8 +195,10 @@ public class GoodsDetail {
 					new TypeToken<List<String>>() {
 					}.getType());
 			String str = "";
-			for (String s : result) {
-				str += s + "\n";
+			for (int i=0;i<result.size();i++) {
+				str += result.get(i);
+				if(i <result.size()-1)
+					str +="\n";
 			}
 			return str;
 		}

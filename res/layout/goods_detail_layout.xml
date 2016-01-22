@@ -50,12 +50,6 @@
                         android:orientation="horizontal"
                         android:padding="8dp" >
 
-                        <TextView
-                            android:id="@+id/discount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/theme"
-                            android:textSize="14sp" />
 
                         <TextView
                             android:id="@+id/itemTitle"
@@ -91,22 +85,8 @@
                         android:orientation="horizontal"
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp" >
-
-                        <TextView
-                            android:id="@+id/area"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawableLeft="@drawable/hmm_dingwei_icon"
-                            android:gravity="center"
-                            android:textColor="@color/fontcolor"
-                            android:textSize="12sp" />
-
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="1dp"
-                            android:layout_weight="1" />
-
-                        <TextView
+                        
+                         <TextView
                             android:id="@+id/itemPrice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -124,6 +104,20 @@
                             android:gravity="right|end"
                             android:textColor="#BBBBBB"
                             android:textSize="@dimen/font_small" />
+                          <View
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:id="@+id/area"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/hmm_dingwei_icon"
+                            android:gravity="center"
+                            android:textColor="@color/fontcolor"
+                            android:textSize="12sp" />
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -153,9 +147,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:drawablePadding="3dp"
-                            android:drawableRight="@drawable/hmm_icon_shui"
+                            android:drawableRight="@drawable/hmm_shui_icon"
                             android:gravity="center"
-                            android:text="行邮税"
+                            android:text="@string/shui"
                             android:textColor="@color/fontcolor" />
                     </LinearLayout>
 

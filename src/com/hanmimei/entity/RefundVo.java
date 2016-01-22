@@ -6,6 +6,8 @@ import java.security.Timestamp;
 public class RefundVo {
 	private Long        id;//主键
     private String        orderId;//订单ID
+    private String        splitOrderId;//子订单ID
+    private String        skuId;//商品ID
     private BigDecimal  payBackFee;//退款金额
     private String      reason;//申请退款原因
     private String      state;//状态
@@ -35,6 +37,19 @@ public class RefundVo {
 	}
 	public void setOrderId(String orderId) {
 		this.orderId = orderId;
+	}
+	
+	public String getSplitOrderId() {
+		return splitOrderId;
+	}
+	public void setSplitOrderId(String splitOrderId) {
+		this.splitOrderId = splitOrderId;
+	}
+	public String getSkuId() {
+		return skuId;
+	}
+	public void setSkuId(String skuId) {
+		this.skuId = skuId;
 	}
 	public BigDecimal getPayBackFee() {
 		return payBackFee;

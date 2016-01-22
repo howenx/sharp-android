@@ -14,37 +14,37 @@
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
+
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
         <item name="actionBarSize">@dimen/actionbar_size</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="actionBarStyle"> @style/MyActionBarStyle</item>
-         <item name="vpiTabPageIndicatorStyle">@style/CustomTabPageIndicator</item>
-         
+        <item name="vpiTabPageIndicatorStyle">@style/CustomTabPageIndicator</item>
     </style>
-    
+
     <!-- acitonbar 样式 -->
     <style name="MyActionBarStyle" parent="@style/Widget.AppCompat.ActionBar">
         <item name="background">@color/theme</item>
         <item name="contentInsetStart">0dp</item>
         <item name="contentInsetEnd">0dp</item>
     </style>
-    
+
     <style name="SplashStyle" parent="AppTheme">
-        <item name="android:windowIsTranslucent">true</item>  
+        <item name="android:windowIsTranslucent">true</item>
         <!-- 填充屏幕 -->
-          <item name="android:windowFullscreen">true</item>
-          <item name="android:windowContentOverlay">@null</item>   
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
     </style>
-    
-	
+
     <style name="AppThemeForOrder" parent="AppBaseTheme">
+
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
         <item name="actionBarSize">@dimen/actionbar_size</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="actionBarStyle"> @style/MyActionBarStyle</item>
-         <item name="vpiTabPageIndicatorStyle">@style/OrderTabPageIndicator</item>
+        <item name="vpiTabPageIndicatorStyle">@style/OrderTabPageIndicator</item>
     </style>
-    
+
     <style name="wode_font_style">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/fontcolor</item>
@@ -53,7 +53,7 @@
     <!-- indicator  style -->
     <style name="CustomTabPageIndicator" parent="Widget.TabPageIndicator">
         <item name="android:textColor">@color/indicator_font_color</item>
-        <item name="android:textSize">16sp</item>    
+        <item name="android:textSize">16sp</item>
         <item name="android:background">@drawable/indicator_bg</item>
         <item name="android:paddingLeft">10dip</item>
         <item name="android:paddingRight">10dip</item>
@@ -61,15 +61,16 @@
         <item name="android:paddingBottom">5dp</item>
         <item name="android:textStyle">normal</item>
     </style>
-    
+
     <style name="AppThemeForGoodsDetail" parent="AppTheme">
+
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
-         <item name="vpiTabPageIndicatorStyle">@style/GoodsDetailTabPageIndicator</item>
+        <item name="vpiTabPageIndicatorStyle">@style/GoodsDetailTabPageIndicator</item>
     </style>
-    <!--goods detail indicator  style -->
+    <!-- goods detail indicator  style -->
     <style name="GoodsDetailTabPageIndicator" parent="Widget.TabPageIndicator">
         <item name="android:textColor">@color/black</item>
-        <item name="android:textSize">13sp</item>    
+        <item name="android:textSize">13sp</item>
         <item name="android:background">@drawable/order_indicator_bg</item>
         <item name="android:paddingLeft">10dip</item>
         <item name="android:paddingRight">10dip</item>
@@ -77,11 +78,10 @@
         <item name="android:paddingBottom">10dp</item>
         <item name="android:textStyle">normal</item>
     </style>
-    
-    
+
     <style name="OrderTabPageIndicator" parent="Widget.TabPageIndicator">
         <item name="android:textColor">@color/order_indicator_font_color</item>
-        <item name="android:textSize">15sp</item>    
+        <item name="android:textSize">15sp</item>
         <item name="android:background">@drawable/order_indicator_bg</item>
         <item name="android:paddingLeft">5dp</item>
         <item name="android:paddingRight">5dp</item>
@@ -89,17 +89,20 @@
         <item name="android:paddingBottom">5dp</item>
         <item name="android:textStyle">normal</item>
     </style>
+
     <style name="order_font_style">
         <item name="android:textColor">@color/fontcolor</item>
         <item name="android:textSize">12sp</item>
     </style>
-	<style name="submit">
+
+    <style name="submit">
         <item name="android:background">@drawable/theme_button_bg</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:paddingBottom">10dp</item>
         <item name="android:paddingTop">10dp</item>
     </style>
+
     <style name="my_login_regist">
         <item name="android:background">@drawable/white_corner_bg</item>
         <item name="android:textSize">16sp</item>
@@ -109,6 +112,7 @@
         <item name="android:paddingLeft">15dp</item>
         <item name="android:paddingRight">15dp</item>
     </style>
+
     <style name="submit_hui">
         <item name="android:background">@drawable/huise_button_bg</item>
         <item name="android:textSize">16sp</item>
@@ -116,6 +120,7 @@
         <item name="android:paddingBottom">10dp</item>
         <item name="android:paddingTop">10dp</item>
     </style>
+
     <style name="submit_mid">
         <item name="android:background">@drawable/theme_button_bg</item>
         <item name="android:textSize">14sp</item>
@@ -125,6 +130,7 @@
         <item name="android:paddingRight">20dp</item>
         <item name="android:paddingLeft">20dp</item>
     </style>
+
     <style name="submit_mid_huise">
         <item name="android:background">@drawable/huise_button_bg</item>
         <item name="android:textSize">14sp</item>
@@ -134,7 +140,8 @@
         <item name="android:paddingRight">20dp</item>
         <item name="android:paddingLeft">20dp</item>
     </style>
-	   <style name="customButton">
+
+    <style name="customButton">
         <item name="android:paddingLeft">10dp</item>
         <item name="android:paddingRight">10dp</item>
         <item name="android:paddingTop">5dp</item>
@@ -146,7 +153,7 @@
         <item name="android:textColor">@color/fontcolor</item>
         <item name="android:padding">15dp</item>
     </style>
-    
+
     <style name="login_edit_style">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/huise</item>
@@ -157,20 +164,21 @@
         <item name="android:paddingRight">10dp</item>
         <item name="android:gravity">center_vertical</item>
     </style>
+
     <style name="checkbox_style">
         <item name="android:button">@drawable/check_box</item>
     </style>
-    
+
     <!-- 设置dialog 样式 -->
     <style name="CustomDialog" parent="@android:style/Theme.Dialog">
-        <item name="android:windowFrame">@null</item><!-- 边框 -->  
-        <item name="android:windowIsFloating">true</item><!-- 是否浮现在activity之上 -->  
-        <item name="android:windowIsTranslucent">true</item><!-- 半透明 -->  
-        <item name="android:windowNoTitle">true</item><!-- 无标题 -->  
-        <item name="android:windowBackground">@android:color/transparent</item><!-- 自己想要的背景 -->  
-        <item name="android:backgroundDimEnabled">true</item><!-- 模糊 --> 
-</style>
-    
+        <item name="android:windowFrame">@null</item> <!-- 边框 -->
+        <item name="android:windowIsFloating">true</item> <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsTranslucent">true</item> <!-- 半透明 -->
+        <item name="android:windowNoTitle">true</item> <!-- 无标题 -->
+        <item name="android:windowBackground">@android:color/transparent</item> <!-- 自己想要的背景 -->
+        <item name="android:backgroundDimEnabled">true</item> <!-- 模糊 -->
+    </style>
+
     <!-- popwindow 显示与消失的动画 -->
     <style name="popwindow_anim_style">
         <item name="android:windowEnterAnimation">@anim/popshow_anim</item>
@@ -179,24 +187,29 @@
         <item name="android:windowExitAnimation">@anim/pophidden_anim</item>
         <!-- 指定消失的动画xml -->
     </style>
+
     <style name="youhui1">
-        <item name="android:textSize">16sp</item>  
-    	<item name="android:textColor">@color/fontcolor</item> 
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/fontcolor</item>
     </style>
+
     <style name="youhui2">
-        <item name="android:textSize">13sp</item>  
-    	<item name="android:textColor">@color/theme</item> 
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/theme</item>
     </style>
+
     <style name="tax01">
-        <item name="android:textSize">12sp</item>  
-    	<item name="android:textColor">@color/huise</item> 
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/huise</item>
     </style>
+
     <style name="tax02">
-        <item name="android:textSize">12sp</item>  
-    	<item name="android:textColor">@color/red</item> 
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/red</item>
     </style>
-    
+
     <style name="Theme.UMDefault" parent="android:style/Theme.NoTitleBar"></style>
+
     <style name="huiboder_pading_syle">
         <item name="android:paddingBottom">3dp</item>
         <item name="android:paddingTop">3dp</item>
@@ -204,7 +217,7 @@
         <item name="android:paddingRight">8dp</item>
         <item name="android:background">@drawable/huise_border</item>
     </style>
-    
+
     <style name="btn_radio_style">
         <item name="android:button">@null</item>
         <item name="android:drawableLeft">@drawable/btn_radio_selector</item>
@@ -214,5 +227,6 @@
         <item name="android:paddingTop">5dp</item>
         <item name="android:paddingRight">5dp</item>
     </style>
-    
+
+
 </resources>

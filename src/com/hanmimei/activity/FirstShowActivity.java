@@ -8,7 +8,7 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 
 import com.hanmimei.R;
-import com.hanmimei.application.MyApplication;
+import com.hanmimei.application.HMMApplication;
 import com.hanmimei.dao.DaoSession;
 import com.hanmimei.dao.UserDao;
 import com.hanmimei.entity.User;
@@ -23,14 +23,14 @@ public class FirstShowActivity extends AppCompatActivity {
 	private static final String FIRST_LOG_FLAG = "first_log_flag";
 	private User user;
 	private UserDao userDao;
-	private MyApplication application;
+	private HMMApplication application;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.first_show_layout);
 		getSupportActionBar().hide();
-		application = (MyApplication) getApplication();
+		application = (HMMApplication) getApplication();
 		//判断是否自动登录
 		loginUser();
 		//判断是否是第一次进入app
@@ -124,7 +124,7 @@ public class FirstShowActivity extends AppCompatActivity {
 	    MobclickAgent.onPause(this);
 	}
 	private DaoSession getDaoSession() {
-		MyApplication application = (MyApplication) getApplication();
+		HMMApplication application = (HMMApplication) getApplication();
 		return application.getDaoSession();
 	}
 

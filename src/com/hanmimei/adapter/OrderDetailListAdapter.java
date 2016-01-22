@@ -72,7 +72,7 @@ public class OrderDetailListAdapter extends BaseAdapter {
 		if(isShow){
 			holder.btn_apply_service.setVisibility(View.VISIBLE);
 		}else{
-			holder.btn_apply_service.setVisibility(View.VISIBLE);
+			holder.btn_apply_service.setVisibility(View.GONE);
 		}
 		holder.btn_apply_service.setOnClickListener(new OnClickListener() {
 			
@@ -80,6 +80,8 @@ public class OrderDetailListAdapter extends BaseAdapter {
 			public void onClick(View arg0) {
 				Intent intent = new Intent(activity, CustomerServiceActivity.class);
 				intent.putExtra("sku", sku);
+				intent.putExtra("orderId", orderId);
+				intent.putExtra("splitOrderId", childId);
 				activity.startActivity(intent);
 			}
 		});

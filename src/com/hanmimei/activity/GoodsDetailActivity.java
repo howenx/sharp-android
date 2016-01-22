@@ -56,6 +56,7 @@ import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ImageLoaderUtils;
+import com.hanmimei.utils.KeyWordUtil;
 import com.hanmimei.utils.PopupWindowUtil;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.BadgeView;
@@ -77,12 +78,8 @@ import com.umeng.socialize.media.UMImage;
 public class GoodsDetailActivity extends BaseActivity implements
 		OnClickListener {
 
-	private TextView discount, itemTitle, itemSrcPrice, itemPrice, area; // 商品折扣
-																			// 标题
-																			// 原价
-																			// 现价
-																			// 发货区
-	private TextView num_restrictAmount; //限购数量
+	private TextView itemTitle, itemSrcPrice, itemPrice, area;// 标题、 原价、现价、发货区
+	private TextView num_restrictAmount; // 限购数量
 	private ImageView img_hide;
 
 	private BadgeView goodsNumView;// 显示购买数量的控件
@@ -125,17 +122,14 @@ public class GoodsDetailActivity extends BaseActivity implements
 		itemTitle = (TextView) findViewById(R.id.itemTitle);
 		itemSrcPrice = (TextView) findViewById(R.id.itemSrcPrice);
 		itemPrice = (TextView) findViewById(R.id.itemPrice);
-		
-		
+
 		num_restrictAmount = (TextView) findViewById(R.id.restrictAmount);
-		discount = (TextView) findViewById(R.id.discount);
 		area = (TextView) findViewById(R.id.area);
 		back_top = findViewById(R.id.back_top);
 
 		img_hide = (ImageView) findViewById(R.id.img_hide);
 		btn_collect = (ImageView) findViewById(R.id.btn_collect);
 		mScrollLayout = (ScrollableLayout) findViewById(R.id.mScrollLayout);
-
 
 		findViewById(R.id.btn_pay).setOnClickListener(this);
 		findViewById(R.id.btn_shopcart).setOnClickListener(this);
@@ -639,9 +633,10 @@ public class GoodsDetailActivity extends BaseActivity implements
 		findViewById(R.id.no_net).setVisibility(View.GONE);
 		// 主详情
 		// 子商品信息
-		TextView publicity = (TextView) findViewById(R.id.publicity); // 优惠信息 /购物车数量
+		TextView publicity = (TextView) findViewById(R.id.publicity); // 优惠信息
+																		// /购物车数量
 		publicity.setText(detail.getMain().getPublicity());
-		
+
 		initGoodsInfo();
 		initShopcartNum();
 		initFragmentPager(detail.getMain());
@@ -666,12 +661,13 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 		GoodsDetailPagerAdapter adapter = new GoodsDetailPagerAdapter(
 				getSupportFragmentManager(), fragments, titles);
-		 ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
-		 PagerSlidingTabStrip pagerSlidingTabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
-		
+		ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
+		PagerSlidingTabStrip pagerSlidingTabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+
 		viewPager.setAdapter(adapter);
 		viewPager.setOffscreenPageLimit(3);
-		mScrollLayout.getHelper().setCurrentScrollableContainer(fragments.get(0));
+		mScrollLayout.getHelper().setCurrentScrollableContainer(
+				fragments.get(0));
 		pagerSlidingTabStrip.setViewPager(viewPager);
 		mScrollLayout.setOnScrollListener(new OnScrollListener() {
 
@@ -691,7 +687,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 					@Override
 					public void onPageSelected(int i) {
 						/** 标注当前页面 **/
-						mScrollLayout.getHelper().setCurrentScrollableContainer(fragments.get(i));
+						mScrollLayout
+								.getHelper()
+								.setCurrentScrollableContainer(fragments.get(i));
 					}
 
 				});
@@ -718,7 +716,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private void initTags(List<Tag> tags) {
 		TagCloudView tagCloudView = (TagCloudView) findViewById(R.id.tagCloudView);// 规格标签控件
 		// 初始化规格显示
-//		tagCloudView.removeAllViews();
+		// tagCloudView.removeAllViews();
 		tagCloudView.setTags(tags);
 		// 规格标签的点击事件
 		tagCloudView.setOnTagClickListener(new OnTagClickListener() {
@@ -748,13 +746,15 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 	private void initStocks(Stock s) {
 		initSliderImage(s);
+		String zhe = "";
 		if (s.getItemDiscount().floatValue() > 0) {
-			discount.setText("[" + s.getItemDiscount() + "折]");
+			zhe += "[" + s.getItemDiscount() + "折]";
 			itemSrcPrice.setText(getResources().getString(R.string.price,
 					s.getItemSrcPrice()));
 			itemSrcPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 		}
-		itemTitle.setText(s.getInvTitle());
+		KeyWordUtil.setDifferentFontColor(this, itemTitle,
+				zhe + s.getInvTitle(), 0, zhe.length());
 		itemPrice.setText(getResources().getString(R.string.price,
 				s.getItemPrice()));
 		if (s.getRestrictAmount() > 0) {
@@ -849,8 +849,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 	public void onEvent(Boolean b) {
 		// dragLayout.setTouchMode(b);
 	}
-	
-	
 
 	@Override
 	protected void onDestroy() {
