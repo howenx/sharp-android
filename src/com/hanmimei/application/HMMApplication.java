@@ -4,9 +4,7 @@ import java.io.File;
 
 import android.app.Application;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.RequestQueue.RequestFilter;
 import com.android.volley.toolbox.Volley;
 import com.hanmimei.R;
 import com.hanmimei.dao.DaoMaster;
@@ -22,6 +20,8 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 import com.nostra13.universalimageloader.utils.StorageUtils;
+import com.testin.agent.TestinAgent;
+import com.testin.agent.TestinAgentConfig;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.PlatformConfig;
 
@@ -31,43 +31,70 @@ public class HMMApplication extends Application {
 	private User loginUser;
 	private RequestQueue queue;
 	private String kouling;
-	
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		initTestinAgent();
 		queue = Volley.newRequestQueue(this);
 		initPlatformConfig();
 		MobclickAgent.openActivityDurationTrack(false);
 		MobclickAgent.setSessionContinueMillis(60000);
-//		MobclickAgent.setDebugMode(true);
+		// MobclickAgent.setDebugMode(true);
 		ImageLoader.getInstance().init(initImageLoaderConfiguration());
 	}
 
+	private void initTestinAgent() {
+		TestinAgentConfig config = new TestinAgentConfig.Builder(this)
+				.withDebugModel(true) // Output the crash log in local if you
+										// open debug mode
+				.withErrorActivity(true) // Output the activity info in crash or
+											// error log
+				.withCollectNDKCrash(true) // Collect NDK crash or not if you
+											// use our NDK
+				.withOpenCrash(true) // Monitor crash if true
+				.withReportOnlyWifi(true) // Report data only on wifi mode
+				.withReportOnBack(true) // allow to report data when application
+										// in background
+				.build();
+		TestinAgent.init(config);
+	}
+
 	private ImageLoaderConfiguration initImageLoaderConfiguration() {
-		File cacheDir = StorageUtils.getOwnCacheDirectory(this, "imageloader/Cache");  
+		File cacheDir = StorageUtils.getOwnCacheDirectory(this,
+				"imageloader/Cache");
 		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
-					getApplicationContext())
-		          .threadPoolSize(3)//线程池内加载的数量   
-		          .threadPriority(Thread.NORM_PRIORITY -2)   
-		          .denyCacheImageMultipleSizesInMemory()   
-		           .memoryCache(new UsingFreqLimitedMemoryCache(2* 1024 * 1024)) //你可以通过自己的内存缓存实现   
-		           .diskCache(new UnlimitedDiscCache(cacheDir))//自定义缓存路径   
-		           .diskCacheSize(50 * 1024 * 1024)     
-		          .diskCacheFileNameGenerator(new Md5FileNameGenerator())//将保存的时候的URI名称用MD5 加密   
-		           .imageDownloader(new BaseImageDownloader(this,5 * 1000, 30 * 1000)) // connectTimeout (5 s), readTimeout (30 s)超时时间   
-		           .defaultDisplayImageOptions(initImageLoaderDisplayImageOptions())
-		           .build();
+				getApplicationContext())
+				.threadPoolSize(3)
+				// 线程池内加载的数量
+				.threadPriority(Thread.NORM_PRIORITY - 2)
+				.denyCacheImageMultipleSizesInMemory()
+				.memoryCache(new UsingFreqLimitedMemoryCache(2 * 1024 * 1024))
+				// 你可以通过自己的内存缓存实现
+				.diskCache(new UnlimitedDiscCache(cacheDir))
+				// 自定义缓存路径
+				.diskCacheSize(50 * 1024 * 1024)
+				.diskCacheFileNameGenerator(new Md5FileNameGenerator())// 将保存的时候的URI名称用MD5
+																		// 加密
+				.imageDownloader(
+						new BaseImageDownloader(this, 5 * 1000, 30 * 1000)) // connectTimeout
+																			// (5
+																			// s),
+																			// readTimeout
+																			// (30
+																			// s)超时时间
+				.defaultDisplayImageOptions(
+						initImageLoaderDisplayImageOptions()).build();
 		return config;
 	}
-	
+
 	private static DisplayImageOptions initImageLoaderDisplayImageOptions() {
 		DisplayImageOptions imageOptions = new DisplayImageOptions.Builder()
-					.showImageOnLoading(R.color.background)
-					.showImageForEmptyUri(R.drawable.ic_launcher)
-					.showImageOnFail(R.drawable.ic_launcher)
-					.cacheOnDisk(true).imageScaleType(ImageScaleType.EXACTLY)
-					.cacheInMemory(true).build();
+				.showImageOnLoading(R.color.background)
+				.showImageForEmptyUri(R.drawable.ic_launcher)
+				.showImageOnFail(R.drawable.ic_launcher).cacheOnDisk(true)
+				.imageScaleType(ImageScaleType.EXACTLY).cacheInMemory(true)
+				.build();
 		return imageOptions;
 	}
 

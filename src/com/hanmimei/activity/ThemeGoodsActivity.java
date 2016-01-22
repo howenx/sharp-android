@@ -2,7 +2,7 @@ package com.hanmimei.activity;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
-import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.FrameLayout;
@@ -49,13 +48,14 @@ import com.umeng.analytics.MobclickAgent;
 /**
  * @author vince 主题商品的二级界面。
  */
-public class ThemeGoodsActivity extends BaseActivity implements OnClickListener {
+public class ThemeGoodsActivity extends BaseActivity implements OnClickListener,WaveSwipeRefreshLayout.OnRefreshListener {
 
 	private ThemeAdapter adapter; // 商品适配器
 	private List<HMMGoods> data;// 显示的商品数据
 	private BadgeView bView;
 
 	FrameLayout mframeLayout; // 主推商品容器 添加tag使用
+	private WaveSwipeRefreshLayout mWaveSwipeRefreshLayout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +64,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		View view = ActionBarUtil.setActionBarStyle(this, "商品展示",
 				R.drawable.white_shoppingcar, true, this);
 		View cartView = view.findViewById(R.id.setting);
+		
 		data = new ArrayList<HMMGoods>();
 		adapter = new ThemeAdapter(data, this);
 		findView(cartView);
@@ -99,17 +100,21 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		bView.setTextColor(Color.parseColor("#F9616A"));
 		mframeLayout = (FrameLayout) findViewById(R.id.mframeLayout);
 		findViewById(R.id.reload).setOnClickListener(this);
+		
+		mWaveSwipeRefreshLayout = (WaveSwipeRefreshLayout) findViewById(R.id.main_swipe);
+		mWaveSwipeRefreshLayout.setColorSchemeColors(Color.WHITE, Color.WHITE);
+		mWaveSwipeRefreshLayout.setOnRefreshListener(this);
 	}
 
 	// 获取显示数据
 	private void loadUrl() {
-		getLoading().show();
+		mWaveSwipeRefreshLayout.setRefreshing(true);
 		Http2Utils.doGetRequestTask(this, getHeaders(), getIntent()
 				.getStringExtra("url"), new VolleyJsonCallback() {
 
 			@Override
 			public void onSuccess(String result) {
-				getLoading().dismiss();
+				mWaveSwipeRefreshLayout.setRefreshing(false);
 				findViewById(R.id.no_net).setVisibility(View.GONE);
 				// TODO Auto-generated method stub
 				HMMThemeGoods detail = DataParser.parserThemeItem(result);
@@ -125,7 +130,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 
 			@Override
 			public void onError() {
-				getLoading().dismiss();
+				mWaveSwipeRefreshLayout.setRefreshing(false);
 				findViewById(R.id.no_net).setVisibility(View.VISIBLE);
 				ToastUtils.Toast(getActivity(), R.string.error);
 			}
@@ -334,4 +339,8 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		MobclickAgent.onPause(this);
 	}
 
+	@Override
+	public void onRefresh() {
+		loadUrl();
+	}
 }
