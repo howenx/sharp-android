@@ -1,6 +1,11 @@
 package com.hanmimei.entity;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+
+import android.text.format.DateUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -39,16 +44,58 @@ public class HMMGoods {
 	// 新添
 	private String itemMasterImg;
 	private String itemSrcPrice; // 主sku原价
-	private String state; // 商品状态
+	private String state; // 状态  'Y'--正常,'D'--下架,'N'--删除,'K'--售空，'P'--预售
+	
+	private String itemType = "item";  //"pin" "item"
+	private String startAt;
+	private String endAt;
+	
+	
 	
 
 	// KEEP FIELDS - put your custom fields here
 	// KEEP FIELDS END
 	
+	
+	
 	public ImgInfo getItemMasterImgForImgInfo(){
 		return new Gson().fromJson(itemMasterImg, ImgInfo.class);
 	}
 	
+	public Date getStartAt() {
+		try {
+			return  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(startAt);
+		} catch (ParseException e) {
+		}
+		return null;
+	}
+
+	public void setStartAt(String startAt) {
+		this.startAt = startAt;
+	}
+
+	public Date getEndAt() {
+		try {
+			return  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(endAt);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public void setEndAt(String endAt) {
+		this.endAt = endAt;
+	}
+
+	public String getItemType() {
+		return itemType;
+	}
+
+	public void setItemType(String itemType) {
+		this.itemType = itemType;
+	}
+
 	public ImgInfo getItemImgForImgInfo(){
 		return new Gson().fromJson(itemImg, ImgInfo.class);
 	}

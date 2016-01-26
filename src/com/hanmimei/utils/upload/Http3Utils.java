@@ -5,6 +5,7 @@ import java.util.Map;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.android.volley.Request.Method;
 import com.android.volley.Response.ErrorListener;
@@ -39,6 +40,7 @@ public class Http3Utils {
 			
 			@Override
 			public void onResponse(JSONObject response) {
+				Log.i("http-result", response.toString());
 				callback.onSuccess(response.toString());
 			}
 			

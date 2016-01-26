@@ -2,21 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/huise_border">
+    android:background="@drawable/huise_border"
+    android:orientation="vertical" >
 
     <FrameLayout
-        android:padding="0.1dp"
         android:id="@+id/mframeLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:padding="0.1dp" >
 
         <ImageView
             android:id="@+id/img"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/background"
-            android:contentDescription="@null"/>
+            android:contentDescription="@null" />
 
         <ImageView
             android:id="@+id/sold_out"
@@ -27,21 +27,23 @@
             android:contentDescription="@null"
             android:scaleType="center"
             android:src="@drawable/yishouwan" />
-         <TextView
-                android:id="@+id/area"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp"
-                android:layout_gravity="right|bottom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/dingwei"
-                android:gravity="center"
-                android:visibility="gone"
-                android:textColor="@color/white"
-                android:textSize="12sp" 
-                android:background="#44000000"/>
+
+        <TextView
+            android:id="@+id/timeView"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:background="@drawable/bg_pinggou_tip"
+            android:drawableLeft="@drawable/hmm_klmpintuan"
+            android:gravity="center_vertical"
+            android:paddingBottom="1dp"
+            android:paddingLeft="1dp"
+            android:paddingRight="2dp"
+            android:paddingTop="1dp"
+            android:text="12:00开售"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
     </FrameLayout>
 
     <View
@@ -62,10 +64,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="bottom"
+        android:layout_marginBottom="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginBottom="5dp"
+        android:gravity="bottom"
         android:orientation="horizontal" >
 
         <TextView
@@ -77,9 +79,9 @@
 
         <TextView
             android:id="@+id/old_price"
-            android:layout_marginLeft="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:textColor="#CCCCCC"
             android:textSize="10sp" />
 
@@ -87,6 +89,7 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_weight="1" />
+
         <TextView
             android:id="@+id/discount"
             android:layout_width="wrap_content"
@@ -94,5 +97,7 @@
             android:textColor="#CCCCCC"
             android:textSize="10sp" />
     </LinearLayout>
+
+  
 
 </LinearLayout>

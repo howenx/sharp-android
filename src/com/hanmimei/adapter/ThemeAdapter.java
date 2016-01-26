@@ -1,5 +1,6 @@
 package com.hanmimei.adapter;
 
+import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import com.hanmimei.R;
 import com.hanmimei.entity.HMMGoods;
 import com.hanmimei.utils.CommonUtil;
+import com.hanmimei.utils.DateUtils;
 import com.hanmimei.utils.ImageLoaderUtils;
 
 public class ThemeAdapter extends BaseAdapter {
@@ -24,13 +26,14 @@ public class ThemeAdapter extends BaseAdapter {
 	private Activity activity;
 	private int viewWidth;
 
-	public ThemeAdapter (List<HMMGoods> data, Context mContext){
+	public ThemeAdapter(List<HMMGoods> data, Context mContext) {
 		this.data = data;
 		activity = (Activity) mContext;
 		inflater = LayoutInflater.from(mContext);
-//		图片的比例适配
-		viewWidth = CommonUtil.getScreenWidth(mContext)/2;
+		// 图片的比例适配
+		viewWidth = CommonUtil.getScreenWidth(mContext) / 2;
 	}
+
 	@Override
 	public int getCount() {
 		return data.size();
@@ -50,50 +53,73 @@ public class ThemeAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup arg2) {
 		HMMGoods theme = data.get(position);
 		ViewHolder holder = null;
-		if(convertView == null){
+		if (convertView == null) {
 			convertView = inflater.inflate(R.layout.theme_item_layout, null);
 			holder = new ViewHolder();
 			holder.img = (ImageView) convertView.findViewById(R.id.img);
 			holder.title = (TextView) convertView.findViewById(R.id.title);
 			holder.price = (TextView) convertView.findViewById(R.id.price);
-			holder.old_price = (TextView) convertView.findViewById(R.id.old_price);
-			holder.area = (TextView) convertView.findViewById(R.id.area);
-			holder.discount = (TextView) convertView.findViewById(R.id.discount);
-			holder.sold_out = (ImageView) convertView.findViewById(R.id.sold_out);
+			holder.old_price = (TextView) convertView
+					.findViewById(R.id.old_price);
+			holder.discount = (TextView) convertView
+					.findViewById(R.id.discount);
+			holder.sold_out = (ImageView) convertView
+					.findViewById(R.id.sold_out);
+			holder.timeView = (TextView) convertView
+					.findViewById(R.id.timeView);
 			convertView.setTag(holder);
-		}else{
+		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		 LayoutParams params = holder.img.getLayoutParams();
+		LayoutParams params = holder.img.getLayoutParams();
 		params.height = viewWidth - 10;
-		params.width = viewWidth -10;
+		params.width = viewWidth - 10;
 		holder.img.setLayoutParams(params);
-		ImageLoaderUtils.loadImage(activity, theme.getItemImgForImgInfo().getUrl(), holder.img);
+		ImageLoaderUtils.loadImage(activity, theme.getItemImgForImgInfo()
+				.getUrl(), holder.img);
 		holder.title.setText(theme.getItemTitle());
-		holder.area.setText(theme.getInvAreaNm());
-		if(theme.getItemDiscount() >0){
-			holder.discount.setText(activity.getResources().getString(R.string.discount, theme.getItemDiscount()));
-			holder.old_price.setText(activity.getResources().getString(R.string.price, theme.getItemSrcPrice()));
+		if (theme.getItemDiscount() > 0) {
+			holder.discount.setText(activity.getResources().getString(
+					R.string.discount, theme.getItemDiscount()));
+			holder.old_price.setText(activity.getResources().getString(
+					R.string.price, theme.getItemSrcPrice()));
 			holder.old_price.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 		}
-		holder.price.setText(activity.getResources().getString(R.string.price, theme.getItemPrice()));
-		
-		if(theme.getState().equals("Y")){
+		holder.price.setText(activity.getResources().getString(R.string.price,
+				theme.getItemPrice()));
+		if (theme.getItemType().equals("item")) {
+			holder.timeView.setVisibility(View.GONE);
+			if (theme.getState().equals("Y")) {
+				holder.sold_out.setVisibility(View.GONE);
+			} else {
+				holder.sold_out.setVisibility(View.VISIBLE);
+				
+			}
+		} else if (theme.getItemType().equals("pin")) {
 			holder.sold_out.setVisibility(View.GONE);
-		}else{
-			holder.sold_out.setVisibility(View.VISIBLE);
+			holder.timeView.setVisibility(View.VISIBLE);
+			if (theme.getState().equals("P")) {
+				holder.sold_out.setVisibility(View.GONE);
+				holder.timeView.setText(DateUtils.getTimeDiffDesc(theme.getStartAt())+"开售");
+			} else if(theme.getState().equals("Y")){
+				holder.sold_out.setVisibility(View.GONE);
+				holder.timeView.setText("截止"+ DateUtils.getTimeDiffDesc(theme.getEndAt()));
+			}else{
+				holder.timeView.setText("已结束");
+//				holder.timeView.setText("截止"+DateUtils.getTimeDiffDesc(theme.getEndAt()));
+			}
 		}
-		
 		return convertView;
 	}
-	private class ViewHolder{
-		private ImageView img,sold_out;
+
+	private class ViewHolder {
+		private ImageView img, sold_out;
 		private TextView title;
 		private TextView price;
 		private TextView old_price;
 		private TextView discount;
-		private TextView area;
+		private TextView timeView;
 	}
-
+	
 }

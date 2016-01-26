@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.android.volley.Request.Method;
 import com.android.volley.Response.ErrorListener;
@@ -96,6 +97,7 @@ public class Http2Utils {
 
 						@Override
 						public void onResponse(String arg0) {
+							Log.i("http-result", arg0);
 							callback.onSuccess(arg0);
 						}
 					}, new ErrorListener() {
@@ -145,6 +147,7 @@ public class Http2Utils {
 
 						@Override
 						public void onResponse(String arg0) {
+							Log.i("http-result", arg0);
 							callback.onSuccess(arg0);
 						}
 					}, new ErrorListener() {
