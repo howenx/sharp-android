@@ -50,7 +50,6 @@
                         android:orientation="horizontal"
                         android:padding="8dp" >
 
-
                         <TextView
                             android:id="@+id/itemTitle"
                             android:layout_width="0dp"
@@ -85,8 +84,8 @@
                         android:orientation="horizontal"
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp" >
-                        
-                         <TextView
+
+                        <TextView
                             android:id="@+id/itemPrice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -104,7 +103,8 @@
                             android:gravity="right|end"
                             android:textColor="#BBBBBB"
                             android:textSize="@dimen/font_small" />
-                          <View
+
+                        <View
                             android:layout_width="0dp"
                             android:layout_height="1dp"
                             android:layout_weight="1" />
@@ -117,7 +117,6 @@
                             android:gravity="center"
                             android:textColor="@color/fontcolor"
                             android:textSize="12sp" />
-
                     </LinearLayout>
 
                     <LinearLayout
@@ -186,24 +185,25 @@
                         android:textSize="14sp" />
                 </LinearLayout>
                 <!-- content view -->
-<RelativeLayout 
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/white">
-    
 
-                <com.astuetz.PagerSlidingTabStrip
-                    android:id="@+id/tabs"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/actionbar_size"
-                    android:textColor="@color/indicator_font_color_selector"
-                    app:pstsDividerColor="@android:color/transparent"
-                    app:pstsIndicatorColor="@color/theme"
-                    app:pstsTabBackground="@android:color/transparent"
-                    app:pstsIndicatorHeight="2dp"
-                    app:pstsShouldExpand="true"
-                    app:pstsUnderlineHeight="2dp" />
-</RelativeLayout>
+                    android:layout_height="wrap_content"
+                    android:background="@color/white" >
+
+                    <com.astuetz.PagerSlidingTabStrip
+                        android:id="@+id/tabs"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/actionbar_size"
+                        android:textColor="@color/indicator_font_color_selector"
+                        app:pstsDividerColor="@android:color/transparent"
+                        app:pstsIndicatorColor="@color/theme"
+                        app:pstsIndicatorHeight="2dp"
+                        app:pstsShouldExpand="true"
+                        app:pstsTabBackground="@android:color/transparent"
+                        app:pstsUnderlineHeight="2dp" />
+                </RelativeLayout>
+
                 <android.support.v4.view.ViewPager
                     android:id="@+id/view_pager"
                     android:layout_width="match_parent"
@@ -236,12 +236,12 @@
                 android:layout_weight="1" >
 
                 <ImageView
-                     android:id="@+id/shopcart"
+                    android:id="@+id/shopcart"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="center"
                     android:layout_gravity="center"
                     android:contentDescription="@null"
+                    android:scaleType="center"
                     android:src="@drawable/icon_gouwuche2" />
             </FrameLayout>
 

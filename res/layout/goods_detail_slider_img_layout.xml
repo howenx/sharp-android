@@ -9,6 +9,7 @@
 	    android:layout_height="match_parent"
 	    android:contentDescription="@null"
 	    android:scaleType="fitXY"
+	    android:background="@color/white"
 	    android:id="@+id/mImageView"/>
 	
 	 <ProgressBar

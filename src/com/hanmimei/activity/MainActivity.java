@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
+
 import com.hanmimei.R;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.fragment.AboutMyFragment;
@@ -62,8 +63,6 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 		mTabHost.setOnTabChangedListener(this);
 
 		addTabItem(TAB_HOME_ID, home_drawable, TAB_HOME, HomeFragment.class);
-		// TabHostManager.getInstance().initTabItem(TAB_PIN_ID, pingou_drawable,
-		// TAB_PIN, PinFragment.class);
 		addTabItem(TAB_CAR_ID, shopping_drawable, TAB_CAR,ShoppingCartFragment.class);
 		addTabItem(TAB_MY_ID, my_drawable, TAB_MY, AboutMyFragment.class);
 

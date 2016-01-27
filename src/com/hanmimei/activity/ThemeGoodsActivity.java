@@ -2,7 +2,7 @@ package com.hanmimei.activity;
 
 import java.util.ArrayList;
 import java.util.List;
-import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -55,7 +55,6 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 	private BadgeView bView;
 
 	FrameLayout mframeLayout; // 主推商品容器 添加tag使用
-//	private WaveSwipeRefreshLayout mWaveSwipeRefreshLayout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +63,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		View view = ActionBarUtil.setActionBarStyle(this, "商品展示",
 				R.drawable.white_shoppingcar, true, this);
 		View cartView = view.findViewById(R.id.setting);
-		
+
 		data = new ArrayList<HMMGoods>();
 		adapter = new ThemeAdapter(data, this);
 		findView(cartView);
@@ -79,12 +78,16 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				if (!data.get(arg2).getState().equals("Y"))
-					return;
-				Intent intent = new Intent(getActivity(),
-						GoodsDetailActivity.class);
-				intent.putExtra("url", data.get(arg2).getItemUrlAndroid());
-				startActivityForResult(intent, 1);
+				if (data.get(arg2).getState().equals("Y")|| data.get(arg2).getState().equals("P")) {
+					Intent intent = null;
+					if (data.get(arg2).getItemType().equals("pin")) {
+						intent = new Intent(getActivity(),PingouDetailActivity.class);
+					} else {
+						intent = new Intent(getActivity(),GoodsDetailActivity.class);
+					}
+					intent.putExtra("url", data.get(arg2).getItemUrlAndroid());
+					startActivityForResult(intent, 1);
+				}
 			}
 		});
 
@@ -100,10 +103,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		bView.setTextColor(Color.parseColor("#F9616A"));
 		mframeLayout = (FrameLayout) findViewById(R.id.mframeLayout);
 		findViewById(R.id.reload).setOnClickListener(this);
-		
-//		mWaveSwipeRefreshLayout = (WaveSwipeRefreshLayout) findViewById(R.id.main_swipe);
-//		mWaveSwipeRefreshLayout.setColorSchemeColors(Color.WHITE, Color.WHITE);
-//		mWaveSwipeRefreshLayout.setOnRefreshListener(this);
+
 	}
 
 	// 获取显示数据
@@ -338,9 +338,4 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		MobclickAgent.onPageEnd("ThemeGoodsActivity"); // （仅有Activity的应用中SDK自动调用，不需要单独写）保证
 		MobclickAgent.onPause(this);
 	}
-
-//	@Override
-//	public void onRefresh() {
-//		loadUrl();
-//	}
 }
