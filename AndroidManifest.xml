@@ -131,6 +131,9 @@
             android:name="com.hanmimei.activity.PingouDetailActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name="com.hanmimei.activity.PingouResultActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.hanmimei.activity.PingouLiuChengActivity"
             android:screenOrientation="portrait" />
         <activity

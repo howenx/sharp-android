@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    android:fitsSystemWindows="true"  >
+    android:fitsSystemWindows="true" >
 
-    <com.hanmimei.view.CustomScrollView
-        android:id="@+id/mScrollView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_height="0dp"
+            android:layout_weight="1" >
 
-            <LinearLayout
-                android:id="@+id/header02"
+            <com.cpoopc.scrollablelayoutlib.ScrollableLayout
+                android:id="@+id/mScrollLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/background"
                 android:orientation="vertical" >
 
                 <LinearLayout
@@ -39,15 +41,17 @@
                     </FrameLayout>
 
                     <TextView
+                        android:id="@+id/pinTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
                         android:padding="8dp"
-                        android:text="韩迷妹fasct法系护肤三箭头(野蛮蒂娜水分温暖享受期待发布 大煞风景卡)套装"
+                        android:layout_marginTop="10dp"
                         android:textColor="@color/fontcolor"
                         android:textSize="14sp" />
 
                     <TextView
+                        android:id="@+id/soldAmount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
@@ -58,305 +62,169 @@
                         android:textColor="@color/huise"
                         android:textSize="12sp" />
 
-                    <TextView
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
-                        android:paddingLeft="8dp"
-                        android:paddingRight="8dp"
-                        android:text="@string/pingou_remind"
-                        android:textColor="@color/theme"
-                        android:textSize="12sp" />
-                </LinearLayout>
+                        android:orientation="horizontal"
+                        android:padding="8dp" >
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:orientation="horizontal"
-                    android:padding="8dp" >
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical" >
-
-                        <TextView
-                            android:layout_width="match_parent"
+                        <LinearLayout
+                            android:id="@+id/btn_pin_01"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:background="#E26459"
-                            android:gravity="center"
-                            android:padding="10dp"
-                            android:text="45/件"
-                            android:textColor="@color/white"
-                            android:textSize="16sp" />
+                            android:layout_weight="1"
+                            android:orientation="vertical" >
 
-                        <TextView
-                            android:layout_width="match_parent"
+                            <TextView
+                                android:id="@+id/pin_price"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="#E26459"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:text="45/件"
+                                android:textColor="@color/white"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/pin_per_num"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="#3F4041"
+                                android:gravity="center"
+                                android:padding="3dp"
+                                android:text="3人成团"
+                                android:textColor="@color/white"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/btn_buy_01"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:background="#3F4041"
-                            android:gravity="center"
-                            android:padding="3dp"
-                            android:text="3人成团"
-                            android:textColor="@color/white"
-                            android:textSize="14sp" />
+                            android:layout_marginLeft="8dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical" >
+
+                            <TextView
+                                android:id="@+id/item_src_price"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="#ECEDEE"
+                                android:gravity="center"
+                                android:padding="10dp"
+                                android:textColor="@color/fontcolor"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="#3F4041"
+                                android:gravity="center"
+                                android:padding="3dp"
+                                android:text="立即购买"
+                                android:textColor="@color/white"
+                                android:textSize="14sp" />
+                        </LinearLayout>
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical" >
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="#ECEDEE"
-                            android:gravity="center"
-                            android:padding="10dp"
-                            android:text="88/件"
-                            android:textColor="@color/fontcolor"
-                            android:textSize="16sp" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="#3F4041"
-                            android:gravity="center"
-                            android:padding="3dp"
-                            android:text="3人成团"
-                            android:textColor="@color/white"
-                            android:textSize="14sp" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <ImageView
-                    android:id="@+id/wanfaView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@null"
-                    android:src="@drawable/pingou_wanfa" />
-            </LinearLayout>
-
-            <RadioGroup
-                android:id="@+id/indicator"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@color/white"
-                android:checkedButton="@+id/guid1"
-                android:gravity="center_vertical"
-                android:orientation="horizontal" >
-
-                <RadioButton
-                    android:id="@+id/guid1"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1.0"
-                    android:background="@drawable/radio_btn_bg"
-                    android:button="@null"
-                    android:gravity="center"
-                    android:textColor="@color/indicator_font_color_selector"
-                    android:orientation="vertical"
-                    android:padding="10dp"
-                    android:text="图文详情"
-                    android:textSize="13sp" />
-
-                <RadioButton
-                    android:id="@+id/guid2"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1.0"
-                    android:background="@drawable/radio_btn_bg"
-                    android:button="@null"
-                    android:gravity="center"
-                    android:textColor="@color/indicator_font_color_selector"
-                    android:orientation="vertical"
-                    android:padding="10dp"
-                    android:text="商品参数"
-                    android:textSize="13sp" />
-
-                <RadioButton
-                    android:id="@+id/guid3"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1.0"
-                    android:background="@drawable/radio_btn_bg"
-                    android:button="@null"
-                    android:textColor="@color/indicator_font_color_selector"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="10dp"
-                    android:text="热卖商品"
-                    android:textSize="13sp" />
-            </RadioGroup>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/xian" />
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
-                <LinearLayout
-                    android:id="@+id/content_img"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" >
-
-                    <com.hanmimei.view.TouchWebView
-                        android:id="@+id/mWebView"
+                    <ImageView
+                        android:id="@+id/wanfaView"
                         android:layout_width="match_parent"
-                        android:layout_height="800dp" />
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@null"
+                        android:src="@drawable/pingou_wanfa" />
                 </LinearLayout>
 
-                <ListView
-                    android:id="@+id/content_params"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/white"
-                    android:visibility="gone" />
-
-                <ListView
-                    android:id="@+id/content_hot"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:visibility="gone" />
-            </FrameLayout>
-        </LinearLayout>
-    </com.hanmimei.view.CustomScrollView>
+                    android:background="@color/white" >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
+                    <com.astuetz.PagerSlidingTabStrip
+                        android:id="@+id/tabs"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/actionbar_size"
+                        android:textColor="@color/indicator_font_color_selector"
+                        app:pstsDividerColor="@android:color/transparent"
+                        app:pstsIndicatorColor="@color/theme"
+                        app:pstsIndicatorHeight="2dp"
+                        app:pstsShouldExpand="true"
+                        app:pstsTabBackground="@android:color/transparent"
+                        app:pstsUnderlineHeight="2dp" />
+                </RelativeLayout>
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/view_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white" >
+                </android.support.v4.view.ViewPager>
+            </com.cpoopc.scrollablelayoutlib.ScrollableLayout>
+
+            <include
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_margin="15dp"
+                layout="@layout/back_to_top_layout"
+                android:visibility="gone" />
+        </RelativeLayout>
 
         <LinearLayout
-            android:id="@+id/buy_hide"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="horizontal"
-            android:padding="8dp"
-            android:visibility="gone" >
+            android:layout_height="@dimen/navigationbar_size"
+            android:layout_gravity="bottom"
+            android:background="@drawable/huise_border"
+            android:orientation="horizontal" >
 
-            <LinearLayout
+            <FrameLayout
+                android:id="@+id/btn_shopcart"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical" >
+                android:layout_height="match_parent"
+                android:layout_weight="1" >
 
-                <TextView
+                <ImageView
+                    android:id="@+id/shopcart"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#E26459"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="45/件"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:scaleType="center"
+                    android:src="@drawable/icon_collect_normal" />
+            </FrameLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#3F4041"
-                    android:gravity="center"
-                    android:padding="3dp"
-                    android:text="3人成团"
-                    android:textColor="@color/white"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/btn_pin_02"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_weight="1"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#ECEDEE"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="88/件"
-                    android:textColor="@color/fontcolor"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#3F4041"
-                    android:gravity="center"
-                    android:padding="3dp"
-                    android:text="3人成团"
-                    android:textColor="@color/white"
-                    android:textSize="14sp" />
-            </LinearLayout>
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:background="@color/theme"
+                android:gravity="center"
+                android:text="立即开团"
+                android:textColor="@color/btn_font_selector"
+                android:textSize="14sp" />
+            <TextView
+                android:id="@+id/btn_buy_02"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:background="#434446"
+                android:gravity="center"
+                android:text="单独购买"
+                android:textColor="@color/btn_font_selector"
+                android:textSize="14sp" />
         </LinearLayout>
-
-        <RadioGroup
-            android:id="@+id/indicator_hide"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@color/white"
-            android:checkedButton="@+id/guid1_hide"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:visibility="gone" >
-
-            <RadioButton
-                android:id="@+id/guid1_hide"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1.0"
-                android:background="@drawable/radio_btn_bg"
-                android:button="@null"
-                android:gravity="center"
-                android:textColor="@color/indicator_font_color_selector"
-                android:orientation="vertical"
-                android:padding="10dp"
-                android:text="图文详情"
-                android:textSize="13sp" />
-
-            <RadioButton
-                android:id="@+id/guid2_hide"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1.0"
-                android:background="@drawable/radio_btn_bg"
-                android:button="@null"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:textColor="@color/indicator_font_color_selector"
-                android:padding="10dp"
-                android:text="商品参数"
-                android:textSize="13sp" />
-
-            <RadioButton
-                android:id="@+id/guid3_hide"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1.0"
-                android:background="@drawable/radio_btn_bg"
-                android:button="@null"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:textColor="@color/indicator_font_color_selector"
-                android:padding="10dp"
-                android:text="热卖商品"
-                android:textSize="13sp" />
-        </RadioGroup>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/xian" />
     </LinearLayout>
+
+    <include
+        android:id="@+id/no_net"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        layout="@layout/offline_wuxinhao_layout"
+        android:visibility="gone" />
 
 </FrameLayout>

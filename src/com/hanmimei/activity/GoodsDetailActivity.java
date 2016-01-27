@@ -43,12 +43,12 @@ import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.Customs;
 import com.hanmimei.entity.GoodsDetail;
-import com.hanmimei.entity.GoodsDetail.Main;
-import com.hanmimei.entity.GoodsDetail.Stock;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.ImgInfo;
+import com.hanmimei.entity.MainVo;
 import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
+import com.hanmimei.entity.StockVo;
 import com.hanmimei.entity.Tag;
 import com.hanmimei.listener.GoodsPageChangeListener;
 import com.hanmimei.utils.ActionBarUtil;
@@ -341,7 +341,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 			return;
 		}
 		ShoppingGoods goods = null;
-		for (Stock stock : detail.getStock()) {
+		for (StockVo stock : detail.getStock()) {
 			if (stock.getOrMasterInv() && stock.getState().equals("Y")) {
 				goods = new ShoppingGoods();
 				goods.setGoodsId(stock.getId());
@@ -446,7 +446,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	}
 
 	// 当前的商品
-	private Stock shareStock;
+	private StockVo shareStock;
 
 	// 新浪微博分享设置
 	private void shareSina() {
@@ -524,7 +524,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		Customs customs = new Customs();
 
 		ShoppingGoods sgoods = null;
-		for (Stock s : detail.getStock()) {
+		for (StockVo s : detail.getStock()) {
 			if (s.getOrMasterInv()) {
 				if (s.getState().equals("Y")) {
 					sgoods = new ShoppingGoods();
@@ -630,6 +630,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 			ToastUtils.Toast(this, detail.getMessage().getMessage());
 			return;
 		}
+		mScrollLayout.canScroll();
 		findViewById(R.id.no_net).setVisibility(View.GONE);
 		// 主详情
 		// 子商品信息
@@ -642,7 +643,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		initFragmentPager(detail.getMain());
 	}
 
-	private void initFragmentPager(Main main) {
+	private void initFragmentPager(MainVo main) {
 		List<String> titles = new ArrayList<String>();
 		titles.add("图文详情");
 		titles.add("商品参数");
@@ -701,9 +702,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private int postalStandard;// 关税收费标准
 
 	private void initGoodsInfo() {
-		Stock stock = null;
+		StockVo stock = null;
 		List<Tag> tags = new ArrayList<Tag>();
-		for (Stock s : detail.getStock()) {
+		for (StockVo s : detail.getStock()) {
 			tags.add(new Tag(s.getItemColor() + " " + s.getItemSize(), s
 					.getState(), s.getOrMasterInv()));
 			if (s.getOrMasterInv())
@@ -744,7 +745,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	 *            选中商品位置
 	 */
 
-	private void initStocks(Stock s) {
+	private void initStocks(StockVo s) {
 		initSliderImage(s);
 		String zhe = "";
 		if (s.getItemDiscount().floatValue() > 0) {
@@ -778,7 +779,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	 * @param s
 	 *            当前选中子商品
 	 */
-	private void initSliderImage(Stock s) {
+	private void initSliderImage(StockVo s) {
 		ConvenientBanner<ImgInfo> slider = (ConvenientBanner<ImgInfo>) findViewById(R.id.slider);
 		slider.setPages(new CBViewHolderCreator<NetworkImageHolderView>() {
 			@Override

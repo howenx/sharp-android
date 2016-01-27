@@ -1,0 +1,366 @@
+package com.hanmimei.entity;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+public class StockVo {
+	private Integer id;
+	private String itemColor;
+	private String itemSize;
+	private BigDecimal itemSrcPrice;
+	private BigDecimal itemPrice;
+	private BigDecimal itemDiscount;
+	private Boolean orMasterInv;
+	private String state;
+	private BigDecimal shipFee;
+	private String invArea;
+	private String invAreaNm;
+	private Integer restrictAmount; // 每个ID限购数量
+	private Integer restAmount;
+	private String invImg;
+	private String itemPreviewImgs;
+	private String invUrl;
+	private String invTitle;
+	private String invCustoms;
+	private Integer postalTaxRate;
+	private Integer postalStandard;// 关税收费标准
+
+	private String pinTitle; // 拼购商品标题
+	private String startAt; // 开始时间
+	private String endAt;// 结束时间
+	private String pinPriceRule; // 价格阶梯
+	private String floorPrice; // 拼购最低价
+	private String pinDiscount;// 拼购最低折扣
+	private String pinRedirectUrl;// 拼购跳转链接
+	private String invWeight;// 商品重量单位g
+	private String browseCount;// 浏览次数
+	private String collectCount;// 收藏数
+	private String pinId;
+	private String shareUrl; // 分享短连接
+	private String status; // 拼购ID
+	
+	private String soldAmount ;
+	
+	public String getSoldAmount() {
+		return soldAmount;
+	}
+
+	public void setSoldAmount(String soldAmount) {
+		this.soldAmount = soldAmount;
+	}
+
+	public String getPinTitle() {
+		return pinTitle;
+	}
+
+	public void setPinTitle(String pinTitle) {
+		this.pinTitle = pinTitle;
+	}
+
+	public String getStartAt() {
+		return startAt;
+	}
+
+	public void setStartAt(String startAt) {
+		this.startAt = startAt;
+	}
+
+	public String getEndAt() {
+		return endAt;
+	}
+
+	public void setEndAt(String endAt) {
+		this.endAt = endAt;
+	}
+
+	public List<PinPriceRule> getPinPriceRule() {
+		return new Gson().fromJson(pinPriceRule,
+				new TypeToken<List<PinPriceRule>>() {
+				}.getType());
+	}
+	
+	public PinPriceRule getPinSrcPrice(){
+		for(PinPriceRule p : getPinPriceRule()){
+			if(p.getPerson_num() == 1){
+				return p;
+			}
+		}
+		return  null;
+	}
+
+	public void setPinPriceRule(String pinPriceRule) {
+		this.pinPriceRule = pinPriceRule;
+	}
+
+	public PinPriceRule getFloorPrice() {
+		return new Gson().fromJson(floorPrice, PinPriceRule.class);
+	}
+
+	public void setFloorPrice(String floorPrice) {
+		this.floorPrice = floorPrice;
+	}
+
+	public String getPinDiscount() {
+		return pinDiscount;
+	}
+
+	public void setPinDiscount(String pinDiscount) {
+		this.pinDiscount = pinDiscount;
+	}
+
+	public String getPinRedirectUrl() {
+		return pinRedirectUrl;
+	}
+
+	public void setPinRedirectUrl(String pinRedirectUrl) {
+		this.pinRedirectUrl = pinRedirectUrl;
+	}
+
+	public String getInvWeight() {
+		return invWeight;
+	}
+
+	public void setInvWeight(String invWeight) {
+		this.invWeight = invWeight;
+	}
+
+	public String getBrowseCount() {
+		return browseCount;
+	}
+
+	public void setBrowseCount(String browseCount) {
+		this.browseCount = browseCount;
+	}
+
+	public String getCollectCount() {
+		return collectCount;
+	}
+
+	public void setCollectCount(String collectCount) {
+		this.collectCount = collectCount;
+	}
+
+	public String getPinId() {
+		return pinId;
+	}
+
+	public void setPinId(String pinId) {
+		this.pinId = pinId;
+	}
+
+	public String getShareUrl() {
+		return shareUrl;
+	}
+
+	public void setShareUrl(String shareUrl) {
+		this.shareUrl = shareUrl;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public ImgInfo getInvImgForObj() {
+		return new Gson().fromJson(invImg, ImgInfo.class);
+	}
+
+	public String getInvImg() {
+		return invImg;
+	}
+
+	public ArrayList<ImgInfo> getItemPreviewImgsForList() {
+		return new Gson().fromJson(itemPreviewImgs,
+				new TypeToken<ArrayList<ImgInfo>>() {
+				}.getType());
+	}
+
+	public String getItemPreviewImgs() {
+		return itemPreviewImgs;
+	}
+
+	public String getInvAreaNm() {
+		return invAreaNm;
+	}
+
+	public void setInvAreaNm(String invAreaNm) {
+		this.invAreaNm = invAreaNm;
+	}
+
+	public Integer getPostalStandard() {
+		return postalStandard;
+	}
+
+	public void setPostalStandard(Integer postalStandard) {
+		this.postalStandard = postalStandard;
+	}
+
+	public void setPostalTaxRate(int postalTaxRate) {
+		this.postalTaxRate = postalTaxRate;
+	}
+
+	public String getInvCustoms() {
+		return invCustoms;
+	}
+
+	public void setInvCustoms(String invCustoms) {
+		this.invCustoms = invCustoms;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getItemColor() {
+		return itemColor;
+	}
+
+	public void setItemColor(String itemColor) {
+		this.itemColor = itemColor;
+	}
+
+	public String getItemSize() {
+		return itemSize;
+	}
+
+	public void setItemSize(String itemSize) {
+		this.itemSize = itemSize;
+	}
+
+	public Boolean getOrMasterInv() {
+		return orMasterInv;
+	}
+
+	public void setOrMasterInv(Boolean orMasterInv) {
+		this.orMasterInv = orMasterInv;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getInvArea() {
+		return invArea;
+	}
+
+	public void setInvArea(String invArea) {
+		this.invArea = invArea;
+	}
+
+	public void setInvImg(String invImg) {
+		this.invImg = invImg;
+	}
+
+	public void setItemPreviewImgs(String itemPreviewImgs) {
+		this.itemPreviewImgs = itemPreviewImgs;
+	}
+
+	public String getInvUrl() {
+		return invUrl;
+	}
+
+	public void setInvUrl(String invUrl) {
+		this.invUrl = invUrl;
+	}
+
+	public String getInvTitle() {
+		return invTitle;
+	}
+
+	public void setInvTitle(String invTitle) {
+		this.invTitle = invTitle;
+	}
+
+	public BigDecimal getItemSrcPrice() {
+		return itemSrcPrice;
+	}
+
+	public void setItemSrcPrice(BigDecimal itemSrcPrice) {
+		this.itemSrcPrice = itemSrcPrice;
+	}
+
+	public BigDecimal getItemPrice() {
+		return itemPrice;
+	}
+
+	public void setItemPrice(BigDecimal itemPrice) {
+		this.itemPrice = itemPrice;
+	}
+
+	public BigDecimal getItemDiscount() {
+		return itemDiscount;
+	}
+
+	public void setItemDiscount(BigDecimal itemDiscount) {
+		this.itemDiscount = itemDiscount;
+	}
+
+	public BigDecimal getShipFee() {
+		return shipFee;
+	}
+
+	public void setShipFee(BigDecimal shipFee) {
+		this.shipFee = shipFee;
+	}
+
+	public Integer getPostalTaxRate() {
+		return postalTaxRate;
+	}
+
+	public void setPostalTaxRate(Integer postalTaxRate) {
+		this.postalTaxRate = postalTaxRate;
+	}
+
+	public Integer getRestrictAmount() {
+		return restrictAmount;
+	}
+
+	public void setRestrictAmount(Integer restrictAmount) {
+		this.restrictAmount = restrictAmount;
+	}
+
+	public Integer getRestAmount() {
+		return restAmount;
+	}
+
+	public void setRestAmount(Integer restAmount) {
+		this.restAmount = restAmount;
+	}
+
+	public class PinPriceRule implements Serializable {
+		private int person_num;
+		private BigDecimal price;
+
+		public int getPerson_num() {
+			return person_num;
+		}
+
+		public void setPerson_num(int person_num) {
+			this.person_num = person_num;
+		}
+
+		public BigDecimal getPrice() {
+			return price;
+		}
+
+		public void setPrice(BigDecimal price) {
+			this.price = price;
+		}
+	}
+}

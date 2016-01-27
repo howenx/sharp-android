@@ -63,7 +63,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		View view = ActionBarUtil.setActionBarStyle(this, "商品展示",
 				R.drawable.white_shoppingcar, true, this);
 		View cartView = view.findViewById(R.id.setting);
-		
+
 		data = new ArrayList<HMMGoods>();
 		adapter = new ThemeAdapter(data, this);
 		findView(cartView);
@@ -78,16 +78,16 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				if (!data.get(arg2).getState().equals("Y"))
-					return;
-				Intent intent =null;
-				if(data.get(arg2).getItemType().equals("pin")){
-					intent = new Intent(getActivity(), PingouDetailActivity.class);
-				}else{
-					intent = new Intent(getActivity(),GoodsDetailActivity.class);
+				if (data.get(arg2).getState().equals("Y")|| data.get(arg2).getState().equals("P")) {
+					Intent intent = null;
+					if (data.get(arg2).getItemType().equals("pin")) {
+						intent = new Intent(getActivity(),PingouDetailActivity.class);
+					} else {
+						intent = new Intent(getActivity(),GoodsDetailActivity.class);
+					}
+					intent.putExtra("url", data.get(arg2).getItemUrlAndroid());
+					startActivityForResult(intent, 1);
 				}
-				intent.putExtra("url", data.get(arg2).getItemUrlAndroid());
-				startActivityForResult(intent, 1);
 			}
 		});
 
@@ -103,7 +103,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		bView.setTextColor(Color.parseColor("#F9616A"));
 		mframeLayout = (FrameLayout) findViewById(R.id.mframeLayout);
 		findViewById(R.id.reload).setOnClickListener(this);
-		
+
 	}
 
 	// 获取显示数据
