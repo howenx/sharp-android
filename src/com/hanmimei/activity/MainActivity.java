@@ -14,8 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.hanmimei.R;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.fragment.AboutMyFragment;
@@ -39,16 +37,16 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 	private String TAB_HOME = "首页";
 	private String TAB_CAR = "购物车";
 	private String TAB_MY = "我的";
-	private String TAB_PIN = "拼购";
+//	private String TAB_PIN = "拼购";
 	private int home_drawable = R.drawable.tab_home;
 	private int shopping_drawable = R.drawable.tab_shopping;
 	private int my_drawable = R.drawable.tab_my;
-	private int pingou_drawable = R.drawable.tab_pingou;
+//	private int pingou_drawable = R.drawable.tab_pingou;
 
 	private MainBroadCastReceiver netReceiver;
 	private FragmentTabHost mTabHost;
 	private LinearLayout guanggao;
-//	private boolean loading = true;
+//	private HMMApplication application;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +77,8 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 				sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UP_HOME_ACTION));
 			}
 		});
+//		application = (HMMApplication) getApplication();
+//		application.setKouling("复制这条信息，打开👉韩秘美👈即可看到【(拼)正品篮球鞋，团购仅需1999，杜兰特款。】10005  🔑秘美令 🔑");
 	}
 
 	@Override

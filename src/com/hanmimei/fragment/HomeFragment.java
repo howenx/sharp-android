@@ -386,7 +386,8 @@ public class HomeFragment extends Fragment implements
 				}
 			}
 		}
-		@Override
+
+	@Override
 		public void onDestroy() {
 			// TODO Auto-generated method stub
 			super.onDestroy();

@@ -46,6 +46,7 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 	private Drawable youhui_icon;
 	private Drawable about_icon;
 	private Drawable jiantou_icon;
+	private Drawable pintuan_icon;
 	private RoundImageView header;
 	private TextView user_name;
 	private TextView address;
@@ -79,6 +80,8 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 		about_icon.setBounds(0, 0, 45, 45);
 		jiantou_icon = getResources().getDrawable(R.drawable.icon_jiantou);
 		jiantou_icon.setBounds(0, 0, 45, 45);
+		pintuan_icon = getResources().getDrawable(R.drawable.icon_pintuan);
+		pintuan_icon.setBounds(0, 0, 45, 45);
 		
 	}
 
@@ -153,7 +156,7 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 		youhui_nums = (TextView) view.findViewById(R.id.youhui_nums);
 		youhui_nums.setCompoundDrawables(null, null, jiantou_icon, null);
 		pintuan = (TextView) view.findViewById(R.id.pintuan);
-		pintuan.setVisibility(View.GONE);
+		pintuan.setCompoundDrawables(pintuan_icon, null, jiantou_icon, null);
 		header.setOnClickListener(this);
 		order.setOnClickListener(this);
 		address.setOnClickListener(this);

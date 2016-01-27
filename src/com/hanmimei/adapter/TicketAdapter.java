@@ -50,6 +50,7 @@ public class TicketAdapter extends BaseAdapter {
 			holder.money = (TextView) convertView.findViewById(R.id.denomination);
 			holder.more_pay = (TextView) convertView.findViewById(R.id.limit);
 			holder.use_date = (TextView) convertView.findViewById(R.id.date);
+			holder.cat = (TextView) convertView.findViewById(R.id.cat);
 			convertView.setTag(holder);
 		}else{
 			holder = (ViewHolder) convertView.getTag();
@@ -64,6 +65,7 @@ public class TicketAdapter extends BaseAdapter {
 		holder.money.setText("¥" + coupon.getDenomination());
 		holder.more_pay.setText("满" + coupon.getLimitQuota() + "可用");
 		holder.use_date.setText("有效期至：" + coupon.getEndAt());
+		holder.cat.setText(coupon.getCateNm());
 		return convertView;
 	}
 	private class ViewHolder{
@@ -71,6 +73,7 @@ public class TicketAdapter extends BaseAdapter {
 		private TextView more_pay;
 		private TextView use_date;
 		private ImageView bg_img;
+		private TextView cat;
 	}
 
 }

@@ -67,6 +67,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 
 	private ShoppingCar shoppingCar;
 	private boolean isBack = false;
+	private TextView reload;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -238,6 +239,8 @@ public class ShoppingCarActivity extends BaseActivity implements
 		check_all.setOnClickListener(this);
 		adapter = new ShoppingCarPullListAdapter(data, this);
 		mListView.setAdapter(adapter);
+		reload = (TextView) findViewById(R.id.reload);
+		reload.setOnClickListener(this);
 	}
 
 	@Override
@@ -292,6 +295,9 @@ public class ShoppingCarActivity extends BaseActivity implements
 			break;
 		case R.id.go_home:
 			startActivity(new Intent(this,MainActivity.class));
+			break;
+		case R.id.reload:
+			loadData();
 			break;
 		default:
 			break;

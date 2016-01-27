@@ -76,4 +76,6 @@
 	<string name="submit_loading">提交中...</string>
 	<string name="submit_success">提交成功</string>
 	<string name="submit_error">提交失败</string>
+	<string name="see_order">查看订单详情</string>
+	<string name="see_tuan">查看团详情</string>
 </resources>

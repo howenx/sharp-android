@@ -174,9 +174,10 @@ public class BaseActivity extends AppCompatActivity {
 		super.onResume();
 		ClipboardManager cbm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
 		if (!TextUtils.isEmpty(cbm.getText())) {
-			if (cbm.getText().toString().trim().equals("hanmimei")) {
+			if (cbm.getText().toString().trim().contains("hanmimei")) {
 				cbm.setText("");
 //				loadData();
+				showKouLing();
 				getMyApplication().setKouling("");
 			}
 		}

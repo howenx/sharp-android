@@ -2,14 +2,17 @@ package com.hanmimei.adapter;
 
 import java.util.List;
 
-import com.hanmimei.R;
-import com.hanmimei.entity.Goods;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.hanmimei.R;
+import com.hanmimei.entity.Goods;
+import com.hanmimei.utils.ImageLoaderUtils;
 
 public class MyPinTuanAdapter extends BaseAdapter {
 
@@ -21,30 +24,50 @@ public class MyPinTuanAdapter extends BaseAdapter {
 	}
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return data.size();
 	}
 
 	@Override
 	public Object getItem(int arg0) {
-		// TODO Auto-generated method stub
 		return data.get(arg0);
 	}
 
 	@Override
 	public long getItemId(int arg0) {
-		// TODO Auto-generated method stub
 		return arg0;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup arg2) {
+		Goods goods = data.get(position);
+		ViewHolder holder = null;
 		if(convertView == null){
-//			convertView = inflater.inflate(R.layout., root)
+			holder = new ViewHolder();
+			convertView = inflater.inflate(R.layout.my_pintuan_item_layout, null);
+			holder.img = (ImageView) convertView.findViewById(R.id.img);
+			holder.title = (TextView) convertView.findViewById(R.id.title);
+			holder.price = (TextView) convertView.findViewById(R.id.price);
+			holder.state = (TextView) convertView.findViewById(R.id.state);
+			holder.check_tuan = (TextView) convertView.findViewById(R.id.see_detail);
+			holder.check_order = (TextView) convertView.findViewById(R.id.see_order);
+			convertView.setTag(holder);
 		}else{
-			
+			holder = (ViewHolder) convertView.getTag();
 		}
-		return null;
+		ImageLoaderUtils.loadImage(goods.getImgUrl(), holder.img);
+		holder.title.setText(goods.getTitle());
+		holder.price.setText("成团价：" + goods.getPrice());
+		holder.state.setText("拼团成功");
+		return convertView;
 	}
-
+	
+	private class ViewHolder{
+		private ImageView img;
+		private TextView title;
+		private TextView price;
+		private TextView state;
+		private TextView check_tuan;
+		private TextView check_order;
+	}
+      
 }

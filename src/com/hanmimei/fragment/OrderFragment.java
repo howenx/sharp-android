@@ -47,10 +47,7 @@ public class OrderFragment extends Fragment implements
 	private int state = 1;
 	private BaseActivity activity;
 	private LinearLayout no_net;
-	private TextView reload;
-	
-
-	
+	private TextView reload;	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -158,14 +155,6 @@ public class OrderFragment extends Fragment implements
 				}
 			}
 		}
-//		else {
-//			for (int i = 0; i < orders.size(); i++) {
-//				if (orders.get(i).getOrderStatus().equals("R")) {
-//					data.add(orders.get(i));
-//				}
-//			}
-//		}
-
 	}
 
 	private void showNums(List<Order> orders) {

@@ -37,6 +37,7 @@ import com.hanmimei.activity.fragment.ImgFragment;
 import com.hanmimei.activity.fragment.ParamsFragment;
 import com.hanmimei.activity.listener.SimpleAnimationListener;
 import com.hanmimei.adapter.GoodsDetailPagerAdapter;
+import com.hanmimei.application.HMMApplication;
 import com.hanmimei.dao.ShoppingGoodsDao.Properties;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
@@ -136,6 +137,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		findViewById(R.id.btn_add_shopcart).setOnClickListener(this);
 		findViewById(R.id.btn_portalFee).setOnClickListener(this);
 		findViewById(R.id.back_top).setOnClickListener(this);
+		findViewById(R.id.copy).setOnClickListener(this);
 		findViewById(R.id.reload).setOnClickListener(this);
 		btn_collect.setOnClickListener(this);
 
@@ -325,9 +327,19 @@ public class GoodsDetailActivity extends BaseActivity implements
 		case R.id.reload:
 			loadDataByUrl();
 			break;
+		case R.id.copy:
+			doCopy();
+			shareWindow.dismiss();
+			break;
 		default:
 			break;
 		}
+	}
+
+	private void doCopy() {
+		HMMApplication application = (HMMApplication) getApplication();
+		application.setKouling("");
+		
 	}
 
 	/**

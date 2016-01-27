@@ -142,6 +142,9 @@
 		<activity
             android:name="com.hanmimei.activity.HmmServiceActivity"
             android:screenOrientation="portrait" />
+		<activity
+            android:name="com.hanmimei.activity.MyPinTuanActivity"
+            android:screenOrientation="portrait" />
         <!-- 友盟相关 -->
         <activity
             android:name="com.umeng.socialize.editorpage.ShareActivity"

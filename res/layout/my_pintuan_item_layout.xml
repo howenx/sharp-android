@@ -6,25 +6,28 @@
     android:background="@color/white">
     <ImageView 
         android:id="@+id/img"
+        android:padding="0.1dp"
         android:layout_margin="@dimen/margin_small"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:src="@drawable/ic_launcher"/>
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@null"
+        android:background="@drawable/huise_border"/>
 	<TextView 
 	    android:id="@+id/title"
-	    android:layout_marginLeft="5dp"
+	    android:layout_margin ="5dp"
 	    android:layout_toRightOf="@id/img"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:maxLines="2"
-	    android:text="dgdegdeugddehiuhdeifrfrfrfrfrrvrvssshif"/>
+	    android:ellipsize="end"
+	    android:text="@null"/>
 	<View 
 	    android:id="@+id/xian"
 	    android:layout_marginTop="10dp"
 	    android:layout_below="@id/img"
 	    android:layout_height="0.1dp"
 	    android:layout_width="match_parent"
-	    android:background="@color/huise"/>
+	    android:background="@color/xian"/>
 	<RelativeLayout 
 	    android:layout_marginTop="10dp"
 	    android:layout_below="@id/xian"
@@ -35,29 +38,35 @@
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:layout_centerVertical="true"
-	    android:text="拼团成功"
+	    android:text="@null"
 	    android:textSize="16sp"
 	    android:textColor="@color/theme"/>
 	<TextView 
 	    android:id="@+id/see_order"
-	    android:padding="7dp"
+	    android:paddingTop ="5dp"
+	    android:paddingBottom="5dp"
+	    android:paddingLeft="8dp"
+	    android:paddingRight="8dp"
 	    android:layout_alignParentRight="true"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
-	    android:text="查看订单详情"
+	    android:text="@string/see_order"
 	    android:textSize="14sp"
 	    android:textColor="@color/white"
 	    android:background="@drawable/theme_solid_bg"/>
 
 	<TextView
 	    android:id="@+id/see_detail"
+	    android:paddingTop ="5dp"
+	    android:paddingBottom="5dp"
+	    android:paddingLeft="8dp"
+	    android:paddingRight="8dp"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:layout_alignParentTop="true"
 	    android:layout_centerHorizontal="true"
 	    android:background="@drawable/theme_border"
-	    android:padding="7dp"
-	    android:text="查看团详情"
+	    android:text="@string/see_tuan"
 	    android:textColor="@color/theme"
 	    android:textSize="14sp" />
 
@@ -65,13 +74,13 @@
 
 	<TextView
 	    android:id="@+id/price"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
+	    android:layout_width="200dp"
+	    android:layout_height="40dp"
 	    android:layout_alignBottom="@+id/img"
 	    android:layout_alignLeft="@+id/title"
-	    android:background="@color/fontcolor"
-		style="@style/customButton"
-	    android:text="成团价：¥75"
+	    android:background="@drawable/price_bg"
+		android:gravity="center"
+	    android:text="@null"
 	    android:textColor="@color/white"
 	    android:textSize="16sp" />
 

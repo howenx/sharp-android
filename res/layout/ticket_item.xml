@@ -11,12 +11,20 @@
         android:layout_width="wrap_content"
         android:scaleType="fitXY"
         />
+    <TextView 
+        android:id="@+id/cat"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="全场通用"
+        android:textSize="16sp"
+        android:textColor="@color/white"/>
     <LinearLayout 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="center_vertical">
-    
     <TextView 
         android:id="@+id/limit"
         android:paddingLeft="15dp"

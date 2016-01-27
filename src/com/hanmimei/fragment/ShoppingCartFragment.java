@@ -257,6 +257,7 @@ public class ShoppingCartFragment extends Fragment implements OnClickListener,
 		check_all.setOnClickListener(this);
 		pay.setOnClickListener(this);
 		go_home.setOnClickListener(this);
+		reload.setOnClickListener(this);
 	}
 
 	private void doPrice() {
