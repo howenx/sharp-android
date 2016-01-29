@@ -9,8 +9,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -32,17 +30,16 @@ import com.hanmimei.entity.PinDetail;
 import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.StockVo;
-import com.hanmimei.entity.StockVo.PinPriceRule;
 import com.hanmimei.listener.GoodsPageChangeListener;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
-import com.hanmimei.view.ListViewDialog;
 import com.hanmimei.view.NetworkImageHolderView;
 
-public class PingouDetailActivity extends BaseActivity implements OnClickListener {
+public class PingouDetailActivity extends BaseActivity implements
+		OnClickListener {
 
 	private ScrollableLayout mScrollLayout;
 	private ConvenientBanner<ImgInfo> slider;
@@ -68,7 +65,6 @@ public class PingouDetailActivity extends BaseActivity implements OnClickListene
 				getLoading().dismiss();
 				detail = new Gson().fromJson(result, PinDetail.class);
 				if (detail.getMessage().getCode() == 200) {
-					mScrollLayout.canScroll();
 					initFragmentPager(detail.getMain());
 					initGoodsDetail(detail.getStock());
 				} else {
@@ -96,8 +92,10 @@ public class PingouDetailActivity extends BaseActivity implements OnClickListene
 				CommonUtil.getScreenWidth(this),
 				CommonUtil.getScreenWidth(this));
 		view.setLayoutParams(lp);
-
+//		btn_pin_01 = findViewById(R.id.btn_pin_01);
+//		btn_pin_02 = findViewById(R.id.btn_pin_02);
 		findViewById(R.id.wanfaView).setOnClickListener(this);
+		findViewById(R.id.back_top).setOnClickListener(this);
 		findViewById(R.id.btn_buy_01).setOnClickListener(this);
 		findViewById(R.id.btn_buy_02).setOnClickListener(this);
 		findViewById(R.id.btn_pin_01).setOnClickListener(this);
@@ -106,6 +104,8 @@ public class PingouDetailActivity extends BaseActivity implements OnClickListene
 	}
 
 	private void initGoodsDetail(StockVo stock) {
+		if(stock == null)
+			return;
 		initSliderImage(stock.getItemPreviewImgsForList());
 		TextView pinTitle = (TextView) findViewById(R.id.pinTitle);
 		TextView soldAmount = (TextView) findViewById(R.id.soldAmount);
@@ -115,9 +115,9 @@ public class PingouDetailActivity extends BaseActivity implements OnClickListene
 
 		pinTitle.setText(stock.getPinTitle());
 		soldAmount.setText("已售：" + stock.getSoldAmount() + "件");
-		item_src_price.setText(stock.getPinSrcPrice().getPrice() + "/件");
-		pin_price.setText("低至" + stock.getFloorPrice().getPrice() + "/件");
-		pin_per_num.setText(stock.getFloorPrice().getPerson_num() + "人成团");
+		item_src_price.setText(stock.getOnePersonPinTieredPrice().getPrice() + "/件");
+		pin_price.setText(stock.getFloorPrice().getPrice() + "/件起");
+		pin_per_num.setText("最高" + stock.getFloorPrice().getPeopleNum() + "人团");
 
 	}
 
@@ -141,7 +141,7 @@ public class PingouDetailActivity extends BaseActivity implements OnClickListene
 
 	@Override
 	public void onClick(View v) {
-		if(detail == null)
+		if (detail == null)
 			return;
 		switch (v.getId()) {
 		case R.id.wanfaView:
@@ -156,9 +156,9 @@ public class PingouDetailActivity extends BaseActivity implements OnClickListene
 			break;
 		case R.id.btn_pin_01:
 		case R.id.btn_pin_02:
-			showListDialog(detail.getStock());
+			showEasyDialog(detail.getStock());
 			break;
-			
+
 		default:
 			break;
 		}
@@ -166,6 +166,9 @@ public class PingouDetailActivity extends BaseActivity implements OnClickListene
 	}
 
 	private void initFragmentPager(MainVo main) {
+		if(main == null)
+			return;
+		mScrollLayout.canScroll();
 		List<String> titles = new ArrayList<String>();
 		titles.add("图文详情");
 		titles.add("商品参数");
@@ -240,18 +243,18 @@ public class PingouDetailActivity extends BaseActivity implements OnClickListene
 			sgoods.setGoodsImg(s.getInvImgForObj().getUrl());
 			sgoods.setGoodsName(s.getPinTitle());
 			sgoods.setGoodsNums(1);
-			sgoods.setGoodsPrice(s.getPinSrcPrice().getPrice().doubleValue());
+//			sgoods.setGoodsPrice(s.getPinSrcPrice().getPrice().doubleValue());
 			sgoods.setInvArea(s.getInvArea());
 			sgoods.setInvAreaNm(s.getInvAreaNm());
 			sgoods.setInvCustoms(s.getInvCustoms());
 			sgoods.setPostalTaxRate(s.getPostalTaxRate());
 			sgoods.setPostalStandard(s.getPostalStandard());
-		} else if(s.getStatus().equals("P")){
+		} else if (s.getStatus().equals("P")) {
 			ToastUtils.Toast(this, "尚未开售");
 			return;
-		}else{
+		} else {
 			ToastUtils.Toast(this, "活动已结束");
-			return ;
+			return;
 		}
 		customs.addShoppingGoods(sgoods);
 		customs.setInvArea(sgoods.getInvArea());
@@ -263,62 +266,11 @@ public class PingouDetailActivity extends BaseActivity implements OnClickListene
 		intent.putExtra("car", car);
 		startActivity(intent);
 	}
-	
-	private void showListDialog(StockVo stock){
-		new ListViewDialog.Builder(this).setIconView(stock.getInvImgForObj().getUrl()).setTitle(stock.getPinTitle())
-													.setAdapter(new ListDialogAdapter(stock.getPinPriceRule())).show();
-		
-	}
-	
-	private class ListDialogAdapter extends BaseAdapter{
 
-		private List<PinPriceRule> datas;
-		
-		public ListDialogAdapter(List<PinPriceRule> datas) {
-			this.datas = datas;
-		}
-
-		@Override
-		public int getCount() {
-			return datas.size();
-		}
-
-		@Override
-		public Object getItem(int position) {
-			return datas.get(position);
-		}
-
-		@Override
-		public long getItemId(int position) {
-			return position;
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			ViewHolder holder = null;
-			if(convertView == null){
-				convertView = getLayoutInflater().inflate(R.layout.dialog_list_item_layout, null);
-				holder = new ViewHolder(convertView);
-				convertView.setTag(holder);
-			}else{
-				holder = (ViewHolder) convertView.getTag();
-			}
-			holder.pin.setText(datas.get(position).getPerson_num()+"人团");
-			holder.price.setText(datas.get(position).getPrice()+"元");
-			return convertView;
-		}
-		
-		private class ViewHolder{
-			TextView pin,price;
-
-			public ViewHolder(View convertView) {
-				super();
-				this.pin = (TextView) convertView.findViewById(R.id.pinView);
-				this.price = (TextView) convertView.findViewById(R.id.pinPriceView);
-			}
-			
-		}
-		
+	private void showEasyDialog(StockVo stock) {
+		Intent intent = new Intent(this, PingouDetailSelActivity.class);
+		intent.putExtra("stock", stock);
+		startActivity(intent);
 	}
 
 }

@@ -16,6 +16,7 @@ import android.view.View.OnClickListener;
 import android.webkit.JavascriptInterface;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -25,14 +26,17 @@ import com.hanmimei.entity.OrderInfo;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.ToastUtils;
+import com.hanmimei.view.ProgressWebView;
 import com.hanmimei.view.ProgressWebView2;
 import com.umeng.analytics.MobclickAgent;
 
 public class OrderSubmitActivity extends BaseActivity {
 
-	private ProgressWebView2 mWebView;
+	private ProgressWebView mWebView;
 	private Date startTime; // 创建页面时间，用于标志页面过期的起始时间
 	private boolean isSuccess = false;
+
+	Map<String, String> extraHeaders;
 
 	// private Date endTime;
 
@@ -48,11 +52,17 @@ public class OrderSubmitActivity extends BaseActivity {
 				"orderInfo");
 
 		startTime = new Date();
-		mWebView = (ProgressWebView2) findViewById(R.id.mWebView);
-
+		mWebView = (ProgressWebView) findViewById(R.id.mWebView);
 		mWebView.getSettings().setJavaScriptEnabled(true);
 
+		// 获取用户token 添加到header中
+		extraHeaders = new HashMap<String, String>();
+		extraHeaders.put("id-token", getUser().getToken());
+
+//		mWebView.loadUrl("https://www.baidu.com/",extraHeaders);
+
 		mWebView.setWebViewClient(new WebViewClient() {
+
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
 				if (isOverdue(startTime, new Date())) {
@@ -60,45 +70,42 @@ public class OrderSubmitActivity extends BaseActivity {
 					startActivity(new Intent(getActivity(),
 							MyOrderActivity.class));
 					finish();
-					return true;
+				} else {
+					view.loadUrl(url, extraHeaders);
 				}
-				return false;
+				return true;
 			}
-
 		});
+//		
+//		
+		mWebView.loadUrl(UrlUtil.CLIENT_PAY_ORDER_GET
+				 + orderInfo.getOrder().getOrderId(), extraHeaders);
 
 		mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+		mWebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
 		mWebView.setWebChromeClient(new NewWebChromeClient());
-
-		// 获取用户token 添加到header中
-		Map<String, String> extraHeaders = new HashMap<String, String>();
-		extraHeaders.put("id-token", getUser().getToken());
-		mWebView.loadUrl(UrlUtil.CLIENT_PAY_ORDER_GET
-				+ orderInfo.getOrder().getOrderId(), extraHeaders);
-
 		// 添加js交互
 		mWebView.addJavascriptInterface(new JavaScriptInterface(this),
 				"handler");
 
 	}
-
+	
+	
 	private class NewWebChromeClient extends WebChromeClient {
 
 		@Override
-        public void onProgressChanged(WebView view, int newProgress) {
-        	Log.i("newProgress", newProgress+"");
-            if (newProgress >= 100) {
-            	mWebView.getProgressBar().setVisibility(View.GONE);
-            } else {
-                if (mWebView.getProgressBar().getVisibility() == View.GONE)
-                	mWebView.getProgressBar().setVisibility(View.VISIBLE);
-                mWebView.getProgressBar().setProgress(newProgress);
-            }
-            super.onProgressChanged(view, newProgress);
-        }
-		
-		
-		
+		public void onProgressChanged(WebView view, int newProgress) {
+			Log.i("newProgress", newProgress + "");
+			if (newProgress >= 100) {
+				mWebView.getProgressBar().setVisibility(View.GONE);
+			} else {
+				if (mWebView.getProgressBar().getVisibility() == View.GONE)
+					mWebView.getProgressBar().setVisibility(View.VISIBLE);
+				mWebView.getProgressBar().setProgress(newProgress);
+			}
+			super.onProgressChanged(view, newProgress);
+		}
+
 		@Override
 		public boolean onJsAlert(WebView view, String url, String message,
 				final JsResult result) {
@@ -179,6 +186,18 @@ public class OrderSubmitActivity extends BaseActivity {
 		public void clearHistory() {
 			isSuccess = true;
 			mWebView.clearHistory();
+		}
+		
+		@JavascriptInterface
+		public void loadurl(String url) {
+			if (isOverdue(startTime, new Date())) {
+				ToastUtils.Toast(getActivity(), "页面过期");
+				startActivity(new Intent(getActivity(),
+						MyOrderActivity.class));
+				finish();
+			} else {
+				mWebView.loadUrl(url, extraHeaders);
+			}
 		}
 	}
 

@@ -1,96 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/white_corner_bg"
-    android:gravity="center_vertical"
-    android:orientation="vertical"
-    android:padding="10dp" >
+    card_view:cardBackgroundColor="@color/white"
+    card_view:cardCornerRadius="5dp" >
 
-    <ImageView
-        android:id="@+id/icon"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:src="@drawable/icon_ad"
-        android:visibility="invisible"
-        android:contentDescription="@null" />
-
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@id/icon"
-        android:text="@null"
-        android:textColor="@color/fontcolor"
-        android:textSize="14sp" />
-
-    <TextView
-        android:id="@+id/phone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/name"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_toRightOf="@id/icon"
-        android:gravity="center"
-        android:text="@null"
-        android:textColor="@color/fontcolor"
-        android:textSize="14sp" />
-
-    <TextView
-        android:id="@+id/idCard"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/phone"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_toRightOf="@id/icon"
-        android:text="@null"
-        android:textColor="@color/fontcolor"
-        android:textSize="14sp" />
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:padding="10dp" >
 
-    <TextView
-        android:id="@+id/adress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/idCard"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_toRightOf="@id/icon"
-        android:text="@null"
-        android:textColor="@color/fontcolor"
-        android:textSize="14sp" />
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:contentDescription="@null"
+            android:src="@drawable/icon_ad"
+            android:visibility="invisible" />
 
-    <ImageView
-        android:id="@+id/isSelected"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:visibility="gone"
-        android:src="@drawable/icon_theme_check"
-        android:contentDescription="@null" />
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/icon"
+            android:text="@null"
+            android:textColor="@color/fontcolor"
+            android:textSize="14sp" />
 
-    <TextView
-         android:id="@+id/isDefault"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/name"
-        android:layout_alignBottom="@+id/name"
-        android:layout_toRightOf="@id/name"
-        android:layout_marginLeft="10dp"
-        android:text="默认"
-        android:visibility="gone"
-        android:textColor="@color/red"
-        android:textSize="12sp" />
+        <TextView
+            android:id="@+id/phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/name"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/icon"
+            android:gravity="center"
+            android:text="@null"
+            android:textColor="@color/fontcolor"
+            android:textSize="14sp" />
 
-    <ImageView
-        android:id="@+id/btn_xiugai"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_alignRight="@+id/idCard"
-        android:layout_alignTop="@+id/name"
-        android:contentDescription="@null"
-        android:src="@drawable/hmm_address_xiugai" />
+        <TextView
+            android:id="@+id/idCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/phone"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/icon"
+            android:text="@null"
+            android:textColor="@color/fontcolor"
+            android:textSize="14sp" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/adress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/idCard"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/icon"
+            android:text="@null"
+            android:textColor="@color/fontcolor"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/isSelected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:contentDescription="@null"
+            android:src="@drawable/icon_theme_check"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/isDefault"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/name"
+            android:layout_alignBottom="@+id/name"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/name"
+            android:text="默认"
+            android:textColor="@color/red"
+            android:textSize="12sp"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/btn_xiugai"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignRight="@+id/idCard"
+            android:layout_alignTop="@+id/name"
+            android:contentDescription="@null"
+            android:src="@drawable/hmm_address_xiugai" />
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

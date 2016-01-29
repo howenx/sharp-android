@@ -1,13 +1,6 @@
 package com.hanmimei.entity;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 public class GoodsDetail {
 	private MainVo main;
