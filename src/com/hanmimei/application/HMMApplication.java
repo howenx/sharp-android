@@ -149,4 +149,5 @@ public class HMMApplication extends Application {
 	public void setKouling(String kouling) {
 		this.kouling = kouling;
 	}
+	
 }

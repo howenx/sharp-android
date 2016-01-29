@@ -47,7 +47,6 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 	private MainBroadCastReceiver netReceiver;
 	private FragmentTabHost mTabHost;
 	private LinearLayout guanggao;
-//	private HMMApplication application;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -76,8 +75,6 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 				sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UP_HOME_ACTION));
 			}
 		});
-//		application = (HMMApplication) getApplication();
-//		application.setKouling("复制这条信息，打开👉韩秘美👈即可看到【(拼)正品篮球鞋，团购仅需1999，杜兰特款。】10005  🔑秘美令 🔑");
 	}
 
 	@Override
@@ -170,6 +167,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 				mExitTime = System.currentTimeMillis();
 
 			} else {
+				setClipboard();
 				MobclickAgent.onKillProcess(this);
 				finish();
 				System.exit(0);

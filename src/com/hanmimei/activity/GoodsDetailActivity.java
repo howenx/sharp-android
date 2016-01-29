@@ -137,7 +137,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 		findViewById(R.id.btn_add_shopcart).setOnClickListener(this);
 		findViewById(R.id.btn_portalFee).setOnClickListener(this);
 		findViewById(R.id.back_top).setOnClickListener(this);
-		findViewById(R.id.copy).setOnClickListener(this);
 		findViewById(R.id.reload).setOnClickListener(this);
 		btn_collect.setOnClickListener(this);
 
@@ -337,9 +336,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 	}
 
 	private void doCopy() {
+		String code[] = detail.getCurrentStock().getInvUrl().split("web");
 		HMMApplication application = (HMMApplication) getApplication();
-		application.setKouling("");
-		
+		application.setKouling("KAKAO-HMM 复制这条信息，打开👉韩秘美👈即可看到【" +  detail.getCurrentStock().getInvTitle() +"】" +  code[1] + " --🔑 M令 🔑");
 	}
 
 	/**
@@ -514,6 +513,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		view.findViewById(R.id.weixin).setOnClickListener(this);
 		view.findViewById(R.id.weixinq).setOnClickListener(this);
 		view.findViewById(R.id.sina).setOnClickListener(this);
+		view.findViewById(R.id.copy).setOnClickListener(this);
 		Config.OpenEditor = true;
 		shareStock = detail.getCurrentStock();
 

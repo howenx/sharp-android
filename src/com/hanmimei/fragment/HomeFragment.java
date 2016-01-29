@@ -53,7 +53,7 @@ import com.umeng.analytics.MobclickAgent;
 
 @SuppressLint({ "NewApi", "InflateParams" })
 public class HomeFragment extends Fragment implements
-		OnRefreshListener2<ListView>,OnClickListener ,OnScrollListener{
+		OnRefreshListener2<ListView>, OnClickListener, OnScrollListener {
 	private LayoutInflater inflater;
 	private PullToRefreshListView mListView;
 	private HomeAdapter adapter;
@@ -72,10 +72,8 @@ public class HomeFragment extends Fragment implements
 	private RelativeLayout back_top;
 	private LinearLayout no_net;
 	private TextView reload;
-	
-	
-	private int pullNum = 1;
 
+	private int pullNum = 1;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -90,7 +88,7 @@ public class HomeFragment extends Fragment implements
 		sliderDao = mActivity.getDaoSession().getSliderDao();
 		registerReceivers();
 	}
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -118,23 +116,25 @@ public class HomeFragment extends Fragment implements
 		findHeaderView();
 		loadData();
 		addHeaderView();
-//		addView();
+		// addView();
 		return view;
 	}
 
 	private void findHeaderView() {
 		headerView = inflater.inflate(R.layout.home_header_slider_layout, null);
 		headerView.setVisibility(View.GONE);
-		LinearLayout header_linear = (LinearLayout) headerView.findViewById(R.id.header_linear);
+		LinearLayout header_linear = (LinearLayout) headerView
+				.findViewById(R.id.header_linear);
 		// 图片的比例适配
 		DisplayMetrics dm = new DisplayMetrics();
 		getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
 		int screenWidth = dm.widthPixels;
 		int width = screenWidth;
-		int height = width * 2 /5 ;
-		AbsListView.LayoutParams lp = new AbsListView.LayoutParams(width, height);
+		int height = width * 2 / 5;
+		AbsListView.LayoutParams lp = new AbsListView.LayoutParams(width,
+				height);
 		header_linear.setLayoutParams(lp);
-		
+
 		cycleViewPager = (CycleViewPager) getActivity().getFragmentManager()
 				.findFragmentById(R.id.fragment_cycle_viewpager_content);
 	}
@@ -189,17 +189,18 @@ public class HomeFragment extends Fragment implements
 		getNetData();
 
 	}
+
 	// 加载网络数据
 	private void getNetData() {
-		if(isUpOrDwom == 0)
+		if (isUpOrDwom == 0)
 			mActivity.getLoading().show();
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				try {
 					Thread.sleep(1000);
-					String result = HttpUtils
-							.get(UrlUtil.HOME_LIST_URL + pageIndex);
+					String result = HttpUtils.get(UrlUtil.HOME_LIST_URL
+							+ pageIndex);
 					Home home = DataParser.parserHomeData(result);
 					Message msg;
 					if (isUpOrDwom == 0) {
@@ -216,37 +217,37 @@ public class HomeFragment extends Fragment implements
 		}).start();
 	}
 
-
 	private void afterLoadData(Home home, boolean isNew) {
 		List<Theme> list = home.getThemes();
 		List<Slider> sliders = home.getSliders();
 		if ((list != null && list.size() > 0)) {
-			if(isNew){
+			if (isNew) {
 				data.clear();
 				data.addAll(list);
 				themeDao.deleteAll();
 				themeDao.insertInTx(data);
-			}else{
+			} else {
 				themeDao.insertInTx(list);
 				data.addAll(list);
 			}
 			adapter.notifyDataSetChanged();
-			if(isNew)
+			if (isNew)
 				mListView.getRefreshableView().setSelection(0);
 		}
-		if(sliders != null && sliders.size() > 0){
+		if (sliders != null && sliders.size() > 0) {
 			sliderDao.deleteAll();
 			sliderDao.insertInTx(sliders);
 			dataSliders.clear();
 			dataSliders.addAll(sliders);
 			initHeaderView();
 		}
-		if(home.getPage_count() <= pullNum){
+		if (home.getPage_count() <= pullNum) {
 			mListView.setMode(Mode.DISABLED);
-		}else{
+		} else {
 			mListView.setMode(Mode.PULL_UP_TO_REFRESH);
 		}
 	}
+
 	private Handler mHandler = new Handler() {
 
 		@Override
@@ -257,15 +258,16 @@ public class HomeFragment extends Fragment implements
 				mActivity.getLoading().dismiss();
 				mListView.onRefreshComplete();
 				Home home = (Home) msg.obj;
-				if(home.gethMessage() != null){
+				if (home.gethMessage() != null) {
 					mListView.setVisibility(View.VISIBLE);
 					no_net.setVisibility(View.GONE);
-					if(home.gethMessage().getCode() == 200){
-						afterLoadData(home,true);
-					}else{
-						ToastUtils.Toast(mActivity, home.gethMessage().getMessage());
+					if (home.gethMessage().getCode() == 200) {
+						afterLoadData(home, true);
+					} else {
+						ToastUtils.Toast(mActivity, home.gethMessage()
+								.getMessage());
 					}
-				}else{
+				} else {
 					mListView.setVisibility(View.GONE);
 					no_net.setVisibility(View.VISIBLE);
 				}
@@ -273,21 +275,24 @@ public class HomeFragment extends Fragment implements
 			case 2:
 				mListView.onRefreshComplete();
 				Home home2 = (Home) msg.obj;
-				if(home2.gethMessage() != null){
+				if (home2.gethMessage() != null) {
 					mListView.setVisibility(View.VISIBLE);
 					no_net.setVisibility(View.GONE);
-					if(home2.gethMessage().getCode() == 200){
+					if (home2.gethMessage().getCode() == 200) {
 						pullNum = pullNum + 1;
-						afterLoadData(home2,false);
-						ToastUtils.Toast(mActivity, "小美为您加载了 " + home2.getThemes().size() + " 条新数据");
-					}else{
-						ToastUtils.Toast(mActivity, home2.gethMessage().getMessage());
+						afterLoadData(home2, false);
+						ToastUtils.Toast(mActivity, "小美为您加载了 "
+								+ home2.getThemes().size() + " 条新数据");
+					} else {
+						ToastUtils.Toast(mActivity, home2.gethMessage()
+								.getMessage());
 					}
-				}else{
+				} else {
 					mListView.setVisibility(View.GONE);
 					no_net.setVisibility(View.VISIBLE);
 				}
 				break;
+			
 			default:
 				break;
 			}
@@ -322,6 +327,7 @@ public class HomeFragment extends Fragment implements
 			}
 		}
 	}
+
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -337,27 +343,29 @@ public class HomeFragment extends Fragment implements
 			break;
 		}
 	}
+
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem,
 			int visibleItemCount, int totalItemCount) {
 		// TODO Auto-generated method stub
-		
+
 	}
+
 	@Override
 	public void onScrollStateChanged(AbsListView view, int scrollState) {
 		switch (scrollState) {
-		case SCROLL_STATE_IDLE:  //屏幕停止滚动
+		case SCROLL_STATE_IDLE: // 屏幕停止滚动
 			// 判断滚动到顶部
-			if(mListView.getRefreshableView().getFirstVisiblePosition() <= 4){
+			if (mListView.getRefreshableView().getFirstVisiblePosition() <= 4) {
 				back_top.setVisibility(View.GONE);
-			}else{
+			} else {
 				back_top.setVisibility(View.VISIBLE);
 			}
 			break;
-		case SCROLL_STATE_TOUCH_SCROLL:      // 滚动时
-			if(mListView.getRefreshableView().getFirstVisiblePosition() <= 4){
+		case SCROLL_STATE_TOUCH_SCROLL: // 滚动时
+			if (mListView.getRefreshableView().getFirstVisiblePosition() <= 4) {
 				back_top.setVisibility(View.GONE);
-			}else{
+			} else {
 				back_top.setVisibility(View.VISIBLE);
 			}
 			break;
@@ -365,41 +373,46 @@ public class HomeFragment extends Fragment implements
 			break;
 		}
 	}
-	private MyBroadCastReceiver myReceiver;
-	// 广播接收者 注册
-		private void registerReceivers() {
-			myReceiver = new MyBroadCastReceiver();
-			IntentFilter intentFilter = new IntentFilter();
-			intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_UP_HOME_ACTION);
-			getActivity().registerReceiver(myReceiver, intentFilter);
-		}
-		private class MyBroadCastReceiver extends BroadcastReceiver {
 
-			@Override
-			public void onReceive(Context context, Intent intent) {
-				if (intent.getAction().equals(
-						AppConstant.MESSAGE_BROADCAST_UP_HOME_ACTION)) {
-					pageIndex = 1;
-					isUpOrDwom = 0;
-					pullNum = 1;
-					loadData();
-				}
+	private MyBroadCastReceiver myReceiver;
+
+	// 广播接收者 注册
+	private void registerReceivers() {
+		myReceiver = new MyBroadCastReceiver();
+		IntentFilter intentFilter = new IntentFilter();
+		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_UP_HOME_ACTION);
+		getActivity().registerReceiver(myReceiver, intentFilter);
+	}
+
+	private class MyBroadCastReceiver extends BroadcastReceiver {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			if (intent.getAction().equals(
+					AppConstant.MESSAGE_BROADCAST_UP_HOME_ACTION)) {
+				pageIndex = 1;
+				isUpOrDwom = 0;
+				pullNum = 1;
+				loadData();
 			}
 		}
+	}
 
 	@Override
-		public void onDestroy() {
-			// TODO Auto-generated method stub
-			super.onDestroy();
-			getActivity().unregisterReceiver(myReceiver);
-		}
-	public void onResume() {
-	    super.onResume();
-	    MobclickAgent.onPageStart("HomeFragment"); //统计页面，"MainScreen"为页面名称，可自定义
+	public void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		getActivity().unregisterReceiver(myReceiver);
 	}
+
+	public void onResume() {
+		super.onResume();
+		MobclickAgent.onPageStart("HomeFragment"); // 统计页面，"MainScreen"为页面名称，可自定义
+	}
+
 	public void onPause() {
-	    super.onPause();
-	    MobclickAgent.onPageEnd("HomeFragment"); 
+		super.onPause();
+		MobclickAgent.onPageEnd("HomeFragment");
 	}
 
 }
