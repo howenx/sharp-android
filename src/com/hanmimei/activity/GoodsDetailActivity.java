@@ -137,7 +137,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		findViewById(R.id.btn_add_shopcart).setOnClickListener(this);
 		findViewById(R.id.btn_portalFee).setOnClickListener(this);
 		findViewById(R.id.back_top).setOnClickListener(this);
-		findViewById(R.id.copy).setOnClickListener(this);
+		
 		findViewById(R.id.reload).setOnClickListener(this);
 		btn_collect.setOnClickListener(this);
 
@@ -514,6 +514,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		view.findViewById(R.id.weixin).setOnClickListener(this);
 		view.findViewById(R.id.weixinq).setOnClickListener(this);
 		view.findViewById(R.id.sina).setOnClickListener(this);
+		view.findViewById(R.id.copy).setOnClickListener(this);
 		Config.OpenEditor = true;
 		shareStock = detail.getCurrentStock();
 
@@ -642,20 +643,25 @@ public class GoodsDetailActivity extends BaseActivity implements
 			ToastUtils.Toast(this, detail.getMessage().getMessage());
 			return;
 		}
-		mScrollLayout.canScroll();
 		findViewById(R.id.no_net).setVisibility(View.GONE);
 		// 主详情
 		// 子商品信息
 		TextView publicity = (TextView) findViewById(R.id.publicity); // 优惠信息
 																		// /购物车数量
-		publicity.setText(detail.getMain().getPublicity());
+		if(detail.getMain() != null){
+			publicity.setText(detail.getMain().getPublicity());
+			mScrollLayout.canScroll();
+		}
 
 		initGoodsInfo();
 		initShopcartNum();
 		initFragmentPager(detail.getMain());
+		
 	}
 
 	private void initFragmentPager(MainVo main) {
+		if(main == null)
+			return;
 		List<String> titles = new ArrayList<String>();
 		titles.add("图文详情");
 		titles.add("商品参数");
@@ -714,6 +720,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private int postalStandard;// 关税收费标准
 
 	private void initGoodsInfo() {
+		if(detail.getStock() == null)
+			return;
 		StockVo stock = null;
 		List<Tag> tags = new ArrayList<Tag>();
 		for (StockVo s : detail.getStock()) {
@@ -727,6 +735,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 	}
 
 	private void initTags(List<Tag> tags) {
+		if(tags.size()>0)
+			return;
 		TagCloudView tagCloudView = (TagCloudView) findViewById(R.id.tagCloudView);// 规格标签控件
 		// 初始化规格显示
 		// tagCloudView.removeAllViews();
@@ -758,6 +768,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 	 */
 
 	private void initStocks(StockVo s) {
+		if(s == null)
+			return;
 		initSliderImage(s);
 		String zhe = "";
 		if (s.getItemDiscount().floatValue() > 0) {

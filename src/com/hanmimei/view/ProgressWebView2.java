@@ -1,13 +1,10 @@
 package com.hanmimei.view;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ProgressBar;
 
 import com.daimajia.numberprogressbar.NumberProgressBar;
 import com.hanmimei.R;
@@ -20,6 +17,7 @@ import com.hanmimei.R;
 public class ProgressWebView2 extends WebView {
 
     private NumberProgressBar progressbar;
+    private WebViewClient mWebViewClient;
    
     
     public ProgressWebView2(Context context){
@@ -38,6 +36,7 @@ public class ProgressWebView2 extends WebView {
         progressbar.setReachedBarColor(getResources().getColor(R.color.theme));
         progressbar.setProgressTextColor(getResources().getColor(R.color.theme));
         addView(progressbar);
+        setWebViewClient(new WebViewClient(){});
     }
 
     public class HWebChromeClient extends android.webkit.WebChromeClient {
@@ -59,6 +58,15 @@ public class ProgressWebView2 extends WebView {
     	return progressbar;
     }
     
+    
+    
+
+	@Override
+	public void setWebViewClient(WebViewClient client) {
+		super.setWebViewClient(client);
+		this.mWebViewClient = client;
+		
+	}
 
 	@Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {

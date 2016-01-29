@@ -1,12 +1,11 @@
 package com.hanmimei.utils;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.WindowManager.LayoutParams;
 import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
 
@@ -19,11 +18,14 @@ public class PopupWindowUtil {
 	 * 
 	 * @param contentView
 	 */
-
 	public static PopupWindow showPopWindow(final Context context, View contentView) {
+		return showPopWindow(context, contentView,ViewGroup.LayoutParams.WRAP_CONTENT);
+	}
+
+	public static PopupWindow showPopWindow(final Context context, View contentView,int height) {
 		// 创建一个popupwindow
 		PopupWindow popWindow = new PopupWindow(contentView,
-				LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+				ViewGroup.LayoutParams.MATCH_PARENT, height);
 
 		popWindow.setAnimationStyle(R.style.popwindow_anim_style);
 		// 获取光标

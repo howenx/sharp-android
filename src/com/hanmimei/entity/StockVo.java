@@ -3,12 +3,14 @@ package com.hanmimei.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-public class StockVo {
+public class StockVo implements Serializable{
 	private Integer id;
 	private String itemColor;
 	private String itemSize;
@@ -33,7 +35,7 @@ public class StockVo {
 	private String pinTitle; // 拼购商品标题
 	private String startAt; // 开始时间
 	private String endAt;// 结束时间
-	private String pinPriceRule; // 价格阶梯
+	private List<PinTieredPrice> pinTieredPrices; // 价格阶梯
 	private String floorPrice; // 拼购最低价
 	private String pinDiscount;// 拼购最低折扣
 	private String pinRedirectUrl;// 拼购跳转链接
@@ -78,28 +80,6 @@ public class StockVo {
 		this.endAt = endAt;
 	}
 
-	public List<PinPriceRule> getPinPriceRule() {
-		return new Gson().fromJson(pinPriceRule,
-				new TypeToken<List<PinPriceRule>>() {
-				}.getType());
-	}
-	
-	public PinPriceRule getPinSrcPrice(){
-		for(PinPriceRule p : getPinPriceRule()){
-			if(p.getPerson_num() == 1){
-				return p;
-			}
-		}
-		return  null;
-	}
-
-	public void setPinPriceRule(String pinPriceRule) {
-		this.pinPriceRule = pinPriceRule;
-	}
-
-	public PinPriceRule getFloorPrice() {
-		return new Gson().fromJson(floorPrice, PinPriceRule.class);
-	}
 
 	public void setFloorPrice(String floorPrice) {
 		this.floorPrice = floorPrice;
@@ -111,6 +91,24 @@ public class StockVo {
 
 	public void setPinDiscount(String pinDiscount) {
 		this.pinDiscount = pinDiscount;
+	}
+	
+
+	public List<PinTieredPrice> getPinTieredPrices() {
+		Collections.sort(pinTieredPrices,new Comparator<PinTieredPrice>(){
+            public int compare(PinTieredPrice arg0, PinTieredPrice arg1) {
+                return arg1.getPeopleNum().compareTo(arg0.getPeopleNum());
+            }
+        });
+		return pinTieredPrices;
+	}
+
+	public void setPinTieredPrices(List<PinTieredPrice> pinTieredPrices) {
+		this.pinTieredPrices = pinTieredPrices;
+	}
+
+	public PinTieredPrice getFloorPrice() {
+		return new Gson().fromJson(floorPrice, PinTieredPrice.class);
 	}
 
 	public String getPinRedirectUrl() {
@@ -342,25 +340,13 @@ public class StockVo {
 	public void setRestAmount(Integer restAmount) {
 		this.restAmount = restAmount;
 	}
-
-	public class PinPriceRule implements Serializable {
-		private int person_num;
-		private BigDecimal price;
-
-		public int getPerson_num() {
-			return person_num;
+	
+	public PinTieredPrice getOnePersonPinTieredPrice(){
+		for(PinTieredPrice p : getPinTieredPrices()){
+			if(p.getPeopleNum() == 1)
+				return p;
 		}
-
-		public void setPerson_num(int person_num) {
-			this.person_num = person_num;
-		}
-
-		public BigDecimal getPrice() {
-			return price;
-		}
-
-		public void setPrice(BigDecimal price) {
-			this.price = price;
-		}
+		return null;
 	}
+
 }

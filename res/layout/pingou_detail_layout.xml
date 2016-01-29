@@ -207,6 +207,7 @@
                 android:text="立即开团"
                 android:textColor="@color/btn_font_selector"
                 android:textSize="14sp" />
+
             <TextView
                 android:id="@+id/btn_buy_02"
                 android:layout_width="0dp"

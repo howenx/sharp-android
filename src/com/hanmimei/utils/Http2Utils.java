@@ -97,7 +97,7 @@ public class Http2Utils {
 
 						@Override
 						public void onResponse(String arg0) {
-							Log.i("http-result", arg0);
+//							Log.i("http-result", arg0);
 							callback.onSuccess(arg0);
 						}
 					}, new ErrorListener() {
@@ -147,7 +147,7 @@ public class Http2Utils {
 
 						@Override
 						public void onResponse(String arg0) {
-							Log.i("http-result", arg0);
+//							Log.i("http-result", arg0);
 							callback.onSuccess(arg0);
 						}
 					}, new ErrorListener() {

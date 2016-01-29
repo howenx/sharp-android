@@ -150,8 +150,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 							+ "元");
 					car.setDenomination(new BigDecimal(btn.getTag(
 							R.id.coupon_de).toString()));
-					orderSubmit.setCouponId(btn.getTag(R.id.coupon_id)
-							.toString());
+					orderSubmit.setCouponId(btn.getTag(R.id.coupon_id).toString());
 				}
 				youhui.setText(getResources().getString(R.string.price,
 						car.getDenomination()));
@@ -164,7 +163,6 @@ public class GoodsBalanceActivity extends BaseActivity implements
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.btn_pay_type:
 			if (group_pay_type.getVisibility() == View.VISIBLE) {

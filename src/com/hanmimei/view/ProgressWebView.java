@@ -23,7 +23,7 @@ public class ProgressWebView extends WebView {
     public ProgressWebView(Context context){
    	 super(context);
    	 	progressbar = new ProgressBar(context, null, android.R.attr.progressBarStyleHorizontal);
-        progressbar.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, 10, 0, 0));
+        progressbar.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, 5, 0, 0));
         Drawable draw =context.getResources().getDrawable(R.drawable.progress_bar_states);
         progressbar.setProgressDrawable(draw);
         addView(progressbar);
@@ -34,7 +34,7 @@ public class ProgressWebView extends WebView {
     public ProgressWebView(Context context, AttributeSet attrs) {
         super(context, attrs);
         progressbar = new ProgressBar(context, null,android.R.attr.progressBarStyleHorizontal);
-        progressbar.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,10, 0, 0));
+        progressbar.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,5, 0, 0));
         Drawable drawable = context.getResources().getDrawable(R.drawable.progress_bar_states); 
         progressbar.setProgressDrawable(drawable);
         addView(progressbar);
