@@ -27,7 +27,6 @@ public class HmmServiceActivity extends BaseActivity {
 				super.onPageFinished(view, url);
 				getLoading().dismiss();
 			}
-			
 		});
 	}
 

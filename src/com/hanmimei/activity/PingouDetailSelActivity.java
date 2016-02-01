@@ -3,6 +3,7 @@ package com.hanmimei.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -62,8 +63,9 @@ public class PingouDetailSelActivity extends BaseActivity {
 
 		public ListDialogAdapter(TextView btn_pin) {
 			datas = new ArrayList<PinTieredPrice>();
-			datas.addAll(stock.getPinTieredPrices());
-			datas.add(new PinTieredPrice());
+			datas.addAll(stock.getPinTieredPricesDatas());
+			if(datas.size()>0)
+				datas.get(0).setSelected(true);
 			this.btn_pin = btn_pin;
 		}
 
@@ -82,6 +84,7 @@ public class PingouDetailSelActivity extends BaseActivity {
 			return position;
 		}
 
+		@SuppressLint("InflateParams")
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			ViewHolder holder = null;
@@ -94,10 +97,15 @@ public class PingouDetailSelActivity extends BaseActivity {
 				holder = (ViewHolder) convertView.getTag();
 			}
 			final PinTieredPrice ppr = datas.get(position);
+			if(position == 0){
+				holder.tuijianView.setVisibility(View.VISIBLE);
+			}else{
+				holder.tuijianView.setVisibility(View.GONE);
+			}
 			holder.pin.setText("开团人数：" + ppr.getPeopleNum());
-			holder.price.setText("成团价：" + ppr.getPrice() + "元");
+			holder.price.setText("¥" + ppr.getPrice());
 			holder.manjianView.setText("团长特惠：开团立减"+ppr.getMasterCoupon()+"元");
-			holder.zengView.setText("团长特惠：立赠"+ppr.getMasterCoupon()+"元优惠券");
+			holder.zengView.setText("团长特惠：赠"+ppr.getMasterCoupon()+"元优惠券");
 			if (ppr.isSelected()) {
 				if(ppr.getMasterCoupon() != null){
 					holder.manjianView.setVisibility(View.VISIBLE);
@@ -105,6 +113,7 @@ public class PingouDetailSelActivity extends BaseActivity {
 				}else{
 					holder.manjianView.setVisibility(View.GONE);
 				}
+				
 				if(ppr.getMasterCoupon() != null){
 					holder.zengView.setVisibility(View.VISIBLE);
 					holder.img.setVisibility(View.VISIBLE);
@@ -114,7 +123,6 @@ public class PingouDetailSelActivity extends BaseActivity {
 				btn_pin.setText("立即开团("+ppr.getPrice()+"元 / "+ppr.getPeopleNum()+"人)");
 				btn_pin.setBackgroundResource(R.color.theme);
 				btn_pin.setOnClickListener(new OnClickListener() {
-					
 					@Override
 					public void onClick(View arg0) {
 						
@@ -134,7 +142,7 @@ public class PingouDetailSelActivity extends BaseActivity {
 		private class ViewHolder {
 			TextView pin, price;
 			TextView manjianView, zengView;
-			View contentView,img;
+			View contentView,img,tuijianView;
 			
 
 			public ViewHolder(View convertView) {
@@ -145,6 +153,7 @@ public class PingouDetailSelActivity extends BaseActivity {
 				this.zengView = (TextView) convertView.findViewById(R.id.zengView);
 				this.contentView = convertView.findViewById(R.id.contentView);
 				this.img = convertView.findViewById(R.id.img);
+				this.tuijianView = convertView.findViewById(R.id.tuijianView);
 			}
 		}
 	}

@@ -1,75 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/contentView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
-    android:padding="10dp" >
-
-    <LinearLayout
-        android:id="@+id/t1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical" >
-
-        <TextView
-            android:id="@+id/pinView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:textColor="@color/fontcolor"
-            android:textSize="14sp" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1" />
-
-        <TextView
-            android:id="@+id/pinPriceView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:text="111"
-            android:textColor="@color/fontcolor"
-            android:textSize="14sp" />
-    </LinearLayout>
+    android:background="@color/white" >
 
     <RelativeLayout
+        android:id="@+id/contentView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/t1"
-        android:layout_marginTop="5dp" >
+        android:padding="10dp" >
 
-        <ImageView
-            android:id="@+id/img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/hmm_hui" />
-
-        <TextView
-            android:id="@+id/manjianView"
+        <LinearLayout
+            android:id="@+id/t1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/img"
-            android:text="asdfasdfasdf"
-            android:layout_marginLeft="5dp"
-            android:textColor="@color/huise"
-            android:textSize="@dimen/font_small" />
+            android:gravity="center_vertical" >
 
-        <TextView
-            android:id="@+id/zengView"
+            <TextView
+                android:id="@+id/pinView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/fontcolor"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/pinPriceView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:text="111"
+                android:textColor="@color/fontcolor"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/manjianView"
-            android:layout_toRightOf="@id/img"
-            android:text="asdfasdfasdf"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="3dp"
-            android:textColor="@color/huise"
-            android:textSize="@dimen/font_small" />
+            android:layout_below="@id/t1"
+            android:layout_marginTop="5dp" >
 
+            <ImageView
+                android:id="@+id/img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/hmm_hui" />
+
+            <TextView
+                android:id="@+id/manjianView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/img"
+                android:text="asdfasdfasdf"
+                android:textColor="@color/huise"
+                android:textSize="@dimen/font_small" />
+
+            <TextView
+                android:id="@+id/zengView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/manjianView"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="3dp"
+                android:layout_toRightOf="@id/img"
+                android:text="asdfasdfasdf"
+                android:textColor="@color/huise"
+                android:textSize="@dimen/font_small" />
+        </RelativeLayout>
     </RelativeLayout>
 
-</RelativeLayout>
+    <ImageView
+        android:id="@+id/tuijianView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:src="@drawable/hmm_icon_tuijian" />
+
+</FrameLayout>

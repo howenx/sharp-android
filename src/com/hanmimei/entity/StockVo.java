@@ -102,6 +102,15 @@ public class StockVo implements Serializable{
         });
 		return pinTieredPrices;
 	}
+	public List<PinTieredPrice> getPinTieredPricesDatas() {
+		List<PinTieredPrice> list = new ArrayList<PinTieredPrice>();
+		for(PinTieredPrice p :getPinTieredPrices()){
+			if(p.getPeopleNum() == 1)
+				continue;
+			list.add(p);
+		}
+		return list;
+	}
 
 	public void setPinTieredPrices(List<PinTieredPrice> pinTieredPrices) {
 		this.pinTieredPrices = pinTieredPrices;
