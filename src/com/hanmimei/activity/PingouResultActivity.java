@@ -9,6 +9,7 @@ import android.support.v7.widget.GridLayout;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,7 +25,7 @@ public class PingouResultActivity extends BaseActivity implements
 
 	private TimerTextView timer;
 	private ListView mListView;
-	private GridLayout gridlayout;
+	private GridView gridlayout;
 	private List<Member> members;
 
 	@Override
@@ -35,7 +36,7 @@ public class PingouResultActivity extends BaseActivity implements
 
 		timer = (TimerTextView) findViewById(R.id.timer);
 		mListView = (ListView) findViewById(R.id.mListView);
-		gridlayout = (GridLayout) findViewById(R.id.gridlayout);
+		gridlayout = (GridView) findViewById(R.id.gridlayout);
 		timer.setTimeEndListner(this);
 		long[] time = { 24, 0, 0 };
 		timer.setTimes(time, "拼购已经结束，请等待下次");
@@ -44,7 +45,7 @@ public class PingouResultActivity extends BaseActivity implements
 		initmembers();
 
 		mListView.setAdapter(new PinTuanListAdapter());
-//		mGridView.setAdapter(new PinTuanGridAdapter());
+		gridlayout.setAdapter(new PinTuanGridAdapter());
 	}
 
 	private void initmembers() {

@@ -74,13 +74,15 @@
                     android:src="@drawable/hmm_zutuan" />
             </RelativeLayout>
 
-            <android.support.v7.widget.GridLayout
+            <com.hanmimei.view.CustomGridView
                 android:id="@+id/gridlayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:columnCount="5"
-                app:orientation="horizontal">
-            </android.support.v7.widget.GridLayout>
+				android:horizontalSpacing="5dp"
+				android:numColumns="5"
+				android:verticalSpacing="5dp">
+                
+            </com.hanmimei.view.CustomGridView>
 
             <LinearLayout
                 android:layout_width="match_parent"
