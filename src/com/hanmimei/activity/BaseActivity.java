@@ -31,6 +31,8 @@ import com.hanmimei.dao.DaoSession;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.entity.GoodsDetail;
 import com.hanmimei.entity.User;
+import com.hanmimei.entity.VersionVo;
+import com.hanmimei.manager.ThreadPoolManager;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ImageLoaderUtils;
@@ -257,6 +259,19 @@ public class BaseActivity extends AppCompatActivity {
 		dialog.setView(view);
 		dialog.show();
 
+	}
+	
+	//线程池 管理网络提交事务
+		public void submitTask(Runnable runable) {
+			ThreadPoolManager.getInstance().getExecutorService().execute(runable);
+		}
+	
+	public VersionVo getVersionInfo() {
+		return getMyApplication().getVersionInfo();
+	}
+
+	public void setVersionInfo(VersionVo versionInfo) {
+		getMyApplication().setVersionInfo(versionInfo);
 	}
 
 }

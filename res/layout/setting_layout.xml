@@ -56,6 +56,29 @@
         android:layout_height="0.1dp"
         android:layout_width="match_parent"
         android:background="@color/qianhui"/>
+    <FrameLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+     <TextView 
+        android:id="@+id/upd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="    检测更新"
+        style="@style/setting_text_style"/>
+     
+     <TextView 
+         android:id="@+id/versionName"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_gravity="right|center_vertical"
+         android:textColor="@color/fontcolor"
+         android:textSize="14sp"
+         android:layout_marginRight="15dp"/>
+     </FrameLayout>
+    <View 
+        android:layout_height="0.1dp"
+        android:layout_width="match_parent"
+        android:background="@color/qianhui"/>
     <TextView 
         android:id="@+id/exit"
         android:layout_marginTop="30dp"

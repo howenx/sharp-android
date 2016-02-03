@@ -1,11 +1,17 @@
 package com.hanmimei.activity;
 
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,14 +23,20 @@ import android.widget.TextView;
 
 import com.hanmimei.R;
 import com.hanmimei.data.AppConstant;
+import com.hanmimei.data.UrlUtil;
+import com.hanmimei.entity.VersionVo;
 import com.hanmimei.fragment.AboutMyFragment;
 import com.hanmimei.fragment.FragmentTabHost;
 import com.hanmimei.fragment.HomeFragment;
 import com.hanmimei.fragment.ShoppingCartFragment;
 import com.hanmimei.manager.BadgeViewManager;
+import com.hanmimei.service.DownloadService;
 import com.hanmimei.utils.ActionBarUtil;
+import com.hanmimei.utils.AlertDialogUtils;
+import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.DoJumpUtils;
 import com.hanmimei.utils.ToastUtils;
+import com.hanmimei.utils.XMLPaserTools;
 import com.umeng.analytics.MobclickAgent;
 
 @SuppressLint("NewApi")
@@ -43,6 +55,8 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 	private int shopping_drawable = R.drawable.tab_shopping;
 	private int my_drawable = R.drawable.tab_my;
 //	private int pingou_drawable = R.drawable.tab_pingou;
+	
+	private VersionVo info;
 
 	private MainBroadCastReceiver netReceiver;
 	private FragmentTabHost mTabHost;
@@ -75,6 +89,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 				sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UP_HOME_ACTION));
 			}
 		});
+		submitTask(new CheckVersionTask());
 	}
 
 	@Override
@@ -142,6 +157,8 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 			break;
 		}
 	}
+	
+	
 
 	// 主界面返回之后在后台运行
 	@Override
@@ -173,7 +190,6 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 				System.exit(0);
 			}
 		}
-
 	}
 
 	@Override
@@ -181,6 +197,80 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 		super.onDestroy();
 		unregisterReceiver(netReceiver);
 	}
+	
+	
+	/**
+	 * 开启子线程run方法,服务器请求更新版本
+	 * 
+	 * @author Administrator
+	 *
+	 */
+	public class CheckVersionTask implements Runnable {
+		InputStream is;
+
+		public void run() {
+			try {
+				String path = UrlUtil.UPDATE_HMM;
+				URL url = new URL(path);
+				HttpURLConnection conn = (HttpURLConnection) url
+						.openConnection();
+				conn.setConnectTimeout(5000);
+				conn.setRequestMethod("GET");
+				int responseCode = conn.getResponseCode();
+				if (responseCode == 200) {
+					// 从服务器获得一个输入流
+					is = conn.getInputStream();
+				}
+				info = XMLPaserTools.getUpdataInfo(is);
+				if (!info.getReleaseNumber().equals(CommonUtil.getVersionName(getActivity()))) {
+					// 版本号不同,发送消息更新客户端
+					Message msg = new Message();
+					msg.what = VersionVo.UPDATA_CLIENT;
+					handler.sendMessage(msg);
+				} 
+			} catch (Exception e) {
+				Message msg = new Message();
+				msg.what = VersionVo.GET_UNDATAINFO_ERROR;
+				handler.sendMessage(msg);
+				e.printStackTrace();
+			}
+		}
+	}
+
+	/**
+	 * 定义handler 接收信息 判断是否更新客户端
+	 */
+	@SuppressLint("HandlerLeak")
+	Handler handler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			super.handleMessage(msg);
+			switch (msg.what) {
+			case VersionVo.UPDATA_CLIENT:
+				setVersionInfo(info);
+				AlertDialogUtils.showUpdateDialog(getActivity(), info, new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent(getActivity(),DownloadService.class);
+						intent.putExtra("url", info.getDownloadLink());
+						startService(intent);
+					}
+				});
+				break;
+			case VersionVo.GET_UNDATAINFO_ERROR:
+				// 服务器超时
+				ToastUtils.Toast(getActivity(), "获取服务器更新信息失败");
+				break;
+			case VersionVo.DOWN_ERROR:
+				// 下载apk失败
+				ToastUtils.Toast(getActivity(), "下载新版本失败");
+				break;
+			}
+		}
+	};
+	
 
 	// 广播接收者 注册
 	private void registerReceivers() {

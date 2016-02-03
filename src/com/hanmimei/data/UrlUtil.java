@@ -92,5 +92,7 @@ public class UrlUtil {
 	public static final String SERVICE = SERVERY3 + "/comm/views/agreement";
 	//隐私协议
 	public static final String AGREEMENT = SERVERY3 + "/comm/views/privacy";
+	//检测更新
+	public static final String UPDATE_HMM = "http://hanmimei-test.oss-cn-beijing.aliyuncs.com/android/hmm.xml";
 
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -125,7 +126,7 @@ public class PingouDetailSelActivity extends BaseActivity {
 				btn_pin.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View arg0) {
-						
+						startActivity(new Intent(getActivity(), PingouResultActivity.class));
 					}
 				});
 				holder.contentView.setBackgroundResource(R.drawable.bg_red_boarder);

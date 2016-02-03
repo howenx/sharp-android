@@ -85,7 +85,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 					} else {
 						intent = new Intent(getActivity(),GoodsDetailActivity.class);
 					}
-					intent.putExtra("url", data.get(arg2).getItemUrlAndroid());
+					intent.putExtra("url", data.get(arg2).getItemUrl());
 					startActivityForResult(intent, 1);
 				}
 			}
@@ -227,8 +227,8 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		params.width = width;
 		mframeLayout.setLayoutParams(params);
 		ImageLoaderUtils.loadImage(this, themeImg.getUrl(), img);
-
-		List<ImgTag> tags = themeList.getMasterItemTagAndroid();
+		 //获取标签信息
+		List<ImgTag> tags = themeList.getMasterItemTag();
 
 		for (ImgTag tag : tags) {
 

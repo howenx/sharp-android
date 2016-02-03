@@ -11,6 +11,7 @@ import com.hanmimei.dao.DaoMaster;
 import com.hanmimei.dao.DaoMaster.DevOpenHelper;
 import com.hanmimei.dao.DaoSession;
 import com.hanmimei.entity.User;
+import com.hanmimei.entity.VersionVo;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.UsingFreqLimitedMemoryCache;
@@ -31,6 +32,7 @@ public class HMMApplication extends Application {
 	private User loginUser;
 	private RequestQueue queue;
 	private String kouling;
+	private VersionVo versionInfo;
 
 	@Override
 	public void onCreate() {
@@ -65,26 +67,15 @@ public class HMMApplication extends Application {
 				"imageloader/Cache");
 		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
 				getApplicationContext())
-				.threadPoolSize(3)
-				// 线程池内加载的数量
+				.threadPoolSize(3)// 线程池内加载的数量
 				.threadPriority(Thread.NORM_PRIORITY - 2)
 				.denyCacheImageMultipleSizesInMemory()
-				.memoryCache(new UsingFreqLimitedMemoryCache(2 * 1024 * 1024))
-				// 你可以通过自己的内存缓存实现
-				.diskCache(new UnlimitedDiscCache(cacheDir))
-				// 自定义缓存路径
+				.memoryCache(new UsingFreqLimitedMemoryCache(2 * 1024 * 1024))// 你可以通过自己的内存缓存实现
+				.diskCache(new UnlimitedDiscCache(cacheDir))// 自定义缓存路径
 				.diskCacheSize(50 * 1024 * 1024)
-				.diskCacheFileNameGenerator(new Md5FileNameGenerator())// 将保存的时候的URI名称用MD5
-																		// 加密
-				.imageDownloader(
-						new BaseImageDownloader(this, 5 * 1000, 30 * 1000)) // connectTimeout
-																			// (5
-																			// s),
-																			// readTimeout
-																			// (30
-																			// s)超时时间
-				.defaultDisplayImageOptions(
-						initImageLoaderDisplayImageOptions()).build();
+				.diskCacheFileNameGenerator(new Md5FileNameGenerator())// 将保存的时候的URI名称用MD5加密
+				.imageDownloader(new BaseImageDownloader(this, 5 * 1000, 30 * 1000)) // connectTimeout (5s),readTimeout(30s)超时时间
+				.defaultDisplayImageOptions(initImageLoaderDisplayImageOptions()).build();
 		return config;
 	}
 
@@ -149,5 +140,15 @@ public class HMMApplication extends Application {
 	public void setKouling(String kouling) {
 		this.kouling = kouling;
 	}
+
+	public VersionVo getVersionInfo() {
+		return versionInfo;
+	}
+
+	public void setVersionInfo(VersionVo versionInfo) {
+		this.versionInfo = versionInfo;
+	}
+	
+	
 	
 }

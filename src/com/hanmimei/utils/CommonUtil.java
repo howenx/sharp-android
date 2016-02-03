@@ -27,6 +27,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -467,6 +468,20 @@ public class CommonUtil {
 	public static void doJump(Context mcContext, Class clazz) {
 		Intent intent = new Intent(mcContext, clazz);
 		mcContext.startActivity(intent);
+	}
+	
+	/**
+	 * 获取当前系统版本名
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public static String getVersionName(Context context) throws Exception {
+		// getPackageName()是你当前类的包名，0代表是获取版本信息
+		PackageManager packageManager = context.getPackageManager();
+		PackageInfo packInfo = packageManager.getPackageInfo(context.getPackageName(),
+				0);
+		return packInfo.versionName;
 	}
 
 	/**

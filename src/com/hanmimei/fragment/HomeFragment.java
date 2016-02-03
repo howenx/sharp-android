@@ -100,7 +100,7 @@ public class HomeFragment extends Fragment implements
 		reload.setOnClickListener(this);
 		back_top.setOnClickListener(this);
 		mListView.setAdapter(adapter);
-		mListView.setMode(Mode.PULL_UP_TO_REFRESH);
+		mListView.setMode(Mode.PULL_FROM_END);
 		mListView.setOnRefreshListener(this);
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -116,7 +116,6 @@ public class HomeFragment extends Fragment implements
 		findHeaderView();
 		loadData();
 		addHeaderView();
-		// addView();
 		return view;
 	}
 
@@ -187,7 +186,6 @@ public class HomeFragment extends Fragment implements
 			initHeaderView();
 		}
 		getNetData();
-
 	}
 
 	// 加载网络数据
@@ -244,7 +242,7 @@ public class HomeFragment extends Fragment implements
 		if (home.getPage_count() <= pullNum) {
 			mListView.setMode(Mode.DISABLED);
 		} else {
-			mListView.setMode(Mode.PULL_UP_TO_REFRESH);
+			mListView.setMode(Mode.PULL_FROM_END);
 		}
 	}
 
@@ -297,7 +295,6 @@ public class HomeFragment extends Fragment implements
 				break;
 			}
 		}
-
 	};
 
 	@Override
@@ -347,7 +344,6 @@ public class HomeFragment extends Fragment implements
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem,
 			int visibleItemCount, int totalItemCount) {
-		// TODO Auto-generated method stub
 
 	}
 

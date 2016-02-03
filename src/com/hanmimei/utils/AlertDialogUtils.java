@@ -10,7 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hanmimei.R;
+import com.hanmimei.entity.VersionVo;
 import com.hanmimei.view.CustomDialog;
+import com.hanmimei.view.UpdateDialog;
 /**
  * 弹窗工具类
  * @author vince
@@ -36,6 +38,17 @@ public class AlertDialogUtils {
 			final OnClickListener l) {
 		String[] tb = { "确认要离开收银台","下单后24小时订单将被取消，请尽快完成支付", "继续支付", "确定离开" };
 		showCustomDialog(context, tb, l);
+	}
+	/**
+	 * 版本更新
+	 * @param context
+	 * @param l
+	 */
+	public static void showUpdateDialog(Context context,VersionVo info,
+			final OnClickListener l) {
+		String[] tb = { info.getReleaseDesc(), "暂不更新", "马上下载" };
+		UpdateDialog c = new UpdateDialog(context, tb,l);
+		c.show();
 	}
 	
 
