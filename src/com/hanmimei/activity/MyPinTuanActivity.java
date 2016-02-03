@@ -29,7 +29,7 @@ public class MyPinTuanActivity extends BaseActivity {
 		loadData();
 	}
 	private void loadData() {
-		for(int i = 0; i < 6; i ++){
+		for(int i = 0; i < 60; i ++){
 			data.add(new Goods("http://img10.360buyimg.com/n1/jfs/t2404/75/2184548534/472835/e796835d/569e333eN46914d00.jpg", "创维（Skyworth）55M5 55英寸 4K超高清智能酷开网络液晶电视（黑色", "3499.00", 1, ""));
 		}
 		adapter.notifyDataSetChanged();

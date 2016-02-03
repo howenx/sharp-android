@@ -2,6 +2,7 @@ package com.hanmimei.activity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -28,6 +29,7 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hanmimei.R;
 import com.hanmimei.application.HMMApplication;
@@ -44,9 +46,12 @@ import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.DateUtil;
 import com.hanmimei.utils.HttpUtils;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.socialize.UMAuthListener;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 @SuppressLint("NewApi")
-public class LoginActivity extends BaseActivity implements OnClickListener{
+public class LoginActivity extends BaseActivity implements OnClickListener {
 
 	private EditText phone_edit;
 	private TextView pwd_edit;
@@ -93,51 +98,64 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 		clear_phone.setOnClickListener(this);
 		clear_pwd.setOnClickListener(this);
 		show_pwd.setOnClickListener(this);
+		findViewById(R.id.qq).setOnClickListener(this);
+		findViewById(R.id.weixin).setOnClickListener(this);
+		findViewById(R.id.sina).setOnClickListener(this);
 		userDao = getDaoSession().getUserDao();
 		goodsDao = getDaoSession().getShoppingGoodsDao();
 		phone_edit.addTextChangedListener(phoneWatcher);
 		pwd_edit.addTextChangedListener(pwdWatcher);
 		User loginUser = userDao.queryBuilder().build().unique();
-		if(loginUser!=null){
+		if (loginUser != null) {
 			phone_edit.setText(loginUser.getPhone());
-			Selection.setSelection((Spannable)phone_edit.getText(), phone_edit.getText().toString().length());
+			Selection.setSelection((Spannable) phone_edit.getText(), phone_edit
+					.getText().toString().length());
 		}
 	}
-	//手机号输入的监听
+
+	// 手机号输入的监听
 	TextWatcher phoneWatcher = new TextWatcher() {
 		@Override
-		public void afterTextChanged(Editable s) {}
+		public void afterTextChanged(Editable s) {
+		}
+
 		@Override
 		public void beforeTextChanged(CharSequence s, int start, int count,
-				int after) {}
+				int after) {
+		}
+
 		@Override
 		public void onTextChanged(CharSequence s, int start, int before,
 				int count) {
-			if(s.length() != 0){
+			if (s.length() != 0) {
 				clear_phone.setVisibility(View.VISIBLE);
-			}else{
+			} else {
 				clear_phone.setVisibility(View.INVISIBLE);
 			}
 		}
-		
+
 	};
-	//密码输入的监听
+	// 密码输入的监听
 	TextWatcher pwdWatcher = new TextWatcher() {
 		@Override
-		public void afterTextChanged(Editable s) {}
+		public void afterTextChanged(Editable s) {
+		}
+
 		@Override
 		public void beforeTextChanged(CharSequence s, int start, int count,
-				int after) {}
+				int after) {
+		}
+
 		@Override
 		public void onTextChanged(CharSequence s, int start, int before,
 				int count) {
-			if(s.length() != 0){
+			if (s.length() != 0) {
 				clear_pwd.setVisibility(View.VISIBLE);
-			}else{
+			} else {
 				clear_pwd.setVisibility(View.INVISIBLE);
 			}
 		}
-		
+
 	};
 
 	@Override
@@ -147,7 +165,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 			CommonUtil.doJump(this, ForgetPhoneActivity.class);
 			break;
 		case R.id.login:
-			//关闭键盘
+			// 关闭键盘
 			CommonUtil.closeBoardIfShow(this);
 			checkInput();
 			break;
@@ -160,12 +178,12 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 		case R.id.besure:
 			code = codeEditText.getText().toString();
 			code_attention.setVisibility(View.GONE);
-			//检查图形校验码的格式
-			if(code.length() != 4 || !CommonUtil.isJiaoYan(code)){
+			// 检查图形校验码的格式
+			if (code.length() != 4 || !CommonUtil.isJiaoYan(code)) {
 				code_attention.setText("验证码格式不正确");
 				code_attention.setVisibility(View.VISIBLE);
 				return;
-			}else{
+			} else {
 				imgDialog.dismiss();
 				isDialogShow = false;
 				doLogin();
@@ -175,32 +193,78 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 			imgDialog.dismiss();
 			isDialogShow = false;
 			break;
-			//清空手机号的输入
+		// 清空手机号的输入
 		case R.id.clear_phone:
 			phone_edit.setText("");
 			break;
-			//清空输入的密码
+		// 清空输入的密码
 		case R.id.clear_pwd:
 			pwd_edit.setText("");
 			break;
-			//密码的隐藏显示
+		// 密码的隐藏显示
 		case R.id.show_pwd:
-			if(!isPwdShow){
-				show_pwd.setImageDrawable(getResources().getDrawable(R.drawable.icon_show));
+			if (!isPwdShow) {
+				show_pwd.setImageDrawable(getResources().getDrawable(
+						R.drawable.icon_show));
 				isPwdShow = true;
 				pwd_edit.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-				Selection.setSelection((Spannable)pwd_edit.getText(), pwd_edit.getText().toString().length());
-			}else{
-				show_pwd.setImageDrawable(getResources().getDrawable(R.drawable.icon_kejian));
+				Selection.setSelection((Spannable) pwd_edit.getText(), pwd_edit
+						.getText().toString().length());
+			} else {
+				show_pwd.setImageDrawable(getResources().getDrawable(
+						R.drawable.icon_kejian));
 				isPwdShow = false;
-				pwd_edit.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-				Selection.setSelection((Spannable)pwd_edit.getText(), pwd_edit.getText().toString().length());
+				pwd_edit.setInputType(InputType.TYPE_CLASS_TEXT
+						| InputType.TYPE_TEXT_VARIATION_PASSWORD);
+				Selection.setSelection((Spannable) pwd_edit.getText(), pwd_edit
+						.getText().toString().length());
 			}
+			break;
+		case R.id.qq:
+			platform = SHARE_MEDIA.QQ;
+			doOtherLogin();
+			break;
+		case R.id.weixin:
+			platform = SHARE_MEDIA.WEIXIN;
+			doOtherLogin();
+			break;
+		case R.id.sina:
+			platform = SHARE_MEDIA.SINA;
+			doOtherLogin();
 			break;
 		default:
 			break;
 		}
 	}
+
+	private void doOtherLogin() {
+		mShareAPI = UMShareAPI.get(this);
+		mShareAPI.doOauthVerify(this, platform, umAuthListener);
+	}
+
+	private UMAuthListener umAuthListener = new UMAuthListener() {
+		@Override
+		public void onComplete(SHARE_MEDIA platform, int action,
+				Map<String, String> data) {
+			Toast.makeText(getApplicationContext(), "登陆成功", Toast.LENGTH_SHORT)
+					.show();
+
+		}
+
+		@Override
+		public void onError(SHARE_MEDIA platform, int action, Throwable t) {
+			Toast.makeText(getApplicationContext(), "登陆失败", Toast.LENGTH_SHORT)
+					.show();
+		}
+
+		@Override
+		public void onCancel(SHARE_MEDIA platform, int action) {
+			Toast.makeText(getApplicationContext(), "登陆取消", Toast.LENGTH_SHORT)
+					.show();
+		}
+	};
+	private SHARE_MEDIA platform;
+	private UMShareAPI mShareAPI = null;
 
 	@SuppressLint("ShowToast")
 	private void loadImg() {
@@ -208,8 +272,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 
 			@Override
 			public void run() {
-				Bitmap bitmap = HttpUtils
-						.getImg(UrlUtil.GET_IMG_CODE + Math.round(Math.random()*1000000));
+				Bitmap bitmap = HttpUtils.getImg(UrlUtil.GET_IMG_CODE
+						+ Math.round(Math.random() * 1000000));
 				Message msg = mHandler.obtainMessage(4);
 				msg.obj = bitmap;
 				mHandler.sendMessage(msg);
@@ -221,11 +285,11 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 		phone = phone_edit.getText().toString();
 		pwd = pwd_edit.getText().toString();
 		if (!CommonUtil.isPhoneNum(phone)) {
-//			setAttention("请输入正确的手机号");
+			// setAttention("请输入正确的手机号");
 			CommonUtil.setAttention(attention, "请输入正确的手机号");
 			return;
-		} else if(pwd.length()<6){
-			CommonUtil.setAttention(attention,"密码至少应为6位");
+		} else if (pwd.length() < 6) {
+			CommonUtil.setAttention(attention, "密码至少应为6位");
 		} else if (!CommonUtil.isPassWord(pwd)) {
 			CommonUtil.setAttention(attention, "密码为数字和字母组合");
 			return;
@@ -264,37 +328,38 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 				dialog.dismiss();
 				code = "-1";
 				HMessage result = (HMessage) msg.obj;
-				if(result.getCode() != null){
-				if (result.getCode() == 200) {
-					User user = new User();
-					user.setPhone(phone);
-					user.setUserId(0);
-					user.setToken(result.getTag());
-					user.setIsBind(false);
-					user.setExpired(DateUtil.turnToDate(result.getTime()));
-					user.setLast_login(DateUtil.getCurrentDate());
-					HMMApplication application = (HMMApplication) getApplication();
-					application.setLoginUser(user);
-					// 登录用户存储到本地sql
-					userDao.deleteAll();
-					userDao.insert(user);
-					if (goodsDao.queryBuilder().build().list() != null
-							&& goodsDao.queryBuilder().build().list().size() > 0) {
-						sendShoppingCar();
+				if (result.getCode() != null) {
+					if (result.getCode() == 200) {
+						User user = new User();
+						user.setPhone(phone);
+						user.setUserId(0);
+						user.setToken(result.getTag());
+						user.setIsBind(false);
+						user.setExpired(DateUtil.turnToDate(result.getTime()));
+						user.setLast_login(DateUtil.getCurrentDate());
+						HMMApplication application = (HMMApplication) getApplication();
+						application.setLoginUser(user);
+						// 登录用户存储到本地sql
+						userDao.deleteAll();
+						userDao.insert(user);
+						if (goodsDao.queryBuilder().build().list() != null
+								&& goodsDao.queryBuilder().build().list()
+										.size() > 0) {
+							sendShoppingCar();
+						} else {
+							sendBroadcast(new Intent(
+									AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION));
+							finish();
+						}
+					} else if (result.getCode() == 4001) {
+						if (!isDialogShow)
+							showDialog();
+						loadImg();
 					} else {
-						sendBroadcast(new Intent(
-								AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION));
-						finish();
+						CommonUtil.setAttention(attention, result.getMessage());
 					}
-				} else if (result.getCode() == 4001) {
-					if (!isDialogShow)
-						showDialog();
-					loadImg();
 				} else {
-					CommonUtil.setAttention(attention,result.getMessage());
-				}
-				}else {
-					CommonUtil.setAttention(attention,"网络连接异常，请检查网络");
+					CommonUtil.setAttention(attention, "网络连接异常，请检查网络");
 				}
 				break;
 			case 2:
@@ -380,7 +445,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 		jiaoyanImg.setImageBitmap(bitmap);
 	}
 
-
 	public void onResume() {
 		super.onResume();
 		MobclickAgent.onPageStart("LoginActivity"); // 统计页面(仅有Activity的应用中SDK自动调用，不需要单独写。"SplashScreen"为页面名称，可自定义)
@@ -395,6 +459,5 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 													// 中会保存信息。"SplashScreen"为页面名称，可自定义
 		MobclickAgent.onPause(this);
 	}
-	
 
 }
