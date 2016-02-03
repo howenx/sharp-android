@@ -94,71 +94,6 @@ public class DataParser {
 		return home;
 
 	}
-	public static List<Theme> parserHome(String result) {
-		List<Theme> list = new ArrayList<Theme>();
-		try {
-			JSONObject object = new JSONObject(result);
-			JSONArray array = object.getJSONArray("theme");
-			for (int i = 0; i < array.length(); i++) {
-				Theme theme = new Theme();
-				JSONObject obj = array.getJSONObject(i);
-				if(obj.has("id"))
-					theme.setItem_id(obj.getInt("id"));
-				if (obj.has("themeImg")){
-					String urlResult = obj.getString("themeImg");
-					JSONObject themeObject = new JSONObject(urlResult);
-					if(themeObject.has("url"))
-						theme.setThemeImg(themeObject.getString("url"));
-					if(themeObject.has("width"))
-						theme.setWidth(themeObject.getInt("width"));
-					if(themeObject.has("height"))
-						theme.setHeight(themeObject.getInt("height"));
-				}
-				if (obj.has("themeUrl"))
-					theme.setThemeUrl(obj.getString("themeUrl"));
-				list.add(theme);
-
-			}
-
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		return list;
-
-	}
-
-	public static List<Slider> parserSlider(String result) {
-		List<Slider> list = new ArrayList<Slider>();
-		try {
-			JSONObject object = new JSONObject(result);
-			JSONArray array = object.getJSONArray("slider");
-			for (int i = 0; i < array.length(); i++) {
-				JSONObject obj = array.getJSONObject(i);
-				Slider slider = new Slider();
-				if (obj.has("url")){
-					String sliderResult = obj.getString("url");
-					JSONObject sliderObject = new JSONObject(sliderResult);
-					if(sliderObject.has("url"))
-						slider.setImgUrl(sliderObject.getString("url"));
-					if(sliderObject.has("width"))
-						slider.setWidth(sliderObject.getInt("width"));
-					if(sliderObject.has("height"))
-						slider.setHeight(sliderObject.getInt("height"));
-				}
-				if (obj.has("itemTarget"))
-					slider.setUrl(obj.getString("itemTarget"));
-				if (obj.has("itemTargetAndroid"))
-					slider.setUrl(obj.getString("itemTargetAndroid"));
-				if(obj.has("targetType"))
-					slider.setType(obj.getString("targetType"));
-				list.add(slider);
-			}
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		return list;
-
-	}
 
 	public static HMMThemeGoods parserThemeItem(String result) {
 		return new Gson().fromJson(result, HMMThemeGoods.class);
@@ -222,22 +157,7 @@ public class DataParser {
 		}
 		return result;
 	}
-//	public static Result parserUpImg(String str){
-//		Result result = new Result();
-//		try {
-//			JSONObject object = new JSONObject(str);
-//			if(object.has("message"))
-//				result.setMessage(object.getString("message"));
-//			if(object.has("code"))
-//				result.setCode(object.getInt("code"));
-//		} catch (JSONException e) {
-//			e.printStackTrace();
-//		}
-//		return result;
-//	}
-
-
-	
+		
 	//商品详情页 －－ 商品详情数据解析
 	public static GoodsDetail parserGoodsDetail(String result){
 		return new Gson().fromJson(result, GoodsDetail.class);
