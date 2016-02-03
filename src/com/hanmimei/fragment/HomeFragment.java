@@ -10,6 +10,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -94,6 +95,7 @@ public class HomeFragment extends Fragment implements
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.home_list_layout, null);
 		mListView = (PullToRefreshListView) view.findViewById(R.id.mylist);
+		mListView.getRefreshableView().setCacheColorHint(Color.TRANSPARENT);
 		back_top = (RelativeLayout) view.findViewById(R.id.back_top);
 		no_net = (LinearLayout) view.findViewById(R.id.no_net);
 		reload = (TextView) view.findViewById(R.id.reload);

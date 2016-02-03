@@ -68,8 +68,6 @@ public class DataParser {
 				}
 				if (obj.has("itemTarget"))
 					slider.setUrl(obj.getString("itemTarget"));
-//				if (obj.has("itemTargetAndroid"))
-//					slider.setUrl(obj.getString("itemTargetAndroid"));
 				if(obj.has("targetType"))
 					slider.setType(obj.getString("targetType"));
 				sliders.add(slider);

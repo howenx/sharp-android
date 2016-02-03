@@ -82,7 +82,6 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 		jiantou_icon.setBounds(0, 0, 45, 45);
 		pintuan_icon = getResources().getDrawable(R.drawable.icon_pintuan);
 		pintuan_icon.setBounds(0, 0, 45, 45);
-		
 	}
 
 	@Override

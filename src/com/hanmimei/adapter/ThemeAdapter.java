@@ -1,8 +1,6 @@
 package com.hanmimei.adapter;
 
-import java.util.Date;
 import java.util.List;
-
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Paint;
@@ -13,7 +11,6 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.hanmimei.R;
 import com.hanmimei.entity.HMMGoods;
 import com.hanmimei.utils.CommonUtil;

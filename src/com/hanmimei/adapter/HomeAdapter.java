@@ -38,7 +38,7 @@ public class HomeAdapter extends BaseAdapter {
 	public long getItemId(int arg0) {
 		return arg0;
 	}
-
+	
 	@Override
 	public View getView(int position, View convertView, ViewGroup arg2) {
 		Theme theme = data.get(position);
@@ -51,6 +51,7 @@ public class HomeAdapter extends BaseAdapter {
 		}else{
 			holder = (ViewHolder) convertView.getTag();
 		}
+		
 		ImageLoaderUtils.loadImage(activity, holder.img, theme.getThemeImg(), theme.getWidth(), theme.getHeight());
 		return convertView;
 	}
