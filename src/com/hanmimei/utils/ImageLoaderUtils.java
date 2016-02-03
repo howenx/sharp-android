@@ -20,7 +20,7 @@ public class ImageLoaderUtils {
 	 * @param imgView
 	 */
 	public static void loadImage(Context mContext, String url, ImageView imgView) {
-		ImageLoader.getInstance().displayImage(url, imgView,getImageOptions());
+		ImageLoader.getInstance().displayImage(url, imgView);
 	}
 	public static void loadImage(String url, ImageView imgView) {
 		ImageLoader.getInstance().displayImage(url, imgView);
@@ -36,23 +36,7 @@ public class ImageLoaderUtils {
 			ImageView imgView, ImageLoadingListener l) {
 		ImageLoader.getInstance().displayImage(url, imgView, l);
 	}
-	/**
-	 * imageloader加载图片  
-	 * @param activity
-	 * @param imgView
-	 * @param url
-	 * @param w   宽度
-	 * @param h	高度比例
-	 */
-	@SuppressWarnings("deprecation")
-	private static DisplayImageOptions getImageOptions(){
-		return new DisplayImageOptions.Builder()  
-		.showStubImage(R.drawable.avatar_bg)          // image在加载过程中，显示的图片  
-	    .delayBeforeLoading(0)  
-	    .cacheInMemory(true)           // default 不缓存至内存  
-	    .cacheOnDisc(false)             // default 不缓存至手机SDCard
-	    .build();  
-	}
+	
 	public static void loadImage(Context mContext, ImageView imgView, String url,
 			int w, int h) {
 		// 图片的比例适配

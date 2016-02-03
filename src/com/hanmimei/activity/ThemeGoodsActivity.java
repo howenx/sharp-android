@@ -78,10 +78,12 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				if (data.get(arg2).getState().equals("Y")|| data.get(arg2).getState().equals("P")) {
+				if (data.get(arg2).getState().equals("Y")
+						|| data.get(arg2).getState().equals("P")) {
 					Intent intent = null;
 					if (data.get(arg2).getItemType().equals("pin")) {
-						intent = new Intent(getActivity(),PingouDetailActivity.class);
+						intent = new Intent(getActivity(),
+								PingouDetailActivity.class);
 					} else {
 						intent = new Intent(getActivity(),GoodsDetailActivity.class);
 					}
@@ -116,7 +118,6 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 			public void onSuccess(String result) {
 				getLoading().dismiss();
 				findViewById(R.id.no_net).setVisibility(View.GONE);
-				// TODO Auto-generated method stub
 				HMMThemeGoods detail = DataParser.parserThemeItem(result);
 				if (detail.getMessage().getCode() == 200) {
 					initShopCartView(detail);
@@ -227,9 +228,19 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		params.width = width;
 		mframeLayout.setLayoutParams(params);
 		ImageLoaderUtils.loadImage(this, themeImg.getUrl(), img);
-		 //获取标签信息
-		List<ImgTag> tags = themeList.getMasterItemTag();
+		//初始化标签信息
+		initTagInfo(themeList, width, height);
+		data.clear();
+		data.addAll(themeList.getThemeItemList());
+		adapter.notifyDataSetChanged();
 
+	}
+
+	private void initTagInfo(ThemeList themeList,int width,int height) {
+		// 获取标签信息
+		List<ImgTag> tags = themeList.getMasterItemTag();
+		if(tags == null || tags.size()<=0)
+			return;
 		for (ImgTag tag : tags) {
 
 			TagInfo tagInfo = new TagInfo();
@@ -250,7 +261,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 					Intent intent = new Intent(getActivity(),
 							GoodsDetailActivity.class);
 					intent.putExtra("url", info.targetUrl);
-					startActivityForResult(intent, 1);
+					startActivityForResult(intent, 1);     
 				}
 			});
 
@@ -272,12 +283,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 			lp.setMargins(tagInfo.leftMargin, tagInfo.topMargin,
 					tagInfo.rightMargin, tagInfo.bottomMargin);
 			mframeLayout.addView(tagView, lp);
-
 		}
-		data.clear();
-		data.addAll(themeList.getThemeItemList());
-		adapter.notifyDataSetChanged();
-
 	}
 
 	@Override

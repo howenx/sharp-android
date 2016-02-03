@@ -85,15 +85,7 @@ public class ThemeAdapter extends BaseAdapter {
 		}
 		holder.price.setText(activity.getResources().getString(R.string.price,
 				theme.getItemPrice()));
-		if (theme.getItemType().equals("item")) {
-			holder.timeView.setVisibility(View.GONE);
-			if (theme.getState().equals("Y")) {
-				holder.sold_out.setVisibility(View.GONE);
-			} else {
-				holder.sold_out.setVisibility(View.VISIBLE);
-				
-			}
-		} else if (theme.getItemType().equals("pin")) {
+		 if (theme.getItemType().equals("pin")) {
 			holder.sold_out.setVisibility(View.GONE);
 			holder.timeView.setVisibility(View.VISIBLE);
 			if (theme.getState().equals("P")) {
@@ -105,6 +97,13 @@ public class ThemeAdapter extends BaseAdapter {
 			}else{
 				holder.timeView.setText("已结束");
 //				holder.timeView.setText("截止"+DateUtils.getTimeDiffDesc(theme.getEndAt()));
+			}
+		}else {
+			holder.timeView.setVisibility(View.GONE);
+			if (theme.getState().equals("Y")) {
+				holder.sold_out.setVisibility(View.GONE);
+			} else {
+				holder.sold_out.setVisibility(View.VISIBLE);
 			}
 		}
 		return convertView;

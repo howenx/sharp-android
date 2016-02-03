@@ -2,4 +2,6 @@
 <resources>
     <item type="id" name="coupon_id"/>
     <item type="id" name="coupon_de"/>
+    <item type="id" name="position"/>
+    <item type="id" name="url"/>
 </resources>
