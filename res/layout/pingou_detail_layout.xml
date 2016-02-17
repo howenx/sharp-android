@@ -183,13 +183,13 @@
             android:orientation="horizontal" >
 
             <FrameLayout
-                android:id="@+id/btn_shopcart"
+                android:id="@+id/btn_attention"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" >
 
                 <ImageView
-                    android:id="@+id/shopcart"
+                    android:id="@+id/attention"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
