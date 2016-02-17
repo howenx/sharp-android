@@ -344,6 +344,7 @@ public class ShoppingCartFragment extends Fragment implements OnClickListener,
 	private void doPay(ShoppingCar shoppingCar) {
 		Intent intent = new Intent(getActivity(), GoodsBalanceActivity.class);
 		intent.putExtra("car", shoppingCar);
+		intent.putExtra("orderType", "item");
 		getActivity().startActivity(intent);
 	}
 

@@ -307,6 +307,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 	private void doPay(ShoppingCar shoppingCar) {
 		Intent intent = new Intent(getActivity(), GoodsBalanceActivity.class);
 		intent.putExtra("car", shoppingCar);
+		intent.putExtra("orderType", "item");
 		getActivity().startActivity(intent);
 	}
 
