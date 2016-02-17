@@ -64,7 +64,7 @@ public class ShoppingCar implements Serializable {
 	public BigDecimal getAllPrice() {
 		BigDecimal allPrice = new BigDecimal(0);
 		for(Customs cs :list){
-			allPrice = allPrice.add(new BigDecimal(cs.getAllPrice()));
+			allPrice = allPrice.add(new BigDecimal(cs.getAllPrice()+""));
 		}
 		return allPrice;
 	}
