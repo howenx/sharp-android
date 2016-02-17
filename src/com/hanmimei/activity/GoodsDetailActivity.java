@@ -336,9 +336,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 	}
 
 	private void doCopy() {
-		String code[] = detail.getCurrentStock().getInvUrl().split("web");
+		String code[] = detail.getCurrentStock().getInvUrl().split("detail");
 		HMMApplication application = (HMMApplication) getApplication();
-		application.setKouling("KAKAO-HMM 复制这条信息，打开👉韩秘美👈即可看到【" +  detail.getCurrentStock().getInvTitle() +"】" +  code[1] + " --🔑 M令 🔑");
+		application.setKouling("KAKAO-HMM 复制这条信息，打开👉韩秘美👈即可看到【" +  detail.getCurrentStock().getInvTitle() +"】," +  code[1] + ",－🔑 M令 🔑");
 	}
 
 	/**

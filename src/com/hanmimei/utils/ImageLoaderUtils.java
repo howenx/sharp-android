@@ -19,8 +19,14 @@ public class ImageLoaderUtils {
 	 * @param url
 	 * @param imgView
 	 */
+	@SuppressWarnings("deprecation")
 	public static void loadImage(Context mContext, String url, ImageView imgView) {
-		ImageLoader.getInstance().displayImage(url, imgView);
+		ImageLoader.getInstance().displayImage(url, imgView,new DisplayImageOptions.Builder()
+		.showImageForEmptyUri(R.drawable.default_img)
+		.showImageOnFail(R.drawable.default_img)
+		.showImageOnLoading(R.drawable.default_img)
+		.showStubImage(R.drawable.default_img).cacheInMemory(true)
+		.cacheOnDisc(true).build());
 	}
 	public static void loadImage(String url, ImageView imgView) {
 		ImageLoader.getInstance().displayImage(url, imgView);

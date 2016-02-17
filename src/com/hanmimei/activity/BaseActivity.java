@@ -200,11 +200,13 @@ public class BaseActivity extends AppCompatActivity {
 		ClipboardManager cbm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
 		if (!TextUtils.isEmpty(cbm.getText())) {
 			if (cbm.getText().toString().trim().contains("KAKAO-HMM")) {
-				String url[] = cbm.getText().toString().trim().split("】");
-				loadData("http://172.28.3.51:9001/comm/detail/web"
-						+ url[1].split("--")[0]);
-				cbm.setText("");
-				getMyApplication().setKouling("");
+				String url[] = cbm.getText().toString().trim().split("】,");
+				if(url[1].contains(",－")){
+					loadData("http://172.28.3.51:9001/comm/detail"
+						+ url[1].split(",－")[0]);
+					cbm.setText("");
+					getMyApplication().setKouling("");
+				}
 			}
 		}
 	}
