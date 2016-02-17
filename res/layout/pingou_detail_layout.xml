@@ -115,6 +115,7 @@
                                 android:background="#ECEDEE"
                                 android:gravity="center"
                                 android:padding="10dp"
+                                android:text="0/件"
                                 android:textColor="@color/fontcolor"
                                 android:textSize="16sp" />
 

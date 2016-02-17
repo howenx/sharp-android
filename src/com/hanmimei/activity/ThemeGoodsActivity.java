@@ -116,13 +116,13 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 
 			@Override
 			public void onSuccess(String result) {
-				getLoading().dismiss();
 				findViewById(R.id.no_net).setVisibility(View.GONE);
 				HMMThemeGoods detail = DataParser.parserThemeItem(result);
 				if (detail.getMessage().getCode() == 200) {
 					initShopCartView(detail);
 					initThemeView(detail);
 				} else {
+					getLoading().dismiss();
 					findViewById(R.id.no_net).setVisibility(View.VISIBLE);
 					ToastUtils.Toast(getActivity(), detail.getMessage()
 							.getMessage());
@@ -233,6 +233,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		data.clear();
 		data.addAll(themeList.getThemeItemList());
 		adapter.notifyDataSetChanged();
+		getLoading().dismiss();
 
 	}
 

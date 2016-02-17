@@ -78,6 +78,7 @@
                 android:id="@+id/gridlayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="8dp"
 				android:horizontalSpacing="5dp"
 				android:numColumns="5"
 				android:verticalSpacing="5dp">
@@ -132,28 +133,32 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
                 android:text="对于助威打下的帮助团长感激涕零"
                 android:textColor="@color/huise"
                 android:textSize="14sp" />
+            
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/triangle_bottom"
+                android:layout_gravity="center_horizontal"
+                android:contentDescription="@null"/>
 
             <LinearLayout
                 android:id="@+id/contentView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/hmm_bg_jt"
+                android:background="@color/background_color_black"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:paddingTop="25dp" >
+                android:padding="8dp">
 
                 <com.hanmimei.view.RoundImageView
                     android:id="@+id/faceView"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:src="@drawable/photo" />
 
                 <TextView
@@ -163,7 +168,7 @@
                     android:layout_marginLeft="5dp"
                     android:text="团长ttt"
                     android:textColor="@color/white"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
                 <View
                     android:layout_width="0dp"
@@ -176,7 +181,7 @@
                     android:layout_height="wrap_content"
                     android:text="2011-11-11 12:12:12开团"
                     android:textColor="@color/white"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <com.hanmimei.view.CustomListView

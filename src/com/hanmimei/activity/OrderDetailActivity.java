@@ -219,7 +219,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 			break;
 		case R.id.go_pay:
 			OrderInfo orderInfo = new OrderInfo();
-			orderInfo.setOrder(order);
+			orderInfo.setOrderId(order.getOrderId());
 			Intent intent = new Intent(this, OrderSubmitActivity.class);
 			intent.putExtra("orderInfo", orderInfo);
 			startActivity(intent);

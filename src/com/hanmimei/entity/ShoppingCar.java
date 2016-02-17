@@ -11,14 +11,23 @@ public class ShoppingCar implements Serializable {
 	private static final long serialVersionUID = 1;
 	private HMessage message;
 	private List<Customs> list;
+	 private String orderType = "item";       //订单类型:1.vary,2.item,3.customize,4.pin
 	
-	private BigDecimal shipFee = new BigDecimal(0);			//理论邮费
-	private BigDecimal portalFee =new BigDecimal(0);		//理论行邮税
-	private BigDecimal factPortalFee = new BigDecimal(0);	//	实际行邮税
-	private BigDecimal factShipFee = new BigDecimal(0); //实际邮费
-	private BigDecimal denomination = new BigDecimal(0); //优惠额度
+	private BigDecimal shipFee =  BigDecimal.ZERO;			//理论邮费
+	private BigDecimal portalFee = BigDecimal.ZERO;		//理论行邮税
+	private BigDecimal factPortalFee =  BigDecimal.ZERO;	//	实际行邮税
+	private BigDecimal factShipFee =  BigDecimal.ZERO; //实际邮费
+	private BigDecimal denomination =  BigDecimal.ZERO; //优惠额度
 	
 	 private Integer buyNow = 1;         //1.立即支付,2.购物车结算
+	 
+	public String getOrderType() {
+		return orderType;
+	}
+
+	public void setOrderType(String orderType) {
+		this.orderType = orderType;
+	}
 
 	public Integer getBuyNow() {
 		return buyNow;

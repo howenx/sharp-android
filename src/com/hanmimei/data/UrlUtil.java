@@ -9,7 +9,7 @@ public class UrlUtil {
 //	public static final String SERVERY4 = "https://id.hanmimei.com";	
 	
 	
-		//51
+//		//51
 		public static final String SERVERY3 = "http://172.28.3.51:9001";	//  18:9001
 		public static final String SERVERY1 = "http://172.28.3.51:9003";	// 18:9003
 		public static final String SERVERY4 = "http://172.28.3.51:9004";	// 18:9004

@@ -18,10 +18,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.hanmimei.R;
+import com.hanmimei.entity.Customs;
 import com.hanmimei.entity.PinTieredPrice;
+import com.hanmimei.entity.ShoppingCar;
+import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.StockVo;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.ImageLoaderUtils;
+import com.hanmimei.utils.ToastUtils;
 
 public class PingouDetailSelActivity extends BaseActivity {
 
@@ -126,15 +130,15 @@ public class PingouDetailSelActivity extends BaseActivity {
 				btn_pin.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View arg0) {
-						startActivity(new Intent(getActivity(), PingouResultActivity.class));
+						goToGoodsBalance();
 					}
 				});
-				holder.contentView.setBackgroundResource(R.drawable.bg_red_boarder);
+				holder.contentView.setBackgroundResource(R.drawable.bg_pingou_selected);
 			} else {
 				holder.manjianView.setVisibility(View.GONE);
 				holder.zengView.setVisibility(View.GONE);
 				holder.img.setVisibility(View.GONE);
-				holder.contentView.setBackgroundResource(R.color.white);
+				holder.contentView.setBackgroundResource(R.drawable.bg_pingou_normal);
 			}
 
 			return convertView;
@@ -158,5 +162,55 @@ public class PingouDetailSelActivity extends BaseActivity {
 			}
 		}
 	}
+	
+	
+	private void goToGoodsBalance(){
+		ShoppingCar car = new ShoppingCar();
+		List<Customs> list = new ArrayList<Customs>();
+		Customs customs = new Customs();
+		ShoppingGoods sgoods;
+		StockVo s = stock;
+		if (s.getStatus().equals("Y")) {
+			sgoods = new ShoppingGoods();
+			sgoods.setGoodsId(s.getId());
+			sgoods.setGoodsImg(s.getInvImgForObj().getUrl());
+			sgoods.setGoodsName(s.getPinTitle());
+			sgoods.setGoodsNums(1);
+			for(PinTieredPrice p: datas){
+				if(p.isSelected()){
+					sgoods.setGoodsPrice(p.getPrice());
+					sgoods.setPinTieredPriceId(p.getId());
+				}
+			}
+			if(sgoods.getGoodsPrice() == null){
+				ToastUtils.Toast(this, "请选择商品");
+				return;
+			}
+			sgoods.setInvArea(s.getInvArea());
+			sgoods.setInvAreaNm(s.getInvAreaNm());
+			sgoods.setInvCustoms(s.getInvCustoms());
+			sgoods.setPostalTaxRate(s.getPostalTaxRate());
+			sgoods.setPostalStandard(s.getPostalStandard());
+			sgoods.setSkuType(s.getSkuType());
+			sgoods.setSkuTypeId(s.getSkuTypeId());
+		} else if (s.getStatus().equals("P")) {
+			ToastUtils.Toast(this, "尚未开售");
+			return;
+		} else {
+			ToastUtils.Toast(this, "活动已结束");
+			return;
+		}
+		customs.addShoppingGoods(sgoods);
+		customs.setInvArea(sgoods.getInvArea());
+		customs.setInvAreaNm(sgoods.getInvAreaNm());
+		customs.setInvCustoms(sgoods.getInvCustoms());
+		list.add(customs);
+		car.setList(list);
+		Intent intent = new Intent(this, GoodsBalanceActivity.class);
+		intent.putExtra("car", car);
+		intent.putExtra("orderType", "pin");
+		startActivity(intent);
+	}
+
 
 }

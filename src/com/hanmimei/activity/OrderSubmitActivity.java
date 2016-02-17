@@ -79,7 +79,7 @@ public class OrderSubmitActivity extends BaseActivity {
 //		
 //		
 		mWebView.loadUrl(UrlUtil.CLIENT_PAY_ORDER_GET
-				 + orderInfo.getOrder().getOrderId(), extraHeaders);
+				 + orderInfo.getOrderId(), extraHeaders);
 
 		mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
 		mWebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
@@ -206,7 +206,8 @@ public class OrderSubmitActivity extends BaseActivity {
 		AlertDialogUtils.showPayDialog(getActivity(), new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(getActivity(), MyOrderActivity.class));
+				if(getIntent().getStringExtra("orderType").equals("item"))
+					startActivity(new Intent(getActivity(), MyOrderActivity.class));
 				finish();
 			}
 		});

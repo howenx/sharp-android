@@ -29,6 +29,7 @@ public class MainVo {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 
 	public Integer getId() {
 		return id;

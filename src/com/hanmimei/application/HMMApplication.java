@@ -79,7 +79,7 @@ public class HMMApplication extends Application {
 				.showImageForEmptyUri(R.drawable.ic_launcher)
 				.showImageOnFail(R.drawable.ic_launcher).cacheOnDisk(true)
 				.imageScaleType(ImageScaleType.EXACTLY).cacheInMemory(true)
-				.displayer(new FadeInBitmapDisplayer(500))//是否图片加载好后渐入的动画时间  
+				.displayer(new FadeInBitmapDisplayer(0))//是否图片加载好后渐入的动画时间  
 				.build();
 		return imageOptions;
 	}

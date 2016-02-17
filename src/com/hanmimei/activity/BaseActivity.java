@@ -57,7 +57,6 @@ public class BaseActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		getSupportActionBar().hide();
 		getSupportActionBar().setElevation(0);
-		loadingDialog = new LoadingDialog(this);
 		// 沉浸式状态栏的设置
 		if (VERSION.SDK_INT >= 19) {
 			setTranslucentStatus(true);
@@ -89,6 +88,7 @@ public class BaseActivity extends AppCompatActivity {
 		window.setStatusBarColor(Color.TRANSPARENT);
 	}
 
+	@SuppressLint("InlinedApi")
 	private void setTranslucentStatus(boolean on) {
 		Window win = getWindow();
 		WindowManager.LayoutParams winParams = win.getAttributes();
@@ -131,6 +131,9 @@ public class BaseActivity extends AppCompatActivity {
 	}
 
 	public LoadingDialog getLoading() {
+		if(loadingDialog == null){
+			loadingDialog = new LoadingDialog(this);
+		}
 		return loadingDialog;
 	}
 

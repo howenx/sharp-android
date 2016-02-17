@@ -18,10 +18,10 @@ public class Customs implements Serializable{
 	private int postalLimit;
 	private int postalStandard;
 	
-	private BigDecimal portalSingleCustomsFee = new BigDecimal(0);
-	private BigDecimal factSingleCustomsShipFee =new BigDecimal(0);
-	private BigDecimal shipSingleCustomsFee= new BigDecimal(0);
-	private BigDecimal factPortalFeeSingleCustoms= new BigDecimal(0);
+	private BigDecimal portalSingleCustomsFee = BigDecimal.ZERO;
+	private BigDecimal factSingleCustomsShipFee = BigDecimal.ZERO;
+	private BigDecimal shipSingleCustomsFee=  BigDecimal.ZERO;
+	private BigDecimal factPortalFeeSingleCustoms=  BigDecimal.ZERO;
 	
 	
 	public String getInvAreaNm() {

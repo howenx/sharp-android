@@ -27,6 +27,9 @@ public class JSONPaserTool {
 					jsonn.put("skuId", sg.getGoodsId());
 					jsonn.put("amount", sg.getGoodsNums());
 					jsonn.put("state", sg.getState());
+					jsonn.put("skuType", sg.getSkuType());
+					jsonn.put("skuTypeId", sg.getSkuTypeId());
+					jsonn.put("pinTieredPriceId", sg.getPinTieredPriceId());
 					arrayy.put(jsonn);
 				}
 				json.put("cartDtos", arrayy);

@@ -173,7 +173,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 		} else {
 			goodsNumView.hide(true);
 		}
-
 	}
 
 	// =========================================================================
@@ -551,6 +550,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 					sgoods.setInvCustoms(s.getInvCustoms());
 					sgoods.setPostalTaxRate(s.getPostalTaxRate());
 					sgoods.setPostalStandard(s.getPostalStandard());
+					sgoods.setSkuType(s.getSkuType());
+					sgoods.setSkuTypeId(s.getSkuTypeId());
 					break;
 				} else {
 					ToastUtils.Toast(this, "请选择商品");
@@ -566,6 +567,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		car.setList(list);
 		Intent intent = new Intent(this, GoodsBalanceActivity.class);
 		intent.putExtra("car", car);
+		intent.putExtra("orderType", "item");
 		startActivity(intent);
 	}
 
@@ -735,15 +737,14 @@ public class GoodsDetailActivity extends BaseActivity implements
 	}
 
 	private void initTags(List<Tag> tags) {
-		if(tags.size()>0)
+		if(tags.size()<=0)
 			return;
 		TagCloudView tagCloudView = (TagCloudView) findViewById(R.id.tagCloudView);// 规格标签控件
 		// 初始化规格显示
-		// tagCloudView.removeAllViews();
+		 tagCloudView.removeAllViews();
 		tagCloudView.setTags(tags);
 		// 规格标签的点击事件
 		tagCloudView.setOnTagClickListener(new OnTagClickListener() {
-
 			@Override
 			public void onTagClick(int oldPostion, int position, Tag tag) {
 				detail.getStock().get(oldPostion).setOrMasterInv(false);
@@ -791,7 +792,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 		}
 		ImageLoaderUtils
 				.loadImage(this, s.getInvImgForObj().getUrl(), img_hide);
-		curPostalTaxRate = s.getPostalTaxRate();
+		if(s.getPostalTaxRate() !=null)
+			curPostalTaxRate = s.getPostalTaxRate();
 		curItemPrice = s.getItemPrice().doubleValue();
 		postalStandard = s.getPostalStandard();
 		area.setText(s.getInvAreaNm());

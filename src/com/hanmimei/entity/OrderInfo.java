@@ -3,13 +3,13 @@ package com.hanmimei.entity;
 import java.io.Serializable;
 
 public class OrderInfo implements Serializable{
-	private Order order;
+	private String orderId;
 	private HMessage message;
-	public Order getOrder() {
-		return order;
+	public String getOrderId() {
+		return orderId;
 	}
-	public void setOrder(Order order) {
-		this.order = order;
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
 	}
 	public HMessage getMessage() {
 		return message;

@@ -14,12 +14,11 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    
-    
+
     <application
         android:name="com.hanmimei.application.HMMApplication"
         android:allowBackup="false"
@@ -39,7 +38,7 @@
         </activity>
         <activity
             android:name="com.hanmimei.activity.IndroductionActivity"
-            android:screenOrientation="portrait" 
+            android:screenOrientation="portrait"
             android:theme="@style/SplashStyle" />
         <activity
             android:name="com.hanmimei.activity.MainActivity"
@@ -50,8 +49,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.hanmimei.activity.MyOrderActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.hanmimei.activity.CouponActivity"
             android:screenOrientation="portrait"
@@ -116,8 +115,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.hanmimei.activity.CustomerServiceActivity"
-            android:screenOrientation="portrait" 
-			android:windowSoftInputMode="adjustPan"   />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name="com.hanmimei.upload.ImageGridActivity"
             android:screenOrientation="portrait" />
@@ -142,19 +141,19 @@
         <activity
             android:name="com.hanmimei.activity.SuggestionActivity"
             android:screenOrientation="portrait" />
-		<activity
+        <activity
             android:name="com.hanmimei.activity.HmmServiceActivity"
             android:screenOrientation="portrait" />
-		<activity
+        <activity
             android:name="com.hanmimei.activity.MyPinTuanActivity"
             android:screenOrientation="portrait" />
-		<activity
+        <activity
             android:name="com.hanmimei.activity.PingouDetailSelActivity"
             android:screenOrientation="portrait" />
-		
-		<service android:name="com.hanmimei.service.DownloadService"
-		    ></service>
-		
+
+        <service android:name="com.hanmimei.service.DownloadService" >
+        </service>
+
         <!-- 友盟相关 -->
         <activity
             android:name="com.umeng.socialize.editorpage.ShareActivity"
@@ -196,8 +195,10 @@
             android:noHistory="true" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="tencent100424468" />
             </intent-filter>
         </activity>
@@ -206,18 +207,22 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!-- 友盟appkey -->
-         
-         
-         <!-- Caution! Do not change this app key. It is only for demo usage. -->
+
+
+        <!-- Caution! Do not change this app key. It is only for demo usage. -->
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="567bb26867e58e3f670002fd" >
         </meta-data>
-        
+
         <!-- 设置AppKey -->
-       <meta-data android:name="TESTIN_APPKEY" android:value="058ce4b48f9c7d6ddf2f835b0d5774bf"/>
-       <!-- 设置渠道信息 -->
-       <meta-data android:name="TESTIN_CHANNEL" android:value=""/>
+        <meta-data
+            android:name="TESTIN_APPKEY"
+            android:value="058ce4b48f9c7d6ddf2f835b0d5774bf" />
+        <!-- 设置渠道信息 -->
+        <meta-data
+            android:name="TESTIN_CHANNEL"
+            android:value="" />
     </application>
 
 </manifest>

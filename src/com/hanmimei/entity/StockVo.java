@@ -6,11 +6,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 public class StockVo implements Serializable{
+	
+	//普通商品属性
 	private Integer id;
 	private String itemColor;
 	private String itemSize;
@@ -31,7 +34,7 @@ public class StockVo implements Serializable{
 	private String invCustoms;
 	private Integer postalTaxRate;
 	private Integer postalStandard;// 关税收费标准
-
+	//拼购商品属性
 	private String pinTitle; // 拼购商品标题
 	private String startAt; // 开始时间
 	private String endAt;// 结束时间
@@ -45,9 +48,38 @@ public class StockVo implements Serializable{
 	private String pinId;
 	private String shareUrl; // 分享短连接
 	private String status; // 拼购ID
+	private Double invPrice; //商品原价
 	
 	private String soldAmount ;
 	
+	//共有属性
+    private     String              skuType;//商品类型 1.vary,2.item,3.customize,4.pin
+    private     String                skuTypeId;//商品类型所对应的ID
+
+	public String getSkuType() {
+		return skuType;
+	}
+
+	public void setSkuType(String skuType) {
+		this.skuType = skuType;
+	}
+
+	public String getSkuTypeId() {
+		return skuTypeId;
+	}
+
+	public void setSkuTypeId(String skuTypeId) {
+		this.skuTypeId = skuTypeId;
+	}
+
+	public Double getInvPrice() {
+		return invPrice;
+	}
+
+	public void setInvPrice(Double invPrice) {
+		this.invPrice = invPrice;
+	}
+
 	public String getSoldAmount() {
 		return soldAmount;
 	}
@@ -116,8 +148,8 @@ public class StockVo implements Serializable{
 		this.pinTieredPrices = pinTieredPrices;
 	}
 
-	public PinTieredPrice getFloorPrice() {
-		return new Gson().fromJson(floorPrice, PinTieredPrice.class);
+	public Map<String,Integer> getFloorPrice() {
+		return new Gson().fromJson(floorPrice, new TypeToken<Map<String,Integer>>(){}.getType());
 	}
 
 	public String getPinRedirectUrl() {

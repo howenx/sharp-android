@@ -201,7 +201,7 @@ public class OrderPullListAdapter extends BaseAdapter {
 
 	private void doPay(Order order){
 		OrderInfo orderInfo = new OrderInfo();
-		orderInfo.setOrder(order);
+		orderInfo.setOrderId(order.getOrderId());
 		Intent intent = new Intent(activity, OrderSubmitActivity.class);
 		intent.putExtra("orderInfo", orderInfo);
 		activity.startActivity(intent);

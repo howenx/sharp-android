@@ -264,12 +264,13 @@ public class GoodsBalanceActivity extends BaseActivity implements
 							Intent intent = new Intent(getActivity(),
 									OrderSubmitActivity.class);
 							intent.putExtra("orderInfo", info);
+							intent.putExtra("orderType", getIntent().getStringExtra("orderType"));
 							startActivity(intent);
 							sendBroadcast(new Intent(
 									AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
 							finish();
 						} else {
-							ToastUtils.Toast(getActivity(), R.string.error);
+							ToastUtils.Toast(getActivity(), info.getMessage().getMessage());
 						}
 					}
 

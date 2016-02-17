@@ -26,6 +26,8 @@ import com.hanmimei.activity.LoginActivity;
 import com.hanmimei.activity.MyCollectionActivity;
 import com.hanmimei.activity.MyOrderActivity;
 import com.hanmimei.activity.MyPinTuanActivity;
+import com.hanmimei.activity.PingouResultActivity;
+import com.hanmimei.adapter.PingouListAdapter;
 import com.hanmimei.dao.UserDao;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
@@ -187,6 +189,7 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 			doJump(CouponActivity.class);
 			break;
 		case R.id.pintuan:
+//			DoJumpUtils.doJump(getActivity(), PingouResultActivity.class);
 			doJump(MyPinTuanActivity.class);
 			break;
 		default:
@@ -196,9 +199,7 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 
 	private void doJump(Class clazz) {
 		if (activity.getUser() == null) {
-			Intent intent = new Intent(getActivity(), LoginActivity.class);
-			getActivity()
-					.startActivityForResult(intent, AppConstant.LOGIN_CODE);
+			getActivity().startActivityForResult(new Intent(getActivity(), LoginActivity.class), AppConstant.LOGIN_CODE);
 		} else {
 			DoJumpUtils.doJump(getActivity(), clazz);
 		}

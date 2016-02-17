@@ -96,8 +96,7 @@ public class PingouDetailActivity extends BaseActivity implements
 //		btn_pin_02 = findViewById(R.id.btn_pin_02);
 		findViewById(R.id.wanfaView).setOnClickListener(this);
 		findViewById(R.id.back_top).setOnClickListener(this);
-		findViewById(R.id.btn_buy_01).setOnClickListener(this);
-		findViewById(R.id.btn_buy_02).setOnClickListener(this);
+		
 		findViewById(R.id.btn_pin_01).setOnClickListener(this);
 		findViewById(R.id.btn_pin_02).setOnClickListener(this);
 
@@ -115,9 +114,13 @@ public class PingouDetailActivity extends BaseActivity implements
 
 		pinTitle.setText(stock.getPinTitle());
 		soldAmount.setText("已售：" + stock.getSoldAmount() + "件");
-		item_src_price.setText(stock.getOnePersonPinTieredPrice().getPrice() + "/件");
-		pin_price.setText(stock.getFloorPrice().getPrice() + "/件起");
-		pin_per_num.setText("最高" + stock.getFloorPrice().getPeopleNum() + "人团");
+		if(stock.getInvPrice() !=null){
+			item_src_price.setText(stock.getInvPrice() + "元/件");
+			findViewById(R.id.btn_buy_01).setOnClickListener(this);
+			findViewById(R.id.btn_buy_02).setOnClickListener(this);
+		}
+		pin_price.setText(stock.getFloorPrice().get("price") + "元/件起");
+		pin_per_num.setText("最高" + stock.getFloorPrice().get("person_num")+ "人团");
 
 	}
 
@@ -239,16 +242,18 @@ public class PingouDetailActivity extends BaseActivity implements
 		StockVo s = detail.getStock();
 		if (s.getStatus().equals("Y")) {
 			sgoods = new ShoppingGoods();
-			sgoods.setGoodsId(Integer.valueOf(s.getPinId()));
+			sgoods.setGoodsId(s.getId());
 			sgoods.setGoodsImg(s.getInvImgForObj().getUrl());
 			sgoods.setGoodsName(s.getPinTitle());
 			sgoods.setGoodsNums(1);
-//			sgoods.setGoodsPrice(s.getPinSrcPrice().getPrice().doubleValue());
+			sgoods.setGoodsPrice(s.getInvPrice());
 			sgoods.setInvArea(s.getInvArea());
 			sgoods.setInvAreaNm(s.getInvAreaNm());
 			sgoods.setInvCustoms(s.getInvCustoms());
 			sgoods.setPostalTaxRate(s.getPostalTaxRate());
 			sgoods.setPostalStandard(s.getPostalStandard());
+			sgoods.setSkuType("item");
+			sgoods.setSkuTypeId(s.getPinId());
 		} else if (s.getStatus().equals("P")) {
 			ToastUtils.Toast(this, "尚未开售");
 			return;
@@ -264,6 +269,7 @@ public class PingouDetailActivity extends BaseActivity implements
 		car.setList(list);
 		Intent intent = new Intent(this, GoodsBalanceActivity.class);
 		intent.putExtra("car", car);
+		intent.putExtra("orderType", "item");
 		startActivity(intent);
 	}
 

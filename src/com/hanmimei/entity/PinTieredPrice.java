@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 public class PinTieredPrice implements Serializable{
-	private Long id; // 阶梯价格ID
+	private String id; // 阶梯价格ID
 	private String masterCouponClass; // 团长返券类别
 	private String masterCouponClassName; // 团长返券类别名称
 
@@ -32,10 +32,10 @@ public class PinTieredPrice implements Serializable{
 	public void setSelected(boolean isSelected) {
 		this.isSelected = isSelected;
 	}
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getMasterCouponClass() {
@@ -116,8 +116,8 @@ public class PinTieredPrice implements Serializable{
 	public void setPeopleNum(Integer peopleNum) {
 		this.peopleNum = peopleNum;
 	}
-	public BigDecimal getPrice() {
-		return price;
+	public Double getPrice() {
+		return price.doubleValue();
 	}
 	public void setPrice(BigDecimal price) {
 		this.price = price;
