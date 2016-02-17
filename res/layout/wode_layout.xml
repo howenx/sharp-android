@@ -66,6 +66,16 @@
 	    android:layout_height="wrap_content"
 	    android:text="    我的拼团"
 	   style="@style/wode_font_style"/>
+
+    <TextView
+        android:id="@+id/collect"
+        style="@style/wode_font_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:padding="12dp"
+        android:text="    我的收藏" />
+
 	<LinearLayout 
 	    android:id="@+id/youhui_linear"
         android:layout_marginTop="15dp"
@@ -109,15 +119,5 @@
         android:layout_marginTop="15dp"
         android:padding="12dp"
         android:text="    管理收货地址" />
-
-    <TextView
-        android:id="@+id/collect"
-        style="@style/wode_font_style"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:padding="12dp"
-        android:text="    我的收藏"
-        android:visibility="gone" />
 
 </LinearLayout>

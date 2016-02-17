@@ -14,8 +14,6 @@ import android.widget.TextView;
 import com.hanmimei.R;
 import com.hanmimei.entity.Sku;
 import com.hanmimei.utils.ImageLoaderUtils;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 @SuppressLint("InflateParams")
 public class MyCollectionAdapter extends BaseAdapter {
@@ -49,8 +47,7 @@ public class MyCollectionAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup arg2) {
 		Sku sku = data.get(position);
-		ViewHolder holder = null;
-		// 判断数据条数，订单数据为一条的时候，使用order_list_item布局，多余一条则使用order_list_item_img布局
+		ViewHolder holder = null;	
 			if (convertView == null) {
 				holder = new ViewHolder();
 				convertView = inflater.inflate(R.layout.my_collection_item_layout, null);
@@ -61,11 +58,9 @@ public class MyCollectionAdapter extends BaseAdapter {
 			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
-//			ImageLoaderUtils.loadImage(sku.getInvImg(), holder.img);
-//			holder.name.setText(sku.getSkuTitle());
-//			holder.price.setText("单价： ¥" + sku.getPrice());
-//			holder.nums.setText("x" + sku.getAmount());
-//			holder.size.setText(sku.getItemColor() + "  " + sku.getItemSize());
+			ImageLoaderUtils.loadImage(sku.getInvImg(), holder.img);
+			holder.name.setText(sku.getSkuTitle());
+			holder.price.setText("单价：¥" + sku.getPrice());
 			return convertView;
 	}
 

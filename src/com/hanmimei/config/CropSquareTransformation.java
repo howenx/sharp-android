@@ -19,7 +19,8 @@ public class CropSquareTransformation implements Transformation {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	@Override public Bitmap transform(Bitmap source) {
+	@Override 
+	public Bitmap transform(Bitmap source) {
 		int width = source.getWidth();
 		int screenWidth = CommonUtil.getScreenWidth(context);
 		int sx = screenWidth/width;
