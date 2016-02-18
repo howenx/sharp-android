@@ -202,8 +202,14 @@ public class BaseActivity extends AppCompatActivity {
 			if (cbm.getText().toString().trim().contains("KAKAO-HMM")) {
 				String url[] = cbm.getText().toString().trim().split("】,");
 				if(url[1].contains(",－")){
-					loadData("http://172.28.3.51:9001/comm/detail"
-						+ url[1].split(",－")[0]);
+					if(cbm.getText().toString().trim().contains("<C>")){
+						loadData("http://172.28.3.51:9001/comm/detail"
+								+ url[1].split(",－")[0]);
+					}else if(cbm.getText().toString().trim().contains("<P>")){
+						
+					}else if(cbm.getText().toString().trim().contains("<T>")){
+						
+					}
 					cbm.setText("");
 					getMyApplication().setKouling("");
 				}
@@ -224,7 +230,6 @@ public class BaseActivity extends AppCompatActivity {
 								detail.getCurrentStock().getInvImgForObj()
 										.getUrl());
 					}
-
 					@Override
 					public void onError() {
 						ToastUtils.Toast(getActivity(), "错误的M令！");

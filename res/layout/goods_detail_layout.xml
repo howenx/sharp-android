@@ -261,7 +261,7 @@
                     android:layout_gravity="center"
                     android:contentDescription="@null"
                     android:scaleType="center"
-                    android:src="@drawable/icon_collect_normal" />
+                    android:src="@drawable/icon_un_collect" />
             </FrameLayout>
 
             <TextView

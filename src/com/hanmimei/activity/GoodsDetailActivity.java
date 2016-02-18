@@ -26,6 +26,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request.Method;
 import com.astuetz.PagerSlidingTabStrip;
 import com.bigkoo.convenientbanner.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.ConvenientBanner;
@@ -81,12 +82,11 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 	private TextView itemTitle, itemSrcPrice, itemPrice, area;// 标题、 原价、现价、发货区
 	private TextView num_restrictAmount; // 限购数量
-	private ImageView img_hide;
+	private ImageView img_hide, collectionImg;
 
 	private BadgeView goodsNumView;// 显示购买数量的控件
 
 	private PopupWindow shareWindow;
-	private ImageView btn_collect;
 
 	private View back_top;
 	private ScrollableLayout mScrollLayout;
@@ -94,6 +94,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	// private User user;
 	private int num_shopcart = 0;
 	private HMessage msg = null;
+	private boolean isCollection = false;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -129,9 +130,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 		back_top = findViewById(R.id.back_top);
 
 		img_hide = (ImageView) findViewById(R.id.img_hide);
-		btn_collect = (ImageView) findViewById(R.id.btn_collect);
 		mScrollLayout = (ScrollableLayout) findViewById(R.id.mScrollLayout);
-
+		collectionImg = (ImageView) findViewById(R.id.attention);
+		findViewById(R.id.btn_attention).setOnClickListener(this);
 		findViewById(R.id.btn_pay).setOnClickListener(this);
 		findViewById(R.id.btn_shopcart).setOnClickListener(this);
 		findViewById(R.id.btn_add_shopcart).setOnClickListener(this);
@@ -139,8 +140,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 		findViewById(R.id.back_top).setOnClickListener(this);
 
 		findViewById(R.id.reload).setOnClickListener(this);
-		btn_collect.setOnClickListener(this);
-
 	}
 
 	private void initGoodsNumView() {
@@ -294,7 +293,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		case R.id.btn_pay:
 			clickPay();
 			break;
-		case R.id.btn_collect:
+		case R.id.btn_attention:
 			collectGoods();
 			break;
 		case R.id.btn_add_shopcart:
@@ -338,7 +337,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private void doCopy() {
 		String code[] = detail.getCurrentStock().getInvUrl().split("detail");
 		HMMApplication application = (HMMApplication) getApplication();
-		application.setKouling("KAKAO-HMM 复制这条信息，打开👉韩秘美👈即可看到【" +  detail.getCurrentStock().getInvTitle() +"】," +  code[1] + ",－🔑 M令 🔑");
+		application.setKouling("KAKAO-HMM 复制这条信息,打开👉韩秘美👈即可看到<C>【"
+				+ detail.getCurrentStock().getInvTitle() + "】," + code[1]
+				+ ",－🔑 M令 🔑");
 	}
 
 	/**
@@ -622,12 +623,84 @@ public class GoodsDetailActivity extends BaseActivity implements
 		return array;
 	}
 
+	// 收藏商品
 	private void collectGoods() {
 		if (getUser() == null) {
 			startActivity(new Intent(this, LoginActivity.class));
 		} else {
-
+			toObject();
+			if (isCollection) {
+				delCollection();
+			} else {
+				addCollection();
+			}
 		}
+	}
+
+	private JSONObject object;
+
+	private void toObject() {
+		object = new JSONObject();
+		try {
+			object.put("skuId", detail.getCurrentStock().getId());
+			object.put("skuType", detail.getCurrentStock().getSkuType());
+			object.put("skuTypeId", detail.getCurrentStock().getSkuTypeId());
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// 添加收藏
+	private void addCollection() {
+		Http2Utils.doRequestTask2(this, Method.POST, getHeaders(),
+				UrlUtil.ADD_COLLECTION, new VolleyJsonCallback() {
+
+					@Override
+					public void onSuccess(String result) {
+						HMessage message = DataParser.paserResultMsg(result);
+						int collectionId = DataParser.parserCollectId(result);
+						if (message.getCode() == 200) {
+							isCollection = true;
+							detail.getCurrentStock().setCollectId(collectionId);
+							collectionImg.setImageDrawable(getResources()
+									.getDrawable(R.drawable.icon_collect));
+							ToastUtils.Toast(GoodsDetailActivity.this, "收藏成功");
+							sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_COLLECTION_ACTION));
+						} else {
+							ToastUtils.Toast(GoodsDetailActivity.this, "收藏失败");
+						}
+					}
+					@Override
+					public void onError() {
+						ToastUtils.Toast(GoodsDetailActivity.this,
+								"收藏失败，请检查您的网络");
+					}
+				}, object.toString());
+	}
+
+	private void delCollection() {
+		Http2Utils.doGetRequestTask(this, getHeaders(), UrlUtil.DEL_COLLECTION
+				+ detail.getCurrentStock().getCollectId(), new VolleyJsonCallback() {
+
+			@Override
+			public void onSuccess(String result) {
+				HMessage message = DataParser.paserResultMsg(result);
+				if (message.getCode() == 200) {
+					isCollection = false;
+					detail.getCurrentStock().setCollectId(0);
+					collectionImg.setImageDrawable(getResources().getDrawable(R.drawable.icon_un_collect));
+					ToastUtils.Toast(GoodsDetailActivity.this, "取消收藏成功");
+					sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_COLLECTION_ACTION));
+				}else{
+					ToastUtils.Toast(GoodsDetailActivity.this, "取消收藏失败");
+				}
+			}
+
+			@Override
+			public void onError() {
+				ToastUtils.Toast(GoodsDetailActivity.this, "取消收藏失败");
+			}
+		});
 	}
 
 	// =========================================================================
@@ -650,19 +723,17 @@ public class GoodsDetailActivity extends BaseActivity implements
 		// 子商品信息
 		TextView publicity = (TextView) findViewById(R.id.publicity); // 优惠信息
 																		// /购物车数量
-		if(detail.getMain() != null){
+		if (detail.getMain() != null) {
 			publicity.setText(detail.getMain().getPublicity());
 			mScrollLayout.canScroll();
 		}
-
 		initGoodsInfo();
 		initShopcartNum();
 		initFragmentPager(detail.getMain());
-		
 	}
 
 	private void initFragmentPager(MainVo main) {
-		if(main == null)
+		if (main == null)
 			return;
 		List<String> titles = new ArrayList<String>();
 		titles.add("图文详情");
@@ -722,7 +793,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private int postalStandard;// 关税收费标准
 
 	private void initGoodsInfo() {
-		if(detail.getStock() == null)
+		if (detail.getStock() == null)
 			return;
 		StockVo stock = null;
 		List<Tag> tags = new ArrayList<Tag>();
@@ -737,11 +808,11 @@ public class GoodsDetailActivity extends BaseActivity implements
 	}
 
 	private void initTags(List<Tag> tags) {
-		if(tags.size()<=0)
+		if (tags.size() <= 0)
 			return;
 		TagCloudView tagCloudView = (TagCloudView) findViewById(R.id.tagCloudView);// 规格标签控件
 		// 初始化规格显示
-		 tagCloudView.removeAllViews();
+		tagCloudView.removeAllViews();
 		tagCloudView.setTags(tags);
 		// 规格标签的点击事件
 		tagCloudView.setOnTagClickListener(new OnTagClickListener() {
@@ -769,7 +840,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	 */
 
 	private void initStocks(StockVo s) {
-		if(s == null)
+		if (s == null)
 			return;
 		initSliderImage(s);
 		String zhe = "";
@@ -792,11 +863,18 @@ public class GoodsDetailActivity extends BaseActivity implements
 		}
 		ImageLoaderUtils
 				.loadImage(this, s.getInvImgForObj().getUrl(), img_hide);
-		if(s.getPostalTaxRate() !=null)
+		if (s.getPostalTaxRate() != null)
 			curPostalTaxRate = s.getPostalTaxRate();
 		curItemPrice = s.getItemPrice().doubleValue();
 		postalStandard = s.getPostalStandard();
 		area.setText(s.getInvAreaNm());
+		if(s.getCollectId() != 0){
+			collectionImg.setImageDrawable(getResources().getDrawable(R.drawable.icon_collect));
+			isCollection = true;
+		}else{
+			collectionImg.setImageDrawable(getResources().getDrawable(R.drawable.icon_un_collect));
+			isCollection = false;
+		}
 	}
 
 	/**
@@ -857,6 +935,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 		IntentFilter intentFilter = new IntentFilter();
 		intentFilter
 				.addAction(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR);
+		intentFilter
+		.addAction(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION);
 		getActivity().registerReceiver(netReceiver, intentFilter);
 	}
 
@@ -868,6 +948,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 					AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR)) {
 				msg = null;
 				getGoodsNums();
+			}else if(intent.getAction().equals(
+					AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION)){
+				loadDataByUrl();
 			}
 		}
 	}
@@ -876,7 +959,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 	public void onEvent(Boolean b) {
 		// dragLayout.setTouchMode(b);
 	}
-
 	@Override
 	protected void onDestroy() {
 		unregisterReceiver(netReceiver);
