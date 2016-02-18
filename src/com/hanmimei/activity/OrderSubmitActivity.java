@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,20 +26,16 @@ import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.ProgressWebView;
-import com.hanmimei.view.ProgressWebView2;
 import com.umeng.analytics.MobclickAgent;
 
 public class OrderSubmitActivity extends BaseActivity {
 
 	private ProgressWebView mWebView;
 	private Date startTime; // 创建页面时间，用于标志页面过期的起始时间
-	private boolean isSuccess = false;
+	private boolean isSuccess = false; //用于标志支付是否成功
 
 	Map<String, String> extraHeaders;
 
-	// private Date endTime;
-
-	@SuppressLint("SetJavaScriptEnabled")
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -59,8 +54,6 @@ public class OrderSubmitActivity extends BaseActivity {
 		extraHeaders = new HashMap<String, String>();
 		extraHeaders.put("id-token", getUser().getToken());
 
-//		mWebView.loadUrl("https://www.baidu.com/",extraHeaders);
-
 		mWebView.setWebViewClient(new WebViewClient() {
 
 			@Override
@@ -76,8 +69,8 @@ public class OrderSubmitActivity extends BaseActivity {
 				return true;
 			}
 		});
-//		
-//		
+
+	
 		mWebView.loadUrl(UrlUtil.CLIENT_PAY_ORDER_GET
 				 + orderInfo.getOrderId(), extraHeaders);
 
@@ -85,8 +78,7 @@ public class OrderSubmitActivity extends BaseActivity {
 		mWebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
 		mWebView.setWebChromeClient(new NewWebChromeClient());
 		// 添加js交互
-		mWebView.addJavascriptInterface(new JavaScriptInterface(this),
-				"handler");
+		mWebView.addJavascriptInterface(new JavaScriptInterface(this),"handler");
 
 	}
 	
@@ -183,22 +175,18 @@ public class OrderSubmitActivity extends BaseActivity {
 		}
 
 		@JavascriptInterface
-		public void clearHistory() {
+		public void clearHistory(String url) {
+			Log.e("error", url);
 			isSuccess = true;
-			mWebView.clearHistory();
-		}
-		
-		@JavascriptInterface
-		public void loadurl(String url) {
-			if (isOverdue(startTime, new Date())) {
-				ToastUtils.Toast(getActivity(), "页面过期");
-				startActivity(new Intent(getActivity(),
-						MyOrderActivity.class));
+//			mWebView.clearHistory();
+			if(url.contains("http")){
+				Intent intent = new Intent(getActivity(), PingouResultActivity.class);
+				intent.putExtra("url", url);
+				startActivity(intent);
 				finish();
-			} else {
-				mWebView.loadUrl(url, extraHeaders);
 			}
 		}
+		
 	}
 
 	// 显示取消支付窗口

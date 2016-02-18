@@ -78,4 +78,8 @@
 	<string name="submit_error">提交失败</string>
 	<string name="see_order">查看订单详情</string>
 	<string name="see_tuan">查看团详情</string>
+	
+	
+		<string name="tuan_gui">%1$s人团：¥%2$s</string>
+	
 </resources>

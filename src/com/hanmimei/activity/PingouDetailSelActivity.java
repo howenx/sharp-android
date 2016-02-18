@@ -130,7 +130,7 @@ public class PingouDetailSelActivity extends BaseActivity {
 				btn_pin.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View arg0) {
-						goToGoodsBalance();
+						goToGoodsBalance(stock);
 					}
 				});
 				holder.contentView.setBackgroundResource(R.drawable.bg_pingou_selected);
@@ -164,12 +164,11 @@ public class PingouDetailSelActivity extends BaseActivity {
 	}
 	
 	
-	private void goToGoodsBalance(){
+	private void goToGoodsBalance(StockVo s){
 		ShoppingCar car = new ShoppingCar();
 		List<Customs> list = new ArrayList<Customs>();
 		Customs customs = new Customs();
 		ShoppingGoods sgoods;
-		StockVo s = stock;
 		if (s.getStatus().equals("Y")) {
 			sgoods = new ShoppingGoods();
 			sgoods.setGoodsId(s.getId());

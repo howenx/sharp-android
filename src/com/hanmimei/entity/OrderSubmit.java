@@ -18,8 +18,14 @@ public class OrderSubmit {
 	    private String payMethod;       //支付方式:JD.京东 APAY.支付宝 WEIXIN.微信
 	    private Integer buyNow;         //1.立即支付,2.购物车结算
 	    
+	    private String pinActiveId;       //拼购活动ID
 	    
-	    
+		public String getPinActiveId() {
+			return pinActiveId;
+		}
+		public void setPinActiveId(String pinActiveId) {
+			this.pinActiveId = pinActiveId;
+		}
 		public OrderSubmit() {
 			super();
 			this.clientType = 1;

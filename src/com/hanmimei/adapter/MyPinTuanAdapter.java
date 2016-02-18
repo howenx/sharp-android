@@ -3,25 +3,32 @@ package com.hanmimei.adapter;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hanmimei.R;
-import com.hanmimei.entity.Goods;
+import com.hanmimei.activity.PingouResultActivity;
+import com.hanmimei.entity.PinActivity;
 import com.hanmimei.utils.ImageLoaderUtils;
 
 public class MyPinTuanAdapter extends BaseAdapter {
 
-	private List<Goods> data;
+	private List<PinActivity> data;
 	private LayoutInflater inflater;
-	public MyPinTuanAdapter(Context mContext, List<Goods> data){
+	private Context mContext;
+
+	public MyPinTuanAdapter(Context mContext, List<PinActivity> data) {
 		this.data = data;
-		inflater = LayoutInflater.from(mContext);
+		this.mContext = mContext;
+		this.inflater = LayoutInflater.from(mContext);
 	}
+
 	@Override
 	public int getCount() {
 		return data.size();
@@ -39,35 +46,65 @@ public class MyPinTuanAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup arg2) {
-		Goods goods = data.get(position);
+		final PinActivity goods = data.get(position);
 		ViewHolder holder = null;
-		if(convertView == null){
-			holder = new ViewHolder();
-			convertView = inflater.inflate(R.layout.my_pintuan_item_layout, null);
-			holder.img = (ImageView) convertView.findViewById(R.id.img);
-			holder.title = (TextView) convertView.findViewById(R.id.title);
-			holder.price = (TextView) convertView.findViewById(R.id.price);
-			holder.state = (TextView) convertView.findViewById(R.id.state);
-			holder.check_tuan = (TextView) convertView.findViewById(R.id.see_detail);
-			holder.check_order = (TextView) convertView.findViewById(R.id.see_order);
+		if (convertView == null) {
+			convertView = inflater.inflate(R.layout.my_pintuan_item_layout,null);
+			holder = new ViewHolder(convertView);
+			
 			convertView.setTag(holder);
-		}else{
+		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		ImageLoaderUtils.loadImage(goods.getImgUrl(), holder.img);
-		holder.title.setText(goods.getTitle());
-		holder.price.setText("成团价：" + goods.getPrice());
-		holder.state.setText("拼团成功");
+		ImageLoaderUtils.loadImage(goods.getPinImg().getUrl(), holder.img);
+		holder.title.setText(goods.getPinTitle());
+		holder.price.setText("成团价：" + goods.getPinPrice());
+		if(goods.getStatus().equals("Y")){
+			holder.state.setText("拼团中");
+			holder.see_order.setVisibility(View.GONE);
+			holder.see_tuan.setVisibility(View.VISIBLE);
+		}else if(goods.getStatus().equals("F")){
+			holder.state.setText("拼团失败");
+			holder.see_order.setVisibility(View.GONE);
+			holder.see_tuan.setVisibility(View.VISIBLE);
+		}else if(goods.getStatus().equals("C")){
+			holder.state.setText("拼团成功");
+			holder.see_order.setVisibility(View.VISIBLE);
+			holder.see_tuan.setVisibility(View.VISIBLE);
+		}else if(goods.getStatus().equals("N")){
+			holder.state.setText("拼团取消");
+			holder.see_order.setVisibility(View.GONE);
+			holder.see_tuan.setVisibility(View.VISIBLE);
+		}
+		holder.see_tuan.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				Intent intent = new Intent(mContext, PingouResultActivity.class);
+				intent.putExtra("url", goods.getPinUrl());
+				mContext.startActivity(intent);
+			}
+		});
 		return convertView;
 	}
-	
-	private class ViewHolder{
+
+	private class ViewHolder {
 		private ImageView img;
 		private TextView title;
 		private TextView price;
 		private TextView state;
-		private TextView check_tuan;
-		private TextView check_order;
+		private TextView see_tuan;
+		private TextView see_order;
+		public ViewHolder(View convertView) {
+			this.img = (ImageView) convertView.findViewById(R.id.img);
+			this.title = (TextView) convertView.findViewById(R.id.title);
+			this.price = (TextView) convertView.findViewById(R.id.price);
+			this.state = (TextView) convertView.findViewById(R.id.state);
+			this.see_tuan = (TextView) convertView.findViewById(R.id.see_tuan);
+			this.see_order = (TextView) convertView.findViewById(R.id.see_order);
+		}
+		
+		
 	}
-      
+
 }

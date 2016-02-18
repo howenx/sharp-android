@@ -73,6 +73,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 		customslist = car.getList();
 		orderSubmit = new OrderSubmit();
 		orderSubmit.setBuyNow(car.getBuyNow());
+		orderSubmit.setPinActiveId(getIntent().getStringExtra("pinActiveId"));
 		findView();
 		adapter = new GoodsBalanceCustomAdapter(customslist, this);
 		mListView.setAdapter(adapter);

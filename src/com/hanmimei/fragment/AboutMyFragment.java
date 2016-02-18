@@ -187,7 +187,6 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 			doJump(CouponActivity.class);
 			break;
 		case R.id.pintuan:
-//			DoJumpUtils.doJump(getActivity(), PingouResultActivity.class);
 			doJump(MyPinTuanActivity.class);
 			break;
 		default:
