@@ -49,8 +49,13 @@ public class StockVo implements Serializable{
 	private String shareUrl; // 分享短连接
 	private String status; // 拼购ID
 	private Double invPrice; //商品原价
+<<<<<<< HEAD
 	private int collectId;
 	private String soldAmount ;
+=======
+	
+	private String soldAmount ;//已售数量
+>>>>>>> 67f140b28e3f5f4b4d916b357ebbc3d1de06bd75
 	
 	//共有属性
     private     String              skuType;//商品类型 1.vary,2.item,3.customize,4.pin

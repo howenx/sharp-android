@@ -36,7 +36,6 @@ public class JSONPaserTool {
 				array.put(json);
 			}
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return array;
@@ -54,6 +53,7 @@ public class JSONPaserTool {
 //			json.put("orderDesc", os.getOrderDesc());
 			json.put("payMethod", os.getPayMethod());
 			json.put("buyNow", os.getBuyNow());
+			json.put("pinActiveId", os.getPinActiveId());
 			
 		} catch (JSONException e) {
 			e.printStackTrace();

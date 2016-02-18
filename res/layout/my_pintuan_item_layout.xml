@@ -33,9 +33,10 @@
 	    android:layout_height="0.1dp"
 	    android:layout_width="match_parent"
 	    android:background="@color/xian"/>
-	<RelativeLayout 
+	<LinearLayout 
 	    android:layout_marginTop="10dp"
 	    android:layout_below="@id/xian"
+	    android:orientation="horizontal"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content">
 	<TextView 
@@ -46,13 +47,32 @@
 	    android:text="@null"
 	    android:textSize="16sp"
 	    android:textColor="@color/theme"/>
+	<View 
+	    android:layout_width="0dp"
+	    android:layout_weight="1"
+	    android:layout_height="1dp"/>
+	
+
+	<TextView
+	    android:id="@+id/see_tuan"
+	    android:paddingTop ="5dp"
+	    android:paddingBottom="5dp"
+	    android:paddingLeft="8dp"
+	    android:paddingRight="8dp"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:background="@drawable/theme_border"
+	    android:text="@string/see_tuan"
+	    android:textColor="@color/theme"
+	    android:textSize="14sp" />
+	
 	<TextView 
 	    android:id="@+id/see_order"
 	    android:paddingTop ="5dp"
 	    android:paddingBottom="5dp"
 	    android:paddingLeft="8dp"
 	    android:paddingRight="8dp"
-	    android:layout_alignParentRight="true"
+	    android:layout_marginLeft="5dp"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:text="@string/see_order"
@@ -60,22 +80,7 @@
 	    android:textColor="@color/white"
 	    android:background="@drawable/theme_solid_bg"/>
 
-	<TextView
-	    android:id="@+id/see_detail"
-	    android:paddingTop ="5dp"
-	    android:paddingBottom="5dp"
-	    android:paddingLeft="8dp"
-	    android:paddingRight="8dp"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentTop="true"
-	    android:layout_centerHorizontal="true"
-	    android:background="@drawable/theme_border"
-	    android:text="@string/see_tuan"
-	    android:textColor="@color/theme"
-	    android:textSize="14sp" />
-
-	</RelativeLayout>
+	</LinearLayout>
 
 	<TextView
 	    android:id="@+id/price"

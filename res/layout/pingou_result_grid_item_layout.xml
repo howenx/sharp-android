@@ -10,7 +10,7 @@
         android:layout_height="50dp"
         app:border_width="1dp"
         app:border_color="@color/theme"
-        android:src="@drawable/photo" />
+        android:src="@drawable/icon_default_header" />
 
     <TextView
         android:id="@+id/roleView"

@@ -17,24 +17,18 @@
             android:orientation="vertical" >
 
             <ImageView
+                android:id="@+id/tuan_status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:contentDescription="@null"
-                android:padding="5dp"
                 android:scaleType="centerInside"
                 android:src="@drawable/hmm_kaituan_success" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="快去邀请好友加入吧"
-                android:textColor="@color/fontcolor" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="15dp"
                 android:background="@drawable/bg_gray_boarder"
                 android:padding="8dp" >
 
@@ -42,7 +36,7 @@
                     android:id="@+id/imageView1"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:background="@color/qianhui"
+                    android:background="@drawable/huise_border"
                     android:contentDescription="@null" />
 
                 <TextView
@@ -57,6 +51,7 @@
                     android:textSize="12sp" />
 
                 <TextView
+                    android:id="@+id/tuan_guige"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@+id/imageView1"
@@ -66,7 +61,7 @@
                     android:textSize="14sp" />
 
                 <ImageView
-                    android:id="@+id/state"
+                    android:id="@+id/tuan_state"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:layout_alignParentRight="true"
@@ -84,8 +79,19 @@
 				android:verticalSpacing="5dp">
                 
             </com.hanmimei.view.CustomGridView>
+            
+             <TextView
+                 android:id="@+id/about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="对于助威打下的帮助团长感激涕零"
+                android:textColor="@color/huise"
+                android:textSize="14sp" />
 
             <LinearLayout
+                android:id="@+id/jishiView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -106,13 +112,12 @@
                     android:textColor="@color/fontcolor"
                     android:textSize="14sp" />
 
-                <com.hanmimei.view.TimerTextView
+                <com.hanmimei.view.TimeDownView
                     android:id="@+id/timer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    android:gravity="center_vertical"
-                    android:textSize="13sp" />
+                    android:gravity="center_vertical" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -130,14 +135,6 @@
                     android:background="@color/xian" />
             </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:gravity="center"
-                android:text="对于助威打下的帮助团长感激涕零"
-                android:textColor="@color/huise"
-                android:textSize="14sp" />
             
             <ImageView
                 android:layout_width="20dp"
@@ -156,13 +153,13 @@
                 android:padding="8dp">
 
                 <com.hanmimei.view.RoundImageView
-                    android:id="@+id/faceView"
+                    android:id="@+id/master_face"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:src="@drawable/photo" />
 
                 <TextView
-                    android:id="@+id/nameView"
+                    android:id="@+id/master_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
@@ -176,7 +173,7 @@
                     android:layout_weight="1" />
 
                 <TextView
-                    android:id="@+id/timeView"
+                    android:id="@+id/master_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="2011-11-11 12:12:12开团"
@@ -192,12 +189,14 @@
     </ScrollView>
 
     <RelativeLayout
+        android:id="@+id/xiadanView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#AA000000"
         android:padding="10dp" >
 
         <TextView
+            android:id="@+id/btn_xiadan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/theme"
