@@ -2,6 +2,7 @@ package com.hanmimei.activity;
 
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -23,7 +24,9 @@ import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ImageLoaderUtils;
+import com.hanmimei.utils.KeyWordUtil;
 import com.hanmimei.utils.ToastUtils;
+import com.hanmimei.view.RoundImageView;
 import com.hanmimei.view.TimeDownView;
 
 public class PingouResultActivity extends BaseActivity implements
@@ -92,7 +95,7 @@ public class PingouResultActivity extends BaseActivity implements
 				});
 	}
 
-	private void initPageData(PinActivity pinActivity) {
+	private void initPageData(final PinActivity pinActivity) {
 
 		if (pinActivity.getStatus().equals("Y")) {
 			if (pinActivity.getPay().equals("new")) {
@@ -161,8 +164,11 @@ public class PingouResultActivity extends BaseActivity implements
 
 		ImageLoaderUtils.loadImage(pinActivity.getPinImg().getUrl(), pro_img);
 		pro_title.setText(pinActivity.getPinTitle() + "");
-		tuan_guige.setText(getResources().getString(R.string.tuan_gui,
-				pinActivity.getPersonNum(), pinActivity.getPinPrice()));
+		String guige = getResources().getString(R.string.tuan_gui,
+				pinActivity.getPersonNum(), pinActivity.getPinPrice());
+		KeyWordUtil.setDifferentFontColor13(this, tuan_guige,guige , guige.indexOf("¥")+1, guige.length());
+//		tuan_guige.setText(getResources().getString(R.string.tuan_gui,
+//				pinActivity.getPersonNum(), pinActivity.getPinPrice()));
 
 		PinUser master = pinActivity.getPinUsersForMaster();
 		ImageLoaderUtils.loadImage(master.getUserImg(), master_face);
@@ -172,6 +178,16 @@ public class PingouResultActivity extends BaseActivity implements
 				.setAdapter(new PinTuanGridAdapter(pinActivity.getPinUsers()));
 		mListView.setAdapter(new PinTuanListAdapter(pinActivity
 				.getPinUsersForMember()));
+		
+		findViewById(R.id.btn_see_goods).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getActivity(), PingouDetailActivity.class);
+				intent.putExtra("url", pinActivity.getPinSkuUrl());
+				startActivity(intent);
+			}
+		});
 
 		pinActivity.getEndCountDown();
 		int[] time = { pinActivity.getEndCountDownForDay(),
@@ -288,6 +304,9 @@ public class PingouResultActivity extends BaseActivity implements
 				}
 				ImageLoaderUtils.loadImage(members.get(arg0).getUserImg(),
 						holder.faceView);
+				holder.faceView.setBorderColor(getResources().getColor(R.color.theme));
+			}else{
+				holder.faceView.setBorderColor(getResources().getColor(R.color.qianhui));
 			}
 
 			return arg1;
@@ -295,12 +314,12 @@ public class PingouResultActivity extends BaseActivity implements
 
 		private class ViewHolder {
 			TextView roleView;
-			ImageView faceView;
+			RoundImageView faceView;
 
 			public ViewHolder(View view) {
 				super();
 				this.roleView = (TextView) view.findViewById(R.id.roleView);
-				this.faceView = (ImageView) view.findViewById(R.id.faceView);
+				this.faceView = (RoundImageView) view.findViewById(R.id.faceView);
 			}
 		}
 	}
