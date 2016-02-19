@@ -10,21 +10,19 @@ public class UrlUtil {
 	
 	
 //		//51
-<<<<<<< HEAD
 //		public static final String SERVERY3 = "http://172.28.3.51:9001";	//  18:9001
 //		public static final String SERVERY1 = "http://172.28.3.51:9003";	// 18:9003
 //		public static final String SERVERY4 = "http://172.28.3.51:9004";	// 18:9004
 		//
-		public static final String SERVERY3 = "http://172.28.3.78:9001";	//  18:9001
-		public static final String SERVERY1 = "http://172.28.3.78:9003";	// 18:9003
-		public static final String SERVERY4 = "http://172.28.3.78:9004";	// 18:9004
-=======
+//		public static final String SERVERY3 = "http://172.28.3.78:9001";	//  18:9001
+//		public static final String SERVERY1 = "http://172.28.3.78:9003";	// 18:9003
+//		public static final String SERVERY4 = "http://172.28.3.78:9004";	// 18:9004
+		
 		public static final String SERVERY3 = "http://172.28.3.51:9001";	//  18:9001
 		public static final String SERVERY1 = "http://172.28.3.51:9003";	// 18:9003
 		public static final String SERVERY4 = "http://172.28.3.51:9004";	// 18:9004
 		public static final String SERVERY5 = "http://172.28.3.51:9005";	// 18:9005
 
->>>>>>> 67f140b28e3f5f4b4d916b357ebbc3d1de06bd75
 		//18
 //		public static final String SERVERY3 = "http://172.28.3.18:9001";	//  18:9001
 //		public static final String SERVERY1 = "http://172.28.3.18:9003";	// 18:9003
@@ -105,17 +103,14 @@ public class UrlUtil {
 	public static final String AGREEMENT = SERVERY3 + "/comm/views/privacy";
 	//检测更新
 	public static final String UPDATE_HMM = "http://hanmimei-test.oss-cn-beijing.aliyuncs.com/android/hmm.xml";
-<<<<<<< HEAD
 	//添加收藏
 	public static final String ADD_COLLECTION = "http://172.28.3.78:9003/client/collect/submit/";
 	//收藏列表
 	public static final String COLLECTION_LIST = "http://172.28.3.78:9003/client/collect/get/collect/list";
 	//删除收藏
 	public static final String DEL_COLLECTION = "http://172.28.3.78:9003/client/collect/del/";
-=======
 	
 	//查询我的拼团
 	public static final String GET_MY_PINTUAN= SERVERY5 +"/promotion/pin/activity/list";
 
->>>>>>> 67f140b28e3f5f4b4d916b357ebbc3d1de06bd75
 }
