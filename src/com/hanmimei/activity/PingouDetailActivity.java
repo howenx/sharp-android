@@ -3,15 +3,23 @@ package com.hanmimei.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.volley.Request.Method;
 import com.astuetz.PagerSlidingTabStrip;
 import com.bigkoo.convenientbanner.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.ConvenientBanner;
@@ -23,7 +31,11 @@ import com.hanmimei.R;
 import com.hanmimei.activity.fragment.ImgFragment;
 import com.hanmimei.activity.fragment.ParamsFragment;
 import com.hanmimei.adapter.GoodsDetailPagerAdapter;
+import com.hanmimei.data.AppConstant;
+import com.hanmimei.data.DataParser;
+import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.Customs;
+import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.ImgInfo;
 import com.hanmimei.entity.MainVo;
 import com.hanmimei.entity.PinDetail;
@@ -45,7 +57,8 @@ public class PingouDetailActivity extends BaseActivity implements
 	private ConvenientBanner<ImgInfo> slider;
 	private View back_top;
 	private PinDetail detail;
-
+	private ImageView collectionImg;
+	private boolean isCollection = false;
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -53,6 +66,7 @@ public class PingouDetailActivity extends BaseActivity implements
 		setContentView(R.layout.pingou_detail_layout);
 		findView();
 		loadUrl();
+		registerReceivers();
 	}
 
 	private void loadUrl() {
@@ -94,9 +108,10 @@ public class PingouDetailActivity extends BaseActivity implements
 		view.setLayoutParams(lp);
 //		btn_pin_01 = findViewById(R.id.btn_pin_01);
 //		btn_pin_02 = findViewById(R.id.btn_pin_02);
+		collectionImg = (ImageView) findViewById(R.id.attention);
 		findViewById(R.id.wanfaView).setOnClickListener(this);
 		findViewById(R.id.back_top).setOnClickListener(this);
-		
+		findViewById(R.id.btn_attention).setOnClickListener(this);
 		findViewById(R.id.btn_pin_01).setOnClickListener(this);
 		findViewById(R.id.btn_pin_02).setOnClickListener(this);
 
@@ -121,7 +136,13 @@ public class PingouDetailActivity extends BaseActivity implements
 		}
 		pin_price.setText(stock.getFloorPrice().get("price") + "元/件起");
 		pin_per_num.setText("最高" + stock.getFloorPrice().get("person_num")+ "人团");
-
+		if(stock.getCollectId() != 0){
+			collectionImg.setImageDrawable(getResources().getDrawable(R.drawable.icon_collect));
+			isCollection = true;
+		}else{
+			collectionImg.setImageDrawable(getResources().getDrawable(R.drawable.icon_un_collect));
+			isCollection = false;
+		}
 	}
 
 	/**
@@ -161,13 +182,87 @@ public class PingouDetailActivity extends BaseActivity implements
 		case R.id.btn_pin_02:
 			showEasyDialog(detail.getStock());
 			break;
-
+		case R.id.btn_attention:
+			collectGoods();
+			break;
 		default:
 			break;
 		}
 
 	}
 
+	private void collectGoods() {
+		if (getUser() == null) {
+			startActivity(new Intent(this, LoginActivity.class));
+		} else {
+			toObject();
+			if (isCollection) {
+				delCollection();
+			} else {
+				addCollection();
+			}
+		}
+	}
+	private void delCollection() {
+		Http2Utils.doGetRequestTask(this, getHeaders(), UrlUtil.DEL_COLLECTION
+				+ detail.getStock().getCollectId(), new VolleyJsonCallback() {
+
+			@Override
+			public void onSuccess(String result) {
+				HMessage message = DataParser.paserResultMsg(result);
+				if (message.getCode() == 200) {
+					isCollection = false;
+					detail.getStock().setCollectId(0);
+					collectionImg.setImageDrawable(getResources().getDrawable(R.drawable.icon_un_collect));
+					ToastUtils.Toast(PingouDetailActivity.this, "取消收藏成功");
+					sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_COLLECTION_ACTION));
+				}else{
+					ToastUtils.Toast(PingouDetailActivity.this, "取消收藏失败");
+				}
+			}
+
+			@Override
+			public void onError() {
+				ToastUtils.Toast(PingouDetailActivity.this, "取消收藏失败");
+			}
+		});
+	}
+	private JSONObject object;
+	private void toObject() {
+		object = new JSONObject();
+		try {
+			object.put("skuId", detail.getStock().getId());
+			object.put("skuType", detail.getStock().getSkuType());
+			object.put("skuTypeId", detail.getStock().getSkuTypeId());
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+	}
+	//添加收藏
+	private void addCollection() {
+		Http2Utils.doRequestTask2(this, Method.POST, getHeaders(), UrlUtil.ADD_COLLECTION, new VolleyJsonCallback() {
+			
+			@Override
+			public void onSuccess(String result) {
+				HMessage message = DataParser.paserResultMsg(result);
+				int collectionId = DataParser.parserCollectId(result);
+				if(message.getCode() == 200){
+					isCollection = true;
+					detail.getStock().setCollectId(collectionId);
+					collectionImg.setImageDrawable(getResources().getDrawable(R.drawable.icon_collect));
+					ToastUtils.Toast(PingouDetailActivity.this, "收藏成功");
+					sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_COLLECTION_ACTION));
+				}else{
+					ToastUtils.Toast(PingouDetailActivity.this, "收藏失败");
+				}
+			}
+			@Override
+			public void onError() {
+				ToastUtils.Toast(PingouDetailActivity.this, "收藏失败，请检查您的网络");
+			}
+		}, object.toString());
+	}
+	
 	private void initFragmentPager(MainVo main) {
 		if(main == null)
 			return;
@@ -277,6 +372,32 @@ public class PingouDetailActivity extends BaseActivity implements
 		Intent intent = new Intent(this, PingouDetailSelActivity.class);
 		intent.putExtra("stock", stock);
 		startActivity(intent);
+	}
+	private MyBroadCastReceiver netReceiver;
+
+	// 广播接收者 注册
+	private void registerReceivers() {
+		netReceiver = new MyBroadCastReceiver();
+		IntentFilter intentFilter = new IntentFilter();
+		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION);
+		getActivity().registerReceiver(netReceiver, intentFilter);
+	}
+
+	private class MyBroadCastReceiver extends BroadcastReceiver {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			if(intent.getAction().equals(
+					AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION)){
+				loadUrl();
+			}
+		}
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		unregisterReceiver(netReceiver);
 	}
 
 }

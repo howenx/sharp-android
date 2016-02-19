@@ -12,6 +12,14 @@ public class Sku implements Serializable{
 	private String invUrl;
 	private String itemColor;
 	private String itemSize;
+	private String what;
+	
+	public String getWhat() {
+		return what;
+	}
+	public void setWhat(String what) {
+		this.what = what;
+	}
 	public Sku(String skuId, int amount, int price, String skuTitle,
 			String invImg, String invUrl, String itemColor, String itemSize) {
 		super();

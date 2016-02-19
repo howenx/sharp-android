@@ -3,30 +3,42 @@ package com.hanmimei.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.ListView;
 
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
-import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.baoyz.swipemenulistview.SwipeMenu;
+import com.baoyz.swipemenulistview.SwipeMenuCreator;
+import com.baoyz.swipemenulistview.SwipeMenuItem;
+import com.baoyz.swipemenulistview.SwipeMenuListView;
+import com.baoyz.swipemenulistview.SwipeMenuListView.OnMenuItemClickListener;
 import com.hanmimei.R;
 import com.hanmimei.adapter.MyCollectionAdapter;
-import com.hanmimei.entity.Sku;
+import com.hanmimei.data.AppConstant;
+import com.hanmimei.data.DataParser;
+import com.hanmimei.data.UrlUtil;
+import com.hanmimei.entity.Collection;
+import com.hanmimei.entity.CollectionInfo;
 import com.hanmimei.utils.ActionBarUtil;
+import com.hanmimei.utils.CommonUtil;
+import com.hanmimei.utils.Http2Utils;
+import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
 
-public class MyCollectionActivity  extends BaseActivity implements OnRefreshListener<ListView>{
+public class MyCollectionActivity  extends BaseActivity{
 	
-	private PullToRefreshListView mListView;
-	private List<Sku> datas;
+	private SwipeMenuListView mListView;
+	private List<Collection> datas;
 	private MyCollectionAdapter adapter;
-	
+	private MyBroadCastReceiver netReceiver;
 	
 
 	@Override
@@ -34,45 +46,120 @@ public class MyCollectionActivity  extends BaseActivity implements OnRefreshList
 		super.onCreate(savedInstanceState);
 		ActionBarUtil.setActionBarStyle(this, "我的收藏");
 		setContentView(R.layout.my_collection_layout);
-		mListView = (PullToRefreshListView) findViewById(R.id.mListView);
-		datas = new ArrayList<Sku>();
+		mListView = (SwipeMenuListView) findViewById(R.id.mListView);
+		datas = new ArrayList<Collection>();
 		adapter = new MyCollectionAdapter(datas, this);
 		mListView.setAdapter(adapter);
 		loadCollectionData();
-		mListView.setMode(Mode.PULL_FROM_END);
-		mListView.getRefreshableView().setOnItemLongClickListener(new OnItemLongClickListener() {
-
-			@Override
-			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
-					int arg2, long arg3) {
-				ToastUtils.Toast(MyCollectionActivity.this, "您长按了item" + arg2);
-				return false;
-			}
-		});
+		mListView.setMenuCreator(creator);
 		mListView.setOnItemClickListener(new OnItemClickListener() {
-
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				ToastUtils.Toast(MyCollectionActivity.this, "点击item  跳转到商品的详情页面" + arg2);
+				if(datas.get(arg2).getSkuType().equals("item")){
+					Intent intent = new Intent(MyCollectionActivity.this, GoodsDetailActivity.class);
+					intent.putExtra("url", datas.get(arg2).getSku().getInvUrl());
+					startActivity(intent);
+				}else if(datas.get(arg2).getSkuType().equals("pin")){
+					Intent intent = new Intent(MyCollectionActivity.this, PingouDetailActivity.class);
+					intent.putExtra("url", datas.get(arg2).getSku().getInvUrl());
+					startActivity(intent);
+				}
+			}
+		});
+		mListView.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+			@Override
+			public void onMenuItemClick(int position, SwipeMenu menu, int index) {
+				delCollect(datas.get(position).getCollectId(), position);
+			}
+		});
+		registerReceivers();
+	}
+	
+	private SwipeMenuCreator creator = new SwipeMenuCreator() {
+
+		@Override
+		public void create(SwipeMenu menu) {
+
+			SwipeMenuItem deleteItem = new SwipeMenuItem(
+					getApplicationContext());
+			// 设置背景颜色
+			deleteItem.setBackground(new ColorDrawable(Color
+					.parseColor("#e56254")));
+			// 设置删除的宽度
+			deleteItem.setWidth(CommonUtil.dip2px(120));
+			// 设置图标
+//			deleteItem.setIcon(R.drawable.icon_delete);
+			deleteItem.setTitle("取消收藏");
+			deleteItem.setTitleColor(getResources().getColor(R.color.white));
+			deleteItem.setTitleSize(16);
+			// 增加到menu中
+			menu.addMenuItem(deleteItem);
+		}
+	};
+	
+	private void loadCollectionData(){
+		Http2Utils.doGetRequestTask(this, getHeaders(), UrlUtil.COLLECTION_LIST, new VolleyJsonCallback() {
+			
+			@Override
+			public void onSuccess(String result) {
+				CollectionInfo collectionInfo = DataParser.parserCollect(result);
+				if(collectionInfo.gethMessage().getCode() == 200){
+					datas.clear();
+					datas.addAll(collectionInfo.getList());
+					adapter.notifyDataSetChanged();
+				}else{
+					ToastUtils.Toast(MyCollectionActivity.this, "请求失败");
+				}
+			}
+			
+			@Override
+			public void onError() {
+				ToastUtils.Toast(MyCollectionActivity.this, "请求失败，请检查您的网络");
 			}
 		});
 	}
-	
-	private void loadCollectionData(){
-		for(int i = 0; i < 100; i++){
-			Sku sku = new Sku();
-			sku.setInvImg("http://img10.360buyimg.com/n1/jfs/t2404/75/2184548534/472835/e796835d/569e333eN46914d00.jpg");
-			sku.setSkuTitle("创维（Skyworth）55M5 55英寸 4K超高清智能酷开网络液晶电视（黑色");
-			sku.setPrice(3499);
-			datas.add(sku);
-		}
-		adapter.notifyDataSetChanged();
-	}
 
-	@Override
-	public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-		if(mListView.isRefreshing())
-			mListView.onRefreshComplete();
+	private void delCollect(String collectId, final int position){
+		Http2Utils.doGetRequestTask(this, getHeaders(), UrlUtil.DEL_COLLECTION + collectId, new VolleyJsonCallback() {
+			
+			@Override
+			public void onSuccess(String result) {
+				datas.remove(position);
+				adapter.notifyDataSetChanged();
+				ToastUtils.Toast(MyCollectionActivity.this, "取消收藏成功");
+			}
+			
+			@Override
+			public void onError() {
+				ToastUtils.Toast(MyCollectionActivity.this, "取消收藏失败");
+			}
+		});
 	}
+	// 广播接收者 注册
+		private void registerReceivers() {
+			netReceiver = new MyBroadCastReceiver();
+			IntentFilter intentFilter = new IntentFilter();
+			intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_COLLECTION_ACTION);
+			getActivity().registerReceiver(netReceiver, intentFilter);
+		}
+
+		private class MyBroadCastReceiver extends BroadcastReceiver {
+
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				if (intent.getAction().equals(
+						AppConstant.MESSAGE_BROADCAST_COLLECTION_ACTION)) {
+					loadCollectionData();
+				}
+			}
+		}
+
+		@Override
+		protected void onDestroy() {
+			// TODO Auto-generated method stub
+			super.onDestroy();
+			unregisterReceiver(netReceiver);
+		}
+		
 }

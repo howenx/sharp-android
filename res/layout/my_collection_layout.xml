@@ -7,14 +7,12 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical" >
 
-    <com.handmark.pulltorefresh.library.PullToRefreshListView
-        android:id="@+id/mListView"
+    <com.baoyz.swipemenulistview.SwipeMenuListView
+        android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@color/white"
-        android:dividerHeight="5dp"
-        android:orientation="vertical"
-        ptr:ptrDrawable="@drawable/refreshing"
-        ptr:ptrShowIndicator="false" />
+        android:id="@+id/mListView"
+        android:divider="@null"
+        android:scrollbars="none"/>
 
 </LinearLayout>

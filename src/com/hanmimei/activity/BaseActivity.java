@@ -25,11 +25,13 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.hanmimei.R;
 import com.hanmimei.application.HMMApplication;
 import com.hanmimei.dao.DaoSession;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.entity.GoodsDetail;
+import com.hanmimei.entity.PinResult;
 import com.hanmimei.entity.User;
 import com.hanmimei.entity.VersionVo;
 import com.hanmimei.manager.ThreadPoolManager;
@@ -202,8 +204,16 @@ public class BaseActivity extends AppCompatActivity {
 			if (cbm.getText().toString().trim().contains("KAKAO-HMM")) {
 				String url[] = cbm.getText().toString().trim().split("】,");
 				if(url[1].contains(",－")){
-					loadData("http://172.28.3.51:9001/comm/detail"
-						+ url[1].split(",－")[0]);
+					if(cbm.getText().toString().trim().contains("<C>")){
+						what = 0;
+						loadData("http://172.28.3.51:9001/comm/detail"
+								+ url[1].split(",－")[0]);
+					}else if(cbm.getText().toString().trim().contains("<P>")){
+						
+					}else if(cbm.getText().toString().trim().contains("<T>")){
+						what = 1;
+						loadData("http://172.28.3.51:9005/promotion/pin/activity/" + url[1].split(",－")[0]);
+					}
 					cbm.setText("");
 					getMyApplication().setKouling("");
 				}
@@ -211,6 +221,8 @@ public class BaseActivity extends AppCompatActivity {
 		}
 	}
 	private GoodsDetail detail;
+	private int what;
+	private PinResult pinResult;
 
 	private void loadData(String url) {
 		Http2Utils.doGetRequestTask(this, getHeaders(), url,
@@ -218,13 +230,18 @@ public class BaseActivity extends AppCompatActivity {
 
 					@Override
 					public void onSuccess(String result) {
-						detail = DataParser.parserGoodsDetail(result);
-						setKouDialog(detail.getCurrentStock().getInvTitle(),
-								detail.getCurrentStock().getItemPrice() + "",
-								detail.getCurrentStock().getInvImgForObj()
-										.getUrl());
+						if(what == 0){
+							detail = DataParser.parserGoodsDetail(result);
+							setKouDialog(detail.getCurrentStock().getInvTitle(),
+									detail.getCurrentStock().getItemPrice() + "",
+									detail.getCurrentStock().getInvImgForObj()
+											.getUrl());
+						}else if(what == 1){
+							pinResult = new Gson().fromJson(result,
+									PinResult.class);
+							setKouDialog(pinResult.getActivity().getPinTitle(), pinResult.getActivity().getPinPrice(), pinResult.getActivity().getPinImg().getUrl());
+						}
 					}
-
 					@Override
 					public void onError() {
 						ToastUtils.Toast(getActivity(), "错误的M令！");
@@ -256,9 +273,15 @@ public class BaseActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View arg0) {
 				dialog.dismiss();
-				Intent intent = new Intent(BaseActivity.this,GoodsDetailActivity.class);
-				intent.putExtra("url", detail.getCurrentStock().getInvUrl());
-				startActivity(intent);
+				if(what == 0){
+					Intent intent = new Intent(BaseActivity.this,GoodsDetailActivity.class);	
+					intent.putExtra("url", detail.getCurrentStock().getInvUrl());
+					startActivity(intent);
+				}else{
+					Intent intent = new Intent(BaseActivity.this,PingouResultActivity.class);	
+					intent.putExtra("url", pinResult.getActivity().getPinUrl());
+					startActivity(intent);
+				}
 			}
 		});
 		dialog.setView(view);

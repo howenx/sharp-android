@@ -12,16 +12,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hanmimei.R;
-import com.hanmimei.entity.Sku;
+import com.hanmimei.entity.Collection;
 import com.hanmimei.utils.ImageLoaderUtils;
 
 @SuppressLint("InflateParams")
 public class MyCollectionAdapter extends BaseAdapter {
 
-	private List<Sku> data;
+	private List<Collection> data;
 	private LayoutInflater inflater;
 
-	public MyCollectionAdapter(List<Sku> list, Context mContext) {
+	public MyCollectionAdapter(List<Collection> list, Context mContext) {
 		this.data = list;
 		inflater = LayoutInflater.from(mContext);
 	}
@@ -46,7 +46,7 @@ public class MyCollectionAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup arg2) {
-		Sku sku = data.get(position);
+		Collection collection = data.get(position);
 		ViewHolder holder = null;	
 			if (convertView == null) {
 				holder = new ViewHolder();
@@ -54,13 +54,24 @@ public class MyCollectionAdapter extends BaseAdapter {
 				holder.img = (ImageView) convertView.findViewById(R.id.img);
 				holder.name = (TextView) convertView.findViewById(R.id.name);
 				holder.price = (TextView) convertView.findViewById(R.id.price);
+				holder.size = (TextView) convertView.findViewById(R.id.size);
+				holder.pinImg = (ImageView) convertView.findViewById(R.id.pin);
+				holder.priceName = (TextView) convertView.findViewById(R.id.price_name);
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
-			ImageLoaderUtils.loadImage(sku.getInvImg(), holder.img);
-			holder.name.setText(sku.getSkuTitle());
-			holder.price.setText("单价：¥" + sku.getPrice());
+			ImageLoaderUtils.loadImage(collection.getSku().getInvImg(), holder.img);
+			holder.name.setText(collection.getSku().getSkuTitle());
+			holder.price.setText("¥" + collection.getSku().getPrice());
+			holder.size.setText(collection.getSku().getItemColor() + "  " + collection.getSku().getItemSize());
+			if(collection.getSkuType().equals("pin")){
+				holder.priceName.setText("最低至：");
+				holder.pinImg.setVisibility(View.VISIBLE);
+			}else{
+				holder.priceName.setText("单价：");
+				holder.pinImg.setVisibility(View.GONE);
+			}
 			return convertView;
 	}
 
@@ -68,6 +79,9 @@ public class MyCollectionAdapter extends BaseAdapter {
 		private ImageView img;
 		private TextView name;
 		private TextView price;
+		private TextView size;
+		private ImageView pinImg;
+		private TextView priceName;
 	}
 
 }

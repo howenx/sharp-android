@@ -8,6 +8,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.google.gson.Gson;
+import com.hanmimei.entity.Collection;
+import com.hanmimei.entity.CollectionInfo;
 import com.hanmimei.entity.Customs;
 import com.hanmimei.entity.GoodsDetail;
 import com.hanmimei.entity.HMMAddress;
@@ -427,6 +429,75 @@ public class DataParser {
 			e.printStackTrace();
 		}
 		return user;
+	}
+	public static CollectionInfo parserCollect(String result){
+		CollectionInfo collectionInfo = new CollectionInfo();
+		try {
+			JSONObject object = new JSONObject(result);
+			if(object.has("message")){
+				HMessage hMessage = new HMessage();
+				JSONObject mObject = object.getJSONObject("message");
+				if(mObject.has("message"))
+					hMessage.setMessage(mObject.getString("message"));
+				if(mObject.has("code"))
+					hMessage.setCode(mObject.getInt("code"));
+				collectionInfo.sethMessage(hMessage);
+			}
+			if(object.has("collectList")){
+				List<Collection> list = new ArrayList<Collection>();
+				JSONArray array = object.getJSONArray("collectList");
+				for(int i = 0 ; i < array.length(); i ++){
+					Collection collection = new Collection();
+					JSONObject obj = array.getJSONObject(i);
+					if(obj.has("collectId"))
+						collection.setCollectId(obj.getString("collectId"));
+					if(obj.has("createAt"))
+						collection.setCreateAt(obj.getLong("collectId"));
+					if(obj.has("skuType"))
+						collection.setSkuType(obj.getString("skuType"));
+					if(obj.has("skuTypeId"))
+						collection.setSkuTypeId(obj.getString("skuTypeId"));
+					if(obj.has("cartSkuDto")){
+						Sku sku = new Sku();
+						JSONObject skuObject = obj.getJSONObject("cartSkuDto");
+							if(skuObject.has("skuId"))
+								sku.setSkuId(skuObject.getString("skuId"));
+							if(skuObject.has("price"))
+								sku.setPrice(skuObject.getInt("price"));
+							if(skuObject.has("skuTitle"))
+								sku.setSkuTitle(skuObject.getString("skuTitle"));
+							if(skuObject.has("invUrl"))
+								sku.setInvUrl(skuObject.getString("invUrl"));
+							if(skuObject.has("invImg"))
+								sku.setInvImg(skuObject.getString("invImg"));
+							if(skuObject.has("itemColor"))
+								sku.setItemColor(skuObject.getString("itemColor"));
+							if(skuObject.has("itemSize"))
+								sku.setItemSize(skuObject.getString("itemSize"));
+						collection.setSku(sku);
+					}
+					list.add(collection);
+				}
+				collectionInfo.setList(list);
+			}
+				
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return collectionInfo;
+	}
+	public static int parserCollectId(String result){
+		int collectionId = 0;
+		try {
+			JSONObject object = new JSONObject(result);
+			if(object.has("collectId")){
+				collectionId = object.getInt("collectId");
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		return collectionId;
 	}
 	
 }

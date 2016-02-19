@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.hanmimei.R;
 import com.hanmimei.activity.listener.TimeEndListner;
+import com.hanmimei.application.HMMApplication;
 import com.hanmimei.entity.PinActivity;
 import com.hanmimei.entity.PinResult;
 import com.hanmimei.entity.PinUser;
@@ -78,7 +79,8 @@ public class PingouResultActivity extends BaseActivity implements
 							pinResult = new Gson().fromJson(result,
 									PinResult.class);
 							if (pinResult.getMessage().getCode() == 200) {
-								initPageData(pinResult.getActivity());
+								pinActivity = pinResult.getActivity();
+								initPageData();
 							} else {
 								ToastUtils.Toast(getActivity(), pinResult
 										.getMessage().getMessage());
@@ -95,7 +97,11 @@ public class PingouResultActivity extends BaseActivity implements
 				});
 	}
 
+<<<<<<< HEAD
 	private void initPageData(final PinActivity pinActivity) {
+=======
+	private void initPageData() {
+>>>>>>> 328abdb8cde8be704f08ac0b6512012f5cd40e5a
 
 		if (pinActivity.getStatus().equals("Y")) {
 			if (pinActivity.getPay().equals("new")) {
@@ -115,7 +121,6 @@ public class PingouResultActivity extends BaseActivity implements
 
 					@Override
 					public void onClick(View arg0) {
-
 					}
 				});
 			} else {
@@ -128,7 +133,7 @@ public class PingouResultActivity extends BaseActivity implements
 
 						@Override
 						public void onClick(View arg0) {
-
+							doCopy();
 						}
 					});
 				} else {
@@ -197,6 +202,14 @@ public class PingouResultActivity extends BaseActivity implements
 		timer.setTimes(time);
 		timer.setTimeEndListner(this);
 		timer.run();
+	}
+	private PinActivity pinActivity;
+	private void doCopy() {
+		String code[] = pinActivity.getPinUrl().split("activity/");
+		HMMApplication application = (HMMApplication) getApplication();
+		application.setKouling("KAKAO-HMM 复制这条信息,打开👉韩秘美👈即可看到<T>【"
+				+ pinActivity.getPinTitle() + "】," + code[1]
+				+ ",－🔑 M令 🔑");
 	}
 
 	@Override
