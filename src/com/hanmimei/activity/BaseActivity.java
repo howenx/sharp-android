@@ -259,7 +259,11 @@ public class BaseActivity extends AppCompatActivity {
 		TextView title = (TextView) view.findViewById(R.id.title);
 		TextView price = (TextView) view.findViewById(R.id.price);
 		title.setText(ti);
-		price.setText(pri);
+		if(what == 0){
+			price.setText("单价：¥" + pri);
+		}else if(what == 1){
+			price.setText("拼购价：¥" + pri);
+		}
 		view.findViewById(R.id.cancle).setOnClickListener(
 				new OnClickListener() {
 

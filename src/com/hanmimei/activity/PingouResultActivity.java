@@ -97,11 +97,7 @@ public class PingouResultActivity extends BaseActivity implements
 				});
 	}
 
-<<<<<<< HEAD
-	private void initPageData(final PinActivity pinActivity) {
-=======
 	private void initPageData() {
->>>>>>> 328abdb8cde8be704f08ac0b6512012f5cd40e5a
 
 		if (pinActivity.getStatus().equals("Y")) {
 			if (pinActivity.getPay().equals("new")) {
@@ -128,7 +124,7 @@ public class PingouResultActivity extends BaseActivity implements
 				if (pinActivity.getOrJoinActivity() == 1) {
 					btn_xiadan.setText("还差"
 							+ (pinActivity.getPersonNum() - pinActivity
-									.getJoinPersons()) + "人，让小伙伴们都来组团吧！");
+									.getJoinPersons()) + "人，点击复制，分享给小伙伴们！");
 					btn_xiadan.setOnClickListener(new OnClickListener() {
 
 						@Override
@@ -210,6 +206,7 @@ public class PingouResultActivity extends BaseActivity implements
 		application.setKouling("KAKAO-HMM 复制这条信息,打开👉韩秘美👈即可看到<T>【"
 				+ pinActivity.getPinTitle() + "】," + code[1]
 				+ ",－🔑 M令 🔑");
+		ToastUtils.Toast(this, "复制成功，赶快去粘贴吧！");
 	}
 
 	@Override

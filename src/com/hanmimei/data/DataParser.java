@@ -16,6 +16,7 @@ import com.hanmimei.entity.HMMAddress;
 import com.hanmimei.entity.HMMThemeGoods;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.Home;
+import com.hanmimei.entity.Notify;
 import com.hanmimei.entity.Order;
 import com.hanmimei.entity.Result;
 import com.hanmimei.entity.ShoppingCar;
@@ -329,9 +330,9 @@ public class DataParser {
 					JSONObject goodsObject = cartsArray.getJSONObject(j);
 					ShoppingGoods goods = new ShoppingGoods();
 					if(goodsObject.has("cartId"))
-						goods.setCartId(goodsObject.getInt("cartId"));
+						goods.setCartId(goodsObject.getString("cartId"));
 					if(goodsObject.has("skuId"))
-						goods.setGoodsId(goodsObject.getInt("skuId"));
+						goods.setGoodsId(goodsObject.getString("skuId"));
 					if(goodsObject.has("amount"))
 						goods.setGoodsNums(goodsObject.getInt("amount"));
 					if(goodsObject.has("itemColor"))
@@ -498,6 +499,20 @@ public class DataParser {
 		}
 		
 		return collectionId;
+	}
+	public static Notify parserJPush(String result){
+		Notify notify = new Notify();;
+		try {
+			JSONObject object = new JSONObject(result);
+			if(object.has("url"))
+				notify.setUrl(object.getString("url"));
+			if(object.has("targetType"))
+				notify.setTargetType(object.getString("targetType"));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		return notify;
 	}
 	
 }
