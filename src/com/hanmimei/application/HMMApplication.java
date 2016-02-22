@@ -4,6 +4,8 @@ import java.io.File;
 
 import android.app.Application;
 
+import cn.jpush.android.api.JPushInterface;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.hanmimei.R;
@@ -35,6 +37,8 @@ public class HMMApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		JPushInterface.setDebugMode(true);
+		JPushInterface.init(this);     		// 初始化 JPush
 		initTestinAgent();
 		queue = Volley.newRequestQueue(this);
 		initPlatformConfig();

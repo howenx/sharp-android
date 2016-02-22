@@ -358,6 +358,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 				goods = new ShoppingGoods();
 				goods.setGoodsId(stock.getId());
 				goods.setGoodsNums(1);
+				goods.setSkuType(stock.getSkuType());
+				goods.setSkuTypeId(stock.getSkuTypeId());
 				break;
 			}
 		}
@@ -541,7 +543,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 			if (s.getOrMasterInv()) {
 				if (s.getState().equals("Y")) {
 					sgoods = new ShoppingGoods();
-					sgoods.setGoodsId(s.getId());
+					sgoods.setGoodsId(s.getId() + "");
 					sgoods.setGoodsImg(s.getInvImgForObj().getUrl());
 					sgoods.setGoodsName(s.getInvTitle());
 					sgoods.setGoodsNums(1);

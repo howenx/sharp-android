@@ -171,7 +171,7 @@ public class PingouDetailSelActivity extends BaseActivity {
 		ShoppingGoods sgoods;
 		if (s.getStatus().equals("Y")) {
 			sgoods = new ShoppingGoods();
-			sgoods.setGoodsId(s.getId());
+			sgoods.setGoodsId(s.getId() + "");
 			sgoods.setGoodsImg(s.getInvImgForObj().getUrl());
 			sgoods.setGoodsName(s.getPinTitle());
 			sgoods.setGoodsNums(1);

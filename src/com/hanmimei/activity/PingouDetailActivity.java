@@ -337,7 +337,7 @@ public class PingouDetailActivity extends BaseActivity implements
 		StockVo s = detail.getStock();
 		if (s.getStatus().equals("Y")) {
 			sgoods = new ShoppingGoods();
-			sgoods.setGoodsId(s.getId());
+			sgoods.setGoodsId(s.getId() + "");
 			sgoods.setGoodsImg(s.getInvImgForObj().getUrl());
 			sgoods.setGoodsName(s.getPinTitle());
 			sgoods.setGoodsNums(1);

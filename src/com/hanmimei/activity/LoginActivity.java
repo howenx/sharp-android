@@ -411,6 +411,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 				object.put("skuId", goods.getGoodsId());
 				object.put("amount", goods.getGoodsNums());
 				object.put("state", goods.getState());
+				object.put("skuType", goods.getSkuType());
+				object.put("skuTypeId", goods.getSkuTypeId());
 				array.put(object);
 			}
 

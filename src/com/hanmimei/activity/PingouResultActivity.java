@@ -133,7 +133,7 @@ public class PingouResultActivity extends BaseActivity implements
 				if (pinActivity.getOrJoinActivity() == 1) {
 					btn_xiadan.setText("还差"
 							+ (pinActivity.getPersonNum() - pinActivity
-									.getJoinPersons()) + "人，让小伙伴们都来组团吧！");
+									.getJoinPersons()) + "人，点击复制，分享给小伙伴们！");
 					btn_xiadan.setOnClickListener(new OnClickListener() {
 
 						@Override
@@ -224,6 +224,7 @@ public class PingouResultActivity extends BaseActivity implements
 		HMMApplication application = (HMMApplication) getApplication();
 		application.setKouling("KAKAO-HMM 复制这条信息,打开👉韩秘美👈即可看到<T>【"
 				+ pinActivity.getPinTitle() + "】," + code[1] + ",－🔑 M令 🔑");
+		ToastUtils.Toast(this, "复制成功，赶快去粘贴吧！");
 	}
 
 	@Override
@@ -299,7 +300,7 @@ public class PingouResultActivity extends BaseActivity implements
 		ShoppingGoods sgoods;
 		if (s.getStatus().equals("Y")) {
 			sgoods = new ShoppingGoods();
-			sgoods.setGoodsId(s.getSkuId().intValue());
+			sgoods.setGoodsId(s.getSkuId().toString());
 			sgoods.setGoodsImg(s.getPinImg().getUrl());
 			sgoods.setGoodsName(s.getPinTitle());
 			sgoods.setGoodsNums(1);
