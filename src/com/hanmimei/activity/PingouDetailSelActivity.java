@@ -165,6 +165,10 @@ public class PingouDetailSelActivity extends BaseActivity {
 	
 	
 	private void goToGoodsBalance(StockVo s){
+		if(getUser() == null){
+			startActivity(new Intent(this, LoginActivity.class));
+			return;
+		}
 		ShoppingCar car = new ShoppingCar();
 		List<Customs> list = new ArrayList<Customs>();
 		Customs customs = new Customs();

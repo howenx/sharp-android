@@ -50,7 +50,6 @@ public class JSONPaserTool {
 			json.put("clientIp", os.getClientIp());
 			json.put("clientType", os.getClientType());
 			json.put("shipTime", os.getShipTime());
-//			json.put("orderDesc", os.getOrderDesc());
 			json.put("payMethod", os.getPayMethod());
 			json.put("buyNow", os.getBuyNow());
 			json.put("pinActiveId", os.getPinActiveId());
