@@ -69,7 +69,7 @@ public class OrderFragment extends Fragment implements
 		reload.setOnClickListener(this);
 		mListView = (PullToRefreshListView) view.findViewById(R.id.mylist);
 		mListView.setAdapter(adapter);
-		mListView.setMode(Mode.PULL_DOWN_TO_REFRESH);
+		mListView.setMode(Mode.PULL_FROM_START);
 		mListView.setOnRefreshListener(this);
 		registerReceivers();
 		loadOrder();

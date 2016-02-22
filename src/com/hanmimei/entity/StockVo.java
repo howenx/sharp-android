@@ -14,7 +14,7 @@ import com.google.gson.reflect.TypeToken;
 public class StockVo implements Serializable{
 	
 	//普通商品属性
-	private Integer id;
+	private String id;
 	private String itemColor;
 	private String itemSize;
 	private BigDecimal itemSrcPrice;
@@ -263,11 +263,11 @@ public class StockVo implements Serializable{
 		this.invCustoms = invCustoms;
 	}
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

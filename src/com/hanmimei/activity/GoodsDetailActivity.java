@@ -356,8 +356,10 @@ public class GoodsDetailActivity extends BaseActivity implements
 		for (StockVo stock : detail.getStock()) {
 			if (stock.getOrMasterInv() && stock.getState().equals("Y")) {
 				goods = new ShoppingGoods();
-				goods.setGoodsId(stock.getId() + "");
+				goods.setGoodsId(stock.getId());
 				goods.setGoodsNums(1);
+				goods.setSkuType(stock.getSkuType());
+				goods.setSkuTypeId(stock.getSkuTypeId());
 				break;
 			}
 		}

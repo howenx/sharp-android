@@ -60,6 +60,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@id/img"
                 android:text="asdfasdfasdf"
+                android:visibility="gone"
                 android:textColor="@color/huise"
                 android:textSize="@dimen/font_small" />
 

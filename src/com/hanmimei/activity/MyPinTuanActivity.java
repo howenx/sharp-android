@@ -5,64 +5,80 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 
+import com.astuetz.PagerSlidingTabStrip;
 import com.google.gson.Gson;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.hanmimei.R;
-import com.hanmimei.adapter.MyPinTuanAdapter;
+import com.hanmimei.activity.fragment.MyPinFragment;
+import com.hanmimei.adapter.PinPagerAdapter;
 import com.hanmimei.data.UrlUtil;
-import com.hanmimei.entity.Goods;
-import com.hanmimei.entity.PinActivity;
 import com.hanmimei.entity.PinList;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.Http2Utils;
-import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
+import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 
 public class MyPinTuanActivity extends BaseActivity {
 
-	private PullToRefreshListView mListView;
-	private MyPinTuanAdapter adapter;
-	private List<PinActivity> data;
-	private PinList list;
-	
+	private ViewPager viewPager;
+	private PagerSlidingTabStrip pagerSlidingTabStrip;
+
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.my_pintuan_list_layout);
+		setContentView(R.layout.my_pintuan_pager_layout);
 		ActionBarUtil.setActionBarStyle(this, "我的拼团");
-		data = new ArrayList<PinActivity>();
-		adapter = new MyPinTuanAdapter(this, data);
-		mListView = (PullToRefreshListView) findViewById(R.id.mylist);
-		mListView.setAdapter(adapter);
+
+		viewPager = (ViewPager) findViewById(R.id.view_pager);
+		pagerSlidingTabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
 		loadData();
 	}
+
 	private void loadData() {
-		Http2Utils.doGetRequestTask(this, getHeaders(), UrlUtil.GET_MY_PINTUAN, new VolleyJsonCallback() {
-			
-			@Override
-			public void onSuccess(String result) {
-				try {
-					initData(new Gson().fromJson(result, PinList.class));
-				} catch (Exception e) {
-					ToastUtils.Toast(getActivity(), R.string.error);
-				}
-			}
-			
-			@Override
-			public void onError() {
-				ToastUtils.Toast(getActivity(), R.string.error);
-			}
-		});
+		getLoading().show();
+		Http2Utils.doGetRequestTask(this, getHeaders(), UrlUtil.GET_MY_PINTUAN,
+				new VolleyJsonCallback() {
+
+					@Override
+					public void onSuccess(String result) {
+						try {
+							initData(new Gson().fromJson(result, PinList.class));
+						} catch (Exception e) {
+							ToastUtils.Toast(getActivity(), R.string.error);
+						}
+						getLoading().dismiss();
+					}
+
+					@Override
+					public void onError() {
+						ToastUtils.Toast(getActivity(), R.string.error);
+						getLoading().dismiss();
+					}
+				});
 	}
-	
-	private void initData(PinList list){
-		if(list.getMessage().getCode() == 200){
-			data.clear();
-			data.addAll(list.getActivityList());
-			adapter.notifyDataSetChanged();
-		}else{
+
+	private void initData(PinList list) {
+		if (list.getMessage().getCode() == 200) {
+			List<String> titles = new ArrayList<String>();
+			titles.add("我的开团");
+			titles.add("我的参团");
+
+			List<Fragment> fragments = new ArrayList<Fragment>();
+			MyPinFragment masterFragment = MyPinFragment.newInstance(list
+					.getActivityListForMaster());
+			MyPinFragment memberFragment = MyPinFragment.newInstance(list
+					.getActivityListForMember());
+			fragments.add(masterFragment);
+			fragments.add(memberFragment);
+
+			PinPagerAdapter adapter = new PinPagerAdapter(
+					this.getSupportFragmentManager(), fragments, titles);
+
+			viewPager.setAdapter(adapter);
+			pagerSlidingTabStrip.setViewPager(viewPager);
+		} else {
 			ToastUtils.Toast(this, list.getMessage().getMessage());
 		}
 	}

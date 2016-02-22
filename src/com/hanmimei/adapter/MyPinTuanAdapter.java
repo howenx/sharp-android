@@ -76,6 +76,7 @@ public class MyPinTuanAdapter extends BaseAdapter {
 			holder.see_order.setVisibility(View.GONE);
 			holder.see_tuan.setVisibility(View.VISIBLE);
 		}
+		
 		holder.see_tuan.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -85,6 +86,7 @@ public class MyPinTuanAdapter extends BaseAdapter {
 				mContext.startActivity(intent);
 			}
 		});
+		
 		return convertView;
 	}
 

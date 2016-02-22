@@ -1,12 +1,12 @@
 package com.hanmimei.entity;
 
-import java.math.BigDecimal;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.Gson;
 
-public class PinActivity {
+public class PinActivity implements Serializable{
 	private Long pinActiveId; // 拼购活动ID
 	private String pinUrl; // 此团的分享短连接
 	private Long pinId; // 拼购ID
@@ -25,11 +25,102 @@ public class PinActivity {
 	private String          userType;       //订单支付成功后需要的用户类型,团长: master,团员:ordinary
 
     private Integer         orJoinActivity; //是否参团,0:未参团,1:参团
+    private Integer          orMaster;       //订单支付成功后需要的用户类型,团长: 1,团员:0
 	
 	  //拼购商品数据
     private String          pinImg;      //生成后列表图
     private String          pinSkuUrl;   //拼购商品链接
     private String          pinTitle;    //拼购商品标题
+    
+    private String invArea;
+    private String  invCustoms;
+    private String  invAreaNm;
+    private String  postalTaxRate;
+    private String  postalStandard;
+    private Long  skuId;
+    private String  skuType;
+    private String  skuTypeId;
+    private String pinTieredPriceId;
+
+	public Integer getOrMaster() {
+		return orMaster;
+	}
+
+	public void setOrMaster(Integer orMaster) {
+		this.orMaster = orMaster;
+	}
+
+	public String getInvArea() {
+		return invArea;
+	}
+
+	public void setInvArea(String invArea) {
+		this.invArea = invArea;
+	}
+
+	public String getInvCustoms() {
+		return invCustoms;
+	}
+
+	public void setInvCustoms(String invCustoms) {
+		this.invCustoms = invCustoms;
+	}
+
+	public String getInvAreaNm() {
+		return invAreaNm;
+	}
+
+	public void setInvAreaNm(String invAreaNm) {
+		this.invAreaNm = invAreaNm;
+	}
+
+	public String getPostalTaxRate() {
+		return postalTaxRate;
+	}
+
+	public void setPostalTaxRate(String postalTaxRate) {
+		this.postalTaxRate = postalTaxRate;
+	}
+
+	public String getPostalStandard() {
+		return postalStandard;
+	}
+
+	public void setPostalStandard(String postalStandard) {
+		this.postalStandard = postalStandard;
+	}
+
+	public Long getSkuId() {
+		return skuId;
+	}
+
+	public void setSkuId(Long skuId) {
+		this.skuId = skuId;
+	}
+
+	public String getSkuType() {
+		return skuType;
+	}
+
+	public void setSkuType(String skuType) {
+		this.skuType = skuType;
+	}
+
+	public String getSkuTypeId() {
+		return skuTypeId;
+	}
+
+	public void setSkuTypeId(String skuTypeId) {
+		this.skuTypeId = skuTypeId;
+	}
+
+	public String getPinTieredPriceId() {
+		return pinTieredPriceId;
+	}
+
+	public void setPinTieredPriceId(String pinTieredPriceId) {
+		this.pinTieredPriceId = pinTieredPriceId;
+	}
 
 	public String getUserType() {
 		return userType;

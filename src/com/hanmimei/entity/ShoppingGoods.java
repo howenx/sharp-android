@@ -17,7 +17,7 @@ public class ShoppingGoods {
     private String goodsName;
     private Double goodsPrice;
     private Boolean isChecked;
-    private String state;
+    private String state="I";
     private Integer goodsNums;
     private String itemColor;
     private String itemSize;
@@ -30,7 +30,7 @@ public class ShoppingGoods {
     private Integer postalStandard;
     private Integer postalLimit;
     private String invCustoms;
-    private String skuType;
+    private String skuType = "item";
     private String skuTypeId;
     private String pinTieredPriceId;
     private String invAreaNm;
