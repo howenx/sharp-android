@@ -67,7 +67,8 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 	private LinearLayout guanggao;
 	//极光推送
 	public static boolean isForeground = false;
-	//极光推送
+	
+	private boolean isHome = true;
 
 
 	@Override
@@ -77,7 +78,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 			
 			@Override
 			public void gotResult(int arg0, String arg1, Set<String> arg2) {
-			ToastUtils.Toast(MainActivity.this, arg1+"");
+//				ToastUtils.Toast(MainActivity.this, arg1+"");
 			}
 		});
 		setContentView(R.layout.activity_main);
@@ -111,7 +112,8 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 	public void onTabChanged(String tabId) {
 		/** 如果当前选项卡是home */
 		if (tabId.equals(TAB_HOME_ID)) {
-			ActionBarUtil.setActionBarStyle(this, "韩秘美", 0, false, this);
+			isHome = true;
+			ActionBarUtil.setActionBarStyle(this, "韩秘美", R.drawable.icon_xiaoxi, true, this);
 			/** 如果当前选项卡是shopping */
 		} else if (tabId.equals(TAB_CAR_ID)) {
 			ActionBarUtil.setActionBarStyle(this, "购物车", 0, false, this);
@@ -120,6 +122,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 			ActionBarUtil.setActionBarStyle(this, "拼购", 0, false, this);
 			/** 如果当前选项卡是my */
 		} else if (tabId.equals(TAB_MY_ID)) {
+			isHome = false;
 			ActionBarUtil.setActionBarStyle(this, "", R.drawable.icon_setting,
 					false, this);
 		}
@@ -156,7 +159,11 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.setting:
-			DoJumpUtils.doJump(this, SettingActivity.class);
+			if(isHome){
+				DoJumpUtils.doJump(this, MessageActivity.class);
+			}else{
+				DoJumpUtils.doJump(this, SettingActivity.class);
+			}
 			break;
 		case R.id.close:
 			guanggao.setVisibility(View.GONE);
@@ -172,8 +179,6 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 			break;
 		}
 	}
-	
-	
 
 	// 主界面返回之后在后台运行
 	@Override

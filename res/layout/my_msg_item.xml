@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@color/white"
+    android:padding="5dp">
+    <TextView 
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1小时前"
+        android:textSize="@dimen/font_small"
+        android:textColor="@color/huise"/>
+    <TextView 
+        android:id="@+id/msg"
+        android:layout_marginTop="2dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="韩剧“奶酪陷阱”女主同款"
+        android:textSize="@dimen/font_normal"
+        android:textColor="@color/fontcolor"/>
+
+</LinearLayout>

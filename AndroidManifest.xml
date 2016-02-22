@@ -168,6 +168,9 @@
         <activity
             android:name="com.hanmimei.activity.TestActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.hanmimei.activity.MessageActivity"
+            android:screenOrientation="portrait" />
 
         <service android:name="com.hanmimei.service.DownloadService" >
         </service>

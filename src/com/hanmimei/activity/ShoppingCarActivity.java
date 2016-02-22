@@ -197,7 +197,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 	}
 	private void getNetData() {
 		getLoading().show();
-		Http2Utils.doPostRequestTask2(this,getHeaders(),UrlUtil.GET_CAR_LIST_URL,new VolleyJsonCallback() {
+		Http2Utils.doGetRequestTask(this, getHeaders(),UrlUtil.GET_CAR_LIST,new VolleyJsonCallback() {
 			
 			@Override
 			public void onSuccess(String result) {
@@ -214,7 +214,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 				no_net.setVisibility(View.VISIBLE);
 				attention.setVisibility(View.INVISIBLE);
 			}
-		},new JSONObject().toString());
+		});
 	}
 
 	private void findView() {

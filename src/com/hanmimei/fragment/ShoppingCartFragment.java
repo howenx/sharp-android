@@ -214,7 +214,7 @@ public class ShoppingCartFragment extends Fragment implements OnClickListener,
 	}
 	private void getNetData() {
 		activity.getLoading().show();
-		Http2Utils.doPostRequestTask2(activity,activity.getHeaders(),UrlUtil.GET_CAR_LIST_URL,new VolleyJsonCallback() {
+		Http2Utils.doGetRequestTask(activity, activity.getHeaders(),UrlUtil.GET_CAR_LIST,new VolleyJsonCallback() {
 			
 			@Override
 			public void onSuccess(String result) {
@@ -231,7 +231,7 @@ public class ShoppingCartFragment extends Fragment implements OnClickListener,
 				no_data.setVisibility(View.GONE);
 				no_net.setVisibility(View.VISIBLE);
 			}
-		},new JSONObject().toString());
+		});
 	}
 
 
