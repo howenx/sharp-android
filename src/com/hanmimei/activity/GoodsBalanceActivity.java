@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -204,7 +205,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 			sendData(orderSubmit);
 			break;
 		case R.id.back:
-			finish();
+			showBackDialog();
 			break;
 
 		default:
@@ -469,6 +470,26 @@ public class GoodsBalanceActivity extends BaseActivity implements
 			}
 		}
 	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			// 菜单返回按钮点击事件
+			showBackDialog();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
+	// 显示取消支付窗口
+		private void showBackDialog() {
+			AlertDialogUtils.showBackDialog(getActivity(), new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					finish();
+				}
+			});
+		}
 
 	public void onResume() {
 		super.onResume();
