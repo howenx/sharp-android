@@ -293,6 +293,8 @@ public class ShoppingCarAdapter extends BaseAdapter {
 			object.put("skuId", goods.getGoodsId());
 			object.put("amount", goods.getGoodsNums());
 			object.put("state", "I");
+			object.put("skuTypeId", goods.getSkuTypeId());
+			object.put("skuType", goods.getSkuType());
 			array.put(object);
 		} catch (JSONException e) {
 			e.printStackTrace();

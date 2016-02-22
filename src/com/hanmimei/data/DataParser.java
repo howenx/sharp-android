@@ -372,6 +372,10 @@ public class DataParser {
 //						goods.setPostalStandard(goodsObject.getInt("postalStandard"));
 //					if(goodsObject.has("postalLimit"))
 //						goods.setPostalLimit(goodsObject.getInt("postalLimit"));
+					if(goodsObject.has("skuType"))
+						goods.setSkuType(goodsObject.getString("skuType"));
+					if(goodsObject.has("skuTypeId"))
+						goods.setSkuTypeId(goodsObject.getString("skuTypeId"));
 					list.add(goods);
 				}
 				custom.setList(list);
