@@ -36,7 +36,7 @@ public class PingouDetailSelActivity extends BaseActivity {
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.dialog_list_layout);
+		setContentView(R.layout.pingou_detail_sel_layout);
 		ActionBarUtil.setActionBarStyle(this, "选择");
 
 		stock = (StockVo) getIntent().getSerializableExtra("stock");
@@ -95,7 +95,7 @@ public class PingouDetailSelActivity extends BaseActivity {
 			ViewHolder holder = null;
 			if (convertView == null) {
 				convertView = getLayoutInflater().inflate(
-						R.layout.dialog_list_item_layout, null);
+						R.layout.pingou_detail_sel_item_layout, null);
 				holder = new ViewHolder(convertView);
 				convertView.setTag(holder);
 			} else {
@@ -113,7 +113,7 @@ public class PingouDetailSelActivity extends BaseActivity {
 			holder.zengView.setText("团长特惠：赠"+ppr.getMasterCoupon()+"元优惠券");
 			if (ppr.isSelected()) {
 				if(ppr.getMasterCoupon() != null){
-					holder.manjianView.setVisibility(View.VISIBLE);
+					holder.manjianView.setVisibility(View.GONE);
 					holder.img.setVisibility(View.VISIBLE);
 				}else{
 					holder.manjianView.setVisibility(View.GONE);

@@ -48,7 +48,7 @@ public class ListViewDialog extends Dialog {
 			this.mContext = context;
 			if (view == null) {
 				view = LayoutInflater.from(mContext).inflate(
-						R.layout.dialog_list_layout, null);
+						R.layout.pingou_detail_sel_layout, null);
 				titleView = (TextView) view.findViewById(R.id.titleView);
 				iconView = (ImageView) view.findViewById(R.id.iconView);
 				mListView = (ListView) view.findViewById(R.id.mListView);

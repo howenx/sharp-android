@@ -21,8 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:contentDescription="@null"
-                android:scaleType="centerInside"
-                android:src="@drawable/hmm_kaituan_success" />
+                android:scaleType="centerInside"/>
 
 
             <RelativeLayout
@@ -47,7 +46,6 @@
                     android:layout_alignTop="@+id/imageView1"
                     android:layout_marginLeft="14dp"
                     android:layout_toRightOf="@+id/imageView1"
-                    android:text="韩国法系韩国法系韩国法系韩国法系韩国法系"
                     android:textColor="@color/fontcolor"
                     android:textSize="12sp" />
 
@@ -57,7 +55,6 @@
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@+id/imageView1"
                     android:layout_alignLeft="@+id/textView1"
-                    android:text="五人团：¥75"
                     android:textColor="@color/fontcolor"
                     android:textSize="14sp" />
 
@@ -66,8 +63,7 @@
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:layout_alignParentRight="true"
-                    android:layout_alignTop="@+id/textView1"
-                    android:src="@drawable/hmm_zutuan" />
+                    android:layout_alignTop="@+id/textView1"/>
             </RelativeLayout>
 
             <com.hanmimei.view.CustomGridView
@@ -87,7 +83,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:text="对于助威打下的帮助团长感激涕零"
                 android:textColor="@color/huise"
                 android:textSize="14sp" />
 
@@ -157,14 +152,13 @@
                     android:id="@+id/master_face"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/photo" />
+                    android:src="@drawable/icon_default_header" />
 
                 <TextView
                     android:id="@+id/master_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:text="团长ttt"
                     android:textColor="@color/white"
                     android:textSize="12sp" />
 
@@ -177,7 +171,6 @@
                     android:id="@+id/master_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2011-11-11 12:12:12开团"
                     android:textColor="@color/white"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -202,7 +195,7 @@
             android:layout_height="wrap_content"
             android:background="@color/theme"
             android:gravity="center"
-            android:padding="5dp"
+            android:padding="8dp"
             android:text="立即下单"
             android:textColor="@color/white"
             android:textSize="14sp" />

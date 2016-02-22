@@ -1,8 +1,12 @@
 package com.hanmimei.activity;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -18,9 +22,13 @@ import com.google.gson.Gson;
 import com.hanmimei.R;
 import com.hanmimei.activity.listener.TimeEndListner;
 import com.hanmimei.application.HMMApplication;
+import com.hanmimei.data.AppConstant;
+import com.hanmimei.entity.Customs;
 import com.hanmimei.entity.PinActivity;
 import com.hanmimei.entity.PinResult;
 import com.hanmimei.entity.PinUser;
+import com.hanmimei.entity.ShoppingCar;
+import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
@@ -49,6 +57,7 @@ public class PingouResultActivity extends BaseActivity implements
 
 		findView();
 		loadPinUrl();
+		registerReceivers();
 	}
 
 	private void findView() {
@@ -70,57 +79,53 @@ public class PingouResultActivity extends BaseActivity implements
 	}
 
 	private void loadPinUrl() {
-		Http2Utils.doGetRequestTask(this,getHeaders(), getIntent().getStringExtra("url"),
-				new VolleyJsonCallback() {
+		getLoading().show();
+		Http2Utils.doGetRequestTask(this, getHeaders(), getIntent()
+				.getStringExtra("url"), new VolleyJsonCallback() {
 
-					@Override
-					public void onSuccess(String result) {
-						try {
-							pinResult = new Gson().fromJson(result,
-									PinResult.class);
-							if (pinResult.getMessage().getCode() == 200) {
-								pinActivity = pinResult.getActivity();
-								initPageData();
-							} else {
-								ToastUtils.Toast(getActivity(), pinResult
-										.getMessage().getMessage());
-							}
-						} catch (Exception e) {
-							ToastUtils.Toast(getActivity(), R.string.error);
-						}
+			@Override
+			public void onSuccess(String result) {
+				try {
+					pinResult = new Gson().fromJson(result, PinResult.class);
+					if (pinResult.getMessage().getCode() == 200) {
+						pinActivity = pinResult.getActivity();
+						initPageData();
+					} else {
+						ToastUtils.Toast(getActivity(), pinResult.getMessage()
+								.getMessage());
 					}
+				} catch (Exception e) {
+					ToastUtils.Toast(getActivity(), R.string.error);
+				}
+				getLoading().dismiss();
+			}
 
-					@Override
-					public void onError() {
-						ToastUtils.Toast(getActivity(), R.string.error);
-					}
-				});
+			@Override
+			public void onError() {
+				getLoading().dismiss();
+				ToastUtils.Toast(getActivity(), R.string.error);
+			}
+		});
 	}
 
-<<<<<<< HEAD
-	private void initPageData(final PinActivity pinActivity) {
-=======
 	private void initPageData() {
->>>>>>> 328abdb8cde8be704f08ac0b6512012f5cd40e5a
 
 		if (pinActivity.getStatus().equals("Y")) {
+			tuan_state.setImageResource(R.drawable.hmm_zutuan);
 			if (pinActivity.getPay().equals("new")) {
 				if (pinActivity.getUserType().equals("master")) {
-					tuan_status
-							.setImageResource(R.drawable.hmm_kaituan_success);
+					tuan_status.setImageResource(R.drawable.hmm_kaituan_success);
 				} else {
-					tuan_status
-							.setImageResource(R.drawable.hmm_cantuan_success);
+					tuan_status.setImageResource(R.drawable.hmm_cantuan_success);
 				}
-				tuan_state.setImageResource(R.drawable.hmm_zutuan);
-
-				btn_xiadan.setText("还差"
-						+ (pinActivity.getPersonNum() - pinActivity
+				
+				btn_xiadan.setText("还差"+ (pinActivity.getPersonNum() - pinActivity
 								.getJoinPersons()) + "人，让小伙伴们都来组团吧！");
 				btn_xiadan.setOnClickListener(new OnClickListener() {
 
 					@Override
 					public void onClick(View arg0) {
+						doCopy();
 					}
 				});
 			} else {
@@ -142,7 +147,7 @@ public class PingouResultActivity extends BaseActivity implements
 
 						@Override
 						public void onClick(View arg0) {
-
+							goToGoodsBalance(pinActivity);
 						}
 					});
 				}
@@ -157,6 +162,8 @@ public class PingouResultActivity extends BaseActivity implements
 			about.setVisibility(View.GONE);
 			btn_xiadan.setVisibility(View.GONE);
 			findViewById(R.id.jishiView).setVisibility(View.GONE);
+			
+			findViewById(R.id.xiadanView).setVisibility(View.INVISIBLE);
 
 		} else if (pinActivity.getStatus().equals("C")) {
 			tuan_status.setImageResource(R.drawable.hmm_pingou_success);
@@ -164,16 +171,17 @@ public class PingouResultActivity extends BaseActivity implements
 			about.setText("对于诸位大侠的相助，团长感激涕零");
 			findViewById(R.id.jishiView).setVisibility(View.GONE);
 
-			btn_xiadan.setVisibility(View.GONE);
+			findViewById(R.id.xiadanView).setVisibility(View.INVISIBLE);
 		}
 
 		ImageLoaderUtils.loadImage(pinActivity.getPinImg().getUrl(), pro_img);
 		pro_title.setText(pinActivity.getPinTitle() + "");
 		String guige = getResources().getString(R.string.tuan_gui,
 				pinActivity.getPersonNum(), pinActivity.getPinPrice());
-		KeyWordUtil.setDifferentFontColor13(this, tuan_guige,guige , guige.indexOf("¥")+1, guige.length());
-//		tuan_guige.setText(getResources().getString(R.string.tuan_gui,
-//				pinActivity.getPersonNum(), pinActivity.getPinPrice()));
+		KeyWordUtil.setDifferentFontColor13(this, tuan_guige, guige,
+				guige.indexOf("¥") + 1, guige.length());
+		// tuan_guige.setText(getResources().getString(R.string.tuan_gui,
+		// pinActivity.getPersonNum(), pinActivity.getPinPrice()));
 
 		PinUser master = pinActivity.getPinUsersForMaster();
 		ImageLoaderUtils.loadImage(master.getUserImg(), master_face);
@@ -183,33 +191,39 @@ public class PingouResultActivity extends BaseActivity implements
 				.setAdapter(new PinTuanGridAdapter(pinActivity.getPinUsers()));
 		mListView.setAdapter(new PinTuanListAdapter(pinActivity
 				.getPinUsersForMember()));
-		
-		findViewById(R.id.btn_see_goods).setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(getActivity(), PingouDetailActivity.class);
-				intent.putExtra("url", pinActivity.getPinSkuUrl());
-				startActivity(intent);
-			}
-		});
 
-		pinActivity.getEndCountDown();
-		int[] time = { pinActivity.getEndCountDownForDay(),
-				pinActivity.getEndCountDownForHour(),
-				pinActivity.getEndCountDownForMinute(),
-				pinActivity.getEndCountDownForSecond() };
-		timer.setTimes(time);
-		timer.setTimeEndListner(this);
-		timer.run();
+		findViewById(R.id.btn_see_goods).setOnClickListener(
+				new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent(getActivity(),
+								PingouDetailActivity.class);
+						intent.putExtra("url", pinActivity.getPinSkuUrl());
+						startActivity(intent);
+					}
+				});
+
+		if (pinActivity.getEndCountDown() > 0) {
+			int[] time = { pinActivity.getEndCountDownForDay(),
+					pinActivity.getEndCountDownForHour(),
+					pinActivity.getEndCountDownForMinute(),
+					pinActivity.getEndCountDownForSecond() };
+			timer.setTimes(time);
+			timer.setTimeEndListner(this);
+			timer.run();
+		}else{
+			findViewById(R.id.xiadanView).setVisibility(View.INVISIBLE);
+		}
 	}
+
 	private PinActivity pinActivity;
+
 	private void doCopy() {
 		String code[] = pinActivity.getPinUrl().split("activity/");
 		HMMApplication application = (HMMApplication) getApplication();
 		application.setKouling("KAKAO-HMM 复制这条信息,打开👉韩秘美👈即可看到<T>【"
-				+ pinActivity.getPinTitle() + "】," + code[1]
-				+ ",－🔑 M令 🔑");
+				+ pinActivity.getPinTitle() + "】," + code[1] + ",－🔑 M令 🔑");
 	}
 
 	@Override
@@ -274,6 +288,55 @@ public class PingouResultActivity extends BaseActivity implements
 		}
 	}
 
+	private void goToGoodsBalance(PinActivity s) {
+		if (getUser() == null) {
+			startActivity(new Intent(this, LoginActivity.class));
+			return;
+		}
+		ShoppingCar car = new ShoppingCar();
+		List<Customs> list = new ArrayList<Customs>();
+		Customs customs = new Customs();
+		ShoppingGoods sgoods;
+		if (s.getStatus().equals("Y")) {
+			sgoods = new ShoppingGoods();
+			sgoods.setGoodsId(s.getSkuId().intValue());
+			sgoods.setGoodsImg(s.getPinImg().getUrl());
+			sgoods.setGoodsName(s.getPinTitle());
+			sgoods.setGoodsNums(1);
+			sgoods.setGoodsPrice(Double.valueOf(s.getPinPrice()));
+			sgoods.setPinTieredPriceId(s.getPinTieredPriceId());
+			if (sgoods.getGoodsPrice() == null) {
+				ToastUtils.Toast(this, "请选择商品");
+				return;
+			}
+			sgoods.setInvArea(s.getInvArea());
+			sgoods.setInvAreaNm(s.getInvAreaNm());
+			sgoods.setInvCustoms(s.getInvCustoms());
+			sgoods.setPostalTaxRate(Integer.valueOf(s.getPostalTaxRate()));
+			sgoods.setPostalStandard(Integer.valueOf(s.getPostalStandard()));
+			sgoods.setSkuType(s.getSkuType());
+			sgoods.setSkuTypeId(s.getSkuTypeId());
+		} else if (s.getStatus().equals("P")) {
+			ToastUtils.Toast(this, "尚未开售");
+			return;
+		} else {
+			ToastUtils.Toast(this, "活动已结束");
+			return;
+		}
+		customs.addShoppingGoods(sgoods);
+		customs.setInvArea(sgoods.getInvArea());
+		customs.setInvAreaNm(sgoods.getInvAreaNm());
+		customs.setInvCustoms(sgoods.getInvCustoms());
+		list.add(customs);
+		car.setList(list);
+		Intent intent = new Intent(this, GoodsBalanceActivity.class);
+		intent.putExtra("car", car);
+		intent.putExtra("orderType", "pin");
+		intent.putExtra("pinActiveId", s.getPinActiveId() + "");
+		startActivity(intent);
+		finish();
+	}
+
 	private class PinTuanGridAdapter extends BaseAdapter {
 
 		private List<PinUser> members;
@@ -317,9 +380,11 @@ public class PingouResultActivity extends BaseActivity implements
 				}
 				ImageLoaderUtils.loadImage(members.get(arg0).getUserImg(),
 						holder.faceView);
-				holder.faceView.setBorderColor(getResources().getColor(R.color.theme));
-			}else{
-				holder.faceView.setBorderColor(getResources().getColor(R.color.qianhui));
+				holder.faceView.setBorderColor(getResources().getColor(
+						R.color.theme));
+			} else {
+				holder.faceView.setBorderColor(getResources().getColor(
+						R.color.qianhui));
 			}
 
 			return arg1;
@@ -332,7 +397,37 @@ public class PingouResultActivity extends BaseActivity implements
 			public ViewHolder(View view) {
 				super();
 				this.roleView = (TextView) view.findViewById(R.id.roleView);
-				this.faceView = (RoundImageView) view.findViewById(R.id.faceView);
+				this.faceView = (RoundImageView) view
+						.findViewById(R.id.faceView);
+			}
+		}
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		unregisterReceiver(netReceiver);
+	}
+
+	private CarBroadCastReceiver netReceiver;
+
+	// 广播接收者 注册
+	private void registerReceivers() {
+		netReceiver = new CarBroadCastReceiver();
+		IntentFilter intentFilter = new IntentFilter();
+		intentFilter
+				.addAction(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR);
+		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION);
+		getActivity().registerReceiver(netReceiver, intentFilter);
+	}
+
+	private class CarBroadCastReceiver extends BroadcastReceiver {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			if (intent.getAction().equals(
+					AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION)) {
+				loadPinUrl();
 			}
 		}
 	}

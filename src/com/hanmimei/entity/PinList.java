@@ -1,8 +1,10 @@
 package com.hanmimei.entity;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class PinList {
+public class PinList implements Serializable{
 
 	private List<PinActivity> activityList;
 	private HMessage message;
@@ -21,6 +23,25 @@ public class PinList {
 
 	public void setMessage(HMessage message) {
 		this.message = message;
+	}
+	
+	public List<PinActivity> getActivityListForMaster(){
+		List<PinActivity> list = new ArrayList<PinActivity>();
+		for(PinActivity p : activityList){
+			if(p.getOrMaster() == 1){
+				list.add(p);
+			}
+		}
+		return list;
+	}
+	public List<PinActivity> getActivityListForMember(){
+		List<PinActivity> list = new ArrayList<PinActivity>();
+		for(PinActivity p : activityList){
+			if(p.getOrMaster() == 0){
+				list.add(p);
+			}
+		}
+		return list;
 	}
 
 }
