@@ -106,8 +106,6 @@ public class PingouDetailActivity extends BaseActivity implements
 				CommonUtil.getScreenWidth(this),
 				CommonUtil.getScreenWidth(this));
 		view.setLayoutParams(lp);
-//		btn_pin_01 = findViewById(R.id.btn_pin_01);
-//		btn_pin_02 = findViewById(R.id.btn_pin_02);
 		collectionImg = (ImageView) findViewById(R.id.attention);
 		findViewById(R.id.wanfaView).setOnClickListener(this);
 		findViewById(R.id.back_top).setOnClickListener(this);

@@ -543,7 +543,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 			if (s.getOrMasterInv()) {
 				if (s.getState().equals("Y")) {
 					sgoods = new ShoppingGoods();
-					sgoods.setGoodsId(s.getId() + "");
+					sgoods.setGoodsId(s.getId());
 					sgoods.setGoodsImg(s.getInvImgForObj().getUrl());
 					sgoods.setGoodsName(s.getInvTitle());
 					sgoods.setGoodsNums(1);
@@ -555,6 +555,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 					sgoods.setPostalStandard(s.getPostalStandard());
 					sgoods.setSkuType(s.getSkuType());
 					sgoods.setSkuTypeId(s.getSkuTypeId());
+//					sgoods.setPinTieredPriceId(s.getPinTieredPrices());
 					break;
 				} else {
 					ToastUtils.Toast(this, "请选择商品");
@@ -617,6 +618,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 			object.put("skuId", goods.getGoodsId());
 			object.put("amount", goods.getGoodsNums());
 			object.put("state", goods.getState());
+			object.put("skuType", goods.getSkuType());
+			object.put("skuTypeId", goods.getSkuTypeId());
 			array.put(object);
 
 		} catch (JSONException e) {

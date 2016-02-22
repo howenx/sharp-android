@@ -79,7 +79,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 		mListView.setAdapter(adapter);
 		mListView.setFocusable(false);
 		all_price.setText(getResources().getString(R.string.price,
-				car.getAllPrice().setScale(2,   BigDecimal.ROUND_HALF_UP).doubleValue()));
+				car.getAllPrice()));
 		loadData(selectedId);
 	}
 
@@ -231,8 +231,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 					@Override
 					public void onSuccess(String result) {
 						getLoading().dismiss();
-						goodsBalance = new Gson().fromJson(result,
-								GoodsBalance.class);
+						goodsBalance = new Gson().fromJson(result,GoodsBalance.class);
 						initViewData();
 					}
 
