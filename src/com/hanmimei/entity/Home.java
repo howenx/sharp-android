@@ -3,6 +3,7 @@ package com.hanmimei.entity;
 import java.util.List;
 
 public class Home {
+	private int hasMsg;
 	private int page_count;
 	private List<Slider> sliders;
 	private List<Theme> themes;
@@ -10,6 +11,15 @@ public class Home {
 	public int getPage_count() {
 		return page_count;
 	}
+	
+	public int getHasMsg() {
+		return hasMsg;
+	}
+
+	public void setHasMsg(int hasMsg) {
+		this.hasMsg = hasMsg;
+	}
+
 	public void setPage_count(int page_count) {
 		this.page_count = page_count;
 	}

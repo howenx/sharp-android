@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.hanmimei.R;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.entity.MessageType;
+import com.hanmimei.manager.MessageMenager;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
@@ -27,7 +28,7 @@ public class MessageTypeActivity extends BaseActivity implements OnClickListener
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.my_message_layout);
 		ActionBarUtil.setActionBarStyle(this, "消息盒子");
-		
+		MessageMenager.getInstance().setMsgDrawble(getResources().getDrawable(R.drawable.icon_xiaoxi));
 		tishi1 = (TextView) findViewById(R.id.tishi1);
 		tishi2 = (TextView) findViewById(R.id.tishi2);
 		tishi3 = (TextView) findViewById(R.id.tishi3);

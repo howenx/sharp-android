@@ -34,6 +34,7 @@ import com.hanmimei.fragment.FragmentTabHost;
 import com.hanmimei.fragment.HomeFragment;
 import com.hanmimei.fragment.ShoppingCartFragment;
 import com.hanmimei.manager.BadgeViewManager;
+import com.hanmimei.manager.MessageMenager;
 import com.hanmimei.service.DownloadService;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
@@ -111,6 +112,8 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 		if (tabId.equals(TAB_HOME_ID)) {
 			isHome = true;
 			ActionBarUtil.setActionBarStyle(this, "韩秘美", R.drawable.icon_xiaoxi, false, this);
+			ImageView setting = (ImageView) findViewById(R.id.setting);
+			MessageMenager.getInstance().initMessageMenager(this, setting);
 			/** 如果当前选项卡是shopping */
 		} else if (tabId.equals(TAB_CAR_ID)) {
 			ActionBarUtil.setActionBarStyle(this, "购物车", 0, false, this);
