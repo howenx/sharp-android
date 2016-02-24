@@ -46,6 +46,9 @@ import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.Home;
 import com.hanmimei.entity.Slider;
 import com.hanmimei.entity.Theme;
+import com.hanmimei.manager.MessageMenager;
+import com.hanmimei.utils.Http2Utils;
+import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.CycleViewPager;
@@ -197,22 +200,22 @@ public class HomeFragment extends Fragment implements
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				try {
-					Thread.sleep(1000);
-					String result = HttpUtils.get(UrlUtil.HOME_LIST_URL
-							+ pageIndex);
-					Home home = DataParser.parserHomeData(result);
-					Message msg;
-					if (isUpOrDwom == 0) {
-						msg = mHandler.obtainMessage(1);
-					} else {
-						msg = mHandler.obtainMessage(2);
-					}
-					msg.obj = home;
-					mHandler.sendMessage(msg);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+				String result = "";
+				if (mActivity.getHeaders() == null) {
+					result = HttpUtils.get(UrlUtil.HOME_LIST_URL + pageIndex);
+				} else {
+					result = HttpUtils.get(UrlUtil.HOME_LIST_URL + pageIndex,
+							mActivity.getHeaders().get("id-token"));
 				}
+				Home home = DataParser.parserHomeData(result);
+				Message msg;
+				if (isUpOrDwom == 0) {
+					msg = mHandler.obtainMessage(1);
+				} else {
+					msg = mHandler.obtainMessage(2);
+				}
+				msg.obj = home;
+				mHandler.sendMessage(msg);
 			}
 		}).start();
 	}
@@ -245,6 +248,10 @@ public class HomeFragment extends Fragment implements
 			mListView.setMode(Mode.DISABLED);
 		} else {
 			mListView.setMode(Mode.PULL_FROM_END);
+		}
+		if (home.getHasMsg() != 0) {
+			MessageMenager.getInstance().setMsgDrawble(
+					getResources().getDrawable(R.drawable.icon_xiaoxi_has));
 		}
 	}
 
@@ -292,7 +299,7 @@ public class HomeFragment extends Fragment implements
 					no_net.setVisibility(View.VISIBLE);
 				}
 				break;
-			
+
 			default:
 				break;
 			}
@@ -379,6 +386,7 @@ public class HomeFragment extends Fragment implements
 		myReceiver = new MyBroadCastReceiver();
 		IntentFilter intentFilter = new IntentFilter();
 		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_UP_HOME_ACTION);
+		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION);
 		getActivity().registerReceiver(myReceiver, intentFilter);
 	}
 
@@ -391,6 +399,9 @@ public class HomeFragment extends Fragment implements
 				pageIndex = 1;
 				isUpOrDwom = 0;
 				pullNum = 1;
+				loadData();
+			}else if(intent.getAction().equals(
+					AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION)){
 				loadData();
 			}
 		}

@@ -89,6 +89,8 @@ public class DataParser {
 			}
 			if(object.has("page_count"))
 				home.setPage_count(object.getInt("page_count"));
+			if(object.has("msgRemind"))
+				home.setHasMsg(object.getInt("msgRemind"));
 			home.setSliders(sliders);
 			home.sethMessage(hMessage);
 			home.setThemes(list);
