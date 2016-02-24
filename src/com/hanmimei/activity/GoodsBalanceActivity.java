@@ -82,6 +82,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 		all_price.setText(getResources().getString(R.string.price,
 				car.getAllPrice()));
 		loadData(selectedId);
+	
 	}
 
 	/**

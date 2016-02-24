@@ -13,7 +13,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hanmimei.R;
+import com.hanmimei.activity.MyPingouDetailActivity;
+import com.hanmimei.activity.OrderDetailActivity;
 import com.hanmimei.activity.PingouResultActivity;
+import com.hanmimei.entity.Order;
 import com.hanmimei.entity.PinActivity;
 import com.hanmimei.utils.ImageLoaderUtils;
 
@@ -49,7 +52,7 @@ public class MyPinTuanAdapter extends BaseAdapter {
 		final PinActivity goods = data.get(position);
 		ViewHolder holder = null;
 		if (convertView == null) {
-			convertView = inflater.inflate(R.layout.my_pintuan_item_layout,null);
+			convertView = inflater.inflate(R.layout.my_pingou_item_layout,null);
 			holder = new ViewHolder(convertView);
 			
 			convertView.setTag(holder);
@@ -65,7 +68,7 @@ public class MyPinTuanAdapter extends BaseAdapter {
 			holder.see_tuan.setVisibility(View.VISIBLE);
 		}else if(goods.getStatus().equals("F")){
 			holder.state.setText("拼团失败");
-			holder.see_order.setVisibility(View.GONE);
+			holder.see_order.setVisibility(View.VISIBLE);
 			holder.see_tuan.setVisibility(View.VISIBLE);
 		}else if(goods.getStatus().equals("C")){
 			holder.state.setText("拼团成功");
@@ -84,6 +87,15 @@ public class MyPinTuanAdapter extends BaseAdapter {
 				Intent intent = new Intent(mContext, PingouResultActivity.class);
 				intent.putExtra("url", goods.getPinUrl());
 				mContext.startActivity(intent);
+			}
+		});
+		
+		holder.see_order.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				doJumpDetail(goods);
 			}
 		});
 		
@@ -108,5 +120,12 @@ public class MyPinTuanAdapter extends BaseAdapter {
 		
 		
 	}
+	
+	//跳转到订单详情界面的方法
+		private void doJumpDetail(PinActivity goods) {
+			Intent intent = new Intent(mContext, MyPingouDetailActivity.class);
+			intent.putExtra("orderId", goods.getOrderId());
+			mContext.startActivity(intent);
+		}
 
 }

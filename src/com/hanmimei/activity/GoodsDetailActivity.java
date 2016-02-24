@@ -384,7 +384,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 	private void addShoppingCartCheck(ShoppingGoods goods) {
 		goods2 = getDaoSession().getShoppingGoodsDao().queryBuilder()
-				.where(Properties.GoodsId.eq(goods.getGoodsId())).unique();
+				.where(Properties.GoodsId.eq(goods.getGoodsId()),Properties.SkuType.eq(goods.getSkuType())
+						,Properties.SkuTypeId.eq(goods.getSkuTypeId())).unique();
 		if (goods2 == null) {
 			goods2 = new ShoppingGoods();
 			goods2.setGoodsId(goods.getGoodsId());

@@ -160,7 +160,7 @@
             android:name="com.hanmimei.activity.HmmServiceActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.MyPinTuanActivity"
+            android:name="com.hanmimei.activity.MyPingouActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.hanmimei.activity.PingouDetailSelActivity"
@@ -170,6 +170,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.hanmimei.activity.MessageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.hanmimei.activity.MyPingouDetailActivity"
             android:screenOrientation="portrait" />
 
         <service android:name="com.hanmimei.service.DownloadService" >

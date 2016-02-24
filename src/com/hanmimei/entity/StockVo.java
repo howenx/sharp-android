@@ -48,7 +48,7 @@ public class StockVo implements Serializable{
 	private String pinId;
 	private String shareUrl; // 分享短连接
 	private String status; // 拼购ID
-	private Double invPrice; //商品原价
+	private BigDecimal invPrice; //商品原价
 	private int collectId;
 	
 	private String soldAmount ;//已售数量
@@ -81,11 +81,11 @@ public class StockVo implements Serializable{
 		this.skuTypeId = skuTypeId;
 	}
 
-	public Double getInvPrice() {
+	public BigDecimal getInvPrice() {
 		return invPrice;
 	}
 
-	public void setInvPrice(Double invPrice) {
+	public void setInvPrice(BigDecimal invPrice) {
 		this.invPrice = invPrice;
 	}
 
@@ -251,9 +251,6 @@ public class StockVo implements Serializable{
 		this.postalStandard = postalStandard;
 	}
 
-	public void setPostalTaxRate(int postalTaxRate) {
-		this.postalTaxRate = postalTaxRate;
-	}
 
 	public String getInvCustoms() {
 		return invCustoms;

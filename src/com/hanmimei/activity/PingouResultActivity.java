@@ -179,7 +179,7 @@ public class PingouResultActivity extends BaseActivity implements
 		String guige = getResources().getString(R.string.tuan_gui,
 				pinActivity.getPersonNum(), pinActivity.getPinPrice());
 		KeyWordUtil.setDifferentFontColor13(this, tuan_guige, guige,
-				guige.indexOf("¥") + 1, guige.length());
+				guige.indexOf("¥"), guige.length());
 		// tuan_guige.setText(getResources().getString(R.string.tuan_gui,
 		// pinActivity.getPersonNum(), pinActivity.getPinPrice()));
 
@@ -385,7 +385,7 @@ public class PingouResultActivity extends BaseActivity implements
 						R.color.theme));
 			} else {
 				holder.faceView.setBorderColor(getResources().getColor(
-						R.color.qianhui));
+						R.color.white));
 			}
 
 			return arg1;
