@@ -159,7 +159,7 @@ public class PingouResultActivity extends BaseActivity implements
 			about.setText("还差"
 					+ (pinActivity.getPersonNum() - pinActivity
 							.getJoinPersons()) + "人，让小伙伴们都来组团吧！");
-
+			initTimer();
 		} else if (pinActivity.getStatus().equals("F")) {
 			tuan_status.setImageResource(R.drawable.hmm_pingou_fail);
 			tuan_state.setImageResource(R.drawable.hmm_zutuan_fail);
@@ -169,7 +169,7 @@ public class PingouResultActivity extends BaseActivity implements
 			
 			findViewById(R.id.xiadanView).setVisibility(View.INVISIBLE);
 
-		} else if (pinActivity.getStatus().equals("C")) {
+		} else if (pinActivity.getStatus().equals("C")) { 
 			tuan_status.setImageResource(R.drawable.hmm_pingou_success);
 			tuan_state.setImageResource(R.drawable.hmm_zutuan_success);
 			about.setText("对于诸位大侠的相助，团长感激涕零");
@@ -208,6 +208,9 @@ public class PingouResultActivity extends BaseActivity implements
 					}
 				});
 
+	}
+	
+	private void initTimer(){
 		if (pinActivity.getEndCountDown() > 0) {
 			int[] time = { pinActivity.getEndCountDownForDay(),
 					pinActivity.getEndCountDownForHour(),
@@ -216,10 +219,10 @@ public class PingouResultActivity extends BaseActivity implements
 			timer.setTimes(time);
 			timer.setTimeEndListner(this);
 			timer.run();
-		}else{
-			findViewById(R.id.xiadanView).setVisibility(View.INVISIBLE);
 		}
 	}
+	
+	
 	private PopupWindow shareWindow;
 	private void initPop() {
 		View view = LayoutInflater.from(this).inflate(R.layout.share_layout,

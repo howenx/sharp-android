@@ -44,8 +44,7 @@
                     android:textSize="12sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="收获地址：阿迪舒服了卡斯蒂略看疯狂拉升的福利卡上的看法卡上" />
+                    android:layout_marginTop="10dp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -66,8 +65,7 @@
                     android:textSize="16sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="¥11" />
+                    android:layout_marginTop="10dp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -87,8 +85,7 @@
                     style="@style/order_font_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="阿迪舒服了卡斯蒂略看疯狂拉升的福利卡上的看法卡上" />
+                    android:layout_marginTop="10dp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -108,8 +105,7 @@
                     style="@style/order_font_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="宋凯凯" />
+                    android:layout_marginTop="10dp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -129,8 +125,7 @@
                     style="@style/order_font_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="111111" />
+                    android:layout_marginTop="10dp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -150,8 +145,7 @@
                     style="@style/order_font_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="2014-11-11 11:11;121" />
+                    android:layout_marginTop="10dp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -168,7 +162,6 @@
                     android:background="@color/huise"
                     android:gravity="center"
                     android:padding="8dp"
-                    android:text="查看物流"
                     android:textColor="@color/white" />
 
                 <TextView
@@ -180,7 +173,6 @@
                     android:background="@color/theme"
                     android:gravity="center"
                     android:padding="8dp"
-                    android:text="确认收货"
                     android:textColor="@color/white" />
             </LinearLayout>
         </LinearLayout>
@@ -232,9 +224,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@+id/pro_img"
-                    android:layout_alignRight="@+id/pro_title"
+                    android:layout_alignLeft="@+id/pro_title"
                     android:textColor="@color/red"
                     android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/pro_shipfee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/pro_img"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/fontcolor"
+                    android:textSize="12sp" />
 
             </RelativeLayout>
         </LinearLayout>

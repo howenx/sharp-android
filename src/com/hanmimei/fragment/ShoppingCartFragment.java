@@ -96,8 +96,7 @@ public class ShoppingCartFragment extends Fragment implements OnClickListener,
 	}
 
 	private void getLocalData() {
-		List<ShoppingGoods> list = new ArrayList<ShoppingGoods>();
-		list = goodsDao.queryBuilder().build().list();
+		List<ShoppingGoods> list = goodsDao.queryBuilder().build().list();
 		if (list != null && list.size() > 0) {
 			mListView.setVisibility(View.VISIBLE);
 			no_data.setVisibility(View.GONE);

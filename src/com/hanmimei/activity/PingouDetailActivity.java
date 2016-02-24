@@ -116,8 +116,6 @@ public class PingouDetailActivity extends BaseActivity implements
 		findViewById(R.id.wanfaView).setOnClickListener(this);
 		findViewById(R.id.back_top).setOnClickListener(this);
 		findViewById(R.id.btn_attention).setOnClickListener(this);
-		findViewById(R.id.btn_pin_01).setOnClickListener(this);
-		findViewById(R.id.btn_pin_02).setOnClickListener(this);
 
 	}
 
@@ -135,8 +133,7 @@ public class PingouDetailActivity extends BaseActivity implements
 		soldAmount.setText("已售：" + stock.getSoldAmount() + "件");
 		if(stock.getInvPrice() !=null){
 			item_src_price.setText(stock.getInvPrice() + "元/件");
-			findViewById(R.id.btn_buy_01).setOnClickListener(this);
-			findViewById(R.id.btn_buy_02).setOnClickListener(this);
+			
 		}
 		pin_price.setText(stock.getFloorPrice().get("price") + "元/件起");
 		pin_per_num.setText("最高" + stock.getFloorPrice().get("person_num")+ "人团");
@@ -146,6 +143,16 @@ public class PingouDetailActivity extends BaseActivity implements
 		}else{
 			collectionImg.setImageDrawable(getResources().getDrawable(R.drawable.icon_un_collect));
 			isCollection = false;
+		}
+		if(stock.getStatus().equals("Y")){
+			findViewById(R.id.btn_buy_01).setOnClickListener(this);
+			findViewById(R.id.btn_buy_02).setOnClickListener(this);
+			findViewById(R.id.btn_pin_01).setOnClickListener(this);
+			findViewById(R.id.btn_pin_02).setOnClickListener(this);
+		}else if(stock.getStatus().equals("P")){
+			ToastUtils.Toast(this, "该商品尚未开售");
+		}else {
+			ToastUtils.Toast(this, "该商品已售完");
 		}
 	}
 

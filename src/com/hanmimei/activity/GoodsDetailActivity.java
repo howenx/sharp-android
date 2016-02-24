@@ -390,6 +390,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 			goods2 = new ShoppingGoods();
 			goods2.setGoodsId(goods.getGoodsId());
 			goods2.setGoodsNums(0);
+			goods2.setSkuType(goods.getSkuType());
+			goods2.setSkuTypeId(goods.getSkuTypeId());
 		}
 		getLoading().show();
 		Http2Utils.doGetRequestTask(this, UrlUtil.SEND_CAR_TO_SERVER_UN

@@ -1,5 +1,6 @@
 package com.hanmimei.activity;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.hanmimei.R;
@@ -21,7 +22,7 @@ public class MyPingouDetailActivity extends BaseActivity {
 
 	private TextView order_state, order_price, order_addr, order_person,
 			pro_title, pro_guige;
-	private TextView order_no, order_time, btn_left, btn_right;
+	private TextView order_no, order_time, btn_left, btn_right,pro_shipfee;
 	private ImageView order_img, pro_img;
 
 	@Override
@@ -83,7 +84,8 @@ public class MyPingouDetailActivity extends BaseActivity {
 			order_no.setText(o.getOrderId());
 			order_person.setText(o.getAdress().getName() +"    "+o.getAdress().getPhone());
 			order_time.setText(o.getOrderCreateAt());
-
+			pro_shipfee.setText("配送费："+o.getShipFee());
+			
 			ImageLoaderUtils.loadImage(o.getList().get(0).getInvImg(), pro_img);
 			pro_guige.setText("¥"+o.getList().get(0).getPrice());
 			pro_title.setText(o.getList().get(0).getSkuTitle());
@@ -103,6 +105,7 @@ public class MyPingouDetailActivity extends BaseActivity {
 		order_time = (TextView) findViewById(R.id.order_time);
 		btn_left = (TextView) findViewById(R.id.btn_left);
 		btn_right = (TextView) findViewById(R.id.btn_right);
+		pro_shipfee = (TextView) findViewById(R.id.pro_shipfee);
 		order_img = (ImageView) findViewById(R.id.order_img);
 		pro_img = (ImageView) findViewById(R.id.pro_img);
 	}
