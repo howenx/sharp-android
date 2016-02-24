@@ -117,7 +117,7 @@ public class Customs implements Serializable{
 	
 	
 	public Double getAllPrice() {
-		Double allPrice = 0.00;
+		Double allPrice = 0.0;
 		for(ShoppingGoods sg : list){
 			allPrice += sg.getGoodsPrice() *sg.getGoodsNums();
 		}

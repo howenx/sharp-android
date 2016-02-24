@@ -20,7 +20,7 @@ import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 
-public class MyPinTuanActivity extends BaseActivity {
+public class MyPingouActivity extends BaseActivity {
 
 	private ViewPager viewPager;
 	private PagerSlidingTabStrip pagerSlidingTabStrip;
@@ -28,8 +28,8 @@ public class MyPinTuanActivity extends BaseActivity {
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.my_pintuan_pager_layout);
-		ActionBarUtil.setActionBarStyle(this, "我的拼团");
+		setContentView(R.layout.my_pingou_pager_layout);
+		ActionBarUtil.setActionBarStyle(this, "我的拼购");
 
 		viewPager = (ViewPager) findViewById(R.id.view_pager);
 		pagerSlidingTabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);

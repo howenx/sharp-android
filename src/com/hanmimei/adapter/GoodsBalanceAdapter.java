@@ -1,6 +1,5 @@
 package com.hanmimei.adapter;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import android.content.Context;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 import com.hanmimei.R;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.utils.ImageLoaderUtils;
-import com.squareup.picasso.Picasso;
 
 public class GoodsBalanceAdapter extends BaseAdapter {
 	

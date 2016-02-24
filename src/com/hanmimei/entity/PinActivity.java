@@ -41,6 +41,16 @@ public class PinActivity implements Serializable{
     private String  skuType;
     private String  skuTypeId;
     private String pinTieredPriceId;
+    
+    private String orderId;
+    
+	public String getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
+	}
 
 	public Integer getOrMaster() {
 		return orMaster;

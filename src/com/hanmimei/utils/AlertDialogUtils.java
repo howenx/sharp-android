@@ -34,6 +34,16 @@ public class AlertDialogUtils {
 	 * @param context
 	 * @param l
 	 */
+	public static void showBackDialog(Context context,
+			final OnClickListener l) {
+		String[] tb = { "便宜不等人，请三思而行","", "我再想想", "去意已决" };
+		showCustomDialog(context, tb, l);
+	}
+	/**
+	 * 
+	 * @param context
+	 * @param l
+	 */
 	public static void showPayDialog(Context context,
 			final OnClickListener l) {
 		String[] tb = { "确认要离开收银台","下单后24小时订单将被取消，请尽快完成支付", "继续支付", "确定离开" };

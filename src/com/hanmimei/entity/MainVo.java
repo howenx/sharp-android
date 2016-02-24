@@ -8,20 +8,18 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 public class MainVo {
-	private Integer id;
+	private String id;
 	private String itemTitle;
 	private String itemMasterImg;
 	private String onShelvesAt;
 	private String offShelvesAt;
 	private String itemDetailImgs;
-	// private List<ItemFeature> itemFeatures;
 	private String itemFeatures;
 	private Integer themeId;
 	private String state;
 	private String shareUrl;
 	private Integer collectCount;
 	private String itemNotice;
-	// private List<String> publicity;
 	private String publicity;
 	private Integer masterInvId;
 
@@ -31,11 +29,11 @@ public class MainVo {
 	}
 	
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

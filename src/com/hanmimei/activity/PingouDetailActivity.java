@@ -77,7 +77,13 @@ public class PingouDetailActivity extends BaseActivity implements
 			@Override
 			public void onSuccess(String result) {
 				getLoading().dismiss();
-				detail = new Gson().fromJson(result, PinDetail.class);
+				try {
+					detail = new Gson().fromJson(result, PinDetail.class);
+				} catch (Exception e) {
+					ToastUtils.Toast(getActivity(), R.string.error);
+					return;
+				}
+				
 				if (detail.getMessage().getCode() == 200) {
 					initFragmentPager(detail.getMain());
 					initGoodsDetail(detail.getStock());
@@ -339,7 +345,7 @@ public class PingouDetailActivity extends BaseActivity implements
 			sgoods.setGoodsImg(s.getInvImgForObj().getUrl());
 			sgoods.setGoodsName(s.getPinTitle());
 			sgoods.setGoodsNums(1);
-			sgoods.setGoodsPrice(s.getInvPrice());
+			sgoods.setGoodsPrice(s.getInvPrice().doubleValue());
 			sgoods.setInvArea(s.getInvArea());
 			sgoods.setInvAreaNm(s.getInvAreaNm());
 			sgoods.setInvCustoms(s.getInvCustoms());

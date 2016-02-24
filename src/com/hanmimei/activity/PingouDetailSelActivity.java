@@ -181,7 +181,7 @@ public class PingouDetailSelActivity extends BaseActivity {
 			sgoods.setGoodsNums(1);
 			for(PinTieredPrice p: datas){
 				if(p.isSelected()){
-					sgoods.setGoodsPrice(p.getPrice());
+					sgoods.setGoodsPrice(p.getPrice().doubleValue());
 					sgoods.setPinTieredPriceId(p.getId());
 				}
 			}
