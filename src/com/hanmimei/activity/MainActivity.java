@@ -69,13 +69,10 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 	public static boolean isForeground = false;
 	
 	private boolean isHome = true;
-
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		JPushInterface.setAlias(this, "song", new TagAliasCallback() {
-			
 			@Override
 			public void gotResult(int arg0, String arg1, Set<String> arg2) {
 //				ToastUtils.Toast(MainActivity.this, arg1+"");
@@ -113,7 +110,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 		/** 如果当前选项卡是home */
 		if (tabId.equals(TAB_HOME_ID)) {
 			isHome = true;
-			ActionBarUtil.setActionBarStyle(this, "韩秘美", R.drawable.icon_xiaoxi, true, this);
+			ActionBarUtil.setActionBarStyle(this, "韩秘美", R.drawable.icon_xiaoxi, false, this);
 			/** 如果当前选项卡是shopping */
 		} else if (tabId.equals(TAB_CAR_ID)) {
 			ActionBarUtil.setActionBarStyle(this, "购物车", 0, false, this);
@@ -160,7 +157,11 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 		switch (v.getId()) {
 		case R.id.setting:
 			if(isHome){
-				DoJumpUtils.doJump(this, MessageActivity.class);
+				if (getUser() == null) {
+					startActivity(new Intent(getActivity(), LoginActivity.class));
+				} else {
+					DoJumpUtils.doJump(this, MessageTypeActivity.class);
+				}
 			}else{
 				DoJumpUtils.doJump(this, SettingActivity.class);
 			}

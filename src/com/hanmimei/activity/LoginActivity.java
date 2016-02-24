@@ -3,6 +3,7 @@ package com.hanmimei.activity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -30,6 +31,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 
 import com.hanmimei.R;
 import com.hanmimei.application.HMMApplication;
@@ -339,6 +343,12 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 						user.setLast_login(DateUtil.getCurrentDate());
 						HMMApplication application = (HMMApplication) getApplication();
 						application.setLoginUser(user);
+						JPushInterface.setAlias(LoginActivity.this, result.getTag(), new TagAliasCallback() {
+							@Override
+							public void gotResult(int arg0, String arg1, Set<String> arg2) {	
+							}
+						});
+						
 						// 登录用户存储到本地sql
 						userDao.deleteAll();
 						userDao.insert(user);

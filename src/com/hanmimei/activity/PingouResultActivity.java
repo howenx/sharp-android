@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -34,12 +36,13 @@ import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ImageLoaderUtils;
 import com.hanmimei.utils.KeyWordUtil;
+import com.hanmimei.utils.PopupWindowUtil;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.RoundImageView;
 import com.hanmimei.view.TimeDownView;
 
 public class PingouResultActivity extends BaseActivity implements
-		TimeEndListner {
+		TimeEndListner, OnClickListener {
 
 	private TimeDownView timer;
 	private ListView mListView;
@@ -120,12 +123,13 @@ public class PingouResultActivity extends BaseActivity implements
 				}
 				
 				btn_xiadan.setText("还差"+ (pinActivity.getPersonNum() - pinActivity
-								.getJoinPersons()) + "人，让小伙伴们都来组团吧！");
+								.getJoinPersons()) + "人，点击复制去分享！");
 				btn_xiadan.setOnClickListener(new OnClickListener() {
 
 					@Override
 					public void onClick(View arg0) {
-						doCopy();
+						initPop();
+//						doCopy();
 					}
 				});
 			} else {
@@ -133,7 +137,7 @@ public class PingouResultActivity extends BaseActivity implements
 				if (pinActivity.getOrJoinActivity() == 1) {
 					btn_xiadan.setText("还差"
 							+ (pinActivity.getPersonNum() - pinActivity
-									.getJoinPersons()) + "人，点击复制，分享给小伙伴们！");
+									.getJoinPersons()) + "人，让小伙伴们都来组团吧！");
 					btn_xiadan.setOnClickListener(new OnClickListener() {
 
 						@Override
@@ -215,6 +219,21 @@ public class PingouResultActivity extends BaseActivity implements
 		}else{
 			findViewById(R.id.xiadanView).setVisibility(View.INVISIBLE);
 		}
+	}
+	private PopupWindow shareWindow;
+	private void initPop() {
+		View view = LayoutInflater.from(this).inflate(R.layout.share_layout,
+				null);
+		shareWindow = PopupWindowUtil.showPopWindow(this, view);
+//		view.findViewById(R.id.qq).setOnClickListener(this);
+//		view.findViewById(R.id.weixin).setOnClickListener(this);
+//		view.findViewById(R.id.weixinq).setOnClickListener(this);
+//		view.findViewById(R.id.sina).setOnClickListener(this);
+		view.findViewById(R.id.qq).setVisibility(View.GONE);
+		view.findViewById(R.id.weixin).setVisibility(View.GONE);
+		view.findViewById(R.id.weixinq).setVisibility(View.GONE);
+		view.findViewById(R.id.sina).setVisibility(View.GONE);
+		view.findViewById(R.id.copy).setOnClickListener(this);
 	}
 
 	private PinActivity pinActivity;
@@ -430,6 +449,19 @@ public class PingouResultActivity extends BaseActivity implements
 					AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION)) {
 				loadPinUrl();
 			}
+		}
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.copy:
+			doCopy();
+			shareWindow.dismiss();
+			break;
+
+		default:
+			break;
 		}
 	}
 

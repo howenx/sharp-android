@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-
 import cn.jpush.android.api.JPushInterface;
 
 import com.hanmimei.R;
@@ -41,7 +40,6 @@ public class FirstShowActivity extends AppCompatActivity {
 		util.putString("isLoadNet", "true");
 		String flag = util.getString(FIRST_LOG_FLAG);
 		if (flag == null) {
-//			util.putString(FIRST_LOG_FLAG, "not_first");
 			startActivity(new Intent(FirstShowActivity.this,
 					IndroductionActivity.class));
 			finish();
@@ -80,19 +78,7 @@ public class FirstShowActivity extends AppCompatActivity {
 	}
 	//更新token
 	private void getNewToken() {
-		new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				try {
-					Thread.sleep(1000);
-					Message msg = mHandler.obtainMessage(2);
-					mHandler.sendMessage(msg);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		}).start();
+		
 	}
 
 	private Handler mHandler = new Handler() {

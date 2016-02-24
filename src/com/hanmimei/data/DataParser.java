@@ -16,6 +16,9 @@ import com.hanmimei.entity.HMMAddress;
 import com.hanmimei.entity.HMMThemeGoods;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.Home;
+import com.hanmimei.entity.MessageInfo;
+import com.hanmimei.entity.MessageType;
+import com.hanmimei.entity.MsgResult;
 import com.hanmimei.entity.Notify;
 import com.hanmimei.entity.Order;
 import com.hanmimei.entity.Result;
@@ -256,8 +259,8 @@ public class DataParser {
 								sku.setSkuTitle(decode2(skuObject.getString("skuTitle")));
 						if(skuObject.has("invImg"))
 							sku.setInvImg(skuObject.getString("invImg"));
-						if(skuObject.has("invAndroidUrl"))
-							sku.setInvUrl(skuObject.getString("invAndroidUrl"));
+						if(skuObject.has("invUrl"))
+							sku.setInvUrl(skuObject.getString("invUrl"));
 						if(skuObject.has("itemColor"))
 							sku.setItemColor(skuObject.getString("itemColor"));
 						if(skuObject.has("itemSize"))
@@ -515,8 +518,82 @@ public class DataParser {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		
 		return notify;
 	}
+	public static MessageType  parseMsgType(String result){
+		MessageType type = new MessageType();
+		try {
+			JSONObject object = new JSONObject(result);
+			if(object.has("msgTypeMap")){
+				JSONObject typeObject = object.getJSONObject("msgTypeMap");
+				if(typeObject.has("system"))
+					type.setSysNum(typeObject.getInt("system"));
+				if(typeObject.has("coupon"))
+					type.setZichanNum(typeObject.getInt("coupon"));
+				if(typeObject.has("discount"))
+					type.setHuodongNum(typeObject.getInt("discount"));
+				if(typeObject.has("logistics"))
+					type.setWuliuNum(typeObject.getInt("logistics"));
+				if(typeObject.has("goods"))
+					type.setGoodNum(typeObject.getInt("goods"));
+			}
+			if(object.has("message")){
+				JSONObject msgObject = object.getJSONObject("message");
+				if(msgObject.has("code"))
+					type.setCode(msgObject.getInt("code"));
+				if(msgObject.has("message"))
+					type.setMessage(msgObject.getString("message"));
+			}
+			
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return type;
+	}
+	public static MsgResult parseMsgInfo(String result){
+		MsgResult msgResult = new MsgResult();
+		try {
+			JSONObject object = new JSONObject(result);
+			if(object.has("msgList")){
+				List<MessageInfo> list = new ArrayList<MessageInfo>();
+				JSONArray array = object.getJSONArray("msgList");
+				for(int i = 0; i < array.length(); i ++){
+					MessageInfo info = new MessageInfo();
+					JSONObject obj = array.getJSONObject(i);
+					if(obj.has("id"))
+						info.setMsgId(obj.getString("id"));
+					if(obj.has("msgTitle"))
+						info.setMsgTitle(obj.getString("msgTitle"));
+					if(obj.has("msgContent"))
+						info.setMsgContent(obj.getString("msgContent"));
+					if(obj.has("msgImg"))
+						info.setMsgImg(obj.getString("msgImg"));
+					if(obj.has("msgUrl"))
+						info.setMsgUrl(obj.getString("msgUrl"));
+					if(obj.has("msgType"))
+						info.setMsgType(obj.getString("msgType"));
+					if(obj.has("createAt"))
+						info.setCreateAt(obj.getLong("createAt"));
+					if(obj.has("targetType"))
+						info.setTargetType(obj.getString("targetType"));
+					list.add(info);
+				}
+				msgResult.setList(list);
+			}
+			HMessage message = new HMessage();
+			if(object.has("message")){
+				JSONObject msgObject = object.getJSONObject("message");
+				if(msgObject.has("code"))
+					message.setCode(msgObject.getInt("code"));
+				if(msgObject.has("message"))
+					message.setMessage(msgObject.getString("message"));
+				msgResult.setMessage(message);
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return msgResult;
+	}
+	
 	
 }

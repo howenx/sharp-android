@@ -47,18 +47,21 @@ public class MyMsgAdapter extends BaseAdapter {
 			hold = new ViewHold();
 			hold.time = (TextView) convertView.findViewById(R.id.time);
 			hold.msg = (TextView) convertView.findViewById(R.id.msg);
+			hold.content = (TextView) convertView.findViewById(R.id.content);
 			convertView.setTag(hold);
 		} else{
 			hold = (ViewHold) convertView.getTag();
 		}
-		hold.time.setText(info.getTime());
-		hold.msg.setText(info.getTitle());
+		hold.time.setText(info.getCreateAt()+"");
+		hold.msg.setText(info.getMsgTitle());
+		hold.content.setText(info.getMsgContent());
 		return convertView;
 	}
 	
 	private class ViewHold{
 		private TextView time;
 		private TextView msg;
+		private TextView content;
 	}
 
 }
