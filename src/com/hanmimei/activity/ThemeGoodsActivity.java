@@ -78,8 +78,8 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				if (data.get(arg2).getState().equals("Y")
-						|| data.get(arg2).getState().equals("P")) {
+//				if (data.get(arg2).getState().equals("Y")
+//						|| data.get(arg2).getState().equals("P")) {
 					Intent intent = null;
 					if (data.get(arg2).getItemType().equals("pin")) {
 						intent = new Intent(getActivity(),
@@ -89,7 +89,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 					}
 					intent.putExtra("url", data.get(arg2).getItemUrl());
 					startActivityForResult(intent, 1);
-				}
+//				}
 			}
 		});
 

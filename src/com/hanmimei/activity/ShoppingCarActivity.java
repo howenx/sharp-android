@@ -123,6 +123,8 @@ public class ShoppingCarActivity extends BaseActivity implements
 				object.put("skuId", goods.getGoodsId());
 				object.put("amount", goods.getGoodsNums());
 				object.put("state", goods.getState());
+				object.put("skuType", goods.getSkuType());
+				object.put("skuTypeId", goods.getSkuTypeId());
 				array.put(object);
 			}
 
@@ -257,8 +259,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 			break;
 		case R.id.back:
 			// 发广播 通知shoppingfragment数据发生改变
-			sendBroadcast(new Intent(
-					AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
+			sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
 			finish();
 			break;
 		case R.id.pay:
@@ -369,7 +370,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 	public void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		getActivity().unregisterReceiver(netReceiver);
+		unregisterReceiver(netReceiver);
 		isBack = true;
 	}
 

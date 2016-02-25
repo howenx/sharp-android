@@ -62,7 +62,7 @@ public class PingouResultActivity extends BaseActivity implements
 		loadPinUrl();
 		registerReceivers();
 	}
-
+	
 	private void findView() {
 		tuan_status = (ImageView) findViewById(R.id.tuan_status);
 		pro_img = (ImageView) findViewById(R.id.imageView1);
@@ -80,7 +80,9 @@ public class PingouResultActivity extends BaseActivity implements
 		gridlayout = (GridView) findViewById(R.id.gridlayout);
 
 	}
-
+	/**
+	 * 读取数据
+	 */
 	private void loadPinUrl() {
 		getLoading().show();
 		Http2Utils.doGetRequestTask(this, getHeaders(), getIntent()
@@ -110,7 +112,9 @@ public class PingouResultActivity extends BaseActivity implements
 			}
 		});
 	}
-
+	/**
+	 * 初始化页面数据
+	 */
 	private void initPageData() {
 
 		if (pinActivity.getStatus().equals("Y")) {
@@ -129,7 +133,6 @@ public class PingouResultActivity extends BaseActivity implements
 					@Override
 					public void onClick(View arg0) {
 						initPop();
-//						doCopy();
 					}
 				});
 			} else {
@@ -142,7 +145,7 @@ public class PingouResultActivity extends BaseActivity implements
 
 						@Override
 						public void onClick(View arg0) {
-							doCopy();
+							initPop();
 						}
 					});
 				} else {

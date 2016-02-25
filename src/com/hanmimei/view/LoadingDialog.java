@@ -18,6 +18,7 @@ public class LoadingDialog extends AlertDialog {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.loading_dialog);
+		setCanceledOnTouchOutside(false);
 	}
 
 	

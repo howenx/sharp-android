@@ -2,6 +2,7 @@ package com.hanmimei.activity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -83,6 +84,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private TextView itemTitle, itemSrcPrice, itemPrice, area;// 标题、 原价、现价、发货区
 	private TextView num_restrictAmount; // 限购数量
 	private ImageView img_hide, collectionImg;
+	private TextView notice;
 
 	private BadgeView goodsNumView;// 显示购买数量的控件
 
@@ -99,13 +101,13 @@ public class GoodsDetailActivity extends BaseActivity implements
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
-		ActionBarUtil.setActionBarStyle(this, "商品详情", R.drawable.fenxiang,
-				true, null, this);
+		ActionBarUtil.setActionBarStyle(this, "商品详情", R.drawable.fenxiang,true, null, this);
 		setContentView(R.layout.goods_detail_layout);
 		findView();
 		initGoodsNumView();
 		initAnimatorSetValue();
 		loadDataByUrl();
+		getGoodsNums();
 		registerReceivers();
 	}
 
@@ -124,6 +126,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		itemTitle = (TextView) findViewById(R.id.itemTitle);
 		itemSrcPrice = (TextView) findViewById(R.id.itemSrcPrice);
 		itemPrice = (TextView) findViewById(R.id.itemPrice);
+		notice = (TextView) findViewById(R.id.notice);
 
 		num_restrictAmount = (TextView) findViewById(R.id.restrictAmount);
 		area = (TextView) findViewById(R.id.area);
@@ -184,8 +187,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 	private void loadDataByUrl() {
 		getLoading().show();
-		Http2Utils.doGetRequestTask(this, getHeaders(), getIntent()
-				.getStringExtra("url"), new VolleyJsonCallback() {
+		Http2Utils.doGetRequestTask(this, getHeaders(), getIntent().getStringExtra("url"), new VolleyJsonCallback() {
 
 			@Override
 			public void onSuccess(String result) {
@@ -220,7 +222,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 						if (hm.getCode() == 200) {
 							// 购物车添加成功，显示提示框
 							displayAnimation();
-							// ToastUtils.Toast(GoodsDetailActivity.this,hm.getMessage());
 							num_shopcart++;
 							showGoodsNums();
 						} else if (hm.getCode() == 3001 || hm.getCode() == 2001) {
@@ -364,7 +365,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 			}
 		}
 		if (goods == null) {
-			ToastUtils.Toast(this, "请选择商品");
+			ToastUtils.Toast(this, "商品已售罄");
 			return;
 		}
 
@@ -561,7 +562,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 //					sgoods.setPinTieredPriceId(s.getPinTieredPrices());
 					break;
 				} else {
-					ToastUtils.Toast(this, "请选择商品");
+					ToastUtils.Toast(this, "商品已售罄");
 					return;
 				}
 			}
@@ -736,7 +737,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 			mScrollLayout.canScroll();
 		}
 		initGoodsInfo();
-		initShopcartNum();
+//		initShopcartNum();
 		initFragmentPager(detail.getMain());
 	}
 
@@ -808,8 +809,14 @@ public class GoodsDetailActivity extends BaseActivity implements
 		for (StockVo s : detail.getStock()) {
 			tags.add(new Tag(s.getItemColor() + " " + s.getItemSize(), s
 					.getState(), s.getOrMasterInv()));
-			if (s.getOrMasterInv())
+			if (s.getOrMasterInv()){
 				stock = s;
+				if(!s.getState().equals("Y")){
+					notice.setVisibility(View.VISIBLE);
+					notice.setText("商品已售罄");
+				}
+			}
+				
 		}
 		initStocks(stock);
 		initTags(tags);
@@ -956,8 +963,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 					AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR)) {
 				msg = null;
 				getGoodsNums();
-			}else if(intent.getAction().equals(
-					AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION)){
+			}else if(intent.getAction().equals(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION)){
 				loadDataByUrl();
 			}
 		}
@@ -969,10 +975,10 @@ public class GoodsDetailActivity extends BaseActivity implements
 	}
 	@Override
 	protected void onDestroy() {
-		unregisterReceiver(netReceiver);
-		sendBroadcast(new Intent(
-				AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
 		super.onDestroy();
+		unregisterReceiver(netReceiver);
+		sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
+		
 	}
 
 	public void onResume() {

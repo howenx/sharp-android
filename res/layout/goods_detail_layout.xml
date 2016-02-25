@@ -36,6 +36,17 @@
                             android:id="@+id/slider"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" />
+                        
+                          <TextView 
+                            android:id="@+id/notice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/theme"
+                            android:padding="3dp"
+                            android:visibility="invisible"
+                            android:layout_gravity="top|right"
+                            android:background="#ffeedd"
+                            android:textSize="12sp"/>
                     </FrameLayout>
 
                     <View

@@ -112,9 +112,15 @@ public class HomeFragment extends Fragment implements
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View view,
 					int position, long arg3) {
-				Intent intent = new Intent(mContext, ThemeGoodsActivity.class);
-				intent.putExtra("url", data.get(position - 2).getThemeUrl());
-				mContext.startActivity(intent);
+					Intent intent = null;
+				if(data.get(position - 2).getType().equals("ordinary")){
+					intent = new Intent(mContext, ThemeGoodsActivity.class);
+					intent.putExtra("url", data.get(position - 2).getThemeUrl());
+					mContext.startActivity(intent);
+				}else{
+					
+				}
+				
 			}
 		});
 		mListView.setOnScrollListener(this);
