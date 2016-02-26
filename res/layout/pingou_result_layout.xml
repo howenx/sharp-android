@@ -1,205 +1,220 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical" >
+    android:layout_height="match_parent" >
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" >
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical" >
 
-        <LinearLayout
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:id="@+id/tuan_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:contentDescription="@null"
+                    android:scaleType="centerInside" />
+
+                <RelativeLayout
+                    android:id="@+id/btn_see_goods"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/bg_gray_boarder"
+                    android:padding="8dp" >
+
+                    <ImageView
+                        android:id="@+id/imageView1"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:background="@color/white"
+                        android:contentDescription="@null" />
+
+                    <TextView
+                        android:id="@+id/textView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/imageView1"
+                        android:layout_marginLeft="14dp"
+                        android:layout_toRightOf="@+id/imageView1"
+                        android:textColor="@color/fontcolor"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tuan_guige"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/imageView1"
+                        android:layout_alignLeft="@+id/textView1"
+                        android:textColor="@color/fontcolor"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:id="@+id/tuan_state"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignTop="@+id/textView1" />
+                </RelativeLayout>
+
+                <com.hanmimei.view.CustomGridView
+                    android:id="@+id/gridlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:horizontalSpacing="5dp"
+                    android:numColumns="5"
+                    android:padding="8dp"
+                    android:verticalSpacing="5dp" >
+                </com.hanmimei.view.CustomGridView>
+
+                <TextView
+                    android:id="@+id/about"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:textColor="@color/huise"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:id="@+id/jishiView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="1"
+                        android:background="@color/xian" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:text="剩余"
+                        android:textColor="@color/fontcolor"
+                        android:textSize="14sp" />
+
+                    <com.hanmimei.view.TimeDownView
+                        android:id="@+id/timer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:gravity="center_vertical" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="8dp"
+                        android:text="结束"
+                        android:textColor="@color/fontcolor"
+                        android:textSize="14sp" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_weight="1"
+                        android:background="@color/xian" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_horizontal"
+                    android:contentDescription="@null"
+                    android:src="@drawable/triangle_bottom" />
+
+                <LinearLayout
+                    android:id="@+id/contentView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/background_color_black"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="8dp" >
+
+                    <com.hanmimei.view.RoundImageView
+                        android:id="@+id/master_face"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/icon_default_header" />
+
+                    <TextView
+                        android:id="@+id/master_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/master_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <com.hanmimei.view.CustomListView
+                    android:id="@+id/mListView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </ScrollView>
+
+        <RelativeLayout
+            android:id="@+id/xiadanView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:background="#AA000000"
+            android:padding="10dp" >
 
-            <ImageView
-                android:id="@+id/tuan_status"
+            <TextView
+                android:id="@+id/btn_xiadan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:contentDescription="@null"
-                android:layout_margin="10dp"
-                android:scaleType="centerInside"/>
-
-
-            <RelativeLayout
-                android:id="@+id/btn_see_goods"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/bg_gray_boarder"
-                android:padding="8dp" >
-
-                <ImageView
-                    android:id="@+id/imageView1"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:background="@color/white"
-                    android:contentDescription="@null" />
-
-                <TextView
-                    android:id="@+id/textView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/imageView1"
-                    android:layout_marginLeft="14dp"
-                    android:layout_toRightOf="@+id/imageView1"
-                    android:textColor="@color/fontcolor"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/tuan_guige"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/imageView1"
-                    android:layout_alignLeft="@+id/textView1"
-                    android:textColor="@color/fontcolor"
-                    android:textSize="14sp" />
-
-                <ImageView
-                    android:id="@+id/tuan_state"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignTop="@+id/textView1"/>
-            </RelativeLayout>
-
-            <com.hanmimei.view.CustomGridView
-                android:id="@+id/gridlayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-				android:horizontalSpacing="5dp"
-				android:numColumns="5"
-				android:verticalSpacing="5dp">
-                
-            </com.hanmimei.view.CustomGridView>
-            
-             <TextView
-                 android:id="@+id/about"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:background="@color/theme"
                 android:gravity="center"
-                android:textColor="@color/huise"
+                android:padding="8dp"
+                android:text="立即下单"
+                android:textColor="@color/white"
                 android:textSize="14sp" />
+        </RelativeLayout>
+    </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/jishiView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal" >
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_weight="1"
-                    android:background="@color/xian" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:text="剩余"
-                    android:textColor="@color/fontcolor"
-                    android:textSize="14sp" />
-
-                <com.hanmimei.view.TimeDownView
-                    android:id="@+id/timer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:gravity="center_vertical" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="8dp"
-                    android:text="结束"
-                    android:textColor="@color/fontcolor"
-                    android:textSize="14sp" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_weight="1"
-                    android:background="@color/xian" />
-            </LinearLayout>
-
-            
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/triangle_bottom"
-                android:layout_gravity="center_horizontal"
-                android:contentDescription="@null"/>
-
-            <LinearLayout
-                android:id="@+id/contentView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/background_color_black"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="8dp">
-
-                <com.hanmimei.view.RoundImageView
-                    android:id="@+id/master_face"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/icon_default_header" />
-
-                <TextView
-                    android:id="@+id/master_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:textColor="@color/white"
-                    android:textSize="12sp" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/master_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <com.hanmimei.view.CustomListView
-                android:id="@+id/mListView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-    </ScrollView>
-
-    <RelativeLayout
-        android:id="@+id/xiadanView"
+   <TextView
+        android:id="@+id/more_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#AA000000"
-        android:padding="10dp" >
+        android:padding="10dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/theme"
+        android:text="该活动已结束，去看看其他拼购吧"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:textColor="@color/white" />
 
-        <TextView
-            android:id="@+id/btn_xiadan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/theme"
-            android:gravity="center"
-            android:padding="8dp"
-            android:text="立即下单"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
-    </RelativeLayout>
-
-</LinearLayout>
+</RelativeLayout>

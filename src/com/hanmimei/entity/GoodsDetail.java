@@ -7,6 +7,7 @@ public class GoodsDetail {
 	private List<StockVo> stock;
 	private HMessage message;
 	private Integer cartNum;
+	private List<HMMGoods> push;
 	
 	
 	public StockVo getCurrentStock(){
@@ -18,6 +19,18 @@ public class GoodsDetail {
 		}
 		return sto;
 	}
+	
+
+	public List<HMMGoods> getPush() {
+		return push;
+	}
+
+
+	public void setPush(List<HMMGoods> push) {
+		this.push = push;
+	}
+
+
 	public Integer getCartNum() {
 		return cartNum;
 	}

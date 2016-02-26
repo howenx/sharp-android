@@ -103,7 +103,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 				sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UP_HOME_ACTION));
 			}
 		});
-		submitTask(new CheckVersionTask());
+//		submitTask(new CheckVersionTask());
 	}
 
 	@Override

@@ -7,20 +7,21 @@
     card_view:cardCornerRadius="5dp" >
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
         <FrameLayout
             android:id="@+id/mframeLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
             android:padding="0.1dp" >
 
             <ImageView
                 android:id="@+id/img"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:scaleType="centerInside"
                 android:background="@color/white"
                 android:contentDescription="@null" />
 

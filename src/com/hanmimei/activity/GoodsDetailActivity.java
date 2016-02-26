@@ -2,7 +2,6 @@ package com.hanmimei.activity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,6 +16,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -35,6 +35,7 @@ import com.cpoopc.scrollablelayoutlib.ScrollAbleFragment;
 import com.cpoopc.scrollablelayoutlib.ScrollableLayout;
 import com.cpoopc.scrollablelayoutlib.ScrollableLayout.OnScrollListener;
 import com.hanmimei.R;
+import com.hanmimei.activity.fragment.HotFragment;
 import com.hanmimei.activity.fragment.ImgFragment;
 import com.hanmimei.activity.fragment.ParamsFragment;
 import com.hanmimei.activity.listener.SimpleAnimationListener;
@@ -144,7 +145,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 		findViewById(R.id.reload).setOnClickListener(this);
 	}
-
+	/**
+	 * 购物车数量view 初始化
+	 */
 	private void initGoodsNumView() {
 		goodsNumView = new BadgeView(this, findViewById(R.id.shopcart));
 		goodsNumView.setTextColor(Color.WHITE);
@@ -279,7 +282,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 	@Override
 	public void onClick(View arg0) {
-		if (detail.getMain() == null) {
+		if (detail !=null &&detail.getMain() == null) {
 			ToastUtils.Toast(this, "正在加载数据");
 			return;
 		}
@@ -586,6 +589,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	 */
 	private void showPortalFeeInfo() {
 		// TODO Auto-generated method stub
+		if(window == null){
 		View view = getLayoutInflater().inflate(R.layout.panel_portalfee, null);
 		TextView num_portalfee = (TextView) view
 				.findViewById(R.id.num_portalfee);
@@ -608,6 +612,10 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 		view.findViewById(R.id.btn_cancel).setOnClickListener(this);
 		window = PopupWindowUtil.showPopWindow(this, view);
+		}else{
+			window.showAtLocation(itemTitle, Gravity.BOTTOM, 0, 0);
+		}
+		
 	}
 
 	/**
@@ -754,8 +762,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 				.getItemDetailImgs());
 		ScrollAbleFragment parFragment = ParamsFragment.newInstance(main
 				.getItemFeaturess());
-		ScrollAbleFragment gridViewFragment = ParamsFragment.newInstance(main
-				.getItemFeaturess());
+		ScrollAbleFragment gridViewFragment = HotFragment.newInstance(detail.getPush());
 		fragments.add(imgFragment);
 		fragments.add(parFragment);
 		fragments.add(gridViewFragment);

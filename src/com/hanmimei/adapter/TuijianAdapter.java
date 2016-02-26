@@ -17,23 +17,20 @@ import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.DateUtils;
 import com.hanmimei.utils.ImageLoaderUtils;
 
-public class ThemeAdapter extends BaseAdapter {
+public class TuijianAdapter extends BaseAdapter {
 	private List<HMMGoods> data;
 	private LayoutInflater inflater;
 	private Activity activity;
-	private int viewWidth;
 
-	public ThemeAdapter(List<HMMGoods> data, Context mContext) {
+	public TuijianAdapter(List<HMMGoods> data, Context mContext) {
 		this.data = data;
 		activity = (Activity) mContext;
 		inflater = LayoutInflater.from(mContext);
-		// 图片的比例适配
-		viewWidth = CommonUtil.getScreenWidth(mContext) / 2;
 	}
 
 	@Override
 	public int getCount() {
-		return data!=null?data.size():0;
+		return data.size();
 	}
 
 	@Override
@@ -51,7 +48,7 @@ public class ThemeAdapter extends BaseAdapter {
 		HMMGoods theme = data.get(position);
 		ViewHolder holder = null;
 		if (convertView == null) {
-			convertView = inflater.inflate(R.layout.theme_item_layout, null);
+			convertView = inflater.inflate(R.layout.tuijian_item_layout, null);
 			holder = new ViewHolder();
 			holder.img = (ImageView) convertView.findViewById(R.id.img);
 			holder.title = (TextView) convertView.findViewById(R.id.title);
@@ -69,22 +66,18 @@ public class ThemeAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		LayoutParams params = holder.img.getLayoutParams();
-		params.height = viewWidth - 10;
-		params.width = viewWidth - 10;
-		holder.img.setLayoutParams(params);
 		ImageLoaderUtils.loadImage(activity, theme.getItemImgForImgInfo()
 				.getUrl(), holder.img);
 		holder.title.setText(theme.getItemTitle());
-		if (theme.getItemDiscount() > 0) {
-			holder.discount.setText(activity.getResources().getString(
-					R.string.discount, theme.getItemDiscount()));
-			holder.old_price.setText(activity.getResources().getString(
-					R.string.price, theme.getItemSrcPrice()));
-			holder.old_price.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-		}
-		holder.price.setText(activity.getResources().getString(R.string.price,
-				theme.getItemPrice()));
+//		if (theme.getItemDiscount() > 0) {
+//			holder.discount.setText(activity.getResources().getString(
+//					R.string.discount, theme.getItemDiscount()));
+//			holder.old_price.setText(activity.getResources().getString(
+//					R.string.price, theme.getItemSrcPrice()));
+//			holder.old_price.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+//		}
+//		holder.price.setText(activity.getResources().getString(R.string.price,
+//				theme.getItemPrice()));
 		 if (theme.getItemType().equals("pin")) {
 			holder.sold_out.setVisibility(View.GONE);
 			holder.timeView.setVisibility(View.VISIBLE);
@@ -96,7 +89,6 @@ public class ThemeAdapter extends BaseAdapter {
 				holder.timeView.setText("截止"+ DateUtils.getTimeDiffDesc(theme.getEndAt()));
 			}else{
 				holder.timeView.setText("已结束");
-//				holder.timeView.setText("截止"+DateUtils.getTimeDiffDesc(theme.getEndAt()));
 			}
 		}else {
 			holder.timeView.setVisibility(View.GONE);

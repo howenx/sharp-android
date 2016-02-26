@@ -28,6 +28,7 @@ import com.cpoopc.scrollablelayoutlib.ScrollableLayout;
 import com.cpoopc.scrollablelayoutlib.ScrollableLayout.OnScrollListener;
 import com.google.gson.Gson;
 import com.hanmimei.R;
+import com.hanmimei.activity.fragment.HotFragment;
 import com.hanmimei.activity.fragment.ImgFragment;
 import com.hanmimei.activity.fragment.ParamsFragment;
 import com.hanmimei.adapter.GoodsDetailPagerAdapter;
@@ -292,8 +293,7 @@ public class PingouDetailActivity extends BaseActivity implements
 				.getItemDetailImgs());
 		ScrollAbleFragment parFragment = ParamsFragment.newInstance(main
 				.getItemFeaturess());
-		ScrollAbleFragment gridViewFragment = ParamsFragment.newInstance(main
-				.getItemFeaturess());
+		ScrollAbleFragment gridViewFragment = HotFragment.newInstance(detail.getPush());
 		fragments.add(imgFragment);
 		fragments.add(parFragment);
 		fragments.add(gridViewFragment);
