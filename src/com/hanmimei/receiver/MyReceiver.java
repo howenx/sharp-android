@@ -4,23 +4,14 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import cn.jpush.android.api.JPushInterface;
 
 import com.hanmimei.activity.GoodsDetailActivity;
 import com.hanmimei.activity.MainActivity;
 import com.hanmimei.activity.PingouDetailActivity;
-import com.hanmimei.activity.TestActivity;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.entity.Notify;
-import com.hanmimei.utils.ExampleUtil;
 import com.hanmimei.utils.ToastUtils;
-
-import java.util.Iterator;
-
-import cn.jpush.android.api.JPushInterface;
 
 /**
  * 自定义接收器

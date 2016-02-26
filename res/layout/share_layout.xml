@@ -14,14 +14,7 @@
         android:text="分享"
         android:textSize="18sp"
         android:textColor="@color/fontcolor"/>
-    <TextView
-        android:id="@+id/copy"
-        android:layout_marginLeft="15dp"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:text="复制"
-        android:drawableTop="@drawable/icon_copy"/>
+    
     <LinearLayout 
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
@@ -51,13 +44,13 @@
         android:gravity="center"
         android:text="朋友圈"
         android:drawableTop="@drawable/umeng_socialize_wxcircle"/>
-    <TextView 
-        android:id="@+id/sina"
+    <TextView
+        android:id="@+id/copy"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="微博"
-        android:drawableTop="@drawable/umeng_socialize_sina_on"/>
+        android:text="秘美令"
+        android:drawableTop="@drawable/icon_copy"/>
 	</LinearLayout>
 </LinearLayout>

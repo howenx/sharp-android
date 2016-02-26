@@ -3,7 +3,6 @@ package com.hanmimei.activity;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Set;
 
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
@@ -21,9 +20,6 @@ import android.widget.LinearLayout;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
-
-import cn.jpush.android.api.JPushInterface;
-import cn.jpush.android.api.TagAliasCallback;
 
 import com.hanmimei.R;
 import com.hanmimei.data.AppConstant;
@@ -55,7 +51,6 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 	private String TAB_HOME = "首页";
 	private String TAB_CAR = "购物车";
 	private String TAB_MY = "我的";
-//	private String TAB_PIN = "拼购";
 	private int home_drawable = R.drawable.tab_home;
 	private int shopping_drawable = R.drawable.tab_shopping;
 	private int my_drawable = R.drawable.tab_my;
@@ -73,12 +68,12 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		JPushInterface.setAlias(this, "song", new TagAliasCallback() {
-			@Override
-			public void gotResult(int arg0, String arg1, Set<String> arg2) {
-//				ToastUtils.Toast(MainActivity.this, arg1+"");
-			}
-		});
+//		JPushInterface.setAlias(this, "song", new TagAliasCallback() {
+//			@Override
+//			public void gotResult(int arg0, String arg1, Set<String> arg2) {
+//  				ToastUtils.Toast(MainActivity.this, arg1+"");
+//			}
+//		});
 		setContentView(R.layout.activity_main);
 		ActionBarUtil.setActionBarStyle(this, "", 0, false, this);
 		guanggao = (LinearLayout) findViewById(R.id.guanggao);

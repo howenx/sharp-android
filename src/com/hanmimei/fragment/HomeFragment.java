@@ -47,8 +47,6 @@ import com.hanmimei.entity.Home;
 import com.hanmimei.entity.Slider;
 import com.hanmimei.entity.Theme;
 import com.hanmimei.manager.MessageMenager;
-import com.hanmimei.utils.Http2Utils;
-import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.CycleViewPager;

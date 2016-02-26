@@ -12,8 +12,11 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
@@ -33,13 +36,14 @@ import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
 
-public class MyCollectionActivity  extends BaseActivity{
+public class MyCollectionActivity  extends BaseActivity implements OnClickListener{
 	
 	private SwipeMenuListView mListView;
 	private List<Collection> datas;
 	private MyCollectionAdapter adapter;
 	private MyBroadCastReceiver netReceiver;
-	
+	private TextView no_data;
+	private LinearLayout no_net;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,6 +51,9 @@ public class MyCollectionActivity  extends BaseActivity{
 		ActionBarUtil.setActionBarStyle(this, "我的收藏");
 		setContentView(R.layout.my_collection_layout);
 		mListView = (SwipeMenuListView) findViewById(R.id.mListView);
+		no_data = (TextView) findViewById(R.id.no_data);
+		no_net = (LinearLayout) findViewById(R.id.no_net);
+		findViewById(R.id.reload).setOnClickListener(this);
 		datas = new ArrayList<Collection>();
 		adapter = new MyCollectionAdapter(datas, this);
 		mListView.setAdapter(adapter);
@@ -80,7 +87,6 @@ public class MyCollectionActivity  extends BaseActivity{
 
 		@Override
 		public void create(SwipeMenu menu) {
-
 			SwipeMenuItem deleteItem = new SwipeMenuItem(
 					getApplicationContext());
 			// 设置背景颜色
@@ -103,18 +109,26 @@ public class MyCollectionActivity  extends BaseActivity{
 			
 			@Override
 			public void onSuccess(String result) {
+				no_net.setVisibility(View.GONE);
 				CollectionInfo collectionInfo = DataParser.parserCollect(result);
 				if(collectionInfo.gethMessage().getCode() == 200){
-					datas.clear();
-					datas.addAll(collectionInfo.getList());
-					adapter.notifyDataSetChanged();
+					if(collectionInfo.getList().size() > 0){
+						no_data.setVisibility(View.GONE);
+						datas.clear();
+						datas.addAll(collectionInfo.getList());	
+						adapter.notifyDataSetChanged();
+					}else{
+						no_data.setVisibility(View.VISIBLE);
+					}
 				}else{
+					no_net.setVisibility(View.VISIBLE);
 					ToastUtils.Toast(MyCollectionActivity.this, "请求失败");
 				}
 			}
 			
 			@Override
 			public void onError() {
+				no_net.setVisibility(View.VISIBLE);
 				ToastUtils.Toast(MyCollectionActivity.this, "请求失败，请检查您的网络");
 			}
 		});
@@ -128,6 +142,9 @@ public class MyCollectionActivity  extends BaseActivity{
 				datas.remove(position);
 				adapter.notifyDataSetChanged();
 				ToastUtils.Toast(MyCollectionActivity.this, "取消收藏成功");
+				if(datas.size() <= 0){
+					no_data.setVisibility(View.VISIBLE);
+				}
 			}
 			
 			@Override
@@ -160,6 +177,18 @@ public class MyCollectionActivity  extends BaseActivity{
 			// TODO Auto-generated method stub
 			super.onDestroy();
 			unregisterReceiver(netReceiver);
+		}
+
+		@Override
+		public void onClick(View v) {
+			switch (v.getId()) {
+			case R.id.reload:
+				loadCollectionData();
+				break;
+
+			default:
+				break;
+			}
 		}
 		
 }

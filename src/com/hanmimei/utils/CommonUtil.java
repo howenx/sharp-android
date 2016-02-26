@@ -461,6 +461,7 @@ public class CommonUtil {
 	 * @param clazz
 	 */
 
+	@SuppressWarnings("rawtypes")
 	public static void doJump(Context mcContext, Class clazz) {
 		Intent intent = new Intent(mcContext, clazz);
 		mcContext.startActivity(intent);
@@ -541,6 +542,8 @@ public class CommonUtil {
 	}
 
 	// 身份证校验
+	@SuppressWarnings("rawtypes")
+	@SuppressLint("SimpleDateFormat") 
 	public static String IDCardValidate(String IDStr) {
 		String errorInfo = "";// 记录错误信息
 		String[] ValCodeArr = { "1", "0", "x", "9", "8", "7", "6", "5", "4",

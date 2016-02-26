@@ -317,11 +317,11 @@ public class GoodsDetailActivity extends BaseActivity implements
 		case R.id.weixinq:
 			shareCircle();
 			break;
-		case R.id.sina:
-			// shareSina();
-			Toast.makeText(this, "新浪微博分享，等待微博审核才可以分享", Toast.LENGTH_SHORT)
-					.show();
-			break;
+//		case R.id.sina:
+//			// shareSina();
+//			Toast.makeText(this, "新浪微博分享，等待微博审核才可以分享", Toast.LENGTH_SHORT)
+//					.show();
+//			break;
 		case R.id.reload:
 			loadDataByUrl();
 			break;
@@ -466,15 +466,15 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private StockVo shareStock;
 
 	// 新浪微博分享设置
-	private void shareSina() {
-		new ShareAction(this)
-				.setPlatform(SHARE_MEDIA.SINA)
-				.setCallback(umShareListener)
-				.withMedia(
-						new UMImage(this, shareStock.getInvImgForObj().getUrl()))
-				.withTitle("全球正品，尽在韩秘美").withText(shareStock.getInvTitle())
-				.withTargetUrl("http://www.hanmimei.com/").share();
-	}
+//	private void shareSina() {
+//		new ShareAction(this)
+//				.setPlatform(SHARE_MEDIA.SINA)
+//				.setCallback(umShareListener)
+//				.withMedia(
+//						new UMImage(this, shareStock.getInvImgForObj().getUrl()))
+//				.withTitle("全球正品，尽在韩秘美").withText(shareStock.getInvTitle())
+//				.withTargetUrl("http://www.hanmimei.com/").share();
+//	}
 
 	// 微信朋友圈分享设置
 	private void shareCircle() {
@@ -518,7 +518,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		view.findViewById(R.id.qq).setOnClickListener(this);
 		view.findViewById(R.id.weixin).setOnClickListener(this);
 		view.findViewById(R.id.weixinq).setOnClickListener(this);
-		view.findViewById(R.id.sina).setOnClickListener(this);
+//		view.findViewById(R.id.sina).setOnClickListener(this);
 		view.findViewById(R.id.copy).setOnClickListener(this);
 		Config.OpenEditor = true;
 		shareStock = detail.getCurrentStock();
@@ -703,7 +703,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 					ToastUtils.Toast(GoodsDetailActivity.this, "取消收藏失败");
 				}
 			}
-
 			@Override
 			public void onError() {
 				ToastUtils.Toast(GoodsDetailActivity.this, "取消收藏失败");

@@ -373,7 +373,10 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 				}
 				break;
 			case 2:
-				goodsDao.deleteAll();
+				HMessage hmsg = (HMessage) msg.obj;
+				if(hmsg.getCode() == 200){
+					goodsDao.deleteAll();
+				}
 				sendBroadcast(new Intent(
 						AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION));
 				finish();
@@ -402,7 +405,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 				public void run() {
 					String result = HttpUtils.post(UrlUtil.GET_CAR_LIST_URL,
 							array, "id-token", user.getToken());
+					HMessage hMessage = DataParser.paserResultMsg(result);
 					Message msg = mHandler.obtainMessage(2);
+					msg.obj = hMessage;
 					mHandler.sendMessage(msg);
 				}
 			}).start();

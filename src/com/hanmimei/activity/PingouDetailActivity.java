@@ -397,7 +397,7 @@ public class PingouDetailActivity extends BaseActivity implements
 	private class MyBroadCastReceiver extends BroadcastReceiver {
 
 		@Override
-		public void onReceive(Context context, Intent intent) {
+		public void onReceive(Context context, Intent intent) {	
 			if(intent.getAction().equals(
 					AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION)){
 				loadUrl();

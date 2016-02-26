@@ -3,6 +3,7 @@ package com.hanmimei.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -71,10 +72,25 @@ public class MessageActivity extends BaseActivity implements OnClickListener {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
+				Intent intent = null;
 				if (getIntent().getStringExtra("type").equals("goods")) {
+					if(list.get(arg2).getTargetType().equals("D")){
+						intent = new Intent(MessageActivity.this,GoodsDetailActivity.class);
+						intent.putExtra("url", list.get(arg2).getMsgUrl());
+						startActivity(intent);
+					}else if(list.get(arg2).getTargetType().equals("P")){
+						intent = new Intent(MessageActivity.this,PingouDetailActivity.class);
+						intent.putExtra("url", list.get(arg2).getMsgUrl());
+						startActivity(intent);
+					}
+				}else if(getIntent().getStringExtra("type").equals("logistics")){
 
-				} else {
-
+				}else if(getIntent().getStringExtra("type").equals("coupon")){
+					startActivity(new Intent(MessageActivity.this, CouponActivity.class));
+				}else if(getIntent().getStringExtra("type").equals("discount")){
+					
+				}else{
+					
 				}
 			}
 		});
@@ -190,15 +206,15 @@ public class MessageActivity extends BaseActivity implements OnClickListener {
 							adapter.notifyDataSetChanged();
 							mListView.setVisibility(View.GONE);
 							no_msg.setVisibility(View.VISIBLE);
-							ToastUtils.Toast(MessageActivity.this, "删除成功");
+							ToastUtils.Toast(MessageActivity.this, "清空消息成功");
 						} else {
-							ToastUtils.Toast(MessageActivity.this, "删除失败");
+							ToastUtils.Toast(MessageActivity.this, "清空消息失败");
 						}
 					}
 
 					@Override
 					public void onError() {
-						ToastUtils.Toast(MessageActivity.this, "删除失败，请检查您的网络");
+						ToastUtils.Toast(MessageActivity.this, "清空消息失败，请检查您的网络");
 					}
 				});
 	}
