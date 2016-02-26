@@ -36,6 +36,7 @@
                 android:columnWidth="90dp"
                 android:horizontalSpacing="10dp"
                 android:numColumns="2"
+                android:scrollbars="@null"
                 android:stretchMode="columnWidth"
                 android:verticalSpacing="10dp" />
         </LinearLayout>

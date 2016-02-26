@@ -53,6 +53,8 @@ public class DataParser {
 				}
 				if (obj.has("themeUrl"))
 					theme.setThemeUrl(obj.getString("themeUrl"));
+				if (obj.has("type"))
+					theme.setType(obj.getString("type"));
 				list.add(theme);
 
 			}

@@ -16,6 +16,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -34,6 +35,7 @@ import com.cpoopc.scrollablelayoutlib.ScrollAbleFragment;
 import com.cpoopc.scrollablelayoutlib.ScrollableLayout;
 import com.cpoopc.scrollablelayoutlib.ScrollableLayout.OnScrollListener;
 import com.hanmimei.R;
+import com.hanmimei.activity.fragment.HotFragment;
 import com.hanmimei.activity.fragment.ImgFragment;
 import com.hanmimei.activity.fragment.ParamsFragment;
 import com.hanmimei.activity.listener.SimpleAnimationListener;
@@ -83,6 +85,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private TextView itemTitle, itemSrcPrice, itemPrice, area;// 标题、 原价、现价、发货区
 	private TextView num_restrictAmount; // 限购数量
 	private ImageView img_hide, collectionImg;
+	private TextView notice;
 
 	private BadgeView goodsNumView;// 显示购买数量的控件
 
@@ -99,13 +102,13 @@ public class GoodsDetailActivity extends BaseActivity implements
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
-		ActionBarUtil.setActionBarStyle(this, "商品详情", R.drawable.fenxiang,
-				true, null, this);
+		ActionBarUtil.setActionBarStyle(this, "商品详情", R.drawable.fenxiang,true, null, this);
 		setContentView(R.layout.goods_detail_layout);
 		findView();
 		initGoodsNumView();
 		initAnimatorSetValue();
 		loadDataByUrl();
+		getGoodsNums();
 		registerReceivers();
 	}
 
@@ -124,6 +127,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		itemTitle = (TextView) findViewById(R.id.itemTitle);
 		itemSrcPrice = (TextView) findViewById(R.id.itemSrcPrice);
 		itemPrice = (TextView) findViewById(R.id.itemPrice);
+		notice = (TextView) findViewById(R.id.notice);
 
 		num_restrictAmount = (TextView) findViewById(R.id.restrictAmount);
 		area = (TextView) findViewById(R.id.area);
@@ -141,7 +145,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 		findViewById(R.id.reload).setOnClickListener(this);
 	}
-
+	/**
+	 * 购物车数量view 初始化
+	 */
 	private void initGoodsNumView() {
 		goodsNumView = new BadgeView(this, findViewById(R.id.shopcart));
 		goodsNumView.setTextColor(Color.WHITE);
@@ -184,8 +190,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 	private void loadDataByUrl() {
 		getLoading().show();
-		Http2Utils.doGetRequestTask(this, getHeaders(), getIntent()
-				.getStringExtra("url"), new VolleyJsonCallback() {
+		Http2Utils.doGetRequestTask(this, getHeaders(), getIntent().getStringExtra("url"), new VolleyJsonCallback() {
 
 			@Override
 			public void onSuccess(String result) {
@@ -220,7 +225,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 						if (hm.getCode() == 200) {
 							// 购物车添加成功，显示提示框
 							displayAnimation();
-							// ToastUtils.Toast(GoodsDetailActivity.this,hm.getMessage());
 							num_shopcart++;
 							showGoodsNums();
 						} else if (hm.getCode() == 3001 || hm.getCode() == 2001) {
@@ -278,7 +282,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 	@Override
 	public void onClick(View arg0) {
-		if (detail.getMain() == null) {
+		if (detail !=null &&detail.getMain() == null) {
 			ToastUtils.Toast(this, "正在加载数据");
 			return;
 		}
@@ -364,7 +368,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 			}
 		}
 		if (goods == null) {
-			ToastUtils.Toast(this, "请选择商品");
+			ToastUtils.Toast(this, "商品已售罄");
 			return;
 		}
 
@@ -561,7 +565,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 //					sgoods.setPinTieredPriceId(s.getPinTieredPrices());
 					break;
 				} else {
-					ToastUtils.Toast(this, "请选择商品");
+					ToastUtils.Toast(this, "商品已售罄");
 					return;
 				}
 			}
@@ -585,6 +589,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	 */
 	private void showPortalFeeInfo() {
 		// TODO Auto-generated method stub
+		if(window == null){
 		View view = getLayoutInflater().inflate(R.layout.panel_portalfee, null);
 		TextView num_portalfee = (TextView) view
 				.findViewById(R.id.num_portalfee);
@@ -607,6 +612,10 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 		view.findViewById(R.id.btn_cancel).setOnClickListener(this);
 		window = PopupWindowUtil.showPopWindow(this, view);
+		}else{
+			window.showAtLocation(itemTitle, Gravity.BOTTOM, 0, 0);
+		}
+		
 	}
 
 	/**
@@ -735,7 +744,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 			mScrollLayout.canScroll();
 		}
 		initGoodsInfo();
-		initShopcartNum();
+//		initShopcartNum();
 		initFragmentPager(detail.getMain());
 	}
 
@@ -752,8 +761,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 				.getItemDetailImgs());
 		ScrollAbleFragment parFragment = ParamsFragment.newInstance(main
 				.getItemFeaturess());
-		ScrollAbleFragment gridViewFragment = ParamsFragment.newInstance(main
-				.getItemFeaturess());
+		ScrollAbleFragment gridViewFragment = HotFragment.newInstance(detail.getPush());
 		fragments.add(imgFragment);
 		fragments.add(parFragment);
 		fragments.add(gridViewFragment);
@@ -807,8 +815,14 @@ public class GoodsDetailActivity extends BaseActivity implements
 		for (StockVo s : detail.getStock()) {
 			tags.add(new Tag(s.getItemColor() + " " + s.getItemSize(), s
 					.getState(), s.getOrMasterInv()));
-			if (s.getOrMasterInv())
+			if (s.getOrMasterInv()){
 				stock = s;
+				if(!s.getState().equals("Y")){
+					notice.setVisibility(View.VISIBLE);
+					notice.setText("商品已售罄");
+				}
+			}
+				
 		}
 		initStocks(stock);
 		initTags(tags);
@@ -955,8 +969,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 					AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR)) {
 				msg = null;
 				getGoodsNums();
-			}else if(intent.getAction().equals(
-					AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION)){
+			}else if(intent.getAction().equals(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION)){
 				loadDataByUrl();
 			}
 		}
@@ -968,10 +981,10 @@ public class GoodsDetailActivity extends BaseActivity implements
 	}
 	@Override
 	protected void onDestroy() {
-		unregisterReceiver(netReceiver);
-		sendBroadcast(new Intent(
-				AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
 		super.onDestroy();
+		unregisterReceiver(netReceiver);
+		sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
+		
 	}
 
 	public void onResume() {

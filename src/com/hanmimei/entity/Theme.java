@@ -17,14 +17,24 @@ public class Theme {
     private Integer height;
     private Integer sortNum;
     private String tag;
+    private String type;
 
     // KEEP FIELDS - put your custom fields here
     // KEEP FIELDS END
 
+    
     public Theme() {
     }
 
-    public Theme(Long id) {
+    public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public Theme(Long id) {
         this.id = id;
     }
 

@@ -9,10 +9,14 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -23,6 +27,8 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.hanmimei.R;
 import com.hanmimei.activity.listener.TimeEndListner;
+import com.hanmimei.adapter.ThemeAdapter;
+import com.hanmimei.adapter.TuijianAdapter;
 import com.hanmimei.application.HMMApplication;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.entity.Customs;
@@ -38,6 +44,7 @@ import com.hanmimei.utils.ImageLoaderUtils;
 import com.hanmimei.utils.KeyWordUtil;
 import com.hanmimei.utils.PopupWindowUtil;
 import com.hanmimei.utils.ToastUtils;
+import com.hanmimei.view.HorizontalListView;
 import com.hanmimei.view.RoundImageView;
 import com.hanmimei.view.TimeDownView;
 
@@ -51,6 +58,8 @@ public class PingouResultActivity extends BaseActivity implements
 	private TextView pro_title, tuan_guige, master_name, master_time,
 			btn_xiadan, about;
 	private ImageView tuan_status, pro_img, tuan_state, master_face;
+
+	private View more_view;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,6 +83,7 @@ public class PingouResultActivity extends BaseActivity implements
 		master_time = (TextView) findViewById(R.id.master_time);
 		btn_xiadan = (TextView) findViewById(R.id.btn_xiadan);
 		about = (TextView) findViewById(R.id.about);
+		more_view = findViewById(R.id.more_view);
 
 		timer = (TimeDownView) findViewById(R.id.timer);
 		mListView = (ListView) findViewById(R.id.mListView);
@@ -81,6 +91,9 @@ public class PingouResultActivity extends BaseActivity implements
 
 	}
 
+	/**
+	 * 读取数据
+	 */
 	private void loadPinUrl() {
 		getLoading().show();
 		Http2Utils.doGetRequestTask(this, getHeaders(), getIntent()
@@ -88,7 +101,7 @@ public class PingouResultActivity extends BaseActivity implements
 
 			@Override
 			public void onSuccess(String result) {
-				try {
+//				try {
 					pinResult = new Gson().fromJson(result, PinResult.class);
 					if (pinResult.getMessage().getCode() == 200) {
 						pinActivity = pinResult.getActivity();
@@ -97,9 +110,9 @@ public class PingouResultActivity extends BaseActivity implements
 						ToastUtils.Toast(getActivity(), pinResult.getMessage()
 								.getMessage());
 					}
-				} catch (Exception e) {
-					ToastUtils.Toast(getActivity(), R.string.error);
-				}
+//				} catch (Exception e) {
+//					ToastUtils.Toast(getActivity(), R.string.error);
+//				}
 				getLoading().dismiss();
 			}
 
@@ -111,72 +124,13 @@ public class PingouResultActivity extends BaseActivity implements
 		});
 	}
 
+	// ========================================================================
+	// ========================= 自定义方法 ==============================
+	// ========================================================================
+	/**
+	 * 初始化页面数据
+	 */
 	private void initPageData() {
-
-		if (pinActivity.getStatus().equals("Y")) {
-			tuan_state.setImageResource(R.drawable.hmm_zutuan);
-			if (pinActivity.getPay().equals("new")) {
-				if (pinActivity.getUserType().equals("master")) {
-					tuan_status.setImageResource(R.drawable.hmm_kaituan_success);
-				} else {
-					tuan_status.setImageResource(R.drawable.hmm_cantuan_success);
-				}
-				
-				btn_xiadan.setText("还差"+ (pinActivity.getPersonNum() - pinActivity
-								.getJoinPersons()) + "人，点击复制去分享！");
-				btn_xiadan.setOnClickListener(new OnClickListener() {
-
-					@Override
-					public void onClick(View arg0) {
-						initPop();
-//						doCopy();
-					}
-				});
-			} else {
-				tuan_status.setVisibility(View.GONE);
-				if (pinActivity.getOrJoinActivity() == 1) {
-					btn_xiadan.setText("还差"
-							+ (pinActivity.getPersonNum() - pinActivity
-									.getJoinPersons()) + "人，让小伙伴们都来组团吧！");
-					btn_xiadan.setOnClickListener(new OnClickListener() {
-
-						@Override
-						public void onClick(View arg0) {
-							doCopy();
-						}
-					});
-				} else {
-					btn_xiadan.setText("立即下单");
-					btn_xiadan.setOnClickListener(new OnClickListener() {
-
-						@Override
-						public void onClick(View arg0) {
-							goToGoodsBalance(pinActivity);
-						}
-					});
-				}
-			}
-			about.setText("还差"
-					+ (pinActivity.getPersonNum() - pinActivity
-							.getJoinPersons()) + "人，让小伙伴们都来组团吧！");
-			initTimer();
-		} else if (pinActivity.getStatus().equals("F")) {
-			tuan_status.setImageResource(R.drawable.hmm_pingou_fail);
-			tuan_state.setImageResource(R.drawable.hmm_zutuan_fail);
-			about.setVisibility(View.GONE);
-			btn_xiadan.setVisibility(View.GONE);
-			findViewById(R.id.jishiView).setVisibility(View.GONE);
-			
-			findViewById(R.id.xiadanView).setVisibility(View.INVISIBLE);
-
-		} else if (pinActivity.getStatus().equals("C")) { 
-			tuan_status.setImageResource(R.drawable.hmm_pingou_success);
-			tuan_state.setImageResource(R.drawable.hmm_zutuan_success);
-			about.setText("对于诸位大侠的相助，团长感激涕零");
-			findViewById(R.id.jishiView).setVisibility(View.GONE);
-
-			findViewById(R.id.xiadanView).setVisibility(View.INVISIBLE);
-		}
 
 		ImageLoaderUtils.loadImage(pinActivity.getPinImg().getUrl(), pro_img);
 		pro_title.setText(pinActivity.getPinTitle() + "");
@@ -184,8 +138,6 @@ public class PingouResultActivity extends BaseActivity implements
 				pinActivity.getPersonNum(), pinActivity.getPinPrice());
 		KeyWordUtil.setDifferentFontColor13(this, tuan_guige, guige,
 				guige.indexOf("¥"), guige.length());
-		// tuan_guige.setText(getResources().getString(R.string.tuan_gui,
-		// pinActivity.getPersonNum(), pinActivity.getPinPrice()));
 
 		PinUser master = pinActivity.getPinUsersForMaster();
 		ImageLoaderUtils.loadImage(master.getUserImg(), master_face);
@@ -208,9 +160,99 @@ public class PingouResultActivity extends BaseActivity implements
 					}
 				});
 
+		if (pinActivity.getStatus().equals("Y")) {
+			// 商品 为y状态 ，正常售卖
+			tuan_state.setImageResource(R.drawable.hmm_zutuan);// 显示组团中
+			if (pinActivity.getPay().equals("new")) {
+				// 参团支付成功，进入本页
+				if (pinActivity.getUserType().equals("master")) {
+					// 团长支付成功
+					tuan_status
+							.setImageResource(R.drawable.hmm_kaituan_success);
+				} else {
+					// 团员支付成功
+					tuan_status
+							.setImageResource(R.drawable.hmm_cantuan_success);
+				}
+				// 设置按钮为 分享按钮
+				btn_xiadan.setText("还差"
+						+ (pinActivity.getPersonNum() - pinActivity
+								.getJoinPersons()) + "人，点击复制去分享！");
+				btn_xiadan.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View arg0) {
+						initPop();
+					}
+				});
+			} else {
+				// 通过分享链接 进入本团
+				tuan_status.setVisibility(View.GONE);//
+				if (pinActivity.getOrJoinActivity() == 1) {
+					// 以参加本团成员进入
+					btn_xiadan.setText("还差"
+							+ (pinActivity.getPersonNum() - pinActivity
+									.getJoinPersons()) + "人，让小伙伴们都来组团吧！");
+					btn_xiadan.setOnClickListener(new OnClickListener() {
+
+						@Override
+						public void onClick(View arg0) {
+							initPop();
+						}
+					});
+				} else {
+					// 以非本团成员进入
+					btn_xiadan.setText("立即下单");
+					btn_xiadan.setOnClickListener(new OnClickListener() {
+
+						@Override
+						public void onClick(View arg0) {
+							goToGoodsBalance(pinActivity);
+						}
+					});
+				}
+			}
+			about.setText("还差"
+					+ (pinActivity.getPersonNum() - pinActivity
+							.getJoinPersons()) + "人，让小伙伴们都来组团吧！");
+			initTimer();
+		} else if (pinActivity.getStatus().equals("F")) {
+			// 拼团失败 －－ 显示
+			tuan_status.setImageResource(R.drawable.hmm_pingou_fail);
+			tuan_state.setImageResource(R.drawable.hmm_zutuan_fail);
+			about.setVisibility(View.GONE);
+			btn_xiadan.setVisibility(View.GONE);
+			findViewById(R.id.jishiView).setVisibility(View.GONE);
+
+			findViewById(R.id.xiadanView).setVisibility(View.GONE);
+
+		} else if (pinActivity.getStatus().equals("C")) {
+			// 拼团失败 －－ 成功
+			tuan_status.setImageResource(R.drawable.hmm_pingou_success);
+			tuan_state.setImageResource(R.drawable.hmm_zutuan_success);
+			about.setText("对于诸位大侠的相助，团长感激涕零");
+			findViewById(R.id.jishiView).setVisibility(View.GONE);
+
+			findViewById(R.id.xiadanView).setVisibility(View.GONE);
+		} else if (pinActivity.getStatus().equals("E")) {
+			// 拼团过期 －－ 显示
+			tuan_status.setVisibility(View.GONE);
+			tuan_state.setVisibility(View.GONE);
+			about.setVisibility(View.GONE);
+			findViewById(R.id.jishiView).setVisibility(View.GONE);
+			findViewById(R.id.xiadanView).setVisibility(View.GONE);
+			more_view.setVisibility(View.VISIBLE);
+
+			showPopupwindow();
+		}
+
 	}
-	
-	private void initTimer(){
+	private PopupWindow tuiWindow;
+
+	/**
+	 * 初始化倒计时器
+	 */
+	private void initTimer() {
 		if (pinActivity.getEndCountDown() > 0) {
 			int[] time = { pinActivity.getEndCountDownForDay(),
 					pinActivity.getEndCountDownForHour(),
@@ -221,17 +263,13 @@ public class PingouResultActivity extends BaseActivity implements
 			timer.run();
 		}
 	}
-	
-	
+
 	private PopupWindow shareWindow;
+
 	private void initPop() {
 		View view = LayoutInflater.from(this).inflate(R.layout.share_layout,
 				null);
 		shareWindow = PopupWindowUtil.showPopWindow(this, view);
-//		view.findViewById(R.id.qq).setOnClickListener(this);
-//		view.findViewById(R.id.weixin).setOnClickListener(this);
-//		view.findViewById(R.id.weixinq).setOnClickListener(this);
-//		view.findViewById(R.id.sina).setOnClickListener(this);
 		view.findViewById(R.id.qq).setVisibility(View.GONE);
 		view.findViewById(R.id.weixin).setVisibility(View.GONE);
 		view.findViewById(R.id.weixinq).setVisibility(View.GONE);
@@ -249,13 +287,44 @@ public class PingouResultActivity extends BaseActivity implements
 		ToastUtils.Toast(this, "复制成功，赶快去粘贴吧！");
 	}
 
-	@Override
-	public void isTimeEnd() {
-		findViewById(R.id.xiadanView).setVisibility(View.INVISIBLE);
+	// ========================================================================
+	// ========================= popupwinodw ============================＝
+	// ========================================================================
+
+	private void showPopupwindow() {
+		if(tuiWindow == null){
+		View view = getLayoutInflater().inflate(R.layout.tuijian_layout, null);
+		HorizontalListView more_grid = (HorizontalListView) view.findViewById(R.id.more_grid);
+		more_grid.setAdapter(new TuijianAdapter(pinResult.getThemeList(), this));
+		more_grid.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				Intent intent = null;
+				if (pinResult.getThemeList().get(arg2).getItemType().equals("pin")) {
+					intent = new Intent(getActivity(),PingouDetailActivity.class);
+				} else {
+					intent = new Intent(getActivity(),GoodsDetailActivity.class);
+				}
+				intent.putExtra("url", pinResult.getThemeList().get(arg2).getItemUrl());
+				startActivityForResult(intent, 1);
+			}
+		});
+		more_grid.setFocusable(false);
+		tuiWindow = PopupWindowUtil.showPopWindow(this, view);
+		more_view.setOnClickListener(this);
+		}else{
+			tuiWindow.showAtLocation(more_view, Gravity.BOTTOM, 0, 0);
+		}
+		
 	}
 
+	// ========================================================================
+	// ========================= adapter
+	// =========================================
+	// ========================================================================
 	private class PinTuanListAdapter extends BaseAdapter {
-
 		private List<PinUser> members;
 
 		public PinTuanListAdapter(List<PinUser> members) {
@@ -311,6 +380,11 @@ public class PingouResultActivity extends BaseActivity implements
 		}
 	}
 
+	/**
+	 * 提交支付页请求
+	 * 
+	 * @param s
+	 */
 	private void goToGoodsBalance(PinActivity s) {
 		if (getUser() == null) {
 			startActivity(new Intent(this, LoginActivity.class));
@@ -426,11 +500,24 @@ public class PingouResultActivity extends BaseActivity implements
 		}
 	}
 
+	// ========================================================================
+	// ========================= 重写的方法 ==============================
+	// ========================================================================
+
+	@Override
+	public void isTimeEnd() {
+		findViewById(R.id.xiadanView).setVisibility(View.INVISIBLE);
+	}
+
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 		unregisterReceiver(netReceiver);
 	}
+
+	// ========================================================================
+	// ========================= 广播接受者 ==============================
+	// ========================================================================
 
 	private CarBroadCastReceiver netReceiver;
 
@@ -455,12 +542,18 @@ public class PingouResultActivity extends BaseActivity implements
 		}
 	}
 
+	// ========================================================================
+	// ========================= 点击事件 ==============================
+	// ========================================================================
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.copy:
 			doCopy();
 			shareWindow.dismiss();
+			break;
+		case R.id.more_view:
+			showPopupwindow();
 			break;
 
 		default:

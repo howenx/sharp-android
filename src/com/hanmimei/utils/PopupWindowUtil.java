@@ -60,4 +60,28 @@ public class PopupWindowUtil {
 	
 	
 
+	public static PopupWindow showPopWindowByView(final Context context, View contentView,View actionView) {
+		// 创建一个popupwindow
+		PopupWindow popWindow = new PopupWindow(contentView,
+				ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+
+		popWindow.setAnimationStyle(R.style.popwindow_anim_style);
+		// 获取光标
+		popWindow.setFocusable(true);
+		popWindow.setOutsideTouchable(true);
+		// 设置弹出屏幕后背景色
+		backgroundAlpha(context, 0.4f);
+		// 设置一个默认的popupwindow背景色 实现 点击空白区 关闭popupwindow
+		popWindow.setBackgroundDrawable(new ColorDrawable());
+		popWindow.setOnDismissListener(new OnDismissListener() {
+			@Override
+			public void onDismiss() {
+				backgroundAlpha(context, 1f);
+			}
+		});
+		popWindow.showAsDropDown(actionView);
+		return popWindow;
+	}
+	
+
 }

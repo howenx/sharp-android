@@ -258,9 +258,9 @@ public class ShoppingCarActivity extends BaseActivity implements
 			}
 			break;
 		case R.id.back:
+			unregisterReceiver(netReceiver);
 			// 发广播 通知shoppingfragment数据发生改变
-			sendBroadcast(new Intent(
-					AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
+			sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
 			finish();
 			break;
 		case R.id.pay:
@@ -371,7 +371,6 @@ public class ShoppingCarActivity extends BaseActivity implements
 	public void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		getActivity().unregisterReceiver(netReceiver);
 		isBack = true;
 	}
 

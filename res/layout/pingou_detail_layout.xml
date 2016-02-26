@@ -38,6 +38,17 @@
                             android:id="@+id/slider"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" />
+                        
+                        <TextView 
+                            android:id="@+id/notice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/theme"
+                            android:padding="3dp"
+                            android:layout_gravity="top|right"
+                            android:background="#ffeedd"
+                            android:textSize="12sp"/>
+                        
                     </FrameLayout>
 
                     <TextView
@@ -58,7 +69,6 @@
                         android:gravity="right"
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp"
-                        android:text="已售：1250件"
                         android:textColor="@color/huise"
                         android:textSize="12sp" />
 
@@ -84,7 +94,6 @@
                                 android:background="#E26459"
                                 android:gravity="center"
                                 android:padding="10dp"
-                                android:text="45/件"
                                 android:textColor="@color/white"
                                 android:textSize="16sp" />
 
@@ -95,7 +104,6 @@
                                 android:background="#3F4041"
                                 android:gravity="center"
                                 android:padding="3dp"
-                                android:text="3人成团"
                                 android:textColor="@color/white"
                                 android:textSize="14sp" />
                         </LinearLayout>
@@ -115,7 +123,6 @@
                                 android:background="#ECEDEE"
                                 android:gravity="center"
                                 android:padding="10dp"
-                                android:text="0/件"
                                 android:textColor="@color/fontcolor"
                                 android:textSize="16sp" />
 

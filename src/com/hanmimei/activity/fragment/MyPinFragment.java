@@ -54,14 +54,6 @@ public class MyPinFragment extends Fragment {
 			adapter = new MyPinTuanAdapter(getActivity(), data);
 			mListView.setAdapter(adapter);
 		}
-		mListView.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				startActivity(new Intent(getActivity(), MyPingouDetailActivity.class));
-			}
-		});
 		return view;
 	}
 

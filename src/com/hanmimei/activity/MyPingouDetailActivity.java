@@ -1,7 +1,10 @@
 package com.hanmimei.activity;
 
-import java.math.BigDecimal;
 import java.util.List;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.hanmimei.R;
 import com.hanmimei.data.DataParser;
@@ -9,14 +12,9 @@ import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.Order;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.Http2Utils;
+import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ImageLoaderUtils;
 import com.hanmimei.utils.ToastUtils;
-import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
-
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 public class MyPingouDetailActivity extends BaseActivity {
 

@@ -157,8 +157,8 @@ public class StockVo implements Serializable{
 		this.pinTieredPrices = pinTieredPrices;
 	}
 
-	public Map<String,Integer> getFloorPrice() {
-		return new Gson().fromJson(floorPrice, new TypeToken<Map<String,Integer>>(){}.getType());
+	public Map<String,String> getFloorPrice() {
+		return new Gson().fromJson(floorPrice, new TypeToken<Map<String,String>>(){}.getType());
 	}
 
 	public String getPinRedirectUrl() {

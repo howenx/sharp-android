@@ -31,7 +31,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
 
@@ -48,7 +47,10 @@ import com.hanmimei.entity.User;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.DateUtil;
+import com.hanmimei.utils.Http2Utils;
+import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.HttpUtils;
+import com.hanmimei.utils.ToastUtils;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
@@ -348,13 +350,10 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 							public void gotResult(int arg0, String arg1, Set<String> arg2) {	
 							}
 						});
-						
 						// 登录用户存储到本地sql
 						userDao.deleteAll();
 						userDao.insert(user);
-						if (goodsDao.queryBuilder().build().list() != null
-								&& goodsDao.queryBuilder().build().list()
-										.size() > 0) {
+						if (goodsDao.queryBuilder().list() != null && goodsDao.queryBuilder().list().size() > 0) {
 							sendShoppingCar();
 						} else {
 							sendBroadcast(new Intent(
@@ -397,7 +396,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 
 	private void sendShoppingCar() {
 		user = getUser();
-		list = goodsDao.queryBuilder().build().list();
+		list = goodsDao.queryBuilder().list();
 		if (list != null && list.size() > 0) {
 			toObject();
 			new Thread(new Runnable() {
