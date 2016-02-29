@@ -372,9 +372,7 @@ public class ShoppingCartFragment extends Fragment implements OnClickListener,
 		public void onReceive(Context context, Intent intent) {
 			if (intent.getAction().equals(
 					AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR)) {
-				if(activity.isChangedCar()){
 					loadData();
-				}
 			} else if (intent.getAction().equals(
 					AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION)) {
 				// clearPrice();
