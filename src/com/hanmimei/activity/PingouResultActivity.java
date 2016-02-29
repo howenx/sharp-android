@@ -88,7 +88,6 @@ public class PingouResultActivity extends BaseActivity implements
 		timer = (TimeDownView) findViewById(R.id.timer);
 		mListView = (ListView) findViewById(R.id.mListView);
 		gridlayout = (GridView) findViewById(R.id.gridlayout);
-
 	}
 
 	/**
@@ -272,7 +271,6 @@ public class PingouResultActivity extends BaseActivity implements
 		view.findViewById(R.id.qq).setVisibility(View.GONE);
 		view.findViewById(R.id.weixin).setVisibility(View.GONE);
 		view.findViewById(R.id.weixinq).setVisibility(View.GONE);
-		view.findViewById(R.id.sina).setVisibility(View.GONE);
 		view.findViewById(R.id.copy).setOnClickListener(this);
 	}
 

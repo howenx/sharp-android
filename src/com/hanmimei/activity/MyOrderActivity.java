@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.hanmimei.R;
 import com.hanmimei.adapter.MyPagerAdapter;
-import com.hanmimei.application.HMMApplication;
 import com.hanmimei.entity.Category;
 import com.hanmimei.fragment.OrderFragment;
 import com.hanmimei.manager.OrderNumsMenager;

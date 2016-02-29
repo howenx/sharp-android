@@ -204,6 +204,7 @@ public class OrderPullListAdapter extends BaseAdapter {
 		orderInfo.setOrderId(order.getOrderId());
 		Intent intent = new Intent(activity, OrderSubmitActivity.class);
 		intent.putExtra("orderInfo", orderInfo);
+		intent.putExtra("orderType", "item");
 		activity.startActivity(intent);
 		activity.finish();
 	}
