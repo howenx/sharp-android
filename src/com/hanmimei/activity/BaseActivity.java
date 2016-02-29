@@ -45,7 +45,7 @@ import com.hanmimei.view.LoadingDialog;
 public class BaseActivity extends AppCompatActivity {
 
 	private LoadingDialog loadingDialog;
-
+	private boolean shoppingcarChanged = false;
 	/*
 	 * 获得用于数据库管理的DaoSession
 	 */
@@ -75,6 +75,14 @@ public class BaseActivity extends AppCompatActivity {
 			}
 		}
 		getClipboard();
+	}
+
+	public boolean isShoppingcarChanged() {
+		return shoppingcarChanged;
+	}
+
+	public void setShoppingcarChanged(boolean shoppingcarChanged) {
+		this.shoppingcarChanged = shoppingcarChanged;
 	}
 
 	@SuppressLint("NewApi")

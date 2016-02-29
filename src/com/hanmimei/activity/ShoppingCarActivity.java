@@ -68,6 +68,8 @@ public class ShoppingCarActivity extends BaseActivity implements
 	private ShoppingCar shoppingCar;
 	private boolean isBack = false;
 	private TextView reload;
+	
+	
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -260,7 +262,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 		case R.id.back:
 			unregisterReceiver(netReceiver);
 			// 发广播 通知shoppingfragment数据发生改变
-			sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
+//			sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
 			finish();
 			break;
 		case R.id.pay:
@@ -346,8 +348,8 @@ public class ShoppingCarActivity extends BaseActivity implements
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			// 发广播 通知shoppingfragment数据发生改变
-			sendBroadcast(new Intent(
-					AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
+//			sendBroadcast(new Intent(
+//					AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
 			finish();
 			return false;
 		}
@@ -369,9 +371,12 @@ public class ShoppingCarActivity extends BaseActivity implements
 
 	@Override
 	public void onDestroy() {
-		// TODO Auto-generated method stub
 		super.onDestroy();
+		unregisterReceiver(netReceiver);
 		isBack = true;
+		if(isShoppingcarChanged()){
+			sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
+		}
 	}
 
 	private class CarBroadCastReceiver extends BroadcastReceiver {
@@ -387,7 +392,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 			} else if (intent.getAction().equals(
 					AppConstant.MESSAGE_BROADCAST_QUIT_LOGIN_ACTION)) {
 				loadData();
-			}
+			} 
 		}
 	}
 
