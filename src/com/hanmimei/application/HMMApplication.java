@@ -3,7 +3,6 @@ package com.hanmimei.application;
 import java.io.File;
 
 import android.app.Application;
-
 import cn.jpush.android.api.JPushInterface;
 
 import com.android.volley.RequestQueue;
@@ -23,7 +22,6 @@ import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.testin.agent.TestinAgent;
 import com.testin.agent.TestinAgentConfig;
-import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.PlatformConfig;
 
 public class HMMApplication extends Application {
@@ -33,6 +31,7 @@ public class HMMApplication extends Application {
 	private RequestQueue queue;
 	private String kouling;
 	private VersionVo versionInfo;
+	private boolean isChangedCar = false;
 
 	@Override
 	public void onCreate() {
@@ -42,9 +41,6 @@ public class HMMApplication extends Application {
 		initTestinAgent();
 		queue = Volley.newRequestQueue(this);
 		initPlatformConfig();
-		MobclickAgent.openActivityDurationTrack(false);
-		MobclickAgent.setSessionContinueMillis(60000);
-		// MobclickAgent.setDebugMode(true);
 		ImageLoader.getInstance().init(initImageLoaderConfiguration());
 	}
 
@@ -147,7 +143,13 @@ public class HMMApplication extends Application {
 	public void setVersionInfo(VersionVo versionInfo) {
 		this.versionInfo = versionInfo;
 	}
-	
-	
+
+	public boolean isChangedCar() {
+		return isChangedCar;
+	}
+
+	public void setChangedCar(boolean isChangedCar) {
+		this.isChangedCar = isChangedCar;
+	}
 	
 }

@@ -2,6 +2,7 @@ package com.hanmimei.activity;
 
 import java.util.List;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -35,6 +36,7 @@ public class MyPingouDetailActivity extends BaseActivity {
 
 	private void loadPingouDetail() {
 		getLoading().show();
+		Log.i("orderId", getIntent().getStringExtra("orderId"));
 		Http2Utils.doGetRequestTask(this,getHeaders(),UrlUtil.GET_ORDER_LIST_URL + "/"
 						+ getIntent().getStringExtra("orderId"),new VolleyJsonCallback() {
 

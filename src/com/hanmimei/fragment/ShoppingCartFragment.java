@@ -134,7 +134,7 @@ public class ShoppingCartFragment extends Fragment implements OnClickListener,
 
 	private void getData() {
 		activity.getLoading().show();
-		Http2Utils.doPostRequestTask2(activity,activity.getNullHeaders(),UrlUtil.CAR_LIST_URL,new VolleyJsonCallback() {
+		Http2Utils.doPostRequestTask2(activity,activity.getHeaders(),UrlUtil.CAR_LIST_URL,new VolleyJsonCallback() {
 			
 			@Override
 			public void onSuccess(String result) {
@@ -372,7 +372,9 @@ public class ShoppingCartFragment extends Fragment implements OnClickListener,
 		public void onReceive(Context context, Intent intent) {
 			if (intent.getAction().equals(
 					AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR)) {
-				loadData();
+				if(activity.isChangedCar()){
+					loadData();
+				}
 			} else if (intent.getAction().equals(
 					AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION)) {
 				// clearPrice();

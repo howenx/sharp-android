@@ -421,7 +421,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			for (int i = 0; i < list.size(); i++) {
 				ShoppingGoods goods = list.get(i);
 				JSONObject object = new JSONObject();
-				object.put("cartId", goods.getCartId());
+				object.put("cartId", 0);
 				object.put("skuId", goods.getGoodsId());
 				object.put("amount", goods.getGoodsNums());
 				object.put("state", goods.getState());

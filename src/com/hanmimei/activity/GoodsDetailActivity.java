@@ -321,11 +321,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 		case R.id.weixinq:
 			shareCircle();
 			break;
-//		case R.id.sina:
-//			// shareSina();
-//			Toast.makeText(this, "新浪微博分享，等待微博审核才可以分享", Toast.LENGTH_SHORT)
-//					.show();
-//			break;
 		case R.id.reload:
 			loadDataByUrl();
 			break;
@@ -377,6 +372,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		} else {
 			addShoppingCartCheck(goods);
 		}
+		setChangedCar(true);
 	}
 
 	/**
@@ -984,7 +980,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 		super.onDestroy();
 		unregisterReceiver(netReceiver);
 		sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
-		
 	}
 
 	public void onResume() {
