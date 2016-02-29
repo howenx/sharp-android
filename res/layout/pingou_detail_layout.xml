@@ -181,6 +181,18 @@
                 layout="@layout/back_to_top_layout"
                 android:visibility="gone" />
         </RelativeLayout>
+          <TextView
+              android:id="@+id/more_view"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_alignParentBottom="true"
+              android:background="@color/theme"
+              android:gravity="center"
+              android:padding="10dp"
+              android:text="该商品已卖完，去看看其他商品吧"
+              android:textColor="@color/white"
+              android:textSize="14sp"
+              android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"

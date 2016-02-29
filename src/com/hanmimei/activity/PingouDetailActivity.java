@@ -13,11 +13,15 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.android.volley.Request.Method;
 import com.astuetz.PagerSlidingTabStrip;
@@ -32,6 +36,7 @@ import com.hanmimei.activity.fragment.HotFragment;
 import com.hanmimei.activity.fragment.ImgFragment;
 import com.hanmimei.activity.fragment.ParamsFragment;
 import com.hanmimei.adapter.GoodsDetailPagerAdapter;
+import com.hanmimei.adapter.TuijianAdapter;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
@@ -47,8 +52,10 @@ import com.hanmimei.listener.GoodsPageChangeListener;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.Http2Utils;
+import com.hanmimei.utils.PopupWindowUtil;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
+import com.hanmimei.view.HorizontalListView;
 import com.hanmimei.view.NetworkImageHolderView;
 
 public class PingouDetailActivity extends BaseActivity implements
@@ -60,7 +67,7 @@ public class PingouDetailActivity extends BaseActivity implements
 	private PinDetail detail;
 	private ImageView collectionImg;
 	private boolean isCollection = false;
-	private TextView notice;
+	private TextView notice,more_view;
 	
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -110,6 +117,7 @@ public class PingouDetailActivity extends BaseActivity implements
 
 		back_top = findViewById(R.id.back_top);
 		notice = (TextView) findViewById(R.id.notice);
+		more_view = (TextView) findViewById(R.id.more_view);
 
 		View view = findViewById(R.id.viewpager_content);
 		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
@@ -158,6 +166,9 @@ public class PingouDetailActivity extends BaseActivity implements
 			notice.setText("该商品尚未开售");
 		}else {
 			notice.setText("该商品已售罄");
+			more_view.setVisibility(View.VISIBLE);
+			more_view.setOnClickListener(this);
+			showPopupwindow();
 		}
 	}
 
@@ -201,10 +212,43 @@ public class PingouDetailActivity extends BaseActivity implements
 		case R.id.btn_attention:
 			collectGoods();
 			break;
+		case R.id.more_view:
+			showPopupwindow();
+			break;
 		default:
 			break;
 		}
 
+	}
+	
+	private PopupWindow tuiWindow;
+	private void showPopupwindow() {
+		if(tuiWindow == null){
+		View view = getLayoutInflater().inflate(R.layout.tuijian_layout, null);
+		HorizontalListView more_grid = (HorizontalListView) view.findViewById(R.id.more_grid);
+		more_grid.setAdapter(new TuijianAdapter(detail.getPush(), this));
+		more_grid.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				Intent intent = null;
+				if (detail.getPush().get(arg2).getItemType().equals("pin")) {
+					intent = new Intent(getActivity(),PingouDetailActivity.class);
+				} else {
+					intent = new Intent(getActivity(),GoodsDetailActivity.class);
+				}
+				intent.putExtra("url", detail.getPush().get(arg2).getItemUrl());
+				startActivityForResult(intent, 1);
+			}
+		});
+		more_grid.setFocusable(false);
+		tuiWindow = PopupWindowUtil.showPopWindow(this, view);
+		more_view.setOnClickListener(this);
+		}else{
+			tuiWindow.showAtLocation(more_view, Gravity.BOTTOM, 0, 0);
+		}
+		
 	}
 
 	private void collectGoods() {

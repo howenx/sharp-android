@@ -21,10 +21,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.android.volley.Request.Method;
 import com.astuetz.PagerSlidingTabStrip;
@@ -39,6 +41,7 @@ import com.hanmimei.activity.fragment.ImgFragment;
 import com.hanmimei.activity.fragment.ParamsFragment;
 import com.hanmimei.activity.listener.SimpleAnimationListener;
 import com.hanmimei.adapter.GoodsDetailPagerAdapter;
+import com.hanmimei.adapter.TuijianAdapter;
 import com.hanmimei.application.HMMApplication;
 import com.hanmimei.dao.ShoppingGoodsDao.Properties;
 import com.hanmimei.data.AppConstant;
@@ -63,6 +66,7 @@ import com.hanmimei.utils.KeyWordUtil;
 import com.hanmimei.utils.PopupWindowUtil;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.BadgeView;
+import com.hanmimei.view.HorizontalListView;
 import com.hanmimei.view.NetworkImageHolderView;
 import com.hanmimei.view.TagCloudView;
 import com.hanmimei.view.TagCloudView.OnTagClickListener;
@@ -84,7 +88,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private TextView itemTitle, itemSrcPrice, itemPrice, area;// 标题、 原价、现价、发货区
 	private TextView num_restrictAmount; // 限购数量
 	private ImageView img_hide, collectionImg;
-	private TextView notice;
+	private TextView notice,more_view;
 
 	private BadgeView goodsNumView;// 显示购买数量的控件
 
@@ -128,6 +132,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		itemSrcPrice = (TextView) findViewById(R.id.itemSrcPrice);
 		itemPrice = (TextView) findViewById(R.id.itemPrice);
 		notice = (TextView) findViewById(R.id.notice);
+		more_view = (TextView) findViewById(R.id.more_view);
 
 		num_restrictAmount = (TextView) findViewById(R.id.restrictAmount);
 		area = (TextView) findViewById(R.id.area);
@@ -327,6 +332,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 		case R.id.copy:
 			doCopy();
 			shareWindow.dismiss();
+			break;
+		case R.id.more_view:
+			showPopupwindow();
 			break;
 		default:
 			break;
@@ -714,6 +722,35 @@ public class GoodsDetailActivity extends BaseActivity implements
 			}
 		});
 	}
+	private PopupWindow tuiWindow;
+	private void showPopupwindow() {
+		if(tuiWindow == null){
+		View view = getLayoutInflater().inflate(R.layout.tuijian_layout, null);
+		HorizontalListView more_grid = (HorizontalListView) view.findViewById(R.id.more_grid);
+		more_grid.setAdapter(new TuijianAdapter(detail.getPush(), this));
+		more_grid.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				Intent intent = null;
+				if (detail.getPush().get(arg2).getItemType().equals("pin")) {
+					intent = new Intent(getActivity(),PingouDetailActivity.class);
+				} else {
+					intent = new Intent(getActivity(),GoodsDetailActivity.class);
+				}
+				intent.putExtra("url", detail.getPush().get(arg2).getItemUrl());
+				startActivityForResult(intent, 1);
+			}
+		});
+		more_grid.setFocusable(false);
+		tuiWindow = PopupWindowUtil.showPopWindow(this, view);
+		more_view.setOnClickListener(this);
+		}else{
+			tuiWindow.showAtLocation(more_view, Gravity.BOTTOM, 0, 0);
+		}
+		
+	}
 
 	// =========================================================================
 	// ===============================初始化方法==================================
@@ -816,6 +853,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 				if(!s.getState().equals("Y")){
 					notice.setVisibility(View.VISIBLE);
 					notice.setText("商品已售罄");
+					more_view.setVisibility(View.VISIBLE);
+					more_view.setOnClickListener(this);
+					showPopupwindow();
 				}
 			}
 				
