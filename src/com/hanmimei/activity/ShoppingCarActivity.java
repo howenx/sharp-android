@@ -138,7 +138,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 
 	private void getData() {
 		getLoading().show();
-		Http2Utils.doPostRequestTask2(this,getNullHeaders(),UrlUtil.CAR_LIST_URL,new VolleyJsonCallback() {
+		Http2Utils.doPostRequestTask2(this,getHeaders(),UrlUtil.CAR_LIST_URL,new VolleyJsonCallback() {
 			
 			@Override
 			public void onSuccess(String result) {

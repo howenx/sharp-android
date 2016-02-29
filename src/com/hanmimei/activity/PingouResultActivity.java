@@ -101,7 +101,7 @@ public class PingouResultActivity extends BaseActivity implements
 
 			@Override
 			public void onSuccess(String result) {
-//				try {
+				try {
 					pinResult = new Gson().fromJson(result, PinResult.class);
 					if (pinResult.getMessage().getCode() == 200) {
 						pinActivity = pinResult.getActivity();
@@ -110,9 +110,9 @@ public class PingouResultActivity extends BaseActivity implements
 						ToastUtils.Toast(getActivity(), pinResult.getMessage()
 								.getMessage());
 					}
-//				} catch (Exception e) {
-//					ToastUtils.Toast(getActivity(), R.string.error);
-//				}
+				} catch (Exception e) {
+					ToastUtils.Toast(getActivity(), R.string.error);
+				}
 				getLoading().dismiss();
 			}
 
@@ -267,8 +267,7 @@ public class PingouResultActivity extends BaseActivity implements
 	private PopupWindow shareWindow;
 
 	private void initPop() {
-		View view = LayoutInflater.from(this).inflate(R.layout.share_layout,
-				null);
+		View view = LayoutInflater.from(this).inflate(R.layout.share_layout,null);
 		shareWindow = PopupWindowUtil.showPopWindow(this, view);
 		view.findViewById(R.id.qq).setVisibility(View.GONE);
 		view.findViewById(R.id.weixin).setVisibility(View.GONE);
@@ -288,7 +287,7 @@ public class PingouResultActivity extends BaseActivity implements
 	}
 
 	// ========================================================================
-	// ========================= popupwinodw ============================＝
+	// ========================= popupwinodw ======================================
 	// ========================================================================
 
 	private void showPopupwindow() {
@@ -321,8 +320,7 @@ public class PingouResultActivity extends BaseActivity implements
 	}
 
 	// ========================================================================
-	// ========================= adapter
-	// =========================================
+	// ========================= adapter  =========================================
 	// ========================================================================
 	private class PinTuanListAdapter extends BaseAdapter {
 		private List<PinUser> members;
@@ -516,7 +514,7 @@ public class PingouResultActivity extends BaseActivity implements
 	}
 
 	// ========================================================================
-	// ========================= 广播接受者 ==============================
+	// ========================= 广播接受者 =======================================
 	// ========================================================================
 
 	private CarBroadCastReceiver netReceiver;
@@ -543,7 +541,7 @@ public class PingouResultActivity extends BaseActivity implements
 	}
 
 	// ========================================================================
-	// ========================= 点击事件 ==============================
+	// ========================= 点击事件 ==========================================
 	// ========================================================================
 	@Override
 	public void onClick(View v) {

@@ -316,8 +316,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			if (intent.getAction().equals(
-					AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR)) {
+			if (intent.getAction().equals(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR)) {
 				getCartNum();
 			}
 		}

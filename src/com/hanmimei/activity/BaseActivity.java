@@ -133,12 +133,6 @@ public class BaseActivity extends AppCompatActivity {
 		return headers;
 	}
 
-	// 获取null token
-	public Map<String, String> getNullHeaders() {
-		Map<String, String> headers = new HashMap<String, String>();
-		headers.put("null", "");
-		return headers;
-	}
 
 	public LoadingDialog getLoading() {
 		if(loadingDialog == null){
@@ -312,6 +306,14 @@ public class BaseActivity extends AppCompatActivity {
 
 	public void setVersionInfo(VersionVo versionInfo) {
 		getMyApplication().setVersionInfo(versionInfo);
+	}
+	
+	public boolean isChangedCar() {
+		return getMyApplication().isChangedCar();
+	}
+
+	public void setChangedCar(boolean isChangedCar) {
+		getMyApplication().setChangedCar(isChangedCar);
 	}
 
 }

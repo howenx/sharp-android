@@ -14,7 +14,11 @@ public class AppConstant {
 	//退出登录
 	public static final String MESSAGE_BROADCAST_QUIT_LOGIN_ACTION = "MESSAGE_BROADCAST_QUIT_LOGIN_ACTION";
 //	public static final String MESSAGE_BROADCAST_ADD_CAR = "MESSAGE_BROADCAST_ADD_CAR_ACTION";
+<<<<<<< HEAD
+	//更新购物车数据
+=======
 	//购物车发生变化
+>>>>>>> e0670960c4f6f212638afb8f4d10bab20a9fef92
 	public static final String MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR = "MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR_ACTION";
 	public static final String MESSAGE_BROADCAST_UPDATE_CARVIEW = "MESSAGE_BROADCAST_UPDATE_CARVIEW";
 	//回到首页
@@ -31,4 +35,7 @@ public class AppConstant {
 	public static final String MESSAGE_BROADCAST_UP_HOME_ACTION = "MESSAGE_BROADCAST_UP_HOME_ACTION";
 	//收藏添加或2减少
 	public static final String MESSAGE_BROADCAST_COLLECTION_ACTION = "MESSAGE_BROADCAST_COLLECTION_ACTION";
+	
+	//更新购物车商品数量角标
+	public static final String MESSAGE_BROADCAST_UPDATE_NUMBER = "MESSAGE_BROADCAST_UPDATE_NUMBER";
 }
