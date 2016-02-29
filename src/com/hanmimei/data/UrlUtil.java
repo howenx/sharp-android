@@ -1,6 +1,7 @@
 package com.hanmimei.data;
 
 public class UrlUtil {
+<<<<<<< HEAD
 	
 	
 		//阿里云
@@ -21,14 +22,37 @@ public class UrlUtil {
 		public static final String SERVERY4 = "http://172.28.3.51:9004";	// 51:9004
 		public static final String SERVERY5 = "http://172.28.3.51:9005";	// 51:9005
 
+=======
 
-	//图形验证码接口
+	// 阿里云
+	// public static final String SERVERY3 = "https://api.hanmimei.com";
+	// public static final String SERVERY1 = "https://shopping.hanmimei.com";
+	// public static final String SERVERY4 = "https://id.hanmimei.com";
+	// public static final String SERVERY5 = "https://promotion.hanmimei.com";
+
+	// public static final String SERVERY3 = "http://172.28.3.78:9001"; //18:9001
+	// public static final String SERVERY1 = "http://172.28.3.78:9003"; //18:9003
+	// public static final String SERVERY4 = "http://172.28.3.78:9004"; //18:9004
+	// public static final String SERVERY5 = "http://172.28.3.78:9005"; //18:9005
+>>>>>>> e0670960c4f6f212638afb8f4d10bab20a9fef92
+
+	public static final String SERVERY3 = "http://172.28.3.51:9001"; // 18:9001
+	public static final String SERVERY1 = "http://172.28.3.51:9003"; // 18:9003
+	public static final String SERVERY4 = "http://172.28.3.51:9004"; // 18:9004
+	public static final String SERVERY5 = "http://172.28.3.51:9005"; // 18:9005
+	// 18
+	// public static final String SERVERY3 = "http://172.28.3.18:9001"; //18:9001
+	// public static final String SERVERY1 = "http://172.28.3.18:9003"; //18:9003
+	// public static final String SERVERY4 = "http://172.28.3.18:9004"; //18:9004
+	// public static final String SERVERY5 = "http://172.28.3.18:9005"; //18:9004
+
+	// 图形验证码接口
 	public static final String GET_IMG_CODE = SERVERY4 + "/getImageCodes/";
-	//忘记密码，手机号检测接口
+	// 忘记密码，手机号检测接口
 	public static final String CHECK_PHONE_FORGET = SERVERY4 + "/reset/verify";
-	//注册，手机号检测接口
+	// 注册，手机号检测接口
 	public static final String CHECK_PHONE_REGIST = SERVERY4 + "/reg/verify";
-	//首页数据接口
+	// 首页数据接口
 	public static final String HOME_LIST_URL = SERVERY3 + "/index/";
 	// 地址列表接口
 	public static final String ADDRESS_LIST_URL = SERVERY4
@@ -46,13 +70,13 @@ public class UrlUtil {
 	public static final String GET_CODE_URL = SERVERY4 + "/api/send_code";
 	// 更新用户信息接口
 	public static final String UPDATE_USERINFO = SERVERY4 + "/api/user/update";
-	//更新token
+	// 更新token
 	public static final String UPDATE_TOKEN = SERVERY4 + "/api/refresh_token";
 	// 登录状态请求购物车数据接口
 	public static final String GET_CAR_LIST_URL = SERVERY1 + "/client/cart";
 
 	public static final String GET_CAR_LIST = SERVERY1 + "/client/cart/list";
-	
+
 	public static final String CAR_LIST_URL = SERVERY1
 			+ "/client/cart/get/sku/list";
 	// 未登录状态请求购物车数据
@@ -79,36 +103,48 @@ public class UrlUtil {
 	public static final String GET_COUPON_LIST_URL = SERVERY1
 			+ "/client/coupons/list";
 	// 获取购物车数量接口
-	public static final String GET_CART_NUM_URL = SERVERY3 + "/comm/cart/amount";
+	public static final String GET_CART_NUM_URL = SERVERY3
+			+ "/comm/cart/amount";
 
 	// 结算页接口
 	public static final String POST_CLIENT_SETTLE = SERVERY1 + "/client/settle";
-	//订单提交接口
+	// 订单提交接口
 	public static final String POST_CLIENT_ORDER_SUBMIT = SERVERY1
 			+ "/client/order/submit";
 	//
 	public static final String CLIENT_PAY_ORDER_GET = SERVERY1
 			+ "/client/pay/order/get/";
-	//退货申请接口
-	public static final  String CUSTOMER_SERVICE_APPLY = SERVERY1
-			+"/client/order/apply/refund";
-	
-	//关于我们
-	public static final String ABOUT_WE = SERVERY3 + "/comm/views/about";
-	//服务条款
-	public static final String SERVICE = SERVERY3 + "/comm/views/agreement";
-	//隐私协议
-	public static final String AGREEMENT = SERVERY3 + "/comm/views/privacy";
-	//检测更新
-	public static final String UPDATE_HMM = "http://hanmimei-test.oss-cn-beijing.aliyuncs.com/android/hmm.xml";
-	//添加收藏
-	public static final String ADD_COLLECTION = SERVERY1 + "/client/collect/submit";
-	//收藏列表
-	public static final String COLLECTION_LIST = SERVERY1 + "/client/collect/get/collect/list";
-	//删除收藏
-	public static final String DEL_COLLECTION = SERVERY1 + "/client/collect/del/";
-	
-	//查询我的拼团
-	public static final String GET_MY_PINTUAN= SERVERY5 +"/promotion/pin/activity/list";
+	// 退货申请接口
+	public static final String CUSTOMER_SERVICE_APPLY = SERVERY1
+			+ "/client/order/apply/refund";
 
+	// 关于我们
+	public static final String ABOUT_WE = SERVERY3 + "/comm/views/about";
+	// 服务条款
+	public static final String SERVICE = SERVERY3 + "/comm/views/agreement";
+	// 隐私协议
+	public static final String AGREEMENT = SERVERY3 + "/comm/views/privacy";
+	// 检测更新
+	public static final String UPDATE_HMM = "http://hanmimei-test.oss-cn-beijing.aliyuncs.com/android/hmm.xml";
+	// 添加收藏
+	public static final String ADD_COLLECTION = SERVERY1
+			+ "/client/collect/submit";
+	// 收藏列表
+	public static final String COLLECTION_LIST = SERVERY1
+			+ "/client/collect/get/collect/list";
+	// 删除收藏
+	public static final String DEL_COLLECTION = SERVERY1
+			+ "/client/collect/del/";
+
+	// 查询我的拼团
+	public static final String GET_MY_PINTUAN = SERVERY5
+			+ "/promotion/pin/activity/list";
+	//消息type
+	public static final String GET_MSG_TYPE = SERVERY4 + "/client/msg/get/type";
+	//单个删除消息
+	public static final String DEL_MSG = SERVERY4 + "/client/msg/delMsg/";
+	//获取消息列表
+	public static final String GET_MSG_LIST = SERVERY4 + "/client/msg/list/";
+	//删除消息  按type删除
+	public static final String DEL_MSG_TYPE = SERVERY4 + "/client/msg/clean/";
 }

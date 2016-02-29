@@ -22,6 +22,7 @@ import com.baoyz.swipemenulistview.SwipeMenuListView.OnMenuItemClickListener;
 import com.hanmimei.R;
 import com.hanmimei.adapter.MyMsgAdapter;
 import com.hanmimei.data.DataParser;
+import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.MessageInfo;
 import com.hanmimei.entity.MsgResult;
@@ -101,7 +102,7 @@ public class MessageActivity extends BaseActivity implements OnClickListener {
 		Http2Utils.doGetRequestTask(
 				this,
 				getHeaders(),
-				"http://172.28.3.78:9003/client/msg/delMsg/"
+				UrlUtil.DEL_MSG
 						+ messageInfo.getMsgId(), new VolleyJsonCallback() {
 
 					@Override
@@ -124,8 +125,7 @@ public class MessageActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void loadData() {
-		Http2Utils.doGetRequestTask(this, getHeaders(),
-				"http://172.28.3.78:9003/client/msg/list/"
+		Http2Utils.doGetRequestTask(this, getHeaders(),UrlUtil.GET_MSG_LIST
 						+ getIntent().getStringExtra("type"),
 				new VolleyJsonCallback() {
 
@@ -194,8 +194,7 @@ public class MessageActivity extends BaseActivity implements OnClickListener {
 	private void delAll() {
 		Http2Utils.doGetRequestTask(
 				this,
-				getHeaders(),
-				"http://172.28.3.78:9003/client/msg/clean/"
+				getHeaders(),UrlUtil.DEL_MSG_TYPE
 						+ getIntent().getStringExtra("type"), new VolleyJsonCallback() {
 
 					@Override

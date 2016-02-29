@@ -272,7 +272,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 		// 验证码倒计时，不可点击
 		get_yanzheng.setClickable(false);
 		get_yanzheng.setTextColor(getResources().getColor(R.color.huise));
-		get_yanzheng.setTimes(60);
+		get_yanzheng.setTimes(80);
 		get_yanzheng.beginRun();
 		// 加密
 		msg = CommonUtil.md5(phone + "hmm");

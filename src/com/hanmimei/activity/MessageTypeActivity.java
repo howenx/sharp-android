@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.hanmimei.R;
 import com.hanmimei.data.DataParser;
+import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.MessageType;
 import com.hanmimei.manager.MessageMenager;
 import com.hanmimei.utils.ActionBarUtil;
@@ -43,7 +44,7 @@ public class MessageTypeActivity extends BaseActivity implements OnClickListener
 	}
 
 	private void loadData() {
-		Http2Utils.doGetRequestTask(this, getHeaders(), "http://172.28.3.78:9003/client/msg/get/type", new VolleyJsonCallback() {
+		Http2Utils.doGetRequestTask(this, getHeaders(), UrlUtil.GET_MSG_TYPE, new VolleyJsonCallback() {
 			
 			@Override
 			public void onSuccess(String result) {
