@@ -46,6 +46,16 @@
         android:layout_width="match_parent"
         android:background="@color/qianhui"/>
     <TextView 
+        android:id="@+id/push"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="    推送服务"
+        style="@style/setting_text_style"/>
+    <View 
+        android:layout_height="0.1dp"
+        android:layout_width="match_parent"
+        android:background="@color/qianhui"/>
+    <TextView 
         android:id="@+id/del"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

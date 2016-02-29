@@ -85,7 +85,7 @@ public class MessageActivity extends BaseActivity implements OnClickListener {
 						startActivity(intent);
 					}
 				}else if(getIntent().getStringExtra("type").equals("logistics")){
-
+					
 				}else if(getIntent().getStringExtra("type").equals("coupon")){
 					startActivity(new Intent(MessageActivity.this, CouponActivity.class));
 				}else if(getIntent().getStringExtra("type").equals("discount")){

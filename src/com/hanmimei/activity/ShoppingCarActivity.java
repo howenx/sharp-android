@@ -68,13 +68,15 @@ public class ShoppingCarActivity extends BaseActivity implements
 	private ShoppingCar shoppingCar;
 	private boolean isBack = false;
 	private TextView reload;
+	
+	
 
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.shopping_car_list_layout);
 		ActionBarUtil.setActionBarStyle(this, "购物车", 0, true, this, null);
-//		registerReceivers();
+		registerReceivers();
 		goodsDao = getDaoSession().getShoppingGoodsDao();
 		shoppingCar = new ShoppingCar();
 		data = new ArrayList<Customs>();
@@ -258,9 +260,8 @@ public class ShoppingCarActivity extends BaseActivity implements
 			}
 			break;
 		case R.id.back:
-//			unregisterReceiver(netReceiver);
 			// 发广播 通知shoppingfragment数据发生改变
-			sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
+//			sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
 			finish();
 			break;
 		case R.id.pay:
@@ -346,50 +347,52 @@ public class ShoppingCarActivity extends BaseActivity implements
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			// 发广播 通知shoppingfragment数据发生改变
-			sendBroadcast(new Intent(
-					AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
+//			sendBroadcast(new Intent(
+//					AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
 			finish();
 			return false;
 		}
 		return super.onKeyDown(keyCode, event);
 	}
 
-//	private CarBroadCastReceiver netReceiver;
+	private CarBroadCastReceiver netReceiver;
 
 	// 广播接收者 注册
-//	private void registerReceivers() {
-//		netReceiver = new CarBroadCastReceiver();
-//		IntentFilter intentFilter = new IntentFilter();
-//		intentFilter
-//				.addAction(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR);
-//		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION);
-//		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_QUIT_LOGIN_ACTION);
-//		getActivity().registerReceiver(netReceiver, intentFilter);
-//	}
+	private void registerReceivers() {
+		netReceiver = new CarBroadCastReceiver();
+		IntentFilter intentFilter = new IntentFilter();
+		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR);
+		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION);
+		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_QUIT_LOGIN_ACTION);
+		getActivity().registerReceiver(netReceiver, intentFilter);
+	}
 
 	@Override
 	public void onDestroy() {
-		// TODO Auto-generated method stub
 		super.onDestroy();
+		unregisterReceiver(netReceiver);
 		isBack = true;
+		if(isShoppingcarChanged()){
+			sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
+		}
 	}
 
-//	private class CarBroadCastReceiver extends BroadcastReceiver {
-//
-//		@Override
-//		public void onReceive(Context context, Intent intent) {
-//			if (intent.getAction().equals(
-//					AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR)) {
-//				loadData();
-//			} else if (intent.getAction().equals(
-//					AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION)) {
-//				loadData();
-//			} else if (intent.getAction().equals(
-//					AppConstant.MESSAGE_BROADCAST_QUIT_LOGIN_ACTION)) {
-//				loadData();
-//			}
-//		}
-//	}
+	private class CarBroadCastReceiver extends BroadcastReceiver {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			if (intent.getAction().equals(
+					AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION)) {
+				loadData();
+			} else if (intent.getAction().equals(
+					AppConstant.MESSAGE_BROADCAST_QUIT_LOGIN_ACTION)) {
+				loadData();
+			} else if (intent.getAction().equals(
+					AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR)) {
+				loadData();
+			}
+		}
+	}
 
 	@Override
 	public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {

@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.hanmimei.R;
 import com.hanmimei.activity.BaseActivity;
 import com.hanmimei.activity.GoodsDetailActivity;
+import com.hanmimei.activity.ShoppingCarActivity;
 import com.hanmimei.dao.ShoppingGoodsDao;
 import com.hanmimei.dao.ShoppingGoodsDao.Properties;
 import com.hanmimei.data.DataParser;
@@ -50,11 +51,13 @@ public class ShoppingCarAdapter extends BaseAdapter {
 	private int check_nums;
 	private AlertDialog dialog;
 	private boolean isAdd;
+	private BaseActivity baseActivity;
 
 	public ShoppingCarAdapter(List<ShoppingGoods> data, Context mContext) {
 		inflater = LayoutInflater.from(mContext);
 		this.data = data;
 		activity = (BaseActivity) mContext;
+		baseActivity = (BaseActivity) mContext;
 		goodsDao = activity.getDaoSession().getShoppingGoodsDao();
 		user = activity.getUser();
 		check_Drawable = activity.getResources()
@@ -154,6 +157,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		holder.jian.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
+				baseActivity.setShoppingcarChanged(true);
 				isAdd = false;
 				// 登录状态减少到服务器，未登录状态增减少本地数据库
 				if (user != null) {
@@ -184,6 +188,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 
 			@Override
 			public void onClick(View v) {
+				baseActivity.setShoppingcarChanged(true);
 				isAdd = true;
 				if (goods.getGoodsNums() < goods.getRestrictAmount()
 						|| goods.getRestrictAmount() == 0) {
@@ -244,6 +249,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		view.findViewById(R.id.besure).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				baseActivity.setShoppingcarChanged(true);
 				if (user != null) {
 					delGoods(goods);
 				} else {

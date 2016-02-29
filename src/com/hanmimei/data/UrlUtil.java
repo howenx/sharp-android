@@ -117,11 +117,11 @@ public class UrlUtil {
 	public static final String GET_MY_PINTUAN = SERVERY5
 			+ "/promotion/pin/activity/list";
 	//消息type
-	public static final String GET_MSG_TYPE = SERVERY4 + "/client/msg/get/type";
+	public static final String GET_MSG_TYPE = SERVERY1 + "/client/msg/get/type";
 	//单个删除消息
-	public static final String DEL_MSG = SERVERY4 + "/client/msg/delMsg/";
+	public static final String DEL_MSG = SERVERY1 + "/client/msg/delMsg/";
 	//获取消息列表
-	public static final String GET_MSG_LIST = SERVERY4 + "/client/msg/list/";
+	public static final String GET_MSG_LIST = SERVERY1 + "/client/msg/list/";
 	//删除消息  按type删除
-	public static final String DEL_MSG_TYPE = SERVERY4 + "/client/msg/clean/";
+	public static final String DEL_MSG_TYPE = SERVERY1 + "/client/msg/clean/";
 }
