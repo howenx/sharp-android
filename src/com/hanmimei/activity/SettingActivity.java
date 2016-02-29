@@ -36,7 +36,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 	private Drawable comment_Drawable;
 	private Drawable tel_Drawable;
 	private Drawable del_Drawable;
-	private Drawable push_Drawable;
+//	private Drawable push_Drawable;
 	private TextView about;
 	private TextView idea;
 	private TextView comment;
@@ -45,7 +45,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 	private TextView upd;
 	private TextView exit;
 	private TextView versionName;
-	private TextView push;
+//	private TextView push;
 	private ProgressDialog pdialog;
 	private AlertDialog dialog;
 	private HMMApplication application;
@@ -78,9 +78,9 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 		del_Drawable = getResources().getDrawable(
 				R.drawable.iconfont_qingchuhuancun);
 		del_Drawable.setBounds(0, 0, 40, 40);
-		push_Drawable = getResources().getDrawable(
-				R.drawable.icon_tuisong);
-		push_Drawable.setBounds(0, 0, 40, 40);
+//		push_Drawable = getResources().getDrawable(
+//				R.drawable.icon_tuisong);
+//		push_Drawable.setBounds(0, 0, 40, 40);
 	}
 
 	private void initView() {
@@ -106,14 +106,14 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 		tel.setCompoundDrawables(tel_Drawable, null, null, null);
 		del.setCompoundDrawables(del_Drawable, null, null, null);
 		upd.setCompoundDrawables(del_Drawable, null, null, null);
-		push.setCompoundDrawables(push_Drawable, null, null, null);
+//		push.setCompoundDrawables(push_Drawable, null, null, null);
 		about.setOnClickListener(this);
 		idea.setOnClickListener(this);
 		comment.setOnClickListener(this);
 		tel.setOnClickListener(this);
 		del.setOnClickListener(this);
 		upd.setOnClickListener(this);
-		push.setOnClickListener(this);
+//		push.setOnClickListener(this);
 		exit.setOnClickListener(this);
 		
 	}
