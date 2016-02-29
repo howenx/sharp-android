@@ -300,12 +300,4 @@ public class BaseActivity extends AppCompatActivity {
 		getMyApplication().setVersionInfo(versionInfo);
 	}
 	
-	public boolean isChangedCar() {
-		return getMyApplication().isChangedCar();
-	}
-
-	public void setChangedCar(boolean isChangedCar) {
-		getMyApplication().setChangedCar(isChangedCar);
-	}
-
 }

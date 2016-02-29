@@ -313,11 +313,6 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 		}
 	}
 
-	public void onPause() {
-		super.onPause();
-		MobclickAgent.onPause(this);
-	}
-
 	@Override
 	public void onResume() {
 		isForeground = true;

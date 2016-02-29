@@ -31,7 +31,6 @@ public class HMMApplication extends Application {
 	private RequestQueue queue;
 	private String kouling;
 	private VersionVo versionInfo;
-	private boolean isChangedCar = false;
 
 	@Override
 	public void onCreate() {
@@ -144,12 +143,4 @@ public class HMMApplication extends Application {
 		this.versionInfo = versionInfo;
 	}
 
-	public boolean isChangedCar() {
-		return isChangedCar;
-	}
-
-	public void setChangedCar(boolean isChangedCar) {
-		this.isChangedCar = isChangedCar;
-	}
-	
 }

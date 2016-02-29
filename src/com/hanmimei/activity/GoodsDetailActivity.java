@@ -97,6 +97,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private int num_shopcart = 0;
 	private HMessage msg = null;
 	private boolean isCollection = false;
+	private boolean isChange = false;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -371,7 +372,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		} else {
 			addShoppingCartCheck(goods);
 		}
-		setChangedCar(true);
+		isChange = true;
 	}
 
 	/**
@@ -978,22 +979,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 	protected void onDestroy() {
 		super.onDestroy();
 		unregisterReceiver(netReceiver);
-		sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
+		if(isChange)
+			sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
 	}
 
-	public void onResume() {
-		super.onResume();
-		MobclickAgent.onPageStart("GoodsDetailActivity"); // 统计页面(仅有Activity的应用中SDK自动调用，不需要单独写。"SplashScreen"为页面名称，可自定义)
-		MobclickAgent.onResume(this); // 统计时长
-	}
-
-	public void onPause() {
-		super.onPause();
-		MobclickAgent.onPageEnd("GoodsDetailActivity"); // （仅有Activity的应用中SDK自动调用，不需要单独写）保证
-														// onPageEnd 在onPause
-														// 之前调用,因为 onPause
-														// 中会保存信息。"SplashScreen"为页面名称，可自定义
-		MobclickAgent.onPause(this);
-	}
 
 }
