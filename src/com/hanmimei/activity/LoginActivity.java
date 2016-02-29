@@ -47,10 +47,7 @@ import com.hanmimei.entity.User;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.DateUtil;
-import com.hanmimei.utils.Http2Utils;
-import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.HttpUtils;
-import com.hanmimei.utils.ToastUtils;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
@@ -421,7 +418,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			for (int i = 0; i < list.size(); i++) {
 				ShoppingGoods goods = list.get(i);
 				JSONObject object = new JSONObject();
-				object.put("cartId", goods.getCartId());
+				object.put("cartId", 0);
 				object.put("skuId", goods.getGoodsId());
 				object.put("amount", goods.getGoodsNums());
 				object.put("state", goods.getState());

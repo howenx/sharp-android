@@ -365,8 +365,8 @@ public class DataParser {
 						goods.setRestAmount(goodsObject.getInt("restAmount"));
 					if(goodsObject.has("invImg"))
 						goods.setGoodsImg(goodsObject.getString("invImg"));
-					if(goodsObject.has("invUrlAndroid"))
-						goods.setGoodsUrl(goodsObject.getString("invUrlAndroid"));
+					if(goodsObject.has("invUrl"))
+						goods.setGoodsUrl(goodsObject.getString("invUrl"));
 					if(goodsObject.has("invTitle"))
 						goods.setGoodsName(goodsObject.getString("invTitle"));
 					if(goodsObject.has("cartDelUrl"))
