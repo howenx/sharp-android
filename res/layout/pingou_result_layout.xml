@@ -9,6 +9,19 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         android:orientation="vertical" >
+        
+        <TextView
+        android:id="@+id/notice_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_alignParentBottom="true"
+        android:background="#ffeedd"
+        android:text="拼购失败，资金会在1-5个工作日内退回您的账户"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:textColor="@color/theme" />
 
         <ScrollView
             android:layout_width="match_parent"

@@ -86,7 +86,6 @@ public class PingouDetailActivity extends BaseActivity implements
 
 			@Override
 			public void onSuccess(String result) {
-				getLoading().dismiss();
 				try {
 					detail = new Gson().fromJson(result, PinDetail.class);
 				} catch (Exception e) {
@@ -101,11 +100,13 @@ public class PingouDetailActivity extends BaseActivity implements
 					ToastUtils.Toast(getActivity(), detail.getMessage()
 							.getMessage());
 				}
+				getLoading().dismiss();
 			}
 
 			@Override
 			public void onError() {
 				getLoading().dismiss();
+				ToastUtils.Toast(getActivity(), R.string.error);
 			}
 		});
 	}

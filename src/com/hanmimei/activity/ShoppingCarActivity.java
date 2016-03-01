@@ -260,7 +260,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 			}
 			break;
 		case R.id.back:
-			unregisterReceiver(netReceiver);
+//			unregisterReceiver(netReceiver);
 			// 发广播 通知shoppingfragment数据发生改变
 //			sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
 			finish();
@@ -366,7 +366,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 				.addAction(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR);
 		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION);
 		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_QUIT_LOGIN_ACTION);
-		getActivity().registerReceiver(netReceiver, intentFilter);
+		registerReceiver(netReceiver, intentFilter);
 	}
 
 	@Override

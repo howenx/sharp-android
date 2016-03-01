@@ -78,6 +78,9 @@ public class MyPingouActivity extends BaseActivity {
 
 			viewPager.setAdapter(adapter);
 			pagerSlidingTabStrip.setViewPager(viewPager);
+			if(list.getActivityListForMaster().size()<=0 && list.getActivityListForMember().size()>0){
+				viewPager.setCurrentItem(1);
+			}
 		} else {
 			ToastUtils.Toast(this, list.getMessage().getMessage());
 		}

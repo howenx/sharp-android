@@ -59,7 +59,7 @@ public class PingouResultActivity extends BaseActivity implements
 			btn_xiadan, about;
 	private ImageView tuan_status, pro_img, tuan_state, master_face;
 
-	private View more_view;
+	private View more_view,notice_view;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,6 +84,7 @@ public class PingouResultActivity extends BaseActivity implements
 		btn_xiadan = (TextView) findViewById(R.id.btn_xiadan);
 		about = (TextView) findViewById(R.id.about);
 		more_view = findViewById(R.id.more_view);
+		notice_view = findViewById(R.id.notice_view);
 
 		timer = (TimeDownView) findViewById(R.id.timer);
 		mListView = (ListView) findViewById(R.id.mListView);
@@ -124,7 +125,7 @@ public class PingouResultActivity extends BaseActivity implements
 	}
 
 	// ========================================================================
-	// ========================= 自定义方法 ==============================
+	// ========================= 自定义方法 ======================================
 	// ========================================================================
 	/**
 	 * 初始化页面数据
@@ -222,6 +223,7 @@ public class PingouResultActivity extends BaseActivity implements
 			about.setVisibility(View.GONE);
 			btn_xiadan.setVisibility(View.GONE);
 			findViewById(R.id.jishiView).setVisibility(View.GONE);
+			notice_view.setVisibility(View.VISIBLE);
 
 			findViewById(R.id.xiadanView).setVisibility(View.GONE);
 
@@ -231,7 +233,6 @@ public class PingouResultActivity extends BaseActivity implements
 			tuan_state.setImageResource(R.drawable.hmm_zutuan_success);
 			about.setText("对于诸位大侠的相助，团长感激涕零");
 			findViewById(R.id.jishiView).setVisibility(View.GONE);
-
 			findViewById(R.id.xiadanView).setVisibility(View.GONE);
 		} else if (pinActivity.getStatus().equals("E")) {
 			// 拼团过期 －－ 显示
