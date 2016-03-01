@@ -21,6 +21,7 @@ import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.baoyz.swipemenulistview.SwipeMenuListView.OnMenuItemClickListener;
 import com.hanmimei.R;
 import com.hanmimei.adapter.MyMsgAdapter;
+import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.HMessage;
@@ -37,6 +38,7 @@ public class MessageActivity extends BaseActivity implements OnClickListener {
 	private List<MessageInfo> list;
 	private MyMsgAdapter adapter;
 	private TextView no_msg;
+	private boolean showImg = false;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,14 +46,18 @@ public class MessageActivity extends BaseActivity implements OnClickListener {
 		setContentView(R.layout.my_msg_layout);
 		String title = "";
 		if (getIntent().getStringExtra("type").equals("system")) {
+			showImg = false;
 			title = "系统消息";
 		} else if (getIntent().getStringExtra("type").equals("coupon")) {
 			title = "我的资产";
 		} else if (getIntent().getStringExtra("type").equals("discount")) {
+			showImg = true;
 			title = "优惠促销";
 		} else if (getIntent().getStringExtra("type").equals("logistics")) {
+			showImg = true;
 			title = "物流通知";
 		} else if (getIntent().getStringExtra("type").equals("goods")) {
+			showImg = true;
 			title = "商品提醒";
 		}
 		ActionBarUtil.setActionBarStyle(this, title, R.drawable.icon_delete,
@@ -59,7 +65,7 @@ public class MessageActivity extends BaseActivity implements OnClickListener {
 		mListView = (SwipeMenuListView) findViewById(R.id.mListView);
 		no_msg = (TextView) findViewById(R.id.no_msg);
 		list = new ArrayList<MessageInfo>();
-		adapter = new MyMsgAdapter(list, this);
+		adapter = new MyMsgAdapter(list, this, showImg);
 		mListView.setAdapter(adapter);
 		mListView.setMenuCreator(creator);
 		mListView.setOnMenuItemClickListener(new OnMenuItemClickListener() {
@@ -81,6 +87,10 @@ public class MessageActivity extends BaseActivity implements OnClickListener {
 						startActivity(intent);
 					}else if(list.get(arg2).getTargetType().equals("P")){
 						intent = new Intent(MessageActivity.this,PingouDetailActivity.class);
+						intent.putExtra("url", list.get(arg2).getMsgUrl());
+						startActivity(intent);
+					}else if(list.get(arg2).getTargetType().equals("V")){
+						intent = new Intent(MessageActivity.this,PingouResultActivity.class);
 						intent.putExtra("url", list.get(arg2).getMsgUrl());
 						startActivity(intent);
 					}
@@ -111,6 +121,7 @@ public class MessageActivity extends BaseActivity implements OnClickListener {
 						if (hMessage.getCode() == 200) {
 							ToastUtils.Toast(MessageActivity.this, "删除成功");
 							list.remove(messageInfo);
+							sendMsgUpBroadcast();
 							adapter.notifyDataSetChanged();
 						} else {
 							ToastUtils.Toast(MessageActivity.this, "删除失败");
@@ -202,6 +213,7 @@ public class MessageActivity extends BaseActivity implements OnClickListener {
 						HMessage hMessage = DataParser.paserResultMsg(result);
 						if (hMessage.getCode() == 200) {
 							list.clear();
+							sendMsgUpBroadcast();
 							adapter.notifyDataSetChanged();
 							mListView.setVisibility(View.GONE);
 							no_msg.setVisibility(View.VISIBLE);
@@ -216,6 +228,11 @@ public class MessageActivity extends BaseActivity implements OnClickListener {
 						ToastUtils.Toast(MessageActivity.this, "清空消息失败，请检查您的网络");
 					}
 				});
+	}
+	private void sendMsgUpBroadcast(){
+		if(list.size() <= 0){
+			sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UPDATE_MSG));
+		}
 	}
 
 }

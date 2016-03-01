@@ -20,6 +20,9 @@ import android.widget.LinearLayout;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import cn.jpush.android.api.JPushInterface;
 
 import com.hanmimei.R;
 import com.hanmimei.data.AppConstant;
@@ -68,12 +71,6 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-//		JPushInterface.setAlias(this, "song", new TagAliasCallback() {
-//			@Override
-//			public void gotResult(int arg0, String arg1, Set<String> arg2) {
-//  				ToastUtils.Toast(MainActivity.this, arg1+"");
-//			}
-//		});
 		setContentView(R.layout.activity_main);
 		ActionBarUtil.setActionBarStyle(this, "", 0, false, this);
 		guanggao = (LinearLayout) findViewById(R.id.guanggao);
@@ -97,9 +94,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 				mTabHost.setCurrentTab(0);
 				sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UP_HOME_ACTION));
 			}
-		});
-		
-//		submitTask(new CheckVersionTask());
+		});	
 	}
 	
 	

@@ -33,4 +33,6 @@ public class AppConstant {
 	
 	//更新购物车商品数量角标
 	public static final String MESSAGE_BROADCAST_UPDATE_NUMBER = "MESSAGE_BROADCAST_UPDATE_NUMBER";
+	//更新消息盒子
+	public static final String MESSAGE_BROADCAST_UPDATE_MSG = "MESSAGE_BROADCAST_UPDATE_MSG";
 }

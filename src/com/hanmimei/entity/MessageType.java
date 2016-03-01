@@ -1,11 +1,11 @@
 package com.hanmimei.entity;
 
 public class MessageType {
-	private int sysNum;
-	private int goodNum;
-	private int wuliuNum;
-	private int zichanNum;
-	private int huodongNum;
+	private int sysNum = -1;
+	private int goodNum = -1;
+	private int wuliuNum = -1;
+	private int zichanNum = -1;
+	private int huodongNum = -1;
 	private int code;
 	private String message;
 	public int getSysNum() {

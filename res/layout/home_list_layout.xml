@@ -14,7 +14,7 @@
       		android:headerDividersEnabled="false"
       		android:scrollbars="none"
       		android:smoothScrollbar="false"
-      		android:background="@color/qianhui"
+      		android:background="@color/white"
       		android:id="@+id/mylist"
       		ptr:ptrShowIndicator="false"
       		ptr:ptrDrawable="@drawable/refreshing"/>
