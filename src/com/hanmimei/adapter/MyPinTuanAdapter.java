@@ -68,7 +68,7 @@ public class MyPinTuanAdapter extends BaseAdapter {
 			holder.see_tuan.setVisibility(View.VISIBLE);
 		}else if(goods.getStatus().equals("F")){
 			holder.state.setText("拼团失败");
-			holder.see_order.setVisibility(View.VISIBLE);
+			holder.see_order.setVisibility(View.GONE);
 			holder.see_tuan.setVisibility(View.VISIBLE);
 		}else if(goods.getStatus().equals("C")){
 			holder.state.setText("拼团成功");

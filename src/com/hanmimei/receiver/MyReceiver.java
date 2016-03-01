@@ -9,6 +9,7 @@ import cn.jpush.android.api.JPushInterface;
 import com.hanmimei.activity.GoodsDetailActivity;
 import com.hanmimei.activity.MainActivity;
 import com.hanmimei.activity.PingouDetailActivity;
+import com.hanmimei.activity.PingouResultActivity;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.entity.Notify;
 import com.hanmimei.utils.ToastUtils;
@@ -90,6 +91,8 @@ public class MyReceiver extends BroadcastReceiver {
 				i = new Intent(context, MainActivity.class);
 			} else if (notify.getTargetType().equals("U")) {
 				i = new Intent(context, MainActivity.class);
+			} else if (notify.getTargetType().equals("V")) {
+				i = new Intent(context, PingouResultActivity.class);
 			} else {
 				i = new Intent(context, MainActivity.class);
 			}
