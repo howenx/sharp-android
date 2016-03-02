@@ -61,13 +61,12 @@ public class BaseActivity extends AppCompatActivity {
 		getSupportActionBar().setElevation(0);
 		// 沉浸式状态栏的设置
 		if (VERSION.SDK_INT >= 19) {
-			setTranslucentStatus(true);
 			// 创建状态栏的管理实例
 			SystemBarTintManager tintManager = new SystemBarTintManager(this);
 			// 激活状态栏设置
 			tintManager.setStatusBarTintEnabled(true);
 			// 激活导航栏设置
-			//tintManager.setNavigationBarTintEnabled(true);
+//			tintManager.setNavigationBarTintEnabled(true);
 			// 设置一个颜色给系统栏
 			tintManager.setTintColor(getResources().getColor(R.color.theme));
 			if (VERSION.SDK_INT >= 21) {
@@ -98,18 +97,6 @@ public class BaseActivity extends AppCompatActivity {
 		window.setStatusBarColor(Color.TRANSPARENT);
 	}
 
-	@SuppressLint("InlinedApi")
-	private void setTranslucentStatus(boolean on) {
-		Window win = getWindow();
-		WindowManager.LayoutParams winParams = win.getAttributes();
-		final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-		if (on) {
-			winParams.flags |= bits;
-		} else {
-			winParams.flags &= ~bits;
-		}
-		win.setAttributes(winParams);
-	}
 
 	public BaseActivity getActivity() {
 		return this;

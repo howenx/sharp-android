@@ -6,6 +6,10 @@ import java.util.List;
 
 public class PinList implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private List<PinActivity> activityList;
 	private HMessage message;
 

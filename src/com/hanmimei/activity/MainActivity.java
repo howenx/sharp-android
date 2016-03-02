@@ -20,9 +20,6 @@ import android.widget.LinearLayout;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import cn.jpush.android.api.JPushInterface;
 
 import com.hanmimei.R;
 import com.hanmimei.data.AppConstant;
@@ -95,6 +92,8 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 				sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UP_HOME_ACTION));
 			}
 		});	
+		
+		submitTask(new CheckVersionTask());
 	}
 	
 	
@@ -222,7 +221,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 	 * @author Administrator
 	 *
 	 */
-	public class CheckVersionTask implements Runnable {
+	private class CheckVersionTask implements Runnable {
 		InputStream is;
 
 		public void run() {
