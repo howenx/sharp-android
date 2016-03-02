@@ -24,13 +24,12 @@ import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.DoJumpUtils;
 import com.hanmimei.utils.ToastUtils;
-import com.umeng.analytics.MobclickAgent;
 
 @SuppressLint("NewApi")
 public class SettingActivity extends BaseActivity implements OnClickListener {
 
 	
-	private final String TAG = this.getClass().getName();
+//	private final String TAG = this.getClass().getName();
 	private Drawable about_Drawable;
 	private Drawable idea_Drawable;
 	private Drawable comment_Drawable;

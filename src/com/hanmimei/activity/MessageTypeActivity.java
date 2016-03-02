@@ -34,6 +34,8 @@ public class MessageTypeActivity extends BaseActivity implements OnClickListener
 	private RelativeLayout youhui_msg;
 	private RelativeLayout wuliu_msg;
 	private RelativeLayout zichan_msg;
+	private TextView no_data;
+	private boolean showText;
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -56,6 +58,7 @@ public class MessageTypeActivity extends BaseActivity implements OnClickListener
 		youhui_msg = (RelativeLayout) findViewById(R.id.ac_msg);
 		wuliu_msg = (RelativeLayout) findViewById(R.id.wuliu_msg);
 		zichan_msg = (RelativeLayout) findViewById(R.id.zichan_msg);
+		no_data = (TextView) findViewById(R.id.no_data);
 		findViewById(R.id.sys_msg).setOnClickListener(this);
 		findViewById(R.id.good_msg).setOnClickListener(this);
 		findViewById(R.id.wuliu_msg).setOnClickListener(this);
@@ -64,6 +67,7 @@ public class MessageTypeActivity extends BaseActivity implements OnClickListener
 	}
 
 	private void loadData() {
+		showText = false;
 		Http2Utils.doGetRequestTask(this, getHeaders(), UrlUtil.GET_MSG_TYPE, new VolleyJsonCallback() {
 			
 			@Override
@@ -85,44 +89,59 @@ public class MessageTypeActivity extends BaseActivity implements OnClickListener
 
 	private void initView(MessageType type) {
 		if(type.getSysNum() > 0){
+			showText = true;
 			sys_msg.setVisibility(View.VISIBLE);
 			tishi1.setText("您有" + type.getSysNum() + "条新的消息");
 		}else if(type.getSysNum() == -1){
 			sys_msg.setVisibility(View.GONE);
 		}else{
+			showText = true;
 			sys_msg.setVisibility(View.VISIBLE);
 		}
 		if(type.getWuliuNum() > 0){
+			showText = true;
 			wuliu_msg.setVisibility(View.VISIBLE);
 			tishi3.setText("您有" + type.getWuliuNum() + "条新的消息");
 		}else if(type.getWuliuNum() == -1){
 			wuliu_msg.setVisibility(View.GONE);
 		}else{
+			showText = true;
 			wuliu_msg.setVisibility(View.VISIBLE);
 		}
 		if(type.getGoodNum() > 0){
+			showText = true;
 			goods_msg.setVisibility(View.VISIBLE);
 			tishi2.setText("您有" + type.getGoodNum()+ "条新的消息");
 		}else if(type.getGoodNum() == -1){
 			goods_msg.setVisibility(View.GONE);
 		}else{
+			showText = true;
 			goods_msg.setVisibility(View.VISIBLE);
 		}
 		if(type.getHuodongNum() > 0){
+			showText = true;
 			youhui_msg.setVisibility(View.VISIBLE);
 			tishi5.setText("您有" + type.getHuodongNum()+ "条新的消息");
 		}else if(type.getHuodongNum() == -1){
 			youhui_msg.setVisibility(View.GONE);
 		}else{
+			showText = true;
 			youhui_msg.setVisibility(View.VISIBLE);
 		}
 		if(type.getZichanNum() > 0){
+			showText = true;
 			zichan_msg.setVisibility(View.VISIBLE);
 			tishi4.setText("您有" + type.getZichanNum()+ "条新的消息");
 		}else if(type.getZichanNum() == -1){
 			zichan_msg.setVisibility(View.GONE);
 		}else{
+			showText = true;
 			zichan_msg.setVisibility(View.VISIBLE);
+		}
+		if(showText){
+			no_data.setVisibility(View.GONE);
+		}else{
+			no_data.setVisibility(View.VISIBLE);
 		}
 	}
 
