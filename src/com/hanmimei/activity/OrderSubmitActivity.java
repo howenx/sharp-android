@@ -75,7 +75,7 @@ public class OrderSubmitActivity extends BaseActivity {
 				 + orderInfo.getOrderId(), extraHeaders);
 
 		mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-		mWebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+//		mWebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
 		mWebView.setWebChromeClient(new NewWebChromeClient());
 		// 添加js交互
 		mWebView.addJavascriptInterface(new JavaScriptInterface(this),"handler");

@@ -42,9 +42,9 @@ public class MyPingouDetailActivity extends BaseActivity {
 
 					@Override
 					public void onSuccess(String result) {
-						getLoading().dismiss();
 						List<Order> orders = DataParser.parserOrder(result);
 						initPingouDetail(orders);
+						getLoading().dismiss();
 					}
 
 					@Override

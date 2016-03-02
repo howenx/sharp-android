@@ -41,7 +41,6 @@ import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
-import com.umeng.analytics.MobclickAgent;
 
 public class GoodsBalanceActivity extends BaseActivity implements
 		OnClickListener {
