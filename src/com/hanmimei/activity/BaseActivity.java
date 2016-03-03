@@ -32,6 +32,7 @@ import com.hanmimei.dao.DaoSession;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.GoodsDetail;
+import com.hanmimei.entity.PinDetail;
 import com.hanmimei.entity.PinResult;
 import com.hanmimei.entity.User;
 import com.hanmimei.entity.VersionVo;
@@ -150,6 +151,7 @@ public class BaseActivity extends AppCompatActivity {
 			setClipboard();
 		}
 	}
+	@SuppressWarnings("deprecation")
 	protected void setClipboard(){
 			// 退出或者app进入后台将口令扔到剪切板
 			ClipboardManager cbm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
@@ -188,6 +190,7 @@ public class BaseActivity extends AppCompatActivity {
 		getClipboard();
 	}
 
+	@SuppressWarnings("deprecation")
 	private void getClipboard(){
 		ClipboardManager cbm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
 		if (!TextUtils.isEmpty(cbm.getText())) {
@@ -199,7 +202,9 @@ public class BaseActivity extends AppCompatActivity {
 						loadData(UrlUtil.SERVERY3 + "/comm/detail"
 								+ url[1].split(",－")[0]);
 					}else if(cbm.getText().toString().trim().contains("<P>")){
-						
+						what = 2;
+						loadData(UrlUtil.SERVERY3 + "/comm/pin/detail"
+								+ url[1].split(",－")[0]);
 					}else if(cbm.getText().toString().trim().contains("<T>")){
 						what = 1;
 						loadData(UrlUtil.SERVERY5 + "/promotion/pin/activity/" + url[1].split(",－")[0]);
@@ -213,6 +218,7 @@ public class BaseActivity extends AppCompatActivity {
 	private GoodsDetail detail;
 	private int what;
 	private PinResult pinResult;
+	private PinDetail pinDetail;
 
 	private void loadData(String url) {
 		Http2Utils.doGetRequestTask(this, null, url,
@@ -222,14 +228,29 @@ public class BaseActivity extends AppCompatActivity {
 					public void onSuccess(String result) {
 						if(what == 0){
 							detail = DataParser.parserGoodsDetail(result);
-							setKouDialog(detail.getCurrentStock().getInvTitle(),
+							if(detail.getMessage().getCode() == 200){
+								setKouDialog(detail.getCurrentStock().getInvTitle(),
 									detail.getCurrentStock().getItemPrice() + "",
 									detail.getCurrentStock().getInvImgForObj()
 											.getUrl());
+							}else{
+								ToastUtils.Toast(getActivity(), "口令请求错误");
+							}
 						}else if(what == 1){
 							pinResult = new Gson().fromJson(result,
 									PinResult.class);
-							setKouDialog(pinResult.getActivity().getPinTitle(), pinResult.getActivity().getPinPrice(), pinResult.getActivity().getPinImg().getUrl());
+							if(pinResult.getMessage().getCode() == 200){
+								setKouDialog(pinResult.getActivity().getPinTitle(), pinResult.getActivity().getPinPrice(), pinResult.getActivity().getPinImg().getUrl());
+							}else{
+								ToastUtils.Toast(getActivity(), "口令请求错误");
+							}
+						}else if(what == 2){
+							pinDetail = new Gson().fromJson(result, PinDetail.class);
+							if(pinDetail.getMessage().getCode() == 200){
+								setKouDialog(pinDetail.getStock().getPinTitle(), pinDetail.getStock().getPinDiscount(), pinDetail.getStock().getInvImg());
+							}else{
+								ToastUtils.Toast(getActivity(), "口令请求错误");
+							}
 						}
 					}
 					@Override
@@ -239,6 +260,7 @@ public class BaseActivity extends AppCompatActivity {
 				});
 	}
 
+	@SuppressLint("InflateParams") 
 	private void setKouDialog(String ti, String pri, String imgurl) {
 		LayoutInflater inflater = LayoutInflater.from(this);
 		final AlertDialog dialog = new AlertDialog.Builder(this,
@@ -253,6 +275,8 @@ public class BaseActivity extends AppCompatActivity {
 			price.setText("单价：¥" + pri);
 		}else if(what == 1){
 			price.setText("拼购价：¥" + pri);
+		}else if(what == 2){
+			price.setText("折扣率：" + pri + "折");
 		}
 		view.findViewById(R.id.cancle).setOnClickListener(
 				new OnClickListener() {
@@ -271,9 +295,13 @@ public class BaseActivity extends AppCompatActivity {
 					Intent intent = new Intent(BaseActivity.this,GoodsDetailActivity.class);	
 					intent.putExtra("url", detail.getCurrentStock().getInvUrl());
 					startActivity(intent);
-				}else{
+				}else if(what == 1){
 					Intent intent = new Intent(BaseActivity.this,PingouResultActivity.class);	
 					intent.putExtra("url", pinResult.getActivity().getPinUrl());
+					startActivity(intent);
+				}else{
+					Intent intent = new Intent(BaseActivity.this,PingouDetailActivity.class);	
+					intent.putExtra("url", pinDetail.getStock().getPinRedirectUrl());
 					startActivity(intent);
 				}
 			}
