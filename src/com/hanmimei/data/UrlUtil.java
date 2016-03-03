@@ -104,7 +104,7 @@ public class UrlUtil {
 	// 隐私协议
 	public static final String AGREEMENT = SERVERY3 + "/comm/views/privacy";
 	// 检测更新
-	public static final String UPDATE_HMM = "http://hanmimei-test.oss-cn-beijing.aliyuncs.com/android/hmm.xml";
+	public static final String UPDATE_HMM = "http://img.hanmimei.com/android/hmm.xml";
 	// 添加收藏
 	public static final String ADD_COLLECTION = SERVERY1
 			+ "/client/collect/submit";
