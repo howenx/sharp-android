@@ -1,10 +1,14 @@
 package com.hanmimei.fragment;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
@@ -134,7 +139,7 @@ public class ShoppingCartFragment extends Fragment implements OnClickListener,
 
 	private void getData() {
 		activity.getLoading().show();
-		Http2Utils.doPostRequestTask2(activity,activity.getHeaders(),UrlUtil.CAR_LIST_URL,new VolleyJsonCallback() {
+		Http2Utils.doPostRequestTask2(activity,null,UrlUtil.CAR_LIST_URL,new VolleyJsonCallback() {
 			
 			@Override
 			public void onSuccess(String result) {
