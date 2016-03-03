@@ -2,20 +2,17 @@ package com.hanmimei.activity.fragment;
 
 import java.util.List;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
+import android.widget.TextView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.hanmimei.R;
-import com.hanmimei.activity.MyPingouDetailActivity;
 import com.hanmimei.adapter.MyPinTuanAdapter;
 import com.hanmimei.entity.PinActivity;
 
@@ -48,11 +45,16 @@ public class MyPinFragment extends Fragment {
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		View view = inflater.inflate(R.layout.my_pingou_list_layout, null);
+		TextView notice = (TextView) view.findViewById(R.id.notice);
 		mListView = (PullToRefreshListView) view.findViewById(R.id.mylist);
 		mListView.setMode(Mode.DISABLED);
-		if (data != null) {
+		if (data != null && data.size()>0) {
+			notice.setVisibility(View.GONE);
 			adapter = new MyPinTuanAdapter(getActivity(), data);
 			mListView.setAdapter(adapter);
+		}else{
+			notice.setVisibility(View.VISIBLE);
+			mListView.setVisibility(View.GONE);
 		}
 		return view;
 	}
