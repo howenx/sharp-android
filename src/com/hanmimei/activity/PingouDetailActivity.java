@@ -266,7 +266,7 @@ public class PingouDetailActivity extends BaseActivity implements
 				.setCallback(umShareListener)
 				.withMedia(
 						new UMImage(this, shareStock.getInvImgForObj().getUrl()))
-				.withTitle(shareStock.getInvTitle())
+				.withTitle(shareStock.getPinTitle())
 				.withTargetUrl("http://www.hanmimei.com/").share();
 	}
 
@@ -277,7 +277,7 @@ public class PingouDetailActivity extends BaseActivity implements
 				.setCallback(umShareListener)
 				.withMedia(
 						new UMImage(this, shareStock.getInvImgForObj().getUrl()))
-				.withTitle("全球正品，尽在韩秘美").withText(shareStock.getInvTitle())
+				.withTitle("全球正品，尽在韩秘美").withText(shareStock.getPinTitle())
 				.withTargetUrl("http://www.hanmimei.com/").share();
 	}
 
@@ -289,7 +289,7 @@ public class PingouDetailActivity extends BaseActivity implements
 				.withTitle("全球正品，尽在韩秘美")
 				.withMedia(
 						new UMImage(this, shareStock.getInvImgForObj().getUrl()))
-				.withText(shareStock.getInvTitle())
+				.withText(shareStock.getPinTitle())
 				.withTargetUrl("http://www.hanmimei.com/").share();
 	}
 
