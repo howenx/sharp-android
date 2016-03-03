@@ -315,7 +315,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 	 * @param settle
 	 */
 	private void initAddressInfo(Settle settle) {
-		if (!settle.getAddress().isEmpty()) {
+		if (settle.getAddress()!=null && !settle.getAddress().isEmpty()) {
 			findViewById(R.id.selectAddress).setVisibility(View.VISIBLE);
 			findViewById(R.id.newAddress).setVisibility(View.GONE);
 
