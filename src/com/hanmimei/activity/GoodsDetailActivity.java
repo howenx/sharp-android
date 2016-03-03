@@ -492,6 +492,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 				.withMedia(
 						new UMImage(this, shareStock.getInvImgForObj().getUrl()))
 				.withTitle(shareStock.getInvTitle())
+				.withText(shareStock.getInvTitle())
 				.withTargetUrl("http://www.hanmimei.com/").share();
 	}
 
