@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -35,6 +36,7 @@ public class CouponFragment extends Fragment {
 	private Category category;
 	private User user;
 	private int state;
+	private TextView no_data;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,7 @@ public class CouponFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.my_coupon_layout, null);
 		mListView = (PullToRefreshListView) view.findViewById(R.id.mylist);
+		no_data = (TextView) view.findViewById(R.id.no_data);
 		mListView.setAdapter(adapter);
 		if (category.getId().equals("tag01")) {
 			state = 0;
@@ -104,6 +107,13 @@ public class CouponFragment extends Fragment {
 				Ticket ticket = (Ticket) msg.obj;
 				if(ticket != null){
 					if(ticket.getMessage().getCode() == 200){
+						if(ticket.getCoupons().size() > 0){
+							mListView.setVisibility(View.VISIBLE);
+							no_data.setVisibility(View.GONE);
+						}else{
+							mListView.setVisibility(View.GONE);
+							no_data.setVisibility(View.VISIBLE);
+						}
 						data.clear();
 						mCoupno(ticket.getCoupons());
 						adapter.notifyDataSetChanged();
