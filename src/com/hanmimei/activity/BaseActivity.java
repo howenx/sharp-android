@@ -30,6 +30,7 @@ import com.hanmimei.R;
 import com.hanmimei.application.HMMApplication;
 import com.hanmimei.dao.DaoSession;
 import com.hanmimei.data.DataParser;
+import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.GoodsDetail;
 import com.hanmimei.entity.PinResult;
 import com.hanmimei.entity.User;
@@ -195,13 +196,13 @@ public class BaseActivity extends AppCompatActivity {
 				if(url[1].contains(",－")){
 					if(cbm.getText().toString().trim().contains("<C>")){
 						what = 0;
-						loadData("http://172.28.3.51:9001/comm/detail"
+						loadData(UrlUtil.SERVERY3 + "/comm/detail"
 								+ url[1].split(",－")[0]);
 					}else if(cbm.getText().toString().trim().contains("<P>")){
 						
 					}else if(cbm.getText().toString().trim().contains("<T>")){
 						what = 1;
-						loadData("http://172.28.3.51:9005/promotion/pin/activity/" + url[1].split(",－")[0]);
+						loadData(UrlUtil.SERVERY5 + "/promotion/pin/activity/" + url[1].split(",－")[0]);
 					}
 					cbm.setText("");
 					getMyApplication().setKouling("");
@@ -214,7 +215,7 @@ public class BaseActivity extends AppCompatActivity {
 	private PinResult pinResult;
 
 	private void loadData(String url) {
-		Http2Utils.doGetRequestTask(this, getHeaders(), url,
+		Http2Utils.doGetRequestTask(this, null, url,
 				new VolleyJsonCallback() {
 
 					@Override

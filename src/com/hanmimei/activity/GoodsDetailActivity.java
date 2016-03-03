@@ -346,6 +346,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		application.setKouling("KAKAO-HMM 复制这条信息,打开👉韩秘美👈即可看到<C>【"
 				+ detail.getCurrentStock().getInvTitle() + "】," + code[1]
 				+ ",－🔑 M令 🔑");
+		ToastUtils.Toast(this, "复制成功，快去粘贴吧");
 	}
 
 	/**
