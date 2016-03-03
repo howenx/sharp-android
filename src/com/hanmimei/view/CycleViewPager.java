@@ -293,13 +293,17 @@ public class CycleViewPager extends Fragment implements OnPageChangeListener{
 					@Override
 					public void onClick(View v) {
 						if(infos.get(currentPosition - 1).getType().equals("D")){
-							Intent intent = new Intent(getActivity(), GoodsDetailActivity.class);
-							intent.putExtra("url", infos.get(currentPosition - 1).getUrl());
-							getActivity().startActivity(intent);
+							if(!infos.get(currentPosition - 1).getUrl().equals("")){
+								Intent intent = new Intent(getActivity(), GoodsDetailActivity.class);
+								intent.putExtra("url", infos.get(currentPosition - 1).getUrl());
+								getActivity().startActivity(intent);
+							}
 						}else if(infos.get(currentPosition - 1).getType().equals("T")){
-							Intent intent = new Intent(getActivity(), ThemeGoodsActivity.class);
-							intent.putExtra("url", infos.get(currentPosition - 1).getUrl());
-							getActivity().startActivity(intent);
+							if(!infos.get(currentPosition - 1).getUrl().equals("")){
+								Intent intent = new Intent(getActivity(), ThemeGoodsActivity.class);
+								intent.putExtra("url", infos.get(currentPosition - 1).getUrl());
+								getActivity().startActivity(intent);
+							}
 						}
 					}
 				});
