@@ -6,6 +6,7 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -37,6 +39,7 @@ import com.hanmimei.activity.fragment.ImgFragment;
 import com.hanmimei.activity.fragment.ParamsFragment;
 import com.hanmimei.adapter.GoodsDetailPagerAdapter;
 import com.hanmimei.adapter.TuijianAdapter;
+import com.hanmimei.application.HMMApplication;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
@@ -57,6 +60,11 @@ import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.HorizontalListView;
 import com.hanmimei.view.NetworkImageHolderView;
+import com.umeng.socialize.Config;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
 
 public class PingouDetailActivity extends BaseActivity implements
 		OnClickListener {
@@ -67,12 +75,13 @@ public class PingouDetailActivity extends BaseActivity implements
 	private PinDetail detail;
 	private ImageView collectionImg;
 	private boolean isCollection = false;
-	private TextView notice,more_view;
-	
+	private TextView notice, more_view;
+
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		ActionBarUtil.setActionBarStyle(this, "商品详情");
+		ActionBarUtil.setActionBarStyle(this, "商品详情", R.drawable.fenxiang,
+				true, null, this);
 		setContentView(R.layout.pingou_detail_layout);
 		findView();
 		loadUrl();
@@ -92,7 +101,7 @@ public class PingouDetailActivity extends BaseActivity implements
 					ToastUtils.Toast(getActivity(), R.string.error);
 					return;
 				}
-				
+
 				if (detail.getMessage().getCode() == 200) {
 					initFragmentPager(detail.getMain());
 					initGoodsDetail(detail.getStock());
@@ -133,7 +142,7 @@ public class PingouDetailActivity extends BaseActivity implements
 	}
 
 	private void initGoodsDetail(StockVo stock) {
-		if(stock == null)
+		if (stock == null)
 			return;
 		initSliderImage(stock.getItemPreviewImgsForList());
 		TextView pinTitle = (TextView) findViewById(R.id.pinTitle);
@@ -144,28 +153,31 @@ public class PingouDetailActivity extends BaseActivity implements
 
 		pinTitle.setText(stock.getPinTitle());
 		soldAmount.setText("已售：" + stock.getSoldAmount() + "件");
-		if(stock.getInvPrice() !=null){
+		if (stock.getInvPrice() != null) {
 			item_src_price.setText(stock.getInvPrice() + "元/件");
-			
+
 		}
 		pin_price.setText(stock.getFloorPrice().get("price") + "元/件起");
-		pin_per_num.setText("最高" + stock.getFloorPrice().get("person_num")+ "人团");
-		if(stock.getCollectId() != 0){
-			collectionImg.setImageDrawable(getResources().getDrawable(R.drawable.icon_collect));
+		pin_per_num.setText("最高" + stock.getFloorPrice().get("person_num")
+				+ "人团");
+		if (stock.getCollectId() != 0) {
+			collectionImg.setImageDrawable(getResources().getDrawable(
+					R.drawable.icon_collect));
 			isCollection = true;
-		}else{
-			collectionImg.setImageDrawable(getResources().getDrawable(R.drawable.icon_un_collect));
+		} else {
+			collectionImg.setImageDrawable(getResources().getDrawable(
+					R.drawable.icon_un_collect));
 			isCollection = false;
 		}
-		if(stock.getStatus().equals("Y")){
+		if (stock.getStatus().equals("Y")) {
 			findViewById(R.id.btn_buy_01).setOnClickListener(this);
 			findViewById(R.id.btn_buy_02).setOnClickListener(this);
 			findViewById(R.id.btn_pin_01).setOnClickListener(this);
 			findViewById(R.id.btn_pin_02).setOnClickListener(this);
 			notice.setVisibility(View.INVISIBLE);
-		}else if(stock.getStatus().equals("P")){
+		} else if (stock.getStatus().equals("P")) {
 			notice.setText("该商品尚未开售");
-		}else {
+		} else {
 			notice.setText("该商品已售罄");
 			more_view.setVisibility(View.VISIBLE);
 			more_view.setOnClickListener(this);
@@ -216,42 +228,127 @@ public class PingouDetailActivity extends BaseActivity implements
 		case R.id.more_view:
 			showPopupwindow();
 			break;
+		case R.id.setting:
+			showShareboard();
+			break;
+		case R.id.qq:
+			shareQQ();
+			break;
+		case R.id.weixin:
+			shareWeiXin();
+			break;
+		case R.id.weixinq:
+			shareCircle();
+			break;
+		case R.id.copy:
+			doCopy();
+			shareWindow.dismiss();
+			break;
 		default:
 			break;
 		}
 
 	}
-	
-	private PopupWindow tuiWindow;
-	private void showPopupwindow() {
-		if(tuiWindow == null){
-		View view = getLayoutInflater().inflate(R.layout.tuijian_layout, null);
-		HorizontalListView more_grid = (HorizontalListView) view.findViewById(R.id.more_grid);
-		TextView titleView = (TextView) view.findViewById(R.id.title);
-		titleView.setText("该活动已结束，去看看其他拼购吧");
-		more_grid.setAdapter(new TuijianAdapter(detail.getPush(), this));
-		more_grid.setOnItemClickListener(new OnItemClickListener() {
 
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				Intent intent = null;
-				if (detail.getPush().get(arg2).getItemType().equals("pin")) {
-					intent = new Intent(getActivity(),PingouDetailActivity.class);
-				} else {
-					intent = new Intent(getActivity(),GoodsDetailActivity.class);
+	private void doCopy() {
+		String code[] = detail.getStock().getPinRedirectUrl().split("detail");
+		HMMApplication application = (HMMApplication) getApplication();
+		application.setKouling("KAKAO-HMM 复制这条信息,打开👉韩秘美👈即可看到<P>【"
+				+ detail.getStock().getPinTitle() + "】," + code[1]
+				+ ",－🔑 M令 🔑");
+		ToastUtils.Toast(this, "复制成功，快去粘贴吧");
+	}
+
+	// 微信朋友圈分享设置
+	private void shareCircle() {
+		new ShareAction(this)
+				.setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE)
+				.setCallback(umShareListener)
+				.withMedia(
+						new UMImage(this, shareStock.getInvImgForObj().getUrl()))
+				.withTitle(shareStock.getInvTitle())
+				.withTargetUrl("http://www.hanmimei.com/").share();
+	}
+
+	// 微信分享设置
+	private void shareWeiXin() {
+		new ShareAction(this)
+				.setPlatform(SHARE_MEDIA.WEIXIN)
+				.setCallback(umShareListener)
+				.withMedia(
+						new UMImage(this, shareStock.getInvImgForObj().getUrl()))
+				.withTitle("全球正品，尽在韩秘美").withText(shareStock.getInvTitle())
+				.withTargetUrl("http://www.hanmimei.com/").share();
+	}
+
+	// QQ分享设置
+	private void shareQQ() {
+		new ShareAction(this)
+				.setPlatform(SHARE_MEDIA.QQ)
+				.setCallback(umShareListener)
+				.withTitle("全球正品，尽在韩秘美")
+				.withMedia(
+						new UMImage(this, shareStock.getInvImgForObj().getUrl()))
+				.withText(shareStock.getInvTitle())
+				.withTargetUrl("http://www.hanmimei.com/").share();
+	}
+
+	private StockVo shareStock;
+	private PopupWindow shareWindow;
+
+	// 分享面板
+	@SuppressLint("InflateParams")
+	private void showShareboard() {
+		View view = LayoutInflater.from(this).inflate(R.layout.share_layout,
+				null);
+		shareWindow = PopupWindowUtil.showPopWindow(this, view);
+		view.findViewById(R.id.qq).setOnClickListener(this);
+		view.findViewById(R.id.weixin).setOnClickListener(this);
+		view.findViewById(R.id.weixinq).setOnClickListener(this);
+		// view.findViewById(R.id.sina).setOnClickListener(this);
+		view.findViewById(R.id.copy).setOnClickListener(this);
+		Config.OpenEditor = true;
+		shareStock = detail.getStock();
+
+	}
+
+	private PopupWindow tuiWindow;
+
+	@SuppressLint("InflateParams")
+	private void showPopupwindow() {
+		if (tuiWindow == null) {
+			View view = getLayoutInflater().inflate(R.layout.tuijian_layout,
+					null);
+			HorizontalListView more_grid = (HorizontalListView) view
+					.findViewById(R.id.more_grid);
+			TextView titleView = (TextView) view.findViewById(R.id.title);
+			titleView.setText("该活动已结束，去看看其他拼购吧");
+			more_grid.setAdapter(new TuijianAdapter(detail.getPush(), this));
+			more_grid.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> arg0, View arg1,
+						int arg2, long arg3) {
+					Intent intent = null;
+					if (detail.getPush().get(arg2).getItemType().equals("pin")) {
+						intent = new Intent(getActivity(),
+								PingouDetailActivity.class);
+					} else {
+						intent = new Intent(getActivity(),
+								GoodsDetailActivity.class);
+					}
+					intent.putExtra("url", detail.getPush().get(arg2)
+							.getItemUrl());
+					startActivityForResult(intent, 1);
 				}
-				intent.putExtra("url", detail.getPush().get(arg2).getItemUrl());
-				startActivityForResult(intent, 1);
-			}
-		});
-		more_grid.setFocusable(false);
-		tuiWindow = PopupWindowUtil.showPopWindow(this, view);
-		more_view.setOnClickListener(this);
-		}else{
+			});
+			more_grid.setFocusable(false);
+			tuiWindow = PopupWindowUtil.showPopWindow(this, view);
+			more_view.setOnClickListener(this);
+		} else {
 			tuiWindow.showAtLocation(more_view, Gravity.BOTTOM, 0, 0);
 		}
-		
+
 	}
 
 	private void collectGoods() {
@@ -266,6 +363,7 @@ public class PingouDetailActivity extends BaseActivity implements
 			}
 		}
 	}
+
 	private void delCollection() {
 		Http2Utils.doGetRequestTask(this, getHeaders(), UrlUtil.DEL_COLLECTION
 				+ detail.getStock().getCollectId(), new VolleyJsonCallback() {
@@ -276,10 +374,12 @@ public class PingouDetailActivity extends BaseActivity implements
 				if (message.getCode() == 200) {
 					isCollection = false;
 					detail.getStock().setCollectId(0);
-					collectionImg.setImageDrawable(getResources().getDrawable(R.drawable.icon_un_collect));
+					collectionImg.setImageDrawable(getResources().getDrawable(
+							R.drawable.icon_un_collect));
 					ToastUtils.Toast(PingouDetailActivity.this, "取消收藏成功");
-					sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_COLLECTION_ACTION));
-				}else{
+					sendBroadcast(new Intent(
+							AppConstant.MESSAGE_BROADCAST_COLLECTION_ACTION));
+				} else {
 					ToastUtils.Toast(PingouDetailActivity.this, "取消收藏失败");
 				}
 			}
@@ -290,7 +390,9 @@ public class PingouDetailActivity extends BaseActivity implements
 			}
 		});
 	}
+
 	private JSONObject object;
+
 	private void toObject() {
 		object = new JSONObject();
 		try {
@@ -301,33 +403,39 @@ public class PingouDetailActivity extends BaseActivity implements
 			e.printStackTrace();
 		}
 	}
-	//添加收藏
+
+	// 添加收藏
 	private void addCollection() {
-		Http2Utils.doRequestTask2(this, Method.POST, getHeaders(), UrlUtil.ADD_COLLECTION, new VolleyJsonCallback() {
-			
-			@Override
-			public void onSuccess(String result) {
-				HMessage message = DataParser.paserResultMsg(result);
-				int collectionId = DataParser.parserCollectId(result);
-				if(message.getCode() == 200){
-					isCollection = true;
-					detail.getStock().setCollectId(collectionId);
-					collectionImg.setImageDrawable(getResources().getDrawable(R.drawable.icon_collect));
-					ToastUtils.Toast(PingouDetailActivity.this, "收藏成功");
-					sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_COLLECTION_ACTION));
-				}else{
-					ToastUtils.Toast(PingouDetailActivity.this, "收藏失败");
-				}
-			}
-			@Override
-			public void onError() {
-				ToastUtils.Toast(PingouDetailActivity.this, "收藏失败，请检查您的网络");
-			}
-		}, object.toString());
+		Http2Utils.doRequestTask2(this, Method.POST, getHeaders(),
+				UrlUtil.ADD_COLLECTION, new VolleyJsonCallback() {
+
+					@Override
+					public void onSuccess(String result) {
+						HMessage message = DataParser.paserResultMsg(result);
+						int collectionId = DataParser.parserCollectId(result);
+						if (message.getCode() == 200) {
+							isCollection = true;
+							detail.getStock().setCollectId(collectionId);
+							collectionImg.setImageDrawable(getResources()
+									.getDrawable(R.drawable.icon_collect));
+							ToastUtils.Toast(PingouDetailActivity.this, "收藏成功");
+							sendBroadcast(new Intent(
+									AppConstant.MESSAGE_BROADCAST_COLLECTION_ACTION));
+						} else {
+							ToastUtils.Toast(PingouDetailActivity.this, "收藏失败");
+						}
+					}
+
+					@Override
+					public void onError() {
+						ToastUtils.Toast(PingouDetailActivity.this,
+								"收藏失败，请检查您的网络");
+					}
+				}, object.toString());
 	}
-	
+
 	private void initFragmentPager(MainVo main) {
-		if(main == null)
+		if (main == null)
 			return;
 		mScrollLayout.canScroll();
 		List<String> titles = new ArrayList<String>();
@@ -340,7 +448,8 @@ public class PingouDetailActivity extends BaseActivity implements
 				.getItemDetailImgs());
 		ScrollAbleFragment parFragment = ParamsFragment.newInstance(main
 				.getItemFeaturess());
-		ScrollAbleFragment gridViewFragment = HotFragment.newInstance(detail.getPush());
+		ScrollAbleFragment gridViewFragment = HotFragment.newInstance(detail
+				.getPush());
 		fragments.add(imgFragment);
 		fragments.add(parFragment);
 		fragments.add(gridViewFragment);
@@ -435,6 +544,7 @@ public class PingouDetailActivity extends BaseActivity implements
 		intent.putExtra("stock", stock);
 		startActivity(intent);
 	}
+
 	private MyBroadCastReceiver netReceiver;
 
 	// 广播接收者 注册
@@ -448,13 +558,37 @@ public class PingouDetailActivity extends BaseActivity implements
 	private class MyBroadCastReceiver extends BroadcastReceiver {
 
 		@Override
-		public void onReceive(Context context, Intent intent) {	
-			if(intent.getAction().equals(
-					AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION)){
+		public void onReceive(Context context, Intent intent) {
+			if (intent.getAction().equals(
+					AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION)) {
 				loadUrl();
 			}
 		}
 	}
+
+	// ---------------友盟-----------------------
+	private UMShareListener umShareListener = new UMShareListener() {
+		@Override
+		public void onResult(SHARE_MEDIA platform) {
+			shareWindow.dismiss();
+			// Toast.makeText(GoodsDetailActivity.this, platform + " 分享成功",
+			// Toast.LENGTH_SHORT).show();
+		}
+
+		@Override
+		public void onError(SHARE_MEDIA platform, Throwable t) {
+			shareWindow.dismiss();
+			// Toast.makeText(GoodsDetailActivity.this,platform + " 分享失败",
+			// Toast.LENGTH_SHORT).show();
+		}
+
+		@Override
+		public void onCancel(SHARE_MEDIA platform) {
+			shareWindow.dismiss();
+			// Toast.makeText(GoodsDetailActivity.this,platform + " 分享取消",
+			// Toast.LENGTH_SHORT).show();
+		}
+	};
 
 	@Override
 	protected void onDestroy() {
