@@ -267,6 +267,7 @@ public class PingouDetailActivity extends BaseActivity implements
 				.withMedia(
 						new UMImage(this, shareStock.getInvImgForObj().getUrl()))
 				.withTitle(shareStock.getPinTitle())
+				.withText(shareStock.getPinTitle())
 				.withTargetUrl("http://www.hanmimei.com/").share();
 	}
 
