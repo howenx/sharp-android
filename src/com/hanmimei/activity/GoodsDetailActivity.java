@@ -726,6 +726,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 		if(tuiWindow == null){
 		View view = getLayoutInflater().inflate(R.layout.tuijian_layout, null);
 		HorizontalListView more_grid = (HorizontalListView) view.findViewById(R.id.more_grid);
+		TextView titleView = (TextView) view.findViewById(R.id.title);
+		titleView.setText("该商品已卖完，去看看其他商品吧");
 		more_grid.setAdapter(new TuijianAdapter(detail.getPush(), this));
 		more_grid.setOnItemClickListener(new OnItemClickListener() {
 
@@ -761,6 +763,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 	 *            商品总详情数据
 	 */
 	private void initGoodsDetail() {
+		if(detail == null)
+			return;
 		if (detail.getMessage().getCode() != 200) {
 			findViewById(R.id.no_net).setVisibility(View.VISIBLE);
 			ToastUtils.Toast(this, detail.getMessage().getMessage());

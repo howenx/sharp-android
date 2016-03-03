@@ -227,6 +227,8 @@ public class PingouDetailActivity extends BaseActivity implements
 		if(tuiWindow == null){
 		View view = getLayoutInflater().inflate(R.layout.tuijian_layout, null);
 		HorizontalListView more_grid = (HorizontalListView) view.findViewById(R.id.more_grid);
+		TextView titleView = (TextView) view.findViewById(R.id.title);
+		titleView.setText("该活动已结束，去看看其他拼购吧");
 		more_grid.setAdapter(new TuijianAdapter(detail.getPush(), this));
 		more_grid.setOnItemClickListener(new OnItemClickListener() {
 

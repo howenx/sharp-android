@@ -189,7 +189,7 @@
               android:background="@color/theme"
               android:gravity="center"
               android:padding="10dp"
-              android:text="该商品已卖完，去看看其他商品吧"
+              android:text="该活动已结束，去看看其他拼购吧"
               android:textColor="@color/white"
               android:textSize="14sp"
               android:visibility="gone" />
