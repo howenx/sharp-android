@@ -28,8 +28,8 @@ public class PostStringRequest2 extends StringRequest {
 			this.param = param;
 		}
 		this.headers = new HashMap<String, String>();
+		this.headers.put("Content-Type", "application/json");
 		if (headers != null) {
-			this.headers.put("Content-Type", "application/json");
 			this.headers.putAll(headers);
 		}
 	}
