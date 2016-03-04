@@ -99,7 +99,6 @@
           android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:background="@color/white">
         <TextView 
             android:id="@+id/text1"
@@ -141,7 +140,7 @@
             android:inputType="textPassword"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"
             android:background="@null"/>
     </RelativeLayout>
     <View 
@@ -153,7 +152,6 @@
    <RelativeLayout 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:background="@color/white">
         <TextView 
             android:id="@+id/text2"
@@ -186,9 +184,9 @@
             android:visibility="invisible"/>
         <EditText 
             android:id="@+id/two_pwd"
+            android:layout_centerVertical="true"
             android:layout_toRightOf="@id/text2"
             android:layout_toLeftOf="@id/clear_pwd2"
-            android:paddingTop="5dp"
             android:maxLength="12"
             style="@style/login_edit_style"
             android:hint="@string/input_pwd_agin"

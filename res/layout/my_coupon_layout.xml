@@ -21,8 +21,7 @@
       		android:smoothScrollbar="true"
       		android:id="@+id/mylist"
       		ptr:ptrShowIndicator="false"
-      		ptr:ptrDrawable="@drawable/refreshing"
-      		android:visibility="gone"/>
+      		ptr:ptrDrawable="@drawable/refreshing"/>
 
 <TextView 
     android:id="@+id/no_data"

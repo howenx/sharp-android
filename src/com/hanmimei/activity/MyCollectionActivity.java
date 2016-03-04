@@ -30,6 +30,7 @@ import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.Collection;
 import com.hanmimei.entity.CollectionInfo;
+import com.hanmimei.entity.HMessage;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.Http2Utils;
@@ -139,11 +140,17 @@ public class MyCollectionActivity  extends BaseActivity implements OnClickListen
 			
 			@Override
 			public void onSuccess(String result) {
-				datas.remove(position);
-				adapter.notifyDataSetChanged();
-				ToastUtils.Toast(MyCollectionActivity.this, "取消收藏成功");
-				if(datas.size() <= 0){
-					no_data.setVisibility(View.VISIBLE);
+				HMessage hMessage = DataParser.paserResultMsg(result);
+				if(hMessage.getCode() == 200){
+					datas.remove(position);
+					adapter.notifyDataSetChanged();
+					ToastUtils.Toast(MyCollectionActivity.this, "取消收藏成功");
+					if(datas.size() <= 0){
+						no_data.setVisibility(View.VISIBLE);
+						mListView.setVisibility(View.GONE);
+					}
+				}else{
+					ToastUtils.Toast(MyCollectionActivity.this, "取消收藏失败");
 				}
 			}
 			

@@ -13,7 +13,10 @@ import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
@@ -48,7 +51,6 @@ import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.DateUtil;
 import com.hanmimei.utils.HttpUtils;
-import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -83,6 +85,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		setContentView(R.layout.login_layout);
 		ActionBarUtil.setActionBarStyle(this, "账号登录");
 		initView();
+		registerReceivers();
 	}
 
 	private void initView() {
@@ -355,7 +358,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 						} else {
 							sendBroadcast(new Intent(
 									AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION));
-							finish();
+//							finish();
 						}
 					} else if (result.getCode() == 4001) {
 						if (!isDialogShow)
@@ -375,7 +378,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 				}
 				sendBroadcast(new Intent(
 						AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION));
-				finish();
+//				finish();
 				break;
 			case 4:
 				Bitmap bitmap = (Bitmap) msg.obj;
@@ -457,6 +460,30 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	private void setDialogImg(Bitmap bitmap) {
 		jiaoyanImg.setImageBitmap(bitmap);
 	}
-
+	private MyBroadCastReceiver netReceiver;
+	private void registerReceivers() {
+		netReceiver = new MyBroadCastReceiver();
+		IntentFilter intentFilter = new IntentFilter();
+		intentFilter
+				.addAction(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR);
+		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION);
+		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_QUIT_LOGIN_ACTION);
+		getActivity().registerReceiver(netReceiver, intentFilter);
+	}
+	private class MyBroadCastReceiver extends BroadcastReceiver {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			if (intent.getAction().equals(
+					AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION)) {
+				LoginActivity.this.finish();
+			}
+		}
+	}
+	@Override
+	public void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		getActivity().unregisterReceiver(netReceiver);
+	}
 
 }

@@ -95,6 +95,7 @@ public class CouponFragment extends Fragment {
 				data.add(list.get(i));
 			}
 		}
+		adapter.notifyDataSetChanged();
 	}
 	
 	private Handler mHandler = new Handler(){
@@ -106,17 +107,16 @@ public class CouponFragment extends Fragment {
 			case 1:
 				Ticket ticket = (Ticket) msg.obj;
 				if(ticket != null){
+					data.clear();
+					mCoupno(ticket.getCoupons());
 					if(ticket.getMessage().getCode() == 200){
-						if(ticket.getCoupons().size() > 0){
+						if(data.size() > 0){
 							mListView.setVisibility(View.VISIBLE);
 							no_data.setVisibility(View.GONE);
 						}else{
 							mListView.setVisibility(View.GONE);
 							no_data.setVisibility(View.VISIBLE);
 						}
-						data.clear();
-						mCoupno(ticket.getCoupons());
-						adapter.notifyDataSetChanged();
 					}
 				}
 				break;

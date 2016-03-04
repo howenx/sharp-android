@@ -95,13 +95,11 @@ public class ForgetPhoneActivity extends BaseActivity implements
 			if (s.length() == 11) {
 				next.setBackground(getResources().getDrawable(
 						R.drawable.theme_button_bg));
-				next.setTextColor(getResources().getColor(R.color.white));
 				next.setClickable(true);
 				next.setOnClickListener(ForgetPhoneActivity.this);
 			} else {
 				next.setBackground(getResources().getDrawable(
 						R.drawable.huise_button_bg));
-				next.setTextColor(getResources().getColor(R.color.huise));
 				next.setClickable(false);
 				next.setOnClickListener(null);
 			}

@@ -8,7 +8,10 @@ import org.apache.http.message.BasicNameValuePair;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -24,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hanmimei.R;
+import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.HMessage;
@@ -51,6 +55,7 @@ public class CheckPhoneActivity extends BaseActivity implements OnClickListener 
 		ActionBarUtil.setActionBarStyle(this, "手机注册");
 		setContentView(R.layout.phone_check_layout);
 		findView();
+		registerReceivers();
 	}
 
 	private void findView() {
@@ -83,13 +88,11 @@ public class CheckPhoneActivity extends BaseActivity implements OnClickListener 
 			if (s.length() == 11) {
 				next.setBackground(getResources().getDrawable(
 						R.drawable.theme_button_bg));
-				next.setTextColor(getResources().getColor(R.color.white));
 				next.setClickable(true);
 				next.setOnClickListener(CheckPhoneActivity.this);
 			} else {
 				next.setBackground(getResources().getDrawable(
 						R.drawable.huise_button_bg));
-				next.setTextColor(getResources().getColor(R.color.huise));
 				next.setClickable(false);
 				next.setOnClickListener(null);
 			}
@@ -195,5 +198,30 @@ public class CheckPhoneActivity extends BaseActivity implements OnClickListener 
 		besure.setText("找回密码");
 		view.findViewById(R.id.cancle).setOnClickListener(this);
 		view.findViewById(R.id.besure).setOnClickListener(this);
+	}
+	private MyBroadCastReceiver netReceiver;
+	private void registerReceivers() {
+		netReceiver = new MyBroadCastReceiver();
+		IntentFilter intentFilter = new IntentFilter();
+		intentFilter
+				.addAction(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR);
+		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION);
+		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_QUIT_LOGIN_ACTION);
+		getActivity().registerReceiver(netReceiver, intentFilter);
+	}
+	private class MyBroadCastReceiver extends BroadcastReceiver {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			if (intent.getAction().equals(
+					AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION)) {
+				CheckPhoneActivity.this.finish();
+			}
+		}
+	}
+	@Override
+	public void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		getActivity().unregisterReceiver(netReceiver);
 	}
 }

@@ -360,8 +360,9 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 							// startActivity(intent);
 							sendBroadcast(new Intent(
 									AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION));
-							DoJumpUtils.doJump(RegistActivity.this,
-									MainActivity.class);
+//							DoJumpUtils.doJump(RegistActivity.this,
+//									MainActivity.class);
+							finish();
 						}
 					} else {
 						CommonUtil.setAttention(attention,"注册成功，自动登录失败，请自行登陆");

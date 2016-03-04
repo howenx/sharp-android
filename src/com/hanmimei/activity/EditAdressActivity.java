@@ -389,18 +389,18 @@ public class EditAdressActivity extends BaseActivity implements
 		} else if (phone.equals("")) {
 			ToastUtils.Toast(this, "请输入手机号");
 			return;
+		}  else if (!CommonUtil.isPhoneNum(phone)) {
+			ToastUtils.Toast(this, "请输入正确的手机号");
+			return;
+		} else if (!CommonUtil.IDCardValidate(idCard.toLowerCase()).equals("")) {
+			ToastUtils.Toast(this, CommonUtil.IDCardValidate(idCard.toLowerCase()));
+			return;
 		} else if (city.equals("")) {
 			ToastUtils.Toast(this, "请选择省市区");
 			return;
 		} else if (!CommonUtil.inputIsName(address, 5, 50).equals("")) {
 			ToastUtils.Toast(this,
 					"地址" + CommonUtil.inputIsName(address, 5, 50));
-			return;
-		} else if (!CommonUtil.isPhoneNum(phone)) {
-			ToastUtils.Toast(this, "请输入正确的手机号");
-			return;
-		} else if (!CommonUtil.IDCardValidate(idCard).equals("")) {
-			ToastUtils.Toast(this, CommonUtil.IDCardValidate(idCard));
 			return;
 		} else {
 			toObject();
