@@ -198,9 +198,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 			@Override
 			public void onSuccess(String result) {
-				getLoading().dismiss();
 				detail = DataParser.parserGoodsDetail(result);
 				initGoodsDetail();
+				getLoading().dismiss();
 			}
 
 			@Override
