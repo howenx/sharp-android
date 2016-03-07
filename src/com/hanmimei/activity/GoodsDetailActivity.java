@@ -1012,14 +1012,11 @@ public class GoodsDetailActivity extends BaseActivity implements
 				getGoodsNums();
 			}else if(intent.getAction().equals(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION)){
 				loadDataByUrl();
+				getGoodsNums();
 			}
 		}
 	}
 
-	// Handle scroll event from fragments
-	public void onEvent(Boolean b) {
-		// dragLayout.setTouchMode(b);
-	}
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();

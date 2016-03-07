@@ -14,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
@@ -27,7 +26,6 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.hanmimei.R;
 import com.hanmimei.activity.listener.TimeEndListner;
-import com.hanmimei.adapter.ThemeAdapter;
 import com.hanmimei.adapter.TuijianAdapter;
 import com.hanmimei.application.HMMApplication;
 import com.hanmimei.data.AppConstant;
@@ -107,8 +105,7 @@ public class PingouResultActivity extends BaseActivity implements
 						pinActivity = pinResult.getActivity();
 						initPageData();
 					} else {
-						ToastUtils.Toast(getActivity(), pinResult.getMessage()
-								.getMessage());
+						ToastUtils.Toast(getActivity(), pinResult.getMessage().getMessage());
 					}
 				} catch (Exception e) {
 					ToastUtils.Toast(getActivity(), R.string.error);
@@ -125,7 +122,7 @@ public class PingouResultActivity extends BaseActivity implements
 	}
 
 	// ========================================================================
-	// ========================= 自定义方法 ======================================
+	// ========================= 自定义方法 =======================================
 	// ========================================================================
 	/**
 	 * 初始化页面数据

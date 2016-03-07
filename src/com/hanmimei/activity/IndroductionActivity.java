@@ -16,7 +16,6 @@ import com.hanmimei.R;
 import com.hanmimei.utils.SharedPreferencesUtil;
 import com.hanmimei.view.viewflow.CircleFlowIndicator;
 import com.hanmimei.view.viewflow.ViewFlow;
-import com.umeng.analytics.MobclickAgent;
 
 @SuppressLint("NewApi") 
 public class IndroductionActivity extends AppCompatActivity {

@@ -78,8 +78,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 		adapter = new GoodsBalanceCustomAdapter(customslist, this);
 		mListView.setAdapter(adapter);
 		mListView.setFocusable(false);
-		all_price.setText(getResources().getString(R.string.price,
-				car.getAllPrice()));
+		all_price.setText(getResources().getString(R.string.price, car.getAllPrice()));
 		loadData(selectedId);
 	
 	}

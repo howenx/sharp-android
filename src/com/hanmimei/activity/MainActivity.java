@@ -1,5 +1,6 @@
 package com.hanmimei.activity;
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -31,11 +32,13 @@ import com.hanmimei.fragment.HomeFragment;
 import com.hanmimei.fragment.ShoppingCartFragment;
 import com.hanmimei.manager.BadgeViewManager;
 import com.hanmimei.manager.MessageMenager;
-import com.hanmimei.service.DownloadService;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.DoJumpUtils;
+import com.hanmimei.utils.DownloadTools;
+import com.hanmimei.utils.Http2Utils;
+import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.utils.XMLPaserTools;
 import com.umeng.analytics.MobclickAgent;
@@ -55,6 +58,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 	private int shopping_drawable = R.drawable.tab_shopping;
 	private int my_drawable = R.drawable.tab_my;
 //	private int pingou_drawable = R.drawable.tab_pingou;
+	private DownloadTools downloadTools;
 	
 	private VersionVo info;
 
@@ -92,7 +96,6 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 				sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UP_HOME_ACTION));
 			}
 		});	
-		
 		submitTask(new CheckVersionTask());
 	}
 	
@@ -123,14 +126,10 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 	/**
 	 * 初始化tab
 	 * 
-	 * @param tag
-	 *            标签
-	 * @param title
-	 *            tab 标题
-	 * @param img
-	 *            tab 图标
-	 * @param clzss
-	 *            显示fragment
+	 * @param tag  标签
+	 * @param title  tab 标题
+	 * @param img  tab 图标
+	 * @param clzss  显示fragment
 	 */
 	@SuppressLint("InflateParams")
 	private void addTabItem(String tag, int img, String title, Class<?> clzss) {
@@ -214,6 +213,29 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 		unregisterReceiver(netReceiver);
 	}
 	
+	private void doCheckVersionTask(){
+		Http2Utils.doGetRequestTask(this, UrlUtil.UPDATE_HMM, new VolleyJsonCallback() {
+			
+			@Override
+			public void onSuccess(String result) {
+				try {
+					InputStream is = new   ByteArrayInputStream(result.getBytes());
+					info = XMLPaserTools.getUpdataInfo(is);
+					if (!info.getReleaseNumber().equals(CommonUtil.getVersionName(getActivity()))) {
+						// 版本号不同,发送消息更新客户端
+						
+					}
+				} catch (Exception e) {
+					ToastUtils.Toast(getActivity(), "获取服务器更新信息失败");
+				}
+			}
+			
+			@Override
+			public void onError() {
+				ToastUtils.Toast(getActivity(), "获取服务器更新信息失败");
+			}
+		});
+	}
 	
 	/**
 	 * 开启子线程run方法,服务器请求更新版本
@@ -232,23 +254,19 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 						.openConnection();
 				conn.setConnectTimeout(5000);
 				conn.setRequestMethod("GET");
-				int responseCode = conn.getResponseCode();
-				if (responseCode == 200) {
+				if (conn.getResponseCode() == 200) {
 					// 从服务器获得一个输入流
 					is = conn.getInputStream();
+					info = XMLPaserTools.getUpdataInfo(is);
+					if (!info.getReleaseNumber().equals(CommonUtil.getVersionName(getActivity()))) {
+						// 版本号不同,发送消息更新客户端
+						handler.sendEmptyMessage(VersionVo.UPDATA_CLIENT);
+					} 
+				}else{
+					handler.sendEmptyMessage(VersionVo.GET_UNDATAINFO_ERROR);
 				}
-				info = XMLPaserTools.getUpdataInfo(is);
-				if (!info.getReleaseNumber().equals(CommonUtil.getVersionName(getActivity()))) {
-					// 版本号不同,发送消息更新客户端
-					Message msg = new Message();
-					msg.what = VersionVo.UPDATA_CLIENT;
-					handler.sendMessage(msg);
-				} 
 			} catch (Exception e) {
-				Message msg = new Message();
-				msg.what = VersionVo.GET_UNDATAINFO_ERROR;
-				handler.sendMessage(msg);
-				e.printStackTrace();
+				handler.sendEmptyMessage(VersionVo.GET_UNDATAINFO_ERROR);
 			}
 		}
 	}
@@ -269,19 +287,13 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 					
 					@Override
 					public void onClick(View v) {
-						Intent intent = new Intent(getActivity(),DownloadService.class);
-						intent.putExtra("url", info.getDownloadLink());
-						startService(intent);
+						downloadApk(info.getDownloadLink());
 					}
 				});
 				break;
 			case VersionVo.GET_UNDATAINFO_ERROR:
 				// 服务器超时
 				ToastUtils.Toast(getActivity(), "获取服务器更新信息失败");
-				break;
-			case VersionVo.DOWN_ERROR:
-				// 下载apk失败
-				ToastUtils.Toast(getActivity(), "下载新版本失败");
 				break;
 			}
 		}
@@ -300,8 +312,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			if (intent.getAction()
-					.equals(AppConstant.MESSAGE_BROADCAST_GO_HOME)) {
+			if (intent.getAction().equals(AppConstant.MESSAGE_BROADCAST_GO_HOME)) {
 				mTabHost.setCurrentTab(0);
 			}
 		}
@@ -311,6 +322,12 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 	public void onResume() {
 		isForeground = true;
 		super.onResume();
+		
+	}
+	
+	private void downloadApk(String url){
+		downloadTools = new DownloadTools(getApplicationContext());
+		downloadTools.download(url);
 	}
 	
 
