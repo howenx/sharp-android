@@ -207,7 +207,7 @@ public class BaseActivity extends AppCompatActivity {
 								+ url[1].split(",－")[0]);
 					}else if(cbm.getText().toString().trim().contains("<T>")){
 						what = 1;
-						loadData(UrlUtil.SERVERY5 + "/promotion/pin/activity/" + url[1].split(",－")[0]);
+						loadData(UrlUtil.SERVERY5 + "/promotion/pin/activity" + url[1].split(",－")[0]);
 					}
 					cbm.setText("");
 					getMyApplication().setKouling("");

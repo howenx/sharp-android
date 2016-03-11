@@ -86,6 +86,7 @@ public class EditAdressActivity extends BaseActivity implements
 
 	private ProgressDialog dialog;
 	private User user;
+	private boolean cityUp = false;
 
 	/**
 	 * 所有省
@@ -135,15 +136,15 @@ public class EditAdressActivity extends BaseActivity implements
 		user = getUser();
 		findView();
 		isWhat = getIntent().getIntExtra("isWhat", 0);
-		if (isWhat == 1) {
-			old_Adress = (HMMAddress) getIntent().getExtras().get("address");
-			initView();
-		}
 		initProvinceDatas();
 		initWheel();
 		setUpViews();
 		setUpListener();
 		setUpData();
+		if (isWhat == 1) {
+			old_Adress = (HMMAddress) getIntent().getExtras().get("address");
+			initView();
+		}
 	}
 
 	// 设置地区选择器
@@ -351,6 +352,7 @@ public class EditAdressActivity extends BaseActivity implements
 				new OnClickListener() {
 					@Override
 					public void onClick(View arg0) {
+						cityUp = true;
 						setEditCity();
 						pop.dismiss();
 					}
@@ -415,15 +417,17 @@ public class EditAdressActivity extends BaseActivity implements
 			if (isWhat == 1)
 				object.put("addId", old_Adress.getAdress_id());
 			JSONObject cityObject = new JSONObject();
-			cityObject.put("province", mCurrentProviceName);
-			cityObject.put("city", mCurrentCityName);
-			cityObject.put("area", mCurrentDistrictName);
-			cityObject.put("area_code", "");
-			cityObject.put("city_code", "");
-			cityObject.put("province_code", mCurrentProviceEnName);
+			if(cityUp){
+				cityObject.put("province", mCurrentProviceName);
+				cityObject.put("city", mCurrentCityName);
+				cityObject.put("area", mCurrentDistrictName);
+				cityObject.put("province_code", mCurrentProviceEnName);
+				cityObject.put("area_code", "");
+				cityObject.put("city_code", "");
+				object.put("deliveryCity", cityObject.toString());
+			}
 			object.put("tel", phone);
 			object.put("name", name);
-			object.put("deliveryCity", cityObject.toString());
 			object.put("deliveryDetail", address);
 			object.put("orDefault", isDefaut);
 			object.put("idCardNum", idCard);

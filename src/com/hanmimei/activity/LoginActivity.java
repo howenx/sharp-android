@@ -319,13 +319,11 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 				Message msg = mHandler.obtainMessage(1);
 				msg.obj = loginInfo;
 				mHandler.sendMessage(msg);
-
 			}
 		}).start();
 	}
 
 	private Handler mHandler = new Handler() {
-
 		@Override
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);

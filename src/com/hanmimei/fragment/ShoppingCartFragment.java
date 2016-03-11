@@ -84,7 +84,7 @@ public class ShoppingCartFragment extends Fragment implements OnClickListener,
 		mListView.setAdapter(adapter);
 		loadData();
 		return view;
-	}
+	}	
 
 	private void loadData() {
 		user = activity.getUser();

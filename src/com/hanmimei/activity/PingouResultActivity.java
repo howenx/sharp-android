@@ -14,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
@@ -27,7 +26,6 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.hanmimei.R;
 import com.hanmimei.activity.listener.TimeEndListner;
-import com.hanmimei.adapter.ThemeAdapter;
 import com.hanmimei.adapter.TuijianAdapter;
 import com.hanmimei.application.HMMApplication;
 import com.hanmimei.data.AppConstant;
@@ -278,7 +276,7 @@ public class PingouResultActivity extends BaseActivity implements
 	private PinActivity pinActivity;
 
 	private void doCopy() {
-		String code[] = pinActivity.getPinUrl().split("activity/");
+		String code[] = pinActivity.getPinUrl().split("activity");
 		HMMApplication application = (HMMApplication) getApplication();
 		application.setKouling("KAKAO-HMM 复制这条信息,打开👉韩秘美👈即可看到<T>【"
 				+ pinActivity.getPinTitle() + "】," + code[1] + ",－🔑 M令 🔑");

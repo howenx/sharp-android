@@ -44,7 +44,6 @@ import com.hanmimei.utils.DoJumpUtils;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.KeyWordUtil;
 import com.hanmimei.view.YanZhengCodeTextView;
-import com.umeng.analytics.MobclickAgent;
 
 @SuppressLint("NewApi")
 public class RegistActivity extends BaseActivity implements OnClickListener,
@@ -64,9 +63,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 	private String msg;
 	private ProgressDialog dialog;
 	private TextView agree_us;
-
 	private boolean isRegist;
-
 	private ImageView clear_pwd;
 	private ImageView clear_pwd2;
 	private ImageView show_pwd;
@@ -83,7 +80,6 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 			isRegist = true;
 			ActionBarUtil.setActionBarStyle(this, "账号注册");
 		}
-
 		initView();
 	}
 
