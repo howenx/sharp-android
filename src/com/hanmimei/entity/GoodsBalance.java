@@ -32,7 +32,6 @@ public class GoodsBalance {
 		private BigDecimal factShipFee; //实际邮费
 		
 		private List<SingleCustoms> singleCustoms;
-		
 		private int postalStandard;
 		
 		public int getPostalStandard() {

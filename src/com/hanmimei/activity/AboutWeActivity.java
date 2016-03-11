@@ -5,10 +5,10 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
 import com.hanmimei.R;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.utils.ActionBarUtil;
-import com.umeng.analytics.MobclickAgent;
 
 @SuppressLint("NewApi") 
 public class AboutWeActivity extends BaseActivity {

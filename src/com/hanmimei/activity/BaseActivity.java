@@ -67,8 +67,6 @@ public class BaseActivity extends AppCompatActivity {
 			SystemBarTintManager tintManager = new SystemBarTintManager(this);
 			// 激活状态栏设置
 			tintManager.setStatusBarTintEnabled(true);
-			// 激活导航栏设置
-//			tintManager.setNavigationBarTintEnabled(true);
 			// 设置一个颜色给系统栏
 			tintManager.setTintColor(getResources().getColor(R.color.theme));
 			if (VERSION.SDK_INT >= 21) {

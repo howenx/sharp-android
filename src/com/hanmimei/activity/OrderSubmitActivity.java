@@ -42,7 +42,7 @@ public class OrderSubmitActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.order_submit_layout);
 		// 初始化actionbar
-		ActionBarUtil.setActionBarStyle(this, "支付", new BackClickListener());
+		ActionBarUtil.setActionBarStyle(this, "收银台", new BackClickListener());
 		OrderInfo orderInfo = (OrderInfo) getIntent().getSerializableExtra(
 				"orderInfo");
 

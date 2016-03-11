@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hanmimei"
-    android:versionCode="14"
-    android:versionName="v0.1.4" >
+    android:versionCode="15"
+    android:versionName="v0.1.5" >
 
     <uses-sdk
         android:minSdkVersion="11"
@@ -212,10 +212,6 @@
             android:windowSoftInputMode="adjustResize" >
         </activity>
 
-        <service
-            android:name="com.sina.weibo.sdk.net.DownloadService"
-            android:exported="false" >
-        </service>
         <!-- QQ／QQ空间 -->
         <activity
             android:name="com.tencent.tauth.AuthActivity"

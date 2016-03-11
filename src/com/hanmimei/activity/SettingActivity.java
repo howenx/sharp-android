@@ -19,10 +19,11 @@ import com.hanmimei.application.HMMApplication;
 import com.hanmimei.dao.UserDao;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.entity.User;
-import com.hanmimei.service.DownloadService;
+import com.hanmimei.entity.VersionVo;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.DoJumpUtils;
+import com.hanmimei.utils.DownloadTools;
 import com.hanmimei.utils.ToastUtils;
 
 @SuppressLint("NewApi")
@@ -141,9 +142,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 					
 					@Override
 					public void onClick(View v) {
-						Intent intent = new Intent(getActivity(),DownloadService.class);
-						intent.putExtra("url", getVersionInfo().getDownloadLink());
-						startService(intent);
+						new DownloadTools(getApplicationContext()).download(getVersionInfo().getDownloadLink());
 					}
 				});
 			}

@@ -2,12 +2,12 @@ package com.hanmimei.activity.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
-import android.widget.TextView;
+import android.widget.ProgressBar;
 
 import com.cpoopc.scrollablelayoutlib.ScrollAbleFragment;
 import com.hanmimei.R;
@@ -25,6 +25,7 @@ public class ImgFragment extends ScrollAbleFragment   {
 	}
 	
 	private WebView mWebView;
+	private ProgressBar mProgressBar;
 
 	@Override
 	@Nullable
@@ -34,11 +35,25 @@ public class ImgFragment extends ScrollAbleFragment   {
 		View view = inflater.inflate(R.layout.webview_layout, null);
 		String data = getArguments().getString("data");
 		mWebView = (WebView) view.findViewById(R.id.mWebView);
+		mProgressBar = (ProgressBar) view.findViewById(R.id.mProgressBar);
 		mWebView.loadData(data, "text/html", "UTF-8");
 		mWebView.getSettings().setJavaScriptEnabled(true);
 		mWebView.getSettings().setSupportZoom(true);
 		mWebView.getSettings().setBuiltInZoomControls(true);
 		mWebView.getSettings().setDisplayZoomControls(false);
+		
+		mWebView.setWebChromeClient(new WebChromeClient(){
+
+			@Override
+			public void onProgressChanged(WebView view, int newProgress) {
+				super.onProgressChanged(view, newProgress);
+				if(newProgress>=99){
+					mProgressBar.setVisibility(View.INVISIBLE);
+					mWebView.setVisibility(View.VISIBLE);
+				}
+			}
+			
+		});
 		
 		return view;
 	}

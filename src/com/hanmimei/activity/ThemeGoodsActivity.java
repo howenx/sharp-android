@@ -78,8 +78,6 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-//				if (data.get(arg2).getState().equals("Y")
-//						|| data.get(arg2).getState().equals("P")) {
 					Intent intent = null;
 					if (data.get(arg2).getItemType().equals("pin")) {
 						intent = new Intent(getActivity(),
@@ -87,9 +85,9 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 					} else {
 						intent = new Intent(getActivity(),GoodsDetailActivity.class);
 					}
+					Log.i("detailUrl", data.get(arg2).getItemUrl());
 					intent.putExtra("url", data.get(arg2).getItemUrl());
 					startActivityForResult(intent, 1);
-//				}
 			}
 		});
 
@@ -111,6 +109,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 	// 获取显示数据
 	private void loadUrl() {
 		getLoading().show();
+		Log.i("url", getIntent().getStringExtra("url"));
 		Http2Utils.doGetRequestTask(this, getHeaders(), getIntent()
 				.getStringExtra("url"), new VolleyJsonCallback() {
 

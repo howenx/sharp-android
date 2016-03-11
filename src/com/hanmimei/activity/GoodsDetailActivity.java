@@ -750,6 +750,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		tuiWindow = PopupWindowUtil.showPopWindow(this, view);
 		more_view.setOnClickListener(this);
 		}else{
+			PopupWindowUtil.backgroundAlpha(this, 0.4f);
 			tuiWindow.showAtLocation(more_view, Gravity.BOTTOM, 0, 0);
 		}
 		
@@ -856,10 +857,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 			if (s.getOrMasterInv()){
 				stock = s;
 				if(!s.getState().equals("Y")){
-					notice.setVisibility(View.VISIBLE);
-					notice.setText("商品已售罄");
-					more_view.setVisibility(View.VISIBLE);
-					more_view.setOnClickListener(this);
+					
 					showPopupwindow();
 				}
 			}
@@ -1012,14 +1010,11 @@ public class GoodsDetailActivity extends BaseActivity implements
 				getGoodsNums();
 			}else if(intent.getAction().equals(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION)){
 				loadDataByUrl();
+				getGoodsNums();
 			}
 		}
 	}
 
-	// Handle scroll event from fragments
-	public void onEvent(Boolean b) {
-		// dragLayout.setTouchMode(b);
-	}
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();

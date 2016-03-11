@@ -26,6 +26,7 @@
 
 	
 	<string name="price">¥%1$s</string>
+	<string name="price01">¥%1$s起售</string>
 	<string name="discount">%1$s折</string>
 	<string name="shui"><u>行邮税</u></string>
 	<string name="error">数据请求失败</string>
