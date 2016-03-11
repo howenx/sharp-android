@@ -2,28 +2,35 @@ package com.hanmimei.data;
 
 public class UrlUtil {
 
-
-	// 阿里云
+	/*
+	 * 阿里云
+	 */
 	 public static final String SERVERY3 = "https://api.hanmimei.com";
 	 public static final String SERVERY1 = "https://shopping.hanmimei.com";
 	 public static final String SERVERY4 = "https://id.hanmimei.com";
 	 public static final String SERVERY5 = "https://promotion.hanmimei.com";
-
-//	 public static final String SERVERY3 = "http://172.28.3.78:9001"; //18:9001
-//	 public static final String SERVERY1 = "http://172.28.3.78:9003"; //18:9003
-//	 public static final String SERVERY4 = "http://172.28.3.78:9004"; //18:9004
-//	 public static final String SERVERY5 = "http://172.28.3.78:9005"; //18:9005
-
-//	public static final String SERVERY3 = "http://172.28.3.51:9001"; // 18:9001
-//	public static final String SERVERY1 = "http://172.28.3.51:9003"; // 18:9003
-//	public static final String SERVERY4 = "http://172.28.3.51:9004"; // 18:9004
-//	public static final String SERVERY5 = "http://172.28.3.51:9005"; // 18:9005
-	// 18
-//	 public static final String SERVERY3 = "http://172.28.3.18:9001"; //18:9001
-//	 public static final String SERVERY1 = "http://172.28.3.18:9003"; //18:9003
-//	 public static final String SERVERY4 = "http://172.28.3.18:9004"; //18:9004
-//	 public static final String SERVERY5 = "http://172.28.3.18:9005"; //18:9004
-//	 public static final String SERVERY5 = "http://172.28.3.18:9005"; //18:9005
+	/*
+	 * http://172.28.3.78
+	 */
+	// public static final String SERVERY3 = "http://172.28.3.78:9001";
+	// public static final String SERVERY1 = "http://172.28.3.78:9003";
+	// public static final String SERVERY4 = "http://172.28.3.78:9004";
+	// public static final String SERVERY5 = "http://172.28.3.78:9005";
+	/*
+	 * http://172.28.3.51
+	 */
+//	public static final String SERVERY3 = "http://172.28.3.51:9001";
+//	public static final String SERVERY1 = "http://172.28.3.51:9003";
+//	public static final String SERVERY4 = "http://172.28.3.51:9004";
+//	public static final String SERVERY5 = "http://172.28.3.51:9005";
+	/*
+	 * http://172.28.3.18
+	 */
+	// public static final String SERVERY3 = "http://172.28.3.18:9001";
+	// public static final String SERVERY1 = "http://172.28.3.18:9003";
+	// public static final String SERVERY4 = "http://172.28.3.18:9004";
+	// public static final String SERVERY5 = "http://172.28.3.18:9005";
+	// public static final String SERVERY5 = "http://172.28.3.18:9005";
 
 	// 图形验证码接口
 	public static final String GET_IMG_CODE = SERVERY4 + "/getImageCodes/";
@@ -34,15 +41,13 @@ public class UrlUtil {
 	// 首页数据接口
 	public static final String HOME_LIST_URL = SERVERY3 + "/index/";
 	// 地址列表接口
-	public static final String ADDRESS_LIST_URL = SERVERY4
-			+ "/api/address/list";
+	public static final String ADDRESS_LIST_URL = SERVERY4+ "/api/address/list";
 	// 地址删除接口
 	public static final String ADDRESS_DEL_URL = SERVERY4 + "/api/address/del";
 	// 添加地址接口
 	public static final String ADDRESS_ADD_URL = SERVERY4 + "/api/address/add";
 	// 更新地址接口
-	public static final String ADDRESS_UPDATE_URL = SERVERY4
-			+ "/api/address/update";
+	public static final String ADDRESS_UPDATE_URL = SERVERY4  + "/api/address/update";
 	// 重置密码接口
 	public static final String RESET_PWD_URL = SERVERY4 + "/api/reset_password";
 	// 验证码获取接口
@@ -51,13 +56,12 @@ public class UrlUtil {
 	public static final String UPDATE_USERINFO = SERVERY4 + "/api/user/update";
 	// 更新token
 	public static final String UPDATE_TOKEN = SERVERY4 + "/api/refresh_token";
-	// 登录状态请求购物车数据接口
+	// 登录后，将本地购物车同步到网络购物车
 	public static final String GET_CAR_LIST_URL = SERVERY1 + "/client/cart";
-
+	//登录状态下请求购物车数据
 	public static final String GET_CAR_LIST = SERVERY1 + "/client/cart/list";
-
-	public static final String CAR_LIST_URL = SERVERY1
-			+ "/client/cart/get/sku/list";
+	//未登录状态下请求购物车数据
+	public static final String CAR_LIST_URL = SERVERY1 + "/client/cart/get/sku/list";
 	// 未登录状态请求购物车数据
 	public static final String SEND_CAR_TO_SERVER_UN = SERVERY1
 			+ "/client/cart/verify/amount/";
@@ -82,8 +86,7 @@ public class UrlUtil {
 	public static final String GET_COUPON_LIST_URL = SERVERY1
 			+ "/client/coupons/list";
 	// 获取购物车数量接口
-	public static final String GET_CART_NUM_URL = SERVERY3
-			+ "/comm/cart/amount";
+	public static final String GET_CART_NUM_URL = SERVERY3 + "/comm/cart/amount";
 
 	// 结算页接口
 	public static final String POST_CLIENT_SETTLE = SERVERY1 + "/client/settle";
@@ -118,12 +121,12 @@ public class UrlUtil {
 	// 查询我的拼团
 	public static final String GET_MY_PINTUAN = SERVERY5
 			+ "/promotion/pin/activity/list";
-	//消息type
+	// 消息type
 	public static final String GET_MSG_TYPE = SERVERY1 + "/client/msg/get/type";
-	//单个删除消息
+	// 单个删除消息
 	public static final String DEL_MSG = SERVERY1 + "/client/msg/delMsg/";
-	//获取消息列表
+	// 获取消息列表
 	public static final String GET_MSG_LIST = SERVERY1 + "/client/msg/list/";
-	//删除消息  按type删除
+	// 删除消息 按type删除
 	public static final String DEL_MSG_TYPE = SERVERY1 + "/client/msg/clean/";
 }

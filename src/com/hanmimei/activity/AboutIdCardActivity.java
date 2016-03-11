@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import com.hanmimei.R;
 import com.hanmimei.utils.ActionBarUtil;
-import com.umeng.analytics.MobclickAgent;
 
 @SuppressLint("NewApi") 
 public class AboutIdCardActivity extends BaseActivity{

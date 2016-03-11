@@ -254,8 +254,7 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 				
 				@Override
 				public void onClick(View arg0) {
-					Intent intent = new Intent(AdressActivity.this,
-							EditAdressActivity.class);
+					Intent intent = new Intent(AdressActivity.this,EditAdressActivity.class);
 					Bundle bundle = new Bundle();
 					bundle.putSerializable("address", adress);
 					intent.putExtras(bundle);

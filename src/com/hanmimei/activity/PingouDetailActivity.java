@@ -347,6 +347,7 @@ public class PingouDetailActivity extends BaseActivity implements
 			tuiWindow = PopupWindowUtil.showPopWindow(this, view);
 			more_view.setOnClickListener(this);
 		} else {
+			PopupWindowUtil.backgroundAlpha(this, 0.4f);
 			tuiWindow.showAtLocation(more_view, Gravity.BOTTOM, 0, 0);
 		}
 

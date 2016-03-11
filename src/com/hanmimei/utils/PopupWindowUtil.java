@@ -50,7 +50,7 @@ public class PopupWindowUtil {
 	 * 
 	 * @param bgAlpha
 	 */
-	private static void backgroundAlpha(Context context, float bgAlpha) {
+	public static void backgroundAlpha(Context context, float bgAlpha) {
 		BaseActivity activity = (BaseActivity) context;
 		
 		WindowManager.LayoutParams lp = activity.getWindow().getAttributes();

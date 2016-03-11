@@ -94,8 +94,7 @@ public class PingouResultActivity extends BaseActivity implements
 	 */
 	private void loadPinUrl() {
 		getLoading().show();
-		Http2Utils.doGetRequestTask(this, getHeaders(), getIntent()
-				.getStringExtra("url"), new VolleyJsonCallback() {
+		Http2Utils.doGetRequestTask(this, getHeaders(), getIntent().getStringExtra("url"), new VolleyJsonCallback() {
 
 			@Override
 			public void onSuccess(String result) {
@@ -310,6 +309,7 @@ public class PingouResultActivity extends BaseActivity implements
 		tuiWindow = PopupWindowUtil.showPopWindow(this, view);
 		more_view.setOnClickListener(this);
 		}else{
+			PopupWindowUtil.backgroundAlpha(this, 0.4f);
 			tuiWindow.showAtLocation(more_view, Gravity.BOTTOM, 0, 0);
 		}
 		
@@ -372,6 +372,7 @@ public class PingouResultActivity extends BaseActivity implements
 				this.faceView = (ImageView) view.findViewById(R.id.faceView);
 			}
 		}
+		
 	}
 
 	/**
