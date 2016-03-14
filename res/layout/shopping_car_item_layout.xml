@@ -37,11 +37,48 @@
             android:text="@null"
             android:textSize="16sp"
             android:textColor="@color/theme"/>
-    <LinearLayout 
-        android:id="@+id/linear"
+    
+        
+        <ImageView 
+            android:id="@+id/delete"
+            android:scaleType="fitCenter"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
             android:layout_below="@id/img"
+            android:src="@drawable/icon_delete_hui"/>
+    <RelativeLayout 
+        android:id="@+id/name_re"
+        android:layout_toRightOf="@id/img"
+        android:layout_marginLeft="10dp"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+        <TextView 
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:text="@null"
+            android:textColor="@color/fontcolor"
+            android:textSize="14sp"/>
+        <TextView 
+            android:id="@+id/size"
+            android:layout_marginTop="3dp"
+            android:layout_below="@id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@null"
+            android:textSize="13sp"
+            android:textColor="@color/huise"/>
+       
+    </RelativeLayout>
+    <LinearLayout 
+       		android:id="@+id/linear"
+            android:layout_below="@id/name_re"
             android:layout_toRightOf="@id/price"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
             android:padding="0.2dp"
             android:layout_height="28dp"
             android:layout_width="100dp"
@@ -74,39 +111,5 @@
                 android:textColor="@color/fontcolor"
                 android:textSize="20sp" />
         </LinearLayout>
-        
-        <ImageView 
-            android:id="@+id/delete"
-            android:scaleType="fitCenter"
-            android:layout_width="wrap_content"
-            android:layout_height="25dp"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/img"
-            android:src="@drawable/icon_delete_hui"/>
-    <RelativeLayout 
-        android:layout_toRightOf="@id/img"
-        android:layout_marginLeft="10dp"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent">
-        <TextView 
-            android:id="@+id/name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:text="@null"
-            android:textColor="@color/fontcolor"
-            android:textSize="14sp"/>
-        <TextView 
-            android:id="@+id/size"
-            android:layout_marginTop="5dp"
-            android:layout_below="@id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@null"
-            android:textSize="14sp"
-            android:textColor="@color/huise"/>
-       
-    </RelativeLayout>
 
 </RelativeLayout>

@@ -312,6 +312,11 @@ public class DataParser {
 		HMessage msg = new HMessage();
 		try {
 			JSONObject object = new JSONObject(result);
+			JSONObject msgObject = object.getJSONObject("message");
+			if(msgObject.has("message"))
+				msg.setMessage(msgObject.getString("message"));
+			if(msgObject.has("code"))
+				msg.setCode(msgObject.getInt("code"));
 			if(object.has("cartList")){
 			JSONArray array = object.getJSONArray("cartList");
 			for(int i = 0; i < array.length(); i ++){
@@ -389,11 +394,7 @@ public class DataParser {
 				customs.add(custom);
 			}
 			}
-			JSONObject msgObject = object.getJSONObject("message");
-			if(msgObject.has("message"))
-				msg.setMessage(msgObject.getString("message"));
-			if(msgObject.has("code"))
-				msg.setCode(msgObject.getInt("code"));
+			
 			car.setList(customs);
 			car.setMessage(msg);
 		} catch (JSONException e) {
@@ -414,6 +415,8 @@ public class DataParser {
 				msg.setTag(object.getString("token"));
 			if(object.has("expired"))
 				msg.setTime(object.getInt("expired"));
+			if(object.has("id"))
+				msg.setUserId(object.getInt("id"));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

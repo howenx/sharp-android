@@ -7,7 +7,14 @@ public class HMessage implements Serializable{
 	private Integer code ;
 	private String tag;
 	private int time;
+	private int userId;
 	
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
 	public String getTag() {
 		return tag;
 	}

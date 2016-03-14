@@ -343,7 +343,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 						user.setLast_login(DateUtil.getCurrentDate());
 						HMMApplication application = (HMMApplication) getApplication();
 						application.setLoginUser(user);
-						JPushInterface.setAlias(LoginActivity.this, result.getTag(), new TagAliasCallback() {
+						JPushInterface.setAlias(LoginActivity.this, result.getUserId()+"", new TagAliasCallback() {
 							@Override
 							public void gotResult(int arg0, String arg1, Set<String> arg2) {	
 							}

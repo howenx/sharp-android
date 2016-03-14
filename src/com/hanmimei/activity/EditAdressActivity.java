@@ -174,6 +174,7 @@ public class EditAdressActivity extends BaseActivity implements
 		mViewDistrict
 				.setViewAdapter(new ArrayWheelAdapter<String>(this, areas));
 		mViewDistrict.setCurrentItem(0);
+		mCurrentDistrictName = mDistrictDatasMap.get(mCurrentCityName)[mViewDistrict.getCurrentItem()];
 	}
 
 	/**
