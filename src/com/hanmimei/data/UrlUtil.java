@@ -62,8 +62,7 @@ public class UrlUtil {
 	//未登录状态下请求购物车数据
 	public static final String CAR_LIST_URL = SERVERY1 + "/client/cart/get/sku/list";
 	// 未登录状态请求购物车数据
-	public static final String SEND_CAR_TO_SERVER_UN = SERVERY1
-			+ "/client/cart/verify/amount/";
+	public static final String SEND_CAR_TO_SERVER_UN = SERVERY1 + "/client/cart/verify/amount/";
 	// 用户登录接口
 	public static final String LOGIN_URL = SERVERY4 + "/api/login_user_name";
 	// 用户注册接口

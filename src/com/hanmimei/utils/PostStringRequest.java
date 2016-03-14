@@ -40,7 +40,7 @@ public class PostStringRequest extends StringRequest {
 	public PostStringRequest(int method, String path,Listener<String> listener, ErrorListener errorListener,Map<String, String> params, Map<String, String> headers)
 			throws IOException {
 		super(method, path, listener, errorListener);
-		if (map != null) {
+		if (params != null) {
 			this.map = params;
 		}
 		

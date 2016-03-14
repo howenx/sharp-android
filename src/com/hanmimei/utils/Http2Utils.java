@@ -88,7 +88,11 @@ public class Http2Utils {
 	public static void doRequestTask(Context mContext, int method, String url,
 			final VolleyJsonCallback callback, Map<String, String> params,
 			Map<String, String> headers) {
-		final BaseActivity mActivity = (BaseActivity) mContext;
+		BaseActivity mActivity = null;
+		if(!(mContext instanceof BaseActivity)){
+			return;
+		}
+		mActivity = (BaseActivity) mContext;
 		PostStringRequest request = null;
 		try {
 			request = new PostStringRequest(method, url,
