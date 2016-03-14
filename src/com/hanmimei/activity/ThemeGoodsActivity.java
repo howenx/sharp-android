@@ -43,7 +43,6 @@ import com.ui.tag.TagView;
 import com.ui.tag.TagView.TagViewListener;
 import com.ui.tag.TagViewLeft;
 import com.ui.tag.TagViewRight;
-import com.umeng.analytics.MobclickAgent;
 
 /**
  * @author vince 主题商品的二级界面。

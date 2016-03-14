@@ -2,6 +2,8 @@ package com.hanmimei.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -22,16 +24,20 @@ public class WebviewActivity extends BaseActivity {
 		mWebView = (WebView) findViewById(R.id.mWebView);
 		
 		mWebView.getSettings().setJavaScriptEnabled(true);
+		
 		mWebView.loadUrl(getIntent().getStringExtra("url"),getHeaders());
-		mWebView.setWebViewClient(new WebViewClient() {
+		mWebView.setWebViewClient(new WebViewClient());
+		mWebView.setWebChromeClient(new WebChromeClient(){
 
-			// 点击页面中的链接会调用这个方法
 			@Override
-			public boolean shouldOverrideUrlLoading(WebView view, String url) {
-				view.loadUrl(url);
-				return true;
+			public void onProgressChanged(WebView view, int newProgress) {
+				super.onProgressChanged(view, newProgress);
+				if(newProgress>=99){
+					findViewById(R.id.mProgressBar).setVisibility(View.INVISIBLE);
+					mWebView.setVisibility(View.VISIBLE);
+				}
 			}
-
+			
 		});
 	}
 
