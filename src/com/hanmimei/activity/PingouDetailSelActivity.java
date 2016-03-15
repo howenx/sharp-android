@@ -109,11 +109,11 @@ public class PingouDetailSelActivity extends BaseActivity {
 			}
 			holder.pin.setText("开团人数：" + ppr.getPeopleNum());
 			holder.price.setText("¥" + ppr.getPrice());
-			holder.manjianView.setText("团长特惠：开团立减"+ppr.getMasterCoupon()+"元");
+			holder.manjianView.setText("团长特惠：开团立减"+ppr.getMasterMinPrice()+"元");
 			holder.zengView.setText("团长特惠：赠"+ppr.getMasterCoupon()+"元优惠券");
 			if (ppr.isSelected()) {
-				if(ppr.getMasterCoupon() != null){
-					holder.manjianView.setVisibility(View.GONE);
+				if(ppr.getMasterMinPrice() != null){
+					holder.manjianView.setVisibility(View.VISIBLE);
 					holder.img.setVisibility(View.VISIBLE);
 				}else{
 					holder.manjianView.setVisibility(View.GONE);

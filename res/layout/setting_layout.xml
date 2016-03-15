@@ -2,50 +2,43 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
-    android:fitsSystemWindows="true" >
-    <TextView 
+    android:background="@color/background"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical" >
+
+    <TextView
         android:id="@+id/about"
+        style="@style/setting_text_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="    关于我们"
-        style="@style/setting_text_style"/>
-    <View 
-        android:layout_height="0.1dp"
-        android:layout_width="match_parent"
-        android:background="@color/qianhui"/>
-    <TextView 
+        android:layout_marginTop="20dp"
+        android:text="    关于我们" />
+
+
+    <TextView
         android:id="@+id/idea"
+        style="@style/setting_text_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="    意见反馈"
-        style="@style/setting_text_style"/>
-    <View 
-        android:layout_height="0.1dp"
-        android:layout_width="match_parent"
-        android:background="@color/qianhui"/>
-    <TextView 
+        android:text="    意见反馈" />
+
+    <TextView
         android:id="@+id/comment"
+        style="@style/setting_text_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="    评价我们"
-        android:visibility="gone"
-        style="@style/setting_text_style"/>
-    <View 
-        android:layout_height="0.1dp"
-        android:layout_width="match_parent"
-        android:background="@color/qianhui"/>
-    <TextView 
+        android:visibility="gone" />
+
+
+    <TextView
         android:id="@+id/tel"
+        style="@style/setting_text_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="    联系我们"
-        style="@style/setting_text_style"/>
-    <View 
-        android:layout_height="0.1dp"
-        android:layout_width="match_parent"
-        android:background="@color/qianhui"/>
-    <!--  
+        android:text="    联系我们" />
+
+    <!--
     <TextView 
         android:id="@+id/push"
         android:layout_width="match_parent"
@@ -56,50 +49,52 @@
         android:layout_height="0.1dp"
         android:layout_width="match_parent"
         android:background="@color/qianhui"/>
-        -->
-    <TextView 
+    -->
+
+    <TextView
         android:id="@+id/del"
+        style="@style/setting_text_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="    清除缓存"
-        android:visibility="gone"
-        style="@style/setting_text_style"/>
-    <View 
-        android:layout_height="0.1dp"
+        android:visibility="gone" />
+
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:background="@color/qianhui"/>
-    <FrameLayout 
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/upd"
+            style="@style/setting_text_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="    检测更新" />
+
+        <TextView
+            android:id="@+id/versionName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="15dp"
+            android:textColor="@color/fontcolor"
+            android:textSize="14sp" />
+    </FrameLayout>
+
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-     <TextView 
-        android:id="@+id/upd"
+        android:layout_height="1px"
+        android:background="@color/qianhui" />
+
+    <TextView
+        android:id="@+id/exit"
+        style="@style/submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="    检测更新"
-        style="@style/setting_text_style"/>
-     
-     <TextView 
-         android:id="@+id/versionName"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_gravity="right|center_vertical"
-         android:textColor="@color/fontcolor"
-         android:textSize="14sp"
-         android:layout_marginRight="15dp"/>
-     </FrameLayout>
-    <View 
-        android:layout_height="0.1dp"
-        android:layout_width="match_parent"
-        android:background="@color/qianhui"/>
-    <TextView 
-        android:id="@+id/exit"
-        android:layout_marginTop="30dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:gravity="center"
-        android:text="退出登录"
-        style="@style/submit"/>
+        android:text="退出登录" />
 
 </LinearLayout>

@@ -45,8 +45,8 @@
             android:theme="@style/SplashStyle" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+                <data android:scheme="hmm" android:host="hanmimei.main" android:pathPrefix="/home" />
             </intent-filter>
         </activity>
         <activity
@@ -79,7 +79,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.hanmimei.activity.GoodsDetailActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+             />
         <activity
             android:name="com.hanmimei.activity.OrderDetailActivity"
             android:screenOrientation="portrait" />
@@ -91,7 +92,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.hanmimei.activity.LoginActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+            </activity>
         <activity
             android:name="com.hanmimei.activity.RegistActivity"
             android:screenOrientation="portrait" />

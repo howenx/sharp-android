@@ -3,540 +3,515 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg"
+    android:background="@color/background"
     android:fitsSystemWindows="true"
     android:orientation="vertical" >
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:scrollbars="none"
-        android:layout_weight="1" >
+        android:layout_weight="1"
+        android:scrollbars="none" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <android.support.v7.widget.CardView
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                card_view:cardBackgroundColor="@color/white"
-                card_view:cardCornerRadius="1dp" >
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:minHeight="120dp"
+                android:padding="10dp" >
 
-                <FrameLayout
+                <RelativeLayout
+                    android:id="@+id/selectAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="120dp"
-                    android:padding="10dp" >
+                    android:visibility="gone" >
 
-                    <RelativeLayout
-                        android:id="@+id/selectAddress"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone" >
-
-                        <ImageView
-                            android:id="@+id/icon"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@drawable/icon_ad" />
-
-                        <TextView
-                            android:id="@+id/name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_toRightOf="@id/icon"
-                            android:text="@null"
-                            android:textColor="@color/fontcolor"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/phone"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/name"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_toRightOf="@id/icon"
-                            android:gravity="center"
-                            android:text="@null"
-                            android:textColor="@color/fontcolor"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/idCard"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/phone"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_toRightOf="@id/icon"
-                            android:text="@null"
-                            android:textColor="@color/fontcolor"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/address"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/idCard"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_toRightOf="@id/icon"
-                            android:text="@null"
-                            android:textColor="@color/fontcolor"
-                            android:textSize="14sp" />
-
-                        <ImageView
-                            android:id="@+id/isSelected"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignRight="@+id/idCard"
-                            android:layout_centerVertical="true"
-                            android:src="@drawable/buttonjiantou" />
-
-                        <TextView
-                            android:id="@+id/isDefault"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="2dp"
-                            android:layout_toRightOf="@id/name"
-                            android:text="默认"
-                            android:textColor="@color/red"
-                            android:textSize="12sp" />
-                    </RelativeLayout>
+                    <ImageView
+                        android:id="@+id/icon"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/icon_ad" />
 
                     <TextView
-                        android:id="@+id/newAddress"
-                        style="@style/customButton"
+                        android:id="@+id/name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:background="@drawable/bg_custom_button"
-                        android:text="添加收货地址"
-                        android:textColor="@color/btn_font_selector"
-                        android:textSize="16sp" />
-                </FrameLayout>
-            </android.support.v7.widget.CardView>
+                        android:layout_marginLeft="15dp"
+                        android:layout_toRightOf="@id/icon"
+                        android:text="@null"
+                        android:textColor="@color/fontcolor"
+                        android:textSize="14sp" />
 
-            <android.support.v7.widget.CardView
+                    <TextView
+                        android:id="@+id/phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/name"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_toRightOf="@id/icon"
+                        android:gravity="center"
+                        android:text="@null"
+                        android:textColor="@color/fontcolor"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/idCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/phone"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_toRightOf="@id/icon"
+                        android:text="@null"
+                        android:textColor="@color/fontcolor"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/idCard"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_toRightOf="@id/icon"
+                        android:text="@null"
+                        android:textColor="@color/fontcolor"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:id="@+id/isSelected"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignRight="@+id/idCard"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/buttonjiantou" />
+
+                    <TextView
+                        android:id="@+id/isDefault"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_toRightOf="@id/name"
+                        android:text="默认"
+                        android:textColor="@color/red"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/newAddress"
+                    style="@style/customButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_custom_button"
+                    android:text="添加收货地址"
+                    android:textColor="@color/btn_font_selector"
+                    android:textSize="16sp" />
+            </FrameLayout>
+
+            <com.hanmimei.view.CustomListView
+                android:id="@+id/mListView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                card_view:cardBackgroundColor="@color/white"
-                card_view:cardCornerRadius="1dp" >
+                android:background="@color/white" />
 
-                <com.hanmimei.view.CustomListView
-                    android:id="@+id/mListView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white" />
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/margin_vertical_normal"
-                card_view:cardBackgroundColor="@color/white"
-                card_view:cardCornerRadius="1dp" >
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:orientation="vertical" >
 
-                <LinearLayout
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" >
+                    android:background="@color/white"
+                    android:padding="10dp"
+                    android:text="发货时间"
+                    android:textColor="#AA000000"
+                    android:textSize="13sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#cccccc" />
+
+                <RelativeLayout
+                    android:id="@+id/btn_send_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="10dp" >
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:id="@+id/send_time"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:padding="10dp"
-                        android:text="发货时间"
-                        android:textColor="#AA000000"
-                        android:textSize="13sp" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1px"
-                        android:background="#cccccc" />
-
-                    <RelativeLayout
-                        android:id="@+id/btn_send_time"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:padding="10dp" >
-
-                        <TextView
-                            android:id="@+id/send_time"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawableLeft="@drawable/btn_radio_selected"
-                            android:drawablePadding="8dp"
-                            android:gravity="center_vertical"
-                            android:text="工作日双休日与假期均可送货"
-                            android:textColor="#AA000000"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:text="编辑"
-                            android:textColor="#CCCCCC"
-                            android:textSize="14sp" />
-                    </RelativeLayout>
-
-                    <RadioGroup
-                        android:id="@+id/group_send_time"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/background"
-                        android:checkedButton="@+id/btn_all_day"
-                        android:orientation="vertical"
-                        android:visibility="gone" >
-
-                        <RadioButton
-                            android:id="@+id/btn_all_day"
-                            style="@style/btn_radio_style"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:tag="1"
-                            android:text="工作日双休日与假期均可送货"
-                            android:textColor="#AA000000"
-                            android:textSize="12sp" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1px"
-                            android:background="#cccccc" />
-
-                        <RadioButton
-                            android:id="@+id/btn_work_day"
-                            style="@style/btn_radio_style"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:tag="2"
-                            android:text="只工作日送货"
-                            android:textColor="#AA000000"
-                            android:textSize="12sp" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1px"
-                            android:background="#cccccc" />
-
-                        <RadioButton
-                            android:id="@+id/btn_rest_day"
-                            style="@style/btn_radio_style"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:tag="3"
-                            android:text="只双休日与假日送货"
-                            android:textColor="#AA000000"
-                            android:textSize="12sp" />
-                    </RadioGroup>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1px"
-                        android:background="#cccccc" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:padding="10dp"
-                        android:text="支付方式"
-                        android:textColor="#AA000000"
-                        android:textSize="13sp" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1px"
-                        android:background="#cccccc" />
-
-                    <RelativeLayout
-                        android:id="@+id/btn_pay_type"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:padding="10dp" >
-
-                        <TextView
-                            android:id="@+id/pay_type"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawableLeft="@drawable/btn_radio_selected"
-                            android:drawablePadding="8dp"
-                            android:gravity="center_vertical"
-                            android:text="在线支付"
-                            android:textColor="#AA000000"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:text="编辑"
-                            android:textColor="#CCCCCC"
-                            android:textSize="14sp" />
-                    </RelativeLayout>
-
-                    <RadioGroup
-                        android:id="@+id/group_pay_type"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/background"
-                        android:checkedButton="@+id/pay_jd"
-                        android:orientation="vertical"
-                        android:visibility="gone" >
-
-                        <RadioButton
-                            android:id="@+id/pay_jd"
-                            style="@style/btn_radio_style"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:tag="@string/pay_type_jd"
-                            android:text="在线支付"
-                            android:textColor="#AA000000"
-                            android:textSize="12sp" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1px"
-                            android:background="#cccccc"
-                            android:visibility="gone" />
-
-                        <RadioButton
-                            android:id="@+id/pay_ali"
-                            style="@style/btn_radio_style"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:tag="@string/pay_type_ali"
-                            android:text="支付宝"
-                            android:textColor="#AA000000"
-                            android:textSize="12sp"
-                            android:visibility="gone" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1px"
-                            android:background="#cccccc" />
-
-                        <RadioButton
-                            android:id="@+id/pay_wx"
-                            style="@style/btn_radio_style"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:tag="@string/pay_type_wx"
-                            android:text="微信支付"
-                            android:textColor="#AA000000"
-                            android:textSize="12sp"
-                            android:visibility="gone" />
-                    </RadioGroup>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/margin_vertical_normal"
-                card_view:cardBackgroundColor="@color/white"
-                card_view:cardCornerRadius="1dp" >
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" >
-
-                    <LinearLayout
-                        android:id="@+id/btn_mCoupon"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
+                        android:drawableLeft="@drawable/btn_radio_selected"
+                        android:drawablePadding="8dp"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:padding="10dp" >
+                        android:text="工作日双休日与假期均可送货"
+                        android:textColor="#AA000000"
+                        android:textSize="14sp" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:text="可使用优惠券"
-                            android:textColor="#AA000000"
-                            android:textSize="14sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:text="编辑"
+                        android:textColor="#CCCCCC"
+                        android:textSize="14sp" />
+                </RelativeLayout>
 
-                        <TextView
-                            android:id="@+id/coupon_num"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:textColor="#CCCCCC"
-                            android:textSize="12sp" />
+                <RadioGroup
+                    android:id="@+id/group_send_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/background"
+                    android:checkedButton="@+id/btn_all_day"
+                    android:orientation="vertical"
+                    android:visibility="gone" >
 
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="1dp"
-                            android:layout_weight="1" />
-
-                        <TextView
-                            android:id="@+id/coupon_denomi"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="未选择"
-                            android:textColor="#CCCCCC"
-                            android:textSize="14sp" />
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:contentDescription="@null"
-                            android:src="@drawable/xiangxia" />
-                    </LinearLayout>
+                    <RadioButton
+                        android:id="@+id/btn_all_day"
+                        style="@style/btn_radio_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:tag="1"
+                        android:text="工作日双休日与假期均可送货"
+                        android:textColor="#AA000000"
+                        android:textSize="12sp" />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1px"
                         android:background="#cccccc" />
 
-                    <RadioGroup
-                        android:id="@+id/group_coupons"
+                    <RadioButton
+                        android:id="@+id/btn_work_day"
+                        style="@style/btn_radio_style"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/background"
-                        android:visibility="gone" >
-
-                        <RadioButton
-                            android:id="@+id/btn_unuse"
-                            style="@style/btn_radio_style"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="不使用优惠券"
-                            android:textColor="#AA000000"
-                            android:textSize="12sp" />
-                    </RadioGroup>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:padding="10dp" >
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:text="商品总价"
-                            android:textColor="#AA000000"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/all_price"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:text="¥0.0"
-                            android:textColor="@color/theme"
-                            android:textSize="14sp" />
-                    </RelativeLayout>
+                        android:tag="2"
+                        android:text="只工作日送货"
+                        android:textColor="#AA000000"
+                        android:textSize="12sp" />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1px"
                         android:background="#cccccc" />
 
-                    <RelativeLayout
+                    <RadioButton
+                        android:id="@+id/btn_rest_day"
+                        style="@style/btn_radio_style"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:padding="10dp" >
+                        android:tag="3"
+                        android:text="只双休日与假日送货"
+                        android:textColor="#AA000000"
+                        android:textSize="12sp" />
+                </RadioGroup>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:text="优惠金额"
-                            android:textColor="#AA000000"
-                            android:textSize="14sp" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#cccccc" />
 
-                        <TextView
-                            android:id="@+id/youhui"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:text="¥0.0"
-                            android:textColor="@color/theme"
-                            android:textSize="14sp" />
-                    </RelativeLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="10dp"
+                    android:text="支付方式"
+                    android:textColor="#AA000000"
+                    android:textSize="13sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#cccccc" />
+
+                <RelativeLayout
+                    android:id="@+id/btn_pay_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="10dp" >
+
+                    <TextView
+                        android:id="@+id/pay_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/btn_radio_selected"
+                        android:drawablePadding="8dp"
+                        android:gravity="center_vertical"
+                        android:text="在线支付"
+                        android:textColor="#AA000000"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:text="编辑"
+                        android:textColor="#CCCCCC"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+
+                <RadioGroup
+                    android:id="@+id/group_pay_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/background"
+                    android:checkedButton="@+id/pay_jd"
+                    android:orientation="vertical"
+                    android:visibility="gone" >
+
+                    <RadioButton
+                        android:id="@+id/pay_jd"
+                        style="@style/btn_radio_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:tag="@string/pay_type_jd"
+                        android:text="在线支付"
+                        android:textColor="#AA000000"
+                        android:textSize="12sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="#cccccc"
+                        android:visibility="gone" />
+
+                    <RadioButton
+                        android:id="@+id/pay_ali"
+                        style="@style/btn_radio_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:tag="@string/pay_type_ali"
+                        android:text="支付宝"
+                        android:textColor="#AA000000"
+                        android:textSize="12sp"
+                        android:visibility="gone" />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1px"
                         android:background="#cccccc" />
 
-                    <RelativeLayout
+                    <RadioButton
+                        android:id="@+id/pay_wx"
+                        style="@style/btn_radio_style"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:padding="10dp" >
+                        android:tag="@string/pay_type_wx"
+                        android:text="微信支付"
+                        android:textColor="#AA000000"
+                        android:textSize="12sp"
+                        android:visibility="gone" />
+                </RadioGroup>
+            </LinearLayout>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:text="行邮税"
-                            android:textColor="#AA000000"
-                            android:textSize="14sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:orientation="vertical" >
 
-                        <TextView
-                            android:id="@+id/all_portalfee"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:text="¥0.0"
-                            android:textColor="@color/theme"
-                            android:textSize="14sp" />
-                    </RelativeLayout>
+                <LinearLayout
+                    android:id="@+id/btn_mCoupon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="10dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="可使用优惠券"
+                        android:textColor="#AA000000"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/coupon_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:textColor="#CCCCCC"
+                        android:textSize="12sp" />
 
                     <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1px"
-                        android:background="#cccccc" />
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1" />
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/coupon_denomi"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:padding="10dp" >
+                        android:text="未选择"
+                        android:textColor="#CCCCCC"
+                        android:textSize="14sp" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:text="运费"
-                            android:textColor="#AA000000"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/all_shipfee"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:text="¥0.0"
-                            android:textColor="@color/theme"
-                            android:textSize="14sp" />
-                    </RelativeLayout>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@null"
+                        android:src="@drawable/xiangxia" />
                 </LinearLayout>
-            </android.support.v7.widget.CardView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#cccccc" />
+
+                <RadioGroup
+                    android:id="@+id/group_coupons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/background"
+                    android:visibility="gone" >
+
+                    <RadioButton
+                        android:id="@+id/btn_unuse"
+                        style="@style/btn_radio_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="不使用优惠券"
+                        android:textColor="#AA000000"
+                        android:textSize="12sp" />
+                </RadioGroup>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="10dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="商品总价"
+                        android:textColor="#AA000000"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/all_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:text="¥0.0"
+                        android:textColor="@color/theme"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#cccccc" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="10dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="优惠金额"
+                        android:textColor="#AA000000"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/youhui"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:text="¥0.0"
+                        android:textColor="@color/theme"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#cccccc" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="10dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="行邮税"
+                        android:textColor="#AA000000"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/all_portalfee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:text="¥0.0"
+                        android:textColor="@color/theme"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#cccccc" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="10dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="运费"
+                        android:textColor="#AA000000"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/all_shipfee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:text="¥0.0"
+                        android:textColor="@color/theme"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
