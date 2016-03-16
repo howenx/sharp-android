@@ -406,6 +406,9 @@ public class HomeFragment extends Fragment implements
 				loadData();
 			}else if(intent.getAction().equals(
 					AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION)){
+				pageIndex = 1;
+				isUpOrDwom = 0;
+				pullNum = 1;
 				loadData();
 			}
 		}
