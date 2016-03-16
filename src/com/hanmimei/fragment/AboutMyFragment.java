@@ -40,15 +40,6 @@ import com.hanmimei.view.RoundImageView;
 import com.umeng.analytics.MobclickAgent;
 
 public class AboutMyFragment extends Fragment implements OnClickListener {
-	// private Drawable authenticate;
-	// private Drawable un_authenticate;
-	private Drawable address_icon;
-	private Drawable order_icon;
-	private Drawable collection_icon;
-	private Drawable youhui_icon;
-	private Drawable about_icon;
-	private Drawable jiantou_icon;
-	private Drawable pintuan_icon;
 	private RoundImageView header;
 	private TextView user_name;
 	private TextView address;
@@ -64,26 +55,9 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		initIcon();
 		activity = (BaseActivity) getActivity();
 	}
 
-	private void initIcon() {
-		address_icon = getResources().getDrawable(R.drawable.icon_address);
-		address_icon.setBounds(0, 0, 45, 45);
-		order_icon = getResources().getDrawable(R.drawable.icon_dingdan);
-		order_icon.setBounds(0, 0, 45, 45);
-		collection_icon = getResources().getDrawable(R.drawable.icon_collection);
-		collection_icon.setBounds(0, 0, 45, 45);
-		youhui_icon = getResources().getDrawable(R.drawable.icon_youhuiquan);
-		youhui_icon.setBounds(0, 0, 45, 45);
-		about_icon = getResources().getDrawable(R.drawable.icon_about);
-		about_icon.setBounds(0, 0, 45, 45);
-		jiantou_icon = getResources().getDrawable(R.drawable.icon_jiantou);
-		jiantou_icon.setBounds(0, 0, 45, 45);
-		pintuan_icon = getResources().getDrawable(R.drawable.icon_pintuan);
-		pintuan_icon.setBounds(0, 0, 45, 45);
-	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -145,17 +119,11 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 		user_name = (TextView) view.findViewById(R.id.user_name);
 		address = (TextView) view.findViewById(R.id.address);
 		sex = (ImageView) view.findViewById(R.id.sex);
-		address.setCompoundDrawables(address_icon, null, jiantou_icon, null);
 		order = (TextView) view.findViewById(R.id.order);
-		order.setCompoundDrawables(order_icon, null, jiantou_icon, null);
 		youhui = (TextView) view.findViewById(R.id.youhui);
-		youhui.setCompoundDrawables(youhui_icon, null, null, null);
 		collect = (TextView) view.findViewById(R.id.collect);
-		collect.setCompoundDrawables(collection_icon, null, jiantou_icon, null);
 		youhui_nums = (TextView) view.findViewById(R.id.youhui_nums);
-		youhui_nums.setCompoundDrawables(null, null, jiantou_icon, null);
 		pintuan = (TextView) view.findViewById(R.id.pintuan);
-		pintuan.setCompoundDrawables(pintuan_icon, null, jiantou_icon, null);
 		header.setOnClickListener(this);
 		order.setOnClickListener(this);
 		address.setOnClickListener(this);

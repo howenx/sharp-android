@@ -80,7 +80,7 @@ public class PingouDetailActivity extends BaseActivity implements
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		ActionBarUtil.setActionBarStyle(this, "商品详情", R.drawable.fenxiang,
+		ActionBarUtil.setActionBarStyle(this, "商品详情", R.drawable.hmm_icon_fenxiang,
 				true, null, this);
 		setContentView(R.layout.pingou_detail_layout);
 		findView();

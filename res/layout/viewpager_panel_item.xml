@@ -7,7 +7,7 @@
         android:scaleType="fitXY"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/first_show"
+        android:src="@drawable/hmm_splash"
         android:contentDescription="@null"/>
     <TextView 
         android:id="@+id/experience"

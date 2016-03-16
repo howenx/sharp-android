@@ -31,11 +31,11 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 
 	
 //	private final String TAG = this.getClass().getName();
-	private Drawable about_Drawable;
-	private Drawable idea_Drawable;
-	private Drawable comment_Drawable;
-	private Drawable tel_Drawable;
-	private Drawable del_Drawable;
+//	private Drawable about_Drawable;
+//	private Drawable idea_Drawable;
+//	private Drawable comment_Drawable;
+//	private Drawable tel_Drawable;
+//	private Drawable del_Drawable;
 //	private Drawable push_Drawable;
 	private TextView about;
 	private TextView idea;
@@ -63,21 +63,21 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void initDrawable() {
-		about_Drawable = getResources().getDrawable(
-				R.drawable.iconfont_guanyuwomen);
-		about_Drawable.setBounds(0, 0, 40, 40);
-		idea_Drawable = getResources().getDrawable(
-				R.drawable.iconfont_yijianfankui);
-		idea_Drawable.setBounds(0, 0, 40, 40);
-		comment_Drawable = getResources().getDrawable(
-				R.drawable.iconfont_comment);
-		comment_Drawable.setBounds(0, 0, 45, 45);
-		tel_Drawable = getResources().getDrawable(
-				R.drawable.iconfont_lianxiwomen);
-		tel_Drawable.setBounds(0, 0, 45, 45);
-		del_Drawable = getResources().getDrawable(
-				R.drawable.iconfont_qingchuhuancun);
-		del_Drawable.setBounds(0, 0, 40, 40);
+//		about_Drawable = getResources().getDrawable(
+//				R.drawable.iconfont_guanyuwomen);
+//		about_Drawable.setBounds(0, 0, 40, 40);
+//		idea_Drawable = getResources().getDrawable(
+//				R.drawable.iconfont_yijianfankui);
+//		idea_Drawable.setBounds(0, 0, 40, 40);
+//		comment_Drawable = getResources().getDrawable(
+//				R.drawable.iconfont_comment);
+//		comment_Drawable.setBounds(0, 0, 45, 45);
+//		tel_Drawable = getResources().getDrawable(
+//				R.drawable.iconfont_lianxiwomen);
+//		tel_Drawable.setBounds(0, 0, 45, 45);
+//		del_Drawable = getResources().getDrawable(
+//				R.drawable.iconfont_qingchuhuancun);
+//		del_Drawable.setBounds(0, 0, 40, 40);
 //		push_Drawable = getResources().getDrawable(
 //				R.drawable.icon_tuisong);
 //		push_Drawable.setBounds(0, 0, 40, 40);
@@ -86,7 +86,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 	private void initView() {
 		about = (TextView) findViewById(R.id.about);
 		idea = (TextView) findViewById(R.id.idea);
-		comment = (TextView) findViewById(R.id.comment);
+//		comment = (TextView) findViewById(R.id.comment);
 		tel = (TextView) findViewById(R.id.tel);
 		del = (TextView) findViewById(R.id.del);
 		exit = (TextView) findViewById(R.id.exit);
@@ -100,16 +100,16 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 		if(getVersionInfo() !=null){
 			versionName.setText(getVersionInfo().getReleaseNumber());
 		}
-		about.setCompoundDrawables(about_Drawable, null, null, null);
-		idea.setCompoundDrawables(idea_Drawable, null, null, null);
-		comment.setCompoundDrawables(comment_Drawable, null, null, null);
-		tel.setCompoundDrawables(tel_Drawable, null, null, null);
-		del.setCompoundDrawables(del_Drawable, null, null, null);
-		upd.setCompoundDrawables(del_Drawable, null, null, null);
+//		about.setCompoundDrawables(about_Drawable, null, null, null);
+//		idea.setCompoundDrawables(idea_Drawable, null, null, null);
+//		comment.setCompoundDrawables(comment_Drawable, null, null, null);
+//		tel.setCompoundDrawables(tel_Drawable, null, null, null);
+//		del.setCompoundDrawables(del_Drawable, null, null, null);
+//		upd.setCompoundDrawables(del_Drawable, null, null, null);
 //		push.setCompoundDrawables(push_Drawable, null, null, null);
 		about.setOnClickListener(this);
 		idea.setOnClickListener(this);
-		comment.setOnClickListener(this);
+//		comment.setOnClickListener(this);
 		tel.setOnClickListener(this);
 		del.setOnClickListener(this);
 		upd.setOnClickListener(this);
@@ -127,8 +127,8 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 		case R.id.idea:
 			DoJumpUtils.doJump(this, SuggestionActivity.class);
 			break;
-		case R.id.comment:
-			break;
+//		case R.id.comment:
+//			break;
 		case R.id.tel:
 			showDialog();
 			break;

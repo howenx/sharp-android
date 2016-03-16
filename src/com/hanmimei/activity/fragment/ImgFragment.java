@@ -36,18 +36,20 @@ public class ImgFragment extends ScrollAbleFragment   {
 		String data = getArguments().getString("data");
 		mWebView = (WebView) view.findViewById(R.id.mWebView);
 		mProgressBar = (ProgressBar) view.findViewById(R.id.mProgressBar);
-		mWebView.loadData(data, "text/html", "UTF-8");
+		
 		mWebView.getSettings().setJavaScriptEnabled(true);
 		mWebView.getSettings().setSupportZoom(true);
+		mWebView.getSettings().setDefaultTextEncodingName("utf-8");  
 		mWebView.getSettings().setBuiltInZoomControls(true);
 		mWebView.getSettings().setDisplayZoomControls(false);
 		
+		mWebView.loadData(data, "text/html; charset=UTF-8", null);
 		mWebView.setWebChromeClient(new WebChromeClient(){
 
 			@Override
 			public void onProgressChanged(WebView view, int newProgress) {
 				super.onProgressChanged(view, newProgress);
-				if(newProgress>=99){
+				if(newProgress>=40){
 					mProgressBar.setVisibility(View.INVISIBLE);
 					mWebView.setVisibility(View.VISIBLE);
 				}

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hanmimei"
     android:versionCode="15"
-    android:versionName="v0.1.5" >
+    android:versionName="v0.1.6" >
 
     <uses-sdk
         android:minSdkVersion="11"
@@ -46,7 +46,6 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-                <data android:scheme="hmm" android:host="hanmimei.main" android:pathPrefix="/home" />
             </intent-filter>
         </activity>
         <activity

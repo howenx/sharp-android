@@ -64,7 +64,15 @@ public class OrderSubmitActivity extends BaseActivity {
 							MyOrderActivity.class));
 					finish();
 				} else {
-					view.loadUrl(url, extraHeaders);
+					if(url.contains("/promotion/pin/activity/pay/")){
+						Intent intent = new Intent(getActivity(), PingouResultActivity.class);
+						intent.putExtra("url", url);
+						startActivity(intent);
+						finish();
+					}else{
+						view.loadUrl(url, extraHeaders);
+					}
+					
 				}
 				return true;
 			}
@@ -142,11 +150,7 @@ public class OrderSubmitActivity extends BaseActivity {
 
 	private void backEvent() {
 		if (!isSuccess) {
-			if (mWebView.canGoBack()) {
-				mWebView.goBack();
-			} else {
-				showPayDialog();
-			}
+			showPayDialog();
 		} else {
 			finish();
 		}
@@ -178,15 +182,7 @@ public class OrderSubmitActivity extends BaseActivity {
 		public void clearHistory(String url) {
 			Log.e("error", url);
 			isSuccess = true;
-//			mWebView.clearHistory();
-			if(url.contains("http")){
-				Intent intent = new Intent(getActivity(), PingouResultActivity.class);
-				intent.putExtra("url", url);
-				startActivity(intent);
-				finish();
-			}
 		}
-		
 	}
 
 	// 显示取消支付窗口

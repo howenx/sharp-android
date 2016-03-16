@@ -42,6 +42,7 @@ import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.utils.XMLPaserTools;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.socialize.utils.Log;
 
 @SuppressLint("NewApi")
 public class MainActivity extends BaseActivity implements OnTabChangeListener,
@@ -54,9 +55,6 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 	private String TAB_HOME = "首页";
 	private String TAB_CAR = "购物车";
 	private String TAB_MY = "我的";
-	private int home_drawable = R.drawable.tab_home;
-	private int shopping_drawable = R.drawable.tab_shopping;
-	private int my_drawable = R.drawable.tab_my;
 //	private int pingou_drawable = R.drawable.tab_pingou;
 	private DownloadTools downloadTools;
 	
@@ -82,10 +80,10 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 		findViewById(R.id.gg_img).setOnClickListener(this);
 		mTabHost.setOnTabChangedListener(this);
 
-		addTabItem(TAB_HOME_ID, home_drawable, TAB_HOME, HomeFragment.class);
-		addTabItem(TAB_CAR_ID, shopping_drawable, TAB_CAR,ShoppingCartFragment.class);
-		addTabItem(TAB_MY_ID, my_drawable, TAB_MY, AboutMyFragment.class);
-
+		addTabItem(TAB_HOME_ID, R.drawable.tab_home, TAB_HOME, HomeFragment.class);
+		addTabItem(TAB_CAR_ID, R.drawable.tab_shopping, TAB_CAR,ShoppingCartFragment.class);
+		addTabItem(TAB_MY_ID, R.drawable.tab_my, TAB_MY, AboutMyFragment.class);
+		
 		BadgeViewManager.getInstance().initBadgeViewManager(this, mTabHost);
 		registerReceivers();
 		BadgeViewManager.getInstance().initBadgeViewManager(this, mTabHost);
@@ -97,6 +95,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 			}
 		});	
 		submitTask(new CheckVersionTask());
+		Log.i("PX", CommonUtil.dip2px(1)+"");
 	}
 	
 	
@@ -106,7 +105,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 		/** 如果当前选项卡是home */
 		if (tabId.equals(TAB_HOME_ID)) {
 			isHome = true;
-			ActionBarUtil.setActionBarStyle(this, "韩秘美", R.drawable.icon_xiaoxi, false, this);
+			ActionBarUtil.setActionBarStyle(this, "韩秘美", R.drawable.hmm_icon_message, false, this);
 			ImageView setting = (ImageView) findViewById(R.id.setting);
 			MessageMenager.getInstance().initMessageMenager(this, setting);
 			/** 如果当前选项卡是shopping */
@@ -118,7 +117,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 			/** 如果当前选项卡是my */
 		} else if (tabId.equals(TAB_MY_ID)) {
 			isHome = false;
-			ActionBarUtil.setActionBarStyle(this, "", R.drawable.icon_setting,
+			ActionBarUtil.setActionBarStyle(this, "", R.drawable.hmm_icon_setting,
 					false, this);
 		}
 	}

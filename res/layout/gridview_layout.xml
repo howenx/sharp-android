@@ -1,19 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<GridView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mGridView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
-
-    <GridView
-        android:id="@+id/mGridView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:columnWidth="90dp"
-        android:horizontalSpacing="10dp"
-        android:numColumns="2"
-        android:scrollbars="@null"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="10dp" />
-
-</LinearLayout>
+    android:layout_height="wrap_content"
+    android:background="@color/background"
+    android:columnWidth="90dp"
+    android:horizontalSpacing="10dp"
+    android:numColumns="2"
+    android:padding="10dp"
+    android:scrollbars="@null"
+    android:stretchMode="columnWidth"
+    android:verticalSpacing="10dp" />

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="theme">#FB555D</color>
-    <color name="theme_sub">#FB555D</color>
+    <color name="theme">#FF5359</color>
+    <color name="theme_sub">#FF5359</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="huise">#969696</color>
     <color name="red">#EF2528</color>
-    <color name="fontcolor">#4A4A4A</color>
+    <color name="fontcolor">#646566</color>
     <color name="qianhui">#D4D4D4</color>
-    <color name="xian">#D1D1D1</color>
+    <color name="xian">#E0E0E0</color>
     <color name="province_line_border">#C7C7C7</color>
     <color name="gree">#72AF1A</color>
     <color name="background">#F3F8FB</color>

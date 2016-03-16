@@ -105,7 +105,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
-		ActionBarUtil.setActionBarStyle(this, "商品详情", R.drawable.fenxiang,true, null, this);
+		ActionBarUtil.setActionBarStyle(this, "商品详情", R.drawable.hmm_icon_fenxiang,true, null, this);
 		setContentView(R.layout.goods_detail_layout);
 		findView();
 		initGoodsNumView();

@@ -41,7 +41,7 @@ public class MessageTypeActivity extends BaseActivity implements OnClickListener
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.my_message_layout);
 		ActionBarUtil.setActionBarStyle(this, "消息盒子");
-		MessageMenager.getInstance().setMsgDrawble(getResources().getDrawable(R.drawable.icon_xiaoxi));
+		MessageMenager.getInstance().setMsgDrawble(getResources().getDrawable(R.drawable.hmm_icon_message));
 		registerReceivers();
 		findView();
 		loadData();

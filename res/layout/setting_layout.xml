@@ -12,31 +12,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="    关于我们" />
-
+        android:drawableLeft="@drawable/hmm_setting_about_us"
+        android:text="关于我们" />
 
     <TextView
         android:id="@+id/idea"
         style="@style/setting_text_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="    意见反馈" />
-
-    <TextView
-        android:id="@+id/comment"
-        style="@style/setting_text_style"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="    评价我们"
-        android:visibility="gone" />
-
+        android:drawableLeft="@drawable/hmm_setting_opinion"
+        android:text="意见反馈" />
 
     <TextView
         android:id="@+id/tel"
         style="@style/setting_text_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="    联系我们" />
+        android:drawableLeft="@drawable/hmm_setting_contact_us"
+        android:text="联系我们" />
 
     <!--
     <TextView 
@@ -59,7 +52,6 @@
         android:text="    清除缓存"
         android:visibility="gone" />
 
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
@@ -69,7 +61,8 @@
             style="@style/setting_text_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="    检测更新" />
+            android:drawableLeft="@drawable/hmm_setting_update"
+            android:text="检测更新" />
 
         <TextView
             android:id="@+id/versionName"

@@ -66,7 +66,7 @@ public class TagCloudView extends ViewGroup{
     private static final int DEFAULT_TEXT_BORDER_VERTICAL = 5;
 
     private static final int DEFAULT_TAG_RESID = R.layout.tag_item_layout;
-    private static final int DEFAULT_RIGHT_IMAGE = R.drawable.duihao;
+    private static final int DEFAULT_RIGHT_IMAGE = R.drawable.hmm_icon_duihao;
     private static final boolean DEFAULT_SINGLE_LINE = false;
     private static final boolean DEFAULT_SHOW_RIGHT_IMAGE = true;
     private static final boolean DEFAULT_SHOW_END_TEXT = true; 
