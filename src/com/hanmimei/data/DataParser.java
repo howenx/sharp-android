@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.hanmimei.entity.Collection;
 import com.hanmimei.entity.CollectionInfo;
 import com.hanmimei.entity.Customs;
@@ -261,8 +262,11 @@ public class DataParser {
 							sku.setPrice(skuObject.getInt("price"));
 						if(skuObject.has("skuTitle"))
 								sku.setSkuTitle(decode2(skuObject.getString("skuTitle")));
-						if(skuObject.has("invImg"))
-							sku.setInvImg(skuObject.getString("invImg"));
+						if(skuObject.has("invImg")){
+							JSONObject imgObj = new JSONObject(skuObject.getString("invImg"));
+							if(imgObj.has("url"))
+								sku.setInvImg(imgObj.getString("url"));
+						}
 						if(skuObject.has("invUrl"))
 							sku.setInvUrl(skuObject.getString("invUrl"));
 						if(skuObject.has("itemColor"))
@@ -368,8 +372,11 @@ public class DataParser {
 						goods.setRestrictAmount(goodsObject.getInt("restrictAmount"));
 					if(goodsObject.has("restAmount"))
 						goods.setRestAmount(goodsObject.getInt("restAmount"));
-					if(goodsObject.has("invImg"))
-						goods.setGoodsImg(goodsObject.getString("invImg"));
+					if(goodsObject.has("invImg")){
+						JSONObject imgObj = new JSONObject(goodsObject.getString("invImg"));
+						if(imgObj.has("url"))
+							goods.setGoodsImg(imgObj.getString("url"));
+					}
 					if(goodsObject.has("invUrl"))
 						goods.setGoodsUrl(goodsObject.getString("invUrl"));
 					if(goodsObject.has("invTitle"))
@@ -483,8 +490,11 @@ public class DataParser {
 								sku.setSkuTitle(skuObject.getString("skuTitle"));
 							if(skuObject.has("invUrl"))
 								sku.setInvUrl(skuObject.getString("invUrl"));
-							if(skuObject.has("invImg"))
-								sku.setInvImg(skuObject.getString("invImg"));
+							if(skuObject.has("invImg")){
+								JSONObject imgObj = new JSONObject(skuObject.getString("invImg"));
+								if(imgObj.has("url"))
+									sku.setInvImg(imgObj.getString("url"));
+							}
 							if(skuObject.has("itemColor"))
 								sku.setItemColor(skuObject.getString("itemColor"));
 							if(skuObject.has("itemSize"))

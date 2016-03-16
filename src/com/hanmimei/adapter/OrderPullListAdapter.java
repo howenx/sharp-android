@@ -116,12 +116,7 @@ public class OrderPullListAdapter extends BaseAdapter {
 			public void onClick(View arg0) {
 				getIsTimeOver(order);
 				orderT = order;
-//				OrderInfo orderInfo = new OrderInfo();
-//				orderInfo.setOrder(order);
-//				Intent intent = new Intent(activity, OrderSubmitActivity.class);
-//				intent.putExtra("orderInfo", orderInfo);
-//				activity.startActivity(intent);
-//				activity.finish();
+//				doPay(order);
 			}
 		});
 		holder.orderCode.setText("订单号： " + order.getOrderId());
@@ -132,6 +127,7 @@ public class OrderPullListAdapter extends BaseAdapter {
 			holder.state.setText("待支付");
 			holder.goods_post.setVisibility(View.GONE);
 			holder.go_pay.setVisibility(View.VISIBLE);
+			holder.go_pay.setText("去支付");
 			holder.apply_customer.setVisibility(View.GONE);
 			holder.bootom.setVisibility(View.VISIBLE);
 		} else if (order.getOrderStatus().equals("S")) {
@@ -148,8 +144,15 @@ public class OrderPullListAdapter extends BaseAdapter {
 		}else if(order.getOrderStatus().equals("C")){
 			holder.state.setText("已取消");
 			holder.bootom.setVisibility(View.GONE);
+//			holder.goods_post.setVisibility(View.GONE);
+//			holder.go_pay.setVisibility(View.VISIBLE);
+//			holder.go_pay.setText("再次购买");
+			holder.apply_customer.setVisibility(View.GONE);
 		}else if(order.getOrderStatus().equals("R")){
 			holder.state.setText("已完成");
+			holder.bootom.setVisibility(View.GONE);
+		}else if(order.getOrderStatus().equals("T")){
+			holder.state.setText("已退款");
 			holder.bootom.setVisibility(View.GONE);
 		}
 		holder.date.setText(order.getOrderCreateAt());
