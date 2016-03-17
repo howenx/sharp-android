@@ -17,7 +17,7 @@
             android:id="@+id/img"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/huise_border"
+            android:background="@drawable/bg_gray_boarder"
             android:contentDescription="@null"
             android:padding="0.1dp"
             android:scaleType="fitXY"

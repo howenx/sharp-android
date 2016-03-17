@@ -110,7 +110,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@drawable/bg_custom_button"
+                    android:background="@drawable/btn_theme_radius_selector"
                     android:text="添加收货地址"
                     android:textColor="@color/btn_font_selector"
                     android:textSize="16sp" />

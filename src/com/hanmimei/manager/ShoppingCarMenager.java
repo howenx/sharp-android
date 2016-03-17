@@ -47,8 +47,8 @@ public class ShoppingCarMenager {
 		return ShopCartManagerHolder.instance;
 	}
 	public void initDrawable(Context mContext){
-		check_Drawable = mContext.getResources().getDrawable(R.drawable.checked);
-		uncheck_Drawable = mContext.getResources().getDrawable(R.drawable.check_un);
+		check_Drawable = mContext.getResources().getDrawable(R.drawable.hmm_radio_select);
+		uncheck_Drawable = mContext.getResources().getDrawable(R.drawable.hmm_radio_normal);
 	}
 	public void initShoppingCarMenager(Context mContext, ShoppingCarPullListAdapter adapter, List<Customs> list, boolean isSelected, TextView attention, ImageView checkBox, TextView totalPrice, TextView pay, LinearLayout no_data, LinearLayout bottom,PullToRefreshListView mListView){
 		this.activity = (Activity) mContext;

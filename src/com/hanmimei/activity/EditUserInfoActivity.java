@@ -12,6 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -68,8 +69,7 @@ public class EditUserInfoActivity extends BaseActivity implements
 	private String header_str = null;
 	private String sex_str = "null";
 
-	private PopupWindow popWindow;
-	private PopupWindow sexPopupWindow;
+	private AlertDialog sexDialog,photoDialog;
 	private View parenView;
 	private static final String IMAGE_FILE_NAME = "header";
 	private static final int CAMERA_REQUEST_CODE = 1;
@@ -124,13 +124,13 @@ public class EditUserInfoActivity extends BaseActivity implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.up_header:
-			popWindow.showAtLocation(parenView, Gravity.BOTTOM, 0, 0);
+			photoDialog.show();
 			break;
 		case R.id.back:
 			finish();
 			break;
 		case R.id.up_sex:
-			sexPopupWindow.showAtLocation(parenView, Gravity.CENTER, 0, 0);
+			sexDialog.show();
 			break;
 		case R.id.up_name:
 			Intent intent = new Intent(this,EditUserNameActivity.class);
@@ -220,21 +220,14 @@ public class EditUserInfoActivity extends BaseActivity implements
 	// 初始化性别popwindow
 	@SuppressWarnings("deprecation")
 	private void initSexWindow() {
-		sexPopupWindow = new PopupWindow(this);
-		View view = LayoutInflater.from(this).inflate(
-				R.layout.select_sex_pop_layout, null);
-		sexPopupWindow.setWidth(LayoutParams.MATCH_PARENT);
-		sexPopupWindow.setHeight(LayoutParams.WRAP_CONTENT);
-		sexPopupWindow.setBackgroundDrawable(new BitmapDrawable());
-		sexPopupWindow.setFocusable(true);
-		sexPopupWindow.setOutsideTouchable(true);
-		sexPopupWindow.setContentView(view);
+		sexDialog = new AlertDialog.Builder(this).create();
+		View view = getLayoutInflater().inflate(R.layout.select_sex_pop_layout, null);
 		view.findViewById(R.id.men).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				sex_str = "M";
-				sexPopupWindow.dismiss();
+				sexDialog.dismiss();
 				toObject(1);
 			}
 		});
@@ -243,24 +236,19 @@ public class EditUserInfoActivity extends BaseActivity implements
 			@Override
 			public void onClick(View v) {
 				sex_str = "F";
-				sexPopupWindow.dismiss();
+				sexDialog.dismiss();
 				toObject(1);
 			}
 		});
+		sexDialog.setView(view);
 	}
 
 	// 初始化选择头像popwindow
 	@SuppressWarnings("deprecation")
 	private void initSelectPop() {
-		popWindow = new PopupWindow(this);
-		View view = LayoutInflater.from(this).inflate(
-				R.layout.select_img_pop_layout, null);
-		popWindow.setWidth(LayoutParams.MATCH_PARENT);
-		popWindow.setHeight(LayoutParams.WRAP_CONTENT);
-		popWindow.setBackgroundDrawable(new BitmapDrawable());
-		popWindow.setFocusable(true);
-		popWindow.setOutsideTouchable(true);
-		popWindow.setContentView(view);
+		photoDialog = new AlertDialog.Builder(this).create();
+		View view = getLayoutInflater().inflate(R.layout.select_img_pop_layout, null);
+		
 		// 拍照
 		view.findViewById(R.id.play_photo).setOnClickListener(
 				new OnClickListener() {
@@ -277,7 +265,7 @@ public class EditUserInfoActivity extends BaseActivity implements
 						}
 						startActivityForResult(intentFromCapture,
 								CAMERA_REQUEST_CODE);
-						popWindow.dismiss();
+						photoDialog.dismiss();
 					}
 				});
 		// 本地照片
@@ -288,7 +276,7 @@ public class EditUserInfoActivity extends BaseActivity implements
 					public void onClick(View arg0) {
 						ImgUtils.getInstance().selectPicture(
 								EditUserInfoActivity.this);
-						popWindow.dismiss();
+						photoDialog.dismiss();
 					}
 				});
 		// 取消
@@ -297,9 +285,10 @@ public class EditUserInfoActivity extends BaseActivity implements
 
 					@Override
 					public void onClick(View v) {
-						popWindow.dismiss();
+						photoDialog.dismiss();
 					}
 				});
+		photoDialog.setView(view);
 	}
 
 	@Override

@@ -91,7 +91,7 @@
                                 android:id="@+id/pin_price"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="#E26459"
+                                android:background="@color/theme"
                                 android:gravity="center"
                                 android:padding="10dp"
                                 android:textColor="@color/white"
@@ -101,7 +101,7 @@
                                 android:id="@+id/pin_per_num"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="#3F4041"
+                                android:background="@drawable/btn_black_selector"
                                 android:gravity="center"
                                 android:padding="3dp"
                                 android:textColor="@color/white"
@@ -120,7 +120,7 @@
                                 android:id="@+id/item_src_price"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="#ECEDEE"
+                                android:background="@color/gray"
                                 android:gravity="center"
                                 android:padding="10dp"
                                 android:textColor="@color/fontcolor"
@@ -129,7 +129,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="#3F4041"
+                                android:background="@drawable/btn_black_selector"
                                 android:gravity="center"
                                 android:padding="3dp"
                                 android:text="立即购买"
@@ -198,7 +198,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/navigationbar_size"
             android:layout_gravity="bottom"
-            android:background="@drawable/huise_border"
+            android:background="@drawable/bg_gray_boarder"
             android:orientation="horizontal" >
 
             <FrameLayout
@@ -222,10 +222,10 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
-                android:background="@color/theme"
+                android:background="@drawable/btn_theme_selector"
                 android:gravity="center"
                 android:text="立即开团"
-                android:textColor="@color/btn_font_selector"
+                android:textColor="@color/white"
                 android:textSize="14sp" />
 
             <TextView
@@ -233,10 +233,10 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
-                android:background="#434446"
+                android:background="@drawable/btn_black_selector"
                 android:gravity="center"
                 android:text="单独购买"
-                android:textColor="@color/btn_font_selector"
+                android:textColor="@color/white"
                 android:textSize="14sp" />
         </LinearLayout>
     </LinearLayout>

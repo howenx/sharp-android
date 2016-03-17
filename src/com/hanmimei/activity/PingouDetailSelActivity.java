@@ -126,7 +126,7 @@ public class PingouDetailSelActivity extends BaseActivity {
 					holder.zengView.setVisibility(View.GONE);
 				}
 				btn_pin.setText("立即开团("+ppr.getPrice()+"元 / "+ppr.getPeopleNum()+"人)");
-				btn_pin.setBackgroundResource(R.color.theme);
+				btn_pin.setBackgroundResource(R.drawable.btn_theme_radius_selector);
 				btn_pin.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View arg0) {

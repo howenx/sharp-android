@@ -93,9 +93,9 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 		user_name.setText(user.getUserName());
 		sex.setVisibility(View.VISIBLE);
 		if(user.getSex().equals("F")){
-			sex.setImageDrawable(activity.getResources().getDrawable(R.drawable.icon_nv));
+			sex.setImageDrawable(activity.getResources().getDrawable(R.drawable.hmm_mine_female));
 		}else{
-			sex.setImageDrawable(activity.getResources().getDrawable(R.drawable.icon_nan));
+			sex.setImageDrawable(activity.getResources().getDrawable(R.drawable.hmm_mine_male));
 		}
 		int couponCount;
 		if(user.getCouponCount() == null){

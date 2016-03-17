@@ -36,7 +36,7 @@
         android:layout_height="40dp"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:background="@drawable/huise_border">
+        android:background="@drawable/bg_gray_boarder">
     <EditText 
         android:id="@+id/code"
         android:layout_marginLeft="10dp"

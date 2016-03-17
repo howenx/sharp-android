@@ -79,7 +79,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:padding="15dp"
-        android:background="@color/white"
+        android:background="@drawable/btn_mine_selector"
         android:orientation="horizontal" >
 
         <TextView
@@ -97,7 +97,6 @@
             android:id="@+id/youhui_nums"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
             android:gravity="right|center_vertical"
             android:text="@null"
             android:drawablePadding="10dp"

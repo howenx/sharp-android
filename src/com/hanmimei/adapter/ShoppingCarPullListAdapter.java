@@ -33,9 +33,9 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 		inflater = LayoutInflater.from(mContext);
 		activity = (Activity) mContext;
 		check_Drawable = activity.getResources()
-				.getDrawable(R.drawable.checked);
+				.getDrawable(R.drawable.hmm_radio_select);
 		uncheck_Drawable = activity.getResources().getDrawable(
-				R.drawable.check_un);
+				R.drawable.hmm_radio_normal);
 	}
 	@Override
 	public int getCount() {

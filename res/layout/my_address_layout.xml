@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" 
+    android:background="@color/background"
     android:fitsSystemWindows="true" >
     <TextView 
         android:id="@+id/add"
@@ -18,14 +19,15 @@
         android:text="新增收货地址+"
         android:textSize="18sp"
         android:textColor="@color/white"
-        android:background="@drawable/theme_button_bg"/>
+        android:background="@drawable/btn_theme_radius_selector"/>
     
     <com.baoyz.swipemenulistview.SwipeMenuListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="10dp"
+        android:layout_marginTop="15dp"
         android:id="@+id/list"
-        android:divider="@null"
+        android:divider="@color/huise"
+        android:dividerHeight="@dimen/driver_line"
         android:layout_above="@id/add" 
         android:scrollbars="none"/>
 

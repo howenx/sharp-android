@@ -241,9 +241,9 @@ public class ShoppingCartFragment extends Fragment implements OnClickListener,
 		total_price = (TextView) view.findViewById(R.id.total_price);
 		check_all = (ImageView) view.findViewById(R.id.all);
 		if (ShoppingCarMenager.getInstance().getChecked()) {
-			check_all.setImageResource(R.drawable.checked);
+			check_all.setImageResource(R.drawable.hmm_radio_select);
 		} else {
-			check_all.setImageResource(R.drawable.check_un);
+			check_all.setImageResource(R.drawable.hmm_radio_normal);
 		}
 		pay = (TextView) view.findViewById(R.id.pay);
 		attention = (TextView) view.findViewById(R.id.attention);
@@ -290,10 +290,10 @@ public class ShoppingCartFragment extends Fragment implements OnClickListener,
 		switch (v.getId()) {
 		case R.id.all:
 			if (ShoppingCarMenager.getInstance().getChecked()) {
-				check_all.setImageResource(R.drawable.checked);
+				check_all.setImageResource(R.drawable.hmm_radio_select);
 				clearPrice();
 			} else {
-				check_all.setImageResource(R.drawable.check_un);
+				check_all.setImageResource(R.drawable.hmm_radio_normal);
 				doPrice();
 			}
 			break;

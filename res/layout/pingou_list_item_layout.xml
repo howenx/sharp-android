@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="8dp"
-    android:background="@drawable/huise_border">
+    android:background="@drawable/bg_gray_boarder">
     <ImageView 
         android:id="@+id/img"
         android:padding="0.1dp"
@@ -14,7 +14,7 @@
         android:src="@drawable/ic_launcher"
         android:contentDescription="@null"
         android:scaleType="fitXY"
-        android:background="@drawable/huise_border"/>
+        android:background="@drawable/bg_gray_boarder"/>
     <TextView 
         android:id="@+id/title"
         android:layout_marginLeft="10dp"

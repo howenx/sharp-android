@@ -25,11 +25,10 @@ public class UrlUtil {
 	/*
 	 * http://172.28.3.18
 	 */
-	// public static final String SERVERY3 = "http://172.28.3.18:9001";
-	// public static final String SERVERY1 = "http://172.28.3.18:9003";
-	// public static final String SERVERY4 = "http://172.28.3.18:9004";
-	// public static final String SERVERY5 = "http://172.28.3.18:9005";
-	// public static final String SERVERY5 = "http://172.28.3.18:9005";
+//	 public static final String SERVERY3 = "http://172.28.3.18:9001";
+//	 public static final String SERVERY1 = "http://172.28.3.18:9003";
+//	 public static final String SERVERY4 = "http://172.28.3.18:9004";
+//	 public static final String SERVERY5 = "http://172.28.3.18:9005";
 
 	// 图形验证码接口
 	public static final String GET_IMG_CODE = SERVERY4 + "/getImageCodes/";

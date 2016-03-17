@@ -77,9 +77,9 @@ public class DataCleanManager {
         cleanInternalCache(context);
         cleanExternalCache(context);
 //      cleanDatabases(context);
-//      cleanSharedPreference(context);
+      cleanSharedPreference(context);
         cleanFiles(context);
-        ImageLoader.getInstance().clearDiscCache();
+        ImageLoader.getInstance().clearDiskCache();
         ImageLoader.getInstance().clearMemoryCache();
 //        ToastUtils.Toast(context, "清除缓存成功");
        

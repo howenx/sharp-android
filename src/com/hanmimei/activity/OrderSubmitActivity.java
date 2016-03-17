@@ -114,8 +114,6 @@ public class OrderSubmitActivity extends BaseActivity {
 					new OnClickListener() {
 						@Override
 						public void onClick(View v) {
-							startActivity(new Intent(getActivity(),
-									MyOrderActivity.class));
 							finish();
 						}
 					});
