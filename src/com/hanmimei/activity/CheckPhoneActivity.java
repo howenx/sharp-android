@@ -148,7 +148,8 @@ public class CheckPhoneActivity extends BaseActivity implements OnClickListener 
 			public void run() {
 				List<NameValuePair> params = new ArrayList<NameValuePair>();
 				params.add(new BasicNameValuePair("phone", phone_num));
-				String result = HttpUtils.postCommon(UrlUtil.CHECK_PHONE_REGIST, params);
+				params.add(new BasicNameValuePair("code", "-1"));
+				String result = HttpUtils.postCommon(UrlUtil.CHECK_PHONE_FORGET, params);
 				HMessage hMessage = DataParser.paserResultMsg(result);
 				Message msg = mHandler.obtainMessage(1);
 				msg.obj = hMessage;

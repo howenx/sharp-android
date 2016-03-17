@@ -25,18 +25,17 @@ public class UrlUtil {
 	/*
 	 * http://172.28.3.18
 	 */
-	// public static final String SERVERY3 = "http://172.28.3.18:9001";
-	// public static final String SERVERY1 = "http://172.28.3.18:9003";
-	// public static final String SERVERY4 = "http://172.28.3.18:9004";
-	// public static final String SERVERY5 = "http://172.28.3.18:9005";
-	// public static final String SERVERY5 = "http://172.28.3.18:9005";
+//	 public static final String SERVERY3 = "http://172.28.3.18:9001";
+//	 public static final String SERVERY1 = "http://172.28.3.18:9003";
+//	 public static final String SERVERY4 = "http://172.28.3.18:9004";
+//	 public static final String SERVERY5 = "http://172.28.3.18:9005";
 
 	// 图形验证码接口
 	public static final String GET_IMG_CODE = SERVERY4 + "/getImageCodes/";
 	// 忘记密码，手机号检测接口
-	public static final String CHECK_PHONE_FORGET = SERVERY4 + "/reset/verify";
+	public static final String CHECK_PHONE_FORGET = SERVERY4 + "/api/verify";
 	// 注册，手机号检测接口
-	public static final String CHECK_PHONE_REGIST = SERVERY4 + "/reg/verify";
+//	public static final String CHECK_PHONE_REGIST = SERVERY4 + "/reg/verify";
 	// 首页数据接口
 	public static final String HOME_LIST_URL = SERVERY3 + "/index/";
 	// 地址列表接口
@@ -64,7 +63,7 @@ public class UrlUtil {
 	// 未登录状态请求购物车数据
 	public static final String SEND_CAR_TO_SERVER_UN = SERVERY1 + "/client/cart/verify/amount/";
 	// 用户登录接口
-	public static final String LOGIN_URL = SERVERY4 + "/api/login_user_name";
+	public static final String LOGIN_URL = SERVERY4 + "/api/login_phone_num";
 	// 用户注册接口
 	public static final String REGIST_URL = SERVERY4 + "/api/reg";
 	// 取消订单

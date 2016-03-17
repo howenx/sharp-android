@@ -311,7 +311,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			@Override
 			public void run() {
 				List<NameValuePair> params = new ArrayList<NameValuePair>();
-				params.add(new BasicNameValuePair("name", phone));
+				params.add(new BasicNameValuePair("phone", phone));
 				params.add(new BasicNameValuePair("password", pwd));
 				params.add(new BasicNameValuePair("code", code));
 				String result = HttpUtils.postCommon(UrlUtil.LOGIN_URL, params);
