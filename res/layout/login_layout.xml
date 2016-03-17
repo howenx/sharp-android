@@ -51,7 +51,7 @@
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_guanbi"
+            android:src="@drawable/hmm_login_close"
             android:visibility="invisible"/>
         <EditText
             android:id="@+id/phone_num"
@@ -101,7 +101,7 @@
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_kejian"/>
+            android:src="@drawable/hmm_login_eye_close"/>
         
         <ImageView 
             android:id="@+id/clear_pwd"
@@ -111,7 +111,7 @@
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_guanbi"
+            android:src="@drawable/hmm_login_close"
             android:visibility="invisible"/>
 
         <EditText
@@ -135,8 +135,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:layout_marginRight="10dp"
-        android:gravity="center"
         android:text="@string/login" />
 
     <TextView

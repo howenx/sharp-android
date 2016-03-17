@@ -37,7 +37,7 @@
         android:paddingLeft="15dp"
         android:paddingRight="15dp">
     <TextView 
-        android:id="@+id/cancle"
+        android:id="@+id/cancel"
         android:padding="8dp"
         android:layout_marginRight="20dp"
         android:layout_width="0dp"
@@ -47,9 +47,9 @@
         android:text="取消"
         android:textSize="16sp"
         android:textColor="@color/red"
-        android:background="@drawable/huise_border"/>
+        android:background="@drawable/btn_cancel_selector"/>
     <TextView 
-        android:id="@+id/besure"
+        android:id="@+id/confirm"
         android:padding="8dp"
         android:layout_width="0dp"
         android:layout_weight="1"
@@ -57,7 +57,7 @@
         android:gravity="center"
         android:text="确定"
         android:textSize="16sp"
-        android:textColor="@color/red"
-        android:background="@drawable/huise_border"/>
+        android:textColor="@color/white"
+        android:background="@drawable/btn_confirm_selector"/>
 	</LinearLayout>
 </LinearLayout>

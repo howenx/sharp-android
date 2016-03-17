@@ -11,7 +11,7 @@
 	    android:layout_width="60dp"
 	    android:layout_height="60dp"
 	    android:src="@null"
-	    android:background="@drawable/huise_border"/>
+	    android:background="@drawable/bg_gray_boarder"/>
 
 	<LinearLayout
 	    android:layout_marginTop="5dp"

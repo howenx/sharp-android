@@ -74,10 +74,10 @@
             android:text="提交"
             android:textColor="@android:color/white"
             android:textSize="14sp"
-            custom:pb_colorComplete="@color/theme_sub"
+            custom:pb_colorComplete="@color/theme_pressed"
             custom:pb_colorNormal="@color/theme"
             custom:pb_colorPressed="@color/theme"
-            custom:pb_colorProgress="@color/theme_sub"
+            custom:pb_colorProgress="@color/theme_pressed"
             custom:pb_textComplete="@string/submit_success"
             custom:pb_textError="@string/submit_error"
             custom:pb_textProgress="@string/submit_loading" />

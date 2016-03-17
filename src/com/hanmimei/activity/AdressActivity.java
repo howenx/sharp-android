@@ -83,12 +83,11 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 			SwipeMenuItem deleteItem = new SwipeMenuItem(
 					getApplicationContext());
 			// 设置背景颜色
-			deleteItem.setBackground(new ColorDrawable(Color
-					.parseColor("#e56254")));
+			deleteItem.setBackground(getResources().getDrawable(R.color.theme));
 			// 设置删除的宽度
 			deleteItem.setWidth(CommonUtil.dip2px(90));
 			// 设置图标
-			deleteItem.setIcon(R.drawable.icon_delete);
+			deleteItem.setIcon(R.drawable.hmm_edit_delete);
 			// 增加到menu中
 			menu.addMenuItem(deleteItem);
 		}
@@ -112,7 +111,6 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 			}
 			@Override
 			public void onError() {
-				//请求失败
 				getLoading().dismiss();
 			}
 		});
@@ -238,8 +236,6 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 						.findViewById(R.id.isDefault);
 				holder.isSelected = (ImageView) convertView
 						.findViewById(R.id.isSelected);
-				holder.icon = (ImageView) convertView
-						.findViewById(R.id.icon);
 				holder.btn_xiugai = convertView.findViewById(R.id.btn_xiugai);
 				convertView.setTag(holder);
 			} else {
@@ -269,14 +265,11 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 				holder.isDefault.setVisibility(View.GONE);
 			}
 			if (fromm == From.GoodsBalanceActivity) {
-				holder.icon.setVisibility(View.INVISIBLE);
 				if (adress.getAdress_id() == selectedId) {
 					holder.isSelected.setVisibility(View.VISIBLE);
 				} else {
 					holder.isSelected.setVisibility(View.GONE);
 				}
-			}else{
-				holder.icon.setVisibility(View.VISIBLE);
 			}
 
 			return convertView;
@@ -288,7 +281,7 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 			private TextView adress;
 			private TextView id_card;
 			private TextView isDefault;
-			private ImageView isSelected,icon;
+			private ImageView isSelected;
 			private View btn_xiugai;
 		}
 

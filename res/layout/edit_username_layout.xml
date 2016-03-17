@@ -31,9 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:background="@color/theme"
-        android:textColor="@color/white"
-		style="@style/login_edit_style"
+		style="@style/submit"
         android:text="@string/save"/>
 
 </LinearLayout>

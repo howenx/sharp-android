@@ -20,12 +20,34 @@ import com.hanmimei.view.UpdateDialog;
  */
 public class AlertDialogUtils {
 	
-	public static void MyDialog(Context mContext, String title, String left, String right){
+	public static AlertDialog showDialog(Context mContext,OnClickListener l){
+		return showDialog(mContext, l, null,null, null);
+	}
+	
+	public static AlertDialog showDialog(Context mContext,OnClickListener l,String top,String left,String right){
 		LayoutInflater inflater = LayoutInflater.from(mContext);
-		AlertDialog dialog = new AlertDialog.Builder(mContext).create();
+		final AlertDialog dialog = new AlertDialog.Builder(mContext).create();
 		View view = inflater.inflate(R.layout.dialog_layout, null);
+		TextView title = (TextView) view.findViewById(R.id.title);
+		TextView cancel = (TextView) view.findViewById(R.id.cancel);
+		TextView confirm = (TextView) view.findViewById(R.id.confirm);
+		if(title != null)
+			cancel.setText(top);
+		if(left != null)
+			cancel.setText(left);
+		if(right != null)
+			confirm.setText(right);
+		cancel.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				dialog.dismiss();
+			}
+		});
+		confirm.setOnClickListener(l);
 		dialog.setView(view);
 		dialog.show();
+		return dialog;
 	}
 	
 	

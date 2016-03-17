@@ -48,7 +48,7 @@
     <style name="wode_font_style">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/fontcolor</item>
-        <item name="android:background">@color/white</item>
+        <item name="android:background">@drawable/btn_mine_selector</item>
         <item name="android:drawablePadding">20dp</item>
         <item name="android:padding">15dp</item>
         <item name="android:gravity">center_vertical</item>
@@ -101,11 +101,12 @@
     </style>
 
     <style name="submit">
-        <item name="android:background">@drawable/theme_button_bg</item>
+        <item name="android:background">@drawable/btn_theme_radius_selector</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:paddingBottom">10dp</item>
         <item name="android:paddingTop">10dp</item>
+        <item name="android:gravity">center</item>
     </style>
 
     <style name="my_login_regist">
@@ -159,7 +160,7 @@
         <item name="android:drawablePadding">20dp</item>
         <item name="android:padding">15dp</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:background">@drawable/bg_underline</item>
+        <item name="android:background">@drawable/bg_underline_selector</item>
     </style>
 
     <style name="login_edit_style">
@@ -167,7 +168,7 @@
         <item name="android:textColor">@color/huise</item>
         <item name="android:textColorHint">@color/huise</item>
         <item name="android:paddingTop">5dp</item>
-        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingBottom">5dp</item> 
         <item name="android:paddingLeft">10dp</item>
         <item name="android:paddingRight">10dp</item>
         <item name="android:gravity">center_vertical</item>
@@ -226,7 +227,7 @@
         <item name="android:paddingTop">3dp</item>
         <item name="android:paddingLeft">8dp</item>
         <item name="android:paddingRight">8dp</item>
-        <item name="android:background">@drawable/huise_border</item>
+        <item name="android:background">@drawable/bg_gray_boarder</item>
     </style>
 
     <style name="btn_radio_style">

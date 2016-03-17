@@ -28,6 +28,7 @@ import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.MessageInfo;
 import com.hanmimei.entity.MsgResult;
 import com.hanmimei.utils.ActionBarUtil;
+import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
@@ -60,7 +61,7 @@ public class MessageActivity extends BaseActivity implements OnClickListener {
 			showImg = true;
 			title = "商品提醒";
 		}
-		ActionBarUtil.setActionBarStyle(this, title, R.drawable.icon_delete,
+		ActionBarUtil.setActionBarStyle(this, title, R.drawable.hmm_edit_delete,
 				true, this);
 		mListView = (SwipeMenuListView) findViewById(R.id.mListView);
 		no_msg = (TextView) findViewById(R.id.no_msg);
@@ -194,12 +195,22 @@ public class MessageActivity extends BaseActivity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.setting:
-			delAll();
+			showDelDialog();
 			break;
 
 		default:
 			break;
 		}
+	}
+	
+	private void showDelDialog(){
+		AlertDialogUtils.showDialog(this, new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				delAll();
+			}
+		});
 	}
 
 	private void delAll() {

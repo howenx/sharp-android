@@ -34,6 +34,7 @@ import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.User;
 import com.hanmimei.manager.BadgeViewManager;
 import com.hanmimei.manager.ShoppingCarMenager;
+import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ImageLoaderUtils;
@@ -61,9 +62,9 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		goodsDao = activity.getDaoSession().getShoppingGoodsDao();
 		user = activity.getUser();
 		check_Drawable = activity.getResources()
-				.getDrawable(R.drawable.checked);
+				.getDrawable(R.drawable.hmm_radio_select);
 		uncheck_Drawable = activity.getResources().getDrawable(
-				R.drawable.check_un);
+				R.drawable.hmm_radio_normal);
 	}
 
 	@Override
@@ -235,18 +236,8 @@ public class ShoppingCarAdapter extends BaseAdapter {
 	}
 
 	private void showDialog(final ShoppingGoods goods){
-		View view = inflater.inflate(R.layout.dialog_layout, null);
-		dialog = new AlertDialog.Builder(activity).create();
-		dialog.setView(view);
-		dialog.show();
-		view.findViewById(R.id.cancle).setOnClickListener(new OnClickListener() {
+		dialog = AlertDialogUtils.showDialog(activity, new OnClickListener() {
 			
-			@Override
-			public void onClick(View arg0) {
-				dialog.dismiss();
-			}
-		});
-		view.findViewById(R.id.besure).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				baseActivity.setShoppingcarChanged(true);
@@ -264,6 +255,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 					ShoppingCarMenager.getInstance().setBottom();
 					dialog.dismiss();
 				}
+				
 			}
 		});
 	}

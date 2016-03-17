@@ -30,13 +30,7 @@ import com.hanmimei.utils.ToastUtils;
 public class SettingActivity extends BaseActivity implements OnClickListener {
 
 	
-//	private final String TAG = this.getClass().getName();
-//	private Drawable about_Drawable;
-//	private Drawable idea_Drawable;
-//	private Drawable comment_Drawable;
-//	private Drawable tel_Drawable;
-//	private Drawable del_Drawable;
-//	private Drawable push_Drawable;
+	private final String TAG = this.getClass().getName();
 	private TextView about;
 	private TextView idea;
 	private TextView comment;
@@ -58,35 +52,13 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 		ActionBarUtil.setActionBarStyle(this, "设置");
 		application = (HMMApplication) getApplication();
 		userDao = getDaoSession().getUserDao();
-		initDrawable();
 		initView();
 	}
 
-	private void initDrawable() {
-//		about_Drawable = getResources().getDrawable(
-//				R.drawable.iconfont_guanyuwomen);
-//		about_Drawable.setBounds(0, 0, 40, 40);
-//		idea_Drawable = getResources().getDrawable(
-//				R.drawable.iconfont_yijianfankui);
-//		idea_Drawable.setBounds(0, 0, 40, 40);
-//		comment_Drawable = getResources().getDrawable(
-//				R.drawable.iconfont_comment);
-//		comment_Drawable.setBounds(0, 0, 45, 45);
-//		tel_Drawable = getResources().getDrawable(
-//				R.drawable.iconfont_lianxiwomen);
-//		tel_Drawable.setBounds(0, 0, 45, 45);
-//		del_Drawable = getResources().getDrawable(
-//				R.drawable.iconfont_qingchuhuancun);
-//		del_Drawable.setBounds(0, 0, 40, 40);
-//		push_Drawable = getResources().getDrawable(
-//				R.drawable.icon_tuisong);
-//		push_Drawable.setBounds(0, 0, 40, 40);
-	}
 
 	private void initView() {
 		about = (TextView) findViewById(R.id.about);
 		idea = (TextView) findViewById(R.id.idea);
-//		comment = (TextView) findViewById(R.id.comment);
 		tel = (TextView) findViewById(R.id.tel);
 		del = (TextView) findViewById(R.id.del);
 		exit = (TextView) findViewById(R.id.exit);
@@ -100,16 +72,8 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 		if(getVersionInfo() !=null){
 			versionName.setText(getVersionInfo().getReleaseNumber());
 		}
-//		about.setCompoundDrawables(about_Drawable, null, null, null);
-//		idea.setCompoundDrawables(idea_Drawable, null, null, null);
-//		comment.setCompoundDrawables(comment_Drawable, null, null, null);
-//		tel.setCompoundDrawables(tel_Drawable, null, null, null);
-//		del.setCompoundDrawables(del_Drawable, null, null, null);
-//		upd.setCompoundDrawables(del_Drawable, null, null, null);
-//		push.setCompoundDrawables(push_Drawable, null, null, null);
 		about.setOnClickListener(this);
 		idea.setOnClickListener(this);
-//		comment.setOnClickListener(this);
 		tel.setOnClickListener(this);
 		del.setOnClickListener(this);
 		upd.setOnClickListener(this);
@@ -127,8 +91,6 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 		case R.id.idea:
 			DoJumpUtils.doJump(this, SuggestionActivity.class);
 			break;
-//		case R.id.comment:
-//			break;
 		case R.id.tel:
 			showDialog();
 			break;
@@ -156,29 +118,15 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void showDialog() {
-		View view = LayoutInflater.from(this).inflate(R.layout.dialog_layout,
-				null);
-		dialog = new AlertDialog.Builder(this).create();
-		TextView title = (TextView) view.findViewById(R.id.title);
-		title.setText("拨打客服电话 400100108888");
-		dialog.setView(view);
-		dialog.show();
-		view.findViewById(R.id.cancle).setOnClickListener(
-				new OnClickListener() {
-					@Override
-					public void onClick(View arg0) {
-						dialog.dismiss();
-					}
-				});
-		view.findViewById(R.id.besure).setOnClickListener(
-				new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						startActivity(new Intent(Intent.ACTION_CALL, Uri
-								.parse("tel:18612433707")));
-						dialog.dismiss();
-					}
-				});
+		dialog = AlertDialogUtils.showDialog(this, new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				startActivity(new Intent(Intent.ACTION_CALL, Uri
+						.parse("tel:18612433707")));
+				dialog.dismiss();
+			}
+		},"拨打客服电话 400100108888","取消","拨打");
 	}
 
 	private void doExit() {
