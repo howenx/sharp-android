@@ -409,17 +409,22 @@ public class DataParser {
 		HMessage msg = new HMessage();
 		try {
 			JSONObject object = new JSONObject(result);
+			if(object.has("message")){
 			JSONObject obj = object.getJSONObject("message");
 			if(obj.has("message"))
 				msg.setMessage(obj.getString("message"));
 			if(obj.has("code"))
 				msg.setCode(obj.getInt("code"));
-			if(object.has("token"))
-				msg.setTag(object.getString("token"));
-			if(object.has("expired"))
-				msg.setTime(object.getInt("expired"));
-			if(object.has("id"))
-				msg.setUserId(object.getInt("id"));
+			}
+			if(object.has("result")){
+			JSONObject userObject = object.getJSONObject("result");
+			if(userObject.has("token"))
+				msg.setTag(userObject.getString("token"));
+			if(userObject.has("expired"))
+				msg.setTime(userObject.getInt("expired"));
+			if(userObject.has("id"))
+				msg.setUserId(userObject.getInt("id"));
+			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

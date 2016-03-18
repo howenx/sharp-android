@@ -63,6 +63,7 @@ public class HttpUtils {
 
 			HttpGet getRequest = new HttpGet(url);
 			getRequest.addHeader("accept", "application/json");
+			getRequest.addHeader("User-Agent", System.getProperty("http.agent"));
 			HttpResponse response = httpClient.execute(getRequest);
 			if (response.getStatusLine().getStatusCode() == 200) {
 				is = response.getEntity().getContent();
@@ -84,6 +85,7 @@ public class HttpUtils {
 		return result.toString();
 
 	}
+	
 	public static Bitmap getImg(String url) {
 //		StringBuilder result = new StringBuilder();
 		Bitmap bitmap = null;
@@ -93,6 +95,7 @@ public class HttpUtils {
 
 			HttpGet getRequest = new HttpGet(url);
 			getRequest.addHeader("accept", "application/json");
+			getRequest.addHeader("User-Agent", System.getProperty("http.agent"));
 			HttpResponse response = httpClient.execute(getRequest);
 			if (response.getStatusLine().getStatusCode() == 200) {
 				is = response.getEntity().getContent();
@@ -120,6 +123,7 @@ public class HttpUtils {
 			getRequest.addHeader("Content-Type", "text/html;charset=UTF-8");  
 			getRequest.addHeader("accept", "application/json");
 			getRequest.addHeader("id-token", token);
+			getRequest.addHeader("User-Agent", System.getProperty("http.agent"));
 			HttpResponse response = httpClient.execute(getRequest);
 			if (response.getStatusLine().getStatusCode() == 200) {
 				is = response.getEntity().getContent();
@@ -152,6 +156,7 @@ public class HttpUtils {
 			getRequest.addHeader("Content-Type", "text/json;charset=UTF-8"); 
 			getRequest.addHeader("accept", "application/json");
 			getRequest.addHeader(tokenKey, tokenValue);
+			getRequest.addHeader("User-Agent", System.getProperty("http.agent"));
 			HttpResponse response = httpClient.execute(getRequest);
 			response.setHeader("Content-type", "text/html;charset=UTF-8");  
 			if (response.getStatusLine().getStatusCode() == 200) {
@@ -262,6 +267,7 @@ public class HttpUtils {
 			if(tokenKey.equals("id-token"))
 				httppost.addHeader(tokenKey, tokenValue); // 认证token
 			httppost.addHeader("Content-Type", "application/json");
+			httppost.addHeader("User-Agent", System.getProperty("http.agent"));
 			// http post的json数据格式： {"name": "your name"}
 			if (obj == null) {
 				StringEntity en = new StringEntity(null);
@@ -293,6 +299,7 @@ public class HttpUtils {
 			HttpClient httpclient = new DefaultHttpClient();
 			HttpPost httppost = new HttpPost(url);
 			httppost.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
+			httppost.addHeader("User-Agent", System.getProperty("http.agent"));
 			response = httpclient.execute(httppost);
 			// 检验状态码，如果成功接收数据
 			if (response.getStatusLine().getStatusCode() == 200) {
