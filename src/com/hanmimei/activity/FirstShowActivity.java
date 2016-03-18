@@ -20,10 +20,13 @@ import com.google.gson.Gson;
 import com.hanmimei.R;
 import com.hanmimei.application.HMMApplication;
 import com.hanmimei.dao.DaoSession;
+import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
+import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.TokenVo;
 import com.hanmimei.entity.User;
 import com.hanmimei.utils.DateUtil;
+import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.PostStringRequest;
 import com.hanmimei.utils.SharedPreferencesUtil;
 import com.hanmimei.utils.ToastUtils;
@@ -34,6 +37,7 @@ public class FirstShowActivity extends AppCompatActivity {
 	private static final String FIRST = "first";
 	private static final String FIRST_LOG_FLAG = "first_log_flag";
 	private HMMApplication application;
+	private User user;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -71,15 +75,16 @@ public class FirstShowActivity extends AppCompatActivity {
 
 	// 判断用户token信息
 	private void loginUser() {
-		User user = getDaoSession().getUserDao().queryBuilder().build().unique();
+		user = getDaoSession().getUserDao().queryBuilder().build().unique();
 		if (user != null) {
 			if (user.getToken() != null) {
 				int difDay = DateUtil.getDate(user.getExpired());
 				if (difDay < 24 && difDay >= 0) {
-					getNewToken(user);
+					getNewToken();
 				} else if (difDay < 0) {
 					getDaoSession().getUserDao().deleteAll();
 				} else {
+//					getNewToken();
 					application.setLoginUser(user);
 				}
 			}
@@ -87,38 +92,49 @@ public class FirstShowActivity extends AppCompatActivity {
 	}
 
 	// 更新token
-	private void getNewToken(final User user) {
-		Map<String, String> params = new HashMap<String, String>();
-		params.put("token", user.getToken());
-		PostStringRequest request = null;
-		try {
-			request = new PostStringRequest(Method.POST, UrlUtil.UPDATE_TOKEN,
-					new Listener<String>() {
-
-						@Override
-						public void onResponse(String arg0) {
-							TokenVo tokenVo = new Gson().fromJson(arg0, TokenVo.class);
-							if(tokenVo.getResult()){
-								user.setToken(tokenVo.getToken());
-								user.setExpired(DateUtil.turnToDate(tokenVo.getExpired()));
-								user.setLast_login(DateUtil.getCurrentDate());
-								application.setLoginUser(user);
-							}else{
-								ToastUtils.Toast(FirstShowActivity.this,tokenVo.getMessage());
-							}
-						}
-					}, new ErrorListener() {
-
-						@Override
-						public void onErrorResponse(VolleyError arg0) {
-							ToastUtils.Toast(FirstShowActivity.this,
-									R.string.error);
-						}
-					}, params, null);
-		} catch (IOException e) {
-			ToastUtils.Toast(FirstShowActivity.this, R.string.error);
-		}
-		((HMMApplication) getApplication()).getRequestQueue().add(request);
+	private void getNewToken() {
+//		Map<String, String> params = new HashMap<String, String>();
+//		params.put("token", user.getToken());
+//		PostStringRequest request = null;
+//		try {
+//			request = new PostStringRequest(Method.POST, UrlUtil.UPDATE_TOKEN,
+//					new Listener<String>() {
+//
+//						@Override
+//						public void onResponse(String arg0) {
+//							TokenVo tokenVo = new Gson().fromJson(arg0, TokenVo.class);
+//							if(tokenVo.getResult()){
+//								user.setToken(tokenVo.getToken());
+//								user.setExpired(DateUtil.turnToDate(tokenVo.getExpired()));
+//								user.setLast_login(DateUtil.getCurrentDate());
+//								application.setLoginUser(user);
+//							}else{
+//								ToastUtils.Toast(FirstShowActivity.this,tokenVo.getMessage());
+//							}
+//						}
+//					}, new ErrorListener() {
+//
+//						@Override
+//						public void onErrorResponse(VolleyError arg0) {
+//							ToastUtils.Toast(FirstShowActivity.this,
+//									R.string.error);
+//						}
+//					}, params, null);
+//		} catch (IOException e) {
+//			ToastUtils.Toast(FirstShowActivity.this, R.string.error);
+//		}
+//		((HMMApplication) getApplication()).getRequestQueue().add(request);
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				String result = HttpUtils.get(UrlUtil.UPDATE_TOKEN, user.getToken());
+				HMessage loginInfo = DataParser.paserResultMsg(result);
+				Message msg = mHandler.obtainMessage(2);
+				msg.obj = loginInfo;
+				mHandler.sendMessage(msg);
+			}
+		}).start();
 
 	}
 
@@ -134,7 +150,15 @@ public class FirstShowActivity extends AppCompatActivity {
 				finish();
 				break;
 			case 2:
-
+				HMessage loginInfo = (HMessage) msg.obj;
+				if(loginInfo.getCode() == 200){
+					user.setToken(loginInfo.getTag());
+					user.setExpired(DateUtil.turnToDate(loginInfo.getTime()));
+					user.setLast_login(DateUtil.getCurrentDate());
+					application.setLoginUser(user);
+				}else{
+					ToastUtils.Toast(FirstShowActivity.this,loginInfo.getMessage());
+				}
 				break;
 			default:
 				break;
