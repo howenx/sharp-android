@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    card_view:cardBackgroundColor="@color/white" >
-<LinearLayout 
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:background="@drawable/bg_gray_boarder"
+    android:orientation="vertical" >
+
     <include
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:divider="@color/qianhui"
-        android:dividerHeight="0.1dp"/>
+        android:dividerHeight="0.1dp" />
 
     <View
         android:layout_width="match_parent"
@@ -33,7 +30,7 @@
     <include
         android:id="@+id/bottom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
+        android:layout_height="wrap_content"
         layout="@layout/order_list_footer" />
+
 </LinearLayout>
-</android.support.v7.widget.CardView>

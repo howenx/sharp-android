@@ -2,85 +2,76 @@
 <resources>
 
     <string name="app_name">韩秘美</string>
-	<string name="idcard_info">请您协助提供正确的第二代居民身份证件信息，如因身份证信息有误导致我们无法发货和报关造成的损失，将由您自己承担。</string>
-	<string name="forget"><u>忘记密码？</u></string>
-	<string name="go_login"><u>去登录</u></string>
-	<string name="phone_num">手机号</string>
-	<string name="pwd">密&#160;&#160;&#160;&#160;码</string>
-	<string name="set_pwd">设置密码</string>
-	<string name="besure_pwd">确认密码</string>
-	<string name="login">登录</string>
-	<string name="regist">注册</string>
-	<string name="input_phone">请输入手机号</string>
-	<string name="input_pwd">请输入密码</string>
-	<string name="input_pwd_do">6-12位字母／数字组合</string>
-	<string name="input_pwd_agin">再次填写密码</string>
-	<string name="input_code">短信验证码</string>
-	<string name="new_pwd">新密码</string>
-	<string name="get_code">获取验证码</string>
-	<string name="yanzhengma">验证码</string>
-	<string name="about_id_card">    ·我在韩秘美购物为什么需要客户提交身份证信息？\n\n    您好，因为您购买的是国外商品，商品送到您手中需要经过海关报关流程，根据国家法规规定国外商品进入中国是需要您提供身份证信息来完成报关的。请您放心，我们会妥善处理与保管您的身份证信息，仅用于商品清关时使用。 若您有疑惑可以查看相应的国家法律条款信息： 详情点击查看：http://www.customs.gov.cn/publish/portal0/tab517/info265077.htm。
+    <string name="idcard_info">请您协助提供正确的第二代居民身份证件信息，如因身份证信息有误导致我们无法发货和报关造成的损失，将由您自己承担。</string>
+    <string name="forget"><u>忘记密码？</u></string>
+    <string name="go_login"><u>去登录</u></string>
+    <string name="phone_num">手机号</string>
+    <string name="pwd">密&#160;&#160;&#160;&#160;码</string>
+    <string name="set_pwd">设置密码</string>
+    <string name="besure_pwd">确认密码</string>
+    <string name="login">登录</string>
+    <string name="regist">注册</string>
+    <string name="input_phone">请输入手机号</string>
+    <string name="input_pwd">请输入密码</string>
+    <string name="input_pwd_do">6-12位字母／数字组合</string>
+    <string name="input_pwd_agin">再次填写密码</string>
+    <string name="input_code">短信验证码</string>
+    <string name="new_pwd">新密码</string>
+    <string name="get_code">获取验证码</string>
+    <string name="yanzhengma">验证码</string>
+    <string name="about_id_card">    ·我在韩秘美购物为什么需要客户提交身份证信息？\n\n    您好，因为您购买的是国外商品，商品送到您手中需要经过海关报关流程，根据国家法规规定国外商品进入中国是需要您提供身份证信息来完成报关的。请您放心，我们会妥善处理与保管您的身份证信息，仅用于商品清关时使用。 若您有疑惑可以查看相应的国家法律条款信息： 详情点击查看：http://www.customs.gov.cn/publish/portal0/tab517/info265077.htm。
 \n\n    ·我填写的收货人信息是错误的，怎么上传身份证信息？\n\n   建议您可以拨打韩秘美400免费热线：400-843-2288 周一到周日 09：00-18：00，我们会帮助您协商处理。</string>
+    <string name="tishi">1.海关需要对海外购物查验身份信息，错误信息可能导致无法通关。\n2.身份信息将加密报关，韩秘美将保证您的信息安全。</string>
+    <string name="price">¥%1$s</string>
+    <string name="price01">¥%1$s起售</string>
+    <string name="discount">%1$s折</string>
+    <string name="shui"><u>行邮税</u></string>
+    <string name="error">网络链接异常</string>
+    <string name="restrictAmount">%1$s件</string>
+    <string name="shipFee">运费:¥%1$s</string>
+    <string name="postalFee">行邮税:¥%1$s</string>
+    <string name="buyNum">购买数量:%1$s</string>
+    <string name="all_money">总金额:¥%1$s</string>
+    <string name="submit_order">提交订单</string>
+    <string name="name">姓名：%1$s</string>
+    <string name="phone">联系电话：%1$s</string>
+    <string name="address">收货地址：%1$s</string>
+    <string name="idcard">身份证号：%1$s</string>
+    <string name="yuanguanshui">原行邮税¥%1$s(≤%2$s,免税)</string>
+    <string name="sel_max">您最多可提供数量为%1$s个</string>
+    <string name="upload">您最多上传3张 每张不超过5M,支持JPG,BMP,PNG</string>
+    <string name="num">数量:%1$s</string>
+    <string name="portalfee_biaozhun">本商品适用税率为%1$s％，若订单总税额≤%2$s则免征</string>
+    <string name="pay_type_jd">JD</string>
+    <string name="pay_type_ali">APAY</string>
+    <string name="pay_type_wx">WEIXIN</string>
+    <string name="now_go">立即查看</string>
+    <string name="cancel">取消</string>
+    <string name="confirm">确认</string>
+    <string name="save">保存</string>
+    <string name="order_attention">注意：订单超过24小时，系统会自动取消。请尽快支付！</string>
+    <string name="top">顶部</string>
+    <string name="sucess_goodscar">商品已成功添加入购物车</string>
+    <string name="kouling">秘美令</string>
+    <string name="pingou_remind">支持开团并邀请%1$s参团，人数不足自动退款，详见下方拼团玩法</string>
+    <string name="today_pingou">今日拼购 GROUP PURCHASE</string>
+    <string name="no_order">您还没有相关的订单</string>
+    <string name="zhekoulv">折扣率：</string>
+    <string name="pingoudazhe">拼购打折</string>
+    <string name="send_yan_to_phone">我们将发送验证码到你的手机。</string>
+    <string name="edit_user_info">1.字符个数应在2-12位之间\n2.与韩秘美有冲突的昵称，韩秘美将保留收回的权利\n3.创建或更改昵称，请遵守相关法律法规</string>
+    <string name="regist_agree_us">注册即视为同意 韩秘美服务条款</string>
+    <string name="regist_agree_us02">韩秘美隐私条款</string>
+    <string name="regist_agree_us_key">韩秘美服务条款</string>
+    <string name="submit">提交</string>
+    <string name="submit_loading">提交中...</string>
+    <string name="submit_success">提交成功</string>
+    <string name="submit_error">提交失败</string>
+    <string name="see_order">查看订单详情</string>
+    <string name="see_tuan">查看团详情</string>
+    <string name="tuan_gui">%1$s人团：¥%2$s</string>
+    <string name="pingou_over_notice">该活动已结束，去看看其他拼购吧</string>
+    <string name="xiadan_01">立即下单</string>
+    <string name="pingou_fail_notice">拼购失败,资金会在1-5个工作日内退回您的账户</string>
 
-	<string name="tishi">1.海关需要对海外购物查验身份信息，错误信息可能导致无法通关。\n2.身份信息将加密报关，韩秘美将保证您的信息安全。</string>
-
-	
-	<string name="price">¥%1$s</string>
-	<string name="price01">¥%1$s起售</string>
-	<string name="discount">%1$s折</string>
-	<string name="shui"><u>行邮税</u></string>
-	<string name="error">数据请求失败</string>
-	
-	<string name="restrictAmount">%1$s件</string>
-	<string name="shipFee">运费:¥%1$s</string>
-	<string name="postalFee">行邮税:¥%1$s</string>
-	<string name="buyNum">购买数量:%1$s</string>
-	<string name="all_money">总金额:¥%1$s</string>
-	<string name="submit_order">提交订单</string>
-	
-	<string name="name">姓名：%1$s</string>
-	<string name="phone">联系电话：%1$s</string>
-	<string name="address">收货地址：%1$s</string>
-	<string name="idcard">身份证号：%1$s</string>
-	<string name="yuanguanshui">原行邮税¥%1$s(≤%2$s,免税)</string>
-	<string name="sel_max">您最多可提供数量为%1$s个</string>
-	<string name="upload">您最多上传3张 每张不超过5M,支持JPG,BMP,PNG</string>
-	<string name="num">数量:%1$s</string>
-	
-	<string name="portalfee_biaozhun">本商品适用税率为%1$s％，若订单总税额≤%2$s则免征</string>
-	
-	<string name="pay_type_jd">JD</string>
-	<string name="pay_type_ali">APAY</string>
-	<string name="pay_type_wx">WEIXIN</string>
-
-	<string name="now_go">立即查看</string>
-	<string name="cancel">取消</string>
-	<string name="confirm">确认</string>
-	<string name="save">保存</string>
-	<string name="order_attention">注意：订单超过24小时，系统会自动取消。请尽快支付！</string>
-	<string name="top">顶部</string>
-	<string name="sucess_goodscar">商品已成功添加入购物车</string>
-	<string name="kouling">秘美令</string>
-	
-	<string name="pingou_remind">支持开团并邀请%1$s参团，人数不足自动退款，详见下方拼团玩法</string>
-	<string name="today_pingou">今日拼购 GROUP PURCHASE</string>
-	<string name="no_order">您还没有相关的订单</string>
-	<string name="zhekoulv">折扣率：</string>
-	<string name="pingoudazhe">拼购打折</string>
-	<string name="send_yan_to_phone">我们将发送验证码到你的手机。</string>
-	<string name="edit_user_info">1.字符个数应在2-12位之间\n2.与韩秘美有冲突的昵称，韩秘美将保留收回的权利\n3.创建或更改昵称，请遵守相关法律法规</string>
-	<string name="regist_agree_us">注册即视为同意 韩秘美服务条款</string>
-	<string name="regist_agree_us02">韩秘美隐私条款</string>
-	<string name="regist_agree_us_key">韩秘美服务条款</string>
-	
-	<string name="submit">提交</string>
-	<string name="submit_loading">提交中...</string>
-	<string name="submit_success">提交成功</string>
-	<string name="submit_error">提交失败</string>
-	<string name="see_order">查看订单详情</string>
-	<string name="see_tuan">查看团详情</string>
-	
-	
-		<string name="tuan_gui">%1$s人团：¥%2$s</string>
-	
 </resources>

@@ -75,7 +75,7 @@ public class PingouDetailActivity extends BaseActivity implements
 	private PinDetail detail;
 	private ImageView collectionImg;
 	private boolean isCollection = false;
-	private TextView notice, more_view;
+	private TextView  more_view;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -126,7 +126,6 @@ public class PingouDetailActivity extends BaseActivity implements
 		slider = (ConvenientBanner<ImgInfo>) findViewById(R.id.slider);
 
 		back_top = findViewById(R.id.back_top);
-		notice = (TextView) findViewById(R.id.notice);
 		more_view = (TextView) findViewById(R.id.more_view);
 
 		View view = findViewById(R.id.viewpager_content);
@@ -174,11 +173,12 @@ public class PingouDetailActivity extends BaseActivity implements
 			findViewById(R.id.btn_buy_02).setOnClickListener(this);
 			findViewById(R.id.btn_pin_01).setOnClickListener(this);
 			findViewById(R.id.btn_pin_02).setOnClickListener(this);
-			notice.setVisibility(View.INVISIBLE);
 		} else if (stock.getStatus().equals("P")) {
-			notice.setText("该商品尚未开售");
+//			ToastUtils.CardToast(this, "该商品尚未开售");
+			
 		} else {
-			notice.setText("该商品已售罄");
+//			ToastUtils.CardToast(this, "该商品已售罄");
+			
 			more_view.setVisibility(View.VISIBLE);
 			more_view.setOnClickListener(this);
 			showPopupwindow();

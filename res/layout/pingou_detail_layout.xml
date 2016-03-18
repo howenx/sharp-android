@@ -1,251 +1,229 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    android:fitsSystemWindows="true" >
+    android:fitsSystemWindows="true"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <com.cpoopc.scrollablelayoutlib.ScrollableLayout
+            android:id="@+id/mScrollLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/header01"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <FrameLayout
+                    android:id="@+id/viewpager_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <com.bigkoo.convenientbanner.ConvenientBanner
+                        android:id="@+id/slider"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/pinTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:padding="8dp"
+                    android:textColor="@color/fontcolor"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/soldAmount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:gravity="right"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:textColor="@color/huise"
+                    android:textSize="12sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:padding="8dp" >
+
+                    <LinearLayout
+                        android:id="@+id/btn_pin_01"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:id="@+id/pin_price"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/theme"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:textColor="@color/white"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/pin_per_num"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/btn_black_selector"
+                            android:gravity="center"
+                            android:padding="3dp"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/btn_buy_01"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:id="@+id/item_src_price"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/gray"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:textColor="@color/fontcolor"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/btn_black_selector"
+                            android:gravity="center"
+                            android:padding="3dp"
+                            android:text="立即购买"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/wanfaView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@null"
+                    android:src="@drawable/pingou_wanfa" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white" >
+
+                <com.astuetz.PagerSlidingTabStrip
+                    android:id="@+id/tabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/actionbar_size"
+                    android:textColor="@color/indicator_font_color_selector"
+                    app:pstsDividerColor="@android:color/transparent"
+                    app:pstsIndicatorColor="@color/theme"
+                    app:pstsIndicatorHeight="2dp"
+                    app:pstsShouldExpand="true"
+                    app:pstsTabBackground="@android:color/transparent"
+                    app:pstsUnderlineHeight="2dp" />
+            </RelativeLayout>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white" >
+            </android.support.v4.view.ViewPager>
+        </com.cpoopc.scrollablelayoutlib.ScrollableLayout>
+
+        <include
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="15dp"
+            layout="@layout/back_to_top_layout"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/more_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/theme"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="该活动已结束，去看看其他拼购吧"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:visibility="gone" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:layout_height="@dimen/navigationbar_size"
+        android:layout_gravity="bottom"
+        android:background="@drawable/bg_gray_boarder"
+        android:orientation="horizontal" >
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+        <FrameLayout
+            android:id="@+id/btn_attention"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1" >
 
-            <com.cpoopc.scrollablelayoutlib.ScrollableLayout
-                android:id="@+id/mScrollLayout"
+            <ImageView
+                android:id="@+id/attention"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/background"
-                android:orientation="vertical" >
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:scaleType="center"
+                android:src="@drawable/icon_un_collect" />
+        </FrameLayout>
 
-                <LinearLayout
-                    android:id="@+id/header01"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" >
+        <TextView
+            android:id="@+id/btn_pin_02"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@drawable/btn_theme_selector"
+            android:gravity="center"
+            android:text="立即开团"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
 
-                    <FrameLayout
-                        android:id="@+id/viewpager_content"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" >
-
-                        <com.bigkoo.convenientbanner.ConvenientBanner
-                            android:id="@+id/slider"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
-                        
-                        <TextView 
-                            android:id="@+id/notice"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/theme"
-                            android:padding="3dp"
-                            android:layout_gravity="top|right"
-                            android:background="#ffeedd"
-                            android:textSize="12sp"/>
-                        
-                    </FrameLayout>
-
-                    <TextView
-                        android:id="@+id/pinTitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:padding="8dp"
-                        android:layout_marginTop="10dp"
-                        android:textColor="@color/fontcolor"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/soldAmount"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:gravity="right"
-                        android:paddingLeft="8dp"
-                        android:paddingRight="8dp"
-                        android:textColor="@color/huise"
-                        android:textSize="12sp" />
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:orientation="horizontal"
-                        android:padding="8dp" >
-
-                        <LinearLayout
-                            android:id="@+id/btn_pin_01"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical" >
-
-                            <TextView
-                                android:id="@+id/pin_price"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@color/theme"
-                                android:gravity="center"
-                                android:padding="10dp"
-                                android:textColor="@color/white"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:id="@+id/pin_per_num"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/btn_black_selector"
-                                android:gravity="center"
-                                android:padding="3dp"
-                                android:textColor="@color/white"
-                                android:textSize="14sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/btn_buy_01"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical" >
-
-                            <TextView
-                                android:id="@+id/item_src_price"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@color/gray"
-                                android:gravity="center"
-                                android:padding="10dp"
-                                android:textColor="@color/fontcolor"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/btn_black_selector"
-                                android:gravity="center"
-                                android:padding="3dp"
-                                android:text="立即购买"
-                                android:textColor="@color/white"
-                                android:textSize="14sp" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <ImageView
-                        android:id="@+id/wanfaView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@null"
-                        android:src="@drawable/pingou_wanfa" />
-                </LinearLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white" >
-
-                    <com.astuetz.PagerSlidingTabStrip
-                        android:id="@+id/tabs"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/actionbar_size"
-                        android:textColor="@color/indicator_font_color_selector"
-                        app:pstsDividerColor="@android:color/transparent"
-                        app:pstsIndicatorColor="@color/theme"
-                        app:pstsIndicatorHeight="2dp"
-                        app:pstsShouldExpand="true"
-                        app:pstsTabBackground="@android:color/transparent"
-                        app:pstsUnderlineHeight="2dp" />
-                </RelativeLayout>
-
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/view_pager"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/white" >
-                </android.support.v4.view.ViewPager>
-            </com.cpoopc.scrollablelayoutlib.ScrollableLayout>
-
-            <include
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_margin="15dp"
-                layout="@layout/back_to_top_layout"
-                android:visibility="gone" />
-        </RelativeLayout>
-          <TextView
-              android:id="@+id/more_view"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_alignParentBottom="true"
-              android:background="@color/theme"
-              android:gravity="center"
-              android:padding="10dp"
-              android:text="该活动已结束，去看看其他拼购吧"
-              android:textColor="@color/white"
-              android:textSize="14sp"
-              android:visibility="gone" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/navigationbar_size"
-            android:layout_gravity="bottom"
-            android:background="@drawable/bg_gray_boarder"
-            android:orientation="horizontal" >
-
-            <FrameLayout
-                android:id="@+id/btn_attention"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" >
-
-                <ImageView
-                    android:id="@+id/attention"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:contentDescription="@null"
-                    android:scaleType="center"
-                    android:src="@drawable/icon_un_collect" />
-            </FrameLayout>
-
-            <TextView
-                android:id="@+id/btn_pin_02"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:background="@drawable/btn_theme_selector"
-                android:gravity="center"
-                android:text="立即开团"
-                android:textColor="@color/white"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/btn_buy_02"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:background="@drawable/btn_black_selector"
-                android:gravity="center"
-                android:text="单独购买"
-                android:textColor="@color/white"
-                android:textSize="14sp" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/btn_buy_02"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@drawable/btn_black_selector"
+            android:gravity="center"
+            android:text="单独购买"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
     </LinearLayout>
 
-    <include
-        android:id="@+id/no_net"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        layout="@layout/offline_wuxinhao_layout"
-        android:visibility="gone" />
-
-</FrameLayout>
+</LinearLayout>

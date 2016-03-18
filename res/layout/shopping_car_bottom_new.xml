@@ -54,7 +54,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="@null"
-        android:background="@color/theme"
+        android:background="@color/unClick"
         android:textSize="14sp"
         android:textColor="@color/white"/>
 

@@ -32,6 +32,7 @@ import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.utils.ActionBarUtil;
+import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.DoJumpUtils;
 import com.hanmimei.utils.HttpUtils;
@@ -86,13 +87,11 @@ public class CheckPhoneActivity extends BaseActivity implements OnClickListener 
 		@Override
 		public void afterTextChanged(Editable s) {
 			if (s.length() == 11) {
-				next.setBackground(getResources().getDrawable(
-						R.drawable.theme_button_bg));
+				next.setBackgroundResource(R.drawable.btn_theme_radius_selector);
 				next.setClickable(true);
 				next.setOnClickListener(CheckPhoneActivity.this);
 			} else {
-				next.setBackground(getResources().getDrawable(
-						R.drawable.huise_button_bg));
+				next.setBackgroundResource(R.drawable.huise_button_bg);
 				next.setClickable(false);
 				next.setOnClickListener(null);
 			}
@@ -120,14 +119,6 @@ public class CheckPhoneActivity extends BaseActivity implements OnClickListener 
 			} else {
 				checkPhone();
 			}
-			break;
-		case R.id.cancle:
-			alertDialog.dismiss();
-			break;
-		case R.id.besure:
-			alertDialog.dismiss();
-			DoJumpUtils.doJump(this, ForgetPhoneActivity.class);
-			finish();
 			break;
 
 		// 清空手机号的输入
@@ -188,17 +179,15 @@ public class CheckPhoneActivity extends BaseActivity implements OnClickListener 
 	};
 
 	private void showDialog() {
-		View view = LayoutInflater.from(this).inflate(R.layout.dialog_layout,
-				null);
-		alertDialog = new AlertDialog.Builder(this).create();
-		alertDialog.setView(view);
-		alertDialog.show();
-		TextView title = (TextView) view.findViewById(R.id.title);
-		TextView besure = (TextView) view.findViewById(R.id.besure);
-		title.setText("该手机号已经注册");
-		besure.setText("找回密码");
-		view.findViewById(R.id.cancle).setOnClickListener(this);
-		view.findViewById(R.id.besure).setOnClickListener(this);
+		alertDialog = AlertDialogUtils.showDialog(this, new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				alertDialog.dismiss();
+				DoJumpUtils.doJump(getActivity(), ForgetPhoneActivity.class);
+				finish();
+			}
+		}, "该手机号已经注册", "取消", "找回密码");
 	}
 	private MyBroadCastReceiver netReceiver;
 	private void registerReceivers() {

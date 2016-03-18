@@ -32,13 +32,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:clickable="true"
-        android:background="@drawable/bg_search_item"
+        android:background="@drawable/btn_cancel_selector"
         android:paddingBottom="8dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:paddingTop="8dp"
         android:text="重新加载"
-        android:textColor="@color/black"
+        android:textColor="@color/fontcolor"
         android:textSize="14sp" />
 
 </LinearLayout>

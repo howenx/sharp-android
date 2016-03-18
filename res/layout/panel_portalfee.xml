@@ -2,36 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:background="@drawable/bg_gray_boarder"
     android:orientation="vertical" >
     
-     <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/theme" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/margin_horizontal_normal"
+            android:gravity="center"
+            android:padding="15dp"
             android:text="税费"
-            android:textColor="@color/black"
-            android:textSize="@dimen/font_normal" />
+            android:textColor="@color/fontcolor"
+            android:textSize="@dimen/font_big" />
 
-        <ImageView
-            android:id="@+id/btn_cancel"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:contentDescription="@null"
-            android:scaleType="center"
-            android:src="@drawable/icon_chahao" />
-    </RelativeLayout>
+        
 
     <View
         android:layout_width="match_parent"
@@ -72,7 +57,21 @@
             android:text="@string/portalfee_biaozhun"
             android:textColor="#9F9F9F"
             android:textSize="@dimen/font_normal" 
-            android:layout_marginBottom="100dp"/>
+            android:layout_marginBottom="30dp"/>
     </LinearLayout>
+    
+    <TextView
+            android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_theme_radius_selector"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/confirm"/>
 
 </LinearLayout>

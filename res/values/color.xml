@@ -2,13 +2,13 @@
 <resources>
 
     <color name="theme">#FF5359</color>
-    <color name="theme_pressed">#E26459</color>
+    <color name="theme_pressed">#D63939</color>
     <color name="background">#F3F8FB</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
-    <color name="black_01">#434446</color>
-    <color name="black_01_pressed">#AA000000</color>
-    <color name="gray">#ECEDEE</color>
+    <color name="black_01_pressed">#CC000000</color>
+    <color name="black_01">#AA000000</color>
+    <color name="gray">#ECECEC</color>
     <color name="huise">#969696</color>
     <color name="red">#EF2528</color>
     <color name="fontcolor">#646566</color>
@@ -17,5 +17,6 @@
     <color name="province_line_border">#C7C7C7</color>
     <color name="gree">#72AF1A</color>
     <color name="rippelColor">#FFFFFF</color>
+    <color name="unClick">#CCCCCC</color>
 
 </resources>

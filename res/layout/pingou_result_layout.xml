@@ -9,19 +9,18 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         android:orientation="vertical" >
-        
+
         <TextView
-        android:id="@+id/notice_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:layout_alignParentBottom="true"
-        android:background="#ffeedd"
-        android:text="拼购失败，资金会在1-5个工作日内退回您的账户"
-        android:textSize="12sp"
-        android:gravity="center"
-        android:visibility="gone"
-        android:textColor="@color/theme" />
+            android:id="@+id/notice_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffeedd"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="@string/pingou_fail_notice"
+            android:textColor="@color/theme"
+            android:textSize="12sp"
+            android:visibility="gone" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -80,6 +79,7 @@
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:layout_alignParentRight="true"
+                        android:contentDescription="@null"
                         android:layout_alignTop="@+id/textView1" />
                 </RelativeLayout>
 
@@ -208,26 +208,26 @@
                 android:id="@+id/btn_xiadan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/theme"
+                android:background="@drawable/btn_theme_radius_selector"
                 android:gravity="center"
                 android:padding="8dp"
-                android:text="立即下单"
+                android:text="@string/xiadan_01"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
         </RelativeLayout>
     </LinearLayout>
 
-   <TextView
+    <TextView
         android:id="@+id/more_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
         android:layout_alignParentBottom="true"
         android:background="@color/theme"
-        android:text="该活动已结束，去看看其他拼购吧"
-        android:textSize="14sp"
         android:gravity="center"
-        android:visibility="gone"
-        android:textColor="@color/white" />
+        android:padding="10dp"
+        android:text="@string/pingou_over_notice"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:visibility="gone" />
 
 </RelativeLayout>

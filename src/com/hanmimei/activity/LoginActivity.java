@@ -329,7 +329,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			super.handleMessage(msg);
 			switch (msg.what) {
 			case 1:
-				dialog.dismiss();
+				
 				code = "-1";
 				HMessage result = (HMessage) msg.obj;
 				if (result.getCode() != null) {
@@ -368,6 +368,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 				} else {
 					CommonUtil.setAttention(attention, "网络连接异常，请检查网络");
 				}
+				dialog.dismiss();
 				break;
 			case 2:
 				HMessage hmsg = (HMessage) msg.obj;

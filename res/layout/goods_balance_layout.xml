@@ -112,7 +112,7 @@
                     android:layout_gravity="center"
                     android:background="@drawable/btn_theme_radius_selector"
                     android:text="添加收货地址"
-                    android:textColor="@color/btn_font_selector"
+                    android:textColor="@color/white"
                     android:textSize="16sp" />
             </FrameLayout>
 
@@ -537,11 +537,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:background="#9f9f9f"
+            android:background="@drawable/btn_theme_selector"
             android:gravity="center"
             android:padding="15dp"
             android:text="@string/submit_order"
-            android:textColor="@color/btn_font_selector"
+            android:textColor="@color/white"
             android:textSize="16sp" />
     </LinearLayout>
 

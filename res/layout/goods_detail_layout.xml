@@ -36,17 +36,6 @@
                             android:id="@+id/slider"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" />
-                        
-                          <TextView 
-                            android:id="@+id/notice"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/theme"
-                            android:padding="3dp"
-                            android:visibility="invisible"
-                            android:layout_gravity="top|right"
-                            android:background="#ffeedd"
-                            android:textSize="12sp"/>
                     </FrameLayout>
 
                     <View
@@ -233,18 +222,18 @@
                 android:visibility="gone" />
         </RelativeLayout>
 
-          <TextView
-              android:id="@+id/more_view"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_alignParentBottom="true"
-              android:background="@color/theme"
-              android:gravity="center"
-              android:padding="10dp"
-              android:text="该商品已卖完，去看看其他商品吧"
-              android:textColor="@color/white"
-              android:textSize="14sp"
-              android:visibility="gone" />
+        <TextView
+            android:id="@+id/more_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/theme"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="该商品已卖完，去看看其他商品吧"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -268,13 +257,13 @@
                     android:scaleType="center"
                     android:src="@drawable/icon_gouwuche2" />
             </FrameLayout>
-            
-            
-            <View 
+
+            <View
                 android:layout_width="1px"
                 android:layout_height="match_parent"
-                android:background="@color/qianhui"/>
-              <FrameLayout
+                android:background="@color/qianhui" />
+
+            <FrameLayout
                 android:id="@+id/btn_attention"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -324,12 +313,5 @@
         android:visibility="invisible"
         app:border_color="@color/huise"
         app:border_width="1px" />
-
-    <include
-        android:id="@+id/no_net"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        layout="@layout/offline_wuxinhao_layout"
-        android:visibility="gone" />
 
 </FrameLayout>

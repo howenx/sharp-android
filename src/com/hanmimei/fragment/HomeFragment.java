@@ -254,8 +254,7 @@ public class HomeFragment extends Fragment implements
 			mListView.setMode(Mode.PULL_FROM_END);
 		}
 		if (home.getHasMsg() != 0) {
-			MessageMenager.getInstance().setMsgDrawble(
-					getResources().getDrawable(R.drawable.icon_xiaoxi_has));
+			MessageMenager.getInstance().setMsgDrawble(R.drawable.hmm_icon_message_h);
 		}
 	}
 

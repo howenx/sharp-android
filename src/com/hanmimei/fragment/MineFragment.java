@@ -39,7 +39,7 @@ import com.hanmimei.utils.ImageLoaderUtils;
 import com.hanmimei.view.RoundImageView;
 import com.umeng.analytics.MobclickAgent;
 
-public class AboutMyFragment extends Fragment implements OnClickListener {
+public class MineFragment extends Fragment implements OnClickListener {
 	private RoundImageView header;
 	private TextView user_name;
 	private TextView address;
@@ -110,7 +110,7 @@ public class AboutMyFragment extends Fragment implements OnClickListener {
 	private void clearView() {
 		user = activity.getUser();
 		user_name.setText("登录/注册");
-		header.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.icon_default_header));
+		header.setImageResource(R.drawable.hmm_mine_face);
 		sex.setVisibility(View.GONE);
 	}
 

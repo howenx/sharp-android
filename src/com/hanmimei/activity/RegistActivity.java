@@ -185,12 +185,12 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 			//密码的隐藏显示
 		case R.id.show_pwd:
 			if(!isPwdShow){
-				show_pwd.setImageDrawable(getResources().getDrawable(R.drawable.icon_show));
+				show_pwd.setImageResource(R.drawable.hmm_login_eye_open);
 				isPwdShow = true;
 				pwd_edit.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
 				Selection.setSelection((Spannable)pwd_edit.getText(), pwd_edit.getText().toString().length());
 			}else{
-				show_pwd.setImageDrawable(getResources().getDrawable(R.drawable.icon_kejian));
+				show_pwd.setImageResource(R.drawable.hmm_login_eye_close);
 				isPwdShow = false;
 				pwd_edit.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 				Selection.setSelection((Spannable)pwd_edit.getText(), pwd_edit.getText().toString().length());
@@ -198,12 +198,12 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 			break;
 		case R.id.show_pwd2:
 			if(!isPwdShow2){
-				show_pwd2.setImageDrawable(getResources().getDrawable(R.drawable.icon_show));
+				show_pwd2.setImageResource(R.drawable.hmm_login_eye_open);
 				isPwdShow2 = true;
 				pwd_agin_edit.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
 				Selection.setSelection((Spannable)pwd_agin_edit.getText(), pwd_agin_edit.getText().toString().length());
 			}else{
-				show_pwd2.setImageDrawable(getResources().getDrawable(R.drawable.icon_kejian));
+				show_pwd2.setImageResource(R.drawable.hmm_login_eye_close);
 				isPwdShow2 = false;
 				pwd_agin_edit.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 				Selection.setSelection((Spannable)pwd_agin_edit.getText(), pwd_agin_edit.getText().toString().length());

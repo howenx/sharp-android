@@ -136,12 +136,12 @@ public class ShoppingCarMenager {
 	public void setPayNoClick(){
 		attention.setText("超额提示：" + customName+"商品总额超过 ¥" + bottommorePrice);
 		pay.setClickable(false);
-		pay.setBackgroundColor(activity.getResources().getColor(R.color.huise));
+		pay.setBackgroundResource(R.color.unClick);
 	}
 	public void setPayClick(){
 		attention.setText("友情提示：同一保税区商品总额有限制");
 		pay.setClickable(true);
-		pay.setBackgroundColor(activity.getResources().getColor(R.color.theme));
+		pay.setBackgroundResource(R.drawable.btn_theme_selector);
 	}
 	public boolean getChecked(){
 		return isSelected;

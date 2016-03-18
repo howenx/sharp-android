@@ -45,7 +45,7 @@
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_guanbi"
+            android:src="@drawable/hmm_login_close"
             android:visibility="invisible"/>
         <EditText 
             android:id="@+id/phone"

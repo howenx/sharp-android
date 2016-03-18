@@ -18,8 +18,8 @@ public class MessageMenager {
 	public void initMessageMenager(Context mContext, ImageView msgDrawble){
 		this.msgDrawble = msgDrawble;
 	}
-	public void setMsgDrawble(Drawable drawble){
-		msgDrawble.setImageDrawable(drawble);
+	public void setMsgDrawble(int resId){
+		msgDrawble.setImageResource(resId);
 	}
 	
 }

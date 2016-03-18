@@ -225,7 +225,12 @@ public class BaseActivity extends AppCompatActivity {
 					@Override
 					public void onSuccess(String result) {
 						if(what == 0){
-							detail = DataParser.parserGoodsDetail(result);
+							try {
+								detail =new Gson().fromJson(result, GoodsDetail.class);
+							} catch (Exception e) {
+								ToastUtils.Toast(getActivity(), R.string.error);
+								return;
+							}
 							if(detail.getMessage().getCode() == 200){
 								setKouDialog(detail.getCurrentStock().getInvTitle(),
 									detail.getCurrentStock().getItemPrice() + "",

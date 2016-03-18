@@ -16,6 +16,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +36,7 @@ import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.cpoopc.scrollablelayoutlib.ScrollAbleFragment;
 import com.cpoopc.scrollablelayoutlib.ScrollableLayout;
 import com.cpoopc.scrollablelayoutlib.ScrollableLayout.OnScrollListener;
+import com.google.gson.Gson;
 import com.hanmimei.R;
 import com.hanmimei.activity.fragment.HotFragment;
 import com.hanmimei.activity.fragment.ImgFragment;
@@ -58,6 +60,7 @@ import com.hanmimei.entity.StockVo;
 import com.hanmimei.entity.Tag;
 import com.hanmimei.listener.GoodsPageChangeListener;
 import com.hanmimei.utils.ActionBarUtil;
+import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
@@ -87,11 +90,12 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private TextView itemTitle, itemSrcPrice, itemPrice, area;// 标题、 原价、现价、发货区
 	private TextView num_restrictAmount; // 限购数量
 	private ImageView img_hide, collectionImg;
-	private TextView notice,more_view;
+	private TextView more_view;
 
 	private BadgeView goodsNumView;// 显示购买数量的控件
 
 	private PopupWindow shareWindow;
+	AlertDialog postDialog = null;
 
 	private View back_top;
 	private ScrollableLayout mScrollLayout;
@@ -130,7 +134,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 		itemTitle = (TextView) findViewById(R.id.itemTitle);
 		itemSrcPrice = (TextView) findViewById(R.id.itemSrcPrice);
 		itemPrice = (TextView) findViewById(R.id.itemPrice);
-		notice = (TextView) findViewById(R.id.notice);
 		more_view = (TextView) findViewById(R.id.more_view);
 
 		num_restrictAmount = (TextView) findViewById(R.id.restrictAmount);
@@ -146,8 +149,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 		findViewById(R.id.btn_add_shopcart).setOnClickListener(this);
 		findViewById(R.id.btn_portalFee).setOnClickListener(this);
 		findViewById(R.id.back_top).setOnClickListener(this);
-
-		findViewById(R.id.reload).setOnClickListener(this);
 	}
 	/**
 	 * 购物车数量view 初始化
@@ -198,7 +199,12 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 			@Override
 			public void onSuccess(String result) {
-				detail = DataParser.parserGoodsDetail(result);
+				try {
+					detail =new Gson().fromJson(result, GoodsDetail.class);
+				} catch (Exception e) {
+					ToastUtils.Toast(getActivity(), R.string.error);
+					return;
+				}
 				initGoodsDetail();
 				getLoading().dismiss();
 			}
@@ -206,7 +212,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 			@Override
 			public void onError() {
 				getLoading().dismiss();
-				findViewById(R.id.no_net).setVisibility(View.VISIBLE);
 				ToastUtils.Toast(getActivity(), R.string.error);
 			}
 		});
@@ -224,7 +229,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 					@Override
 					public void onSuccess(String result) {
 						getLoading().dismiss();
-						findViewById(R.id.no_net).setVisibility(View.GONE);
 						HMessage hm = DataParser.paserResultMsg(result);
 						if (hm.getCode() == 200) {
 							// 购物车添加成功，显示提示框
@@ -257,18 +261,24 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 						@Override
 						public void onSuccess(String result) {
-							GoodsDetail detail = DataParser
-									.parserGoodsDetail(result);
-							if (detail.getMessage().getCode() == 200) {
-								if (detail.getCartNum() != null) {
-									num_shopcart = detail.getCartNum();
+							GoodsDetail numDetail;
+							try {
+								numDetail =new Gson().fromJson(result, GoodsDetail.class);
+							} catch (Exception e) {
+								ToastUtils.Toast(getActivity(), R.string.error);
+								return;
+							}
+							if(numDetail == null)
+								return;
+							if (numDetail.getMessage().getCode() == 200) {
+								if (numDetail.getCartNum() != null) {
+									num_shopcart = numDetail.getCartNum();
 								} else {
 									num_shopcart = 0;
 								}
 								showGoodsNums();
 							} else {
-								ToastUtils.Toast(getActivity(), detail
-										.getMessage().getMessage());
+								ToastUtils.Toast(getActivity(), numDetail.getMessage().getMessage());
 							}
 						}
 
@@ -312,9 +322,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 			break;
 		case R.id.back_top:
 			mScrollLayout.scrollToTop();
-			break;
-		case R.id.btn_cancel:
-			window.dismiss();
 			break;
 		case R.id.qq:
 			shareQQ();
@@ -473,17 +480,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 	// 当前的商品
 	private StockVo shareStock;
 
-	// 新浪微博分享设置
-//	private void shareSina() {
-//		new ShareAction(this)
-//				.setPlatform(SHARE_MEDIA.SINA)
-//				.setCallback(umShareListener)
-//				.withMedia(
-//						new UMImage(this, shareStock.getInvImgForObj().getUrl()))
-//				.withTitle("全球正品，尽在韩秘美").withText(shareStock.getInvTitle())
-//				.withTargetUrl("http://www.hanmimei.com/").share();
-//	}
-
 	// 微信朋友圈分享设置
 	private void shareCircle() {
 		new ShareAction(this)
@@ -531,7 +527,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 		view.findViewById(R.id.copy).setOnClickListener(this);
 		Config.OpenEditor = true;
 		shareStock = detail.getCurrentStock();
-
 	}
 
 	// =========================================================================
@@ -587,38 +582,16 @@ public class GoodsDetailActivity extends BaseActivity implements
 		startActivity(intent);
 	}
 
-	PopupWindow window = null;
 
 	/**
 	 * 弹出显示税费的提醒框
 	 */
 	private void showPortalFeeInfo() {
 		// TODO Auto-generated method stub
-		if(window == null){
-		View view = getLayoutInflater().inflate(R.layout.panel_portalfee, null);
-		TextView num_portalfee = (TextView) view
-				.findViewById(R.id.num_portalfee);
-		TextView prompt = (TextView) view.findViewById(R.id.prompt);
-		Double postalFee = curPostalTaxRate * curItemPrice / 100;
-
-		prompt.setText(getResources().getString(R.string.portalfee_biaozhun,
-				curPostalTaxRate, postalStandard));
-
-		if (postalFee <= 50) {
-			num_portalfee.setText(getResources().getString(R.string.price,
-					CommonUtil.DecimalFormat(postalFee)));
-			num_portalfee.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-		} else {
-			postalFee = curItemPrice * 100 / (100 - curPostalTaxRate)
-					- curItemPrice;
-			num_portalfee.setText(getResources().getString(R.string.price,
-					CommonUtil.DecimalFormat(postalFee)));
-		}
-
-		view.findViewById(R.id.btn_cancel).setOnClickListener(this);
-		window = PopupWindowUtil.showPopWindow(this, view);
+		if(postDialog == null){
+			postDialog = AlertDialogUtils.showPostDialog(this, curItemPrice, curPostalTaxRate, postalStandard);
 		}else{
-			window.showAtLocation(itemTitle, Gravity.BOTTOM, 0, 0);
+			postDialog.show();
 		}
 		
 	}
@@ -769,12 +742,10 @@ public class GoodsDetailActivity extends BaseActivity implements
 		if(detail == null)
 			return;
 		if (detail.getMessage().getCode() != 200) {
-			findViewById(R.id.no_net).setVisibility(View.VISIBLE);
 			ToastUtils.Toast(this, detail.getMessage().getMessage());
 			return;
 		}
-		findViewById(R.id.no_net).setVisibility(View.GONE);
-		// 主详情
+		
 		// 子商品信息
 		TextView publicity = (TextView) findViewById(R.id.publicity); // 优惠信息
 																		// /购物车数量
@@ -782,8 +753,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 			publicity.setText(detail.getMain().getPublicity());
 			mScrollLayout.canScroll();
 		}
+		// 主详情
 		initGoodsInfo();
-//		initShopcartNum();
 		initFragmentPager(detail.getMain());
 	}
 
@@ -851,17 +822,17 @@ public class GoodsDetailActivity extends BaseActivity implements
 			return;
 		StockVo stock = null;
 		List<Tag> tags = new ArrayList<Tag>();
+		boolean outDate = false;
 		for (StockVo s : detail.getStock()) {
 			tags.add(new Tag(s.getItemColor() + " " + s.getItemSize(), s
 					.getState(), s.getOrMasterInv()));
-			if (s.getOrMasterInv()){
+			if (s.getOrMasterInv())
 				stock = s;
-				if(!s.getState().equals("Y")){
-					
-					showPopupwindow();
-				}
-			}
-				
+			if(!s.getState().equals("Y"))
+				outDate = true;
+		}
+		if(outDate){
+			showPopupwindow();
 		}
 		initStocks(stock);
 		initTags(tags);
@@ -885,12 +856,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 		});
 	}
 
-	private void initShopcartNum() {
-		if (detail.getCartNum() != null) {
-			num_shopcart = detail.getCartNum();
-		}
-		showGoodsNums();
-	}
 
 	/**
 	 * 初始化子商品信息
@@ -954,28 +919,23 @@ public class GoodsDetailActivity extends BaseActivity implements
 				new int[] { R.drawable.page_indicator,
 						R.drawable.page_indicator_fcoused });
 	}
+	
 
 	// ---------------友盟-----------------------
 	private UMShareListener umShareListener = new UMShareListener() {
 		@Override
 		public void onResult(SHARE_MEDIA platform) {
 			shareWindow.dismiss();
-			// Toast.makeText(GoodsDetailActivity.this, platform + " 分享成功",
-			// Toast.LENGTH_SHORT).show();
 		}
 
 		@Override
 		public void onError(SHARE_MEDIA platform, Throwable t) {
 			shareWindow.dismiss();
-			// Toast.makeText(GoodsDetailActivity.this,platform + " 分享失败",
-			// Toast.LENGTH_SHORT).show();
 		}
 
 		@Override
 		public void onCancel(SHARE_MEDIA platform) {
 			shareWindow.dismiss();
-			// Toast.makeText(GoodsDetailActivity.this,platform + " 分享取消",
-			// Toast.LENGTH_SHORT).show();
 		}
 	};
 

@@ -19,6 +19,6 @@
          android:layout_width="match_parent"
          android:layout_height="220dp"
          android:scrollbars="@null"
-         android:background="@color/white" />
+         android:background="@color/background" />
 
 </LinearLayout>

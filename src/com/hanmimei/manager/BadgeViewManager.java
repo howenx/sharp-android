@@ -18,8 +18,8 @@ public class BadgeViewManager {
 	 */
 	public void initBadgeViewManager(Context mContext, FragmentTabHost tabHost) {
 		this.view = new BadgeView(mContext, tabHost.getTabWidget(), 1);
-		view.setTextColor(mContext.getResources().getColor(R.color.white));
-		view.setBackgroundResource(R.drawable.bg_badgeview);
+		view.setTextColor(mContext.getResources().getColor(R.color.theme));
+		view.setBackgroundResource(R.drawable.bg_badgeview2);
 		view.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
 		view.setTextSize(10);
 		view.setText("0");

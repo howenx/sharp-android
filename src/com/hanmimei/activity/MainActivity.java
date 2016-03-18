@@ -26,7 +26,7 @@ import com.hanmimei.R;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.VersionVo;
-import com.hanmimei.fragment.AboutMyFragment;
+import com.hanmimei.fragment.MineFragment;
 import com.hanmimei.fragment.FragmentTabHost;
 import com.hanmimei.fragment.HomeFragment;
 import com.hanmimei.fragment.ShoppingCartFragment;
@@ -82,7 +82,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 
 		addTabItem(TAB_HOME_ID, R.drawable.tab_home, TAB_HOME, HomeFragment.class);
 		addTabItem(TAB_CAR_ID, R.drawable.tab_shopping, TAB_CAR,ShoppingCartFragment.class);
-		addTabItem(TAB_MY_ID, R.drawable.tab_my, TAB_MY, AboutMyFragment.class);
+		addTabItem(TAB_MY_ID, R.drawable.tab_my, TAB_MY, MineFragment.class);
 		
 		BadgeViewManager.getInstance().initBadgeViewManager(this, mTabHost);
 		registerReceivers();
@@ -105,7 +105,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 		/** 如果当前选项卡是home */
 		if (tabId.equals(TAB_HOME_ID)) {
 			isHome = true;
-			ActionBarUtil.setActionBarStyle(this, "韩秘美", R.drawable.hmm_icon_message, false, this);
+			ActionBarUtil.setActionBarStyle(this, "韩秘美", R.drawable.hmm_icon_message_n, false, this);
 			ImageView setting = (ImageView) findViewById(R.id.setting);
 			MessageMenager.getInstance().initMessageMenager(this, setting);
 			/** 如果当前选项卡是shopping */

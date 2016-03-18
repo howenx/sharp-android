@@ -7,11 +7,12 @@
     android:fitsSystemWindows="true">
 
     <com.baoyz.swipemenulistview.SwipeMenuListView
-        android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/mListView"
-        android:divider="@null"
+        android:layout_marginTop="5dp"
+        android:divider="@color/background"
+        android:dividerHeight="5dp"
         android:scrollbars="none"/>
 	<TextView 
 	    android:id="@+id/no_data"

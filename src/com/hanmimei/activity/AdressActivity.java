@@ -83,7 +83,7 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 			SwipeMenuItem deleteItem = new SwipeMenuItem(
 					getApplicationContext());
 			// 设置背景颜色
-			deleteItem.setBackground(getResources().getDrawable(R.color.theme));
+			deleteItem.setBackground(R.drawable.btn_theme_selector);
 			// 设置删除的宽度
 			deleteItem.setWidth(CommonUtil.dip2px(90));
 			// 设置图标
@@ -303,6 +303,7 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 	}
 	
 	private void delAddress() {
+		getLoading().show();
 		Http2Utils.doPostRequestTask2(this, getHeaders(), UrlUtil.ADDRESS_DEL_URL, new VolleyJsonCallback() {
 			
 			@Override
@@ -313,10 +314,12 @@ public class AdressActivity extends BaseActivity implements OnClickListener {
 				}else{
 					ToastUtils.Toast(AdressActivity.this, "删除失败");
 				}
+				getLoading().dismiss();
 			}
 			
 			@Override
 			public void onError() {
+				getLoading().dismiss();
 				ToastUtils.Toast(AdressActivity.this, "删除失败");
 			}
 		},object.toString());

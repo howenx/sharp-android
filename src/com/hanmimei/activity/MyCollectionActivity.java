@@ -91,8 +91,7 @@ public class MyCollectionActivity  extends BaseActivity implements OnClickListen
 			SwipeMenuItem deleteItem = new SwipeMenuItem(
 					getApplicationContext());
 			// 设置背景颜色
-			deleteItem.setBackground(new ColorDrawable(Color
-					.parseColor("#e56254")));
+			deleteItem.setBackground(R.drawable.btn_theme_selector);
 			// 设置删除的宽度
 			deleteItem.setWidth(CommonUtil.dip2px(120));
 			// 设置图标

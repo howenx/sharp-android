@@ -44,6 +44,7 @@ import com.hanmimei.manager.BadgeViewManager;
 import com.hanmimei.manager.ShoppingCarMenager;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
+import com.hanmimei.utils.ToastUtils;
 import com.umeng.analytics.MobclickAgent;
 
 public class ShoppingCartFragment extends Fragment implements OnClickListener,
@@ -326,8 +327,7 @@ public class ShoppingCartFragment extends Fragment implements OnClickListener,
 				}
 
 			} else {
-				Toast.makeText(getActivity(), "请选择商品", Toast.LENGTH_SHORT)
-						.show();
+				ToastUtils.Toast(getActivity(), "请选择商品");
 			}
 			break;
 		case R.id.go_home:

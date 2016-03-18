@@ -300,8 +300,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 
 		} else {
 			ToastUtils.Toast(this, goodsBalance.getMessage().getMessage());
-			findViewById(R.id.btn_pay).setBackgroundColor(
-					Color.parseColor("#9F9F9F"));
+			findViewById(R.id.btn_pay).setBackgroundResource(R.color.unClick);
 			findViewById(R.id.selectAddress).setVisibility(View.GONE);
 			findViewById(R.id.newAddress).setVisibility(View.VISIBLE);
 		}
@@ -338,7 +337,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 											14,
 											settle.getAddress().getIdCardNum()
 													.length())));
-			findViewById(R.id.btn_pay).setBackgroundResource(R.color.theme);
+			findViewById(R.id.btn_pay).setBackgroundResource(R.drawable.btn_theme_selector);
 			findViewById(R.id.btn_pay).setOnClickListener(this);
 
 		} else {
@@ -464,7 +463,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 			}
 			loadData(selectedId);
 			if (goodsBalance != null) {
-				findViewById(R.id.btn_pay).setBackgroundResource(R.color.theme);
+				findViewById(R.id.btn_pay).setBackgroundResource(R.drawable.btn_theme_selector);
 				findViewById(R.id.btn_pay).setOnClickListener(this);
 			}
 		}

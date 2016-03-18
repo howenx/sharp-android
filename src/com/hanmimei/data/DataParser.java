@@ -169,10 +169,6 @@ public class DataParser {
 		return result;
 	}
 		
-	//商品详情页 －－ 商品详情数据解析
-	public static GoodsDetail parserGoodsDetail(String result){
-		return new Gson().fromJson(result, GoodsDetail.class);
-	}
 
 	public static Result parserLoginResult(String str){
 		Result result = new Result();

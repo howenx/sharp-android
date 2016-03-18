@@ -18,17 +18,18 @@ import com.hanmimei.fragment.OrderFragment;
 import com.hanmimei.manager.OrderNumsMenager;
 import com.hanmimei.utils.ActionBarUtil;
 
-public class MyOrderActivity extends BaseActivity implements OnClickListener, OnPageChangeListener{
+public class MyOrderActivity extends BaseActivity implements OnClickListener,
+		OnPageChangeListener {
 	private static final String TAG_01_ID = "tag01";
 	private static final String TAG_02_ID = "tag02";
-//	private static final String TAG_03_ID = "tag03";
+	// private static final String TAG_03_ID = "tag03";
 	private static final String TAG_04_ID = "tag04";
-//	private static final String TAG_05_ID = "tag05";
+	// private static final String TAG_05_ID = "tag05";
 	private static final String TAG_01 = "全部";
 	private static final String TAG_02 = "待付款";
-//	private static final String TAG_03 = "待发货";
+	// private static final String TAG_03 = "待发货";
 	private static final String TAG_04 = "待收货";
-//	private static final String TAG_05 = "待评价";
+	// private static final String TAG_05 = "待评价";
 	private ViewPager viewPager;
 	private List<Category> data;
 	private List<Fragment> fragmentList;
@@ -44,7 +45,7 @@ public class MyOrderActivity extends BaseActivity implements OnClickListener, On
 	private TextView t2_nums;
 	private TextView t3_nums;
 	private TextView t4_nums;
-	
+
 	@Override
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
@@ -55,8 +56,10 @@ public class MyOrderActivity extends BaseActivity implements OnClickListener, On
 		initTopListner();
 		initCategory();
 		initFragment();
-		OrderNumsMenager.getInstance().initOrderMenager(this, t2_nums, t3_nums, t4_nums);
+		OrderNumsMenager.getInstance().initOrderMenager(this, t2_nums, t3_nums,
+				t4_nums);
 	}
+
 	private void initTopListner() {
 		t1 = (TextView) findViewById(R.id.t1);
 		t2 = (TextView) findViewById(R.id.t2);
@@ -74,9 +77,10 @@ public class MyOrderActivity extends BaseActivity implements OnClickListener, On
 		findViewById(R.id.tv_guid3).setOnClickListener(this);
 		findViewById(R.id.tv_guid4).setOnClickListener(this);
 	}
+
 	private void initFragment() {
 		fragmentList = new ArrayList<Fragment>();
-		for(int i = 0; i < data.size(); i ++){
+		for (int i = 0; i < data.size(); i++) {
 			Category category = data.get(i);
 			OrderFragment fragment = new OrderFragment();
 			Bundle bundle = new Bundle();
@@ -84,7 +88,8 @@ public class MyOrderActivity extends BaseActivity implements OnClickListener, On
 			fragment.setArguments(bundle);
 			fragmentList.add(fragment);
 		}
-		adapter = new MyPagerAdapter(getSupportFragmentManager(), fragmentList, data);
+		adapter = new MyPagerAdapter(getSupportFragmentManager(), fragmentList,
+				data);
 		viewPager.setAdapter(adapter);
 	}
 
@@ -92,10 +97,11 @@ public class MyOrderActivity extends BaseActivity implements OnClickListener, On
 		data = new ArrayList<Category>();
 		data.add(new Category(TAG_01_ID, TAG_01));
 		data.add(new Category(TAG_02_ID, TAG_02));
-//		data.add(new Category(TAG_03_ID, TAG_03));
+		// data.add(new Category(TAG_03_ID, TAG_03));
 		data.add(new Category(TAG_04_ID, TAG_04));
-//		data.add(new Category(TAG_05_ID, TAG_05));
+		// data.add(new Category(TAG_05_ID, TAG_05));
 	}
+
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -115,12 +121,15 @@ public class MyOrderActivity extends BaseActivity implements OnClickListener, On
 			break;
 		}
 	}
+
 	@Override
 	public void onPageScrollStateChanged(int arg0) {
-		}
+	}
+
 	@Override
 	public void onPageScrolled(int arg0, float arg1, int arg2) {
 	}
+
 	@Override
 	public void onPageSelected(int arg0) {
 		switch (arg0) {
@@ -151,18 +160,17 @@ public class MyOrderActivity extends BaseActivity implements OnClickListener, On
 		default:
 			break;
 		}
-		
+
 	}
-	
-	private void setTopSelected(TextView textView,TextView cusor){
+
+	private void setTopSelected(TextView textView, TextView cusor) {
 		textView.setTextColor(getResources().getColor(R.color.theme));
 		cusor.setVisibility(View.VISIBLE);
 	}
-	private void setTopUnSelected(TextView textView,TextView cusor){
+
+	private void setTopUnSelected(TextView textView, TextView cusor) {
 		textView.setTextColor(getResources().getColor(R.color.fontcolor));
 		cusor.setVisibility(View.INVISIBLE);
 	}
-
-
 
 }

@@ -2,62 +2,67 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
-    android:gravity="center"
     android:background="@color/white"
-    android:padding="10dp">
-    <TextView 
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+    <TextView
         android:id="@+id/title"
-        android:layout_marginBottom="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
         android:gravity="center"
         android:text="确定删除？"
-        android:textSize="16sp"
-        android:textColor="@color/fontcolor"/>
-     <TextView 
-        android:layout_margin="10dp"
-         android:paddingTop="2dp"
-         android:paddingBottom="2dp"
-        android:paddingLeft="15dp"
+        android:textColor="@color/fontcolor"
+        android:textSize="16sp" />
+
+    <TextView
         android:id="@+id/attention"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="#ffeedd"
+        android:paddingBottom="2dp"
+        android:paddingLeft="15dp"
+        android:paddingTop="2dp"
         android:text="@null"
-        android:textSize="12sp"
         android:textColor="@color/theme"
-        android:visibility="gone"
-        android:background="#ffeedd"/>
-   
-    <LinearLayout 
-        android:layout_marginTop="20dp"
+        android:textSize="12sp"
+        android:visibility="gone" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal"
         android:paddingLeft="15dp"
-        android:paddingRight="15dp">
-    <TextView 
-        android:id="@+id/cancel"
-        android:padding="8dp"
-        android:layout_marginRight="20dp"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="取消"
-        android:textSize="16sp"
-        android:textColor="@color/red"
-        android:background="@drawable/btn_cancel_selector"/>
-    <TextView 
-        android:id="@+id/confirm"
-        android:padding="8dp"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="确定"
-        android:textSize="16sp"
-        android:textColor="@color/white"
-        android:background="@drawable/btn_confirm_selector"/>
-	</LinearLayout>
+        android:paddingRight="15dp" >
+
+        <TextView
+            android:id="@+id/cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_cancel_selector"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="取消"
+            android:textColor="@color/theme"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/confirm"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_confirm_selector"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="确定"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </LinearLayout>
+
 </LinearLayout>

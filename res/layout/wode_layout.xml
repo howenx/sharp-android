@@ -55,7 +55,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/hmm_mine_order"
-        android:text="我的订单" /> 
+        android:text="我的订单" />
 
     <TextView
         android:id="@+id/pintuan"
@@ -78,29 +78,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:padding="15dp"
         android:background="@drawable/btn_mine_selector"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:padding="15dp" >
 
         <TextView
             android:id="@+id/youhui"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
             android:drawableLeft="@drawable/hmm_mine_coupon"
             android:drawablePadding="20dp"
             android:gravity="center_vertical"
+            android:text="优惠券"
             android:textColor="@color/fontcolor"
-            android:text="优惠券" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/youhui_nums"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="right|center_vertical"
-            android:text="@null"
             android:drawablePadding="10dp"
             android:drawableRight="@drawable/hmm_mine_pagedown"
+            android:gravity="right|center_vertical"
+            android:text="@null"
             android:textColor="@color/theme"
             android:textSize="12sp" />
     </LinearLayout>
