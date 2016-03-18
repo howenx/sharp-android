@@ -33,7 +33,7 @@
                 android:background="#44000000"
                 android:contentDescription="@null"
                 android:scaleType="center"
-                android:src="@drawable/yishouwan" />
+                android:src="@drawable/hmm_sold_out" />
 
             <TextView
                 android:id="@+id/timeView"

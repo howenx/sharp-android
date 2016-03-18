@@ -249,6 +249,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 					: com.ui.tag.TagInfo.Direction.Left;
 			tagInfo.type = Type.OfficalPoint;
 			tagInfo.targetUrl = tag.getUrl();
+			tagInfo.description = tag.getType();
 
 			final TagView tagView = tagInfo.direct == com.ui.tag.TagInfo.Direction.Right ? new TagViewRight(
 					this, null) : new TagViewLeft(this, null);
@@ -257,10 +258,14 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 
 				@Override
 				public void onTagViewClicked(View view, TagInfo info) {
-					Intent intent = new Intent(getActivity(),
-							GoodsDetailActivity.class);
+					Intent intent = null;
+					if(info.description.equals("pin")){
+						intent = new Intent(getActivity(),PingouDetailActivity.class);
+					}else{
+						intent = new Intent(getActivity(),GoodsDetailActivity.class);
+					}
 					intent.putExtra("url", info.targetUrl);
-					startActivityForResult(intent, 1);     
+					startActivityForResult(intent, 1);
 				}
 			});
 

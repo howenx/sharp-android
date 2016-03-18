@@ -1,6 +1,7 @@
 package com.hanmimei.utils;
 
 import android.content.Context;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.view.Gravity;
 import android.view.View;
@@ -19,10 +20,10 @@ public class PopupWindowUtil {
 	 * @param contentView
 	 */
 	public static PopupWindow showPopWindow(final Context context, View contentView) {
-		return showPopWindow(context, contentView,ViewGroup.LayoutParams.WRAP_CONTENT);
+		return showPopWindow(context, contentView,null,ViewGroup.LayoutParams.WRAP_CONTENT);
 	}
 
-	public static PopupWindow showPopWindow(final Context context, View contentView,int height) {
+	public static PopupWindow showPopWindow(final Context context, View contentView,View parentView,int height) {
 		// 创建一个popupwindow
 		PopupWindow popWindow = new PopupWindow(contentView,
 				ViewGroup.LayoutParams.MATCH_PARENT, height);
@@ -34,7 +35,7 @@ public class PopupWindowUtil {
 		// 设置弹出屏幕后背景色
 		backgroundAlpha(context, 0.4f);
 		// 设置一个默认的popupwindow背景色 实现 点击空白区 关闭popupwindow
-		popWindow.setBackgroundDrawable(new ColorDrawable());
+		popWindow.setBackgroundDrawable(context.getResources().getDrawable(R.color.black));
 		popWindow.showAtLocation(contentView, Gravity.BOTTOM, 0, 0);
 		popWindow.setOnDismissListener(new OnDismissListener() {
 			@Override

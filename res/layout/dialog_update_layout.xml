@@ -44,8 +44,7 @@
             android:gravity="center"
             android:text="@string/cancel"
             android:textColor="@color/theme"
-            android:textSize="15sp"
-            android:visibility="gone" />
+            android:textSize="15sp"/>
 
         <View
             android:layout_width="1px"
@@ -61,8 +60,7 @@
             android:gravity="center"
             android:text="@string/confirm"
             android:textColor="@color/theme"
-            android:textSize="15sp"
-            android:visibility="gone" />
+            android:textSize="15sp"/>
     </LinearLayout>
 
 </LinearLayout>

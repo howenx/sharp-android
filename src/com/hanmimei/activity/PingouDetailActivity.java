@@ -76,6 +76,8 @@ public class PingouDetailActivity extends BaseActivity implements
 	private ImageView collectionImg;
 	private boolean isCollection = false;
 	private TextView  more_view;
+	
+	private String noticeText = "正在加载数据";
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -137,6 +139,10 @@ public class PingouDetailActivity extends BaseActivity implements
 		findViewById(R.id.wanfaView).setOnClickListener(this);
 		findViewById(R.id.back_top).setOnClickListener(this);
 		findViewById(R.id.btn_attention).setOnClickListener(this);
+		findViewById(R.id.btn_buy_01).setOnClickListener(this);
+		findViewById(R.id.btn_buy_02).setOnClickListener(this);
+		findViewById(R.id.btn_pin_01).setOnClickListener(this);
+		findViewById(R.id.btn_pin_02).setOnClickListener(this);
 
 	}
 
@@ -169,16 +175,11 @@ public class PingouDetailActivity extends BaseActivity implements
 			isCollection = false;
 		}
 		if (stock.getStatus().equals("Y")) {
-			findViewById(R.id.btn_buy_01).setOnClickListener(this);
-			findViewById(R.id.btn_buy_02).setOnClickListener(this);
-			findViewById(R.id.btn_pin_01).setOnClickListener(this);
-			findViewById(R.id.btn_pin_02).setOnClickListener(this);
+			
 		} else if (stock.getStatus().equals("P")) {
-//			ToastUtils.CardToast(this, "该商品尚未开售");
-			
+			noticeText= "活动尚未开始";
 		} else {
-//			ToastUtils.CardToast(this, "该商品已售罄");
-			
+			noticeText= "活动已结束";
 			more_view.setVisibility(View.VISIBLE);
 			more_view.setOnClickListener(this);
 			showPopupwindow();
@@ -323,7 +324,7 @@ public class PingouDetailActivity extends BaseActivity implements
 			HorizontalListView more_grid = (HorizontalListView) view
 					.findViewById(R.id.more_grid);
 			TextView titleView = (TextView) view.findViewById(R.id.title);
-			titleView.setText("该活动已结束，去看看其他拼购吧");
+			titleView.setText(R.string.pingou_over_notice);
 			more_grid.setAdapter(new TuijianAdapter(detail.getPush(), this));
 			more_grid.setOnItemClickListener(new OnItemClickListener() {
 
@@ -502,6 +503,10 @@ public class PingouDetailActivity extends BaseActivity implements
 			startActivity(new Intent(this, LoginActivity.class));
 			return;
 		}
+		if(!detail.getStock().getStatus().equals("Y")){
+			ToastUtils.Toast(this, noticeText);
+			return;
+		}
 		ShoppingCar car = new ShoppingCar();
 		List<Customs> list = new ArrayList<Customs>();
 		Customs customs = new Customs();
@@ -542,6 +547,10 @@ public class PingouDetailActivity extends BaseActivity implements
 	}
 
 	private void showEasyDialog(StockVo stock) {
+		if(!detail.getStock().getStatus().equals("Y")){
+			ToastUtils.Toast(this, noticeText);
+			return;
+		}
 		Intent intent = new Intent(this, PingouDetailSelActivity.class);
 		intent.putExtra("stock", stock);
 		startActivity(intent);

@@ -38,7 +38,7 @@ import com.hanmimei.utils.DoJumpUtils;
 import com.hanmimei.utils.HttpUtils;
 
 @SuppressLint("NewApi")
-public class ForgetPhoneActivity extends BaseActivity implements
+public class ForgetPwdActivity extends BaseActivity implements
 		OnClickListener {
 	private TextView next;
 	private EditText phone;
@@ -93,13 +93,11 @@ public class ForgetPhoneActivity extends BaseActivity implements
 		@Override
 		public void afterTextChanged(Editable s) {
 			if (s.length() == 11) {
-				next.setBackground(getResources().getDrawable(
-						R.drawable.theme_button_bg));
+				next.setBackgroundResource(R.drawable.btn_theme_radius_selector);
 				next.setClickable(true);
-				next.setOnClickListener(ForgetPhoneActivity.this);
+				next.setOnClickListener(ForgetPwdActivity.this);
 			} else {
-				next.setBackground(getResources().getDrawable(
-						R.drawable.huise_button_bg));
+				next.setBackgroundResource(R.drawable.huise_button_bg);
 				next.setClickable(false);
 				next.setOnClickListener(null);
 			}
@@ -194,7 +192,7 @@ public class ForgetPhoneActivity extends BaseActivity implements
 					if (hMessage.getCode() == 4003) {
 						showDialog();
 					} else if (hMessage.getCode() == 5001) {
-						Intent intent = new Intent(ForgetPhoneActivity.this,
+						Intent intent = new Intent(ForgetPwdActivity.this,
 								RegistActivity.class);
 						intent.putExtra("phone", phone_num);
 						intent.putExtra("from", "forget");
@@ -261,7 +259,7 @@ public class ForgetPhoneActivity extends BaseActivity implements
 
 					@Override
 					public void onClick(View v) {
-						CommonUtil.closeBoard(ForgetPhoneActivity.this);
+						CommonUtil.closeBoard(ForgetPwdActivity.this);
 						code_attention.setVisibility(View.GONE);
 						code = codeEditText.getText().toString();
 						if (code.length() != 4 || !CommonUtil.isJiaoYan(code)) {

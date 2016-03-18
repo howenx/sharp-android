@@ -100,7 +100,7 @@
             android:name="com.hanmimei.activity.CheckPhoneActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.ForgetPhoneActivity"
+            android:name="com.hanmimei.activity.ForgetPwdActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.hanmimei.activity.ForgetPwdActivity"

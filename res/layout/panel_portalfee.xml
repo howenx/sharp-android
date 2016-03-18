@@ -11,10 +11,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:padding="15dp"
-            android:text="税费"
-            android:textColor="@color/fontcolor"
-            android:textSize="@dimen/font_big" />
+            android:padding="10dp"
+            android:text="行邮税费用"
+            android:background="@color/theme"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_normal" />
 
         
 
