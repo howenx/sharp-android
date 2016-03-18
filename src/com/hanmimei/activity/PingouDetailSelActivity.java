@@ -1,5 +1,6 @@
 package com.hanmimei.activity;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -112,7 +113,7 @@ public class PingouDetailSelActivity extends BaseActivity {
 			holder.manjianView.setText("团长特惠：开团立减"+ppr.getMasterMinPrice()+"元");
 			holder.zengView.setText("团长特惠：赠"+ppr.getMasterCoupon()+"元优惠券");
 			if (ppr.isSelected()) {
-				if(ppr.getMasterMinPrice() != null){
+				if(ppr.getMasterMinPrice() != null &&ppr.getMasterMinPrice().compareTo(BigDecimal.ZERO) == 1 ){
 					holder.manjianView.setVisibility(View.VISIBLE);
 					holder.img.setVisibility(View.VISIBLE);
 				}else{

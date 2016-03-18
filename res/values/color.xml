@@ -18,5 +18,6 @@
     <color name="gree">#72AF1A</color>
     <color name="rippelColor">#FFFFFF</color>
     <color name="unClick">#CCCCCC</color>
+    <color name="transparent">#00000000</color>
 
 </resources>

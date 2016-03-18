@@ -184,7 +184,7 @@ public class CheckPhoneActivity extends BaseActivity implements OnClickListener 
 			@Override
 			public void onClick(View arg0) {
 				alertDialog.dismiss();
-				DoJumpUtils.doJump(getActivity(), ForgetPhoneActivity.class);
+				DoJumpUtils.doJump(getActivity(), ForgetPwdActivity.class);
 				finish();
 			}
 		}, "该手机号已经注册", "取消", "找回密码");

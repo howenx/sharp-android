@@ -7,7 +7,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -83,7 +82,6 @@ import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 
-@SuppressLint("NewApi")
 public class GoodsDetailActivity extends BaseActivity implements
 		OnClickListener {
 
@@ -99,6 +97,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 	private View back_top;
 	private ScrollableLayout mScrollLayout;
+	private GoodsDetailPagerAdapter adapter;
 
 	// private User user;
 	private int num_shopcart = 0;
@@ -109,7 +108,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
-		ActionBarUtil.setActionBarStyle(this, "商品详情", R.drawable.hmm_icon_fenxiang,true, null, this);
+		ActionBarUtil.setActionBarStyle(this, "商品详情",
+				R.drawable.hmm_icon_fenxiang, true, null, this);
 		setContentView(R.layout.goods_detail_layout);
 		findView();
 		initGoodsNumView();
@@ -150,6 +150,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		findViewById(R.id.btn_portalFee).setOnClickListener(this);
 		findViewById(R.id.back_top).setOnClickListener(this);
 	}
+
 	/**
 	 * 购物车数量view 初始化
 	 */
@@ -186,7 +187,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	}
 
 	// =========================================================================
-	// ===============================网络   请求===================================
+	// ===============================网络 请求===================================
 	// =========================================================================
 	/**
 	 * 加载数据
@@ -195,14 +196,16 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 	private void loadDataByUrl() {
 		getLoading().show();
-		Http2Utils.doGetRequestTask(this, getHeaders(), getIntent().getStringExtra("url"), new VolleyJsonCallback() {
+		Http2Utils.doGetRequestTask(this, getHeaders(), getIntent()
+				.getStringExtra("url"), new VolleyJsonCallback() {
 
 			@Override
 			public void onSuccess(String result) {
 				try {
-					detail =new Gson().fromJson(result, GoodsDetail.class);
+					detail = new Gson().fromJson(result, GoodsDetail.class);
 				} catch (Exception e) {
 					ToastUtils.Toast(getActivity(), R.string.error);
+					getLoading().dismiss();
 					return;
 				}
 				initGoodsDetail();
@@ -263,12 +266,13 @@ public class GoodsDetailActivity extends BaseActivity implements
 						public void onSuccess(String result) {
 							GoodsDetail numDetail;
 							try {
-								numDetail =new Gson().fromJson(result, GoodsDetail.class);
+								numDetail = new Gson().fromJson(result,
+										GoodsDetail.class);
 							} catch (Exception e) {
 								ToastUtils.Toast(getActivity(), R.string.error);
 								return;
 							}
-							if(numDetail == null)
+							if (numDetail == null)
 								return;
 							if (numDetail.getMessage().getCode() == 200) {
 								if (numDetail.getCartNum() != null) {
@@ -278,7 +282,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 								}
 								showGoodsNums();
 							} else {
-								ToastUtils.Toast(getActivity(), numDetail.getMessage().getMessage());
+								ToastUtils.Toast(getActivity(), numDetail
+										.getMessage().getMessage());
 							}
 						}
 
@@ -291,12 +296,12 @@ public class GoodsDetailActivity extends BaseActivity implements
 	}
 
 	// =========================================================================
-	// ===============================点击     事件==================================
+	// ===============================点击 事件==================================
 	// =========================================================================
 
 	@Override
 	public void onClick(View arg0) {
-		if (detail !=null &&detail.getMain() == null) {
+		if (detail != null && detail.getMain() == null) {
 			ToastUtils.Toast(this, "正在加载数据");
 			return;
 		}
@@ -398,9 +403,12 @@ public class GoodsDetailActivity extends BaseActivity implements
 	ShoppingGoods goods2;
 
 	private void addShoppingCartCheck(ShoppingGoods goods) {
-		goods2 = getDaoSession().getShoppingGoodsDao().queryBuilder()
-				.where(Properties.GoodsId.eq(goods.getGoodsId()),Properties.SkuType.eq(goods.getSkuType())
-						,Properties.SkuTypeId.eq(goods.getSkuTypeId())).unique();
+		goods2 = getDaoSession()
+				.getShoppingGoodsDao()
+				.queryBuilder()
+				.where(Properties.GoodsId.eq(goods.getGoodsId()),
+						Properties.SkuType.eq(goods.getSkuType()),
+						Properties.SkuTypeId.eq(goods.getSkuTypeId())).unique();
 		if (goods2 == null) {
 			goods2 = new ShoppingGoods();
 			goods2.setGoodsId(goods.getGoodsId());
@@ -523,7 +531,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		view.findViewById(R.id.qq).setOnClickListener(this);
 		view.findViewById(R.id.weixin).setOnClickListener(this);
 		view.findViewById(R.id.weixinq).setOnClickListener(this);
-//		view.findViewById(R.id.sina).setOnClickListener(this);
+		// view.findViewById(R.id.sina).setOnClickListener(this);
 		view.findViewById(R.id.copy).setOnClickListener(this);
 		Config.OpenEditor = true;
 		shareStock = detail.getCurrentStock();
@@ -562,7 +570,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 					sgoods.setPostalStandard(s.getPostalStandard());
 					sgoods.setSkuType(s.getSkuType());
 					sgoods.setSkuTypeId(s.getSkuTypeId());
-//					sgoods.setPinTieredPriceId(s.getPinTieredPrices());
+					// sgoods.setPinTieredPriceId(s.getPinTieredPrices());
 					break;
 				} else {
 					ToastUtils.Toast(this, "商品已售罄");
@@ -582,18 +590,18 @@ public class GoodsDetailActivity extends BaseActivity implements
 		startActivity(intent);
 	}
 
-
 	/**
 	 * 弹出显示税费的提醒框
 	 */
 	private void showPortalFeeInfo() {
 		// TODO Auto-generated method stub
-		if(postDialog == null){
-			postDialog = AlertDialogUtils.showPostDialog(this, curItemPrice, curPostalTaxRate, postalStandard);
-		}else{
+		if (postDialog == null) {
+			postDialog = AlertDialogUtils.showPostDialog(this, curItemPrice,
+					curPostalTaxRate, postalStandard);
+		} else {
 			postDialog.show();
 		}
-		
+
 	}
 
 	/**
@@ -660,11 +668,13 @@ public class GoodsDetailActivity extends BaseActivity implements
 							collectionImg.setImageDrawable(getResources()
 									.getDrawable(R.drawable.icon_collect));
 							ToastUtils.Toast(GoodsDetailActivity.this, "收藏成功");
-							sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_COLLECTION_ACTION));
+							sendBroadcast(new Intent(
+									AppConstant.MESSAGE_BROADCAST_COLLECTION_ACTION));
 						} else {
 							ToastUtils.Toast(GoodsDetailActivity.this, "收藏失败");
 						}
 					}
+
 					@Override
 					public void onError() {
 						ToastUtils.Toast(GoodsDetailActivity.this,
@@ -675,58 +685,72 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 	private void delCollection() {
 		Http2Utils.doGetRequestTask(this, getHeaders(), UrlUtil.DEL_COLLECTION
-				+ detail.getCurrentStock().getCollectId(), new VolleyJsonCallback() {
+				+ detail.getCurrentStock().getCollectId(),
+				new VolleyJsonCallback() {
 
-			@Override
-			public void onSuccess(String result) {
-				HMessage message = DataParser.paserResultMsg(result);
-				if (message.getCode() == 200) {
-					isCollection = false;
-					detail.getCurrentStock().setCollectId(0);
-					collectionImg.setImageDrawable(getResources().getDrawable(R.drawable.icon_un_collect));
-					ToastUtils.Toast(GoodsDetailActivity.this, "取消收藏成功");
-					sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_COLLECTION_ACTION));
-				}else{
-					ToastUtils.Toast(GoodsDetailActivity.this, "取消收藏失败");
-				}
-			}
-			@Override
-			public void onError() {
-				ToastUtils.Toast(GoodsDetailActivity.this, "取消收藏失败");
-			}
-		});
+					@Override
+					public void onSuccess(String result) {
+						HMessage message = DataParser.paserResultMsg(result);
+						if (message.getCode() == 200) {
+							isCollection = false;
+							detail.getCurrentStock().setCollectId(0);
+							collectionImg.setImageDrawable(getResources()
+									.getDrawable(R.drawable.icon_un_collect));
+							ToastUtils
+									.Toast(GoodsDetailActivity.this, "取消收藏成功");
+							sendBroadcast(new Intent(
+									AppConstant.MESSAGE_BROADCAST_COLLECTION_ACTION));
+						} else {
+							ToastUtils
+									.Toast(GoodsDetailActivity.this, "取消收藏失败");
+						}
+					}
+
+					@Override
+					public void onError() {
+						ToastUtils.Toast(GoodsDetailActivity.this, "取消收藏失败");
+					}
+				});
 	}
-	private PopupWindow tuiWindow;
-	private void showPopupwindow() {
-		if(tuiWindow == null){
-		View view = getLayoutInflater().inflate(R.layout.tuijian_layout, null);
-		HorizontalListView more_grid = (HorizontalListView) view.findViewById(R.id.more_grid);
-		TextView titleView = (TextView) view.findViewById(R.id.title);
-		titleView.setText("该商品已卖完，去看看其他商品吧");
-		more_grid.setAdapter(new TuijianAdapter(detail.getPush(), this));
-		more_grid.setOnItemClickListener(new OnItemClickListener() {
 
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				Intent intent = null;
-				if (detail.getPush().get(arg2).getItemType().equals("pin")) {
-					intent = new Intent(getActivity(),PingouDetailActivity.class);
-				} else {
-					intent = new Intent(getActivity(),GoodsDetailActivity.class);
+	private PopupWindow tuiWindow;
+
+	private void showPopupwindow() {
+		if (tuiWindow == null) {
+			View view = getLayoutInflater().inflate(R.layout.tuijian_layout,
+					null);
+			HorizontalListView more_grid = (HorizontalListView) view
+					.findViewById(R.id.more_grid);
+			TextView titleView = (TextView) view.findViewById(R.id.title);
+			titleView.setText(R.string.goods_over_notice);
+			more_grid.setAdapter(new TuijianAdapter(detail.getPush(), this));
+			more_grid.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> arg0, View arg1,
+						int arg2, long arg3) {
+					Intent intent = null;
+					if (detail.getPush().get(arg2).getItemType().equals("pin")) {
+						intent = new Intent(getActivity(),
+								PingouDetailActivity.class);
+					} else {
+						intent = new Intent(getActivity(),
+								GoodsDetailActivity.class);
+					}
+					intent.putExtra("url", detail.getPush().get(arg2)
+							.getItemUrl());
+					startActivityForResult(intent, 1);
 				}
-				intent.putExtra("url", detail.getPush().get(arg2).getItemUrl());
-				startActivityForResult(intent, 1);
-			}
-		});
-		more_grid.setFocusable(false);
-		tuiWindow = PopupWindowUtil.showPopWindow(this, view);
-		more_view.setOnClickListener(this);
-		}else{
+			});
+			more_grid.setFocusable(false);
+			more_view.setVisibility(View.VISIBLE);
+			tuiWindow = PopupWindowUtil.showPopWindow(this, view);
+			more_view.setOnClickListener(this);
+		} else {
 			PopupWindowUtil.backgroundAlpha(this, 0.4f);
 			tuiWindow.showAtLocation(more_view, Gravity.BOTTOM, 0, 0);
 		}
-		
+
 	}
 
 	// =========================================================================
@@ -739,13 +763,13 @@ public class GoodsDetailActivity extends BaseActivity implements
 	 *            商品总详情数据
 	 */
 	private void initGoodsDetail() {
-		if(detail == null)
+		if (detail == null)
 			return;
 		if (detail.getMessage().getCode() != 200) {
 			ToastUtils.Toast(this, detail.getMessage().getMessage());
 			return;
 		}
-		
+
 		// 子商品信息
 		TextView publicity = (TextView) findViewById(R.id.publicity); // 优惠信息
 																		// /购物车数量
@@ -771,46 +795,48 @@ public class GoodsDetailActivity extends BaseActivity implements
 				.getItemDetailImgs());
 		ScrollAbleFragment parFragment = ParamsFragment.newInstance(main
 				.getItemFeaturess());
-		ScrollAbleFragment gridViewFragment = HotFragment.newInstance(detail.getPush());
+		ScrollAbleFragment gridViewFragment = HotFragment.newInstance(detail
+				.getPush());
 		fragments.add(imgFragment);
 		fragments.add(parFragment);
 		fragments.add(gridViewFragment);
+		if (adapter == null) {
+			adapter = new GoodsDetailPagerAdapter(getSupportFragmentManager(),
+					fragments, titles);
+			ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
+			PagerSlidingTabStrip pagerSlidingTabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+			viewPager.setAdapter(adapter);
+			viewPager.setOffscreenPageLimit(3);
+			mScrollLayout.getHelper().setCurrentScrollableContainer(
+					fragments.get(0));
+			pagerSlidingTabStrip.setViewPager(viewPager);
+			mScrollLayout.setOnScrollListener(new OnScrollListener() {
 
-		GoodsDetailPagerAdapter adapter = new GoodsDetailPagerAdapter(
-				getSupportFragmentManager(), fragments, titles);
-		ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
-		PagerSlidingTabStrip pagerSlidingTabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
-
-		viewPager.setAdapter(adapter);
-		viewPager.setOffscreenPageLimit(3);
-		mScrollLayout.getHelper().setCurrentScrollableContainer(
-				fragments.get(0));
-		pagerSlidingTabStrip.setViewPager(viewPager);
-		mScrollLayout.setOnScrollListener(new OnScrollListener() {
-
-			@Override
-			public void onScroll(int currentY, int maxY) {
-				if (currentY > 1 && back_top.getVisibility() == View.GONE) {
-					back_top.setVisibility(View.VISIBLE);
-				}
-				if (currentY <= 1 && back_top.getVisibility() == View.VISIBLE) {
-					back_top.setVisibility(View.GONE);
-				}
-			}
-		});
-		pagerSlidingTabStrip
-				.setOnPageChangeListener(new GoodsPageChangeListener() {
-
-					@Override
-					public void onPageSelected(int i) {
-						/** 标注当前页面 **/
-						mScrollLayout
-								.getHelper()
-								.setCurrentScrollableContainer(fragments.get(i));
+				@Override
+				public void onScroll(int currentY, int maxY) {
+					if (currentY > 1 && back_top.getVisibility() == View.GONE) {
+						back_top.setVisibility(View.VISIBLE);
 					}
+					if (currentY <= 1
+							&& back_top.getVisibility() == View.VISIBLE) {
+						back_top.setVisibility(View.GONE);
+					}
+				}
+			});
+			pagerSlidingTabStrip
+					.setOnPageChangeListener(new GoodsPageChangeListener() {
 
-				});
-		viewPager.setCurrentItem(0);
+						@Override
+						public void onPageSelected(int i) {
+							/** 标注当前页面 **/
+							mScrollLayout.getHelper()
+									.setCurrentScrollableContainer(
+											fragments.get(i));
+						}
+
+					});
+			viewPager.setCurrentItem(0);
+		}
 	}
 
 	private int curPostalTaxRate; // 当前商品税率
@@ -828,10 +854,10 @@ public class GoodsDetailActivity extends BaseActivity implements
 					.getState(), s.getOrMasterInv()));
 			if (s.getOrMasterInv())
 				stock = s;
-			if(!s.getState().equals("Y"))
+			if (!s.getState().equals("Y"))
 				outDate = true;
 		}
-		if(outDate){
+		if (outDate) {
 			showPopupwindow();
 		}
 		initStocks(stock);
@@ -856,7 +882,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 		});
 	}
 
-
 	/**
 	 * 初始化子商品信息
 	 * 
@@ -879,7 +904,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 				zhe + s.getInvTitle(), 0, zhe.length());
 		itemPrice.setText(getResources().getString(R.string.price,
 				s.getItemPrice()));
-		if (s.getRestrictAmount() > 0) {
+		if (s.getRestrictAmount() != null && s.getRestrictAmount() > 0) {
 			num_restrictAmount.setVisibility(View.VISIBLE);
 			num_restrictAmount.setText(getResources().getString(
 					R.string.restrictAmount, s.getRestrictAmount()));
@@ -893,11 +918,13 @@ public class GoodsDetailActivity extends BaseActivity implements
 		curItemPrice = s.getItemPrice().doubleValue();
 		postalStandard = s.getPostalStandard();
 		area.setText(s.getInvAreaNm());
-		if(s.getCollectId() != 0){
-			collectionImg.setImageDrawable(getResources().getDrawable(R.drawable.icon_collect));
+		if (s.getCollectId() != 0) {
+			collectionImg.setImageDrawable(getResources().getDrawable(
+					R.drawable.icon_collect));
 			isCollection = true;
-		}else{
-			collectionImg.setImageDrawable(getResources().getDrawable(R.drawable.icon_un_collect));
+		} else {
+			collectionImg.setImageDrawable(getResources().getDrawable(
+					R.drawable.icon_un_collect));
 			isCollection = false;
 		}
 	}
@@ -919,7 +946,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 				new int[] { R.drawable.page_indicator,
 						R.drawable.page_indicator_fcoused });
 	}
-	
 
 	// ---------------友盟-----------------------
 	private UMShareListener umShareListener = new UMShareListener() {
@@ -955,8 +981,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		IntentFilter intentFilter = new IntentFilter();
 		intentFilter
 				.addAction(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR);
-		intentFilter
-		.addAction(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION);
+		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION);
 		getActivity().registerReceiver(netReceiver, intentFilter);
 	}
 
@@ -968,7 +993,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 					AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR)) {
 				msg = null;
 				getGoodsNums();
-			}else if(intent.getAction().equals(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION)){
+			} else if (intent.getAction().equals(
+					AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION)) {
 				loadDataByUrl();
 				getGoodsNums();
 			}
@@ -979,9 +1005,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 	protected void onDestroy() {
 		super.onDestroy();
 		unregisterReceiver(netReceiver);
-		if(isChange)
-			sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
+		if (isChange)
+			sendBroadcast(new Intent(
+					AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
 	}
-
 
 }

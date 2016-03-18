@@ -73,6 +73,7 @@
     <string name="pingou_over_notice">该活动已结束，去看看其他拼购吧</string>
     <string name="xiadan_01">立即下单</string>
     <string name="pingou_fail_notice">拼购失败,资金会在1-5个工作日内退回您的账户</string>
+    <string name="goods_over_notice">该商品已售罄，去看看其他商品吧</string>
 
 	
 </resources>

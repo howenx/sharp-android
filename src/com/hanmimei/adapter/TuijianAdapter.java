@@ -69,15 +69,15 @@ public class TuijianAdapter extends BaseAdapter {
 		ImageLoaderUtils.loadImage(activity, theme.getItemImgForImgInfo()
 				.getUrl(), holder.img);
 		holder.title.setText(theme.getItemTitle());
-//		if (theme.getItemDiscount() > 0) {
-//			holder.discount.setText(activity.getResources().getString(
-//					R.string.discount, theme.getItemDiscount()));
-//			holder.old_price.setText(activity.getResources().getString(
-//					R.string.price, theme.getItemSrcPrice()));
-//			holder.old_price.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-//		}
-//		holder.price.setText(activity.getResources().getString(R.string.price,
-//				theme.getItemPrice()));
+		if (theme.getItemDiscount() > 0) {
+			holder.discount.setText(activity.getResources().getString(
+					R.string.discount, theme.getItemDiscount()));
+			holder.old_price.setText(activity.getResources().getString(
+					R.string.price, theme.getItemSrcPrice()));
+			holder.old_price.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+		}
+		holder.price.setText(activity.getResources().getString(R.string.price,
+				theme.getItemPrice()));
 		 if (theme.getItemType().equals("pin")) {
 			holder.sold_out.setVisibility(View.GONE);
 			holder.timeView.setVisibility(View.VISIBLE);

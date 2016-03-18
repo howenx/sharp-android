@@ -27,7 +27,14 @@ import com.umeng.socialize.media.UMImage;
  */
 public class AlertDialogUtils {
 	
-	
+	/**
+	 *  行邮税提示框
+	 * @param mContext
+	 * @param curItemPrice	 当前商品价格
+	 * @param curPostalTaxRate	税率
+	 * @param postalStandard		收费标准
+	 * @return
+	 */
 	public static AlertDialog showPostDialog(Context mContext, double curItemPrice,int curPostalTaxRate,int postalStandard ) {
 		final AlertDialog dialog = new AlertDialog.Builder(mContext).create();
 		View view = LayoutInflater.from(mContext).inflate(R.layout.panel_portalfee, null);
@@ -62,11 +69,24 @@ public class AlertDialogUtils {
 	}
 	
 	
-
+	/**
+	 * 删除操作提示窗
+	 * @param mContext	
+	 * @param l
+	 * @return
+	 */
 	public static AlertDialog showDialog(Context mContext, OnClickListener l) {
 		return showDialog(mContext, l, null, null, null);
 	}
-
+	/**
+	 * 操作提示窗
+	 * @param mContext
+	 * @param l	右边按钮回调
+	 * @param top 顶部标题
+	 * @param left 左边按钮
+	 * @param right 右边按钮
+	 * @return
+	 */
 	public static AlertDialog showDialog(Context mContext, OnClickListener l,
 			String top, String left, String right) {
 		LayoutInflater inflater = LayoutInflater.from(mContext);

@@ -168,7 +168,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.forget:
-			CommonUtil.doJump(this, ForgetPhoneActivity.class);
+			CommonUtil.doJump(this, ForgetPwdActivity.class);
 			break;
 		case R.id.login:
 			// 关闭键盘
