@@ -237,6 +237,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 		attention = (TextView) findViewById(R.id.attention);
 		mListView = (PullToRefreshListView) findViewById(R.id.mylist);
 		mListView.setVisibility(View.GONE);
+		mListView.setOnRefreshListener(this);
 		mListView.setMode(Mode.PULL_DOWN_TO_REFRESH);
 		no_data = (LinearLayout) findViewById(R.id.data_null);
 		no_net = (LinearLayout) findViewById(R.id.no_net);

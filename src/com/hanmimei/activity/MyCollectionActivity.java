@@ -7,14 +7,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
@@ -38,10 +34,12 @@ import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
+import com.hanmimei.utils.ListViewUtils;
 import com.hanmimei.utils.ToastUtils;
 
-public class MyCollectionActivity  extends BaseActivity implements OnClickListener{
-	
+public class MyCollectionActivity extends BaseActivity implements
+		OnClickListener {
+
 	private SwipeMenuListView mListView;
 	private List<Collection> datas;
 	private MyCollectionAdapter adapter;
@@ -67,12 +65,14 @@ public class MyCollectionActivity  extends BaseActivity implements OnClickListen
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				if(datas.get(arg2).getSkuType().equals("item")){
-					Intent intent = new Intent(MyCollectionActivity.this, GoodsDetailActivity.class);
+				if (datas.get(arg2).getSkuType().equals("item")) {
+					Intent intent = new Intent(MyCollectionActivity.this,
+							GoodsDetailActivity.class);
 					intent.putExtra("url", datas.get(arg2).getSku().getInvUrl());
 					startActivity(intent);
-				}else if(datas.get(arg2).getSkuType().equals("pin")){
-					Intent intent = new Intent(MyCollectionActivity.this, PingouDetailActivity.class);
+				} else if (datas.get(arg2).getSkuType().equals("pin")) {
+					Intent intent = new Intent(MyCollectionActivity.this,
+							PingouDetailActivity.class);
 					intent.putExtra("url", datas.get(arg2).getSku().getInvUrl());
 					startActivity(intent);
 				}
@@ -81,15 +81,17 @@ public class MyCollectionActivity  extends BaseActivity implements OnClickListen
 		mListView.setOnMenuItemClickListener(new OnMenuItemClickListener() {
 
 			@Override
-			public void onMenuItemClick(int position, SwipeMenu menu,int index,SwipeMenuView view) {
+			public void onMenuItemClick(int position, SwipeMenu menu,
+					int index, SwipeMenuView view) {
 				// TODO Auto-generated method stub
-				delCollect(position,view);
+				delCollect(position, view);
 			}
 
 		});
+		ListViewUtils.setListViewAnim(this, mListView);
 		registerReceivers();
 	}
-	
+
 	private SwipeMenuCreator creator = new SwipeMenuCreator() {
 
 		@Override
@@ -106,98 +108,118 @@ public class MyCollectionActivity  extends BaseActivity implements OnClickListen
 			menu.addMenuItem(deleteItem);
 		}
 	};
-	
-	private void loadCollectionData(){
-		Http2Utils.doGetRequestTask(this, getHeaders(), UrlUtil.COLLECTION_LIST, new VolleyJsonCallback() {
-			
-			@Override
-			public void onSuccess(String result) {
-				no_net.setVisibility(View.GONE);
-				CollectionInfo collectionInfo = DataParser.parserCollect(result);
-				if(collectionInfo.gethMessage().getCode() == 200){
-					if(collectionInfo.getList().size() > 0){
-						no_data.setVisibility(View.GONE);
-						datas.clear();
-						datas.addAll(collectionInfo.getList());	
-						adapter.notifyDataSetChanged();
-					}else{
-						no_data.setVisibility(View.VISIBLE);
+
+	private void loadCollectionData() {
+		Http2Utils.doGetRequestTask(this, getHeaders(),
+				UrlUtil.COLLECTION_LIST, new VolleyJsonCallback() {
+
+					@Override
+					public void onSuccess(String result) {
+						no_net.setVisibility(View.GONE);
+						CollectionInfo collectionInfo = DataParser
+								.parserCollect(result);
+						if (collectionInfo.gethMessage().getCode() == 200) {
+							if (collectionInfo.getList().size() > 0) {
+								no_data.setVisibility(View.GONE);
+								datas.clear();
+								datas.addAll(collectionInfo.getList());
+								adapter.notifyDataSetChanged();
+							} else {
+								no_data.setVisibility(View.VISIBLE);
+							}
+						} else {
+							no_net.setVisibility(View.VISIBLE);
+							ToastUtils.Toast(MyCollectionActivity.this, "请求失败");
+						}
 					}
-				}else{
-					no_net.setVisibility(View.VISIBLE);
-					ToastUtils.Toast(MyCollectionActivity.this, "请求失败");
-				}
-			}
-			
-			@Override
-			public void onError() {
-				no_net.setVisibility(View.VISIBLE);
-				ToastUtils.Toast(MyCollectionActivity.this, "请求失败，请检查您的网络");
-			}
-		});
+
+					@Override
+					public void onError() {
+						no_net.setVisibility(View.VISIBLE);
+						ToastUtils.Toast(MyCollectionActivity.this,
+								"请求失败，请检查您的网络");
+					}
+				});
 	}
 
-	private void delCollect(final int position,final SwipeMenuView index){
+	private void delCollect(final int position, final SwipeMenuView index) {
 		String collectId = datas.get(position).getCollectId();
-		Http2Utils.doGetRequestTask(this, getHeaders(), UrlUtil.DEL_COLLECTION + collectId, new VolleyJsonCallback() {
-			
+		Http2Utils.doGetRequestTask(this, getHeaders(), UrlUtil.DEL_COLLECTION
+				+ collectId, new VolleyJsonCallback() {
+
 			@Override
 			public void onSuccess(String result) {
 				HMessage hMessage = DataParser.paserResultMsg(result);
-				if(hMessage.getCode() == 200){
+				if (hMessage.getCode() == 200) {
+					// removeListItem(mListView.getChildAt(position), position);
 					datas.remove(position);
 					mListView.deleteViewAt(index, true);
-					if(datas.size() <= 0){
+					if (datas.size() <= 0) {
 						no_data.setVisibility(View.VISIBLE);
 						mListView.setVisibility(View.GONE);
 					}
-				}else{
+				} else {
 					ToastUtils.Toast(MyCollectionActivity.this, "取消收藏失败");
 				}
 			}
-			
+
 			@Override
 			public void onError() {
 				ToastUtils.Toast(MyCollectionActivity.this, "取消收藏失败");
 			}
 		});
 	}
+
+	// private void removeListItem(View rowView,final int position){
+	// final Animation animation = (Animation)
+	// AnimationUtils.loadAnimation(rowView.getContext(), R.anim.item_dismiss);
+	// animation.setAnimationListener(new AnimationListener() {
+	// public void onAnimationStart(Animation animation) {}
+	// public void onAnimationRepeat(Animation animation) {}
+	// public void onAnimationEnd(Animation animation) {
+	// datas.remove(position);
+	// adapter.notifyDataSetChanged();
+	// animation.cancel();
+	// }
+	// });
+	// rowView.startAnimation(animation);
+	// }
 	// 广播接收者 注册
-		private void registerReceivers() {
-			netReceiver = new MyBroadCastReceiver();
-			IntentFilter intentFilter = new IntentFilter();
-			intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_COLLECTION_ACTION);
-			getActivity().registerReceiver(netReceiver, intentFilter);
-		}
+	private void registerReceivers() {
+		netReceiver = new MyBroadCastReceiver();
+		IntentFilter intentFilter = new IntentFilter();
+		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_COLLECTION_ACTION);
+		getActivity().registerReceiver(netReceiver, intentFilter);
+	}
 
-		private class MyBroadCastReceiver extends BroadcastReceiver {
-
-			@Override
-			public void onReceive(Context context, Intent intent) {
-				if (intent.getAction().equals(
-						AppConstant.MESSAGE_BROADCAST_COLLECTION_ACTION)) {
-					loadCollectionData();
-				}
-			}
-		}
+	private class MyBroadCastReceiver extends BroadcastReceiver {
 
 		@Override
-		protected void onDestroy() {
-			// TODO Auto-generated method stub
-			super.onDestroy();
-			unregisterReceiver(netReceiver);
-		}
-
-		@Override
-		public void onClick(View v) {
-			switch (v.getId()) {
-			case R.id.reload:
+		public void onReceive(Context context, Intent intent) {
+			if (intent.getAction().equals(
+					AppConstant.MESSAGE_BROADCAST_COLLECTION_ACTION)) {
 				loadCollectionData();
-				break;
-
-			default:
-				break;
 			}
 		}
-		
+	}
+
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		unregisterReceiver(netReceiver);
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.reload:
+			loadCollectionData();
+			break;
+
+		default:
+			break;
+		}
+	}
+
 }

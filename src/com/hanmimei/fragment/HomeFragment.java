@@ -20,6 +20,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
@@ -49,6 +52,7 @@ import com.hanmimei.entity.Slider;
 import com.hanmimei.entity.Theme;
 import com.hanmimei.manager.MessageMenager;
 import com.hanmimei.utils.HttpUtils;
+import com.hanmimei.utils.ListViewUtils;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.CycleViewPager;
 import com.hanmimei.view.ViewFactory;
@@ -111,10 +115,10 @@ public class HomeFragment extends Fragment implements
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View view,
 					int position, long arg3) {
-					Intent intent = null;
-				if(data.get(position - 2).getType().equals("ordinary")){
+				Intent intent = null;
+				if (data.get(position - 2).getType().equals("ordinary")) {
 					intent = new Intent(mContext, ThemeGoodsActivity.class);
-				}else{
+				} else {
 					intent = new Intent(mContext, WebviewActivity.class);
 				}
 				intent.putExtra("url", data.get(position - 2).getThemeUrl());
@@ -122,6 +126,8 @@ public class HomeFragment extends Fragment implements
 			}
 		});
 		mListView.setOnScrollListener(this);
+		//listview添加加载动画
+		ListViewUtils.setListViewAnim(mContext, mListView.getRefreshableView());												
 		findHeaderView();
 		loadData();
 		addHeaderView();
@@ -254,7 +260,8 @@ public class HomeFragment extends Fragment implements
 			mListView.setMode(Mode.PULL_FROM_END);
 		}
 		if (home.getHasMsg() != 0) {
-			MessageMenager.getInstance().setMsgDrawble(R.drawable.hmm_icon_message_h);
+			MessageMenager.getInstance().setMsgDrawble(
+					R.drawable.hmm_icon_message_h);
 		}
 	}
 
@@ -403,8 +410,8 @@ public class HomeFragment extends Fragment implements
 				isUpOrDwom = 0;
 				pullNum = 1;
 				loadData();
-			}else if(intent.getAction().equals(
-					AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION)){
+			} else if (intent.getAction().equals(
+					AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION)) {
 				pageIndex = 1;
 				isUpOrDwom = 0;
 				pullNum = 1;
