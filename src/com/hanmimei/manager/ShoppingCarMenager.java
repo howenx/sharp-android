@@ -190,7 +190,8 @@ public class ShoppingCarMenager {
 				if(list.get(i).getState().equals("G")){
 					if(!list.get(i).getList().get(j).getState().equals("S"))
 						list.get(i).getList().get(j).setState("G");
-				}else{
+				}
+				if(list.get(i).getState().equals("N")){
 					if(!list.get(i).getList().get(j).getState().equals("S"))
 						list.get(i).getList().get(j).setState("I");
 				}

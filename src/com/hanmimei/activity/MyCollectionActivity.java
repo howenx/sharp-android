@@ -13,6 +13,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
@@ -35,6 +38,7 @@ import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
+import com.hanmimei.utils.ListViewUtils;
 import com.hanmimei.utils.ToastUtils;
 
 public class MyCollectionActivity  extends BaseActivity implements OnClickListener{
@@ -81,6 +85,7 @@ public class MyCollectionActivity  extends BaseActivity implements OnClickListen
 				delCollect(datas.get(position).getCollectId(), position);
 			}
 		});
+		ListViewUtils.setListViewAnim(this, mListView);
 		registerReceivers();
 	}
 	
@@ -141,6 +146,7 @@ public class MyCollectionActivity  extends BaseActivity implements OnClickListen
 			public void onSuccess(String result) {
 				HMessage hMessage = DataParser.paserResultMsg(result);
 				if(hMessage.getCode() == 200){
+//					removeListItem(mListView.getChildAt(position), position);
 					datas.remove(position);
 					adapter.notifyDataSetChanged();
 					ToastUtils.Toast(MyCollectionActivity.this, "取消收藏成功");
@@ -159,6 +165,19 @@ public class MyCollectionActivity  extends BaseActivity implements OnClickListen
 			}
 		});
 	}
+//	private void removeListItem(View rowView,final int position){
+//	final Animation animation = (Animation) AnimationUtils.loadAnimation(rowView.getContext(), R.anim.item_dismiss);   
+//    animation.setAnimationListener(new AnimationListener() {   
+//        public void onAnimationStart(Animation animation) {}   
+//        public void onAnimationRepeat(Animation animation) {}   
+//        public void onAnimationEnd(Animation animation) {   
+//            datas.remove(position);   
+//            adapter.notifyDataSetChanged();   
+//            animation.cancel();   
+//        }   
+//    });   
+//    rowView.startAnimation(animation);   
+//	}
 	// 广播接收者 注册
 		private void registerReceivers() {
 			netReceiver = new MyBroadCastReceiver();

@@ -2,8 +2,10 @@ package com.hanmimei.activity;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -18,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.hanmimei.R;
 import com.hanmimei.activity.listener.TimeEndListner;
 import com.hanmimei.adapter.OrderDetailListAdapter;
@@ -38,7 +41,6 @@ import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.CustomListView;
 import com.hanmimei.view.TimerTextView;
-import com.umeng.analytics.MobclickAgent;
 
 @SuppressLint({ "NewApi", "InflateParams" }) 
 public class OrderDetailActivity extends BaseActivity implements OnClickListener, TimeEndListner{
@@ -237,13 +239,13 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		dialog = new AlertDialog.Builder(this).create();
 		dialog.setView(view);
 		dialog.show();
-		view.findViewById(R.id.cancle).setOnClickListener(new OnClickListener() {
+		view.findViewById(R.id.cancel).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
 				dialog.dismiss();
 			}
 		});
-		view.findViewById(R.id.besure).setOnClickListener(new OnClickListener() {
+		view.findViewById(R.id.confirm).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				delOrder();
@@ -274,14 +276,14 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		dialog = new AlertDialog.Builder(this).create();
 		dialog.setView(view);
 		dialog.show();
-		view.findViewById(R.id.cancle).setOnClickListener(new OnClickListener() {
+		view.findViewById(R.id.cancel).setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View arg0) {
 				dialog.dismiss();
 			}
 		});
-		view.findViewById(R.id.besure).setOnClickListener(new OnClickListener() {
+		view.findViewById(R.id.confirm).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				toObject();

@@ -26,9 +26,9 @@ import com.hanmimei.R;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.VersionVo;
-import com.hanmimei.fragment.MineFragment;
 import com.hanmimei.fragment.FragmentTabHost;
 import com.hanmimei.fragment.HomeFragment;
+import com.hanmimei.fragment.MineFragment;
 import com.hanmimei.fragment.ShoppingCartFragment;
 import com.hanmimei.manager.BadgeViewManager;
 import com.hanmimei.manager.MessageMenager;
@@ -83,7 +83,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 		addTabItem(TAB_HOME_ID, R.drawable.tab_home, TAB_HOME, HomeFragment.class);
 		addTabItem(TAB_CAR_ID, R.drawable.tab_shopping, TAB_CAR,ShoppingCartFragment.class);
 		addTabItem(TAB_MY_ID, R.drawable.tab_my, TAB_MY, MineFragment.class);
-		
+//		addTabItem(TAB_MY_ID, R.drawable.tab_my, TAB_MY, TestFragment.class);
 		BadgeViewManager.getInstance().initBadgeViewManager(this, mTabHost);
 		registerReceivers();
 		BadgeViewManager.getInstance().initBadgeViewManager(this, mTabHost);

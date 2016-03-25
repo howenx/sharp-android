@@ -72,7 +72,7 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				if(custom.getState().equals("G")){
-					custom.setState("");
+					custom.setState("N");
 					notifyDataSetChanged();
 					ShoppingCarMenager.getInstance().setCustomState();
 				}else{
