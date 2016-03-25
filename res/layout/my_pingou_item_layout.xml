@@ -22,8 +22,8 @@
         android:layout_margin="5dp"
         android:layout_toRightOf="@id/img"
         android:ellipsize="end"
-        android:maxLines="2"
-        android:text="@null" />
+        android:textColor="@color/fontcolor"
+        android:maxLines="2"/>
 
     <View
         android:id="@+id/xian"

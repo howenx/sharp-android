@@ -75,13 +75,13 @@ public class ShoppingCarActivity extends BaseActivity implements
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.shopping_car_list_layout);
-		ActionBarUtil.setActionBarStyle(this, "购物车", 0, true, this, null);
+		ActionBarUtil.setActionBarStyle(this, "购物车");
 		registerReceivers();
 		goodsDao = getDaoSession().getShoppingGoodsDao();
 		shoppingCar = new ShoppingCar();
 		data = new ArrayList<Customs>();
-		check_Drawable = getResources().getDrawable(R.drawable.checked);
-		uncheck_Drawable = getResources().getDrawable(R.drawable.check_un);
+		check_Drawable = getResources().getDrawable(R.drawable.hmm_radio_select);
+		uncheck_Drawable = getResources().getDrawable(R.drawable.hmm_radio_normal);
 		findView();
 		loadData();
 	}
@@ -258,12 +258,6 @@ public class ShoppingCarActivity extends BaseActivity implements
 				check_all.setImageDrawable(check_Drawable);
 				doPrice();
 			}
-			break;
-		case R.id.back:
-//			unregisterReceiver(netReceiver);
-			// 发广播 通知shoppingfragment数据发生改变
-//			sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
-			finish();
 			break;
 		case R.id.pay:
 			List<Customs> customsList = new ArrayList<Customs>();

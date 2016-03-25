@@ -6,16 +6,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -213,7 +214,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				// 登录状态删除服务器数据，未登录状态删除本地数据
-				showDialog(goods);	
+				showDialog(goods,v);	
 			}
 		});
 		holder.checkBox.setOnClickListener(new OnClickListener() {
@@ -235,25 +236,25 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		return convertView;
 	}
 
-	private void showDialog(final ShoppingGoods goods){
+	private void showDialog(final ShoppingGoods goods,final View v){
 		dialog = AlertDialogUtils.showDialog(activity, new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				baseActivity.setShoppingcarChanged(true);
 				if (user != null) {
-					delGoods(goods);
+					delGoods(goods, v);
 				} else {
+					dialog.dismiss();
 					if (!goods.getState().equals("S")) {
-						goodsDao.delete(goodsDao
-								.queryBuilder()
+						goodsDao.delete(goodsDao.queryBuilder()
 								.where(Properties.GoodsId.eq(goods.getGoodsId()))
 								.build().unique());
 					}
 					data.remove(goods);
 					notifyDataSetChanged();
 					ShoppingCarMenager.getInstance().setBottom();
-					dialog.dismiss();
+					
 				}
 				
 			}
@@ -263,7 +264,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 	private ShoppingGoods delGoods;
 
 	// 删除购物车商品
-	private void delGoods(final ShoppingGoods goods) {
+	private void delGoods(final ShoppingGoods goods,final View v) {
 		dialog.dismiss();
 		activity.getLoading().show();
 		delGoods = goods;

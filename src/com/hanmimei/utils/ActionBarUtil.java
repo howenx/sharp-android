@@ -76,6 +76,7 @@ public class ActionBarUtil {
 				btn_back.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View arg0) {
+						activity.onBackPressed();
 						activity.finish();
 					}
 				});

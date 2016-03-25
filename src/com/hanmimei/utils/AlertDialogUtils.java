@@ -1,10 +1,9 @@
 package com.hanmimei.utils;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Paint;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,10 +13,7 @@ import com.hanmimei.R;
 import com.hanmimei.entity.VersionVo;
 import com.hanmimei.view.CustomDialog;
 import com.hanmimei.view.UpdateDialog;
-import com.umeng.socialize.ShareAction;
-import com.umeng.socialize.UMShareListener;
-import com.umeng.socialize.bean.SHARE_MEDIA;
-import com.umeng.socialize.media.UMImage;
+import com.hanmimei.view.UpdateNewDialog;
 
 /**
  * 弹窗工具类
@@ -26,6 +22,49 @@ import com.umeng.socialize.media.UMImage;
  * 
  */
 public class AlertDialogUtils {
+	
+	public interface OnPhotoSelListener{
+		public void onSelPlay();
+		public void onSelLocal();
+	}
+	
+	
+	public static AlertDialog showPhotoDialog(Context mContext,final OnPhotoSelListener l){
+		final AlertDialog photoDialog = new AlertDialog.Builder(mContext).create();
+		View view = LayoutInflater.from(mContext).inflate(R.layout.select_img_pop_layout,null);
+		// 拍照
+		view.findViewById(R.id.play_photo).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				photoDialog.dismiss();
+				if(l!=null)
+					l.onSelPlay();
+			}
+		});
+		// 本地照片
+		view.findViewById(R.id.my_photo).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				photoDialog.dismiss();
+				if(l!=null)
+					l.onSelLocal();
+			}
+		});
+		// 取消
+		view.findViewById(R.id.cancle).setOnClickListener(
+				new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						photoDialog.dismiss();
+					}
+				});
+		photoDialog.setView(view);
+		return photoDialog;
+	}
+
 	
 	/**
 	 *  行邮税提示框
@@ -50,8 +89,6 @@ public class AlertDialogUtils {
 					CommonUtil.DecimalFormat(postalFee)));
 			num_portalfee.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 		} else {
-			postalFee = curItemPrice * 100 / (100 - curPostalTaxRate)
-					- curItemPrice;
 			num_portalfee.setText(mContext.getResources().getString(R.string.price,
 					CommonUtil.DecimalFormat(postalFee)));
 		}
@@ -146,6 +183,16 @@ public class AlertDialogUtils {
 		String[] tb = { info.getReleaseDesc(), "暂不更新", "马上下载" };
 		UpdateDialog c = new UpdateDialog(context, tb, l);
 		c.show();
+	}
+	/**
+	 * 版本更新2
+	 * 
+	 * @param context
+	 * @param l
+	 */
+	public static void showUpdate2Dialog(Context context, final OnClickListener l) {
+		UpdateNewDialog dialog = new UpdateNewDialog(context, l);
+		dialog.show();
 	}
 
 	/**

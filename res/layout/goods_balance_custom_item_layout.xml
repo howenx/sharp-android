@@ -16,7 +16,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:textSize="@dimen/font_middle" />
+            android:textColor="@color/fontcolor"
+            android:textSize="@dimen/font_normal" />
     </RelativeLayout>
 
     <View
@@ -44,14 +45,16 @@
             android:id="@+id/shipFee"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/fontcolor"/>
+            android:textColor="@color/fontcolor"
+             android:textSize="@dimen/font_small"/>
         
         <TextView 
             android:id="@+id/protalFee"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_horizontal_middle"
-            android:textColor="@color/fontcolor"/>
+            android:textColor="@color/fontcolor"
+            android:textSize="@dimen/font_small"/>
         <TextView 
             android:id="@+id/biaoqian"
             android:layout_width="wrap_content"

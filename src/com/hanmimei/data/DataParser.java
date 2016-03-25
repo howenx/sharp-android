@@ -423,7 +423,7 @@ public class DataParser {
 			if(userObject.has("expired"))
 				msg.setTime(userObject.getInt("expired"));
 			if(userObject.has("id"))
-				msg.setUserId(userObject.getInt("id"));
+				msg.setUserId(userObject.getInt("id")+"");
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();

@@ -18,9 +18,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hanmimei.R;
-import com.hanmimei.activity.AdressActivity;
+import com.hanmimei.activity.MyAddressActivity;
 import com.hanmimei.activity.BaseActivity;
-import com.hanmimei.activity.CouponActivity;
+import com.hanmimei.activity.MyCouponActivity;
 import com.hanmimei.activity.EditUserInfoActivity;
 import com.hanmimei.activity.LoginActivity;
 import com.hanmimei.activity.MyCollectionActivity;
@@ -143,7 +143,7 @@ public class MineFragment extends Fragment implements OnClickListener {
 			doJump(MyOrderActivity.class);
 			break;
 		case R.id.address:
-			doJump(AdressActivity.class);
+			doJump(MyAddressActivity.class);
 			break;
 		case R.id.user_name:
 			doJump(EditUserInfoActivity.class);
@@ -152,7 +152,7 @@ public class MineFragment extends Fragment implements OnClickListener {
 			doJump(MyCollectionActivity.class);
 			break;
 		case R.id.youhui_linear:
-			doJump(CouponActivity.class);
+			doJump(MyCouponActivity.class);
 			break;
 		case R.id.pintuan:
 			doJump(MyPingouActivity.class);

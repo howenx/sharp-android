@@ -1,48 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" 
-    android:background="@drawable/bg_gray_boarder"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" 
+    android:paddingTop="@dimen/padding_most"
+    android:paddingLeft="@dimen/padding_horizontal_big"
+    android:paddingRight="@dimen/padding_horizontal_big"
+    android:paddingBottom="@dimen/padding_horizontal_big"
+    android:background="@drawable/bg_dialog"
     android:gravity="center">
-
-    <TextView
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="请选择您的性别"
-        android:textColor="@color/fontcolor"
-        android:textSize="16sp" />
-
-    <LinearLayout 
-        android:layout_margin="30dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+	
     <TextView 
-        android:id="@+id/men"
-        android:padding="8dp"
+        android:id="@+id/btn_nv"
         android:layout_width="0dp"
-        android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="男"
-        android:textSize="14sp"
-        android:textColor="@color/btn_font_selector"
-        android:background="@drawable/btn_theme_boader_radius_selector"/>
-    <TextView 
-        android:layout_marginLeft="20dp"
-        android:id="@+id/women"
-        android:padding="8dp"
-        android:layout_width="0dp"
+        android:textColor="#ef443c"
         android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:gravity="center"
         android:text="女"
-        android:textSize="14sp"
-       android:textColor="@color/btn_font_selector"
-        android:background="@drawable/btn_theme_boader_radius_selector"/>
-    </LinearLayout>
+        android:padding="@dimen/padding_normal"
+         android:drawablePadding="@dimen/driver_padding_normal"
+        android:gravity="center_horizontal"
+        android:drawableTop="@drawable/sex_female_selector"/>
+    
+    <TextView 
+        android:id="@+id/btn_nan"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="#4063b0"
+        android:layout_weight="1"
+        android:text="男"
+        android:padding="@dimen/padding_normal"
+        android:drawablePadding="@dimen/driver_padding_normal"
+        android:gravity="center_horizontal"
+        android:drawableTop="@drawable/sex_male_selector"/>
+
 
 </LinearLayout>

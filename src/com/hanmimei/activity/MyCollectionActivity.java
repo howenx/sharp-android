@@ -13,6 +13,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
@@ -23,6 +25,7 @@ import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.baoyz.swipemenulistview.SwipeMenuListView.OnMenuItemClickListener;
+import com.baoyz.swipemenulistview.SwipeMenuView;
 import com.hanmimei.R;
 import com.hanmimei.adapter.MyCollectionAdapter;
 import com.hanmimei.data.AppConstant;
@@ -76,10 +79,13 @@ public class MyCollectionActivity  extends BaseActivity implements OnClickListen
 			}
 		});
 		mListView.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+
 			@Override
-			public void onMenuItemClick(int position, SwipeMenu menu, int index) {
-				delCollect(datas.get(position).getCollectId(), position);
+			public void onMenuItemClick(int position, SwipeMenu menu,int index,SwipeMenuView view) {
+				// TODO Auto-generated method stub
+				delCollect(position,view);
 			}
+
 		});
 		registerReceivers();
 	}
@@ -93,12 +99,9 @@ public class MyCollectionActivity  extends BaseActivity implements OnClickListen
 			// 设置背景颜色
 			deleteItem.setBackground(R.drawable.btn_theme_selector);
 			// 设置删除的宽度
-			deleteItem.setWidth(CommonUtil.dip2px(120));
+			deleteItem.setWidth(CommonUtil.dip2px(90));
 			// 设置图标
-//			deleteItem.setIcon(R.drawable.icon_delete);
-			deleteItem.setTitle("取消收藏");
-			deleteItem.setTitleColor(getResources().getColor(R.color.white));
-			deleteItem.setTitleSize(16);
+			deleteItem.setIcon(R.drawable.hmm_edit_delete);
 			// 增加到menu中
 			menu.addMenuItem(deleteItem);
 		}
@@ -134,7 +137,8 @@ public class MyCollectionActivity  extends BaseActivity implements OnClickListen
 		});
 	}
 
-	private void delCollect(String collectId, final int position){
+	private void delCollect(final int position,final SwipeMenuView index){
+		String collectId = datas.get(position).getCollectId();
 		Http2Utils.doGetRequestTask(this, getHeaders(), UrlUtil.DEL_COLLECTION + collectId, new VolleyJsonCallback() {
 			
 			@Override
@@ -142,8 +146,7 @@ public class MyCollectionActivity  extends BaseActivity implements OnClickListen
 				HMessage hMessage = DataParser.paserResultMsg(result);
 				if(hMessage.getCode() == 200){
 					datas.remove(position);
-					adapter.notifyDataSetChanged();
-					ToastUtils.Toast(MyCollectionActivity.this, "取消收藏成功");
+					mListView.deleteViewAt(index, true);
 					if(datas.size() <= 0){
 						no_data.setVisibility(View.VISIBLE);
 						mListView.setVisibility(View.GONE);

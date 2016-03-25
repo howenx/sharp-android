@@ -48,6 +48,7 @@ import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.ImgInfo;
 import com.hanmimei.entity.MainVo;
 import com.hanmimei.entity.PinDetail;
+import com.hanmimei.entity.ShareVo;
 import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.StockVo;
@@ -60,6 +61,8 @@ import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.HorizontalListView;
 import com.hanmimei.view.NetworkImageHolderView;
+import com.hanmimei.view.PushWindow;
+import com.hanmimei.view.ShareWindow;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
@@ -82,7 +85,7 @@ public class PingouDetailActivity extends BaseActivity implements
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		ActionBarUtil.setActionBarStyle(this, "商品详情", R.drawable.hmm_icon_fenxiang,
+		ActionBarUtil.setActionBarStyle(this, "商品详情", R.drawable.hmm_icon_share,
 				true, null, this);
 		setContentView(R.layout.pingou_detail_layout);
 		findView();
@@ -166,12 +169,10 @@ public class PingouDetailActivity extends BaseActivity implements
 		pin_per_num.setText("最高" + stock.getFloorPrice().get("person_num")
 				+ "人团");
 		if (stock.getCollectId() != 0) {
-			collectionImg.setImageDrawable(getResources().getDrawable(
-					R.drawable.icon_collect));
+			collectionImg.setImageResource(R.drawable.hmm_icon_collect_h);
 			isCollection = true;
 		} else {
-			collectionImg.setImageDrawable(getResources().getDrawable(
-					R.drawable.icon_un_collect));
+			collectionImg.setImageResource(R.drawable.hmm_icon_collect);
 			isCollection = false;
 		}
 		if (stock.getStatus().equals("Y")) {
@@ -232,125 +233,43 @@ public class PingouDetailActivity extends BaseActivity implements
 		case R.id.setting:
 			showShareboard();
 			break;
-		case R.id.qq:
-			shareQQ();
-			break;
-		case R.id.weixin:
-			shareWeiXin();
-			break;
-		case R.id.weixinq:
-			shareCircle();
-			break;
-		case R.id.copy:
-			doCopy();
-			shareWindow.dismiss();
-			break;
 		default:
 			break;
 		}
 
 	}
 
-	private void doCopy() {
-		String code[] = detail.getStock().getPinRedirectUrl().split("detail");
-		HMMApplication application = (HMMApplication) getApplication();
-		application.setKouling("KAKAO-HMM 复制这条信息,打开👉韩秘美👈即可看到<P>【"
-				+ detail.getStock().getPinTitle() + "】," + code[1]
-				+ ",－🔑 M令 🔑");
-		ToastUtils.Toast(this, "复制成功，快去粘贴吧");
-	}
+	
 
-	// 微信朋友圈分享设置
-	private void shareCircle() {
-		new ShareAction(this)
-				.setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE)
-				.setCallback(umShareListener)
-				.withMedia(
-						new UMImage(this, shareStock.getInvImgForObj().getUrl()))
-				.withTitle(shareStock.getPinTitle())
-				.withText(shareStock.getPinTitle())
-				.withTargetUrl("http://www.hanmimei.com/").share();
-	}
 
-	// 微信分享设置
-	private void shareWeiXin() {
-		new ShareAction(this)
-				.setPlatform(SHARE_MEDIA.WEIXIN)
-				.setCallback(umShareListener)
-				.withMedia(
-						new UMImage(this, shareStock.getInvImgForObj().getUrl()))
-				.withTitle("全球正品，尽在韩秘美").withText(shareStock.getPinTitle())
-				.withTargetUrl("http://www.hanmimei.com/").share();
-	}
 
-	// QQ分享设置
-	private void shareQQ() {
-		new ShareAction(this)
-				.setPlatform(SHARE_MEDIA.QQ)
-				.setCallback(umShareListener)
-				.withTitle("全球正品，尽在韩秘美")
-				.withMedia(
-						new UMImage(this, shareStock.getInvImgForObj().getUrl()))
-				.withText(shareStock.getPinTitle())
-				.withTargetUrl("http://www.hanmimei.com/").share();
-	}
-
-	private StockVo shareStock;
-	private PopupWindow shareWindow;
+	private ShareWindow shareWindow;
 
 	// 分享面板
 	@SuppressLint("InflateParams")
 	private void showShareboard() {
-		View view = LayoutInflater.from(this).inflate(R.layout.share_layout,
-				null);
-		shareWindow = PopupWindowUtil.showPopWindow(this, view);
-		view.findViewById(R.id.qq).setOnClickListener(this);
-		view.findViewById(R.id.weixin).setOnClickListener(this);
-		view.findViewById(R.id.weixinq).setOnClickListener(this);
-		// view.findViewById(R.id.sina).setOnClickListener(this);
-		view.findViewById(R.id.copy).setOnClickListener(this);
-		Config.OpenEditor = true;
-		shareStock = detail.getStock();
+		if (shareWindow == null) {
+			ShareVo vo = new ShareVo();
+			vo.setContent(detail.getStock().getPinTitle());
+			vo.setTitle("全球正品，尽在韩秘美");
+			vo.setImgUrl(detail.getStock().getInvImgForObj().getUrl());
+			vo.setTargetUrl("http://www.hanmimei.com/");
+			vo.setInfoUrl(detail.getStock().getPinRedirectUrl());
+			vo.setType("P");
+			shareWindow = new ShareWindow(this, vo);
+		}
+		shareWindow.show();
 
 	}
 
-	private PopupWindow tuiWindow;
+	private PushWindow pushWindow;
 
 	@SuppressLint("InflateParams")
 	private void showPopupwindow() {
-		if (tuiWindow == null) {
-			View view = getLayoutInflater().inflate(R.layout.tuijian_layout,
-					null);
-			HorizontalListView more_grid = (HorizontalListView) view
-					.findViewById(R.id.more_grid);
-			TextView titleView = (TextView) view.findViewById(R.id.title);
-			titleView.setText(R.string.pingou_over_notice);
-			more_grid.setAdapter(new TuijianAdapter(detail.getPush(), this));
-			more_grid.setOnItemClickListener(new OnItemClickListener() {
-
-				@Override
-				public void onItemClick(AdapterView<?> arg0, View arg1,
-						int arg2, long arg3) {
-					Intent intent = null;
-					if (detail.getPush().get(arg2).getItemType().equals("pin")) {
-						intent = new Intent(getActivity(),
-								PingouDetailActivity.class);
-					} else {
-						intent = new Intent(getActivity(),
-								GoodsDetailActivity.class);
-					}
-					intent.putExtra("url", detail.getPush().get(arg2)
-							.getItemUrl());
-					startActivityForResult(intent, 1);
-				}
-			});
-			more_grid.setFocusable(false);
-			tuiWindow = PopupWindowUtil.showPopWindow(this, view);
-			more_view.setOnClickListener(this);
-		} else {
-			PopupWindowUtil.backgroundAlpha(this, 0.4f);
-			tuiWindow.showAtLocation(more_view, Gravity.BOTTOM, 0, 0);
+		if(pushWindow ==null){
+			pushWindow = new PushWindow(this, detail.getPush());
 		}
+		pushWindow.show();
 
 	}
 
@@ -377,11 +296,8 @@ public class PingouDetailActivity extends BaseActivity implements
 				if (message.getCode() == 200) {
 					isCollection = false;
 					detail.getStock().setCollectId(0);
-					collectionImg.setImageDrawable(getResources().getDrawable(
-							R.drawable.icon_un_collect));
-					ToastUtils.Toast(PingouDetailActivity.this, "取消收藏成功");
-					sendBroadcast(new Intent(
-							AppConstant.MESSAGE_BROADCAST_COLLECTION_ACTION));
+					collectionImg.setImageResource(R.drawable.hmm_icon_collect);
+					sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_COLLECTION_ACTION));
 				} else {
 					ToastUtils.Toast(PingouDetailActivity.this, "取消收藏失败");
 				}
@@ -419,11 +335,8 @@ public class PingouDetailActivity extends BaseActivity implements
 						if (message.getCode() == 200) {
 							isCollection = true;
 							detail.getStock().setCollectId(collectionId);
-							collectionImg.setImageDrawable(getResources()
-									.getDrawable(R.drawable.icon_collect));
-							ToastUtils.Toast(PingouDetailActivity.this, "收藏成功");
-							sendBroadcast(new Intent(
-									AppConstant.MESSAGE_BROADCAST_COLLECTION_ACTION));
+							collectionImg.setImageResource(R.drawable.hmm_icon_collect_h);
+							sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_COLLECTION_ACTION));
 						} else {
 							ToastUtils.Toast(PingouDetailActivity.this, "收藏失败");
 						}
@@ -431,8 +344,7 @@ public class PingouDetailActivity extends BaseActivity implements
 
 					@Override
 					public void onError() {
-						ToastUtils.Toast(PingouDetailActivity.this,
-								"收藏失败，请检查您的网络");
+						ToastUtils.Toast(getActivity(),R.string.error);
 					}
 				}, object.toString());
 	}
@@ -477,7 +389,10 @@ public class PingouDetailActivity extends BaseActivity implements
 				if (currentY <= 1 && back_top.getVisibility() == View.VISIBLE) {
 					back_top.setVisibility(View.GONE);
 				}
+				setScrollDown(currentY);
 			}
+			
+			
 		});
 		pagerSlidingTabStrip
 				.setOnPageChangeListener(new GoodsPageChangeListener() {
@@ -577,29 +492,6 @@ public class PingouDetailActivity extends BaseActivity implements
 		}
 	}
 
-	// ---------------友盟-----------------------
-	private UMShareListener umShareListener = new UMShareListener() {
-		@Override
-		public void onResult(SHARE_MEDIA platform) {
-			shareWindow.dismiss();
-			// Toast.makeText(GoodsDetailActivity.this, platform + " 分享成功",
-			// Toast.LENGTH_SHORT).show();
-		}
-
-		@Override
-		public void onError(SHARE_MEDIA platform, Throwable t) {
-			shareWindow.dismiss();
-			// Toast.makeText(GoodsDetailActivity.this,platform + " 分享失败",
-			// Toast.LENGTH_SHORT).show();
-		}
-
-		@Override
-		public void onCancel(SHARE_MEDIA platform) {
-			shareWindow.dismiss();
-			// Toast.makeText(GoodsDetailActivity.this,platform + " 分享取消",
-			// Toast.LENGTH_SHORT).show();
-		}
-	};
 
 	@Override
 	protected void onDestroy() {

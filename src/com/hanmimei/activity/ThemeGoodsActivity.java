@@ -79,8 +79,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 					long arg3) {
 					Intent intent = null;
 					if (data.get(arg2).getItemType().equals("pin")) {
-						intent = new Intent(getActivity(),
-								PingouDetailActivity.class);
+						intent = new Intent(getActivity(),PingouDetailActivity.class);
 					} else {
 						intent = new Intent(getActivity(),GoodsDetailActivity.class);
 					}

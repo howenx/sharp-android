@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.android.volley.Request.Method;
 import com.android.volley.Response.ErrorListener;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.VolleyError;
 import com.hanmimei.activity.BaseActivity;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
@@ -50,6 +51,7 @@ public class Http3Utils {
 			}
 		},headers);
 		request.setTag(url);
+		request.setRetryPolicy(new DefaultRetryPolicy(60 * 1000, 1, 1.0f));
 		mActivity.getMyApplication().getRequestQueue().add(request);
 	}
 

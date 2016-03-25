@@ -72,7 +72,6 @@ public class OrderSubmitActivity extends BaseActivity {
 					}else{
 						view.loadUrl(url, extraHeaders);
 					}
-					
 				}
 				return true;
 			}
@@ -188,8 +187,11 @@ public class OrderSubmitActivity extends BaseActivity {
 		AlertDialogUtils.showPayDialog(getActivity(), new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if(getIntent().getStringExtra("orderType").equals("item"))
+				if(getIntent().getStringExtra("orderType").equals("item")){
 					startActivity(new Intent(getActivity(), MyOrderActivity.class));
+				}else{
+					onBackPressed();
+				}
 				finish();
 			}
 		});

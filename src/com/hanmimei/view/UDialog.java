@@ -39,6 +39,7 @@ public class UDialog extends Dialog{
 		
 		btn_submit.setMode(ActionProcessButton.Mode.ENDLESS);
 		btn_submit.setOnClickListener(new SubmitClick());
+		setCanceledOnTouchOutside(false);
 		
 		btn_submit.setOnStateListener(new OnStateListener() {
 			

@@ -15,7 +15,6 @@ import android.os.Build.VERSION;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +28,6 @@ import com.google.gson.Gson;
 import com.hanmimei.R;
 import com.hanmimei.application.HMMApplication;
 import com.hanmimei.dao.DaoSession;
-import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.GoodsDetail;
 import com.hanmimei.entity.PinDetail;
@@ -43,11 +41,13 @@ import com.hanmimei.utils.ImageLoaderUtils;
 import com.hanmimei.utils.SystemBarTintManager;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.LoadingDialog;
+import com.sliding.finish.SwipeBackActivity;
 
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends SwipeBackActivity  {
 
 	private LoadingDialog loadingDialog;
 	private boolean shoppingcarChanged = false;
+
 	/*
 	 * 获得用于数据库管理的DaoSession
 	 */
@@ -59,7 +59,6 @@ public class BaseActivity extends AppCompatActivity {
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		getSupportActionBar().hide();
 		getSupportActionBar().setElevation(0);
 		// 沉浸式状态栏的设置
 		if (VERSION.SDK_INT >= 19) {
@@ -97,7 +96,6 @@ public class BaseActivity extends AppCompatActivity {
 		window.setStatusBarColor(Color.TRANSPARENT);
 	}
 
-
 	public BaseActivity getActivity() {
 		return this;
 	}
@@ -120,9 +118,8 @@ public class BaseActivity extends AppCompatActivity {
 		return headers;
 	}
 
-
 	public LoadingDialog getLoading() {
-		if(loadingDialog == null){
+		if (loadingDialog == null) {
 			loadingDialog = new LoadingDialog(this);
 		}
 		return loadingDialog;
@@ -149,11 +146,11 @@ public class BaseActivity extends AppCompatActivity {
 			setClipboard();
 		}
 	}
-	@SuppressWarnings("deprecation")
-	protected void setClipboard(){
-			// 退出或者app进入后台将口令扔到剪切板
-			ClipboardManager cbm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-			cbm.setText(getMyApplication().getKouling());
+
+	protected void setClipboard() {
+		// 退出或者app进入后台将口令扔到剪切板
+		ClipboardManager cbm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+		cbm.setText(getMyApplication().getKouling());
 	}
 
 	/**
@@ -189,23 +186,24 @@ public class BaseActivity extends AppCompatActivity {
 	}
 
 	@SuppressWarnings("deprecation")
-	private void getClipboard(){
+	private void getClipboard() {
 		ClipboardManager cbm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
 		if (!TextUtils.isEmpty(cbm.getText())) {
 			if (cbm.getText().toString().trim().contains("KAKAO-HMM")) {
 				String url[] = cbm.getText().toString().trim().split("】,");
-				if(url[1].contains(",－")){
-					if(cbm.getText().toString().trim().contains("<C>")){
+				if (url[1].contains(",－")) {
+					if (cbm.getText().toString().trim().contains("<C>")) {
 						what = 0;
 						loadData(UrlUtil.SERVERY3 + "/comm/detail"
 								+ url[1].split(",－")[0]);
-					}else if(cbm.getText().toString().trim().contains("<P>")){
+					} else if (cbm.getText().toString().trim().contains("<P>")) {
 						what = 2;
 						loadData(UrlUtil.SERVERY3 + "/comm/pin/detail"
 								+ url[1].split(",－")[0]);
-					}else if(cbm.getText().toString().trim().contains("<T>")){
+					} else if (cbm.getText().toString().trim().contains("<T>")) {
 						what = 1;
-						loadData(UrlUtil.SERVERY5 + "/promotion/pin/activity" + url[1].split(",－")[0]);
+						loadData(UrlUtil.SERVERY5 + "/promotion/pin/activity"
+								+ url[1].split(",－")[0]);
 					}
 					cbm.setText("");
 					getMyApplication().setKouling("");
@@ -213,72 +211,76 @@ public class BaseActivity extends AppCompatActivity {
 			}
 		}
 	}
+
 	private GoodsDetail detail;
 	private int what;
 	private PinResult pinResult;
 	private PinDetail pinDetail;
 
 	private void loadData(String url) {
-		Http2Utils.doGetRequestTask(this, null, url,
-				new VolleyJsonCallback() {
+		Http2Utils.doGetRequestTask(this, null, url, new VolleyJsonCallback() {
 
-					@Override
-					public void onSuccess(String result) {
-						if(what == 0){
-							try {
-								detail =new Gson().fromJson(result, GoodsDetail.class);
-							} catch (Exception e) {
-								ToastUtils.Toast(getActivity(), R.string.error);
-								return;
-							}
-							if(detail.getMessage().getCode() == 200){
-								setKouDialog(detail.getCurrentStock().getInvTitle(),
-									detail.getCurrentStock().getItemPrice() + "",
-									detail.getCurrentStock().getInvImgForObj()
-											.getUrl());
-							}else{
-								ToastUtils.Toast(getActivity(), "口令请求错误");
-							}
-						}else if(what == 1){
-							pinResult = new Gson().fromJson(result,
-									PinResult.class);
-							if(pinResult.getMessage().getCode() == 200){
-								setKouDialog(pinResult.getActivity().getPinTitle(), pinResult.getActivity().getPinPrice(), pinResult.getActivity().getPinImg().getUrl());
-							}else{
-								ToastUtils.Toast(getActivity(), "口令请求错误");
-							}
-						}else if(what == 2){
-							pinDetail = new Gson().fromJson(result, PinDetail.class);
-							if(pinDetail.getMessage().getCode() == 200){
-								setKouDialog(pinDetail.getStock().getPinTitle(), pinDetail.getStock().getPinDiscount(), pinDetail.getStock().getInvImg());
-							}else{
-								ToastUtils.Toast(getActivity(), "口令请求错误");
-							}
-						}
+			@Override
+			public void onSuccess(String result) {
+				if (what == 0) {
+					try {
+						detail = new Gson().fromJson(result, GoodsDetail.class);
+					} catch (Exception e) {
+						ToastUtils.Toast(getActivity(), R.string.error);
+						return;
 					}
-					@Override
-					public void onError() {
-						ToastUtils.Toast(getActivity(), "错误的M令！");
+					if (detail.getMessage().getCode() == 200) {
+						setKouDialog(detail.getCurrentStock().getInvTitle(),
+								detail.getCurrentStock().getItemPrice() + "",
+								detail.getCurrentStock().getInvImgForObj()
+										.getUrl());
+					} else {
+						ToastUtils.Toast(getActivity(), "口令请求错误");
 					}
-				});
+				} else if (what == 1) {
+					pinResult = new Gson().fromJson(result, PinResult.class);
+					if (pinResult.getMessage().getCode() == 200) {
+						setKouDialog(pinResult.getActivity().getPinTitle(),
+								pinResult.getActivity().getPinPrice(),
+								pinResult.getActivity().getPinImg().getUrl());
+					} else {
+						ToastUtils.Toast(getActivity(), "口令请求错误");
+					}
+				} else if (what == 2) {
+					pinDetail = new Gson().fromJson(result, PinDetail.class);
+					if (pinDetail.getMessage().getCode() == 200) {
+						setKouDialog(pinDetail.getStock().getPinTitle(),
+								pinDetail.getStock().getPinDiscount(),
+								pinDetail.getStock().getInvImg());
+					} else {
+						ToastUtils.Toast(getActivity(), "口令请求错误");
+					}
+				}
+			}
+
+			@Override
+			public void onError() {
+				ToastUtils.Toast(getActivity(), "错误的M令！");
+			}
+		});
 	}
 
-	@SuppressLint("InflateParams") 
+	@SuppressLint("InflateParams")
 	private void setKouDialog(String ti, String pri, String imgurl) {
 		LayoutInflater inflater = LayoutInflater.from(this);
 		final AlertDialog dialog = new AlertDialog.Builder(this,
 				R.style.CustomDialog).create();
-		View view = inflater.inflate(R.layout.hanmimei_password_layout, null);
+		View view = inflater.inflate(R.layout.hanmimei_command_layout, null);
 		ImageView img = (ImageView) view.findViewById(R.id.img);
 		ImageLoaderUtils.loadImage(this, imgurl, img);
 		TextView title = (TextView) view.findViewById(R.id.title);
 		TextView price = (TextView) view.findViewById(R.id.price);
 		title.setText(ti);
-		if(what == 0){
+		if (what == 0) {
 			price.setText("单价：¥" + pri);
-		}else if(what == 1){
+		} else if (what == 1) {
 			price.setText("拼购价：¥" + pri);
-		}else if(what == 2){
+		} else if (what == 2) {
 			price.setText("折扣率：" + pri + "折");
 		}
 		view.findViewById(R.id.cancle).setOnClickListener(
@@ -294,17 +296,21 @@ public class BaseActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View arg0) {
 				dialog.dismiss();
-				if(what == 0){
-					Intent intent = new Intent(BaseActivity.this,GoodsDetailActivity.class);	
+				if (what == 0) {
+					Intent intent = new Intent(BaseActivity.this,
+							GoodsDetailActivity.class);
 					intent.putExtra("url", detail.getCurrentStock().getInvUrl());
 					startActivity(intent);
-				}else if(what == 1){
-					Intent intent = new Intent(BaseActivity.this,PingouResultActivity.class);	
+				} else if (what == 1) {
+					Intent intent = new Intent(BaseActivity.this,
+							PingouResultActivity.class);
 					intent.putExtra("url", pinResult.getActivity().getPinUrl());
 					startActivity(intent);
-				}else{
-					Intent intent = new Intent(BaseActivity.this,PingouDetailActivity.class);	
-					intent.putExtra("url", pinDetail.getStock().getPinRedirectUrl());
+				} else {
+					Intent intent = new Intent(BaseActivity.this,
+							PingouDetailActivity.class);
+					intent.putExtra("url", pinDetail.getStock()
+							.getPinRedirectUrl());
 					startActivity(intent);
 				}
 			}
@@ -313,12 +319,12 @@ public class BaseActivity extends AppCompatActivity {
 		dialog.show();
 
 	}
-	
-	//线程池 管理网络提交事务
-		public void submitTask(Runnable runable) {
-			ThreadPoolManager.getInstance().getExecutorService().execute(runable);
-		}
-	
+
+	// 线程池 管理网络提交事务
+	public void submitTask(Runnable runable) {
+		ThreadPoolManager.getInstance().getExecutorService().execute(runable);
+	}
+
 	public VersionVo getVersionInfo() {
 		return getMyApplication().getVersionInfo();
 	}
@@ -326,5 +332,5 @@ public class BaseActivity extends AppCompatActivity {
 	public void setVersionInfo(VersionVo versionInfo) {
 		getMyApplication().setVersionInfo(versionInfo);
 	}
-	
+
 }

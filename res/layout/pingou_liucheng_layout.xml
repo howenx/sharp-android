@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:scrollbars="@null"
     android:orientation="vertical" 
+    android:background="@color/background"
     android:fitsSystemWindows="true" >
     <ImageView 
        android:layout_width="match_parent"

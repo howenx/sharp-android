@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -15,17 +16,12 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
-import android.view.Gravity;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.android.volley.Request.Method;
@@ -42,8 +38,6 @@ import com.hanmimei.activity.fragment.ImgFragment;
 import com.hanmimei.activity.fragment.ParamsFragment;
 import com.hanmimei.activity.listener.SimpleAnimationListener;
 import com.hanmimei.adapter.GoodsDetailPagerAdapter;
-import com.hanmimei.adapter.TuijianAdapter;
-import com.hanmimei.application.HMMApplication;
 import com.hanmimei.dao.ShoppingGoodsDao.Properties;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
@@ -53,6 +47,7 @@ import com.hanmimei.entity.GoodsDetail;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.ImgInfo;
 import com.hanmimei.entity.MainVo;
+import com.hanmimei.entity.ShareVo;
 import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.StockVo;
@@ -65,22 +60,17 @@ import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ImageLoaderUtils;
 import com.hanmimei.utils.KeyWordUtil;
-import com.hanmimei.utils.PopupWindowUtil;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.BadgeView;
-import com.hanmimei.view.HorizontalListView;
 import com.hanmimei.view.NetworkImageHolderView;
+import com.hanmimei.view.PushWindow;
+import com.hanmimei.view.ShareWindow;
 import com.hanmimei.view.TagCloudView;
 import com.hanmimei.view.TagCloudView.OnTagClickListener;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
-import com.umeng.socialize.Config;
-import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
-import com.umeng.socialize.UMShareListener;
-import com.umeng.socialize.bean.SHARE_MEDIA;
-import com.umeng.socialize.media.UMImage;
 
 public class GoodsDetailActivity extends BaseActivity implements
 		OnClickListener {
@@ -92,7 +82,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 	private BadgeView goodsNumView;// 显示购买数量的控件
 
-	private PopupWindow shareWindow;
+	private ShareWindow shareWindow;
 	AlertDialog postDialog = null;
 
 	private View back_top;
@@ -109,7 +99,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		ActionBarUtil.setActionBarStyle(this, "商品详情",
-				R.drawable.hmm_icon_fenxiang, true, null, this);
+				R.drawable.hmm_icon_share, true, null, this);
 		setContentView(R.layout.goods_detail_layout);
 		findView();
 		initGoodsNumView();
@@ -196,6 +186,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 	private void loadDataByUrl() {
 		getLoading().show();
+		Log.i("detailUrl", getIntent().getStringExtra("url"));
 		Http2Utils.doGetRequestTask(this, getHeaders(), getIntent()
 				.getStringExtra("url"), new VolleyJsonCallback() {
 
@@ -328,21 +319,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 		case R.id.back_top:
 			mScrollLayout.scrollToTop();
 			break;
-		case R.id.qq:
-			shareQQ();
-			break;
-		case R.id.weixin:
-			shareWeiXin();
-			break;
-		case R.id.weixinq:
-			shareCircle();
-			break;
 		case R.id.reload:
 			loadDataByUrl();
-			break;
-		case R.id.copy:
-			doCopy();
-			shareWindow.dismiss();
 			break;
 		case R.id.more_view:
 			showPopupwindow();
@@ -350,15 +328,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 		default:
 			break;
 		}
-	}
-
-	private void doCopy() {
-		String code[] = detail.getCurrentStock().getInvUrl().split("detail");
-		HMMApplication application = (HMMApplication) getApplication();
-		application.setKouling("KAKAO-HMM 复制这条信息,打开👉韩秘美👈即可看到<C>【"
-				+ detail.getCurrentStock().getInvTitle() + "】," + code[1]
-				+ ",－🔑 M令 🔑");
-		ToastUtils.Toast(this, "复制成功，快去粘贴吧");
 	}
 
 	/**
@@ -487,54 +456,21 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 	// 当前的商品
 	private StockVo shareStock;
-
-	// 微信朋友圈分享设置
-	private void shareCircle() {
-		new ShareAction(this)
-				.setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE)
-				.setCallback(umShareListener)
-				.withMedia(
-						new UMImage(this, shareStock.getInvImgForObj().getUrl()))
-				.withTitle(shareStock.getInvTitle())
-				.withText(shareStock.getInvTitle())
-				.withTargetUrl("http://www.hanmimei.com/").share();
-	}
-
-	// 微信分享设置
-	private void shareWeiXin() {
-		new ShareAction(this)
-				.setPlatform(SHARE_MEDIA.WEIXIN)
-				.setCallback(umShareListener)
-				.withMedia(
-						new UMImage(this, shareStock.getInvImgForObj().getUrl()))
-				.withTitle("全球正品，尽在韩秘美").withText(shareStock.getInvTitle())
-				.withTargetUrl("http://www.hanmimei.com/").share();
-	}
-
-	// QQ分享设置
-	private void shareQQ() {
-		new ShareAction(this)
-				.setPlatform(SHARE_MEDIA.QQ)
-				.setCallback(umShareListener)
-				.withTitle("全球正品，尽在韩秘美")
-				.withMedia(
-						new UMImage(this, shareStock.getInvImgForObj().getUrl()))
-				.withText(shareStock.getInvTitle())
-				.withTargetUrl("http://www.hanmimei.com/").share();
-	}
-
 	// 分享面板
 	private void showShareboard() {
-		View view = LayoutInflater.from(this).inflate(R.layout.share_layout,
-				null);
-		shareWindow = PopupWindowUtil.showPopWindow(this, view);
-		view.findViewById(R.id.qq).setOnClickListener(this);
-		view.findViewById(R.id.weixin).setOnClickListener(this);
-		view.findViewById(R.id.weixinq).setOnClickListener(this);
-		// view.findViewById(R.id.sina).setOnClickListener(this);
-		view.findViewById(R.id.copy).setOnClickListener(this);
-		Config.OpenEditor = true;
-		shareStock = detail.getCurrentStock();
+
+		if (shareWindow == null) {
+			shareStock = detail.getCurrentStock();
+			ShareVo vo = new ShareVo();
+			vo.setContent(shareStock.getInvTitle());
+			vo.setTitle("全球正品，尽在韩秘美");
+			vo.setImgUrl(shareStock.getInvImgForObj().getUrl());
+			vo.setTargetUrl("http://www.hanmimei.com/");
+			vo.setInfoUrl(shareStock.getInvUrl());
+			vo.setType("C");
+			shareWindow = new ShareWindow(this, vo);
+		}
+		shareWindow.show();
 	}
 
 	// =========================================================================
@@ -665,9 +601,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 						if (message.getCode() == 200) {
 							isCollection = true;
 							detail.getCurrentStock().setCollectId(collectionId);
-							collectionImg.setImageDrawable(getResources()
-									.getDrawable(R.drawable.icon_collect));
-							ToastUtils.Toast(GoodsDetailActivity.this, "收藏成功");
+							collectionImg
+									.setImageResource(R.drawable.hmm_icon_collect_h);
 							sendBroadcast(new Intent(
 									AppConstant.MESSAGE_BROADCAST_COLLECTION_ACTION));
 						} else {
@@ -694,10 +629,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 						if (message.getCode() == 200) {
 							isCollection = false;
 							detail.getCurrentStock().setCollectId(0);
-							collectionImg.setImageDrawable(getResources()
-									.getDrawable(R.drawable.icon_un_collect));
-							ToastUtils
-									.Toast(GoodsDetailActivity.this, "取消收藏成功");
+							collectionImg
+									.setImageResource(R.drawable.hmm_icon_collect);
 							sendBroadcast(new Intent(
 									AppConstant.MESSAGE_BROADCAST_COLLECTION_ACTION));
 						} else {
@@ -713,44 +646,13 @@ public class GoodsDetailActivity extends BaseActivity implements
 				});
 	}
 
-	private PopupWindow tuiWindow;
+	private PushWindow pushWindow;
 
 	private void showPopupwindow() {
-		if (tuiWindow == null) {
-			View view = getLayoutInflater().inflate(R.layout.tuijian_layout,
-					null);
-			HorizontalListView more_grid = (HorizontalListView) view
-					.findViewById(R.id.more_grid);
-			TextView titleView = (TextView) view.findViewById(R.id.title);
-			titleView.setText(R.string.goods_over_notice);
-			more_grid.setAdapter(new TuijianAdapter(detail.getPush(), this));
-			more_grid.setOnItemClickListener(new OnItemClickListener() {
-
-				@Override
-				public void onItemClick(AdapterView<?> arg0, View arg1,
-						int arg2, long arg3) {
-					Intent intent = null;
-					if (detail.getPush().get(arg2).getItemType().equals("pin")) {
-						intent = new Intent(getActivity(),
-								PingouDetailActivity.class);
-					} else {
-						intent = new Intent(getActivity(),
-								GoodsDetailActivity.class);
-					}
-					intent.putExtra("url", detail.getPush().get(arg2)
-							.getItemUrl());
-					startActivityForResult(intent, 1);
-				}
-			});
-			more_grid.setFocusable(false);
-			more_view.setVisibility(View.VISIBLE);
-			tuiWindow = PopupWindowUtil.showPopWindow(this, view);
-			more_view.setOnClickListener(this);
-		} else {
-			PopupWindowUtil.backgroundAlpha(this, 0.4f);
-			tuiWindow.showAtLocation(more_view, Gravity.BOTTOM, 0, 0);
+		if(pushWindow ==null){
+			pushWindow = new PushWindow(this, detail.getPush());
 		}
-
+		pushWindow.show();
 	}
 
 	// =========================================================================
@@ -803,7 +705,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		if (adapter == null) {
 			adapter = new GoodsDetailPagerAdapter(getSupportFragmentManager(),
 					fragments, titles);
-			ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
+			final ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
 			PagerSlidingTabStrip pagerSlidingTabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
 			viewPager.setAdapter(adapter);
 			viewPager.setOffscreenPageLimit(3);
@@ -821,6 +723,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 							&& back_top.getVisibility() == View.VISIBLE) {
 						back_top.setVisibility(View.GONE);
 					}
+					setScrollDown(currentY);
 				}
 			});
 			pagerSlidingTabStrip
@@ -832,10 +735,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 							mScrollLayout.getHelper()
 									.setCurrentScrollableContainer(
 											fragments.get(i));
+							viewPager.setCurrentItem(i);
 						}
-
 					});
-			viewPager.setCurrentItem(0);
 		}
 	}
 
@@ -858,6 +760,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 				outDate = true;
 		}
 		if (outDate) {
+			more_view.setVisibility(View.VISIBLE);
+			more_view.setOnClickListener(this);
 			showPopupwindow();
 		}
 		initStocks(stock);
@@ -919,12 +823,10 @@ public class GoodsDetailActivity extends BaseActivity implements
 		postalStandard = s.getPostalStandard();
 		area.setText(s.getInvAreaNm());
 		if (s.getCollectId() != 0) {
-			collectionImg.setImageDrawable(getResources().getDrawable(
-					R.drawable.icon_collect));
+			collectionImg.setImageResource(R.drawable.hmm_icon_collect_h);
 			isCollection = true;
 		} else {
-			collectionImg.setImageDrawable(getResources().getDrawable(
-					R.drawable.icon_un_collect));
+			collectionImg.setImageResource(R.drawable.hmm_icon_collect);
 			isCollection = false;
 		}
 	}
@@ -947,23 +849,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 						R.drawable.page_indicator_fcoused });
 	}
 
-	// ---------------友盟-----------------------
-	private UMShareListener umShareListener = new UMShareListener() {
-		@Override
-		public void onResult(SHARE_MEDIA platform) {
-			shareWindow.dismiss();
-		}
-
-		@Override
-		public void onError(SHARE_MEDIA platform, Throwable t) {
-			shareWindow.dismiss();
-		}
-
-		@Override
-		public void onCancel(SHARE_MEDIA platform) {
-			shareWindow.dismiss();
-		}
-	};
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {

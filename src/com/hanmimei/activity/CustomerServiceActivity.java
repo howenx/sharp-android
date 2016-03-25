@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
@@ -28,7 +29,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.dd.processbutton.ProcessButton;
@@ -43,10 +43,11 @@ import com.hanmimei.upload.Bimp;
 import com.hanmimei.upload.FileUtils;
 import com.hanmimei.upload.PhotoActivity;
 import com.hanmimei.utils.ActionBarUtil;
+import com.hanmimei.utils.AlertDialogUtils;
+import com.hanmimei.utils.AlertDialogUtils.OnPhotoSelListener;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ImageLoaderUtils;
-import com.hanmimei.utils.PopupWindowUtil;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.utils.upload.Http3Utils;
 import com.hanmimei.utils.upload.MultipartRequestParams;
@@ -64,6 +65,7 @@ public class CustomerServiceActivity extends BaseActivity implements
 	private CustomGridView mGridView;
 	private List<Drawable> imgList;
 	private GridAdapter adapter;
+	private AlertDialog photoDialog;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -124,15 +126,23 @@ public class CustomerServiceActivity extends BaseActivity implements
 		});
 	}
 
-	PopupWindow window;
-
 	private void showPopwindowForPhoto() {
-		View contentView = getLayoutInflater().inflate(
-				R.layout.select_img_pop_layout, null);
-		contentView.findViewById(R.id.play_photo).setOnClickListener(this);
-		contentView.findViewById(R.id.my_photo).setOnClickListener(this);
-		contentView.findViewById(R.id.cancle).setOnClickListener(this);
-		window = PopupWindowUtil.showPopWindow(this, contentView);
+		if(photoDialog == null){
+			photoDialog = AlertDialogUtils.showPhotoDialog(this,new OnPhotoSelListener() {
+				
+				@Override
+				public void onSelPlay() {
+					photo();
+				}
+				
+				@Override
+				public void onSelLocal() {
+					Intent intent = new Intent(getActivity(), AlbumActivity.class);
+					startActivity(intent);
+				}
+			});
+		}
+		photoDialog.show();
 	}
 
 	@Override
@@ -155,19 +165,6 @@ public class CustomerServiceActivity extends BaseActivity implements
 		case R.id.btn_next:
 			next();
 			break;
-		case R.id.cancle:
-			window.dismiss();
-			break;
-		case R.id.play_photo:
-			photo();
-			window.dismiss();
-			break;
-		case R.id.my_photo:
-			Intent intent = new Intent(this, AlbumActivity.class);
-			startActivity(intent);
-			window.dismiss();
-			break;
-
 		default:
 			break;
 		}
@@ -190,6 +187,7 @@ public class CustomerServiceActivity extends BaseActivity implements
 
 			@Override
 			public void onCompleteClick() {
+				dialog.dismiss();
 				getActivity().finish();
 			}
 		});

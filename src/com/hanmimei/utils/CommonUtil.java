@@ -846,5 +846,24 @@ public class CommonUtil {
 		view.measure(w, h);
 		return view.getMeasuredWidth();
 	}
+	
+	/**
+	 * 获取当前系统版本名
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public static String getVersionCode(Context context)  {
+		// getPackageName()是你当前类的包名，0代表是获取版本信息
+		PackageManager packageManager = context.getPackageManager();
+		PackageInfo packInfo= null;
+		try {
+			packInfo = packageManager.getPackageInfo(context.getPackageName(),
+					0);
+			return packInfo.versionName;
+		} catch (NameNotFoundException e) {
+		}
+		return null;
+	}
 
 }

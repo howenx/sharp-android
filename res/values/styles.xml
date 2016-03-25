@@ -19,7 +19,30 @@
         <item name="actionBarSize">@dimen/actionbar_size</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="actionBarStyle"> @style/MyActionBarStyle</item>
-        <item name="vpiTabPageIndicatorStyle">@style/CustomTabPageIndicator</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
+        
+    </style>
+    
+     <style name="Animation.Activity.Translucent.Style" parent="@android:style/Animation.Translucent">  
+        <item name="android:windowEnterAnimation">@anim/base_slide_right_in</item>  
+        <item name="android:windowExitAnimation">@anim/base_slide_right_out</item>  
+    </style> 
+    
+     <style name="Animation.Activity.Style" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/base_slide_right_in</item>
+        <item name="android:activityOpenExitAnimation">@null</item>
+        <item name="android:activityCloseEnterAnimation">@null</item>
+        <item name="android:activityCloseExitAnimation">@anim/base_slide_right_out</item>
+        <item name="android:wallpaperOpenEnterAnimation">@anim/base_slide_right_in</item>
+        <item name="android:wallpaperOpenExitAnimation">@anim/base_slide_right_out</item>
+        <item name="android:wallpaperCloseEnterAnimation">@anim/base_slide_right_in</item>
+        <item name="android:wallpaperCloseExitAnimation">@anim/base_slide_right_out</item>
+        <item name="android:wallpaperIntraOpenEnterAnimation">@anim/base_slide_right_in</item>
+        <item name="android:wallpaperIntraOpenExitAnimation">@anim/base_slide_right_out</item>
+        <item name="android:wallpaperIntraCloseEnterAnimation">@anim/base_slide_right_in</item>
+        <item name="android:wallpaperIntraCloseExitAnimation">@anim/base_slide_right_out</item>
     </style>
 
     <!-- acitonbar 样式 -->
@@ -36,12 +59,7 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
-    <style name="AppThemeForOrder" parent="AppBaseTheme">
-
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
-        <item name="actionBarSize">@dimen/actionbar_size</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="actionBarStyle"> @style/MyActionBarStyle</item>
+    <style name="AppThemeForOrder" parent="AppTheme">
         <item name="vpiTabPageIndicatorStyle">@style/OrderTabPageIndicator</item>
     </style>
 
@@ -53,7 +71,7 @@
         <item name="android:padding">15dp</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:layout_marginTop">15dp</item>
-        <item name="android:drawableRight">@drawable/hmm_mine_pagedown</item>
+        <item name="android:drawableRight">@drawable/hmm_next_page_gray</item>
     </style>
     <!-- indicator  style -->
     <style name="CustomTabPageIndicator" parent="Widget.TabPageIndicator">
@@ -64,23 +82,6 @@
         <item name="android:paddingRight">10dip</item>
         <item name="android:paddingTop">5dp</item>
         <item name="android:paddingBottom">5dp</item>
-        <item name="android:textStyle">normal</item>
-    </style>
-
-    <style name="AppThemeForGoodsDetail" parent="AppTheme">
-
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
-        <item name="vpiTabPageIndicatorStyle">@style/GoodsDetailTabPageIndicator</item>
-    </style>
-    <!-- goods detail indicator  style -->
-    <style name="GoodsDetailTabPageIndicator" parent="Widget.TabPageIndicator">
-        <item name="android:textColor">@color/black</item>
-        <item name="android:textSize">13sp</item>
-        <item name="android:background">@drawable/order_indicator_bg</item>
-        <item name="android:paddingLeft">10dip</item>
-        <item name="android:paddingRight">10dip</item>
-        <item name="android:paddingTop">10dp</item>
-        <item name="android:paddingBottom">10dp</item>
         <item name="android:textStyle">normal</item>
     </style>
 
@@ -155,10 +156,10 @@
     </style>
 
     <style name="setting_text_style">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/fontcolor</item>
         <item name="android:drawablePadding">20dp</item>
-        <item name="android:padding">15dp</item>
+        <item name="android:padding">10dp</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:background">@drawable/bg_underline_selector</item>
     </style>
@@ -168,7 +169,7 @@
         <item name="android:textColor">@color/huise</item>
         <item name="android:textColorHint">@color/huise</item>
         <item name="android:paddingTop">5dp</item>
-        <item name="android:paddingBottom">5dp</item> 
+        <item name="android:paddingBottom">5dp</item>
         <item name="android:paddingLeft">10dp</item>
         <item name="android:paddingRight">10dp</item>
         <item name="android:gravity">center_vertical</item>
@@ -188,8 +189,14 @@
         <item name="android:backgroundDimEnabled">true</item> <!-- 模糊 -->
     </style>
 
+    <!-- 设置sharewindow 样式 -->
+    <style name="BottomShowDialog" parent="@style/CustomDialog">
+        <item name="android:windowAnimationStyle">@style/AnimBottom</item>
+    </style>
+
     <!-- popwindow 显示与消失的动画 -->
     <style name="popwindow_anim_style">
+
         <!-- 指定显示的动画xml -->
         <item name="android:windowEnterAnimation">@anim/popshow_anim</item>
         <!-- 指定消失的动画xml -->
@@ -215,11 +222,12 @@
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/red</item>
     </style>
+
     <style name="tax03">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/red</item>
     </style>
-
+    <!-- 友盟 -->
     <style name="Theme.UMDefault" parent="android:style/Theme.NoTitleBar"></style>
 
     <style name="huiboder_pading_syle">
@@ -240,5 +248,9 @@
         <item name="android:paddingRight">5dp</item>
     </style>
 
+    <style name="AnimBottom" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/push_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/push_bottom_out</item>
+    </style>
 
 </resources>

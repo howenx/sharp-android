@@ -2,6 +2,7 @@ package com.hanmimei.adapter;
 
 import java.util.List;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,9 +16,11 @@ import android.widget.ProgressBar;
 
 import com.diegocarloslima.byakugallery.lib.TouchImageView;
 import com.hanmimei.R;
+import com.hanmimei.activity.BaseActivity;
 import com.hanmimei.utils.ImageLoaderUtils;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.sliding.finish.SwipeBackActivity;
 
 /**
  * 商品详情页 轮播图展示
@@ -49,6 +52,13 @@ public class GoodsDetailImgPagerAdapter extends FragmentStatePagerAdapter {
 	}
 
 	public static final class GalleryFragment extends Fragment {
+		
+		private SwipeBackActivity mActivity;
+		@Override
+		public void onAttach(Context context) {
+			super.onAttach(context);
+			mActivity = (SwipeBackActivity) context;
+		}
 
 		public static GalleryFragment getInstance(String imageUrl) {
 			final GalleryFragment instance = new GalleryFragment();
@@ -58,7 +68,7 @@ public class GoodsDetailImgPagerAdapter extends FragmentStatePagerAdapter {
 
 			return instance;
 		}
-
+		
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
@@ -103,8 +113,8 @@ public class GoodsDetailImgPagerAdapter extends FragmentStatePagerAdapter {
 				
 				@Override
 				public void onClick(View arg0) {
-					// TODO Auto-generated method stub
-					getActivity().finish();
+					mActivity.onBackPressed();
+					mActivity.finish();
 				}
 			});
 

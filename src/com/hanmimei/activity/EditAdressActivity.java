@@ -56,8 +56,6 @@ import com.zcw.togglebutton.ToggleButton.OnToggleChanged;
 public class EditAdressActivity extends BaseActivity implements
 		OnClickListener, OnWheelChangedListener {
 
-	// private TextView header;
-	// private ImageView back;
 	private EditText name_edit;
 	private EditText phone_edit;
 	private EditText idCard_edit;
@@ -313,9 +311,6 @@ public class EditAdressActivity extends BaseActivity implements
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.back:
-			finish();
-			break;
 		case R.id.add:
 			checkInfo();
 			break;

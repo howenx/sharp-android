@@ -33,6 +33,7 @@ import com.hanmimei.entity.Customs;
 import com.hanmimei.entity.PinActivity;
 import com.hanmimei.entity.PinResult;
 import com.hanmimei.entity.PinUser;
+import com.hanmimei.entity.ShareVo;
 import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.utils.ActionBarUtil;
@@ -44,6 +45,7 @@ import com.hanmimei.utils.PopupWindowUtil;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.HorizontalListView;
 import com.hanmimei.view.RoundImageView;
+import com.hanmimei.view.ShareWindow;
 import com.hanmimei.view.TimeDownView;
 
 public class PingouResultActivity extends BaseActivity implements
@@ -178,7 +180,7 @@ public class PingouResultActivity extends BaseActivity implements
 
 					@Override
 					public void onClick(View arg0) {
-						initPop();
+						showShareWindow();
 					}
 				});
 			} else {
@@ -193,7 +195,7 @@ public class PingouResultActivity extends BaseActivity implements
 
 						@Override
 						public void onClick(View arg0) {
-							initPop();
+							showShareWindow();
 						}
 					});
 				} else {
@@ -259,27 +261,22 @@ public class PingouResultActivity extends BaseActivity implements
 			timer.run();
 		}
 	}
-
-	private PopupWindow shareWindow;
-
-	private void initPop() {
-		View view = LayoutInflater.from(this).inflate(R.layout.share_layout,null);
-		shareWindow = PopupWindowUtil.showPopWindow(this, view);
-		view.findViewById(R.id.qq).setVisibility(View.GONE);
-		view.findViewById(R.id.weixin).setVisibility(View.GONE);
-		view.findViewById(R.id.weixinq).setVisibility(View.GONE);
-		view.findViewById(R.id.copy).setOnClickListener(this);
-	}
-
 	private PinActivity pinActivity;
+	private ShareWindow shareWindow;
 
-	private void doCopy() {
-		String code[] = pinActivity.getPinUrl().split("activity");
-		HMMApplication application = (HMMApplication) getApplication();
-		application.setKouling("KAKAO-HMM 复制这条信息,打开👉韩秘美👈即可看到<T>【"
-				+ pinActivity.getPinTitle() + "】," + code[1] + ",－🔑 M令 🔑");
-		ToastUtils.Toast(this, "复制成功，赶快去粘贴吧！");
+	private void showShareWindow() {
+		if (shareWindow == null) {
+			ShareVo vo = new ShareVo();
+			vo.setContent(pinActivity.getPinTitle());
+			vo.setTitle("全球正品，尽在韩秘美");
+			vo.setInfoUrl(pinActivity.getPinUrl());
+			vo.setType("T");
+			shareWindow = new ShareWindow(this, vo);
+		}
+		shareWindow.show();
 	}
+
+	
 
 	// ========================================================================
 	// ========================= popupwinodw ======================================
@@ -543,10 +540,6 @@ public class PingouResultActivity extends BaseActivity implements
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.copy:
-			doCopy();
-			shareWindow.dismiss();
-			break;
 		case R.id.more_view:
 			showPopupwindow();
 			break;

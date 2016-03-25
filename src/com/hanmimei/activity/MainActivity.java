@@ -26,9 +26,9 @@ import com.hanmimei.R;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.VersionVo;
-import com.hanmimei.fragment.MineFragment;
 import com.hanmimei.fragment.FragmentTabHost;
 import com.hanmimei.fragment.HomeFragment;
+import com.hanmimei.fragment.MineFragment;
 import com.hanmimei.fragment.ShoppingCartFragment;
 import com.hanmimei.manager.BadgeViewManager;
 import com.hanmimei.manager.MessageMenager;
@@ -42,7 +42,6 @@ import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.utils.XMLPaserTools;
 import com.umeng.analytics.MobclickAgent;
-import com.umeng.socialize.utils.Log;
 
 @SuppressLint("NewApi")
 public class MainActivity extends BaseActivity implements OnTabChangeListener,
@@ -72,6 +71,8 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		ActionBarUtil.setActionBarStyle(this, "", 0, false, this);
+		//关闭左滑退出
+		closeSwipeBack();
 		guanggao = (LinearLayout) findViewById(R.id.guanggao);
 		guanggao.setOnClickListener(this);
 		mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
@@ -95,10 +96,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 			}
 		});	
 		submitTask(new CheckVersionTask());
-		Log.i("PX", CommonUtil.dip2px(1)+"");
 	}
-	
-	
 
 	@Override
 	public void onTabChanged(String tabId) {
@@ -117,8 +115,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 			/** 如果当前选项卡是my */
 		} else if (tabId.equals(TAB_MY_ID)) {
 			isHome = false;
-			ActionBarUtil.setActionBarStyle(this, "", R.drawable.hmm_icon_setting,
-					false, this);
+			ActionBarUtil.setActionBarStyle(this, "", R.drawable.hmm_icon_setting,false, this);
 		}
 	}
 
@@ -269,6 +266,9 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 			}
 		}
 	}
+	private void showDialog(){
+		AlertDialogUtils.showUpdate2Dialog(getActivity(), null);
+	}
 
 	/**
 	 * 定义handler 接收信息 判断是否更新客户端
@@ -282,7 +282,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 			switch (msg.what) {
 			case VersionVo.UPDATA_CLIENT:
 				setVersionInfo(info);
-				AlertDialogUtils.showUpdateDialog(getActivity(), info, new OnClickListener() {
+				AlertDialogUtils.showUpdate2Dialog(getActivity(),  new OnClickListener() {
 					
 					@Override
 					public void onClick(View v) {

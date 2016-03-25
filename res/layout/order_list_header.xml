@@ -37,6 +37,8 @@
         android:gravity="center_vertical"
         android:text="@null"
         android:textSize="13sp"
+        android:drawablePadding="5dp"
+        android:drawableRight="@drawable/hmm_next_page_gray"
         android:textColor="@color/fontcolor"/>
 
 </RelativeLayout>

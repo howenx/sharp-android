@@ -3,7 +3,7 @@ package com.hanmimei.data;
 public class UrlUtil {
 	/*
 	 * 阿里云
-	 */
+//	 */
 	 public static final String SERVERY3 = "https://api.hanmimei.com";
 	 public static final String SERVERY1 = "https://shopping.hanmimei.com";
 	 public static final String SERVERY4 = "https://id.hanmimei.com";

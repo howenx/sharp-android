@@ -12,7 +12,7 @@
         android:contentDescription="@null"
         android:scaleType="center"
         android:visibility="invisible"
-        android:src="@drawable/hmm_icon_back" />
+        android:src="@drawable/hmm_through_page" />
 
     <TextView
         android:id="@+id/header"

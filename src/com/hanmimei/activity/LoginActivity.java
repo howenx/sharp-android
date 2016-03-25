@@ -55,7 +55,6 @@ import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
-@SuppressLint("NewApi")
 public class LoginActivity extends BaseActivity implements OnClickListener {
 
 	private EditText phone_edit;
@@ -343,20 +342,14 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 						user.setLast_login(DateUtil.getCurrentDate());
 						HMMApplication application = (HMMApplication) getApplication();
 						application.setLoginUser(user);
-						JPushInterface.setAlias(LoginActivity.this, result.getUserId()+"", new TagAliasCallback() {
-							@Override
-							public void gotResult(int arg0, String arg1, Set<String> arg2) {	
-							}
-						});
+						JPushInterface.setAlias(LoginActivity.this, result.getUserId(),null);
 						// 登录用户存储到本地sql
 						userDao.deleteAll();
 						userDao.insert(user);
 						if (goodsDao.queryBuilder().list() != null && goodsDao.queryBuilder().list().size() > 0) {
 							sendShoppingCar();
 						} else {
-							sendBroadcast(new Intent(
-									AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION));
-//							finish();
+							sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION));
 						}
 					} else if (result.getCode() == 4001) {
 						if (!isDialogShow)

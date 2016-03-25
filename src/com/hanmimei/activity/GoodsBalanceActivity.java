@@ -188,13 +188,13 @@ public class GoodsBalanceActivity extends BaseActivity implements
 			break;
 
 		case R.id.newAddress:
-			Intent intnt = new Intent(this, AdressActivity.class);
+			Intent intnt = new Intent(this, MyAddressActivity.class);
 			intnt.putExtra("from", From.GoodsBalanceActivity);
 			intnt.putExtra("selectedId", selectedId);
 			startActivityForResult(intnt, 1);
 			break;
 		case R.id.selectAddress:
-			intnt = new Intent(this, AdressActivity.class);
+			intnt = new Intent(this, MyAddressActivity.class);
 			intnt.putExtra("from", From.GoodsBalanceActivity);
 			intnt.putExtra("selectedId", selectedId);
 			Log.i("selectAddress_id", selectedId + "");
@@ -266,8 +266,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 							intent.putExtra("orderInfo", info);
 							intent.putExtra("orderType", getIntent().getStringExtra("orderType"));
 							startActivity(intent);
-							sendBroadcast(new Intent(
-									AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
+							sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
 							finish();
 						} else {
 							ToastUtils.Toast(getActivity(), info.getMessage().getMessage());
@@ -349,7 +348,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 				@Override
 				public void onClick(View arg0) {
 					Intent intnt = new Intent(getActivity(),
-							AdressActivity.class);
+							MyAddressActivity.class);
 					intnt.putExtra("from", From.GoodsBalanceActivity);
 					intnt.putExtra("selectedId", selectedId);
 					startActivityForResult(intnt, 1);
@@ -484,6 +483,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 			AlertDialogUtils.showBackDialog(getActivity(), new OnClickListener() {
 				@Override
 				public void onClick(View v) {
+					onBackPressed();
 					finish();
 				}
 			});

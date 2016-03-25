@@ -19,6 +19,7 @@ import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.baoyz.swipemenulistview.SwipeMenuListView.OnMenuItemClickListener;
+import com.baoyz.swipemenulistview.SwipeMenuView;
 import com.hanmimei.R;
 import com.hanmimei.adapter.MyMsgAdapter;
 import com.hanmimei.data.AppConstant;
@@ -70,10 +71,12 @@ public class MessageActivity extends BaseActivity implements OnClickListener {
 		mListView.setAdapter(adapter);
 		mListView.setMenuCreator(creator);
 		mListView.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+
 			@Override
-			public void onMenuItemClick(int position, SwipeMenu menu, int index) {
-				delMsg(list.get(position));
+			public void onMenuItemClick(int position, SwipeMenu menu,int index,SwipeMenuView view) {
+				delMsg(list.get(position));				
 			}
+		
 		});
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -98,7 +101,7 @@ public class MessageActivity extends BaseActivity implements OnClickListener {
 				}else if(getIntent().getStringExtra("type").equals("logistics")){
 					
 				}else if(getIntent().getStringExtra("type").equals("coupon")){
-					startActivity(new Intent(MessageActivity.this, CouponActivity.class));
+					startActivity(new Intent(MessageActivity.this, MyCouponActivity.class));
 				}else if(getIntent().getStringExtra("type").equals("discount")){
 					
 				}else{

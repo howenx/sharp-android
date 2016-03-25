@@ -1,13 +1,13 @@
 package com.hanmimei.activity;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -17,8 +17,10 @@ import com.hanmimei.application.HMMApplication;
 import com.hanmimei.dao.UserDao;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.entity.User;
+import com.hanmimei.manager.DataCleanManager;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
+import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.DoJumpUtils;
 import com.hanmimei.utils.DownloadTools;
 import com.hanmimei.utils.ToastUtils;
@@ -28,14 +30,8 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 
 	
 	private final String TAG = this.getClass().getName();
-	private TextView about;
-	private TextView idea;
-	private TextView tel;
-	private TextView del;
-	private TextView upd;
-	private TextView exit;
-	private TextView versionName;
-//	private TextView push;
+	private TextView exit,cur_version;
+	private TextView versionName,cacheSize;
 	private ProgressDialog pdialog;
 	private AlertDialog dialog;
 	private HMMApplication application;
@@ -53,28 +49,27 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 
 
 	private void initView() {
-		about = (TextView) findViewById(R.id.about);
-		idea = (TextView) findViewById(R.id.idea);
-		tel = (TextView) findViewById(R.id.tel);
-		del = (TextView) findViewById(R.id.del);
 		exit = (TextView) findViewById(R.id.exit);
-		upd = (TextView) findViewById(R.id.upd);
+		cur_version = (TextView) findViewById(R.id.cur_version);
 		versionName = (TextView) findViewById(R.id.versionName);
+		cacheSize = (TextView) findViewById(R.id.cache_size);
 		if (getUser() == null) {
 			exit.setVisibility(View.GONE);
 		} else {
 			exit.setVisibility(View.VISIBLE);
 		}
+		cur_version.setText(getResources().getString(R.string.current_version, CommonUtil.getVersionCode(this)));
+		cacheSize.setText(DataCleanManager.getTotalCacheSize(this));
 		if(getVersionInfo() !=null){
 			versionName.setText(getVersionInfo().getReleaseNumber());
 		}
-		about.setOnClickListener(this);
-		idea.setOnClickListener(this);
-		tel.setOnClickListener(this);
-		del.setOnClickListener(this);
-		upd.setOnClickListener(this);
-//		push.setOnClickListener(this);
-		exit.setOnClickListener(this);
+		findViewById(R.id.about).setOnClickListener(this);
+		 findViewById(R.id.idea).setOnClickListener(this);
+		 findViewById(R.id.tel).setOnClickListener(this);
+		 findViewById(R.id.clear).setOnClickListener(this);
+		 findViewById(R.id.upd).setOnClickListener(this);
+		 findViewById(R.id.push).setOnClickListener(this);
+		findViewById(R.id.exit).setOnClickListener(this);
 		
 	}
 
@@ -90,13 +85,15 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 		case R.id.tel:
 			showDialog();
 			break;
-		case R.id.del:
+		case R.id.clear:
+			DataCleanManager.cleanApplicationData(this);
+			cacheSize.setText(DataCleanManager.getTotalCacheSize(this));
 			break;
 		case R.id.upd:
 			if(getVersionInfo() == null){
 				ToastUtils.Toast(this, "已经是最新版本");
 			}else{
-				AlertDialogUtils.showUpdateDialog(getActivity(), getVersionInfo(), new OnClickListener() {
+				AlertDialogUtils.showUpdate2Dialog(getActivity(), new OnClickListener() {
 					
 					@Override
 					public void onClick(View v) {

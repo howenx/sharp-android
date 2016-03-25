@@ -64,14 +64,11 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.CouponActivity"
+            android:name="com.hanmimei.activity.MyCouponActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeForOrder" />
         <activity
-            android:name="com.hanmimei.activity.IdCardActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.hanmimei.activity.AdressActivity"
+            android:name="com.hanmimei.activity.MyAddressActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.hanmimei.activity.EditAdressActivity"
@@ -87,9 +84,6 @@
             android:name="com.hanmimei.activity.SettingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.AboutIdCardActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name="com.hanmimei.activity.LoginActivity"
             android:screenOrientation="portrait">
             </activity>
@@ -98,9 +92,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.hanmimei.activity.CheckPhoneActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.hanmimei.activity.ForgetPwdActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.hanmimei.activity.ForgetPwdActivity"
@@ -165,9 +156,6 @@
             android:name="com.hanmimei.activity.PingouDetailSelActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.TestActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name="com.hanmimei.activity.MessageTypeActivity"
             android:screenOrientation="portrait" />
          <activity
@@ -179,9 +167,6 @@
         <activity
             android:name="com.hanmimei.activity.WebviewActivity"
             android:screenOrientation="portrait" />
-
-        <service android:name="com.hanmimei.service.DownloadService" >
-        </service>
 
         <!-- 友盟相关 -->
         <activity

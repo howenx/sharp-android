@@ -29,28 +29,38 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/hmm_setting_contact_us"
-        android:text="联系我们" />
-
-    <!--
-    <TextView 
-        android:id="@+id/push"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="    推送服务"
-        style="@style/setting_text_style"/>
-    <View 
-        android:layout_height="0.1dp"
-        android:layout_width="match_parent"
-        android:background="@color/qianhui"/>
-    -->
+        android:text="联系客服" />
 
     <TextView
-        android:id="@+id/del"
+        android:id="@+id/push"
         style="@style/setting_text_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="清除缓存"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:drawableLeft="@drawable/hmm_setting_message_push"
+        android:text="推送服务" />
+    
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+<TextView
+        android:id="@+id/clear"
+        style="@style/setting_text_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/hmm_setting_cache_clear"
+        android:text="清除缓存"/>
+
+        <TextView
+            android:id="@+id/cache_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="15dp"
+            android:textColor="@color/fontcolor"
+            android:textSize="14sp" />
+    </FrameLayout>
+
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -89,5 +99,20 @@
         android:layout_marginTop="30dp"
         android:gravity="center"
         android:text="退出登录" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/cur_version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:text="@string/current_version"
+        android:textColor="@color/huise"
+        android:textSize="12sp" />
 
 </LinearLayout>

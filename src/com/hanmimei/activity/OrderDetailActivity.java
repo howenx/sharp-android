@@ -86,7 +86,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		findView();
 //		order.getOrderStatus().equals("R") ||
 		if(order.getOrderStatus().equals("C")){
-			ActionBarUtil.setActionBarStyle(this, "订单详情", R.drawable.icon_delete, true, this);
+			ActionBarUtil.setActionBarStyle(this, "订单详情", R.drawable.hmm_edit_delete, true, this);
 		}else{
 			ActionBarUtil.setActionBarStyle(this, "订单详情");
 		}
@@ -135,7 +135,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 			order_state.setText("订单状态：待发货");
 		}else if(order.getOrderStatus().equals("I")){
 			attention.setVisibility(View.VISIBLE);
-			attention.setTimes(CommonUtil.getTimer(24 * 60 * 60 - order.getCountDown()/1000 - 300),"订单超过24小时，已经过期");
+			attention.setTimes(CommonUtil.getTimer(order.getCountDown()/1000 - 300),"订单超过24小时，已经过期");
 			attention.beginRun();
 			order_state.setText("订单状态：待支付");
 			cancle.setVisibility(View.VISIBLE);

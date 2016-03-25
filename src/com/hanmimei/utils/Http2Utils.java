@@ -5,9 +5,11 @@ import java.util.Map;
 
 import android.content.Context;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request.Method;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.hanmimei.activity.BaseActivity;
 
@@ -110,6 +112,7 @@ public class Http2Utils {
 							callback.onError();
 						}
 					}, params, headers);
+			request.setRetryPolicy(new DefaultRetryPolicy(60 * 1000, 1, 1.0f));
 		} catch (IOException e) {
 			callback.onError();
 		}
@@ -160,6 +163,7 @@ public class Http2Utils {
 							callback.onError();
 						}
 					}, params);
+			request.setRetryPolicy(new DefaultRetryPolicy(60 * 1000, 1, 1.0f));
 		} catch (IOException e) {
 			callback.onError();
 		}

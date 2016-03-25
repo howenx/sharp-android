@@ -40,7 +40,6 @@ public class OrderPullListAdapter extends BaseAdapter {
 	private List<Order> data;
 	private LayoutInflater inflater;
 	private OrderListAdapter adapter;
-	private Drawable drawable;
 	private BaseActivity activity;
 	private Order orderT;
 	public OrderPullListAdapter(List<Order> data, Context mContext) {
@@ -48,8 +47,6 @@ public class OrderPullListAdapter extends BaseAdapter {
 		orderT =new Order();
 		activity = (BaseActivity) mContext;
 		inflater = LayoutInflater.from(mContext);
-		drawable = activity.getResources().getDrawable(R.drawable.icon_jiantou);
-		drawable.setBounds(0, 0, 40, 40);
 	}
 
 	@Override
@@ -80,7 +77,6 @@ public class OrderPullListAdapter extends BaseAdapter {
 					.findViewById(R.id.order_nums);
 			holder.state = (TextView) convertView
 					.findViewById(R.id.order_state);
-			holder.state.setCompoundDrawables(null, null, drawable, null);
 			holder.date = (TextView) convertView.findViewById(R.id.order_date);
 			holder.all_price = (TextView) convertView
 					.findViewById(R.id.all_price);

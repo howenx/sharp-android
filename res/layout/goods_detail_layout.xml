@@ -2,6 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:fitsSystemWindows="true" >
 
     <LinearLayout
@@ -226,11 +227,11 @@
             android:id="@+id/more_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/theme"
+            android:background="@color/notice"
             android:gravity="center"
             android:padding="10dp"
             android:text="@string/goods_over_notice"
-            android:textColor="@color/white"
+            android:textColor="@color/theme"
             android:textSize="14sp"
             android:visibility="gone" />
 
@@ -275,7 +276,7 @@
                     android:layout_gravity="center"
                     android:contentDescription="@null"
                     android:scaleType="center"
-                    android:src="@drawable/icon_un_collect" />
+                    android:src="@drawable/hmm_icon_collect" />
             </FrameLayout>
 
             <TextView

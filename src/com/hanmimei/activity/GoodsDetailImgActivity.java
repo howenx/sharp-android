@@ -10,9 +10,10 @@ import com.diegocarloslima.byakugallery.lib.GalleryViewPager;
 import com.hanmimei.R;
 import com.hanmimei.adapter.GoodsDetailImgPagerAdapter;
 import com.hanmimei.listener.GoodsPageChangeListener;
+import com.sliding.finish.SwipeBackActivity;
 import com.umeng.analytics.MobclickAgent;
 
-public class GoodsDetailImgActivity extends AppCompatActivity {
+public class GoodsDetailImgActivity extends SwipeBackActivity {
 
 	private GalleryViewPager mViewPager;
 	private TextView pageNum;

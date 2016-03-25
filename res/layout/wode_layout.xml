@@ -53,7 +53,7 @@
         android:id="@+id/order"
         style="@style/wode_font_style"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="wrap_content" 
         android:drawableLeft="@drawable/hmm_mine_order"
         android:text="我的订单" />
 

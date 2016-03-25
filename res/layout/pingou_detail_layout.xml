@@ -171,12 +171,11 @@
         android:id="@+id/more_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/theme"
+        android:background="@color/notice"
         android:gravity="center"
         android:padding="10dp"
-        android:text="该活动已结束，去看看其他拼购吧"
-        android:textColor="@color/white"
+        android:text="@string/pingou_over_notice"
+        android:textColor="@color/theme"
         android:textSize="14sp"
         android:visibility="gone" />
 
@@ -200,7 +199,7 @@
                 android:layout_gravity="center"
                 android:contentDescription="@null"
                 android:scaleType="center"
-                android:src="@drawable/icon_un_collect" />
+                android:src="@drawable/hmm_icon_collect" />
         </FrameLayout>
 
         <TextView

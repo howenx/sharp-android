@@ -39,9 +39,8 @@
                 android:id="@+id/num_portalfee"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="%234"
-                android:textColor="#9F9F9F"
-                android:textSize="@dimen/font_normal" />
+                android:textColor="@color/red"
+                android:textSize="@dimen/font_middle" />
         </LinearLayout>
 
         <View
@@ -56,8 +55,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/portalfee_biaozhun"
-            android:textColor="#9F9F9F"
-            android:textSize="@dimen/font_normal" 
+            android:textColor="@color/fontcolor"
+            android:textSize="@dimen/font_small" 
             android:layout_marginBottom="30dp"/>
     </LinearLayout>
     

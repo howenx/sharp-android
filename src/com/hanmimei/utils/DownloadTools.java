@@ -104,7 +104,7 @@ public class DownloadTools {
         notification.flags = Notification.FLAG_ONGOING_EVENT;
         
         /*** 自定义  Notification 的显示****/
-        contentView = new RemoteViews(mContext.getPackageName(), R.layout.notification_item);
+        contentView = new RemoteViews(mContext.getPackageName(), R.layout.notification_for_update);
         contentView.setProgressBar(R.id.progress, 100, 0, false);
         contentView.setTextViewText(R.id.tv_progress, "0%");
         contentView.setTextViewText(R.id.title, "安装包正在下载...");
@@ -115,7 +115,7 @@ public class DownloadTools {
         notification.flags = Notification.FLAG_AUTO_CANCEL;
         notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
         
-		notificationManager.notify(R.layout.notification_item, notification);
+		notificationManager.notify(R.layout.notification_for_update, notification);
     }
 	
 	private void notifyNotification(long percent,long length){
@@ -123,13 +123,13 @@ public class DownloadTools {
 			contentView.setTextViewText(R.id.tv_progress, (percent*100/length)+"%");
 	        contentView.setProgressBar(R.id.progress, (int)length,(int)percent, false);
 	        notification.contentView = contentView;
-	        notificationManager.notify(R.layout.notification_item, notification);
+	        notificationManager.notify(R.layout.notification_for_update, notification);
 		}else{
 			contentView.setTextViewText(R.id.title, "下载已完成");
 			contentView.setViewVisibility(R.id.tv_progress, View.GONE);
 			contentView.setViewVisibility(R.id.progress, View.GONE);
 	        notification.contentView = contentView;
-	        notificationManager.notify(R.layout.notification_item, notification);
+	        notificationManager.notify(R.layout.notification_for_update, notification);
 		}
 	}
 

@@ -27,12 +27,9 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.util.Base64;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +41,8 @@ import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.User;
 import com.hanmimei.utils.ActionBarUtil;
+import com.hanmimei.utils.AlertDialogUtils;
+import com.hanmimei.utils.AlertDialogUtils.OnPhotoSelListener;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.DateUtil;
 import com.hanmimei.utils.HasSDCardUtil;
@@ -52,9 +51,10 @@ import com.hanmimei.utils.ImageLoaderUtils;
 import com.hanmimei.utils.ImgUtils;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.RoundImageView;
-import com.umeng.analytics.MobclickAgent;
+import com.hanmimei.view.SexDialog;
+import com.hanmimei.view.SexDialog.SexSelectListener;
 
-@SuppressLint({ "SdCardPath", "InflateParams" }) 
+@SuppressLint({ "SdCardPath", "InflateParams" })
 public class EditUserInfoActivity extends BaseActivity implements
 		OnClickListener {
 
@@ -65,11 +65,11 @@ public class EditUserInfoActivity extends BaseActivity implements
 	private TextView name;
 	private TextView sex;
 	private TextView phone;
-	
+
 	private String header_str = null;
 	private String sex_str = "null";
 
-	private AlertDialog sexDialog,photoDialog;
+	private AlertDialog sexDialog, photoDialog;
 	private View parenView;
 	private static final String IMAGE_FILE_NAME = "header";
 	private static final int CAMERA_REQUEST_CODE = 1;
@@ -110,14 +110,15 @@ public class EditUserInfoActivity extends BaseActivity implements
 
 	// 填充数据
 	protected void initView() {
-		ImageLoaderUtils.loadImage(oldUser.getUserImg(),header);
+		ImageLoaderUtils.loadImage(oldUser.getUserImg(), header);
 		name.setText(oldUser.getUserName());
 		if (oldUser.getSex().equals("M")) {
 			sex.setText("男");
 		} else {
 			sex.setText("女");
 		}
-		phone.setText(oldUser.getPhone().substring(0, 3) + "****" + oldUser.getPhone().substring(7, oldUser.getPhone().length()));
+		phone.setText(oldUser.getPhone().substring(0, 3) + "****"
+				+ oldUser.getPhone().substring(7, oldUser.getPhone().length()));
 	}
 
 	@Override
@@ -133,7 +134,7 @@ public class EditUserInfoActivity extends BaseActivity implements
 			sexDialog.show();
 			break;
 		case R.id.up_name:
-			Intent intent = new Intent(this,EditUserNameActivity.class);
+			Intent intent = new Intent(this, EditUserNameActivity.class);
 			intent.putExtra("name", oldUser.getUserName());
 			startActivityForResult(intent, AppConstant.UP_USER_NAME_CODE);
 			break;
@@ -163,10 +164,10 @@ public class EditUserInfoActivity extends BaseActivity implements
 	private void toObject(int what) {
 		try {
 			object = new JSONObject();
-			if(what == 1){
+			if (what == 1) {
 				isHeader = false;
 				object.put("gender", sex_str);
-			}else if(what == 0){
+			} else if (what == 0) {
 				isHeader = true;
 				object.put("photoUrl", header_str);
 			}
@@ -176,7 +177,7 @@ public class EditUserInfoActivity extends BaseActivity implements
 		UpUserInfo();
 	}
 
-	@SuppressLint("HandlerLeak") 
+	@SuppressLint("HandlerLeak")
 	private Handler mHandler = new Handler() {
 
 		@Override
@@ -188,18 +189,19 @@ public class EditUserInfoActivity extends BaseActivity implements
 				HMessage hm = (HMessage) msg.obj;
 				if (hm.getCode() != null) {
 					if (hm.getCode() == 200) {
-						if(isHeader){
+						if (isHeader) {
 							header.setImageDrawable(headerDrawable);
-						}else{
+						} else {
 							setSex();
 						}
 						sendBroadcast(new Intent(
 								AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION));
 					} else {
-						ToastUtils.Toast(EditUserInfoActivity.this,"修改失败,请检查您的网络");
+						ToastUtils.Toast(EditUserInfoActivity.this,
+								"修改失败,请检查您的网络");
 					}
 				} else {
-					ToastUtils.Toast(EditUserInfoActivity.this,"修改失败,请检查您的网络");
+					ToastUtils.Toast(EditUserInfoActivity.this, "修改失败,请检查您的网络");
 				}
 				break;
 
@@ -209,86 +211,52 @@ public class EditUserInfoActivity extends BaseActivity implements
 		}
 
 	};
-	private void setSex(){
-		if(sex_str.equals("M")){
+
+	private void setSex() {
+		if (sex_str.equals("M")) {
 			sex.setText("男");
-		}else{
+		} else {
 			sex.setText("女");
 		}
 	}
 
 	// 初始化性别popwindow
-	@SuppressWarnings("deprecation")
 	private void initSexWindow() {
-		sexDialog = new AlertDialog.Builder(this).create();
-		View view = getLayoutInflater().inflate(R.layout.select_sex_pop_layout, null);
-		view.findViewById(R.id.men).setOnClickListener(new OnClickListener() {
+		sexDialog = new SexDialog(this, new SexSelectListener() {
 
 			@Override
-			public void onClick(View v) {
-				sex_str = "M";
-				sexDialog.dismiss();
+			public void onClick(String sex) {
+				sex_str = sex;
 				toObject(1);
 			}
 		});
-		view.findViewById(R.id.women).setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				sex_str = "F";
-				sexDialog.dismiss();
-				toObject(1);
-			}
-		});
-		sexDialog.setView(view);
 	}
 
 	// 初始化选择头像popwindow
 	@SuppressWarnings("deprecation")
 	private void initSelectPop() {
-		photoDialog = new AlertDialog.Builder(this).create();
-		View view = getLayoutInflater().inflate(R.layout.select_img_pop_layout, null);
-		
-		// 拍照
-		view.findViewById(R.id.play_photo).setOnClickListener(
-				new OnClickListener() {
-					@Override
-					public void onClick(View arg0) {
-						Intent intentFromCapture = new Intent(
-								MediaStore.ACTION_IMAGE_CAPTURE);
-						if (HasSDCardUtil.hasSdcard()) {
+		photoDialog = AlertDialogUtils.showPhotoDialog(this, new OnPhotoSelListener() {
+			
+			@Override
+			public void onSelPlay() {
+				Intent intentFromCapture = new Intent(
+						MediaStore.ACTION_IMAGE_CAPTURE);
+				if (HasSDCardUtil.hasSdcard()) {
 
-							intentFromCapture.putExtra(MediaStore.EXTRA_OUTPUT,
-									Uri.fromFile(new File(Environment
-											.getExternalStorageDirectory(),
-											IMAGE_FILE_NAME)));
-						}
-						startActivityForResult(intentFromCapture,
-								CAMERA_REQUEST_CODE);
-						photoDialog.dismiss();
-					}
-				});
-		// 本地照片
-		view.findViewById(R.id.my_photo).setOnClickListener(
-				new OnClickListener() {
-
-					@Override
-					public void onClick(View arg0) {
-						ImgUtils.getInstance().selectPicture(
-								EditUserInfoActivity.this);
-						photoDialog.dismiss();
-					}
-				});
-		// 取消
-		view.findViewById(R.id.cancle).setOnClickListener(
-				new OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-						photoDialog.dismiss();
-					}
-				});
-		photoDialog.setView(view);
+					intentFromCapture.putExtra(MediaStore.EXTRA_OUTPUT,
+							Uri.fromFile(new File(Environment
+									.getExternalStorageDirectory(),
+									IMAGE_FILE_NAME)));
+				}
+				startActivityForResult(intentFromCapture,CAMERA_REQUEST_CODE);
+			}
+			
+			@Override
+			public void onSelLocal() {
+				ImgUtils.getInstance().selectPicture(EditUserInfoActivity.this);
+				
+			}
+		});
 	}
 
 	@Override
@@ -331,7 +299,7 @@ public class EditUserInfoActivity extends BaseActivity implements
 				break;
 			}
 		}
-		if(resultCode == AppConstant.UP_USER_NAME_CODE){
+		if (resultCode == AppConstant.UP_USER_NAME_CODE) {
 			name.setText(data.getStringExtra("name"));
 		}
 	}
@@ -362,10 +330,11 @@ public class EditUserInfoActivity extends BaseActivity implements
 		if (extras != null) {
 			photo = extras.getParcelable("data");
 			headerDrawable = new BitmapDrawable(photo);
-//			header.setImageDrawable(drawable);
+			// header.setImageDrawable(drawable);
 		}
 		return saveBitmapFile(photo);
 	}
+
 	private Drawable headerDrawable;
 
 	private static String IMG_PATH = "/mnt/sdcard/hanmimei/header"; // 图片本地存储路径
@@ -394,6 +363,5 @@ public class EditUserInfoActivity extends BaseActivity implements
 		}
 		return file;
 	}
-
 
 }

@@ -7,6 +7,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -16,7 +17,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;

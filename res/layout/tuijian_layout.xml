@@ -3,22 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical" >
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:background="@color/theme"
-        android:text="@string/pingou_over_notice"
-        android:textSize="14sp"
-        android:gravity="center"
-        android:textColor="@color/white" />
 
     <com.hanmimei.view.HorizontalListView
         android:id="@+id/more_grid"
          android:layout_width="match_parent"
          android:layout_height="235dp"
          android:scrollbars="@null"
-         android:background="@color/background" />
+         android:background="@drawable/bg_theme_topline" />
 
 </LinearLayout>
