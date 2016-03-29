@@ -162,7 +162,6 @@ public class ForgetPwdActivity extends BaseActivity implements
 		dialog = CommonUtil.dialog(this, "请稍后...");
 		dialog.show();
 		new Thread(new Runnable() {
-
 			@Override
 			public void run() {
 				String result = "";
@@ -171,8 +170,8 @@ public class ForgetPwdActivity extends BaseActivity implements
 				params.add(new BasicNameValuePair("code", code));
 				result = HttpUtils.postCommon(UrlUtil.CHECK_PHONE_FORGET, params);
 				HMessage hMessage = DataParser.paserResultMsg(result);
-				Message msg = mHandler.obtainMessage(1);
-				msg.obj = hMessage;
+					Message msg = mHandler.obtainMessage(1);
+					msg.obj = hMessage;
 				mHandler.sendMessage(msg);
 			}
 		}).start();

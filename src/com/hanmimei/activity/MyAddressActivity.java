@@ -47,7 +47,6 @@ public class MyAddressActivity extends BaseActivity implements OnClickListener {
 	private AdressAdapter adapter;
 	private JSONObject object;
 	private long selectedId = 0;
-
 	private int fromm = From.AboutMyFragment;
 
 

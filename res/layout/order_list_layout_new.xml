@@ -4,9 +4,10 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:fitsSystemWindows="true"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/top"
         android:paddingTop="3dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -172,14 +173,21 @@
             
         </RelativeLayout>
     </LinearLayout>
-
-    
-
+    <FrameLayout 
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:flipInterval="30"
         android:persistentDrawingCache="animation" />
+    <include 
+        android:id="@+id/no_net"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        layout="@layout/offline_wuxinhao_layout"
+		android:visibility="gone"/>
+    </FrameLayout>
 
 </LinearLayout>

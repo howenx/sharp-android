@@ -10,14 +10,13 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginBottom="20dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
+        android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:gravity="center"
         android:text="新增收货地址+"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textColor="@color/white"
         android:background="@drawable/btn_theme_radius_selector"/>
     

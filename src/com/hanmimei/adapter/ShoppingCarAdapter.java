@@ -1,11 +1,9 @@
 package com.hanmimei.adapter;
 
 import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -16,15 +14,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.hanmimei.R;
 import com.hanmimei.activity.BaseActivity;
 import com.hanmimei.activity.GoodsDetailActivity;
-import com.hanmimei.activity.ShoppingCarActivity;
 import com.hanmimei.dao.ShoppingGoodsDao;
 import com.hanmimei.dao.ShoppingGoodsDao.Properties;
 import com.hanmimei.data.DataParser;
@@ -66,7 +61,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 				.getDrawable(R.drawable.hmm_radio_select);
 		uncheck_Drawable = activity.getResources().getDrawable(
 				R.drawable.hmm_radio_normal);
-	}
+	}	
 
 	@Override
 	public int getCount() {

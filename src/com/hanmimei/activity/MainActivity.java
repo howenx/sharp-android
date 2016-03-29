@@ -1,6 +1,5 @@
 package com.hanmimei.activity;
 
-import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -37,8 +36,6 @@ import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.DoJumpUtils;
 import com.hanmimei.utils.DownloadTools;
-import com.hanmimei.utils.Http2Utils;
-import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.utils.XMLPaserTools;
 import com.umeng.analytics.MobclickAgent;
@@ -65,7 +62,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 	//极光推送
 	public static boolean isForeground = false;
 	
-	private boolean isHome = true;
+//	private boolean isHome = true;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -84,10 +81,8 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 		addTabItem(TAB_HOME_ID, R.drawable.tab_home, TAB_HOME, HomeFragment.class);
 		addTabItem(TAB_CAR_ID, R.drawable.tab_shopping, TAB_CAR,ShoppingCartFragment.class);
 		addTabItem(TAB_MY_ID, R.drawable.tab_my, TAB_MY, MineFragment.class);
-//		addTabItem(TAB_MY_ID, R.drawable.tab_my, TAB_MY, TestFragment.class);
 		BadgeViewManager.getInstance().initBadgeViewManager(this, mTabHost);
 		registerReceivers();
-		BadgeViewManager.getInstance().initBadgeViewManager(this, mTabHost);
 		mTabHost.getTabWidget().getChildAt(0).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -102,7 +97,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 	public void onTabChanged(String tabId) {
 		/** 如果当前选项卡是home */
 		if (tabId.equals(TAB_HOME_ID)) {
-			isHome = true;
+//			isHome = true;
 			ActionBarUtil.setActionBarStyle(this, "韩秘美", R.drawable.hmm_icon_message_n, false, this);
 			ImageView setting = (ImageView) findViewById(R.id.setting);
 			MessageMenager.getInstance().initMessageMenager(this, setting);
@@ -114,8 +109,8 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 			ActionBarUtil.setActionBarStyle(this, "拼购", 0, false, this);
 			/** 如果当前选项卡是my */
 		} else if (tabId.equals(TAB_MY_ID)) {
-			isHome = false;
-			ActionBarUtil.setActionBarStyle(this, "", R.drawable.hmm_icon_setting,false, this);
+//			isHome = false;
+			ActionBarUtil.setActionBarStyle(this, "", 0,false, this);
 		}
 	}
 
@@ -146,15 +141,15 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.setting:
-			if(isHome){
+//			if(isHome){
 				if (getUser() == null) {
 					startActivity(new Intent(getActivity(), LoginActivity.class));
 				} else {
 					DoJumpUtils.doJump(this, MessageTypeActivity.class);
 				}
-			}else{
-				DoJumpUtils.doJump(this, SettingActivity.class);
-			}
+//			}else{
+//				DoJumpUtils.doJump(this, SettingActivity.class);
+//			}
 			break;
 		case R.id.close:
 			guanggao.setVisibility(View.GONE);
@@ -209,29 +204,29 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 		unregisterReceiver(netReceiver);
 	}
 	
-	private void doCheckVersionTask(){
-		Http2Utils.doGetRequestTask(this, UrlUtil.UPDATE_HMM, new VolleyJsonCallback() {
-			
-			@Override
-			public void onSuccess(String result) {
-				try {
-					InputStream is = new   ByteArrayInputStream(result.getBytes());
-					info = XMLPaserTools.getUpdataInfo(is);
-					if (!info.getReleaseNumber().equals(CommonUtil.getVersionName(getActivity()))) {
-						// 版本号不同,发送消息更新客户端
-						
-					}
-				} catch (Exception e) {
-					ToastUtils.Toast(getActivity(), "获取服务器更新信息失败");
-				}
-			}
-			
-			@Override
-			public void onError() {
-				ToastUtils.Toast(getActivity(), "获取服务器更新信息失败");
-			}
-		});
-	}
+//	private void doCheckVersionTask(){
+//		Http2Utils.doGetRequestTask(this, UrlUtil.UPDATE_HMM, new VolleyJsonCallback() {
+//			
+//			@Override
+//			public void onSuccess(String result) {
+//				try {
+//					InputStream is = new   ByteArrayInputStream(result.getBytes());
+//					info = XMLPaserTools.getUpdataInfo(is);
+//					if (!info.getReleaseNumber().equals(CommonUtil.getVersionName(getActivity()))) {
+//						// 版本号不同,发送消息更新客户端
+//						
+//					}
+//				} catch (Exception e) {
+//					ToastUtils.Toast(getActivity(), "获取服务器更新信息失败");
+//				}
+//			}
+//			
+//			@Override
+//			public void onError() {
+//				ToastUtils.Toast(getActivity(), "获取服务器更新信息失败");
+//			}
+//		});
+//	}
 	
 	/**
 	 * 开启子线程run方法,服务器请求更新版本
@@ -266,9 +261,9 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 			}
 		}
 	}
-	private void showDialog(){
-		AlertDialogUtils.showUpdate2Dialog(getActivity(), null);
-	}
+//	private void showDialog(){
+//		AlertDialogUtils.showUpdate2Dialog(getActivity(), null);
+//	}
 
 	/**
 	 * 定义handler 接收信息 判断是否更新客户端
