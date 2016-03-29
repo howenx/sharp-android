@@ -29,7 +29,7 @@ import com.hanmimei.utils.ToastUtils;
 public class SettingActivity extends BaseActivity implements OnClickListener {
 
 	
-	private final String TAG = this.getClass().getName();
+//	private final String TAG = this.getClass().getName();
 	private TextView exit,cur_version;
 	private TextView versionName,cacheSize;
 	private ProgressDialog pdialog;

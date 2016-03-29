@@ -79,7 +79,7 @@
             android:layout_toRightOf="@id/price"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
-            android:padding="0.2dp"
+            android:padding="0.1dp"
             android:layout_height="28dp"
             android:layout_width="100dp"
             android:orientation="horizontal"

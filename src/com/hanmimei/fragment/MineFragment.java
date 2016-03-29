@@ -23,6 +23,10 @@ import com.hanmimei.activity.MyCollectionActivity;
 import com.hanmimei.activity.MyCouponActivity;
 import com.hanmimei.activity.MyOrderActivity;
 import com.hanmimei.activity.MyPingouActivity;
+<<<<<<< HEAD
+=======
+import com.hanmimei.activity.SettingActivity;
+>>>>>>> aa8de41f58748b4e01b970067956007b2d09e3d7
 import com.hanmimei.dao.UserDao;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
@@ -39,12 +43,18 @@ import com.viewpagerindicator.BaseIconFragment;
 public class MineFragment extends BaseIconFragment implements OnClickListener {
 	private RoundImageView header;
 	private TextView user_name;
+<<<<<<< HEAD
 	private TextView address;
 	private TextView order;
 	private TextView collect;
+=======
+//	private TextView address;
+//	private TextView order;
+//	private TextView collect;
+>>>>>>> aa8de41f58748b4e01b970067956007b2d09e3d7
 	private TextView youhui_nums;
 	private ImageView sex;
-	private TextView pintuan;
+//	private TextView pintuan;
 	private BaseActivity activity;
 	private User user;
 	
@@ -114,19 +124,25 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 	private void findView(View view) {
 		header = (RoundImageView) view.findViewById(R.id.header);
 		user_name = (TextView) view.findViewById(R.id.user_name);
-		address = (TextView) view.findViewById(R.id.address);
+//		address = (TextView) view.findViewById(R.id.address);
 		sex = (ImageView) view.findViewById(R.id.sex);
+<<<<<<< HEAD
 		order = (TextView) view.findViewById(R.id.order);
 		collect = (TextView) view.findViewById(R.id.collect);
+=======
+//		order = (TextView) view.findViewById(R.id.order);
+//		collect = (TextView) view.findViewById(R.id.collect);
+>>>>>>> aa8de41f58748b4e01b970067956007b2d09e3d7
 		youhui_nums = (TextView) view.findViewById(R.id.youhui_nums);
-		pintuan = (TextView) view.findViewById(R.id.pintuan);
+//		pintuan = (TextView) view.findViewById(R.id.pintuan);
 		header.setOnClickListener(this);
-		order.setOnClickListener(this);
-		address.setOnClickListener(this);
+		view.findViewById(R.id.order).setOnClickListener(this);
+		view.findViewById(R.id.address).setOnClickListener(this);
 		user_name.setOnClickListener(this);
-		collect.setOnClickListener(this);
+		view.findViewById(R.id.collect).setOnClickListener(this);
 		view.findViewById(R.id.youhui_linear).setOnClickListener(this);
-		pintuan.setOnClickListener(this);
+		view.findViewById(R.id.pintuan).setOnClickListener(this);
+		view.findViewById(R.id.more).setOnClickListener(this);
 	}
 
 	@Override
@@ -152,6 +168,9 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 			break;
 		case R.id.pintuan:
 			doJump(MyPingouActivity.class);
+			break;
+		case R.id.more:
+			DoJumpUtils.doJump(getActivity(), SettingActivity.class);
 			break;
 		default:
 			break;

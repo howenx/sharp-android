@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.View;
@@ -36,7 +35,7 @@ public class ShoppingCarMenager {
 	private String customName;
 	private int bottommorePrice;
 	
-	private Activity activity;
+//	private Activity activity;
 	private List<Customs> list = new ArrayList<Customs>();
 
 	private static class ShopCartManagerHolder {
@@ -51,7 +50,7 @@ public class ShoppingCarMenager {
 		uncheck_Drawable = mContext.getResources().getDrawable(R.drawable.hmm_radio_normal);
 	}
 	public void initShoppingCarMenager(Context mContext, ShoppingCarPullListAdapter adapter, List<Customs> list, boolean isSelected, TextView attention, ImageView checkBox, TextView totalPrice, TextView pay, LinearLayout no_data, LinearLayout bottom,PullToRefreshListView mListView){
-		this.activity = (Activity) mContext;
+//		this.activity = (Activity) mContext;
 		this.adapter = adapter;
 		this.list.clear();
 		this.isSelected = isSelected;
