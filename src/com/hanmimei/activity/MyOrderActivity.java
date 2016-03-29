@@ -3,33 +3,20 @@ package com.hanmimei.activity;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hanmimei.R;
 import com.hanmimei.adapter.MyPagerAdapter;
-import com.hanmimei.data.AppConstant;
-import com.hanmimei.data.DataParser;
-import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.Category;
-import com.hanmimei.entity.Order;
 import com.hanmimei.fragment.OrderFragment;
 import com.hanmimei.manager.OrderNumsMenager;
 import com.hanmimei.utils.ActionBarUtil;
-import com.hanmimei.utils.Http2Utils;
-import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
-import com.hanmimei.utils.ToastUtils;
 
 public class MyOrderActivity extends BaseActivity implements OnClickListener,
 		OnPageChangeListener {
@@ -46,6 +33,7 @@ public class MyOrderActivity extends BaseActivity implements OnClickListener,
 	private ViewPager viewPager;
 	private List<Category> data;
 	private List<Fragment> fragmentList;
+	private MyPagerAdapter adapter;
 	private TextView t1;
 	private TextView t2;
 	private TextView t3;
@@ -57,10 +45,6 @@ public class MyOrderActivity extends BaseActivity implements OnClickListener,
 	private TextView t2_nums;
 	private TextView t3_nums;
 	private TextView t4_nums;
-	private List<Order> orders;
-	private TextView reload;
-	private LinearLayout topLayout;
-	private LinearLayout no_net;
 
 	@Override
 	protected void onCreate(Bundle bundle) {
@@ -68,66 +52,13 @@ public class MyOrderActivity extends BaseActivity implements OnClickListener,
 		setContentView(R.layout.order_list_layout_new);
 		ActionBarUtil.setActionBarStyle(this, "我的订单", 0, true, null);
 		viewPager = (ViewPager) findViewById(R.id.viewpager);
-		reload = (TextView) findViewById(R.id.reload);
-		topLayout = (LinearLayout) findViewById(R.id.top);
-		no_net = (LinearLayout) findViewById(R.id.no_net);
-		reload.setOnClickListener(this);
 		viewPager.addOnPageChangeListener(this);
-		orders = new ArrayList<Order>();
 		initTopListner();
+		initCategory();
+		initFragment();
 		OrderNumsMenager.getInstance().initOrderMenager(this, t2_nums, t3_nums,
 				t4_nums);
-		initCategory();
-		// loadData();
-		initFragment();
-//		registerReceivers();
 	}
-
-//	private void loadData() {
-//		getLoading().show();
-//		Http2Utils.doGetRequestTask(this, getHeaders(),
-//				UrlUtil.GET_ORDER_LIST_URL, new VolleyJsonCallback() {
-//
-//					@Override
-//					public void onSuccess(String result) {
-//						no_net.setVisibility(View.GONE);
-//						topLayout.setVisibility(View.VISIBLE);
-//						getLoading().dismiss();
-//						orders = DataParser.parserOrder(result);
-//						initFragment();
-//					}
-//
-//					@Override
-//					public void onError() {
-//						topLayout.setVisibility(View.GONE);
-//						no_net.setVisibility(View.VISIBLE);
-//						ToastUtils
-//								.Toast(MyOrderActivity.this, "请求数据失败，请检查您的网络");
-//						getLoading().dismiss();
-//					}
-//				});
-//	}
-
-//	private List<Order> getStateOrder(int state) {
-//		showNums(orders);
-//		List<Order> sData = new ArrayList<Order>();
-//		if (state == 0) {
-//			sData.addAll(orders);
-//		} else if (state == 1) {
-//			for (int i = 0; i < orders.size(); i++) {
-//				if (orders.get(i).getOrderStatus().equals("I")) {
-//					sData.add(orders.get(i));
-//				}
-//			}
-//		} else if (state == 2) {
-//			for (int i = 0; i < orders.size(); i++) {
-//				if (orders.get(i).getOrderStatus().equals("D")) {
-//					sData.add(orders.get(i));
-//				}
-//			}
-//		}
-//		return sData;
-//	}
 
 	private void initTopListner() {
 		t1 = (TextView) findViewById(R.id.t1);
@@ -147,29 +78,6 @@ public class MyOrderActivity extends BaseActivity implements OnClickListener,
 		findViewById(R.id.tv_guid4).setOnClickListener(this);
 	}
 
-	// private void initFragment() {
-	//
-	// fragmentList = new ArrayList<Fragment>();
-	// for (int i = 0; i < data.size(); i++) {
-	// // Category category = data.get(i);
-	// // getStateOrder(i);
-	// // OrderFragment fragment = OrderFragment.newInstance(getStateOrder(i));
-	// OrderFragment fragment = new OrderFragment();
-	// Bundle bundle = new Bundle();
-	// bundle.putParcelableArrayList("data", (ArrayList<? extends Parcelable>)
-	// getStateOrder(i));
-	// // bundle.putSerializable("category", category);
-	// // bundle.putParcelableArrayList("data", getStateOrder(i));
-	// fragment.setArguments(bundle);
-	// fragmentList.add(fragment);
-	// }
-	// MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager(),
-	// fragmentList,
-	// data);
-	// viewPager.removeAllViews();
-	// viewPager.setAdapter(adapter);
-	// // adapter.notifyDataSetChanged();
-	// }
 	private void initFragment() {
 		fragmentList = new ArrayList<Fragment>();
 		for (int i = 0; i < data.size(); i++) {
@@ -180,8 +88,8 @@ public class MyOrderActivity extends BaseActivity implements OnClickListener,
 			fragment.setArguments(bundle);
 			fragmentList.add(fragment);
 		}
-		MyPagerAdapter adapter = new MyPagerAdapter(
-				getSupportFragmentManager(), fragmentList, data);
+		adapter = new MyPagerAdapter(getSupportFragmentManager(), fragmentList,
+				data);
 		viewPager.setAdapter(adapter);
 	}
 
@@ -208,9 +116,6 @@ public class MyOrderActivity extends BaseActivity implements OnClickListener,
 			break;
 		case R.id.tv_guid4:
 			viewPager.setCurrentItem(3);
-			break;
-		case R.id.reload:
-//			loadData();
 			break;
 		default:
 			break;
@@ -252,7 +157,6 @@ public class MyOrderActivity extends BaseActivity implements OnClickListener,
 			setTopUnSelected(t3, c3);
 			setTopUnSelected(t1, c1);
 			break;
-
 		default:
 			break;
 		}
@@ -269,44 +173,4 @@ public class MyOrderActivity extends BaseActivity implements OnClickListener,
 		cusor.setVisibility(View.INVISIBLE);
 	}
 
-//	private void showNums(List<Order> orders) {
-//		int nums_1 = 0, nums_2 = 0, nums_3 = 0;
-//		for (int i = 0; i < orders.size(); i++) {
-//			if (orders.get(i).getOrderStatus().equals("I")) {
-//				nums_1 = nums_1 + 1;
-//			} else if (orders.get(i).getOrderStatus().equals("D")) {
-//				nums_2 = nums_2 + 1;
-//			} else if (orders.get(i).getOrderStatus().equals("R")) {
-//				nums_3 = nums_3 + 1;
-//			}
-//		}
-//		OrderNumsMenager.getInstance().numsChanged(nums_1, nums_2, nums_3);
-//	}
-
-//	private MyBroadCastReceiver netReceiver;
-//
-//	// 广播接收者 注册
-//	private void registerReceivers() {
-//		netReceiver = new MyBroadCastReceiver();
-//		IntentFilter intentFilter = new IntentFilter();
-//		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_CANCLE_ORDER);
-//		registerReceiver(netReceiver, intentFilter);
-//	}
-//
-//	@Override
-//	public void onDestroy() {
-//		super.onDestroy();
-//		unregisterReceiver(netReceiver);
-//	}
-//
-//	private class MyBroadCastReceiver extends BroadcastReceiver {
-//
-//		@Override
-//		public void onReceive(Context context, Intent intent) {
-//			if (intent.getAction().equals(
-//					AppConstant.MESSAGE_BROADCAST_CANCLE_ORDER)) {
-//				loadData();
-//			}
-//		}
-//	}
 }
