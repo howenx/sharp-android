@@ -30,6 +30,8 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
 
 	@Override
 	public CharSequence getPageTitle(int position) {
+		if(cats == null)
+			return null;
 		return cats.get(position).getName();
 	}
 

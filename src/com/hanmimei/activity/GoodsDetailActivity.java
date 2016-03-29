@@ -52,7 +52,7 @@ import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.StockVo;
 import com.hanmimei.entity.Tag;
-import com.hanmimei.listener.GoodsPageChangeListener;
+import com.hanmimei.listener.ViewPageChangeListener;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.CommonUtil;
@@ -727,7 +727,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 				}
 			});
 			pagerSlidingTabStrip
-					.setOnPageChangeListener(new GoodsPageChangeListener() {
+					.setOnPageChangeListener(new ViewPageChangeListener() {
 
 						@Override
 						public void onPageSelected(int i) {
@@ -815,8 +815,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		} else {
 			num_restrictAmount.setVisibility(View.GONE);
 		}
-		ImageLoaderUtils
-				.loadImage(this, s.getInvImgForObj().getUrl(), img_hide);
+		ImageLoaderUtils.loadImage(s.getInvImgForObj().getUrl(), img_hide);
 		if (s.getPostalTaxRate() != null)
 			curPostalTaxRate = s.getPostalTaxRate();
 		curItemPrice = s.getItemPrice().doubleValue();

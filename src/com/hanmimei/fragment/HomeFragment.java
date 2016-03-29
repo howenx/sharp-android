@@ -14,15 +14,11 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.LayoutAnimationController;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
@@ -57,9 +53,9 @@ import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.CycleViewPager;
 import com.hanmimei.view.ViewFactory;
 import com.umeng.analytics.MobclickAgent;
+import com.viewpagerindicator.BaseIconFragment;
 
-@SuppressLint({ "NewApi", "InflateParams" })
-public class HomeFragment extends Fragment implements
+public class HomeFragment extends BaseIconFragment implements
 		OnRefreshListener2<ListView>, OnClickListener, OnScrollListener {
 	private LayoutInflater inflater;
 	private PullToRefreshListView mListView;
@@ -127,7 +123,7 @@ public class HomeFragment extends Fragment implements
 		});
 		mListView.setOnScrollListener(this);
 		//listview添加加载动画
-		ListViewUtils.setListViewAnim(mContext, mListView.getRefreshableView());												
+//		ListViewUtils.setListViewAnim(mContext, mListView.getRefreshableView());												
 		findHeaderView();
 		loadData();
 		addHeaderView();
@@ -330,6 +326,7 @@ public class HomeFragment extends Fragment implements
 		getNetData();
 	}
 
+	@SuppressLint("NewApi")
 	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
@@ -435,6 +432,17 @@ public class HomeFragment extends Fragment implements
 	public void onPause() {
 		super.onPause();
 		MobclickAgent.onPageEnd("HomeFragment");
+	}
+
+	@Override
+	public String getTitle() {
+		return "首页";
+	}
+
+	@Override
+	public int getIconId() {
+		// TODO Auto-generated method stub
+		return R.drawable.tab_home;
 	}
 
 }

@@ -4,30 +4,25 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hanmimei.R;
-import com.hanmimei.activity.MyAddressActivity;
 import com.hanmimei.activity.BaseActivity;
-import com.hanmimei.activity.MyCouponActivity;
 import com.hanmimei.activity.EditUserInfoActivity;
 import com.hanmimei.activity.LoginActivity;
+import com.hanmimei.activity.MyAddressActivity;
 import com.hanmimei.activity.MyCollectionActivity;
+import com.hanmimei.activity.MyCouponActivity;
 import com.hanmimei.activity.MyOrderActivity;
 import com.hanmimei.activity.MyPingouActivity;
-import com.hanmimei.activity.PingouResultActivity;
-import com.hanmimei.adapter.PingouListAdapter;
 import com.hanmimei.dao.UserDao;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
@@ -37,20 +32,22 @@ import com.hanmimei.utils.DoJumpUtils;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ImageLoaderUtils;
 import com.hanmimei.view.RoundImageView;
+import com.hanmimei.view.ScrollPullView;
 import com.umeng.analytics.MobclickAgent;
+import com.viewpagerindicator.BaseIconFragment;
 
-public class MineFragment extends Fragment implements OnClickListener {
+public class MineFragment extends BaseIconFragment implements OnClickListener {
 	private RoundImageView header;
 	private TextView user_name;
 	private TextView address;
 	private TextView order;
-	private TextView youhui;
 	private TextView collect;
 	private TextView youhui_nums;
 	private ImageView sex;
 	private TextView pintuan;
 	private BaseActivity activity;
 	private User user;
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -89,7 +86,7 @@ public class MineFragment extends Fragment implements OnClickListener {
 
 	public void initView() {
 		user = activity.getUser();
-		ImageLoaderUtils.loadImage(activity, user.getUserImg(), header);
+		ImageLoaderUtils.loadImage(user.getUserImg(), header);
 		user_name.setText(user.getUserName());
 		sex.setVisibility(View.VISIBLE);
 		if(user.getSex().equals("F")){
@@ -120,7 +117,6 @@ public class MineFragment extends Fragment implements OnClickListener {
 		address = (TextView) view.findViewById(R.id.address);
 		sex = (ImageView) view.findViewById(R.id.sex);
 		order = (TextView) view.findViewById(R.id.order);
-		youhui = (TextView) view.findViewById(R.id.youhui);
 		collect = (TextView) view.findViewById(R.id.collect);
 		youhui_nums = (TextView) view.findViewById(R.id.youhui_nums);
 		pintuan = (TextView) view.findViewById(R.id.pintuan);
@@ -239,6 +235,20 @@ public class MineFragment extends Fragment implements OnClickListener {
 	public void onPause() {
 	    super.onPause();
 	    MobclickAgent.onPageEnd("AboutMyFragment"); 
+	}
+
+
+	@Override
+	public String getTitle() {
+		// TODO Auto-generated method stub
+		return "我的";
+	}
+
+
+	@Override
+	public int getIconId() {
+		// TODO Auto-generated method stub
+		return R.drawable.tab_my;
 	}
 
 }

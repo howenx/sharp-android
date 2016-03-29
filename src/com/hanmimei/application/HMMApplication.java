@@ -1,7 +1,5 @@
 package com.hanmimei.application;
 
-import java.io.File;
-
 import android.app.Application;
 import cn.jpush.android.api.JPushInterface;
 
@@ -18,8 +16,6 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.testin.agent.TestinAgent;
 import com.testin.agent.TestinAgentConfig;
 import com.umeng.socialize.PlatformConfig;
@@ -60,8 +56,6 @@ public class HMMApplication extends Application {
 	}
 
 	private ImageLoaderConfiguration initImageLoaderConfiguration() {
-		File cacheDir = StorageUtils.getOwnCacheDirectory(this,
-				"imageloader/Cache");
 		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
 				getApplicationContext())
 				.threadPoolSize(3)// 线程池内加载的数量
@@ -75,10 +69,10 @@ public class HMMApplication extends Application {
 	private static DisplayImageOptions initImageLoaderDisplayImageOptions() {
 		DisplayImageOptions imageOptions = new DisplayImageOptions.Builder()
 				.showImageOnLoading(R.color.background)
-				.showImageForEmptyUri(R.drawable.ic_launcher)
-				.showImageOnFail(R.drawable.ic_launcher).cacheOnDisk(true)
+				.showImageForEmptyUri(R.color.background)
+				.showImageOnFail(R.color.background).cacheOnDisk(true)
 				.imageScaleType(ImageScaleType.EXACTLY).cacheInMemory(true)
-				.displayer(new FadeInBitmapDisplayer(0))//是否图片加载好后渐入的动画时间  
+				.displayer(new com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer())//是否图片加载好后渐入的动画时间  
 				.build();
 		return imageOptions;
 	}

@@ -135,7 +135,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 			holder.plus.setTextColor(activity.getResources().getColor(R.color.fontcolor));
 			holder.plus.setClickable(true);
 		}
-		ImageLoaderUtils.loadImage(activity, goods.getGoodsImg(), holder.img);
+		ImageLoaderUtils.loadImage(goods.getGoodsImg(), holder.img);
 		holder.name.setText(goods.getGoodsName());
 		holder.size.setText(goods.getItemColor() + "  " + goods.getItemSize());
 		holder.price.setText("¥" + CommonUtil.doubleTrans(goods.getGoodsPrice()));

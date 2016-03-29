@@ -13,7 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hanmimei.R;
-import com.hanmimei.utils.SharedPreferencesUtil;
+import com.hanmimei.utils.PreferenceUtil;
+import com.hanmimei.utils.PreferenceUtil.FirstConfig;
 import com.hanmimei.view.viewflow.CircleFlowIndicator;
 import com.hanmimei.view.viewflow.ViewFlow;
 
@@ -22,8 +23,8 @@ public class IndroductionActivity extends AppCompatActivity {
 
 	private ViewFlow viewFlow;
 	private CircleFlowIndicator indicator;
-	public int[] images = { R.drawable.intro_1, R.drawable.intro_2,
-			R.drawable.intro_3};
+	public int[] images = { R.drawable.indro_1, R.drawable.indro_2,
+			R.drawable.indro_3};
 	private static final String FIRST = "first";
 	private static final String FIRST_LOG_FLAG = "first_log_flag";
 	@Override
@@ -67,31 +68,30 @@ public class IndroductionActivity extends AppCompatActivity {
 				convertView = inflater.inflate(R.layout.viewpager_panel_item, null);
 				holder = new ViewHolder();
 				holder.img = (ImageView) convertView.findViewById(R.id.img);
-				holder.experience = (TextView) convertView.findViewById(R.id.experience);
+				holder.experience = convertView.findViewById(R.id.experience);
 				convertView.setTag(holder);
 			}else{
 				holder = (ViewHolder)convertView.getTag();
 			}
-			holder.experience.setVisibility(View.GONE);
 			holder.img.setImageResource(images[position % images.length]);
 			if(position == images.length - 1){
-//				holder.experience.setVisibility(View.VISIBLE);
+				holder.experience.setVisibility(View.VISIBLE);
 				holder.img.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View arg0) {
-						SharedPreferencesUtil util = new SharedPreferencesUtil(
-								IndroductionActivity.this, FIRST);
-						util.putString(FIRST_LOG_FLAG, "not_first");
-						IndroductionActivity.this.startActivity(new Intent(IndroductionActivity.this,MainActivity.class));
+						PreferenceUtil.FirstConfig.putFirstCfg(IndroductionActivity.this, FirstConfig.NOT_FIRST_CONFIG_VALUE);
+						startActivity(new Intent(IndroductionActivity.this,MainTestActivity.class));
 						finish();
 					}
 				});
+			}else{
+				holder.experience.setVisibility(View.INVISIBLE);
 			}
 			return convertView;
 		}
 		private class ViewHolder{
 			private ImageView img;
-			private TextView experience;
+			private View experience;
 		}
 		
 	}

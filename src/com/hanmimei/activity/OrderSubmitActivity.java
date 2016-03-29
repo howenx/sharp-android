@@ -41,6 +41,7 @@ public class OrderSubmitActivity extends BaseActivity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.order_submit_layout);
+		closeSwipeBack();
 		// 初始化actionbar
 		ActionBarUtil.setActionBarStyle(this, "收银台", new BackClickListener());
 		OrderInfo orderInfo = (OrderInfo) getIntent().getSerializableExtra(
@@ -64,14 +65,14 @@ public class OrderSubmitActivity extends BaseActivity {
 							MyOrderActivity.class));
 					finish();
 				} else {
-					if(url.contains("/promotion/pin/activity/pay/")){
-						Intent intent = new Intent(getActivity(), PingouResultActivity.class);
-						intent.putExtra("url", url);
-						startActivity(intent);
-						finish();
-					}else{
+//					if(url.contains("/promotion/pin/activity/pay/")){
+//						Intent intent = new Intent(getActivity(), PingouResultActivity.class);
+//						intent.putExtra("url", url);
+//						startActivity(intent);
+//						finish();
+//					}else{
 						view.loadUrl(url, extraHeaders);
-					}
+//					}
 				}
 				return true;
 			}
@@ -179,6 +180,13 @@ public class OrderSubmitActivity extends BaseActivity {
 		public void clearHistory(String url) {
 			Log.e("error", url);
 			isSuccess = true;
+		}
+		@JavascriptInterface
+		public void pin(String url) {
+			Intent intent = new Intent(getActivity(), PingouResultActivity.class);
+			intent.putExtra("url", url);
+			startActivity(intent);
+			finish();
 		}
 	}
 

@@ -69,7 +69,7 @@ public class MyMsgAdapter extends BaseAdapter {
 		hold.msg.setText(info.getMsgTitle());
 		hold.content.setText(info.getMsgContent());
 		if(showImg){
-			ImageLoaderUtils.loadImage(mActivity, info.getMsgImg(), hold.img);
+			ImageLoaderUtils.loadImage( info.getMsgImg(), hold.img);
 		}
 		return convertView;
 	}

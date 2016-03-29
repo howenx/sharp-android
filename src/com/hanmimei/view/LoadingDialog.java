@@ -10,7 +10,7 @@ public class LoadingDialog extends AlertDialog {
 	
 	
 	public LoadingDialog(Context context) {
-		super(context,R.style.CustomDialog);
+		super(context,R.style.CustomDimDialog);
 	}
 
 

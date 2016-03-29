@@ -224,7 +224,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		params.height = height;
 		params.width = width;
 		mframeLayout.setLayoutParams(params);
-		ImageLoaderUtils.loadImage(this, themeImg.getUrl(), img);
+		ImageLoaderUtils.loadImage(themeImg.getUrl(), img);
 		//初始化标签信息
 		initTagInfo(themeList, width, height);
 		data.clear();

@@ -48,6 +48,13 @@
     <declare-styleable name="RotateTextView">
         <attr name="angle" format="dimension" />
     </declare-styleable>
+    <!-- ==================================================== -->
+     <!-- 可缩放srollView所用的自定义属性 -->
+    <!-- ==================================================== -->
+    <declare-styleable name="pull">
+		<attr name="maxHeaderHeight" format="reference|dimension" />
+		<attr name="minHeaderHeight" format="reference|dimension" />
+	</declare-styleable>
      <!-- ==================================================== -->
      <!-- CustomGifView（播放动态gif图 ）自定义属性 -->
     <!-- ==================================================== -->

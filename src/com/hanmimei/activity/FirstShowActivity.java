@@ -1,5 +1,9 @@
 package com.hanmimei.activity;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,16 +12,24 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import cn.jpush.android.api.JPushInterface;
 
+import com.android.volley.Request.Method;
+import com.android.volley.Response.ErrorListener;
+import com.android.volley.Response.Listener;
+import com.android.volley.VolleyError;
+import com.google.gson.Gson;
 import com.hanmimei.R;
 import com.hanmimei.application.HMMApplication;
 import com.hanmimei.dao.DaoSession;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.HMessage;
+import com.hanmimei.entity.TokenVo;
 import com.hanmimei.entity.User;
 import com.hanmimei.utils.DateUtil;
 import com.hanmimei.utils.HttpUtils;
-import com.hanmimei.utils.SharedPreferencesUtil;
+import com.hanmimei.utils.PostStringRequest;
+import com.hanmimei.utils.PreferenceUtil;
+import com.hanmimei.utils.PreferenceUtil.FirstConfig;
 import com.hanmimei.utils.ToastUtils;
 
 @SuppressLint("NewApi")
@@ -27,6 +39,8 @@ public class FirstShowActivity extends AppCompatActivity {
 	private static final String FIRST_LOG_FLAG = "first_log_flag";
 	private HMMApplication application;
 	private User user;
+	
+	private Handler mHandler = new Handler() ;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,126 +48,101 @@ public class FirstShowActivity extends AppCompatActivity {
 		setContentView(R.layout.first_show_layout);
 		getSupportActionBar().hide();
 		application = (HMMApplication) getApplication();
-		// 判断是否自动登录
-		loginUser();
 		// 判断是否是第一次进入app
-		SharedPreferencesUtil util = new SharedPreferencesUtil(
-				FirstShowActivity.this, FIRST);
-		util.putString("isLoadNet", "true");
-		String flag = util.getString(FIRST_LOG_FLAG);
-		if (flag == null) {
-			startActivity(new Intent(FirstShowActivity.this,
-					IndroductionActivity.class));
-			finish();
+		if (PreferenceUtil.FirstConfig.getFirstCfg(this).equals(
+				FirstConfig.FIRST_CONFIG_VALUE)) {
+			mHandler.postDelayed(new FirstRun(0), 2000);
 		} else {
-			new Thread(new Runnable() {
-
-				@Override
-				public void run() {
-					try {
-						Thread.sleep(2000);
-						mHandler.obtainMessage(1).sendToTarget();
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-
-				}
-			}).start();
+			loginUser();
 		}
 	}
 
 	// 判断用户token信息
 	private void loginUser() {
 		user = getDaoSession().getUserDao().queryBuilder().build().unique();
-		if (user != null) {
+		if (user != null && user.getExpired()!=null ) {
 			if (user.getToken() != null) {
 				int difDay = DateUtil.getDate(user.getExpired());
 				if (difDay < 24 && difDay >= 0) {
 					getNewToken();
 				} else if (difDay < 0) {
 					getDaoSession().getUserDao().deleteAll();
+					mHandler.postDelayed(new FirstRun(1), 1500);
 				} else {
-//					getNewToken();
 					application.setLoginUser(user);
+					mHandler.postDelayed(new FirstRun(1), 1500);
 				}
 			}
+		}else{
+			mHandler.postDelayed(new FirstRun(1), 1500);
 		}
 	}
 
-	// 更新token
-	private void getNewToken() {
-//		Map<String, String> params = new HashMap<String, String>();
-//		params.put("token", user.getToken());
-//		PostStringRequest request = null;
-//		try {
-//			request = new PostStringRequest(Method.POST, UrlUtil.UPDATE_TOKEN,
-//					new Listener<String>() {
-//
-//						@Override
-//						public void onResponse(String arg0) {
-//							TokenVo tokenVo = new Gson().fromJson(arg0, TokenVo.class);
-//							if(tokenVo.getResult()){
-//								user.setToken(tokenVo.getToken());
-//								user.setExpired(DateUtil.turnToDate(tokenVo.getExpired()));
-//								user.setLast_login(DateUtil.getCurrentDate());
-//								application.setLoginUser(user);
-//							}else{
-//								ToastUtils.Toast(FirstShowActivity.this,tokenVo.getMessage());
-//							}
-//						}
-//					}, new ErrorListener() {
-//
-//						@Override
-//						public void onErrorResponse(VolleyError arg0) {
-//							ToastUtils.Toast(FirstShowActivity.this,
-//									R.string.error);
-//						}
-//					}, params, null);
-//		} catch (IOException e) {
-//			ToastUtils.Toast(FirstShowActivity.this, R.string.error);
-//		}
-//		((HMMApplication) getApplication()).getRequestQueue().add(request);
-		new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				String result = HttpUtils.get(UrlUtil.UPDATE_TOKEN, user.getToken());
-				HMessage loginInfo = DataParser.paserResultMsg(result);
-				Message msg = mHandler.obtainMessage(2);
-				msg.obj = loginInfo;
-				mHandler.sendMessage(msg);
-			}
-		}).start();
+	private class FirstRun implements Runnable {
+		private int what;
 
-	}
-
-	private Handler mHandler = new Handler() {
+		public FirstRun(int what) {
+			super();
+			this.what = what;
+		}
 
 		@Override
-		public void handleMessage(Message msg) {
-			super.handleMessage(msg);
-			switch (msg.what) {
-			case 1:
-				startActivity(new Intent(FirstShowActivity.this,
-						MainActivity.class));
+		public void run() {
+			switch (what) {
+			case 0:
+				startActivity(new Intent(FirstShowActivity.this,IndroductionActivity.class));
 				finish();
 				break;
-			case 2:
-				HMessage loginInfo = (HMessage) msg.obj;
-				if(loginInfo.getCode() == 200){
-					user.setToken(loginInfo.getTag());
-					user.setExpired(DateUtil.turnToDate(loginInfo.getTime()));
-					user.setLast_login(DateUtil.getCurrentDate());
-					application.setLoginUser(user);
-				}else{
-					ToastUtils.Toast(FirstShowActivity.this,loginInfo.getMessage());
-				}
+			case 1:
+				startActivity(new Intent(FirstShowActivity.this,MainTestActivity.class));
+				finish();
 				break;
 			default:
 				break;
 			}
 		}
-	};
+
+	}
+
+	// 更新token
+	private void getNewToken() {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("token", user.getToken());
+		PostStringRequest request = null;
+		try {
+			request = new PostStringRequest(Method.POST, UrlUtil.UPDATE_TOKEN,
+					new Listener<String>() {
+
+						@Override
+						public void onResponse(String arg0) {
+							TokenVo tokenVo = new Gson().fromJson(arg0,
+									TokenVo.class);
+							if (tokenVo.getResult()) {
+								user.setToken(tokenVo.getToken());
+								user.setExpired(DateUtil.turnToDate(tokenVo
+										.getExpired()));
+								user.setLast_login(DateUtil.getCurrentDate());
+								getDaoSession().getUserDao().insertOrReplace(
+										user);
+								application.setLoginUser(user);
+							} else {
+								ToastUtils.Toast(FirstShowActivity.this,
+										tokenVo.getMessage());
+							}
+							mHandler.postDelayed(new FirstRun(1), 1000);
+						}
+					}, new ErrorListener() {
+						@Override
+						public void onErrorResponse(VolleyError arg0) {
+							ToastUtils.Toast(FirstShowActivity.this,
+									R.string.error);
+						}
+					}, params, null);
+		} catch (IOException e) {
+			ToastUtils.Toast(FirstShowActivity.this, R.string.error);
+		}
+		((HMMApplication) getApplication()).getRequestQueue().add(request);
+	}
 
 	private DaoSession getDaoSession() {
 		HMMApplication application = (HMMApplication) getApplication();

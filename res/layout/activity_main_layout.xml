@@ -1,70 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:zhy="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" 
+    android:layout_height="match_parent"
     android:background="@color/white"
     android:fitsSystemWindows="true" >
 
-    <com.hanmimei.fragment.FragmentTabHost
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@android:id/tabhost"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
 
-        <LinearLayout
+        <android.support.v4.view.ViewPager
+            android:id="@+id/id_viewpager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+        </android.support.v4.view.ViewPager>
 
-            <FrameLayout
-                android:id="@android:id/tabcontent"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="0" />
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#ababab" />
 
-            <FrameLayout
-                android:id="@+id/realcontent"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
+        <com.viewpagerindicator.IconTabPageIndicator
+            android:id="@+id/indicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/xian" />
-
-            <TabWidget
-                android:id="@android:id/tabs"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/actionbar_size"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="5dp"
-                android:divider="@null"
-                android:background="@color/white"
-                android:orientation="horizontal" />
-        </LinearLayout>
-    </com.hanmimei.fragment.FragmentTabHost>
-	<LinearLayout 
+    <LinearLayout
         android:id="@+id/guanggao"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center_vertical"
         android:background="#88000000"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
         android:padding="15dp"
-        android:visibility="gone">
-        <ImageView 
+        android:visibility="gone" >
+
+        <ImageView
             android:id="@+id/close"
-            android:scaleType="fitEnd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_cha"
-            android:contentDescription="@null"/>
-        <ImageView 
+            android:contentDescription="@null"
+            android:scaleType="fitEnd"
+            android:src="@drawable/icon_cha" />
+
+        <ImageView
             android:id="@+id/gg_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleType="fitStart"
-            android:contentDescription="@null"/>
+            android:contentDescription="@null"
+            android:scaleType="fitStart" />
     </LinearLayout>
+
 </FrameLayout>

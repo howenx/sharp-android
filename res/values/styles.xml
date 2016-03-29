@@ -19,32 +19,13 @@
         <item name="actionBarSize">@dimen/actionbar_size</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="actionBarStyle"> @style/MyActionBarStyle</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowBackground">@color/activity_bg</item>
         <item name="android:windowIsTranslucent">true</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:windowAnimationStyle">@android:style/Animation</item>
         
     </style>
     
-     <style name="Animation.Activity.Translucent.Style" parent="@android:style/Animation.Translucent">  
-        <item name="android:windowEnterAnimation">@anim/base_slide_right_in</item>  
-        <item name="android:windowExitAnimation">@anim/base_slide_right_out</item>  
-    </style> 
-    
-     <style name="Animation.Activity.Style" parent="@android:style/Animation.Activity">
-        <item name="android:activityOpenEnterAnimation">@anim/base_slide_right_in</item>
-        <item name="android:activityOpenExitAnimation">@null</item>
-        <item name="android:activityCloseEnterAnimation">@null</item>
-        <item name="android:activityCloseExitAnimation">@anim/base_slide_right_out</item>
-        <item name="android:wallpaperOpenEnterAnimation">@anim/base_slide_right_in</item>
-        <item name="android:wallpaperOpenExitAnimation">@anim/base_slide_right_out</item>
-        <item name="android:wallpaperCloseEnterAnimation">@anim/base_slide_right_in</item>
-        <item name="android:wallpaperCloseExitAnimation">@anim/base_slide_right_out</item>
-        <item name="android:wallpaperIntraOpenEnterAnimation">@anim/base_slide_right_in</item>
-        <item name="android:wallpaperIntraOpenExitAnimation">@anim/base_slide_right_out</item>
-        <item name="android:wallpaperIntraCloseEnterAnimation">@anim/base_slide_right_in</item>
-        <item name="android:wallpaperIntraCloseExitAnimation">@anim/base_slide_right_out</item>
-    </style>
-
     <!-- acitonbar 样式 -->
     <style name="MyActionBarStyle" parent="@style/Widget.AppCompat.ActionBar">
         <item name="background">@color/theme</item>
@@ -52,13 +33,25 @@
         <item name="contentInsetEnd">0dp</item>
     </style>
 
-    <style name="SplashStyle" parent="AppTheme">
-        <item name="android:windowIsTranslucent">true</item>
+    <style name="SplashStyle" parent="AppBaseTheme">
         <!-- 填充屏幕 -->
-        <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowFullscreen">true</item>
     </style>
 
+    
+    <style name="MainActivityTheme" parent="AppTheme">  
+     <item name="tabView">@style/MainTabView</item>  
+ </style>  
+  
+ <style name="MainTabView" parent="TabView">  
+     <item name="android:textColor">@color/indicator_font_color_selector</item>
+     <item name="android:textSize">12sp</item>
+        <item name="iconWidth">25dp</item>
+        <item name="iconHeight">25dp</item>
+ </style> 
+    
+    
     <style name="AppThemeForOrder" parent="AppTheme">
         <item name="vpiTabPageIndicatorStyle">@style/OrderTabPageIndicator</item>
     </style>
@@ -156,10 +149,10 @@
     </style>
 
     <style name="setting_text_style">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/fontcolor</item>
         <item name="android:drawablePadding">20dp</item>
-        <item name="android:padding">10dp</item>
+        <item name="android:padding">15dp</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:background">@drawable/bg_underline_selector</item>
     </style>
@@ -187,6 +180,15 @@
         <item name="android:windowNoTitle">true</item> <!-- 无标题 -->
         <item name="android:windowBackground">@android:color/transparent</item> <!-- 自己想要的背景 -->
         <item name="android:backgroundDimEnabled">true</item> <!-- 模糊 -->
+    </style>
+    <!-- 设置dialog 样式 -->
+    <style name="CustomDimDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item> <!-- 边框 -->
+        <item name="android:windowIsFloating">true</item> <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsTranslucent">true</item> <!-- 半透明 -->
+        <item name="android:windowNoTitle">true</item> <!-- 无标题 -->
+        <item name="android:windowBackground">@android:color/transparent</item> <!-- 自己想要的背景 -->
+        <item name="android:backgroundDimEnabled">false</item> <!-- 模糊 -->
     </style>
 
     <!-- 设置sharewindow 样式 -->

@@ -52,7 +52,7 @@ import com.hanmimei.entity.ShareVo;
 import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.StockVo;
-import com.hanmimei.listener.GoodsPageChangeListener;
+import com.hanmimei.listener.ViewPageChangeListener;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.Http2Utils;
@@ -395,7 +395,7 @@ public class PingouDetailActivity extends BaseActivity implements
 			
 		});
 		pagerSlidingTabStrip
-				.setOnPageChangeListener(new GoodsPageChangeListener() {
+				.setOnPageChangeListener(new ViewPageChangeListener() {
 
 					@Override
 					public void onPageSelected(int i) {

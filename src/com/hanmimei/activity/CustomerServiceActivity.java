@@ -97,7 +97,7 @@ public class CustomerServiceActivity extends BaseActivity implements
 	}
 
 	private void initViewData() {
-		ImageLoaderUtils.loadImage(this, sku.getInvImg(), imgView);
+		ImageLoaderUtils.loadImage(sku.getInvImg(), imgView);
 		name.setText(sku.getSkuTitle());
 		price.setText(getResources().getString(R.string.price, sku.getPrice()));
 		num.setText(getResources().getString(R.string.num, sku.getAmount()));

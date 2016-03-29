@@ -1,6 +1,7 @@
 package com.hanmimei.manager;
 
 import android.content.Context;
+import android.view.View;
 
 import com.hanmimei.R;
 import com.hanmimei.fragment.FragmentTabHost;
@@ -18,6 +19,20 @@ public class BadgeViewManager {
 	 */
 	public void initBadgeViewManager(Context mContext, FragmentTabHost tabHost) {
 		this.view = new BadgeView(mContext, tabHost.getTabWidget(), 1);
+		view.setTextColor(mContext.getResources().getColor(R.color.theme));
+		view.setBackgroundResource(R.drawable.bg_badgeview2);
+		view.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
+		view.setTextSize(10);
+		view.setText("0");
+	}
+	/**
+	 * 初始化购物车数量管理者
+	 * 
+	 * @param mContext
+	 * @param mListView
+	 */
+	public void initBadgeViewManager(Context mContext,View target) {
+		this.view = new BadgeView(mContext, target);
 		view.setTextColor(mContext.getResources().getColor(R.color.theme));
 		view.setBackgroundResource(R.drawable.bg_badgeview2);
 		view.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);

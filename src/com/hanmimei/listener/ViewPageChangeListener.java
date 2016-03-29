@@ -2,7 +2,7 @@ package com.hanmimei.listener;
 
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 
-public class GoodsPageChangeListener implements OnPageChangeListener {
+public class ViewPageChangeListener implements OnPageChangeListener {
 
 	@Override
 	public void onPageScrollStateChanged(int arg0) {

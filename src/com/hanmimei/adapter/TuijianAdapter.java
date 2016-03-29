@@ -66,7 +66,7 @@ public class TuijianAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		ImageLoaderUtils.loadImage(activity, theme.getItemImgForImgInfo()
+		ImageLoaderUtils.loadImage( theme.getItemImgForImgInfo()
 				.getUrl(), holder.img);
 		holder.title.setText(theme.getItemTitle());
 		if (theme.getItemDiscount() > 0) {

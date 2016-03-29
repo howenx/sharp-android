@@ -67,6 +67,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		ActionBarUtil.setActionBarStyle(this, "支付结算", this);
+		closeSwipeBack();
 		setContentView(R.layout.goods_balance_layout);
 		// 获取要购买的数据
 		car = (ShoppingCar) getIntent().getSerializableExtra("car");

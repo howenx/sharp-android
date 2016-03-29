@@ -12,7 +12,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,7 +20,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
@@ -46,9 +44,10 @@ import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
 import com.umeng.analytics.MobclickAgent;
+import com.viewpagerindicator.BaseIconFragment;
 
-public class ShoppingCartFragment extends Fragment implements OnClickListener,
-		OnRefreshListener2<ListView> {
+public class ShoppingCartFragment extends BaseIconFragment implements
+		OnClickListener, OnRefreshListener2<ListView> {
 
 	private PullToRefreshListView mListView;
 	private LinearLayout bottom;
@@ -85,7 +84,7 @@ public class ShoppingCartFragment extends Fragment implements OnClickListener,
 		mListView.setAdapter(adapter);
 		loadData();
 		return view;
-	}	
+	}
 
 	private void loadData() {
 		user = activity.getUser();
@@ -138,46 +137,48 @@ public class ShoppingCartFragment extends Fragment implements OnClickListener,
 
 	private void getData() {
 		activity.getLoading().show();
-		Http2Utils.doPostRequestTask2(activity,null,UrlUtil.CAR_LIST_URL,new VolleyJsonCallback() {
-			
-			@Override
-			public void onSuccess(String result) {
-				ShoppingCar car = DataParser.parserShoppingCar(result);
-				afterLoadData(car);
-			}
-			
-			@Override
-			public void onError() {
-				activity.getLoading().dismiss();
-				attention.setVisibility(View.INVISIBLE);
-				bottom.setVisibility(View.GONE);
-				mListView.setVisibility(View.GONE);
-				no_data.setVisibility(View.GONE);
-				no_net.setVisibility(View.VISIBLE);
-			}
-		},array.toString());
+		Http2Utils.doPostRequestTask2(activity, null, UrlUtil.CAR_LIST_URL,
+				new VolleyJsonCallback() {
+
+					@Override
+					public void onSuccess(String result) {
+						ShoppingCar car = DataParser.parserShoppingCar(result);
+						afterLoadData(car);
+					}
+
+					@Override
+					public void onError() {
+						activity.getLoading().dismiss();
+						attention.setVisibility(View.INVISIBLE);
+						bottom.setVisibility(View.GONE);
+						mListView.setVisibility(View.GONE);
+						no_data.setVisibility(View.GONE);
+						no_net.setVisibility(View.VISIBLE);
+					}
+				}, array.toString());
 	}
-	
-	private int getShoppingCarNum(List<Customs> list){
+
+	private int getShoppingCarNum(List<Customs> list) {
 		int nums = 0;
-		for(int i = 0; i < list.size(); i ++){
+		for (int i = 0; i < list.size(); i++) {
 			List<ShoppingGoods> goods = list.get(i).getList();
-			for(int j = 0; j < goods.size(); j ++){
+			for (int j = 0; j < goods.size(); j++) {
 				nums = nums + goods.get(j).getGoodsNums();
 			}
 		}
-		return nums ;
+		return nums;
 	}
 
-	private void afterLoadData(ShoppingCar car){
+	private void afterLoadData(ShoppingCar car) {
 		activity.getLoading().dismiss();
 		mListView.onRefreshComplete();
 		data.clear();
 		BadgeViewManager.getInstance().setShopCartGoodsNum(0);
 		if (car.getMessage() != null) {
 			if (car.getList() != null && car.getList().size() > 0) {
-				
-				BadgeViewManager.getInstance().setShopCartGoodsNum(getShoppingCarNum(car.getList()));
+
+				BadgeViewManager.getInstance().setShopCartGoodsNum(
+						getShoppingCarNum(car.getList()));
 				attention.setVisibility(View.VISIBLE);
 				no_data.setVisibility(View.GONE);
 				no_net.setVisibility(View.GONE);
@@ -185,22 +186,20 @@ public class ShoppingCartFragment extends Fragment implements OnClickListener,
 				mListView.setVisibility(View.VISIBLE);
 				data.addAll(car.getList());
 				//
-				ShoppingCarMenager.getInstance()
-						.initShoppingCarMenager(activity, adapter,
-								data, false, attention, check_all,
-								total_price, pay, no_data, bottom,mListView);
-				ShoppingCarMenager.getInstance().initDrawable(
-						getActivity());
+				ShoppingCarMenager.getInstance().initShoppingCarMenager(
+						activity, adapter, data, false, attention, check_all,
+						total_price, pay, no_data, bottom, mListView);
+				ShoppingCarMenager.getInstance().initDrawable(getActivity());
 				clearPrice();
 				//
 			} else {
 				attention.setVisibility(View.INVISIBLE);
 				bottom.setVisibility(View.GONE);
 				mListView.setVisibility(View.GONE);
-				if(car.getMessage().getCode() == 1015){
+				if (car.getMessage().getCode() == 1015) {
 					no_data.setVisibility(View.VISIBLE);
 					no_net.setVisibility(View.GONE);
-				}else{
+				} else {
 					no_data.setVisibility(View.GONE);
 					no_net.setVisibility(View.VISIBLE);
 				}
@@ -214,28 +213,29 @@ public class ShoppingCartFragment extends Fragment implements OnClickListener,
 		}
 		adapter.notifyDataSetChanged();
 	}
+
 	private void getNetData() {
 		activity.getLoading().show();
-		Http2Utils.doGetRequestTask(activity, activity.getHeaders(),UrlUtil.GET_CAR_LIST,new VolleyJsonCallback() {
-			
-			@Override
-			public void onSuccess(String result) {
-				ShoppingCar car = DataParser.parserShoppingCar(result);
-				afterLoadData(car);
-			}
-			
-			@Override
-			public void onError() {
-				activity.getLoading().dismiss();
-				attention.setVisibility(View.INVISIBLE);
-				bottom.setVisibility(View.GONE);
-				mListView.setVisibility(View.GONE);
-				no_data.setVisibility(View.GONE);
-				no_net.setVisibility(View.VISIBLE);
-			}
-		});
-	}
+		Http2Utils.doGetRequestTask(activity, activity.getHeaders(),
+				UrlUtil.GET_CAR_LIST, new VolleyJsonCallback() {
 
+					@Override
+					public void onSuccess(String result) {
+						ShoppingCar car = DataParser.parserShoppingCar(result);
+						afterLoadData(car);
+					}
+
+					@Override
+					public void onError() {
+						activity.getLoading().dismiss();
+						attention.setVisibility(View.INVISIBLE);
+						bottom.setVisibility(View.GONE);
+						mListView.setVisibility(View.GONE);
+						no_data.setVisibility(View.GONE);
+						no_net.setVisibility(View.VISIBLE);
+					}
+				});
+	}
 
 	private void findView(View view) {
 		bottom = (LinearLayout) view.findViewById(R.id.bottom);
@@ -375,7 +375,7 @@ public class ShoppingCartFragment extends Fragment implements OnClickListener,
 		public void onReceive(Context context, Intent intent) {
 			if (intent.getAction().equals(
 					AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR)) {
-					loadData();
+				loadData();
 			} else if (intent.getAction().equals(
 					AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION)) {
 				// clearPrice();
@@ -398,14 +398,27 @@ public class ShoppingCartFragment extends Fragment implements OnClickListener,
 		// clearPrice();
 		loadData();
 	}
-	
+
 	public void onResume() {
-	    super.onResume();
-	    MobclickAgent.onPageStart("ShoppingCartFragment"); //统计页面，"MainScreen"为页面名称，可自定义
+		super.onResume();
+		MobclickAgent.onPageStart("ShoppingCartFragment"); // 统计页面，"MainScreen"为页面名称，可自定义
 	}
+
 	public void onPause() {
-	    super.onPause();
-	    MobclickAgent.onPageEnd("ShoppingCartFragment"); 
+		super.onPause();
+		MobclickAgent.onPageEnd("ShoppingCartFragment");
+	}
+
+	@Override
+	public String getTitle() {
+		// TODO Auto-generated method stub
+		return " 购物车";
+	}
+
+	@Override
+	public int getIconId() {
+		// TODO Auto-generated method stub
+		return R.drawable.tab_shopping;
 	}
 
 }

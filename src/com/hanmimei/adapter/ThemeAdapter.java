@@ -73,8 +73,7 @@ public class ThemeAdapter extends BaseAdapter {
 		params.height = viewWidth - 10;
 		params.width = viewWidth - 10;
 		holder.img.setLayoutParams(params);
-		ImageLoaderUtils.loadImage(activity, theme.getItemImgForImgInfo()
-				.getUrl(), holder.img);
+		ImageLoaderUtils.loadImage(theme.getItemImgForImgInfo().getUrl(), holder.img);
 		holder.title.setText(theme.getItemTitle());
 		
 		

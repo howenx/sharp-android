@@ -15,7 +15,7 @@ public class CustomGifView extends View{
 	/** 
      * 默认为1秒 
      */  
-    private static final int DEFAULT_MOVIE_DURATION = 650;  
+    private static final int DEFAULT_MOVIE_DURATION = 1000;  
   
     private int mMovieResourceId;  
   

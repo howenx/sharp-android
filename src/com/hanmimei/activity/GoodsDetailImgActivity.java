@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.diegocarloslima.byakugallery.lib.GalleryViewPager;
 import com.hanmimei.R;
 import com.hanmimei.adapter.GoodsDetailImgPagerAdapter;
-import com.hanmimei.listener.GoodsPageChangeListener;
+import com.hanmimei.listener.ViewPageChangeListener;
 import com.sliding.finish.SwipeBackActivity;
 import com.umeng.analytics.MobclickAgent;
 
@@ -38,7 +38,7 @@ public class GoodsDetailImgActivity extends SwipeBackActivity {
 				getSupportFragmentManager(), imgUrls));
 		mViewPager.setOffscreenPageLimit(imgUrls.size());
 		mViewPager.setCurrentItem(position);
-		mViewPager.addOnPageChangeListener(new GoodsPageChangeListener() {
+		mViewPager.addOnPageChangeListener(new ViewPageChangeListener() {
 
 			@Override
 			public void onPageSelected(int arg0) {
