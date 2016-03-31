@@ -50,7 +50,6 @@ public class MainTestActivity extends BaseActivity implements OnClickListener {
 	private VersionVo info;
 
 	private MainBroadCastReceiver netReceiver;
-//	private LinearLayout guanggao;
 	private ViewPager mViewPager;
 	// 极光推送
 	public static boolean isForeground = false;
@@ -68,12 +67,7 @@ public class MainTestActivity extends BaseActivity implements OnClickListener {
 		ActionBarUtil.setActionBarStyle(this, "韩秘美",R.drawable.hmm_icon_message_n, false, this);
 		// 关闭左滑退出
 		closeSwipeBack();
-//		guanggao = (LinearLayout) findViewById(R.id.guanggao);
-//		guanggao.setOnClickListener(this);
-		
 //		showGuangGao();
-		findViewById(R.id.close).setOnClickListener(this);
-		findViewById(R.id.gg_img).setOnClickListener(this);
 		initViewPager();
 		registerReceivers();
 		doCheckVersionTask();
@@ -175,16 +169,6 @@ public class MainTestActivity extends BaseActivity implements OnClickListener {
 				DoJumpUtils.doJump(this, SettingActivity.class);
 			}
 			break;
-//		case R.id.close:
-//			guanggao.setVisibility(View.GONE);
-//			break;
-//		case R.id.gg_img:
-//			ToastUtils.Toast(this, "你点击了广告！！！");
-//			guanggao.setVisibility(View.GONE);
-//			break;
-//		case R.id.guanggao:
-//			guanggao.setVisibility(View.GONE);
-//			break;
 		default:
 			break;
 		}
