@@ -32,7 +32,7 @@
                         android:id="@+id/slider"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/bg_underline_selected" />
+                        android:background="@drawable/bg_gray_boarder" />
 
                     <TextView
                         android:id="@+id/itemTitle"

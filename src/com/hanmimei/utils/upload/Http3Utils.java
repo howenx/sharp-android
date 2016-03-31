@@ -50,7 +50,6 @@ public class Http3Utils {
 				callback.onError();
 			}
 		},headers);
-//		request.setTag("VolleyRequest");
 		request.setRetryPolicy(new DefaultRetryPolicy(60 * 1000, 1, 1.0f));
 		mActivity.getMyApplication().getRequestQueue().add(request);
 	}

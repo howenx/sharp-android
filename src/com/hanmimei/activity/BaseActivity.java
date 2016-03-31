@@ -36,6 +36,7 @@ import com.hanmimei.entity.PinResult;
 import com.hanmimei.entity.User;
 import com.hanmimei.entity.VersionVo;
 import com.hanmimei.manager.ThreadPoolManager;
+import com.hanmimei.override.VolleyRequestFilter;
 import com.hanmimei.utils.GlideLoaderUtils;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
@@ -130,6 +131,7 @@ public class BaseActivity extends SwipeBackActivity  {
 	@Override
 	protected void onStop() {
 		super.onStop();
+		getMyApplication().getRequestQueue().cancelAll(new VolleyRequestFilter());
 		if (!isAppOnForeground()) {
 			setClipboard();
 		}
@@ -147,7 +149,6 @@ public class BaseActivity extends SwipeBackActivity  {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		getMyApplication().getRequestQueue().cancelAll("request");
 		if (!isAppOnForeground()) {
 			setClipboard();
 		}

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/bg_gray_boarder"
     android:orientation="vertical" >
 
     <com.hanmimei.view.SquareLayout
@@ -48,13 +48,13 @@
     </com.hanmimei.view.SquareLayout>
 
     <View
-        android:layout_width="match_parent"
+        android:layout_width="150dp"
         android:layout_height="0.1px"
         android:background="@color/qianhui" />
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:ellipsize="end"
@@ -63,7 +63,7 @@
         android:textSize="13sp" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="5dp"
