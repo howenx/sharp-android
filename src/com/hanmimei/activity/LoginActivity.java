@@ -229,10 +229,10 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 //			platform = SHARE_MEDIA.QQ;
 //			doOtherLogin();
 //			break;
-//		case R.id.weixin:
-//			platform = SHARE_MEDIA.WEIXIN;
-//			doOtherLogin();
-//			break;
+		case R.id.weixin:
+			platform = SHARE_MEDIA.WEIXIN;
+			doOtherLogin();
+			break;
 //		case R.id.sina:
 //			platform = SHARE_MEDIA.SINA;
 //			doOtherLogin();
@@ -242,34 +242,33 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		}
 	}
 
-//	private void doOtherLogin() {
-//		mShareAPI = UMShareAPI.get(this);
-//		mShareAPI.doOauthVerify(this, platform, umAuthListener);
-//	}
+	private void doOtherLogin() {
+		mShareAPI = UMShareAPI.get(this);
+		mShareAPI.doOauthVerify(this, platform, umAuthListener);
+	}
+	private UMAuthListener umAuthListener = new UMAuthListener() {
+		@Override
+		public void onComplete(SHARE_MEDIA platform, int action,
+				Map<String, String> data) {
+			Toast.makeText(getApplicationContext(), "登陆成功", Toast.LENGTH_SHORT)
+					.show();
 
-//	private UMAuthListener umAuthListener = new UMAuthListener() {
-//		@Override
-//		public void onComplete(SHARE_MEDIA platform, int action,
-//				Map<String, String> data) {
-//			Toast.makeText(getApplicationContext(), "登陆成功", Toast.LENGTH_SHORT)
-//					.show();
-//
-//		}
-//
-//		@Override
-//		public void onError(SHARE_MEDIA platform, int action, Throwable t) {
-//			Toast.makeText(getApplicationContext(), "登陆失败", Toast.LENGTH_SHORT)
-//					.show();
-//		}
-//
-//		@Override
-//		public void onCancel(SHARE_MEDIA platform, int action) {
-//			Toast.makeText(getApplicationContext(), "登陆取消", Toast.LENGTH_SHORT)
-//					.show();
-//		}
-//	};
-//	private SHARE_MEDIA platform;
-//	private UMShareAPI mShareAPI = null;
+		}
+
+		@Override
+		public void onError(SHARE_MEDIA platform, int action, Throwable t) {
+			Toast.makeText(getApplicationContext(), "登陆失败", Toast.LENGTH_SHORT)
+					.show();
+		}
+
+		@Override
+		public void onCancel(SHARE_MEDIA platform, int action) {
+			Toast.makeText(getApplicationContext(), "登陆取消", Toast.LENGTH_SHORT)
+					.show();
+		}
+	};
+	private SHARE_MEDIA platform;
+	private UMShareAPI mShareAPI = null;
 
 	@SuppressLint("ShowToast")
 	private void loadImg() {

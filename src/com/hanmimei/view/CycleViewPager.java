@@ -21,6 +21,7 @@ import android.widget.RelativeLayout;
 
 import com.hanmimei.R;
 import com.hanmimei.activity.GoodsDetailActivity;
+import com.hanmimei.activity.PingouDetailActivity;
 import com.hanmimei.activity.ThemeGoodsActivity;
 import com.hanmimei.entity.Slider;
 
@@ -301,6 +302,12 @@ public class CycleViewPager extends Fragment implements OnPageChangeListener{
 						}else if(infos.get(currentPosition - 1).getType().equals("T")){
 							if(!infos.get(currentPosition - 1).getUrl().equals("")){
 								Intent intent = new Intent(getActivity(), ThemeGoodsActivity.class);
+								intent.putExtra("url", infos.get(currentPosition - 1).getUrl());
+								getActivity().startActivity(intent);
+							}
+						}else if(infos.get(currentPosition - 1).getType().equals("P")){
+							if(!infos.get(currentPosition - 1).getUrl().equals("")){
+								Intent intent = new Intent(getActivity(), PingouDetailActivity.class);
 								intent.putExtra("url", infos.get(currentPosition - 1).getUrl());
 								getActivity().startActivity(intent);
 							}

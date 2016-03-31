@@ -169,21 +169,6 @@ public class MyCollectionActivity extends BaseActivity implements
 			}
 		});
 	}
-
-	// private void removeListItem(View rowView,final int position){
-	// final Animation animation = (Animation)
-	// AnimationUtils.loadAnimation(rowView.getContext(), R.anim.item_dismiss);
-	// animation.setAnimationListener(new AnimationListener() {
-	// public void onAnimationStart(Animation animation) {}
-	// public void onAnimationRepeat(Animation animation) {}
-	// public void onAnimationEnd(Animation animation) {
-	// datas.remove(position);
-	// adapter.notifyDataSetChanged();
-	// animation.cancel();
-	// }
-	// });
-	// rowView.startAnimation(animation);
-	// }
 	// 广播接收者 注册
 	private void registerReceivers() {
 		netReceiver = new MyBroadCastReceiver();

@@ -51,6 +51,7 @@ import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.PreferenceUtil.IntroConfig;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.CycleViewPager;
+import com.hanmimei.view.IntroMsgDialog;
 import com.hanmimei.view.ViewFactory;
 import com.umeng.analytics.MobclickAgent;
 import com.viewpagerindicator.BaseIconFragment;
@@ -125,14 +126,14 @@ public class HomeFragment extends BaseIconFragment implements
 		findHeaderView();
 		loadData();
 		addHeaderView();
-		IntroMsg(view);
+		IntroMsg();
 		return view;
 	}
 	
-	private void IntroMsg(View view){
+	private void IntroMsg(){
 		if(IntroConfig.getIntroMsgCfg(getActivity()).equals(IntroConfig.INTRO_CONFIG_VALUE_IS)){
-			view.findViewById(R.id.page_indro_message).setVisibility(View.VISIBLE);
-			view.findViewById(R.id.page_indro_message).setOnClickListener(this);
+			IntroMsgDialog dialog= new IntroMsgDialog(getActivity());
+			dialog.show();
 		}
 	}
 	
@@ -358,10 +359,6 @@ public class HomeFragment extends BaseIconFragment implements
 		case R.id.reload:
 			no_net.setVisibility(View.GONE);
 			getNetData();
-			break;
-		case R.id.page_indro_message:
-			v.setVisibility(View.GONE);
-			IntroConfig.putIntroMsgCfg(mContext, IntroConfig.INTRO_CONFIG_VALUE_NO);
 			break;
 		default:
 			break;

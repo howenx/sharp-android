@@ -19,7 +19,6 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -34,7 +33,6 @@ import com.hanmimei.entity.HMessage;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.CommonUtil;
-import com.hanmimei.utils.DoJumpUtils;
 import com.hanmimei.utils.HttpUtils;
 
 @SuppressLint("NewApi")
@@ -184,8 +182,11 @@ public class CheckPhoneActivity extends BaseActivity implements OnClickListener 
 			@Override
 			public void onClick(View arg0) {
 				alertDialog.dismiss();
-				DoJumpUtils.doJump(getActivity(), ForgetPwdActivity.class);
-				finish();
+				Intent intent = new Intent(CheckPhoneActivity.this,
+						RegistActivity.class);
+				intent.putExtra("phone", phone_num);
+				intent.putExtra("from", "forget");
+				startActivity(intent);
 			}
 		}, "该手机号已经注册", "取消", "找回密码");
 	}
@@ -193,11 +194,8 @@ public class CheckPhoneActivity extends BaseActivity implements OnClickListener 
 	private void registerReceivers() {
 		netReceiver = new MyBroadCastReceiver();
 		IntentFilter intentFilter = new IntentFilter();
-		intentFilter
-				.addAction(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR);
 		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION);
-		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_QUIT_LOGIN_ACTION);
-		getActivity().registerReceiver(netReceiver, intentFilter);
+		registerReceiver(netReceiver, intentFilter);
 	}
 	private class MyBroadCastReceiver extends BroadcastReceiver {
 		@Override
@@ -212,6 +210,6 @@ public class CheckPhoneActivity extends BaseActivity implements OnClickListener 
 	public void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		getActivity().unregisterReceiver(netReceiver);
+		unregisterReceiver(netReceiver);
 	}
 }

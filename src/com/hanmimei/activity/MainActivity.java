@@ -12,11 +12,12 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
@@ -58,9 +59,10 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 
 	private MainBroadCastReceiver netReceiver;
 	private FragmentTabHost mTabHost;
-	private LinearLayout guanggao;
+//	private LinearLayout guanggao;
 	//极光推送
 	public static boolean isForeground = false;
+	private AlertDialog dialog;
 	
 //	private boolean isHome = true;
 	@Override
@@ -70,8 +72,9 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 		ActionBarUtil.setActionBarStyle(this, "", 0, false, this);
 		//关闭左滑退出
 		closeSwipeBack();
-		guanggao = (LinearLayout) findViewById(R.id.guanggao);
-		guanggao.setOnClickListener(this);
+		showGuangGao();
+//		guanggao = (LinearLayout) findViewById(R.id.guanggao);
+//		guanggao.setOnClickListener(this);
 		mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
 		mTabHost.setup(this, getSupportFragmentManager(), R.id.realcontent);
 		findViewById(R.id.close).setOnClickListener(this);
@@ -136,7 +139,28 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 		mTabHost.addTab(tab, clzss, null);
 	}
 	
-
+	@SuppressLint("InflateParams") 
+	private void showGuangGao(){
+		View view = LayoutInflater.from(this).inflate(R.layout.guanggao_layout, null);
+		dialog = new AlertDialog.Builder(this).create();
+		dialog.setView(view);
+		dialog.show();
+		view.findViewById(R.id.close).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				dialog.dismiss();
+			}
+		});
+		view.findViewById(R.id.gg_img).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+				ToastUtils.Toast(MainActivity.this, "你点击了广告！！！");
+			}
+		});
+	}
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -151,16 +175,16 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 //				DoJumpUtils.doJump(this, SettingActivity.class);
 //			}
 			break;
-		case R.id.close:
-			guanggao.setVisibility(View.GONE);
-			break;
-		case R.id.gg_img:
-			ToastUtils.Toast(this, "你点击了广告！！！");
-			guanggao.setVisibility(View.GONE);
-			break;
-		case R.id.guanggao:
-			guanggao.setVisibility(View.GONE);
-			break;
+//		case R.id.close:
+//			guanggao.setVisibility(View.GONE);
+//			break;
+//		case R.id.gg_img:
+//			ToastUtils.Toast(this, "你点击了广告！！！");
+//			guanggao.setVisibility(View.GONE);
+//			break;
+//		case R.id.guanggao:
+//			guanggao.setVisibility(View.GONE);
+//			break;
 		default:
 			break;
 		}

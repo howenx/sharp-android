@@ -299,13 +299,13 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 				HMessage result = (HMessage) msg.obj;
 				if (result.getCode() != null) {
 					if (result.getCode() == 200) {
-						if (isRegist) {
-							doLogin();
-						} else {
-							sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_FORGET_OK_ACTION));
-							finish();
-							
-						}
+//						if (isRegist) {
+							doLogin(result);
+//						} else {
+//							sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_FORGET_OK_ACTION));
+//							finish();
+//							
+//						}
 					} else {
 						CommonUtil.setAttention(attention,result.getMessage());
 					}
@@ -333,45 +333,12 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 					CommonUtil.setAttention(attention,"网络连接异常，请检查网络");
 				}
 				break;
-			case 4:
-				HMessage mhMessage = (HMessage) msg.obj;
-				if (mhMessage.getCode() != null) {
-					if (mhMessage.getCode() == 200) {
-						User user = new User();
-						user.setUserId(0);
-						user.setToken(mhMessage.getTag());
-						user.setIsBind(false);
-						user.setExpired(DateUtil.turnToDate(mhMessage.getTime()));
-						user.setLast_login(DateUtil.getCurrentDate());
-						HMMApplication application = (HMMApplication) getApplication();
-						application.setLoginUser(user);
-						// 登录用户存储到本地sql
-						userDao.deleteAll();
-						userDao.insert(user);
-						if (goodsDao.queryBuilder().build().list() != null
-								&& goodsDao.queryBuilder().build().list()
-										.size() > 0) {
-							sendShoppingCar();
-						} else {
-							// startActivity(intent);
-							sendBroadcast(new Intent(
-									AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION));
-//							DoJumpUtils.doJump(RegistActivity.this,
-//									MainActivity.class);
-							finish();
-						}
-					} else {
-						CommonUtil.setAttention(attention,"注册成功，自动登录失败，请自行登陆");
-					}
-				} else {
-					CommonUtil.setAttention(attention,"注册成功，自动登录失败，请自行登陆");
-				}
-				break;
 			case 5:
 				goodsDao.deleteAll();
 				sendBroadcast(new Intent(
 						AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION));
-				DoJumpUtils.doJump(RegistActivity.this, MainActivity.class);
+//				DoJumpUtils.doJump(RegistActivity.this, MainActivity.class);
+				finish();
 				break;
 			default:
 				break;
@@ -379,6 +346,28 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 		}
 
 	};
+	private void doLogin(HMessage hMessage){
+		User user = new User();
+		user.setUserId(0);
+		user.setToken(hMessage.getTag());
+		user.setIsBind(false);
+		user.setExpired(DateUtil.turnToDate(hMessage.getTime()));
+		user.setLast_login(DateUtil.getCurrentDate());
+		HMMApplication application = (HMMApplication) getApplication();
+		application.setLoginUser(user);
+		// 登录用户存储到本地sql
+		userDao.deleteAll();
+		userDao.insert(user);
+		if (goodsDao.queryBuilder().build().list() != null
+				&& goodsDao.queryBuilder().build().list()
+						.size() > 0) {
+			sendShoppingCar();
+		} else {
+			sendBroadcast(new Intent(
+					AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION));
+			finish();
+		}
+	}
 
 	private UserDao userDao;
 	private ShoppingGoodsDao goodsDao;
@@ -432,22 +421,22 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 
 	}
 
-	private void doLogin() {
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				List<NameValuePair> params = new ArrayList<NameValuePair>();
-				params.add(new BasicNameValuePair("name", phone));
-				params.add(new BasicNameValuePair("password", pwd));
-				params.add(new BasicNameValuePair("code", "-1"));
-				String result = HttpUtils.postCommon(UrlUtil.LOGIN_URL, params);
-				HMessage loginInfo = DataParser.paserResultMsg(result);
-				Message msg = mHandler.obtainMessage(4);
-				msg.obj = loginInfo;
-				mHandler.sendMessage(msg);
-			}
-		}).start();
-	}
+//	private void doLogin() {
+//		new Thread(new Runnable() {
+//			@Override
+//			public void run() {
+//				List<NameValuePair> params = new ArrayList<NameValuePair>();
+//				params.add(new BasicNameValuePair("name", phone));
+//				params.add(new BasicNameValuePair("password", pwd));
+//				params.add(new BasicNameValuePair("code", "-1"));
+//				String result = HttpUtils.postCommon(UrlUtil.LOGIN_URL, params);
+//				HMessage loginInfo = DataParser.paserResultMsg(result);
+//				Message msg = mHandler.obtainMessage(4);
+//				msg.obj = loginInfo;
+//				mHandler.sendMessage(msg);
+//			}
+//		}).start();
+//	}
 
 
 }

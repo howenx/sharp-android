@@ -11,12 +11,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -40,7 +38,6 @@ import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
-import com.umeng.analytics.MobclickAgent;
 
 /*
  * 同shoppingcarfragment
@@ -51,7 +48,6 @@ public class ShoppingCarActivity extends BaseActivity implements
 	private PullToRefreshListView mListView;
 	private LinearLayout bottom;
 	private TextView total_price;
-	private ImageView check_all;
 	private TextView pay;
 	private TextView attention;
 	private LinearLayout no_data;
@@ -61,9 +57,6 @@ public class ShoppingCarActivity extends BaseActivity implements
 	private ShoppingCarPullListAdapter adapter;
 	private User user;
 	private ShoppingGoodsDao goodsDao;
-
-	private Drawable check_Drawable;
-	private Drawable uncheck_Drawable;
 
 	private ShoppingCar shoppingCar;
 	private boolean isBack = false;
@@ -80,8 +73,6 @@ public class ShoppingCarActivity extends BaseActivity implements
 		goodsDao = getDaoSession().getShoppingGoodsDao();
 		shoppingCar = new ShoppingCar();
 		data = new ArrayList<Customs>();
-		check_Drawable = getResources().getDrawable(R.drawable.hmm_radio_select);
-		uncheck_Drawable = getResources().getDrawable(R.drawable.hmm_radio_normal);
 		findView();
 		loadData();
 	}
@@ -174,10 +165,8 @@ public class ShoppingCarActivity extends BaseActivity implements
 				//
 				ShoppingCarMenager.getInstance()
 						.initShoppingCarMenager(ShoppingCarActivity.this, adapter,
-								data, false, attention, check_all,
+								data, attention, 
 								total_price, pay, no_data, bottom,mListView);
-				ShoppingCarMenager.getInstance().initDrawable(
-						getActivity());
 				clearPrice();
 				//
 			} else {
@@ -224,12 +213,6 @@ public class ShoppingCarActivity extends BaseActivity implements
 	private void findView() {
 		bottom = (LinearLayout) findViewById(R.id.bottom);
 		total_price = (TextView) findViewById(R.id.total_price);
-		check_all = (ImageView) findViewById(R.id.all);
-		if (ShoppingCarMenager.getInstance().getChecked()) {
-			check_all.setImageDrawable(check_Drawable);
-		} else {
-			check_all.setImageDrawable(uncheck_Drawable);
-		}
 		pay = (TextView) findViewById(R.id.pay);
 		go_home = (TextView)findViewById(R.id.go_home);
 		go_home.setOnClickListener(this);
@@ -241,7 +224,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 		mListView.setMode(Mode.PULL_DOWN_TO_REFRESH);
 		no_data = (LinearLayout) findViewById(R.id.data_null);
 		no_net = (LinearLayout) findViewById(R.id.no_net);
-		check_all.setOnClickListener(this);
+//		check_all.setOnClickListener(this);
 		adapter = new ShoppingCarPullListAdapter(data, this);
 		mListView.setAdapter(adapter);
 		reload = (TextView) findViewById(R.id.reload);
@@ -251,15 +234,6 @@ public class ShoppingCarActivity extends BaseActivity implements
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.all:
-			if (ShoppingCarMenager.getInstance().getChecked()) {
-				check_all.setImageDrawable(uncheck_Drawable);
-				clearPrice();
-			} else {
-				check_all.setImageDrawable(check_Drawable);
-				doPrice();
-			}
-			break;
 		case R.id.pay:
 			List<Customs> customsList = new ArrayList<Customs>();
 			for (int i = 0; i < data.size(); i++) {

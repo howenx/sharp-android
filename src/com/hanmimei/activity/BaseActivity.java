@@ -24,7 +24,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.Request;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.gson.Gson;
 import com.hanmimei.R;
@@ -37,9 +36,9 @@ import com.hanmimei.entity.PinResult;
 import com.hanmimei.entity.User;
 import com.hanmimei.entity.VersionVo;
 import com.hanmimei.manager.ThreadPoolManager;
+import com.hanmimei.utils.GlideLoaderUtils;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
-import com.hanmimei.utils.GlideLoaderUtils;
 import com.hanmimei.utils.SystemBarTintManager;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.LoadingDialog;
@@ -154,6 +153,7 @@ public class BaseActivity extends SwipeBackActivity  {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	protected void setClipboard() {
 		// 退出或者app进入后台将口令扔到剪切板
 		ClipboardManager cbm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);

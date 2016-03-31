@@ -3,14 +3,10 @@ package com.hanmimei.manager;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.hanmimei.R;
 import com.hanmimei.adapter.ShoppingCarPullListAdapter;
@@ -19,7 +15,6 @@ import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.utils.CommonUtil;
 
 public class ShoppingCarMenager {
-	private ImageView checkBox_b;
 	private TextView totalPrice_t;
 	private TextView pay;
 	private LinearLayout no_data;
@@ -29,13 +24,8 @@ public class ShoppingCarMenager {
 	//
 	private int nums_e = 0;
 	private double totalPrice_e = 0;
-	private Drawable check_Drawable;
-	private Drawable uncheck_Drawable;
-	private boolean isSelected = false;
 	private String customName;
 	private int bottommorePrice;
-	
-//	private Activity activity;
 	private List<Customs> list = new ArrayList<Customs>();
 
 	private static class ShopCartManagerHolder {
@@ -45,18 +35,11 @@ public class ShoppingCarMenager {
 	public static ShoppingCarMenager getInstance() {
 		return ShopCartManagerHolder.instance;
 	}
-	public void initDrawable(Context mContext){
-		check_Drawable = mContext.getResources().getDrawable(R.drawable.hmm_radio_select);
-		uncheck_Drawable = mContext.getResources().getDrawable(R.drawable.hmm_radio_normal);
-	}
-	public void initShoppingCarMenager(Context mContext, ShoppingCarPullListAdapter adapter, List<Customs> list, boolean isSelected, TextView attention, ImageView checkBox, TextView totalPrice, TextView pay, LinearLayout no_data, LinearLayout bottom,PullToRefreshListView mListView){
-//		this.activity = (Activity) mContext;
+	public void initShoppingCarMenager(Context mContext, ShoppingCarPullListAdapter adapter, List<Customs> list, TextView attention, TextView totalPrice, TextView pay, LinearLayout no_data, LinearLayout bottom,PullToRefreshListView mListView){
 		this.adapter = adapter;
 		this.list.clear();
-		this.isSelected = isSelected;
 		this.list.addAll(list);
 		this.attention = attention;
-		this.checkBox_b = checkBox;
 		this.totalPrice_t = totalPrice;
 		this.pay = pay;
 		this.no_data = no_data;
@@ -69,12 +52,19 @@ public class ShoppingCarMenager {
 	
 	public void isMoreThan(){
 		boolean isfirst = false;
+		List<Customs> selectCustoms = new ArrayList<Customs>();
 		for(int i = 0; i < list.size(); i ++){
+			boolean customHas = false;
 			double morePrice = 0;
 			List<ShoppingGoods> goods = list.get(i).getList();
 			for(int j = 0; j < goods.size(); j ++){
-				if(goods.get(j).getState().equals("G"))
+				if(goods.get(j).getState().equals("G")){
 					morePrice = morePrice + goods.get(j).getGoodsPrice()* goods.get(j).getGoodsNums();
+					customHas = true;
+				}
+			}
+			if(customHas){
+				selectCustoms.add(list.get(i));	
 			}
 			if(morePrice > list.get(i).getPostalLimit()){
 				customName = list.get(i).getInvAreaNm();
@@ -82,11 +72,26 @@ public class ShoppingCarMenager {
 				isfirst = true;
 			}
 		}
-		if(isfirst){
-			setPayNoClick();
+		if(isDifCustoms(selectCustoms)){
+			setPayNoClick(0);
 		}else{
-			setPayClick();
+			if(isfirst){
+				setPayNoClick(1);
+			}else{
+				setPayClick();
+			}
 		}
+		
+	}
+	//判断选中的商品所属仓库是否一致
+	private boolean isDifCustoms(List<Customs> list){
+		boolean isDif = false;
+		for(int i = 0; i < list.size() - 1; i ++){
+			if(!list.get(i).getInvArea().equals(list.get(i+1).getInvArea())){
+				isDif = true;
+			}
+		}
+		return isDif;
 	}
 	public void setBottom(){
 		isMoreThan();
@@ -107,13 +112,6 @@ public class ShoppingCarMenager {
 				}
 			}
 		}
-		if(nums_e == totalNums){
-			isSelected = true;
-			checkBox_b.setImageDrawable(check_Drawable);
-		}else{
-			isSelected = false;
-			checkBox_b.setImageDrawable(uncheck_Drawable);
-		}
 		pay.setText("结算" +"("+ nums_e + ")");
 		if(nums_e != 0){
 			totalPrice_t.setText("总计：¥" + CommonUtil.doubleTrans(totalPrice_e));
@@ -132,8 +130,12 @@ public class ShoppingCarMenager {
 			bottom.setVisibility(View.VISIBLE);
 		}
 	}
-	public void setPayNoClick(){
-		attention.setText("超额提示：" + customName+"商品总额超过 ¥" + bottommorePrice);
+	public void setPayNoClick(int i){
+		if(i == 0){
+			attention.setText("提示：" + "单次购买，只能购买同一保税区商品");
+		}else{
+			attention.setText("提示：" + customName+"商品总额超过 ¥" + bottommorePrice);
+		}
 		pay.setClickable(false);
 		pay.setBackgroundResource(R.color.unClick);
 	}
@@ -141,9 +143,6 @@ public class ShoppingCarMenager {
 		attention.setText("友情提示：同一保税区商品总额有限制");
 		pay.setClickable(true);
 		pay.setBackgroundResource(R.drawable.btn_theme_selector);
-	}
-	public boolean getChecked(){
-		return isSelected;
 	}
 	private ShoppingCarPullListAdapter adapter;
 	
@@ -166,18 +165,6 @@ public class ShoppingCarMenager {
 			}else{
 				list.get(i).setState("");
 			}
-//			if(Double.compare(tax, list.get(i).getPostalStandard()) > 0){
-//				tax = 0;
-//				for(int j = 0; j < goods.size(); j ++){
-//					if(goods.get(j).getState().equals("G")){
-//						tax = tax + goods.get(j).getGoodsPrice() * goods.get(j).getGoodsNums() / (1 - goods.get(j).getPostalTaxRate()*0.01);
-//						allprice = allprice + goods.get(j).getGoodsPrice() * goods.get(j).getGoodsNums();
-//					}
-//				}
-//				list.get(i).setTax(tax - allprice);
-//			}else{
-//				list.get(i).setTax(tax);
-//			}
 			String o = new BigDecimal(tax).setScale(2,BigDecimal.ROUND_HALF_UP).stripTrailingZeros().toPlainString();
 			list.get(i).setTax(o);
 		}

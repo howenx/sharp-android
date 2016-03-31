@@ -14,16 +14,11 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 
 import com.android.volley.Request.Method;
 import com.astuetz.PagerSlidingTabStrip;
@@ -38,8 +33,6 @@ import com.hanmimei.activity.fragment.HotFragment;
 import com.hanmimei.activity.fragment.ImgFragment;
 import com.hanmimei.activity.fragment.ParamsFragment;
 import com.hanmimei.adapter.GoodsDetailPagerAdapter;
-import com.hanmimei.adapter.TuijianAdapter;
-import com.hanmimei.application.HMMApplication;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
@@ -56,18 +49,11 @@ import com.hanmimei.override.ViewPageChangeListener;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.Http2Utils;
-import com.hanmimei.utils.PopupWindowUtil;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
-import com.hanmimei.view.HorizontalListView;
 import com.hanmimei.view.NetworkImageHolderView;
 import com.hanmimei.view.PushWindow;
 import com.hanmimei.view.ShareWindow;
-import com.umeng.socialize.Config;
-import com.umeng.socialize.ShareAction;
-import com.umeng.socialize.UMShareListener;
-import com.umeng.socialize.bean.SHARE_MEDIA;
-import com.umeng.socialize.media.UMImage;
 
 public class PingouDetailActivity extends BaseActivity implements
 		OnClickListener {
