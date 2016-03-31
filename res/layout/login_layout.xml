@@ -215,7 +215,8 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/umeng_socialize_qq_on" 
-            android:background="@drawable/qq_border"/>
+            android:background="@drawable/qq_border"
+        	android:visibility="gone"/>
 		<com.hanmimei.view.RoundImageView
 		    android:id="@+id/weixin"
 		    android:layout_margin="15dp"
@@ -228,7 +229,8 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/umeng_socialize_sina_on"  
-            android:background="@drawable/sina_border"/>
+            android:background="@drawable/sina_border"
+        	android:visibility="gone"/>
     </LinearLayout>
 
 </LinearLayout>

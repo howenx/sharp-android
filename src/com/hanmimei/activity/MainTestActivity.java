@@ -12,9 +12,13 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -51,7 +55,7 @@ public class MainTestActivity extends BaseActivity implements OnClickListener {
 	private VersionVo info;
 
 	private MainBroadCastReceiver netReceiver;
-	private LinearLayout guanggao;
+//	private LinearLayout guanggao;
 	private ViewPager mViewPager;
 	// 极光推送
 	public static boolean isForeground = false;
@@ -60,6 +64,7 @@ public class MainTestActivity extends BaseActivity implements OnClickListener {
 	IconTabPageIndicator mIndicator;
 
 	private List<BaseIconFragment> fragments;
+	private AlertDialog dialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,13 +73,41 @@ public class MainTestActivity extends BaseActivity implements OnClickListener {
 		ActionBarUtil.setActionBarStyle(this, "韩秘美",R.drawable.hmm_icon_message_n, false, this);
 		// 关闭左滑退出
 		closeSwipeBack();
-		guanggao = (LinearLayout) findViewById(R.id.guanggao);
-		guanggao.setOnClickListener(this);
+//		guanggao = (LinearLayout) findViewById(R.id.guanggao);
+//		guanggao.setOnClickListener(this);
+		
+//		showGuangGao();
 		findViewById(R.id.close).setOnClickListener(this);
 		findViewById(R.id.gg_img).setOnClickListener(this);
 		initViewPager();
 		registerReceivers();
 		doCheckVersionTask();
+	}
+
+	private void showGuangGao() {
+		View view = LayoutInflater.from(this).inflate(R.layout.guanggao_layout, null);
+		dialog = new AlertDialog.Builder(this).create();
+		dialog.setView(view);
+		Window window = dialog.getWindow();    
+        WindowManager.LayoutParams lp = window.getAttributes();       
+        lp.alpha = 0.2f;  
+        window.setAttributes(lp);   
+		dialog.show();
+		view.findViewById(R.id.close).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				dialog.dismiss();
+			}
+		});
+		view.findViewById(R.id.gg_img).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+				ToastUtils.Toast(MainTestActivity.this, "你点击了广告！！！");
+			}
+		});
 	}
 
 	private void initViewPager() {
@@ -125,7 +158,7 @@ public class MainTestActivity extends BaseActivity implements OnClickListener {
 		} else if (position == 2) {
 			isHome = false;
 			ActionBarUtil.setActionBarStyle(this, "",
-					R.drawable.hmm_icon_setting, false, this);
+					0, false, this);
 		}
 	}
 
@@ -151,16 +184,16 @@ public class MainTestActivity extends BaseActivity implements OnClickListener {
 				DoJumpUtils.doJump(this, SettingActivity.class);
 			}
 			break;
-		case R.id.close:
-			guanggao.setVisibility(View.GONE);
-			break;
-		case R.id.gg_img:
-			ToastUtils.Toast(this, "你点击了广告！！！");
-			guanggao.setVisibility(View.GONE);
-			break;
-		case R.id.guanggao:
-			guanggao.setVisibility(View.GONE);
-			break;
+//		case R.id.close:
+//			guanggao.setVisibility(View.GONE);
+//			break;
+//		case R.id.gg_img:
+//			ToastUtils.Toast(this, "你点击了广告！！！");
+//			guanggao.setVisibility(View.GONE);
+//			break;
+//		case R.id.guanggao:
+//			guanggao.setVisibility(View.GONE);
+//			break;
 		default:
 			break;
 		}

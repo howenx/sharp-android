@@ -52,6 +52,7 @@ public class MyOrderActivity extends BaseActivity implements OnClickListener,
 		setContentView(R.layout.order_list_layout_new);
 		ActionBarUtil.setActionBarStyle(this, "我的订单", 0, true, null);
 		viewPager = (ViewPager) findViewById(R.id.viewpager);
+		viewPager.setOffscreenPageLimit(1);
 		viewPager.addOnPageChangeListener(this);
 		initTopListner();
 		initCategory();

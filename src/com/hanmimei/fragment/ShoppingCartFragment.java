@@ -16,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -52,7 +51,6 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 	private PullToRefreshListView mListView;
 	private LinearLayout bottom;
 	private TextView total_price;
-	private ImageView check_all;
 	private TextView pay;
 	private TextView attention;
 	private LinearLayout no_data;
@@ -187,11 +185,9 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 				data.addAll(car.getList());
 				//
 				ShoppingCarMenager.getInstance().initShoppingCarMenager(
-						activity, adapter, data, false, attention, check_all,
+						activity, adapter, data,  attention,
 						total_price, pay, no_data, bottom, mListView);
-				ShoppingCarMenager.getInstance().initDrawable(getActivity());
 				clearPrice();
-				//
 			} else {
 				attention.setVisibility(View.INVISIBLE);
 				bottom.setVisibility(View.GONE);
@@ -240,12 +236,6 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 	private void findView(View view) {
 		bottom = (LinearLayout) view.findViewById(R.id.bottom);
 		total_price = (TextView) view.findViewById(R.id.total_price);
-		check_all = (ImageView) view.findViewById(R.id.all);
-		if (ShoppingCarMenager.getInstance().getChecked()) {
-			check_all.setImageResource(R.drawable.hmm_radio_select);
-		} else {
-			check_all.setImageResource(R.drawable.hmm_radio_normal);
-		}
 		pay = (TextView) view.findViewById(R.id.pay);
 		attention = (TextView) view.findViewById(R.id.attention);
 		mListView = (PullToRefreshListView) view.findViewById(R.id.mylist);
@@ -256,7 +246,6 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 		no_net = (LinearLayout) view.findViewById(R.id.no_net);
 		reload = (TextView) view.findViewById(R.id.reload);
 		reload.setOnClickListener(this);
-		check_all.setOnClickListener(this);
 		pay.setOnClickListener(this);
 		go_home.setOnClickListener(this);
 		reload.setOnClickListener(this);
@@ -289,15 +278,6 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.all:
-			if (ShoppingCarMenager.getInstance().getChecked()) {
-				check_all.setImageResource(R.drawable.hmm_radio_select);
-				clearPrice();
-			} else {
-				check_all.setImageResource(R.drawable.hmm_radio_normal);
-				doPrice();
-			}
-			break;
 		case R.id.pay:
 			List<Customs> customsList = new ArrayList<Customs>();
 			for (int i = 0; i < data.size(); i++) {

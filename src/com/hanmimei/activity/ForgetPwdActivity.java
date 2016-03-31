@@ -34,7 +34,6 @@ import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
-import com.hanmimei.utils.DoJumpUtils;
 import com.hanmimei.utils.HttpUtils;
 
 @SuppressLint("NewApi")
@@ -126,13 +125,18 @@ public class ForgetPwdActivity extends BaseActivity implements
 				loadImg();
 			}
 			break;
-		case R.id.cancle:
+		case R.id.cancel:
 			alertDialog.dismiss();
 			break;
-		case R.id.besure:
+		case R.id.confirm:
 			alertDialog.dismiss();
-			DoJumpUtils.doJump(this, CheckPhoneActivity.class);
-			finish();
+			
+			Intent intent = new Intent(ForgetPwdActivity.this,
+					RegistActivity.class);
+			intent.putExtra("phone", phone_num);
+			intent.putExtra("from", "regist");
+			startActivity(intent);
+			
 			break;
 
 		// 清空手机号的输入
@@ -220,11 +224,11 @@ public class ForgetPwdActivity extends BaseActivity implements
 		alertDialog.setView(view);
 		alertDialog.show();
 		TextView title = (TextView) view.findViewById(R.id.title);
-		TextView besure = (TextView) view.findViewById(R.id.besure);
+		TextView besure = (TextView) view.findViewById(R.id.confirm);
 		title.setText("该手机号尚未注册");
 		besure.setText("立即注册");
-		view.findViewById(R.id.cancle).setOnClickListener(this);
-		view.findViewById(R.id.besure).setOnClickListener(this);
+		view.findViewById(R.id.cancel).setOnClickListener(this);
+		view.findViewById(R.id.confirm).setOnClickListener(this);
 	}
 
 	private void setDialogImg(Bitmap bitmap) {
@@ -289,16 +293,16 @@ public class ForgetPwdActivity extends BaseActivity implements
 		netReceiver = new MyBroadCastReceiver();
 		IntentFilter intentFilter = new IntentFilter();
 		intentFilter
-				.addAction(AppConstant.MESSAGE_BROADCAST_FORGET_OK_ACTION);
-		getActivity().registerReceiver(netReceiver, intentFilter);
+				.addAction(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION);
+		registerReceiver(netReceiver, intentFilter);
 	}
 	private class MyBroadCastReceiver extends BroadcastReceiver {
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			if (intent.getAction().equals(
-					AppConstant.MESSAGE_BROADCAST_FORGET_OK_ACTION)) {
-				finish();
+					AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION)) {
+				ForgetPwdActivity.this.finish();
 			} 
 		}
 	}

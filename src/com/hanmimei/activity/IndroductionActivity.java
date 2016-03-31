@@ -10,8 +10,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
-
 import com.hanmimei.R;
 import com.hanmimei.utils.PreferenceUtil;
 import com.hanmimei.utils.PreferenceUtil.FirstConfig;
@@ -25,8 +23,8 @@ public class IndroductionActivity extends AppCompatActivity {
 	private CircleFlowIndicator indicator;
 	public int[] images = { R.drawable.indro_1, R.drawable.indro_2,
 			R.drawable.indro_3};
-	private static final String FIRST = "first";
-	private static final String FIRST_LOG_FLAG = "first_log_flag";
+//	private static final String FIRST = "first";
+//	private static final String FIRST_LOG_FLAG = "first_log_flag";
 	@Override
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
