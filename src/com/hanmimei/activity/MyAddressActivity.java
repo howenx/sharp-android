@@ -159,8 +159,6 @@ public class MyAddressActivity extends BaseActivity implements OnClickListener {
 			Intent intent) {
 		if (resultCode == AppConstant.ADR_ADD_SU) {
 			loadData();
-		} else if (resultCode == AppConstant.ADR_UP_SU) {
-			loadData();
 		}
 	}
 

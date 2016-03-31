@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" 
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/background">
 
 
         <LinearLayout
@@ -17,14 +18,14 @@
                 android:id="@+id/header"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/hmm_mine_face_bg"
                 android:src="@drawable/hmm_mine_face" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="40dp"
+                android:layout_marginBottom="30dp"
                 android:layout_marginTop="10dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
