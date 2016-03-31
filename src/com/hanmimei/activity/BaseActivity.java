@@ -131,7 +131,7 @@ public class BaseActivity extends SwipeBackActivity  {
 	@Override
 	protected void onStop() {
 		super.onStop();
-		getMyApplication().getRequestQueue().cancelAll(new VolleyRequestFilter());
+//		getMyApplication().getRequestQueue().cancelAll(new VolleyRequestFilter());
 		if (!isAppOnForeground()) {
 			setClipboard();
 		}
