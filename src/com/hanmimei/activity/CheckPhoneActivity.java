@@ -19,7 +19,6 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -34,7 +33,6 @@ import com.hanmimei.entity.HMessage;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.CommonUtil;
-import com.hanmimei.utils.DoJumpUtils;
 import com.hanmimei.utils.HttpUtils;
 
 @SuppressLint("NewApi")

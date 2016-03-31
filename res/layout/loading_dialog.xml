@@ -11,12 +11,12 @@
         android:layout_height="100dp"
         android:background="@drawable/bg_loading_black" >
 
-        <com.hanmimei.view.CustomGifView
+        <ImageView
             android:id="@+id/loading"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_centerInParent="true"
-            ptr:gif="@raw/loading" />
+            android:background="@android:color/transparent"
+            android:layout_centerInParent="true"/>
     </RelativeLayout>
 
 </LinearLayout>

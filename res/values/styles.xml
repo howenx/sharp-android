@@ -17,13 +17,15 @@
 
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
         <item name="actionBarSize">@dimen/actionbar_size</item>
-        <item name="android:windowContentOverlay">@null</item>
         <item name="actionBarStyle"> @style/MyActionBarStyle</item>
-        <item name="android:windowBackground">@color/activity_bg</item>
+        <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@color/activity_bg</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
-        <item name="android:windowAnimationStyle">@android:style/Animation</item>
-        
+        <item name="android:windowAnimationStyle">@style/ActivityAnimationStyle</item>
+    </style>
+    
+    <style name="ActivityAnimationStyle" parent="@android:style/Animation">
     </style>
     
     <!-- acitonbar 样式 -->
@@ -201,6 +203,10 @@
     <!-- 设置sharewindow 样式 -->
     <style name="BottomShowDialog" parent="@style/CustomDialog">
         <item name="android:windowAnimationStyle">@style/AnimBottom</item>
+    </style>
+    <!-- 设置全凭dialog样式 -->
+    <style name="FullscreenDialog" parent="@style/CustomDialog">
+        <item name="android:windowFullscreen">true</item> 
     </style>
 
     <!-- popwindow 显示与消失的动画 -->

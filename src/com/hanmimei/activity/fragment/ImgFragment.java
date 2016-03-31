@@ -38,10 +38,9 @@ public class ImgFragment extends ScrollAbleFragment   {
 		mProgressBar = (ProgressBar) view.findViewById(R.id.mProgressBar);
 		
 		mWebView.getSettings().setJavaScriptEnabled(true);
-		mWebView.getSettings().setSupportZoom(true);
-		mWebView.getSettings().setDefaultTextEncodingName("utf-8");  
-		mWebView.getSettings().setBuiltInZoomControls(true);
-		mWebView.getSettings().setDisplayZoomControls(false);
+//		mWebView.getSettings().setSupportZoom(true);
+//		mWebView.getSettings().setBuiltInZoomControls(true);
+//		mWebView.getSettings().setDisplayZoomControls(false);
 		
 		mWebView.loadData(data, "text/html; charset=UTF-8", null);
 		mWebView.setWebChromeClient(new WebChromeClient(){

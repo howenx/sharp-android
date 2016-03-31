@@ -16,7 +16,7 @@ public class PinActivity implements Serializable{
 	private Integer joinPersons; // 已参加活动人数
 	private String createAt; // 发起时间
 	private String status; //   状态   Y-正常， N－取消 ，C－完成 ，F-失败
-	private Integer endCountDown; // 截止时间
+	private Long endCountDown; // 截止时间
 	private String pay; //new 参团成功查询  normal 普通查询
 	
 	
@@ -225,7 +225,7 @@ public class PinActivity implements Serializable{
 		this.status = status;
 	}
 
-	public Integer getEndCountDown() {
+	public Long getEndCountDown() {
 		return endCountDown;
 	}
 	Integer ss = 1000;  
@@ -234,19 +234,19 @@ public class PinActivity implements Serializable{
     Integer dd = hh * 24;  
     
 	public int getEndCountDownForDay(){
-		return endCountDown/dd;
+		return (int) (endCountDown/dd);
 	}
 	public int getEndCountDownForHour(){
-		return (endCountDown-getEndCountDownForDay()*dd)/hh;
+		return (int) ((endCountDown-getEndCountDownForDay()*dd)/hh);
 	}
 	public int getEndCountDownForMinute(){
-		return (endCountDown-getEndCountDownForDay()*dd-getEndCountDownForHour()*hh)/mi;
+		return (int) ((endCountDown-getEndCountDownForDay()*dd-getEndCountDownForHour()*hh)/mi);
 	}
 	public int getEndCountDownForSecond(){
-		return  (endCountDown - getEndCountDownForDay() * dd - getEndCountDownForHour() * hh - getEndCountDownForMinute() * mi) / ss;
+		return  (int) ((endCountDown - getEndCountDownForDay() * dd - getEndCountDownForHour() * hh - getEndCountDownForMinute() * mi) / ss);
 	}
 
-	public void setEndCountDown(Integer endCountDown) {
+	public void setEndCountDown(Long endCountDown) {
 		this.endCountDown = endCountDown;
 	}
 

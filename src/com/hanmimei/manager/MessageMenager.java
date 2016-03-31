@@ -1,7 +1,6 @@
 package com.hanmimei.manager;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
 
@@ -19,7 +18,8 @@ public class MessageMenager {
 		this.msgDrawble = msgDrawble;
 	}
 	public void setMsgDrawble(int resId){
-		msgDrawble.setImageResource(resId);
+		if(msgDrawble!=null)
+			msgDrawble.setImageResource(resId);
 	}
 	
 }

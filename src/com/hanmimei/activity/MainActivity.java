@@ -18,7 +18,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
@@ -85,7 +84,6 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 		addTabItem(TAB_HOME_ID, R.drawable.tab_home, TAB_HOME, HomeFragment.class);
 		addTabItem(TAB_CAR_ID, R.drawable.tab_shopping, TAB_CAR,ShoppingCartFragment.class);
 		addTabItem(TAB_MY_ID, R.drawable.tab_my, TAB_MY, MineFragment.class);
-//		addTabItem(TAB_MY_ID, R.drawable.tab_my, TAB_MY, TestFragment.class);
 		BadgeViewManager.getInstance().initBadgeViewManager(this, mTabHost);
 		registerReceivers();
 		mTabHost.getTabWidget().getChildAt(0).setOnClickListener(new OnClickListener() {

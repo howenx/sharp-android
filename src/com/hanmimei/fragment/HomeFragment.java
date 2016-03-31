@@ -48,9 +48,10 @@ import com.hanmimei.entity.Slider;
 import com.hanmimei.entity.Theme;
 import com.hanmimei.manager.MessageMenager;
 import com.hanmimei.utils.HttpUtils;
-import com.hanmimei.utils.ListViewUtils;
+import com.hanmimei.utils.PreferenceUtil.IntroConfig;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.CycleViewPager;
+import com.hanmimei.view.IntroMsgDialog;
 import com.hanmimei.view.ViewFactory;
 import com.umeng.analytics.MobclickAgent;
 import com.viewpagerindicator.BaseIconFragment;
@@ -122,13 +123,20 @@ public class HomeFragment extends BaseIconFragment implements
 			}
 		});
 		mListView.setOnScrollListener(this);
-		//listview添加加载动画
-//		ListViewUtils.setListViewAnim(mContext, mListView.getRefreshableView());												
 		findHeaderView();
 		loadData();
 		addHeaderView();
+		IntroMsg();
 		return view;
 	}
+	
+	private void IntroMsg(){
+		if(IntroConfig.getIntroMsgCfg(getActivity()).equals(IntroConfig.INTRO_CONFIG_VALUE_IS)){
+			IntroMsgDialog dialog= new IntroMsgDialog(getActivity());
+			dialog.show();
+		}
+	}
+	
 
 	private void findHeaderView() {
 		headerView = inflater.inflate(R.layout.home_header_slider_layout, null);

@@ -13,16 +13,18 @@ import android.widget.TextView;
 
 import com.hanmimei.R;
 import com.hanmimei.entity.Collection;
-import com.hanmimei.utils.ImageLoaderUtils;
+import com.hanmimei.utils.GlideLoaderUtils;
 
 @SuppressLint("InflateParams")
 public class MyCollectionAdapter extends BaseAdapter {
 
 	private List<Collection> data;
 	private LayoutInflater inflater;
+	private Context mContext;
 
 	public MyCollectionAdapter(List<Collection> list, Context mContext) {
 		this.data = list;
+		this.mContext = mContext;
 		inflater = LayoutInflater.from(mContext);
 	}
 
@@ -61,7 +63,7 @@ public class MyCollectionAdapter extends BaseAdapter {
 			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
-			ImageLoaderUtils.loadImage(collection.getSku().getInvImg(), holder.img);
+			GlideLoaderUtils.loadGoodsImage(mContext,collection.getSku().getInvImg(), holder.img);
 			holder.name.setText(collection.getSku().getSkuTitle());
 			holder.price.setText("¥" + collection.getSku().getPrice());
 			holder.size.setText(collection.getSku().getItemColor() + "  " + collection.getSku().getItemSize());

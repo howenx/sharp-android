@@ -24,6 +24,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.gson.Gson;
 import com.hanmimei.R;
 import com.hanmimei.application.HMMApplication;
@@ -35,9 +36,9 @@ import com.hanmimei.entity.PinResult;
 import com.hanmimei.entity.User;
 import com.hanmimei.entity.VersionVo;
 import com.hanmimei.manager.ThreadPoolManager;
+import com.hanmimei.utils.GlideLoaderUtils;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
-import com.hanmimei.utils.ImageLoaderUtils;
 import com.hanmimei.utils.SystemBarTintManager;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.LoadingDialog;
@@ -47,6 +48,7 @@ public class BaseActivity extends SwipeBackActivity  {
 
 	private LoadingDialog loadingDialog;
 	private boolean shoppingcarChanged = false;
+	ShimmerFrameLayout shimmer_view_container ;
 
 	/*
 	 * 获得用于数据库管理的DaoSession
@@ -132,21 +134,26 @@ public class BaseActivity extends SwipeBackActivity  {
 			setClipboard();
 		}
 	}
+	
+	
 
 	@Override
 	protected void onPause() {
 		super.onPause();
 		ToastUtils.cancel();
+		stopShimmerAnimation();
 	}
 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
+		getMyApplication().getRequestQueue().cancelAll("request");
 		if (!isAppOnForeground()) {
 			setClipboard();
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	protected void setClipboard() {
 		// 退出或者app进入后台将口令扔到剪切板
 		ClipboardManager cbm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
@@ -183,6 +190,7 @@ public class BaseActivity extends SwipeBackActivity  {
 	public void onResume() {
 		super.onResume();
 		getClipboard();
+		startShimmerAnimation();
 	}
 
 	@SuppressWarnings("deprecation")
@@ -272,7 +280,7 @@ public class BaseActivity extends SwipeBackActivity  {
 				R.style.CustomDialog).create();
 		View view = inflater.inflate(R.layout.hanmimei_command_layout, null);
 		ImageView img = (ImageView) view.findViewById(R.id.img);
-		ImageLoaderUtils.loadImage(imgurl, img);
+		GlideLoaderUtils.loadGoodsImage(getActivity(),imgurl, img);
 		TextView title = (TextView) view.findViewById(R.id.title);
 		TextView price = (TextView) view.findViewById(R.id.price);
 		title.setText(ti);
@@ -333,4 +341,17 @@ public class BaseActivity extends SwipeBackActivity  {
 		getMyApplication().setVersionInfo(versionInfo);
 	}
 
+	public void setShimmer_view_container(ShimmerFrameLayout shimmer_view_container) {
+		this.shimmer_view_container = shimmer_view_container;
+	}
+	
+	protected void startShimmerAnimation(){
+		if(shimmer_view_container !=null)
+			shimmer_view_container.startShimmerAnimation();
+	}
+	protected void stopShimmerAnimation(){
+		if(shimmer_view_container !=null)
+			shimmer_view_container.stopShimmerAnimation();
+	}
+	
 }

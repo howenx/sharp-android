@@ -14,7 +14,7 @@ import com.hanmimei.entity.Order;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
-import com.hanmimei.utils.ImageLoaderUtils;
+import com.hanmimei.utils.GlideLoaderUtils;
 import com.hanmimei.utils.ToastUtils;
 
 public class MyPingouDetailActivity extends BaseActivity {
@@ -86,7 +86,7 @@ public class MyPingouDetailActivity extends BaseActivity {
 			order_time.setText(o.getOrderCreateAt());
 			pro_shipfee.setText("配送费："+o.getShipFee());
 			
-			ImageLoaderUtils.loadImage(o.getList().get(0).getInvImg(), pro_img);
+			GlideLoaderUtils.loadGoodsImage(getActivity(),o.getList().get(0).getInvImg(), pro_img);
 			pro_guige.setText("¥"+o.getList().get(0).getPrice());
 			pro_title.setText(o.getList().get(0).getSkuTitle());
 		} else {

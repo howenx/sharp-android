@@ -47,7 +47,7 @@ import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.DateUtil;
 import com.hanmimei.utils.HasSDCardUtil;
 import com.hanmimei.utils.HttpUtils;
-import com.hanmimei.utils.ImageLoaderUtils;
+import com.hanmimei.utils.GlideLoaderUtils;
 import com.hanmimei.utils.ImgUtils;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.RoundImageView;
@@ -110,7 +110,7 @@ public class EditUserInfoActivity extends BaseActivity implements
 
 	// 填充数据
 	protected void initView() {
-		ImageLoaderUtils.loadImage(oldUser.getUserImg(), header);
+		GlideLoaderUtils.loadCirlceImage(getActivity(),oldUser.getUserImg(), header);
 		name.setText(oldUser.getUserName());
 		if (oldUser.getSex().equals("M")) {
 			sex.setText("男");

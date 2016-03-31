@@ -52,13 +52,13 @@ import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.StockVo;
 import com.hanmimei.entity.Tag;
-import com.hanmimei.listener.ViewPageChangeListener;
+import com.hanmimei.override.ViewPageChangeListener;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
-import com.hanmimei.utils.ImageLoaderUtils;
+import com.hanmimei.utils.GlideLoaderUtils;
 import com.hanmimei.utils.KeyWordUtil;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.BadgeView;
@@ -81,19 +81,20 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private TextView more_view;
 
 	private BadgeView goodsNumView;// 显示购买数量的控件
+	private ConvenientBanner<ImgInfo> slider;
 
 	private ShareWindow shareWindow;
-	AlertDialog postDialog = null;
+	private AlertDialog postDialog;
 
 	private View back_top;
 	private ScrollableLayout mScrollLayout;
 	private GoodsDetailPagerAdapter adapter;
 
 	// private User user;
-	private int num_shopcart = 0;
-	private HMessage msg = null;
-	private boolean isCollection = false;
-	private boolean isChange = false;
+	private int num_shopcart;
+	private HMessage msg;
+	private boolean isCollection;
+	private boolean isChange;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -104,8 +105,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 		findView();
 		initGoodsNumView();
 		initAnimatorSetValue();
-		loadDataByUrl();
 		getGoodsNums();
+		loadDataByUrl();
 		registerReceivers();
 	}
 
@@ -115,12 +116,11 @@ public class GoodsDetailActivity extends BaseActivity implements
 	 * @param savedInstanceState
 	 */
 	private void findView() {
-
-		View view = findViewById(R.id.viewpager_content);
+		slider = (ConvenientBanner<ImgInfo>) findViewById(R.id.slider);
 		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
 				CommonUtil.getScreenWidth(this),
 				CommonUtil.getScreenWidth(this));
-		view.setLayoutParams(lp);
+		slider.setLayoutParams(lp);
 		itemTitle = (TextView) findViewById(R.id.itemTitle);
 		itemSrcPrice = (TextView) findViewById(R.id.itemSrcPrice);
 		itemPrice = (TextView) findViewById(R.id.itemPrice);
@@ -446,7 +446,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 			public void onAnimationEnd(Animator arg0) {
 				img_hide.setVisibility(View.GONE);
 			}
-
 		});
 	}
 
@@ -456,6 +455,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 	// 当前的商品
 	private StockVo shareStock;
+
 	// 分享面板
 	private void showShareboard() {
 
@@ -649,7 +649,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private PushWindow pushWindow;
 
 	private void showPopupwindow() {
-		if(pushWindow ==null){
+		if (pushWindow == null) {
 			pushWindow = new PushWindow(this, detail.getPush());
 		}
 		pushWindow.show();
@@ -677,11 +677,11 @@ public class GoodsDetailActivity extends BaseActivity implements
 																		// /购物车数量
 		if (detail.getMain() != null) {
 			publicity.setText(detail.getMain().getPublicity());
-			mScrollLayout.canScroll();
 		}
 		// 主详情
 		initGoodsInfo();
 		initFragmentPager(detail.getMain());
+		mScrollLayout.canScroll();
 	}
 
 	private void initFragmentPager(MainVo main) {
@@ -815,7 +815,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		} else {
 			num_restrictAmount.setVisibility(View.GONE);
 		}
-		ImageLoaderUtils.loadImage(s.getInvImgForObj().getUrl(), img_hide);
+		GlideLoaderUtils.loadGoodsImage(getActivity(),s.getInvImgForObj().getUrl(), img_hide);
 		if (s.getPostalTaxRate() != null)
 			curPostalTaxRate = s.getPostalTaxRate();
 		curItemPrice = s.getItemPrice().doubleValue();
@@ -836,8 +836,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 	 * @param s
 	 *            当前选中子商品
 	 */
+	@SuppressWarnings("unchecked")
 	private void initSliderImage(StockVo s) {
-		ConvenientBanner<ImgInfo> slider = (ConvenientBanner<ImgInfo>) findViewById(R.id.slider);
 		slider.setPages(new CBViewHolderCreator<NetworkImageHolderView>() {
 			@Override
 			public NetworkImageHolderView createHolder() {
@@ -847,7 +847,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 				new int[] { R.drawable.page_indicator,
 						R.drawable.page_indicator_fcoused });
 	}
-
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {

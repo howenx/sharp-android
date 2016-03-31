@@ -17,17 +17,26 @@ public class PreferenceUtil {
 	 * @author
 	 *
 	 */
-	public static class FirstConfig {
-		public static final String FIRST_CONFIG = "first_cfg";
-		public static final String FIRST_CONFIG_VALUE = "isFirst";
-		public static final String NOT_FIRST_CONFIG_VALUE = "notFirst";
+	public static class IntroConfig {
+		public static final String INTRO_CONFIG = "intro_config";
+		public static final String INTRO_CONFIG_MSG = "intro_config_msg";
+		public static final String INTRO_CONFIG_VALUE_IS = "intro_config_value_is";
+		public static final String INTRO_CONFIG_VALUE_NO = "intro_config_value_no";
 
-		public static void putFirstCfg(Context context, String content) {
-			putString(context, FIRST_CONFIG, content);
+		public static void putIntroCfg(Context context, String content) {
+			putString(context, INTRO_CONFIG, content);
 		}
 
-		public static String getFirstCfg(Context context) {
-			return getString(context, FIRST_CONFIG, FIRST_CONFIG_VALUE);
+		public static String getIntroCfg(Context context) {
+			return getString(context, INTRO_CONFIG, INTRO_CONFIG_VALUE_IS);
+		}
+		
+		public static void putIntroMsgCfg(Context context, String content) {
+			putString(context, INTRO_CONFIG_MSG, content);
+		}
+		
+		public static String getIntroMsgCfg(Context context) {
+			return getString(context, INTRO_CONFIG_MSG, INTRO_CONFIG_VALUE_IS);
 		}
 	}
 

@@ -39,7 +39,7 @@ import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
-import com.hanmimei.utils.ImageLoaderUtils;
+import com.hanmimei.utils.GlideLoaderUtils;
 import com.hanmimei.utils.KeyWordUtil;
 import com.hanmimei.utils.PopupWindowUtil;
 import com.hanmimei.utils.ToastUtils;
@@ -130,7 +130,7 @@ public class PingouResultActivity extends BaseActivity implements
 	 */
 	private void initPageData() {
 
-		ImageLoaderUtils.loadImage(pinActivity.getPinImg().getUrl(), pro_img);
+		GlideLoaderUtils.loadGoodsImage(getActivity(),pinActivity.getPinImg().getUrl(), pro_img);
 		pro_title.setText(pinActivity.getPinTitle() + "");
 		String guige = getResources().getString(R.string.tuan_gui,
 				pinActivity.getPersonNum(), pinActivity.getPinPrice());
@@ -138,7 +138,7 @@ public class PingouResultActivity extends BaseActivity implements
 				guige.indexOf("¥"), guige.length());
 
 		PinUser master = pinActivity.getPinUsersForMaster();
-		ImageLoaderUtils.loadImage(master.getUserImg(), master_face);
+		GlideLoaderUtils.loadCirlceImage(getActivity(),master.getUserImg(), master_face);
 		master_name.setText("团长" + master.getUserNm());
 		master_time.setText(master.getJoinAt() + "开团");
 		gridlayout
@@ -352,7 +352,7 @@ public class PingouResultActivity extends BaseActivity implements
 
 			PinUser p = members.get(arg0);
 			holder.nameView.setText(p.getUserNm());
-			ImageLoaderUtils.loadImage(p.getUserImg(), holder.faceView);
+			GlideLoaderUtils.loadCirlceImage(getActivity(),p.getUserImg(), holder.faceView);
 			holder.timeView.setText(p.getJoinAt() + "参团");
 
 			return arg1;
@@ -467,7 +467,7 @@ public class PingouResultActivity extends BaseActivity implements
 				} else {
 					holder.roleView.setVisibility(View.INVISIBLE);
 				}
-				ImageLoaderUtils.loadImage(members.get(arg0).getUserImg(),
+				GlideLoaderUtils.loadCirlceImage(getActivity(),members.get(arg0).getUserImg(),
 						holder.faceView);
 				holder.faceView.setBorderColor(getResources().getColor(
 						R.color.theme));

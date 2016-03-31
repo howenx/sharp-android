@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.hanmimei.R;
 import com.hanmimei.entity.Sku;
 import com.hanmimei.utils.CommonUtil;
-import com.hanmimei.utils.ImageLoaderUtils;
+import com.hanmimei.utils.GlideLoaderUtils;
 
 @SuppressLint("InflateParams")
 public class OrderListAdapter extends BaseAdapter {
@@ -67,7 +67,7 @@ public class OrderListAdapter extends BaseAdapter {
 			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
-			ImageLoaderUtils.loadImage( sku.getInvImg(), holder.img);
+			GlideLoaderUtils.loadGoodsImage(activity, sku.getInvImg(), holder.img);
 			holder.name.setText(sku.getSkuTitle());
 			holder.price.setText("单价：¥" + CommonUtil.doubleTrans(sku.getPrice()));
 			holder.nums.setText("x" + sku.getAmount());
@@ -84,7 +84,7 @@ public class OrderListAdapter extends BaseAdapter {
 			} else {
 				holderMore = (ViewHolderMore) convertView.getTag();
 			}
-			ImageLoaderUtils.loadImage(sku.getInvImg(), holderMore.img);
+			GlideLoaderUtils.loadGoodsImage(activity,sku.getInvImg(), holderMore.img);
 			return convertView;
 		}
 	}

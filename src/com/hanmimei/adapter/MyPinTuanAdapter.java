@@ -18,7 +18,7 @@ import com.hanmimei.activity.OrderDetailActivity;
 import com.hanmimei.activity.PingouResultActivity;
 import com.hanmimei.entity.Order;
 import com.hanmimei.entity.PinActivity;
-import com.hanmimei.utils.ImageLoaderUtils;
+import com.hanmimei.utils.GlideLoaderUtils;
 
 public class MyPinTuanAdapter extends BaseAdapter {
 
@@ -59,7 +59,7 @@ public class MyPinTuanAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		ImageLoaderUtils.loadImage(goods.getPinImg().getUrl(), holder.img);
+		GlideLoaderUtils.loadGoodsImage(mContext,goods.getPinImg().getUrl(), holder.img);
 		holder.title.setText(goods.getPinTitle());
 		holder.price.setText("成团价：" + goods.getPinPrice());
 		if(goods.getStatus().equals("Y")){

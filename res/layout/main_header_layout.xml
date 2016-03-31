@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:shimmer="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/actionbar_size"
     android:background="@color/theme"
@@ -11,18 +12,32 @@
         android:layout_height="@dimen/actionbar_size"
         android:contentDescription="@null"
         android:scaleType="center"
-        android:visibility="invisible"
-        android:src="@drawable/hmm_through_page" />
+        android:src="@drawable/hmm_through_page"
+        android:visibility="invisible" />
 
-    <TextView
-        android:id="@+id/header"
+    <FrameLayout
         android:layout_width="0dp"
-        android:layout_weight="1"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="@null"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
+        android:layout_weight="1" >
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_view_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            shimmer:duration="1500"
+            shimmer:base_alpha="0.7">
+
+            <TextView
+                android:id="@+id/header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@null"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
+    </FrameLayout>
 
     <ImageView
         android:id="@+id/setting"

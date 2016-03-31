@@ -25,7 +25,7 @@ import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.StockVo;
 import com.hanmimei.utils.ActionBarUtil;
-import com.hanmimei.utils.ImageLoaderUtils;
+import com.hanmimei.utils.GlideLoaderUtils;
 import com.hanmimei.utils.ToastUtils;
 
 public class PingouDetailSelActivity extends BaseActivity {
@@ -45,7 +45,7 @@ public class PingouDetailSelActivity extends BaseActivity {
 		TextView btn_pin = (TextView) findViewById(R.id.btn_pin);
 		ImageView iconView = (ImageView) findViewById(R.id.iconView);
 		ListView mListView = (ListView) findViewById(R.id.mListView);
-		ImageLoaderUtils.loadImage(stock.getInvImgForObj().getUrl(), iconView);
+		GlideLoaderUtils.loadGoodsImage(getActivity(),stock.getInvImgForObj().getUrl(), iconView);
 		adapter = new ListDialogAdapter(btn_pin);
 		mListView.setAdapter(adapter);
 		titleView.setText(stock.getPinTitle());

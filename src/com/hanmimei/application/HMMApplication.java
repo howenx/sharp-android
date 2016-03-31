@@ -5,17 +5,11 @@ import cn.jpush.android.api.JPushInterface;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
-import com.hanmimei.R;
 import com.hanmimei.dao.DaoMaster;
 import com.hanmimei.dao.DaoMaster.DevOpenHelper;
 import com.hanmimei.dao.DaoSession;
 import com.hanmimei.entity.User;
 import com.hanmimei.entity.VersionVo;
-import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.testin.agent.TestinAgent;
 import com.testin.agent.TestinAgentConfig;
 import com.umeng.socialize.PlatformConfig;
@@ -32,11 +26,10 @@ public class HMMApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 		JPushInterface.setDebugMode(true);
-		JPushInterface.init(this);     		// 初始化 JPush
+		JPushInterface.init(this); // 初始化 JPush
 		initTestinAgent();
 		queue = Volley.newRequestQueue(this);
 		initPlatformConfig();
-		ImageLoader.getInstance().init(initImageLoaderConfiguration());
 	}
 
 	private void initTestinAgent() {
@@ -55,27 +48,7 @@ public class HMMApplication extends Application {
 		TestinAgent.init(config);
 	}
 
-	private ImageLoaderConfiguration initImageLoaderConfiguration() {
-		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
-				getApplicationContext())
-				.threadPoolSize(3)// 线程池内加载的数量
-				.threadPriority(Thread.NORM_PRIORITY - 2)
-				.denyCacheImageMultipleSizesInMemory()
-				.diskCacheFileNameGenerator(new Md5FileNameGenerator())// 将保存的时候的URI名称用MD5加密
-				.defaultDisplayImageOptions(initImageLoaderDisplayImageOptions()).build();
-		return config;
-	}
 
-	private static DisplayImageOptions initImageLoaderDisplayImageOptions() {
-		DisplayImageOptions imageOptions = new DisplayImageOptions.Builder()
-				.showImageOnLoading(R.color.background)
-				.showImageForEmptyUri(R.color.background)
-				.showImageOnFail(R.color.background).cacheOnDisk(true)
-				.imageScaleType(ImageScaleType.EXACTLY).cacheInMemory(true)
-				.displayer(new com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer())//是否图片加载好后渐入的动画时间  
-				.build();
-		return imageOptions;
-	}
 
 	// 初始化PlatformConfig
 	private void initPlatformConfig() {

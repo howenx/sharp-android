@@ -30,8 +30,8 @@ import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.User;
 import com.hanmimei.utils.DoJumpUtils;
+import com.hanmimei.utils.GlideLoaderUtils;
 import com.hanmimei.utils.HttpUtils;
-import com.hanmimei.utils.ImageLoaderUtils;
 import com.hanmimei.view.RoundImageView;
 import com.umeng.analytics.MobclickAgent;
 import com.viewpagerindicator.BaseIconFragment;
@@ -43,7 +43,6 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 	private ImageView sex;
 	private BaseActivity activity;
 	private User user;
-	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -51,14 +50,13 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 		activity = (BaseActivity) getActivity();
 	}
 
-
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.wode_layout, null);
 		user = activity.getUser();
 		findView(view);
-		if(user != null)
+		if (user != null)
 			getUserInfo();
 		registerReceivers();
 		return view;
@@ -82,18 +80,20 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 
 	public void initView() {
 		user = activity.getUser();
-		ImageLoaderUtils.loadImage(user.getUserImg(), header);
+		GlideLoaderUtils.loadCirlceImage(activity,user.getUserImg(), header);
 		user_name.setText(user.getUserName());
 		sex.setVisibility(View.VISIBLE);
-		if(user.getSex().equals("F")){
-			sex.setImageDrawable(activity.getResources().getDrawable(R.drawable.hmm_mine_female));
-		}else{
-			sex.setImageDrawable(activity.getResources().getDrawable(R.drawable.hmm_mine_male));
+		if (user.getSex().equals("F")) {
+			sex.setImageDrawable(activity.getResources().getDrawable(
+					R.drawable.hmm_mine_female));
+		} else {
+			sex.setImageDrawable(activity.getResources().getDrawable(
+					R.drawable.hmm_mine_male));
 		}
 		int couponCount;
-		if(user.getCouponCount() == null){
+		if (user.getCouponCount() == null) {
 			couponCount = 0;
-		}else{
+		} else {
 			couponCount = user.getCouponCount();
 		}
 		youhui_nums.setText(couponCount + " 张可用");
@@ -156,7 +156,9 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 
 	private void doJump(Class clazz) {
 		if (activity.getUser() == null) {
-			getActivity().startActivityForResult(new Intent(getActivity(), LoginActivity.class), AppConstant.LOGIN_CODE);
+			getActivity().startActivityForResult(
+					new Intent(getActivity(), LoginActivity.class),
+					AppConstant.LOGIN_CODE);
 		} else {
 			DoJumpUtils.doJump(getActivity(), clazz);
 		}
@@ -223,23 +225,22 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 		}
 
 	}
-	
+
 	public void onResume() {
-	    super.onResume();
-	    MobclickAgent.onPageStart("AboutMyFragment"); //统计页面，"MainScreen"为页面名称，可自定义
-	}
-	public void onPause() {
-	    super.onPause();
-	    MobclickAgent.onPageEnd("AboutMyFragment"); 
+		super.onResume();
+		MobclickAgent.onPageStart("AboutMyFragment"); // 统计页面，"MainScreen"为页面名称，可自定义
 	}
 
+	public void onPause() {
+		super.onPause();
+		MobclickAgent.onPageEnd("AboutMyFragment");
+	}
 
 	@Override
 	public String getTitle() {
 		// TODO Auto-generated method stub
 		return "我的";
 	}
-
 
 	@Override
 	public int getIconId() {

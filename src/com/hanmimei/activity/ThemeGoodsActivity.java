@@ -34,7 +34,7 @@ import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
-import com.hanmimei.utils.ImageLoaderUtils;
+import com.hanmimei.utils.GlideLoaderUtils;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.BadgeView;
 import com.ui.tag.TagInfo;
@@ -115,11 +115,11 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 			public void onSuccess(String result) {
 				findViewById(R.id.no_net).setVisibility(View.GONE);
 				HMMThemeGoods detail = DataParser.parserThemeItem(result);
+				getLoading().dismiss();
 				if (detail.getMessage().getCode() == 200) {
-					initShopCartView(detail);
 					initThemeView(detail);
+					initShopCartView(detail);
 				} else {
-					getLoading().dismiss();
 					findViewById(R.id.no_net).setVisibility(View.VISIBLE);
 					ToastUtils.Toast(getActivity(), detail.getMessage()
 							.getMessage());
@@ -220,18 +220,12 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		int height = CommonUtil.getScreenWidth(this) * themeImg.getHeight()
 				/ themeImg.getWidth();
 		ImageView img = (ImageView) findViewById(R.id.img); // 主推商品图片
-		LayoutParams params = mframeLayout.getLayoutParams();
-		params.height = height;
-		params.width = width;
-		mframeLayout.setLayoutParams(params);
-		ImageLoaderUtils.loadImage(themeImg.getUrl(), img);
+		GlideLoaderUtils.loadThemeImage(this,img,themeImg.getUrl(),themeImg.getWidth(),themeImg.getHeight());
 		//初始化标签信息
 		initTagInfo(themeList, width, height);
 		data.clear();
 		data.addAll(themeList.getThemeItemList());
 		adapter.notifyDataSetChanged();
-		getLoading().dismiss();
-
 	}
 
 	private void initTagInfo(ThemeList themeList,int width,int height) {
