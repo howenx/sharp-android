@@ -8,7 +8,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import cn.jpush.android.api.JPushInterface;
 
@@ -20,23 +19,17 @@ import com.google.gson.Gson;
 import com.hanmimei.R;
 import com.hanmimei.application.HMMApplication;
 import com.hanmimei.dao.DaoSession;
-import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
-import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.TokenVo;
 import com.hanmimei.entity.User;
 import com.hanmimei.utils.DateUtil;
-import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.PostStringRequest;
-import com.hanmimei.utils.PreferenceUtil;
-import com.hanmimei.utils.PreferenceUtil.FirstConfig;
+import com.hanmimei.utils.PreferenceUtil.IntroConfig;
 import com.hanmimei.utils.ToastUtils;
 
 @SuppressLint("NewApi")
 public class FirstShowActivity extends AppCompatActivity {
 
-	private static final String FIRST = "first";
-	private static final String FIRST_LOG_FLAG = "first_log_flag";
 	private HMMApplication application;
 	private User user;
 	
@@ -49,8 +42,8 @@ public class FirstShowActivity extends AppCompatActivity {
 		getSupportActionBar().hide();
 		application = (HMMApplication) getApplication();
 		// 判断是否是第一次进入app
-		if (PreferenceUtil.FirstConfig.getFirstCfg(this).equals(
-				FirstConfig.FIRST_CONFIG_VALUE)) {
+		if (IntroConfig.getIntroCfg(this).equals(
+				IntroConfig.INTRO_CONFIG_VALUE_IS)) {
 			mHandler.postDelayed(new FirstRun(0), 2000);
 		} else {
 			loginUser();

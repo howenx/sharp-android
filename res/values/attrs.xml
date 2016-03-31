@@ -44,10 +44,6 @@
         <attr name="activeRadius" format="dimension" />
     </declare-styleable>
     
-    <!-- 倾斜的textview -->
-    <declare-styleable name="RotateTextView">
-        <attr name="angle" format="dimension" />
-    </declare-styleable>
     <!-- ==================================================== -->
      <!-- 可缩放srollView所用的自定义属性 -->
     <!-- ==================================================== -->

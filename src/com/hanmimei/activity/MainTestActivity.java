@@ -26,9 +26,9 @@ import com.hanmimei.entity.VersionVo;
 import com.hanmimei.fragment.HomeFragment;
 import com.hanmimei.fragment.MineFragment;
 import com.hanmimei.fragment.ShoppingCartFragment;
-import com.hanmimei.listener.ViewPageChangeListener;
 import com.hanmimei.manager.BadgeViewManager;
 import com.hanmimei.manager.MessageMenager;
+import com.hanmimei.override.ViewPageChangeListener;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.CommonUtil;
@@ -66,6 +66,8 @@ public class MainTestActivity extends BaseActivity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_layout);
 		ActionBarUtil.setActionBarStyle(this, "韩秘美",R.drawable.hmm_icon_message_n, false, this);
+		ImageView view = (ImageView) findViewById(R.id.setting);
+		MessageMenager.getInstance().initMessageMenager(this,view);
 		// 关闭左滑退出
 		closeSwipeBack();
 		guanggao = (LinearLayout) findViewById(R.id.guanggao);
@@ -116,8 +118,6 @@ public class MainTestActivity extends BaseActivity implements OnClickListener {
 			isHome = true;
 			ActionBarUtil.setActionBarStyle(this, "韩秘美",
 					R.drawable.hmm_icon_message_n, false, this);
-			ImageView setting = (ImageView) findViewById(R.id.setting);
-			MessageMenager.getInstance().initMessageMenager(this, setting);
 			/** 如果当前选项卡是shopping */
 		} else if (position == 1) {
 			ActionBarUtil.setActionBarStyle(this, "购物车", 0, false, this);
@@ -127,6 +127,7 @@ public class MainTestActivity extends BaseActivity implements OnClickListener {
 			ActionBarUtil.setActionBarStyle(this, "",
 					R.drawable.hmm_icon_setting, false, this);
 		}
+		startShimmerAnimation();
 	}
 
 	private List<BaseIconFragment> initFragmentList() {

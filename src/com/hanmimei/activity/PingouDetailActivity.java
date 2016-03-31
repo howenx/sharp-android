@@ -52,7 +52,7 @@ import com.hanmimei.entity.ShareVo;
 import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.StockVo;
-import com.hanmimei.listener.ViewPageChangeListener;
+import com.hanmimei.override.ViewPageChangeListener;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.Http2Utils;
@@ -78,15 +78,15 @@ public class PingouDetailActivity extends BaseActivity implements
 	private PinDetail detail;
 	private ImageView collectionImg;
 	private boolean isCollection = false;
-	private TextView  more_view;
-	
+	private TextView more_view;
+
 	private String noticeText = "正在加载数据";
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		ActionBarUtil.setActionBarStyle(this, "商品详情", R.drawable.hmm_icon_share,
-				true, null, this);
+		ActionBarUtil.setActionBarStyle(this, "商品详情",
+				R.drawable.hmm_icon_share, true, null, this);
 		setContentView(R.layout.pingou_detail_layout);
 		findView();
 		loadUrl();
@@ -129,15 +129,13 @@ public class PingouDetailActivity extends BaseActivity implements
 	private void findView() {
 		mScrollLayout = (ScrollableLayout) findViewById(R.id.mScrollLayout);
 		slider = (ConvenientBanner<ImgInfo>) findViewById(R.id.slider);
+		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(CommonUtil.getScreenWidth(this),
+				CommonUtil.getScreenWidth(this));
+		slider.setLayoutParams(lp);
 
 		back_top = findViewById(R.id.back_top);
 		more_view = (TextView) findViewById(R.id.more_view);
 
-		View view = findViewById(R.id.viewpager_content);
-		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-				CommonUtil.getScreenWidth(this),
-				CommonUtil.getScreenWidth(this));
-		view.setLayoutParams(lp);
 		collectionImg = (ImageView) findViewById(R.id.attention);
 		findViewById(R.id.wanfaView).setOnClickListener(this);
 		findViewById(R.id.back_top).setOnClickListener(this);
@@ -176,11 +174,11 @@ public class PingouDetailActivity extends BaseActivity implements
 			isCollection = false;
 		}
 		if (stock.getStatus().equals("Y")) {
-			
+
 		} else if (stock.getStatus().equals("P")) {
-			noticeText= "活动尚未开始";
+			noticeText = "活动尚未开始";
 		} else {
-			noticeText= "活动已结束";
+			noticeText = "活动已结束";
 			more_view.setVisibility(View.VISIBLE);
 			more_view.setOnClickListener(this);
 			showPopupwindow();
@@ -239,10 +237,6 @@ public class PingouDetailActivity extends BaseActivity implements
 
 	}
 
-	
-
-
-
 	private ShareWindow shareWindow;
 
 	// 分享面板
@@ -266,7 +260,7 @@ public class PingouDetailActivity extends BaseActivity implements
 
 	@SuppressLint("InflateParams")
 	private void showPopupwindow() {
-		if(pushWindow ==null){
+		if (pushWindow == null) {
 			pushWindow = new PushWindow(this, detail.getPush());
 		}
 		pushWindow.show();
@@ -297,7 +291,8 @@ public class PingouDetailActivity extends BaseActivity implements
 					isCollection = false;
 					detail.getStock().setCollectId(0);
 					collectionImg.setImageResource(R.drawable.hmm_icon_collect);
-					sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_COLLECTION_ACTION));
+					sendBroadcast(new Intent(
+							AppConstant.MESSAGE_BROADCAST_COLLECTION_ACTION));
 				} else {
 					ToastUtils.Toast(PingouDetailActivity.this, "取消收藏失败");
 				}
@@ -335,8 +330,10 @@ public class PingouDetailActivity extends BaseActivity implements
 						if (message.getCode() == 200) {
 							isCollection = true;
 							detail.getStock().setCollectId(collectionId);
-							collectionImg.setImageResource(R.drawable.hmm_icon_collect_h);
-							sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_COLLECTION_ACTION));
+							collectionImg
+									.setImageResource(R.drawable.hmm_icon_collect_h);
+							sendBroadcast(new Intent(
+									AppConstant.MESSAGE_BROADCAST_COLLECTION_ACTION));
 						} else {
 							ToastUtils.Toast(PingouDetailActivity.this, "收藏失败");
 						}
@@ -344,7 +341,7 @@ public class PingouDetailActivity extends BaseActivity implements
 
 					@Override
 					public void onError() {
-						ToastUtils.Toast(getActivity(),R.string.error);
+						ToastUtils.Toast(getActivity(), R.string.error);
 					}
 				}, object.toString());
 	}
@@ -391,8 +388,7 @@ public class PingouDetailActivity extends BaseActivity implements
 				}
 				setScrollDown(currentY);
 			}
-			
-			
+
 		});
 		pagerSlidingTabStrip
 				.setOnPageChangeListener(new ViewPageChangeListener() {
@@ -418,7 +414,7 @@ public class PingouDetailActivity extends BaseActivity implements
 			startActivity(new Intent(this, LoginActivity.class));
 			return;
 		}
-		if(!detail.getStock().getStatus().equals("Y")){
+		if (!detail.getStock().getStatus().equals("Y")) {
 			ToastUtils.Toast(this, noticeText);
 			return;
 		}
@@ -462,7 +458,7 @@ public class PingouDetailActivity extends BaseActivity implements
 	}
 
 	private void showEasyDialog(StockVo stock) {
-		if(!detail.getStock().getStatus().equals("Y")){
+		if (!detail.getStock().getStatus().equals("Y")) {
 			ToastUtils.Toast(this, noticeText);
 			return;
 		}
@@ -491,7 +487,6 @@ public class PingouDetailActivity extends BaseActivity implements
 			}
 		}
 	}
-
 
 	@Override
 	protected void onDestroy() {

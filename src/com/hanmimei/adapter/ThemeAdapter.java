@@ -1,34 +1,32 @@
 package com.hanmimei.adapter;
 
 import java.util.List;
+
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.hanmimei.R;
 import com.hanmimei.entity.HMMGoods;
-import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.DateUtils;
-import com.hanmimei.utils.ImageLoaderUtils;
+import com.hanmimei.utils.GlideLoaderUtils;
 
 public class ThemeAdapter extends BaseAdapter {
 	private List<HMMGoods> data;
 	private LayoutInflater inflater;
 	private Activity activity;
-	private int viewWidth;
 
 	public ThemeAdapter(List<HMMGoods> data, Context mContext) {
 		this.data = data;
 		activity = (Activity) mContext;
 		inflater = LayoutInflater.from(mContext);
 		// 图片的比例适配
-		viewWidth = CommonUtil.getScreenWidth(mContext) / 2;
 	}
 
 	@Override
@@ -69,11 +67,8 @@ public class ThemeAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		LayoutParams params = holder.img.getLayoutParams();
-		params.height = viewWidth - 10;
-		params.width = viewWidth - 10;
-		holder.img.setLayoutParams(params);
-		ImageLoaderUtils.loadImage(theme.getItemImgForImgInfo().getUrl(), holder.img);
+		
+		GlideLoaderUtils.loadGoodsImage(activity,theme.getItemImgForImgInfo().getUrl(),holder.img);
 		holder.title.setText(theme.getItemTitle());
 		
 		

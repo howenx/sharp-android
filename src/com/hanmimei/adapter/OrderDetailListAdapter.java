@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.hanmimei.R;
 import com.hanmimei.activity.CustomerServiceActivity;
 import com.hanmimei.entity.Sku;
-import com.hanmimei.utils.ImageLoaderUtils;
+import com.hanmimei.utils.GlideLoaderUtils;
 
 public class OrderDetailListAdapter extends BaseAdapter {
 
@@ -65,7 +65,7 @@ public class OrderDetailListAdapter extends BaseAdapter {
 		}else{
 			holder = (ViewHolder) convertView.getTag();
 		}
-		ImageLoaderUtils.loadImage(sku.getInvImg(), holder.img);
+		GlideLoaderUtils.loadGoodsImage(activity,sku.getInvImg(), holder.img);
 		holder.title.setText(position + 1 + "." + sku.getSkuTitle());
 		holder.nums.setText("数量：" + sku.getAmount());
 		holder.price.setText("¥" + sku.getPrice());

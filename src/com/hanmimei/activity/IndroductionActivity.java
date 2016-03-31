@@ -10,11 +10,9 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.hanmimei.R;
-import com.hanmimei.utils.PreferenceUtil;
-import com.hanmimei.utils.PreferenceUtil.FirstConfig;
+import com.hanmimei.utils.PreferenceUtil.IntroConfig;
 import com.hanmimei.view.viewflow.CircleFlowIndicator;
 import com.hanmimei.view.viewflow.ViewFlow;
 
@@ -79,7 +77,7 @@ public class IndroductionActivity extends AppCompatActivity {
 				holder.img.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View arg0) {
-						PreferenceUtil.FirstConfig.putFirstCfg(IndroductionActivity.this, FirstConfig.NOT_FIRST_CONFIG_VALUE);
+						IntroConfig.putIntroCfg(IndroductionActivity.this, IntroConfig.INTRO_CONFIG_VALUE_NO);
 						startActivity(new Intent(IndroductionActivity.this,MainTestActivity.class));
 						finish();
 					}

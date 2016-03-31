@@ -12,7 +12,7 @@ import android.widget.ImageView;
 
 import com.hanmimei.R;
 import com.hanmimei.entity.Theme;
-import com.hanmimei.utils.ImageLoaderUtils;
+import com.hanmimei.utils.GlideLoaderUtils;
 
 public class HomeAdapter extends BaseAdapter {
 	private List<Theme> data;
@@ -52,7 +52,7 @@ public class HomeAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		
-		ImageLoaderUtils.loadImage(activity, holder.img, theme.getThemeImg(), theme.getWidth(), theme.getHeight());
+		GlideLoaderUtils.loadThemeImage(activity, holder.img, theme.getThemeImg(), theme.getWidth(), theme.getHeight());
 		return convertView;
 	}
 	private class ViewHolder{

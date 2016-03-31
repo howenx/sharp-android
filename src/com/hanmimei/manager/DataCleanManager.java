@@ -10,8 +10,8 @@ import android.content.Context;
 import android.os.Environment;
 import android.text.TextUtils;
 
+import com.bumptech.glide.Glide;
 import com.hanmimei.utils.ToastUtils;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 /** * 本应用数据清除管理器 */
 public class DataCleanManager {
@@ -76,14 +76,12 @@ public class DataCleanManager {
     }
     
     /** * 清除本应用所有的数据 * * @param context * @param filepath */
-    public static void cleanApplicationData(Context context) {
+    public static void cleanApplicationData(final Context context) {
         cleanInternalCache(context);
         cleanExternalCache(context);
 //      cleanDatabases(context);
 //      cleanSharedPreference(context);
         cleanFiles(context);
-        ImageLoader.getInstance().clearDiscCache();
-        ImageLoader.getInstance().clearMemoryCache();
         ToastUtils.Toast(context, "清除缓存成功");
        
     }

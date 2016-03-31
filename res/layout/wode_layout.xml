@@ -17,14 +17,14 @@
             android:id="@+id/header"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="30dp"
             android:background="@drawable/hmm_mine_face_bg"
             android:src="@drawable/hmm_mine_face" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="40dp"
             android:layout_marginTop="10dp"
             android:gravity="center_vertical"
             android:orientation="horizontal" >
@@ -99,7 +99,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawablePadding="10dp"
-            android:drawableRight="@drawable/hmm_mine_pagedown"
+            android:drawableRight="@drawable/hmm_next_page_gray"
             android:gravity="right|center_vertical"
             android:text="@null"
             android:textColor="@color/theme"
@@ -113,12 +113,14 @@
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/hmm_mine_address"
         android:text="管理收货地址" />
+
     <TextView
         android:id="@+id/more"
         style="@style/wode_font_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/icon_setting_more"
-        android:text="更多" />
+        android:text="更多"
+        android:visibility="gone" />
 
 </LinearLayout>

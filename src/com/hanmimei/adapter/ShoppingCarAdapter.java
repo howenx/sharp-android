@@ -33,7 +33,7 @@ import com.hanmimei.manager.ShoppingCarMenager;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.HttpUtils;
-import com.hanmimei.utils.ImageLoaderUtils;
+import com.hanmimei.utils.GlideLoaderUtils;
 import com.hanmimei.utils.ToastUtils;
 
 public class ShoppingCarAdapter extends BaseAdapter {
@@ -130,7 +130,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 			holder.plus.setTextColor(activity.getResources().getColor(R.color.fontcolor));
 			holder.plus.setClickable(true);
 		}
-		ImageLoaderUtils.loadImage(goods.getGoodsImg(), holder.img);
+		GlideLoaderUtils.loadGoodsImage(activity,goods.getGoodsImg(), holder.img);
 		holder.name.setText(goods.getGoodsName());
 		holder.size.setText(goods.getItemColor() + "  " + goods.getItemSize());
 		holder.price.setText("¥" + CommonUtil.doubleTrans(goods.getGoodsPrice()));

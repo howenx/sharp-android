@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.diegocarloslima.byakugallery.lib.GalleryViewPager;
 import com.hanmimei.R;
 import com.hanmimei.adapter.GoodsDetailImgPagerAdapter;
-import com.hanmimei.listener.ViewPageChangeListener;
+import com.hanmimei.override.ViewPageChangeListener;
 import com.sliding.finish.SwipeBackActivity;
 import com.umeng.analytics.MobclickAgent;
 

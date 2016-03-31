@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.hanmimei.R;
 import com.hanmimei.entity.MessageInfo;
-import com.hanmimei.utils.ImageLoaderUtils;
+import com.hanmimei.utils.GlideLoaderUtils;
 import com.sina.weibo.sdk.utils.ImageUtils;
 
 import android.app.Activity;
@@ -69,7 +69,7 @@ public class MyMsgAdapter extends BaseAdapter {
 		hold.msg.setText(info.getMsgTitle());
 		hold.content.setText(info.getMsgContent());
 		if(showImg){
-			ImageLoaderUtils.loadImage( info.getMsgImg(), hold.img);
+			GlideLoaderUtils.loadGoodsImage(mActivity, info.getMsgImg(), hold.img);
 		}
 		return convertView;
 	}

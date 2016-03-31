@@ -48,7 +48,7 @@ import com.hanmimei.entity.Slider;
 import com.hanmimei.entity.Theme;
 import com.hanmimei.manager.MessageMenager;
 import com.hanmimei.utils.HttpUtils;
-import com.hanmimei.utils.ListViewUtils;
+import com.hanmimei.utils.PreferenceUtil.IntroConfig;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.CycleViewPager;
 import com.hanmimei.view.ViewFactory;
@@ -122,13 +122,20 @@ public class HomeFragment extends BaseIconFragment implements
 			}
 		});
 		mListView.setOnScrollListener(this);
-		//listview添加加载动画
-//		ListViewUtils.setListViewAnim(mContext, mListView.getRefreshableView());												
 		findHeaderView();
 		loadData();
 		addHeaderView();
+		IntroMsg(view);
 		return view;
 	}
+	
+	private void IntroMsg(View view){
+		if(IntroConfig.getIntroMsgCfg(getActivity()).equals(IntroConfig.INTRO_CONFIG_VALUE_IS)){
+			view.findViewById(R.id.page_indro_message).setVisibility(View.VISIBLE);
+			view.findViewById(R.id.page_indro_message).setOnClickListener(this);
+		}
+	}
+	
 
 	private void findHeaderView() {
 		headerView = inflater.inflate(R.layout.home_header_slider_layout, null);
@@ -351,6 +358,10 @@ public class HomeFragment extends BaseIconFragment implements
 		case R.id.reload:
 			no_net.setVisibility(View.GONE);
 			getNetData();
+			break;
+		case R.id.page_indro_message:
+			v.setVisibility(View.GONE);
+			IntroConfig.putIntroMsgCfg(mContext, IntroConfig.INTRO_CONFIG_VALUE_NO);
 			break;
 		default:
 			break;

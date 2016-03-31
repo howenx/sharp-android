@@ -81,11 +81,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 		addTabItem(TAB_HOME_ID, R.drawable.tab_home, TAB_HOME, HomeFragment.class);
 		addTabItem(TAB_CAR_ID, R.drawable.tab_shopping, TAB_CAR,ShoppingCartFragment.class);
 		addTabItem(TAB_MY_ID, R.drawable.tab_my, TAB_MY, MineFragment.class);
-<<<<<<< HEAD
-//		addTabItem(TAB_MY_ID, R.drawable.tab_my, TAB_MY, TestFragment.class);
-=======
 		BadgeViewManager.getInstance().initBadgeViewManager(this, mTabHost);
->>>>>>> aa8de41f58748b4e01b970067956007b2d09e3d7
 		registerReceivers();
 		mTabHost.getTabWidget().getChildAt(0).setOnClickListener(new OnClickListener() {
 			@Override

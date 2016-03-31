@@ -3,7 +3,6 @@ package com.hanmimei.adapter;
 import java.util.List;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,14 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import com.diegocarloslima.byakugallery.lib.TouchImageView;
 import com.hanmimei.R;
-import com.hanmimei.activity.BaseActivity;
-import com.hanmimei.utils.ImageLoaderUtils;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.hanmimei.utils.GlideLoaderUtils;
 import com.sliding.finish.SwipeBackActivity;
 
 /**
@@ -78,37 +73,7 @@ public class GoodsDetailImgPagerAdapter extends FragmentStatePagerAdapter {
 			final TouchImageView image = (TouchImageView) v
 					.findViewById(R.id.mImageView);
 			final String imageUrl = getArguments().getString("imageUrl");
-			final ProgressBar progress = (ProgressBar) v
-					.findViewById(R.id.mProgressBar);
-			ImageLoaderUtils.loadImage(getActivity(), imageUrl, image,
-					new ImageLoadingListener() {
-
-						@Override
-						public void onLoadingStarted(String arg0, View arg1) {
-							// TODO Auto-generated method stub
-							progress.setVisibility(View.VISIBLE);
-						}
-
-						@Override
-						public void onLoadingFailed(String arg0, View arg1,
-								FailReason arg2) {
-							// TODO Auto-generated method stub
-							progress.setVisibility(View.GONE);
-						}
-
-						@Override
-						public void onLoadingComplete(String arg0, View arg1,
-								Bitmap arg2) {
-							// TODO Auto-generated method stub
-							progress.setVisibility(View.GONE);
-						}
-
-						@Override
-						public void onLoadingCancelled(String arg0, View arg1) {
-							// TODO Auto-generated method stub
-							progress.setVisibility(View.GONE);
-						}
-					});
+			GlideLoaderUtils.loadCirlceImage(getActivity(), imageUrl, image);
 			image.setOnClickListener(new OnClickListener() {
 				
 				@Override

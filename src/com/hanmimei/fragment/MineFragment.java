@@ -23,10 +23,7 @@ import com.hanmimei.activity.MyCollectionActivity;
 import com.hanmimei.activity.MyCouponActivity;
 import com.hanmimei.activity.MyOrderActivity;
 import com.hanmimei.activity.MyPingouActivity;
-<<<<<<< HEAD
-=======
 import com.hanmimei.activity.SettingActivity;
->>>>>>> aa8de41f58748b4e01b970067956007b2d09e3d7
 import com.hanmimei.dao.UserDao;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
@@ -34,30 +31,22 @@ import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.User;
 import com.hanmimei.utils.DoJumpUtils;
 import com.hanmimei.utils.HttpUtils;
-import com.hanmimei.utils.ImageLoaderUtils;
+import com.hanmimei.utils.GlideLoaderUtils;
 import com.hanmimei.view.RoundImageView;
-import com.hanmimei.view.ScrollPullView;
 import com.umeng.analytics.MobclickAgent;
 import com.viewpagerindicator.BaseIconFragment;
 
 public class MineFragment extends BaseIconFragment implements OnClickListener {
 	private RoundImageView header;
 	private TextView user_name;
-<<<<<<< HEAD
 	private TextView address;
 	private TextView order;
 	private TextView collect;
-=======
-//	private TextView address;
-//	private TextView order;
-//	private TextView collect;
->>>>>>> aa8de41f58748b4e01b970067956007b2d09e3d7
 	private TextView youhui_nums;
 	private ImageView sex;
-//	private TextView pintuan;
+	// private TextView pintuan;
 	private BaseActivity activity;
 	private User user;
-	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -65,14 +54,13 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 		activity = (BaseActivity) getActivity();
 	}
 
-
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.wode_layout, null);
 		user = activity.getUser();
 		findView(view);
-		if(user != null)
+		if (user != null)
 			getUserInfo();
 		registerReceivers();
 		return view;
@@ -96,18 +84,20 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 
 	public void initView() {
 		user = activity.getUser();
-		ImageLoaderUtils.loadImage(user.getUserImg(), header);
+		GlideLoaderUtils.loadCirlceImage(activity,user.getUserImg(), header);
 		user_name.setText(user.getUserName());
 		sex.setVisibility(View.VISIBLE);
-		if(user.getSex().equals("F")){
-			sex.setImageDrawable(activity.getResources().getDrawable(R.drawable.hmm_mine_female));
-		}else{
-			sex.setImageDrawable(activity.getResources().getDrawable(R.drawable.hmm_mine_male));
+		if (user.getSex().equals("F")) {
+			sex.setImageDrawable(activity.getResources().getDrawable(
+					R.drawable.hmm_mine_female));
+		} else {
+			sex.setImageDrawable(activity.getResources().getDrawable(
+					R.drawable.hmm_mine_male));
 		}
 		int couponCount;
-		if(user.getCouponCount() == null){
+		if (user.getCouponCount() == null) {
 			couponCount = 0;
-		}else{
+		} else {
 			couponCount = user.getCouponCount();
 		}
 		youhui_nums.setText(couponCount + " 张可用");
@@ -124,17 +114,12 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 	private void findView(View view) {
 		header = (RoundImageView) view.findViewById(R.id.header);
 		user_name = (TextView) view.findViewById(R.id.user_name);
-//		address = (TextView) view.findViewById(R.id.address);
+		// address = (TextView) view.findViewById(R.id.address);
 		sex = (ImageView) view.findViewById(R.id.sex);
-<<<<<<< HEAD
 		order = (TextView) view.findViewById(R.id.order);
 		collect = (TextView) view.findViewById(R.id.collect);
-=======
-//		order = (TextView) view.findViewById(R.id.order);
-//		collect = (TextView) view.findViewById(R.id.collect);
->>>>>>> aa8de41f58748b4e01b970067956007b2d09e3d7
 		youhui_nums = (TextView) view.findViewById(R.id.youhui_nums);
-//		pintuan = (TextView) view.findViewById(R.id.pintuan);
+		// pintuan = (TextView) view.findViewById(R.id.pintuan);
 		header.setOnClickListener(this);
 		view.findViewById(R.id.order).setOnClickListener(this);
 		view.findViewById(R.id.address).setOnClickListener(this);
@@ -179,7 +164,9 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 
 	private void doJump(Class clazz) {
 		if (activity.getUser() == null) {
-			getActivity().startActivityForResult(new Intent(getActivity(), LoginActivity.class), AppConstant.LOGIN_CODE);
+			getActivity().startActivityForResult(
+					new Intent(getActivity(), LoginActivity.class),
+					AppConstant.LOGIN_CODE);
 		} else {
 			DoJumpUtils.doJump(getActivity(), clazz);
 		}
@@ -246,23 +233,22 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 		}
 
 	}
-	
+
 	public void onResume() {
-	    super.onResume();
-	    MobclickAgent.onPageStart("AboutMyFragment"); //统计页面，"MainScreen"为页面名称，可自定义
-	}
-	public void onPause() {
-	    super.onPause();
-	    MobclickAgent.onPageEnd("AboutMyFragment"); 
+		super.onResume();
+		MobclickAgent.onPageStart("AboutMyFragment"); // 统计页面，"MainScreen"为页面名称，可自定义
 	}
 
+	public void onPause() {
+		super.onPause();
+		MobclickAgent.onPageEnd("AboutMyFragment");
+	}
 
 	@Override
 	public String getTitle() {
 		// TODO Auto-generated method stub
 		return "我的";
 	}
-
 
 	@Override
 	public int getIconId() {

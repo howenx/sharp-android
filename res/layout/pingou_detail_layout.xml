@@ -26,16 +26,10 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
-                <FrameLayout
-                    android:id="@+id/viewpager_content"
+                <com.bigkoo.convenientbanner.ConvenientBanner
+                    android:id="@+id/slider"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-
-                    <com.bigkoo.convenientbanner.ConvenientBanner
-                        android:id="@+id/slider"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </FrameLayout>
+                    android:layout_height="match_parent" />
 
                 <TextView
                     android:id="@+id/pinTitle"
@@ -65,7 +59,7 @@
                     android:orientation="horizontal"
                     android:padding="8dp" >
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:id="@+id/btn_pin_01"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -86,14 +80,15 @@
                             android:id="@+id/pin_per_num"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_below="@id/pin_price"
                             android:background="@drawable/btn_black_selector"
                             android:gravity="center"
                             android:padding="3dp"
                             android:textColor="@color/white"
                             android:textSize="14sp" />
-                    </LinearLayout>
+                    </RelativeLayout>
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:id="@+id/btn_buy_01"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -114,13 +109,14 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_below="@id/item_src_price"
                             android:background="@drawable/btn_black_selector"
                             android:gravity="center"
                             android:padding="3dp"
                             android:text="立即购买"
                             android:textColor="@color/white"
                             android:textSize="14sp" />
-                    </LinearLayout>
+                    </RelativeLayout>
                 </LinearLayout>
 
                 <ImageView
@@ -131,23 +127,18 @@
                     android:src="@drawable/pingou_wanfa" />
             </LinearLayout>
 
-            <RelativeLayout
+            <com.astuetz.PagerSlidingTabStrip
+                android:id="@+id/tabs"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white" >
-
-                <com.astuetz.PagerSlidingTabStrip
-                    android:id="@+id/tabs"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/actionbar_size"
-                    android:textColor="@color/indicator_font_color_selector"
-                    app:pstsDividerColor="@android:color/transparent"
-                    app:pstsIndicatorColor="@color/theme"
-                    app:pstsIndicatorHeight="2dp"
-                    app:pstsShouldExpand="true"
-                    app:pstsTabBackground="@android:color/transparent"
-                    app:pstsUnderlineHeight="2dp" />
-            </RelativeLayout>
+                android:layout_height="@dimen/actionbar_size"
+                android:background="@color/white"
+                android:textColor="@color/indicator_font_color_selector"
+                app:pstsDividerColor="@android:color/transparent"
+                app:pstsIndicatorColor="@color/theme"
+                app:pstsIndicatorHeight="2dp"
+                app:pstsShouldExpand="true"
+                app:pstsTabBackground="@android:color/transparent"
+                app:pstsUnderlineHeight="1px" />
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/view_pager"

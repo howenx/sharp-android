@@ -172,6 +172,9 @@
         <activity
             android:name="com.hanmimei.activity.WebviewActivity"
             android:screenOrientation="portrait" />
+        
+        <meta-data android:name="com.hanmimei.override.GlideConfiguration"  
+            android:value="GlideModule"/>  
 
         <!-- 友盟相关 -->
         <activity

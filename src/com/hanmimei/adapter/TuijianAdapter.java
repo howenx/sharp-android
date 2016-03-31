@@ -15,7 +15,7 @@ import com.hanmimei.R;
 import com.hanmimei.entity.HMMGoods;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.DateUtils;
-import com.hanmimei.utils.ImageLoaderUtils;
+import com.hanmimei.utils.GlideLoaderUtils;
 
 public class TuijianAdapter extends BaseAdapter {
 	private List<HMMGoods> data;
@@ -66,7 +66,7 @@ public class TuijianAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		ImageLoaderUtils.loadImage( theme.getItemImgForImgInfo()
+		GlideLoaderUtils.loadGoodsImage(activity, theme.getItemImgForImgInfo()
 				.getUrl(), holder.img);
 		holder.title.setText(theme.getItemTitle());
 		if (theme.getItemDiscount() > 0) {

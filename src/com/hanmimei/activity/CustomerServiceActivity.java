@@ -47,7 +47,7 @@ import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.AlertDialogUtils.OnPhotoSelListener;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
-import com.hanmimei.utils.ImageLoaderUtils;
+import com.hanmimei.utils.GlideLoaderUtils;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.utils.upload.Http3Utils;
 import com.hanmimei.utils.upload.MultipartRequestParams;
@@ -97,7 +97,7 @@ public class CustomerServiceActivity extends BaseActivity implements
 	}
 
 	private void initViewData() {
-		ImageLoaderUtils.loadImage(sku.getInvImg(), imgView);
+		GlideLoaderUtils.loadGoodsImage(getActivity(),sku.getInvImg(), imgView);
 		name.setText(sku.getSkuTitle());
 		price.setText(getResources().getString(R.string.price, sku.getPrice()));
 		num.setText(getResources().getString(R.string.num, sku.getAmount()));

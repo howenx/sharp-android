@@ -4,33 +4,50 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+
     <com.handmark.pulltorefresh.library.PullToRefreshListView
-      		android:layout_width="match_parent"
-      		android:layout_height="match_parent"
-      		android:divider="@null"
-      		android:fadingEdge="none"
-      		android:fastScrollEnabled="false"
-      		android:footerDividersEnabled="false"
-      		android:headerDividersEnabled="false"
-      		android:scrollbars="none"
-      		android:smoothScrollbar="false"
-      		android:background="@color/white"
-      		android:id="@+id/mylist"
-      		ptr:ptrShowIndicator="false"
-      		ptr:ptrDrawable="@drawable/refreshing"/>
-    <include 
-        android:layout_margin="15dp"
-        android:layout_height="40dp"
-        android:layout_width="40dp"
-        layout="@layout/back_to_top_layout"
-		android:layout_alignParentBottom="true"
-		android:layout_alignParentRight="true"
-		android:visibility="gone"/>
-    <include 
-        android:id="@+id/no_net"
-        android:layout_height="match_parent"
+        android:id="@+id/mylist"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:divider="@null"
+        android:fadingEdge="none"
+        android:fastScrollEnabled="false"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false"
+        android:scrollbars="none"
+        android:smoothScrollbar="false"
+        ptr:ptrDrawable="@drawable/refreshing"
+        ptr:ptrShowIndicator="false" />
+
+    <include
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="15dp"
+        layout="@layout/back_to_top_layout"
+        android:visibility="gone" />
+
+    <FrameLayout
+        android:id="@+id/page_indro_message"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#AA000000"
+        android:visibility="gone" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|end"
+            android:src="@drawable/hmm_intro_message" />
+    </FrameLayout>
+
+    <include
+        android:id="@+id/no_net"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         layout="@layout/offline_wuxinhao_layout"
-		android:visibility="gone"/>
+        android:visibility="gone" />
 
 </RelativeLayout>
