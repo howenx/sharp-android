@@ -143,7 +143,7 @@ public class MainTestActivity extends BaseActivity implements OnClickListener {
 		} else if (position == 2) {
 			isHome = false;
 			ActionBarUtil.setActionBarStyle(this, "",
-					0, false, this);
+					R.drawable.icon_setting, false, this);
 		}
 	}
 

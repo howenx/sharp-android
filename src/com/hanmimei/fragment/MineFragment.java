@@ -39,15 +39,8 @@ import com.viewpagerindicator.BaseIconFragment;
 public class MineFragment extends BaseIconFragment implements OnClickListener {
 	private RoundImageView header;
 	private TextView user_name;
-//	private TextView address;
-//	private TextView order;
-//	private TextView collect;
-//	private TextView address;
-//	private TextView order;
-//	private TextView collect;
 	private TextView youhui_nums;
 	private ImageView sex;
-//	private TextView pintuan;s
 	private BaseActivity activity;
 	private User user;
 	
@@ -117,14 +110,8 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 	private void findView(View view) {
 		header = (RoundImageView) view.findViewById(R.id.header);
 		user_name = (TextView) view.findViewById(R.id.user_name);
-//		address = (TextView) view.findViewById(R.id.address);
 		sex = (ImageView) view.findViewById(R.id.sex);
-//		order = (TextView) view.findViewById(R.id.order);
-//		collect = (TextView) view.findViewById(R.id.collect);
-//		order = (TextView) view.findViewById(R.id.order);
-//		collect = (TextView) view.findViewById(R.id.collect);
 		youhui_nums = (TextView) view.findViewById(R.id.youhui_nums);
-//		pintuan = (TextView) view.findViewById(R.id.pintuan);
 		header.setOnClickListener(this);
 		view.findViewById(R.id.order).setOnClickListener(this);
 		view.findViewById(R.id.address).setOnClickListener(this);
