@@ -4,24 +4,19 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-
 import com.hanmimei.R;
 import com.hanmimei.adapter.TabPagerAdapter;
 import com.hanmimei.data.AppConstant;
@@ -55,7 +50,6 @@ public class MainTestActivity extends BaseActivity implements OnClickListener {
 	private VersionVo info;
 
 	private MainBroadCastReceiver netReceiver;
-//	private LinearLayout guanggao;
 	private ViewPager mViewPager;
 	// 极光推送
 	public static boolean isForeground = false;
@@ -64,7 +58,7 @@ public class MainTestActivity extends BaseActivity implements OnClickListener {
 	IconTabPageIndicator mIndicator;
 
 	private List<BaseIconFragment> fragments;
-	private AlertDialog dialog;
+//	private AlertDialog dialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -75,12 +69,7 @@ public class MainTestActivity extends BaseActivity implements OnClickListener {
 		MessageMenager.getInstance().initMessageMenager(this,view);
 		// 关闭左滑退出
 		closeSwipeBack();
-//		guanggao = (LinearLayout) findViewById(R.id.guanggao);
-//		guanggao.setOnClickListener(this);
-		
 //		showGuangGao();
-		findViewById(R.id.close).setOnClickListener(this);
-		findViewById(R.id.gg_img).setOnClickListener(this);
 		initViewPager();
 		registerReceivers();
 		doCheckVersionTask();
@@ -88,12 +77,8 @@ public class MainTestActivity extends BaseActivity implements OnClickListener {
 
 	private void showGuangGao() {
 		View view = LayoutInflater.from(this).inflate(R.layout.guanggao_layout, null);
-		dialog = new AlertDialog.Builder(this).create();
-		dialog.setView(view);
-		Window window = dialog.getWindow();    
-        WindowManager.LayoutParams lp = window.getAttributes();       
-        lp.alpha = 0.2f;  
-        window.setAttributes(lp);   
+		final Dialog dialog = new Dialog(this,R.style.CustomDialog);
+		dialog.setContentView(view);
 		dialog.show();
 		view.findViewById(R.id.close).setOnClickListener(new OnClickListener() {
 			
@@ -185,16 +170,6 @@ public class MainTestActivity extends BaseActivity implements OnClickListener {
 				DoJumpUtils.doJump(this, SettingActivity.class);
 			}
 			break;
-//		case R.id.close:
-//			guanggao.setVisibility(View.GONE);
-//			break;
-//		case R.id.gg_img:
-//			ToastUtils.Toast(this, "你点击了广告！！！");
-//			guanggao.setVisibility(View.GONE);
-//			break;
-//		case R.id.guanggao:
-//			guanggao.setVisibility(View.GONE);
-//			break;
 		default:
 			break;
 		}
