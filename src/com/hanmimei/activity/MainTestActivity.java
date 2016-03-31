@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -64,7 +65,7 @@ public class MainTestActivity extends BaseActivity implements OnClickListener {
 	IconTabPageIndicator mIndicator;
 
 	private List<BaseIconFragment> fragments;
-	private AlertDialog dialog;
+//	private AlertDialog dialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -86,12 +87,8 @@ public class MainTestActivity extends BaseActivity implements OnClickListener {
 
 	private void showGuangGao() {
 		View view = LayoutInflater.from(this).inflate(R.layout.guanggao_layout, null);
-		dialog = new AlertDialog.Builder(this).create();
-		dialog.setView(view);
-		Window window = dialog.getWindow();    
-        WindowManager.LayoutParams lp = window.getAttributes();       
-        lp.alpha = 0.2f;  
-        window.setAttributes(lp);   
+		final Dialog dialog = new Dialog(this,R.style.CustomDialog);
+		dialog.setContentView(view);
 		dialog.show();
 		view.findViewById(R.id.close).setOnClickListener(new OnClickListener() {
 			
