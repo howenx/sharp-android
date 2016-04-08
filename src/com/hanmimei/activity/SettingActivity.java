@@ -77,10 +77,10 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.about:
-			DoJumpUtils.doJump(this, AboutWeActivity.class);
+			startActivity(new Intent(this, AboutWeActivity.class));
 			break;
 		case R.id.idea:
-			DoJumpUtils.doJump(this, SuggestionActivity.class);
+			startActivity(new Intent(this, SuggestionActivity.class));
 			break;
 		case R.id.tel:
 			showDialog();

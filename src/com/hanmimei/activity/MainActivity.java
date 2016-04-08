@@ -169,7 +169,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 				if (getUser() == null) {
 					startActivity(new Intent(getActivity(), LoginActivity.class));
 				} else {
-					DoJumpUtils.doJump(this, MessageTypeActivity.class);
+					startActivity(new Intent(getActivity(), MessageTypeActivity.class));
 				}
 //			}else{
 //				DoJumpUtils.doJump(this, SettingActivity.class);

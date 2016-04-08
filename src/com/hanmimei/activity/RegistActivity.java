@@ -210,7 +210,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 			}
 			break;
 		case R.id.agree_us:
-			DoJumpUtils.doJump(this, HmmServiceActivity.class);
+			startActivity(new Intent(getActivity(), HmmServiceActivity.class));
 			break;
 		default:
 			break;

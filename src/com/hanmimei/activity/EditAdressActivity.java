@@ -16,6 +16,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -333,7 +334,7 @@ public class EditAdressActivity extends BaseActivity implements
 				null);
 		pop.setWidth(LayoutParams.MATCH_PARENT);
 		pop.setHeight(LayoutParams.WRAP_CONTENT);
-		pop.setBackgroundDrawable(new BitmapDrawable());
+		pop.setBackgroundDrawable(new ColorDrawable());
 		pop.setFocusable(true);
 		pop.setOutsideTouchable(true);
 		pop.setContentView(popView);

@@ -24,6 +24,7 @@ import com.hanmimei.activity.MyCouponActivity;
 import com.hanmimei.activity.MyOrderActivity;
 import com.hanmimei.activity.MyPingouActivity;
 import com.hanmimei.activity.SettingActivity;
+import com.hanmimei.activity.SuggestionActivity;
 import com.hanmimei.dao.UserDao;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
@@ -147,7 +148,7 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 			doJump(MyPingouActivity.class);
 			break;
 		case R.id.more:
-			DoJumpUtils.doJump(getActivity(), SettingActivity.class);
+			startActivity(new Intent(getActivity(), SettingActivity.class));
 			break;
 		default:
 			break;
@@ -160,7 +161,7 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 					new Intent(getActivity(), LoginActivity.class),
 					AppConstant.LOGIN_CODE);
 		} else {
-			DoJumpUtils.doJump(getActivity(), clazz);
+			startActivity(new Intent(getActivity(), clazz));
 		}
 	}
 

@@ -165,10 +165,10 @@ public class MainTestActivity extends BaseActivity implements OnClickListener {
 				if (getUser() == null) {
 					startActivity(new Intent(getActivity(), LoginActivity.class));
 				} else {
-					DoJumpUtils.doJump(this, MessageTypeActivity.class);
+					startActivity(new Intent(getActivity(), MessageTypeActivity.class));
 				}
 			} else {
-				DoJumpUtils.doJump(this, SettingActivity.class);
+				startActivity(new Intent(getActivity(), SettingActivity.class));
 			}
 			break;
 		default:
