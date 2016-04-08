@@ -36,7 +36,6 @@ import com.hanmimei.entity.PinResult;
 import com.hanmimei.entity.User;
 import com.hanmimei.entity.VersionVo;
 import com.hanmimei.manager.ThreadPoolManager;
-import com.hanmimei.override.VolleyRequestFilter;
 import com.hanmimei.utils.GlideLoaderUtils;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
@@ -205,23 +204,26 @@ public class BaseActivity extends SwipeBackActivity  {
 		ClipboardManager cbm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
 		if (!TextUtils.isEmpty(cbm.getText())) {
 			if (cbm.getText().toString().trim().contains("KAKAO-HMM")) {
-				String url[] = cbm.getText().toString().trim().split("】,");
-				if (url[1].contains(",－")) {
+				if(cbm.getText().toString().trim().contains("】,")){
+					String[] url = cbm.getText().toString().trim().split("】,");
+				if (url[1].contains("－🔑")) {
+					String cutUrl = url[1].split("－🔑")[0];
 					if (cbm.getText().toString().trim().contains("<C>")) {
 						what = 0;
 						loadData(UrlUtil.SERVERY3 + "/comm/detail"
-								+ url[1].split(",－")[0]);
+								+ cutUrl.split("detail")[1]);
 					} else if (cbm.getText().toString().trim().contains("<P>")) {
 						what = 2;
-						loadData(UrlUtil.SERVERY3 + "/comm/pin/detail"
-								+ url[1].split(",－")[0]);
+						loadData(UrlUtil.SERVERY3 + "/comm/detail"
+								+ cutUrl.split("detail")[1]);
 					} else if (cbm.getText().toString().trim().contains("<T>")) {
 						what = 1;
 						loadData(UrlUtil.SERVERY5 + "/promotion/pin/activity"
-								+ url[1].split(",－")[0]);
+								+ cutUrl.split("activity")[1]);
 					}
 					cbm.setText("");
 					getMyApplication().setKouling("");
+				}
 				}
 			}
 		}

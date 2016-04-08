@@ -8,22 +8,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.TextView;
 
 import com.hanmimei.R;
 import com.hanmimei.activity.GoodsDetailActivity;
 import com.hanmimei.activity.PingouDetailActivity;
 import com.hanmimei.adapter.TuijianAdapter;
 import com.hanmimei.entity.HMMGoods;
-import com.hanmimei.utils.PopupWindowUtil;
 
-public class PushWindow extends AlertDialog implements OnClickListener {
+public class PushWindow extends AlertDialog {
 
 	private Activity mActivity;
 	private List<HMMGoods> push;
@@ -34,6 +31,7 @@ public class PushWindow extends AlertDialog implements OnClickListener {
 		this.push = push;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -70,12 +68,6 @@ public class PushWindow extends AlertDialog implements OnClickListener {
 		wl.height = ViewGroup.LayoutParams.WRAP_CONTENT;
 		// 设置显示位置
 		onWindowAttributesChanged(wl);
-	}
-
-	@Override
-	public void onClick(View arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

@@ -13,7 +13,6 @@ import com.hanmimei.R;
 import com.hanmimei.entity.VersionVo;
 import com.hanmimei.utils.effects.BaseEffects;
 import com.hanmimei.utils.effects.Shake;
-import com.hanmimei.utils.effects.SlideLeft;
 import com.hanmimei.utils.effects.SlideTop;
 import com.hanmimei.view.CustomDialog;
 import com.hanmimei.view.UpdateDialog;

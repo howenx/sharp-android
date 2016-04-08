@@ -45,9 +45,8 @@ import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.AlertDialogUtils.OnPhotoSelListener;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.DateUtil;
-import com.hanmimei.utils.HasSDCardUtil;
-import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.GlideLoaderUtils;
+import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ImgUtils;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.RoundImageView;
@@ -241,7 +240,7 @@ public class EditUserInfoActivity extends BaseActivity implements
 			public void onSelPlay() {
 				Intent intentFromCapture = new Intent(
 						MediaStore.ACTION_IMAGE_CAPTURE);
-				if (HasSDCardUtil.hasSdcard()) {
+				if (CommonUtil.hasSdcard()) {
 
 					intentFromCapture.putExtra(MediaStore.EXTRA_OUTPUT,
 							Uri.fromFile(new File(Environment
@@ -279,7 +278,7 @@ public class EditUserInfoActivity extends BaseActivity implements
 						Uri.fromFile(new File(thePath)));
 				break;
 			case CAMERA_REQUEST_CODE:
-				if (HasSDCardUtil.hasSdcard()) {
+				if (CommonUtil.hasSdcard()) {
 					ImgUtils.getInstance().cropPicture(
 							this,
 							Uri.fromFile(new File(Environment

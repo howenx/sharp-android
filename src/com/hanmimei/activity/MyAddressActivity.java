@@ -93,9 +93,11 @@ public class MyAddressActivity extends BaseActivity implements OnClickListener {
 				getLoading().dismiss();
 				List<HMMAddress> list = DataParser.parserAddressList(result);
 				data.clear();
-				if (list != null && list.size() > 0) {
-					data.addAll(sequenceData(list));
-				}
+				//自我排序
+//				if (list != null && list.size() > 0) {
+//					data.addAll(sequenceData(list));
+//				}
+				data.addAll(list);
 				adapter.notifyDataSetChanged();
 			}
 			@Override
@@ -158,8 +160,6 @@ public class MyAddressActivity extends BaseActivity implements OnClickListener {
 	protected void onActivityResult(int requestCode, int resultCode,
 			Intent intent) {
 		if (resultCode == AppConstant.ADR_ADD_SU) {
-			loadData();
-		} else if (resultCode == AppConstant.ADR_UP_SU) {
 			loadData();
 		}
 	}

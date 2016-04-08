@@ -31,6 +31,7 @@ public class ThemeDao extends AbstractDao<Theme, Long> {
         public final static Property Height = new Property(5, Integer.class, "height", false, "HEIGHT");
         public final static Property SortNum = new Property(6, Integer.class, "sortNum", false, "SORT_NUM");
         public final static Property Tag = new Property(7, String.class, "tag", false, "TAG");
+        public final static Property Type = new Property(8, String.class, "type", false, "TYPE");
     };
 
 
@@ -53,7 +54,8 @@ public class ThemeDao extends AbstractDao<Theme, Long> {
                 "\"WIDTH\" INTEGER," + // 4: width
                 "\"HEIGHT\" INTEGER," + // 5: height
                 "\"SORT_NUM\" INTEGER," + // 6: sortNum
-                "\"TAG\" TEXT);"); // 7: tag
+                "\"TAG\" TEXT," + // 7: tag
+                "\"TYPE\" TEXT);"); // 8: type
     }
 
     /** Drops the underlying database table. */
@@ -106,6 +108,11 @@ public class ThemeDao extends AbstractDao<Theme, Long> {
         if (tag != null) {
             stmt.bindString(8, tag);
         }
+ 
+        String type = entity.getType();
+        if (type != null) {
+            stmt.bindString(9, type);
+        }
     }
 
     /** @inheritdoc */
@@ -125,7 +132,8 @@ public class ThemeDao extends AbstractDao<Theme, Long> {
             cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4), // width
             cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5), // height
             cursor.isNull(offset + 6) ? null : cursor.getInt(offset + 6), // sortNum
-            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7) // tag
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // tag
+            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8) // type
         );
         return entity;
     }
@@ -141,6 +149,7 @@ public class ThemeDao extends AbstractDao<Theme, Long> {
         entity.setHeight(cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5));
         entity.setSortNum(cursor.isNull(offset + 6) ? null : cursor.getInt(offset + 6));
         entity.setTag(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
+        entity.setType(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
      }
     
     /** @inheritdoc */

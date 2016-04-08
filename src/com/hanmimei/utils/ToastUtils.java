@@ -6,7 +6,6 @@ import android.content.Context;
 import com.github.johnpersano.supertoasts.SuperActivityToast;
 import com.github.johnpersano.supertoasts.SuperCardToast;
 import com.github.johnpersano.supertoasts.SuperToast;
-import com.github.johnpersano.supertoasts.SuperToast.Animations;
 
 public class ToastUtils {
 
@@ -17,7 +16,7 @@ public class ToastUtils {
 	private static String oldMsg;
 //	protected static SuperToast toast = null;
 	static SuperToast toast = null;
-	private static int duration = SuperToast.Duration.VERY_SHORT;
+	private static int duration =500;
 
 	public static void cancel() {
 		if (toast == null)
@@ -34,10 +33,6 @@ public class ToastUtils {
 	 */
 	public static void Toast(Context context, final String s) {
 		if (toast == null) {
-//			toast = new SuperActivityToast((Activity) context);
-//			toast.setAnimations(Animations.POPUP);
-//			toast.setTextSize(SuperToast.TextSize.SMALL);
-//			toast.setBackground(SuperToast.Background.RED);
 			toast = new SuperToast(context);
 			toast.setAnimations(SuperToast.Animations.POPUP);
 			toast.setDuration(duration);

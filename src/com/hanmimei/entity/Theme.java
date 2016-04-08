@@ -22,23 +22,14 @@ public class Theme {
     // KEEP FIELDS - put your custom fields here
     // KEEP FIELDS END
 
-    
     public Theme() {
     }
 
-    public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public Theme(Long id) {
+    public Theme(Long id) {
         this.id = id;
     }
 
-    public Theme(Long id, Integer item_id, String themeImg, String themeUrl, Integer width, Integer height, Integer sortNum, String tag) {
+    public Theme(Long id, Integer item_id, String themeImg, String themeUrl, Integer width, Integer height, Integer sortNum, String tag, String type) {
         this.id = id;
         this.item_id = item_id;
         this.themeImg = themeImg;
@@ -47,6 +38,7 @@ public class Theme {
         this.height = height;
         this.sortNum = sortNum;
         this.tag = tag;
+        this.type = type;
     }
 
     public Long getId() {
@@ -111,6 +103,14 @@ public class Theme {
 
     public void setTag(String tag) {
         this.tag = tag;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     // KEEP METHODS - put your custom methods here

@@ -86,11 +86,11 @@ public class ActionBarUtil {
 		TextView titleView = (TextView) view.findViewById(R.id.header);
 		ImageView btn_back = (ImageView) view.findViewById(R.id.back);
 		ImageView btn_setting = (ImageView) view.findViewById(R.id.setting);
-		if (!TextUtils.isEmpty(title)) {
+//		if (!TextUtils.isEmpty(title)) {
 //			ShimmerFrameLayout shimmer_view_container = (ShimmerFrameLayout) view
 //					.findViewById(R.id.shimmer_view_container);
 //			activity.setShimmer_view_container(shimmer_view_container);
-		}
+//		}
 
 		if (isBack) {
 			btn_back.setVisibility(View.VISIBLE);

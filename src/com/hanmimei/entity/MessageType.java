@@ -1,95 +1,58 @@
 package com.hanmimei.entity;
 
 public class MessageType {
-	private int sysNum = -1;
-	private int goodNum = -1;
-	private int wuliuNum = -1;
-	private int zichanNum = -1;
-	private int huodongNum = -1;
-	private int code;
-	private String message;
-	public int getSysNum() {
-		return sysNum;
+	private int num ;
+//	private int goodNum = -1;
+//	private int wuliuNum = -1;
+//	private int zichanNum = -1;
+//	private int huodongNum = -1;
+//	private int code;
+//	private String message;
+	private String type;
+	private String content;
+	private long time;
+
+	public int getNum() {
+		return num;
 	}
 
 
-
-	public void setSysNum(int sysNum) {
-		this.sysNum = sysNum;
+	public void setNum(int num) {
+		this.num = num;
 	}
 
 
+	
 
-	public int getGoodNum() {
-		return goodNum;
+
+	public String getType() {
+		return type;
 	}
 
 
-
-	public void setGoodNum(int goodNum) {
-		this.goodNum = goodNum;
+	public void setType(String type) {
+		this.type = type;
 	}
 
 
-
-	public int getWuliuNum() {
-		return wuliuNum;
+	public String getContent() {
+		return content;
 	}
 
 
-
-	public void setWuliuNum(int wuliuNum) {
-		this.wuliuNum = wuliuNum;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 
-
-	public int getZichanNum() {
-		return zichanNum;
+	public long getTime() {
+		return time;
 	}
 
 
-
-	public void setZichanNum(int zichanNum) {
-		this.zichanNum = zichanNum;
+	public void setTime(long time) {
+		this.time = time;
 	}
-
-
-
-	public int getHuodongNum() {
-		return huodongNum;
-	}
-
-
-
-	public void setHuodongNum(int huodongNum) {
-		this.huodongNum = huodongNum;
-	}
-
-
-
-	public int getCode() {
-		return code;
-	}
-
-
-
-	public void setCode(int code) {
-		this.code = code;
-	}
-
-
-
-	public String getMessage() {
-		return message;
-	}
-
-
-
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
 
 
 	public MessageType() {

@@ -26,10 +26,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
@@ -55,7 +53,6 @@ import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.CycleViewPager;
 import com.hanmimei.view.IntroMsgDialog;
 import com.hanmimei.view.ViewFactory;
-import com.squareup.picasso.Picasso;
 import com.umeng.analytics.MobclickAgent;
 import com.viewpagerindicator.BaseIconFragment;
 

@@ -2,30 +2,31 @@ package com.hanmimei.adapter;
 
 import java.util.List;
 
-import com.hanmimei.R;
-import com.hanmimei.entity.MessageInfo;
-import com.hanmimei.utils.GlideLoaderUtils;
-import com.sina.weibo.sdk.utils.ImageUtils;
-
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.hanmimei.R;
+import com.hanmimei.entity.MessageInfo;
+import com.hanmimei.utils.DateUtils;
+import com.hanmimei.utils.GlideLoaderUtils;
+
 public class MyMsgAdapter extends BaseAdapter {
 
 	private List<MessageInfo> list;
 	private LayoutInflater inflater;
-	private boolean showImg;
+	private String type;
 	private Activity mActivity;
-	public MyMsgAdapter(List<MessageInfo> list,Context mContext, boolean showImg){
+	public MyMsgAdapter(List<MessageInfo> list,Context mContext, String type){
 		this.list = list;
 		this.inflater = LayoutInflater.from(mContext);
-		this.showImg = showImg;
+		this.type = type;
 		this.mActivity = (Activity) mContext;
 	}
 	@Override
@@ -56,7 +57,8 @@ public class MyMsgAdapter extends BaseAdapter {
 			hold.msg = (TextView) convertView.findViewById(R.id.msg);
 			hold.content = (TextView) convertView.findViewById(R.id.content);
 			hold.img = (ImageView) convertView.findViewById(R.id.img);
-			if(showImg){
+			hold.go = (TextView) convertView.findViewById(R.id.go);
+			if(type.equals("goods") || type.equals("discount")){
 				convertView.findViewById(R.id.img).setVisibility(View.VISIBLE);
 			}else{
 				convertView.findViewById(R.id.img).setVisibility(View.GONE);
@@ -65,12 +67,19 @@ public class MyMsgAdapter extends BaseAdapter {
 		} else{
 			hold = (ViewHold) convertView.getTag();
 		}
-		hold.time.setText(info.getCreateAt()+"");
+		hold.time.setText(DateUtils.getTimeDiffDesc(DateUtils.getDate(info.getCreateAt())));
 		hold.msg.setText(info.getMsgTitle());
 		hold.content.setText(info.getMsgContent());
-		if(showImg){
-			GlideLoaderUtils.loadGoodsImage(mActivity, info.getMsgImg(), hold.img);
+		if(type.equals("goods") || type.equals("discount")){
+			GlideLoaderUtils.loadThemeImage(mActivity, hold.img, info.getMsgImg(), 2, 1);
 		}
+		hold.go.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				
+			}
+		});
 		return convertView;
 	}
 	
@@ -79,6 +88,7 @@ public class MyMsgAdapter extends BaseAdapter {
 		private TextView time;
 		private TextView msg;
 		private TextView content;
+		private TextView go;
 	}
 
 }

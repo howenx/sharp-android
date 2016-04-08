@@ -47,6 +47,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+       <activity
+            android:name="com.hanmimei.activity.DoJumpActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />  
+       			<category android:name="android.intent.category.DEFAULT" />  
+        		<category android:name="android.intent.category.BROWSABLE" /> 
+                <data
+                    android:scheme="hmmapp"
+                    android:host="data">
+                </data>
+            </intent-filter>
+       </activity>
         <activity
             android:name="com.hanmimei.activity.IndroductionActivity"
             android:screenOrientation="portrait"
@@ -222,7 +235,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="tencent100424468" />
+                <data android:scheme="tencent1104980747" />
             </intent-filter>
         </activity>
         <activity
@@ -230,7 +243,6 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!-- 友盟appkey -->
-
 
         <!-- Caution! Do not change this app key. It is only for demo usage. -->
         <meta-data

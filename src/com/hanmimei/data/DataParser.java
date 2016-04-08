@@ -19,6 +19,7 @@ import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.Home;
 import com.hanmimei.entity.MessageInfo;
 import com.hanmimei.entity.MessageType;
+import com.hanmimei.entity.MessageTypeInfo;
 import com.hanmimei.entity.MsgResult;
 import com.hanmimei.entity.Notify;
 import com.hanmimei.entity.Order;
@@ -538,35 +539,46 @@ public class DataParser {
 		}
 		return notify;
 	}
-	public static MessageType  parseMsgType(String result){
-		MessageType type = new MessageType();
+	public static MessageTypeInfo parseMsgType(String result){
+		MessageTypeInfo typeInfo = new MessageTypeInfo();
+		JSONObject object;
 		try {
-			JSONObject object = new JSONObject(result);
-			if(object.has("msgTypeMap")){
-				JSONObject typeObject = object.getJSONObject("msgTypeMap");
-				if(typeObject.has("system"))
-					type.setSysNum(typeObject.getInt("system"));
-				if(typeObject.has("coupon"))
-					type.setZichanNum(typeObject.getInt("coupon"));
-				if(typeObject.has("discount"))
-					type.setHuodongNum(typeObject.getInt("discount"));
-				if(typeObject.has("logistics"))
-					type.setWuliuNum(typeObject.getInt("logistics"));
-				if(typeObject.has("goods"))
-					type.setGoodNum(typeObject.getInt("goods"));
+			object = new JSONObject(result);
+		
+		if(object.has("message")){
+			HMessage message = new HMessage();
+			JSONObject msgObject = object.getJSONObject("message");
+			if(msgObject.has("code"))
+				message.setCode(msgObject.getInt("code"));
+			if(msgObject.has("message"))
+				message.setMessage(msgObject.getString("message"));
+			typeInfo.setMessage(message);
+		}
+		if(object.has("msgTypeDTOList")){
+			List<MessageType> list = new ArrayList<MessageType>();
+			JSONArray array = object.getJSONArray("msgTypeDTOList");
+			for(int i = 0; i < array.length(); i ++){
+				MessageType type = new MessageType();
+				JSONObject obj = array.getJSONObject(i);
+				if(obj.has("msgType"))
+					type.setType(obj.getString("msgType"));
+				if(obj.has("num"))
+					type.setNum(obj.getInt("num"));
+				if(obj.has("content"))
+					type.setContent(obj.getString("content"));
+				if(obj.has("createAt"))
+					type.setTime(obj.getLong("createAt"));
+				list.add(type);
+					
 			}
-			if(object.has("message")){
-				JSONObject msgObject = object.getJSONObject("message");
-				if(msgObject.has("code"))
-					type.setCode(msgObject.getInt("code"));
-				if(msgObject.has("message"))
-					type.setMessage(msgObject.getString("message"));
-			}
-			
+			typeInfo.setList(list);
+		}
 		} catch (JSONException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return type;
+		
+		return typeInfo;
 	}
 	public static MsgResult parseMsgInfo(String result){
 		MsgResult msgResult = new MsgResult();

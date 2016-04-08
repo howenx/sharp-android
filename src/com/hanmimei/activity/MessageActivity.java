@@ -3,15 +3,19 @@ package com.hanmimei.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.baoyz.swipemenulistview.SwipeMenu;
@@ -36,47 +40,47 @@ import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
 
 public class MessageActivity extends BaseActivity implements OnClickListener {
-	private SwipeMenuListView mListView;
+	private ListView mListView;
 	private List<MessageInfo> list;
 	private MyMsgAdapter adapter;
 	private TextView no_msg;
-	private boolean showImg = false;
+//	private boolean doDel = false;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.my_msg_layout);
 		String title = "";
+		list = new ArrayList<MessageInfo>();
 		if (getIntent().getStringExtra("type").equals("system")) {
-			showImg = false;
 			title = "系统消息";
+			adapter = new MyMsgAdapter(list, this, "system");
 		} else if (getIntent().getStringExtra("type").equals("coupon")) {
 			title = "我的资产";
+			adapter = new MyMsgAdapter(list, this, "coupon");
 		} else if (getIntent().getStringExtra("type").equals("discount")) {
-			showImg = true;
+			adapter = new MyMsgAdapter(list, this, "discount");
 			title = "优惠促销";
 		} else if (getIntent().getStringExtra("type").equals("logistics")) {
-			showImg = true;
+			adapter = new MyMsgAdapter(list, this, "logistics");
 			title = "物流通知";
 		} else if (getIntent().getStringExtra("type").equals("goods")) {
-			showImg = true;
+			adapter = new MyMsgAdapter(list, this, "goods");
 			title = "商品提醒";
 		}
 		ActionBarUtil.setActionBarStyle(this, title, R.drawable.hmm_edit_delete,
-				true, this);
-		mListView = (SwipeMenuListView) findViewById(R.id.mListView);
+				true, this, this);
+		mListView = (ListView) findViewById(R.id.mListView);
 		no_msg = (TextView) findViewById(R.id.no_msg);
-		list = new ArrayList<MessageInfo>();
-		adapter = new MyMsgAdapter(list, this, showImg);
 		mListView.setAdapter(adapter);
-		mListView.setMenuCreator(creator);
-		mListView.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+		mListView.setOnItemLongClickListener(new OnItemLongClickListener() {
 
 			@Override
-			public void onMenuItemClick(int position, SwipeMenu menu,int index,SwipeMenuView view) {
-				delMsg(list.get(position));				
+			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				showDelLog(list.get(arg2));	
+				return false;
 			}
-		
 		});
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -125,7 +129,6 @@ public class MessageActivity extends BaseActivity implements OnClickListener {
 						if (hMessage.getCode() == 200) {
 							ToastUtils.Toast(MessageActivity.this, "删除成功");
 							list.remove(messageInfo);
-							sendMsgUpBroadcast();
 							adapter.notifyDataSetChanged();
 						} else {
 							ToastUtils.Toast(MessageActivity.this, "删除失败");
@@ -140,12 +143,14 @@ public class MessageActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void loadData() {
+		getLoading().show();
 		Http2Utils.doGetRequestTask(this, getHeaders(),UrlUtil.GET_MSG_LIST
 						+ getIntent().getStringExtra("type"),
 				new VolleyJsonCallback() {
 
 					@Override
 					public void onSuccess(String result) {
+						getLoading().dismiss();
 						MsgResult msgResult = DataParser.parseMsgInfo(result);
 						if (msgResult.getMessage().getCode() == 200) {
 							list.addAll(msgResult.getList());
@@ -164,6 +169,7 @@ public class MessageActivity extends BaseActivity implements OnClickListener {
 
 					@Override
 					public void onError() {
+						getLoading().dismiss();
 						// no_msg.setVisibility(View.VISIBLE);
 						// mListView.setVisibility(View.GONE);
 						ToastUtils.Toast(MessageActivity.this, "请求失败，请检查您的网络");
@@ -172,46 +178,39 @@ public class MessageActivity extends BaseActivity implements OnClickListener {
 		adapter.notifyDataSetChanged();
 	}
 
-	private SwipeMenuCreator creator = new SwipeMenuCreator() {
-
-		@Override
-		public void create(SwipeMenu menu) {
-
-			SwipeMenuItem deleteItem = new SwipeMenuItem(
-					getApplicationContext());
-			// 设置背景颜色
-			deleteItem.setBackground(new ColorDrawable(Color
-					.parseColor("#e56254")));
-			// 设置删除的宽度
-			deleteItem.setWidth(CommonUtil.dip2px(120));
-			// 设置图标
-			// deleteItem.setIcon(R.drawable.icon_delete);
-			deleteItem.setTitle("删除消息");
-			deleteItem.setTitleColor(getResources().getColor(R.color.white));
-			deleteItem.setTitleSize(16);
-			// 增加到menu中
-			menu.addMenuItem(deleteItem);
-		}
-	};
-
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.setting:
 			showDelDialog();
 			break;
-
+		case R.id.back:
+			finish();
+			sendMsgUpBroadcast();
+			break;
 		default:
 			break;
 		}
 	}
-	
+	private AlertDialog dialog;
 	private void showDelDialog(){
-		AlertDialogUtils.showDialog(this, new OnClickListener() {
+		dialog = AlertDialogUtils.showDialog(this, new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
+				dialog.dismiss();
 				delAll();
+			}
+		});
+	}
+	private AlertDialog delDialog;
+	private void showDelLog(final MessageInfo messageInfo){
+		delDialog = AlertDialogUtils.showDialog(this, new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				delDialog.dismiss();
+				delMsg(messageInfo);
 			}
 		});
 	}
@@ -227,7 +226,8 @@ public class MessageActivity extends BaseActivity implements OnClickListener {
 						HMessage hMessage = DataParser.paserResultMsg(result);
 						if (hMessage.getCode() == 200) {
 							list.clear();
-							sendMsgUpBroadcast();
+//							sendMsgUpBroadcast();
+//							doDel = true;
 							adapter.notifyDataSetChanged();
 							mListView.setVisibility(View.GONE);
 							no_msg.setVisibility(View.VISIBLE);
@@ -247,6 +247,15 @@ public class MessageActivity extends BaseActivity implements OnClickListener {
 		if(list.size() <= 0){
 			sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UPDATE_MSG));
 		}
+	}
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			finish();
+			sendMsgUpBroadcast();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 
 }

@@ -3,31 +3,25 @@ package com.hanmimei.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.hanmimei.R;
 import com.hanmimei.activity.listener.TimeEndListner;
-import com.hanmimei.adapter.TuijianAdapter;
-import com.hanmimei.application.HMMApplication;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.entity.Customs;
 import com.hanmimei.entity.PinActivity;
@@ -37,13 +31,12 @@ import com.hanmimei.entity.ShareVo;
 import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.utils.ActionBarUtil;
+import com.hanmimei.utils.GlideLoaderUtils;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
-import com.hanmimei.utils.GlideLoaderUtils;
 import com.hanmimei.utils.KeyWordUtil;
-import com.hanmimei.utils.PopupWindowUtil;
 import com.hanmimei.utils.ToastUtils;
-import com.hanmimei.view.HorizontalListView;
+import com.hanmimei.view.PushWindow;
 import com.hanmimei.view.RoundImageView;
 import com.hanmimei.view.ShareWindow;
 import com.hanmimei.view.TimeDownView;
@@ -245,7 +238,7 @@ public class PingouResultActivity extends BaseActivity implements
 		}
 
 	}
-	private PopupWindow tuiWindow;
+	private PushWindow pushWindow;
 
 	/**
 	 * 初始化倒计时器
@@ -270,6 +263,8 @@ public class PingouResultActivity extends BaseActivity implements
 			vo.setContent(pinActivity.getPinTitle());
 			vo.setTitle("全球正品，尽在韩秘美");
 			vo.setInfoUrl(pinActivity.getPinUrl());
+			vo.setImgUrl(pinActivity.getPinImg().getUrl());
+			vo.setTargetUrl("http://style.hanmimei.com/pin" + pinActivity.getPinUrl().split("promotion/pin")[1]);
 			vo.setType("T");
 			shareWindow = new ShareWindow(this, vo);
 		}
@@ -283,33 +278,10 @@ public class PingouResultActivity extends BaseActivity implements
 	// ========================================================================
 
 	private void showPopupwindow() {
-		if(tuiWindow == null){
-		View view = getLayoutInflater().inflate(R.layout.tuijian_layout, null);
-		HorizontalListView more_grid = (HorizontalListView) view.findViewById(R.id.more_grid);
-		more_grid.setAdapter(new TuijianAdapter(pinResult.getThemeList(), this));
-		more_grid.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				Intent intent = null;
-				if (pinResult.getThemeList().get(arg2).getItemType().equals("pin")) {
-					intent = new Intent(getActivity(),PingouDetailActivity.class);
-				} else {
-					intent = new Intent(getActivity(),GoodsDetailActivity.class);
-				}
-				intent.putExtra("url", pinResult.getThemeList().get(arg2).getItemUrl());
-				startActivityForResult(intent, 1);
-			}
-		});
-		more_grid.setFocusable(false);
-		tuiWindow = PopupWindowUtil.showPopWindow(this, view);
-		more_view.setOnClickListener(this);
-		}else{
-			PopupWindowUtil.backgroundAlpha(this, 0.4f);
-			tuiWindow.showAtLocation(more_view, Gravity.BOTTOM, 0, 0);
+		if (pushWindow == null) {
+			pushWindow = new PushWindow(this, pinResult.getThemeList());
 		}
-		
+		pushWindow.show();
 	}
 
 	// ========================================================================
@@ -337,6 +309,7 @@ public class PingouResultActivity extends BaseActivity implements
 			return arg0;
 		}
 
+		@SuppressLint("InflateParams")
 		@Override
 		public View getView(int arg0, View arg1, ViewGroup arg2) {
 			ViewHolder holder = null;

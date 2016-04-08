@@ -34,7 +34,6 @@ import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
-import com.hanmimei.utils.ListViewUtils;
 import com.hanmimei.utils.ToastUtils;
 
 public class MyCollectionActivity extends BaseActivity implements
@@ -88,7 +87,6 @@ public class MyCollectionActivity extends BaseActivity implements
 			}
 
 		});
-		ListViewUtils.setListViewAnim(this, mListView);
 		registerReceivers();
 	}
 

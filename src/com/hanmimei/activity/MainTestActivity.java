@@ -73,6 +73,7 @@ public class MainTestActivity extends BaseActivity implements OnClickListener {
 		initViewPager();
 		registerReceivers();
 		doCheckVersionTask();
+//		ToastUtils.Toast(this, getIntent().getStringExtra("data"));
 	}
 
 	private void showGuangGao() {

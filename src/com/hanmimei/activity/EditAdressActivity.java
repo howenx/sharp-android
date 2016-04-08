@@ -475,11 +475,11 @@ public class EditAdressActivity extends BaseActivity implements
 					bundle.putSerializable("address", new_Adress);
 					Intent intent = new Intent();
 					intent.putExtras(bundle);
-					if (isWhat == 1) {
-						setResult(AppConstant.ADR_UP_SU, intent);
-					} else {
+//					if (isWhat == 1) {
+//						setResult(AppConstant.ADR_UP_SU, intent);
+//					} else {
 						setResult(AppConstant.ADR_ADD_SU, intent);
-					}
+//					}
 					finish();
 				} else {
 					ToastUtils.Toast(EditAdressActivity.this, result.getCode()
