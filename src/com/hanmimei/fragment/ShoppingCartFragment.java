@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -54,7 +55,7 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 	private TextView pay;
 	private TextView attention;
 	private LinearLayout no_data;
-	private TextView go_home;
+	private ImageView go_home;
 	private List<Customs> data;
 	private ShoppingCarPullListAdapter adapter;
 	private BaseActivity activity;
@@ -239,7 +240,7 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 		pay = (TextView) view.findViewById(R.id.pay);
 		attention = (TextView) view.findViewById(R.id.attention);
 		mListView = (PullToRefreshListView) view.findViewById(R.id.mylist);
-		go_home = (TextView) view.findViewById(R.id.go_home);
+		go_home = (ImageView) view.findViewById(R.id.go_home);
 		mListView.setOnRefreshListener(this);
 		mListView.setMode(Mode.PULL_DOWN_TO_REFRESH);
 		no_data = (LinearLayout) view.findViewById(R.id.data_null);

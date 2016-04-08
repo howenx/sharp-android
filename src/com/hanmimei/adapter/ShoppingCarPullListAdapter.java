@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hanmimei.R;
+import com.hanmimei.dao.DaoSession;
+import com.hanmimei.dao.UserDao;
 import com.hanmimei.entity.Customs;
 import com.hanmimei.manager.ShoppingCarMenager;
 import com.hanmimei.utils.KeyWordUtil;
@@ -92,13 +94,13 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 		
 		if(Double.valueOf(custom.getTax()) != 0){
 			holder.tax.setVisibility(View.VISIBLE);
-//			if(Double.valueOf(custom.getTax())-custom.getPostalStandard() > 0){
+			if(Double.valueOf(custom.getTax())-custom.getPostalStandard() > 0){
 				tax = "行邮税:¥" + custom.getTax();
 				KeyWordUtil.setDifrentFontColor(activity, holder.tax, tax, 4, tax.length());
-//			}else{
-//				tax = "行邮税:¥" + custom.getTax() + "（免）";
-//				KeyWordUtil.setDifrentFontColor(activity, holder.tax, tax, 4, tax.length());
-//			}
+			}else{
+				tax = "行邮税:¥" + custom.getTax() + "（免）";
+				KeyWordUtil.setDifrentFontColor(activity, holder.tax, tax, 4, tax.length());
+			}
 		}else{
 			holder.tax.setVisibility(View.GONE);
 		}
