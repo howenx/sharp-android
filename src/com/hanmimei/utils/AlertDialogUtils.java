@@ -131,7 +131,7 @@ public class AlertDialogUtils {
 	public static AlertDialog showDialog(Context mContext, OnClickListener l,
 			String top, String left, String right) {
 		String[] tb = { top, "", left, right};
-		return showCustomDialog(mContext, tb, l, null);
+		return showCustomDialog(mContext, tb, l, new SlideTop());
 	}
 	
 
