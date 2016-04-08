@@ -25,6 +25,7 @@ import com.hanmimei.entity.OrderInfo;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.ToastUtils;
+import com.hanmimei.utils.effects.Shake;
 import com.hanmimei.view.ProgressWebView;
 import com.umeng.analytics.MobclickAgent;
 
@@ -32,13 +33,12 @@ public class OrderSubmitActivity extends BaseActivity {
 
 	private ProgressWebView mWebView;
 	private Date startTime; // 创建页面时间，用于标志页面过期的起始时间
-	private boolean isSuccess = false; //用于标志支付是否成功
+	private boolean isSuccess = false; // 用于标志支付是否成功
 
 	Map<String, String> extraHeaders;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.order_submit_layout);
 		closeSwipeBack();
@@ -65,66 +65,21 @@ public class OrderSubmitActivity extends BaseActivity {
 							MyOrderActivity.class));
 					finish();
 				} else {
-//					if(url.contains("/promotion/pin/activity/pay/")){
-//						Intent intent = new Intent(getActivity(), PingouResultActivity.class);
-//						intent.putExtra("url", url);
-//						startActivity(intent);
-//						finish();
-//					}else{
-						view.loadUrl(url, extraHeaders);
-//					}
+					view.loadUrl(url, extraHeaders);
 				}
 				return true;
 			}
 		});
 
-	
-		mWebView.loadUrl(UrlUtil.CLIENT_PAY_ORDER_GET
-				 + orderInfo.getOrderId(), extraHeaders);
+		mWebView.loadUrl(UrlUtil.CLIENT_PAY_ORDER_GET + orderInfo.getOrderId(),
+				extraHeaders);
 
 		mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-//		mWebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
-		mWebView.setWebChromeClient(new NewWebChromeClient());
+		// mWebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
 		// 添加js交互
-		mWebView.addJavascriptInterface(new JavaScriptInterface(this),"handler");
+		mWebView.addJavascriptInterface(new JavaScriptInterface(this),
+				"handler");
 
-	}
-	
-	
-	private class NewWebChromeClient extends WebChromeClient {
-
-		@Override
-		public void onProgressChanged(WebView view, int newProgress) {
-			Log.i("newProgress", newProgress + "");
-			if (newProgress >= 100) {
-				mWebView.getProgressBar().setVisibility(View.GONE);
-			} else {
-				if (mWebView.getProgressBar().getVisibility() == View.GONE)
-					mWebView.getProgressBar().setVisibility(View.VISIBLE);
-				mWebView.getProgressBar().setProgress(newProgress);
-			}
-			super.onProgressChanged(view, newProgress);
-		}
-
-		@Override
-		public boolean onJsAlert(WebView view, String url, String message,
-				final JsResult result) {
-			String[] tb = { "提示", message, null, "确定" };
-			AlertDialogUtils.showCustomDialog(getActivity(), tb,
-					new OnClickListener() {
-						@Override
-						public void onClick(View v) {
-							finish();
-						}
-					});
-			return true;
-		}
-
-		@Override
-		public boolean onJsConfirm(WebView view, String url, String message,
-				final JsResult result) {
-			return false;
-		}
 	}
 
 	// 返回按钮点击事件
@@ -181,9 +136,11 @@ public class OrderSubmitActivity extends BaseActivity {
 			Log.e("error", url);
 			isSuccess = true;
 		}
+
 		@JavascriptInterface
 		public void pin(String url) {
-			Intent intent = new Intent(getActivity(), PingouResultActivity.class);
+			Intent intent = new Intent(getActivity(),
+					PingouResultActivity.class);
 			intent.putExtra("url", url);
 			startActivity(intent);
 			finish();
@@ -195,9 +152,10 @@ public class OrderSubmitActivity extends BaseActivity {
 		AlertDialogUtils.showPayDialog(getActivity(), new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if(getIntent().getStringExtra("orderType").equals("item")){
-					startActivity(new Intent(getActivity(), MyOrderActivity.class));
-				}else{
+				if (getIntent().getStringExtra("orderType").equals("item")) {
+					startActivity(new Intent(getActivity(),
+							MyOrderActivity.class));
+				} else {
 					onBackPressed();
 				}
 				finish();
@@ -214,6 +172,5 @@ public class OrderSubmitActivity extends BaseActivity {
 	private long formatTime(long mi) {
 		return mi * 1000 * 60;
 	}
-
 
 }

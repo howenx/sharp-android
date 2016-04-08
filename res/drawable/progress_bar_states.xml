@@ -4,18 +4,22 @@
 
     <item android:id="@android:id/background">
         <shape>
-            <solid android:color="@color/blue_normal"/>
+            <solid android:color="@color/background" />
         </shape>
     </item>
     <item android:id="@android:id/progress">
+        <clip>
             <shape>
-                <solid android:color="@color/white"/>
+                <solid android:color="@color/notice" />
             </shape>
+        </clip>
     </item>
     <item android:id="@android:id/secondaryProgress">
+       <clip>
             <shape>
-                <solid android:color="@color/white"/>
+                <solid android:color="@color/notice" />
             </shape>
+        </clip>
     </item>
 
 </layer-list>

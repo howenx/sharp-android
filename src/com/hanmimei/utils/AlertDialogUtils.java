@@ -11,6 +11,10 @@ import android.widget.TextView;
 
 import com.hanmimei.R;
 import com.hanmimei.entity.VersionVo;
+import com.hanmimei.utils.effects.BaseEffects;
+import com.hanmimei.utils.effects.Shake;
+import com.hanmimei.utils.effects.SlideLeft;
+import com.hanmimei.utils.effects.SlideTop;
 import com.hanmimei.view.CustomDialog;
 import com.hanmimei.view.UpdateDialog;
 import com.hanmimei.view.UpdateNewDialog;
@@ -113,7 +117,7 @@ public class AlertDialogUtils {
 	 * @return
 	 */
 	public static AlertDialog showDialog(Context mContext, OnClickListener l) {
-		return showDialog(mContext, l, null, null, null);
+		return showDialog(mContext, l, "确定删除？", "取消", "确定");
 	}
 	/**
 	 * 操作提示窗
@@ -126,29 +130,8 @@ public class AlertDialogUtils {
 	 */
 	public static AlertDialog showDialog(Context mContext, OnClickListener l,
 			String top, String left, String right) {
-		LayoutInflater inflater = LayoutInflater.from(mContext);
-		final AlertDialog dialog = new AlertDialog.Builder(mContext).create();
-		View view = inflater.inflate(R.layout.dialog_layout, null);
-		TextView title = (TextView) view.findViewById(R.id.title);
-		TextView cancel = (TextView) view.findViewById(R.id.cancel);
-		TextView confirm = (TextView) view.findViewById(R.id.confirm);
-		if (top != null)
-			title.setText(top);
-		if (left != null)
-			cancel.setText(left);
-		if (right != null)
-			confirm.setText(right);
-		cancel.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				dialog.dismiss();
-			}
-		});
-		confirm.setOnClickListener(l);
-		dialog.setView(view);
-		dialog.show();
-		return dialog;
+		String[] tb = { top, "", left, right};
+		return showCustomDialog(mContext, tb, l, null);
 	}
 	
 
@@ -157,9 +140,18 @@ public class AlertDialogUtils {
 	 * @param context
 	 * @param l
 	 */
+	public static void showAddressDialog(Context context, final OnClickListener l) {
+		String[] tb = { "请添加收货地址", null, "取消", "确定" };
+		showCustomDialog(context, tb, l,new SlideTop());
+	}
+	/**
+	 * 
+	 * @param context
+	 * @param l
+	 */
 	public static void showBackDialog(Context context, final OnClickListener l) {
 		String[] tb = { "便宜不等人，请三思而行", "", "我再想想", "去意已决" };
-		showCustomDialog(context, tb, l);
+		showCustomDialog(context, tb, l,new Shake());
 	}
 
 	/**
@@ -169,7 +161,7 @@ public class AlertDialogUtils {
 	 */
 	public static void showPayDialog(Context context, final OnClickListener l) {
 		String[] tb = { "确认要离开收银台", "若未在24小时内完成在线支付，逾期订单作废。", "继续支付", "确定离开" };
-		showCustomDialog(context, tb, l);
+		showCustomDialog(context, tb, l,new Shake());
 	}
 
 	/**
@@ -203,10 +195,11 @@ public class AlertDialogUtils {
 	 * @param l
 	 */
 	@SuppressLint("InflateParams")
-	public static void showCustomDialog(Context context, String[] tb,
-			final OnClickListener l) {
-		CustomDialog c = new CustomDialog(context, tb, l);
+	public static CustomDialog showCustomDialog(Context context, String[] tb,
+			final OnClickListener l,BaseEffects baseEffects) {
+		CustomDialog c = new CustomDialog(context, tb, l).withBaseEffect(baseEffects);
 		c.show();
+		return c;
 	}
 
 }

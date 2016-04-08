@@ -1,102 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_gray_boarder"
-    android:orientation="vertical" >
-
-    <com.hanmimei.view.SquareLayout
-        android:id="@+id/mframeLayout"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:padding="0.1dp" >
-
-        <ImageView
-            android:id="@+id/img"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:contentDescription="@null"
-            android:scaleType="centerInside" />
-
-        <ImageView
-            android:id="@+id/sold_out"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:background="#44000000"
-            android:contentDescription="@null"
-            android:scaleType="center"
-            android:src="@drawable/hmm_sold_out" />
-
-        <TextView
-            android:id="@+id/timeView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:background="@drawable/bg_pinggou_tip"
-            android:drawableLeft="@drawable/hmm_klmpintuan"
-            android:gravity="center_vertical"
-            android:paddingBottom="1dp"
-            android:paddingLeft="1dp"
-            android:paddingRight="2dp"
-            android:paddingTop="1dp"
-            android:text="12:00开售"
-            android:textColor="@color/white"
-            android:textSize="10sp"
-            android:visibility="gone" />
-    </com.hanmimei.view.SquareLayout>
-
-    <View
-        android:layout_width="150dp"
-        android:layout_height="0.1px"
-        android:background="@color/qianhui" />
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:ellipsize="end"
-        android:lines="2"
-        android:textColor="@color/fontcolor"
-        android:textSize="13sp" />
+    android:paddingRight="5dp" >
 
     <LinearLayout
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:gravity="bottom"
-        android:orientation="horizontal" >
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_gray_boarder"
+        android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/red"
-            android:textSize="16sp" />
+        <com.hanmimei.view.SquareLayout
+            android:id="@+id/mframeLayout"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:padding="0.1dp" >
 
-        <TextView
-            android:id="@+id/old_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:textColor="#CCCCCC"
-            android:textSize="10sp" />
+            <ImageView
+                android:id="@+id/img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:contentDescription="@null"
+                android:scaleType="centerInside" />
+
+            <ImageView
+                android:id="@+id/sold_out"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="#44000000"
+                android:contentDescription="@null"
+                android:scaleType="center"
+                android:src="@drawable/hmm_sold_out" />
+
+            <TextView
+                android:id="@+id/timeView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/bg_pinggou_tip"
+                android:drawableLeft="@drawable/hmm_klmpintuan"
+                android:gravity="center_vertical"
+                android:paddingBottom="1dp"
+                android:paddingLeft="1dp"
+                android:paddingRight="2dp"
+                android:paddingTop="1dp"
+                android:text="12:00开售"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:visibility="gone" />
+        </com.hanmimei.view.SquareLayout>
 
         <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1" />
+            android:layout_width="150dp"
+            android:layout_height="0.1px"
+            android:background="@color/qianhui" />
 
         <TextView
-            android:id="@+id/discount"
-            android:layout_width="wrap_content"
+            android:id="@+id/title"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:textColor="#CCCCCC"
-            android:textSize="10sp" />
+            android:layout_margin="5dp"
+            android:ellipsize="end"
+            android:lines="2"
+            android:textColor="@color/fontcolor"
+            android:textSize="13sp" />
+
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:gravity="bottom"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/old_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:textColor="#CCCCCC"
+                android:textSize="10sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/discount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#CCCCCC"
+                android:textSize="10sp" />
+        </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+</FrameLayout>

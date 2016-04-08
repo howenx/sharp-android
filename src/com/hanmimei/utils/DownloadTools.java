@@ -2,17 +2,18 @@ package com.hanmimei.utils;
 
 import java.io.File;
 
+
 import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
 import com.hanmimei.R;
-import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
@@ -33,7 +34,7 @@ public class DownloadTools {
 	public void download(String url) {
 		Uri uri = Uri.parse(url);
 		filePath = DOWNLOAD_PATH+ uri.getLastPathSegment();
-		HttpUtils http = new HttpUtils();
+		com.lidroid.xutils.HttpUtils http = new com.lidroid.xutils.HttpUtils();
 		http.configRequestThreadPoolSize(3);
 		http.download(url,filePath, false, false, new ManagerCallBack());
 	}
@@ -54,24 +55,7 @@ public class DownloadTools {
 				"application/vnd.android.package-archive");
 		context.startActivity(intent);
 	}
-
 	public class ManagerCallBack extends RequestCallBack<File>{
-		
-
-		public ManagerCallBack() {
-		}
-
-		public ManagerCallBack(int rate, Object userTag) {
-			super(rate, userTag);
-		}
-
-		public ManagerCallBack(int rate) {
-			super(rate);
-		}
-
-		public ManagerCallBack(Object userTag) {
-			super(userTag);
-		}
 
 		@Override
 		public void onStart() {
@@ -81,6 +65,7 @@ public class DownloadTools {
 
 		@Override
 		public void onFailure(HttpException arg0, String arg1) {
+			Log.i("HttpException", arg0.toString());
 			ToastUtils.Toast(mContext, "下载失败，请检查网络");
 		}
 

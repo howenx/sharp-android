@@ -45,7 +45,9 @@ import com.ui.tag.TagViewLeft;
 import com.ui.tag.TagViewRight;
 
 /**
- * @author vince 主题商品的二级界面。
+ * @Author vince.liu
+ * @Description 主题商品的二级界面 请求商品列表
+ * 
  */
 public class ThemeGoodsActivity extends BaseActivity implements OnClickListener {
 
@@ -77,15 +79,17 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-					Intent intent = null;
-					if (data.get(arg2).getItemType().equals("pin")) {
-						intent = new Intent(getActivity(),PingouDetailActivity.class);
-					} else {
-						intent = new Intent(getActivity(),GoodsDetailActivity.class);
-					}
-					Log.i("detailUrl", data.get(arg2).getItemUrl());
-					intent.putExtra("url", data.get(arg2).getItemUrl());
-					startActivityForResult(intent, 1);
+				Intent intent = null;
+				if (data.get(arg2).getItemType().equals("pin")) {
+					intent = new Intent(getActivity(),
+							PingouDetailActivity.class);
+				} else {
+					intent = new Intent(getActivity(),
+							GoodsDetailActivity.class);
+				}
+				Log.i("detailUrl", data.get(arg2).getItemUrl());
+				intent.putExtra("url", data.get(arg2).getItemUrl());
+				startActivityForResult(intent, 1);
 			}
 		});
 
@@ -220,18 +224,19 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		int height = CommonUtil.getScreenWidth(this) * themeImg.getHeight()
 				/ themeImg.getWidth();
 		ImageView img = (ImageView) findViewById(R.id.img); // 主推商品图片
-		GlideLoaderUtils.loadThemeImage(this,img,themeImg.getUrl(),themeImg.getWidth(),themeImg.getHeight());
-		//初始化标签信息
+		GlideLoaderUtils.loadThemeImage(this, img, themeImg.getUrl(),
+				themeImg.getWidth(), themeImg.getHeight());
+		// 初始化标签信息
 		initTagInfo(themeList, width, height);
 		data.clear();
 		data.addAll(themeList.getThemeItemList());
 		adapter.notifyDataSetChanged();
 	}
 
-	private void initTagInfo(ThemeList themeList,int width,int height) {
+	private void initTagInfo(ThemeList themeList, int width, int height) {
 		// 获取标签信息
 		List<ImgTag> tags = themeList.getMasterItemTag();
-		if(tags == null || tags.size()<=0)
+		if (tags == null || tags.size() <= 0)
 			return;
 		for (ImgTag tag : tags) {
 
@@ -252,10 +257,12 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 				@Override
 				public void onTagViewClicked(View view, TagInfo info) {
 					Intent intent = null;
-					if(info.description.equals("pin")){
-						intent = new Intent(getActivity(),PingouDetailActivity.class);
-					}else{
-						intent = new Intent(getActivity(),GoodsDetailActivity.class);
+					if (info.description.equals("pin")) {
+						intent = new Intent(getActivity(),
+								PingouDetailActivity.class);
+					} else {
+						intent = new Intent(getActivity(),
+								GoodsDetailActivity.class);
 					}
 					intent.putExtra("url", info.targetUrl);
 					startActivityForResult(intent, 1);
@@ -312,7 +319,8 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			if (intent.getAction().equals(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR)) {
+			if (intent.getAction().equals(
+					AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR)) {
 				getCartNum();
 			}
 		}

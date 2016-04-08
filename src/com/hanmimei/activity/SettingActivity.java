@@ -61,7 +61,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 		cur_version.setText(getResources().getString(R.string.current_version, CommonUtil.getVersionCode(this)));
 		cacheSize.setText(DataCleanManager.getTotalCacheSize(this));
 		if(getVersionInfo() !=null){
-			versionName.setText(getVersionInfo().getReleaseNumber());
+			versionName.setVisibility(View.VISIBLE);
 		}
 		findViewById(R.id.about).setOnClickListener(this);
 		 findViewById(R.id.idea).setOnClickListener(this);
@@ -97,7 +97,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 					
 					@Override
 					public void onClick(View v) {
-						new DownloadTools(getApplicationContext()).download(getVersionInfo().getDownloadLink());
+						new DownloadTools(getActivity()).download(getVersionInfo().getDownloadLink());
 					}
 				});
 			}

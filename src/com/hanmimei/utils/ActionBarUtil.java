@@ -8,7 +8,6 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.facebook.shimmer.ShimmerFrameLayout;
 import com.hanmimei.R;
 import com.hanmimei.activity.BaseActivity;
 

@@ -144,7 +144,7 @@ public class MainTestActivity extends BaseActivity implements OnClickListener {
 		} else if (position == 2) {
 			isHome = false;
 			ActionBarUtil.setActionBarStyle(this, "",
-					R.drawable.icon_setting, false, this);
+					R.drawable.hmm_icon_setting, false, this);
 		}
 		startShimmerAnimation();
 	}
@@ -233,8 +233,7 @@ public class MainTestActivity extends BaseActivity implements OnClickListener {
 
 											@Override
 											public void onClick(View v) {
-												downloadApk(info
-														.getDownloadLink());
+												downloadApk(info.getDownloadLink());
 											}
 										});
 

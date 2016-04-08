@@ -344,7 +344,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 	}
 	
 	private void downloadApk(String url){
-		downloadTools = new DownloadTools(getApplicationContext());
+		downloadTools = new DownloadTools(getActivity());
 		downloadTools.download(url);
 	}
 	

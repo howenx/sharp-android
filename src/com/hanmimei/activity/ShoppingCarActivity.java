@@ -75,6 +75,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 		data = new ArrayList<Customs>();
 		findView();
 		loadData();
+		
 	}
 
 	private void loadData() {

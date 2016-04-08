@@ -41,6 +41,7 @@ import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
+import com.hanmimei.utils.effects.Shake;
 
 public class GoodsBalanceActivity extends BaseActivity implements
 		OnClickListener {
@@ -79,7 +80,6 @@ public class GoodsBalanceActivity extends BaseActivity implements
 		adapter = new GoodsBalanceCustomAdapter(customslist, this);
 		mListView.setAdapter(adapter);
 		mListView.setFocusable(false);
-		all_price.setText(getResources().getString(R.string.price, car.getAllPrice()));
 		loadData(selectedId);
 	
 	}
@@ -155,9 +155,9 @@ public class GoodsBalanceActivity extends BaseActivity implements
 					orderSubmit.setCouponId(btn.getTag(R.id.coupon_id).toString());
 				}
 				youhui.setText(getResources().getString(R.string.price,
-						car.getDenomination()));
+						car.getDiscountFee()));
 				all_money.setText(getResources().getString(R.string.all_money,
-						car.getAllMoney()));
+						car.getTotalPayFee()));
 			}
 		});
 
@@ -343,8 +343,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 		} else {
 			findViewById(R.id.selectAddress).setVisibility(View.GONE);
 			findViewById(R.id.newAddress).setVisibility(View.VISIBLE);
-			String[] tb = { "请添加收货地址", null, "取消", "确定" };
-			AlertDialogUtils.showCustomDialog(this, tb, new OnClickListener() {
+			AlertDialogUtils.showAddressDialog(this, new OnClickListener() {
 
 				@Override
 				public void onClick(View arg0) {
@@ -369,6 +368,8 @@ public class GoodsBalanceActivity extends BaseActivity implements
 		car.setFactShipFee(settle.getFactShipFee());
 		car.setPortalFee(settle.getPortalFee());
 		car.setShipFee(settle.getShipFee());
+		car.setTotalFee(settle.getTotalFee());
+		car.setDiscountFee(settle.getDiscountFee());
 
 		for (Customs cs : car.getList()) {
 			for (SingleCustoms scs : settle.getSingleCustoms()) {
@@ -419,13 +420,13 @@ public class GoodsBalanceActivity extends BaseActivity implements
 		all_shipfee.setText(getResources().getString(R.string.price,
 				car.getFactShipFee()));
 		all_price.setText(getResources().getString(R.string.price,
-				car.getAllPrice()));
+				car.getTotalFee()));
 		all_portalfee.setText(getResources().getString(R.string.price,
 				car.getFactPortalFee()));
 		youhui.setText(getResources().getString(R.string.price,
-				car.getDenomination()));
+				car.getDiscountFee()));
 		all_money.setText(getResources().getString(R.string.all_money,
-				car.getAllMoney()));
+				car.getTotalPayFee()));
 	}
 
 	private RadioButton getCustomRadioButton() {

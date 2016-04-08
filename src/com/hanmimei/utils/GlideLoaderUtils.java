@@ -41,5 +41,12 @@ public class GlideLoaderUtils {
 		imgView.setLayoutParams(params);
 		loadThemeImage(mContext, url, imgView);
 	}
+	
+	public static void pauseRequests(Context context){
+		Glide.with(context).pauseRequestsRecursive();
+	}
+	public static void resumeRequests(Context context){
+		Glide.with(context).resumeRequestsRecursive();
+	}
 
 }

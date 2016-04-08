@@ -15,11 +15,10 @@ import com.hanmimei.activity.fragment.MyPinFragment;
 import com.hanmimei.adapter.PinPagerAdapter;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.PinList;
-import com.hanmimei.entity.PinResult;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.Http2Utils;
-import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
+import com.hanmimei.utils.ToastUtils;
 
 public class MyPingouActivity extends BaseActivity {
 
