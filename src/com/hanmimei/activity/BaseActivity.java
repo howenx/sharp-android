@@ -28,6 +28,7 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.gson.Gson;
 import com.hanmimei.R;
 import com.hanmimei.application.HMMApplication;
+import com.hanmimei.dao.DaoMaster;
 import com.hanmimei.dao.DaoSession;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.GoodsDetail;
@@ -61,6 +62,9 @@ public class BaseActivity extends SwipeBackActivity  {
 	 */
 	public DaoSession getDaoSession() {
 		return getMyApplication().getDaoSession();
+	}
+	public DaoMaster getDaoMaster(){
+		return getMyApplication().getDaoMaster();
 	}
 
 	@Override

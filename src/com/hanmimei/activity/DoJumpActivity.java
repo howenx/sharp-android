@@ -14,7 +14,7 @@ public class DoJumpActivity extends BaseActivity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		String data = getIntent().getDataString();
-		ToastUtils.Toast(this, data);
+//		ToastUtils.Toast(this, data);
 		Intent intent = null;
 		if (data.contains("pin/activity")) {
 			intent = new Intent(this, PingouResultActivity.class);

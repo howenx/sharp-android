@@ -37,6 +37,7 @@ import com.hanmimei.activity.BaseActivity;
 import com.hanmimei.activity.ThemeGoodsActivity;
 import com.hanmimei.activity.WebviewActivity;
 import com.hanmimei.adapter.HomeAdapter;
+import com.hanmimei.dao.DaoMaster;
 import com.hanmimei.dao.SliderDao;
 import com.hanmimei.dao.ThemeDao;
 import com.hanmimei.data.AppConstant;

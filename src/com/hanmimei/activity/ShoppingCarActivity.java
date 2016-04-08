@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -52,7 +53,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 	private TextView attention;
 	private LinearLayout no_data;
 	private LinearLayout no_net;
-	private TextView go_home;
+	private ImageView go_home;
 	private List<Customs> data;
 	private ShoppingCarPullListAdapter adapter;
 	private User user;
@@ -215,7 +216,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 		bottom = (LinearLayout) findViewById(R.id.bottom);
 		total_price = (TextView) findViewById(R.id.total_price);
 		pay = (TextView) findViewById(R.id.pay);
-		go_home = (TextView)findViewById(R.id.go_home);
+		go_home = (ImageView)findViewById(R.id.go_home);
 		go_home.setOnClickListener(this);
 		pay.setOnClickListener(this);
 		attention = (TextView) findViewById(R.id.attention);
@@ -268,7 +269,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 			}
 			break;
 		case R.id.go_home:
-			startActivity(new Intent(this,MainActivity.class));
+			startActivity(new Intent(this,MainTestActivity.class));
 			break;
 		case R.id.reload:
 			loadData();
