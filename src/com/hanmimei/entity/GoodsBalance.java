@@ -34,6 +34,34 @@ public class GoodsBalance {
 		private List<SingleCustoms> singleCustoms;
 		private int postalStandard;
 		
+		private BigDecimal discountFee;
+		private BigDecimal totalFee;
+		private BigDecimal totalPayFee;
+		
+		public BigDecimal getTotalFee() {
+			return totalFee;
+		}
+
+		public void setTotalFee(BigDecimal totalFee) {
+			this.totalFee = totalFee;
+		}
+
+		public BigDecimal getTotalPayFee() {
+			return totalPayFee;
+		}
+
+		public void setTotalPayFee(BigDecimal totalPayFee) {
+			this.totalPayFee = totalPayFee;
+		}
+
+		public BigDecimal getDiscountFee() {
+			return discountFee;
+		}
+
+		public void setDiscountFee(BigDecimal discountFee) {
+			this.discountFee = discountFee;
+		}
+
 		public int getPostalStandard() {
 			return postalStandard;
 		}

@@ -1,23 +1,17 @@
 package com.hanmimei.activity;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -38,16 +32,10 @@ import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.GoodsBalance;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.Sku;
-import com.hanmimei.upload.AlbumActivity;
-import com.hanmimei.upload.Bimp;
-import com.hanmimei.upload.FileUtils;
-import com.hanmimei.upload.PhotoActivity;
 import com.hanmimei.utils.ActionBarUtil;
-import com.hanmimei.utils.AlertDialogUtils;
-import com.hanmimei.utils.AlertDialogUtils.OnPhotoSelListener;
 import com.hanmimei.utils.CommonUtil;
-import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.GlideLoaderUtils;
+import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.utils.upload.Http3Utils;
 import com.hanmimei.utils.upload.MultipartRequestParams;
@@ -57,7 +45,8 @@ import com.hanmimei.view.UDialog.CallBack;
 
 public class CustomerServiceActivity extends BaseActivity implements
 		OnClickListener {
-
+	private static final int REQUEST_IMAGE = 2;
+	private static final int IMAGE_MAX_NUM = 3;
 	private Sku sku;
 	private ImageView imgView;
 	private TextView name, price, num, apply_num, num_sel_max;
@@ -65,7 +54,7 @@ public class CustomerServiceActivity extends BaseActivity implements
 	private CustomGridView mGridView;
 	private List<Drawable> imgList;
 	private GridAdapter adapter;
-	private AlertDialog photoDialog;
+	private ArrayList<String> mSelectPath;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -73,6 +62,7 @@ public class CustomerServiceActivity extends BaseActivity implements
 		setContentView(R.layout.customer_service_main_layout);
 		ActionBarUtil.setActionBarStyle(this, "申请售后服务");
 		sku = (Sku) getIntent().getSerializableExtra("sku");
+		mSelectPath = new ArrayList<String>();
 		findView();
 	}
 
@@ -97,7 +87,8 @@ public class CustomerServiceActivity extends BaseActivity implements
 	}
 
 	private void initViewData() {
-		GlideLoaderUtils.loadGoodsImage(getActivity(),sku.getInvImg(), imgView);
+		GlideLoaderUtils
+				.loadGoodsImage(getActivity(), sku.getInvImg(), imgView);
 		name.setText(sku.getSkuTitle());
 		price.setText(getResources().getString(R.string.price, sku.getPrice()));
 		num.setText(getResources().getString(R.string.num, sku.getAmount()));
@@ -107,42 +98,40 @@ public class CustomerServiceActivity extends BaseActivity implements
 		imgList = new ArrayList<Drawable>();
 		imgList.add(getResources().getDrawable(R.drawable.ic_launcher));
 		adapter = new GridAdapter(this);
-		adapter.update();
 		mGridView.setAdapter(adapter);
 		mGridView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				if (arg2 == Bimp.bmp.size()) {
-					showPopwindowForPhoto();
-				} else {
+				if(arg2 == mSelectPath.size()){
 					Intent intent = new Intent(CustomerServiceActivity.this,
-							PhotoActivity.class);
-					intent.putExtra("ID", arg2);
-					startActivity(intent);
+							MultiImageSelectorActivity.class);
+					// 最大可选择图片数量
+					intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_COUNT,
+							IMAGE_MAX_NUM);
+					// 默认选择
+					if (mSelectPath != null && mSelectPath.size() > 0) {
+						intent.putExtra(
+								MultiImageSelectorActivity.EXTRA_DEFAULT_SELECTED_LIST,
+								mSelectPath);
+					}
+					startActivityForResult(intent, REQUEST_IMAGE);
 				}
 			}
 		});
 	}
 
-	private void showPopwindowForPhoto() {
-		if(photoDialog == null){
-			photoDialog = AlertDialogUtils.showPhotoDialog(this,new OnPhotoSelListener() {
-				
-				@Override
-				public void onSelPlay() {
-					photo();
-				}
-				
-				@Override
-				public void onSelLocal() {
-					Intent intent = new Intent(getActivity(), AlbumActivity.class);
-					startActivity(intent);
-				}
-			});
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode == REQUEST_IMAGE && resultCode == RESULT_OK) {
+			mSelectPath.clear();
+			mSelectPath
+					.addAll(data
+							.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT));
+			adapter.notifyDataSetChanged();
 		}
-		photoDialog.show();
 	}
 
 	@Override
@@ -192,13 +181,14 @@ public class CustomerServiceActivity extends BaseActivity implements
 			}
 		});
 		dialog.setOnDismissListener(new OnDismissListener() {
-			
+
 			@Override
 			public void onDismiss(DialogInterface arg0) {
-				if(dialog.getState()){
+				if (dialog.getState()) {
 					finish();
-				}else{
-					getMyApplication().getRequestQueue().cancelAll(UrlUtil.CUSTOMER_SERVICE_APPLY);
+				} else {
+					getMyApplication().getRequestQueue().cancelAll(
+							UrlUtil.CUSTOMER_SERVICE_APPLY);
 				}
 			}
 		});
@@ -216,8 +206,8 @@ public class CustomerServiceActivity extends BaseActivity implements
 		params.put("amount", apply_num.getText().toString());
 		params.put("contactName", name);
 		params.put("contactTel", phone);
-		for (int i = 0; i < Bimp.drr.size(); i++) {
-			String path = Bimp.drr.get(i);
+		for (int i = 0; i < mSelectPath.size(); i++) {
+			String path = mSelectPath.get(i);
 			params.put("refundImg" + i, new File(path));
 		}
 
@@ -247,87 +237,30 @@ public class CustomerServiceActivity extends BaseActivity implements
 				}, params);
 	}
 
-	private static final int TAKE_PICTURE = 110;
-	private String capturePath = "";
-
-	public void photo() {
-		if (Bimp.drr.size() >= Bimp.MAX_SIZE) {
-			ToastUtils.Toast(this, "最多上传3张");
-			return;
-		}
-		Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		String out_file_path = FileUtils.SAVED_IMAGE_DIR_PATH;
-		File dir = new File(out_file_path);
-		if (!dir.exists()) {
-			dir.mkdirs();
-		}
-		capturePath = FileUtils.SAVED_IMAGE_DIR_PATH
-				+ System.currentTimeMillis() + ".jpg";
-		openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,
-				Uri.fromFile(new File(capturePath)));
-		startActivityForResult(openCameraIntent, TAKE_PICTURE);
-	}
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		switch (requestCode) {
-		case TAKE_PICTURE:
-			if (Bimp.drr.size() < Bimp.MAX_SIZE && resultCode == RESULT_OK) {
-				Bimp.drr.add(capturePath);
-			}
-			break;
-		}
-	}
-
 	@SuppressLint("HandlerLeak")
 	public class GridAdapter extends BaseAdapter {
 		private LayoutInflater inflater; // 视图容器
-		private int selectedPosition = -1;// 选中的位置
-		private boolean shape;
-
-		public boolean isShape() {
-			return shape;
-		}
-
-		public void setShape(boolean shape) {
-			this.shape = shape;
-		}
 
 		public GridAdapter(Context context) {
 			inflater = LayoutInflater.from(context);
 		}
 
-		public void update() {
-			loading();
-		}
-
 		public int getCount() {
-			return (Bimp.bmp.size() + 1);
+			return (mSelectPath.size() + 1);
 		}
 
 		public Object getItem(int arg0) {
-
 			return null;
 		}
 
 		public long getItemId(int arg0) {
-
 			return 0;
-		}
-
-		public void setSelectedPosition(int position) {
-			selectedPosition = position;
-		}
-
-		public int getSelectedPosition() {
-			return selectedPosition;
 		}
 
 		/**
 		 * ListView Item设置
 		 */
-		public View getView(int position, View convertView, ViewGroup parent) {
-			final int coord = position;
+		public View getView(final int position, View convertView, ViewGroup parent) {
 			ViewHolder holder = null;
 			if (convertView == null) {
 
@@ -336,83 +269,40 @@ public class CustomerServiceActivity extends BaseActivity implements
 				holder = new ViewHolder();
 				holder.image = (ImageView) convertView
 						.findViewById(R.id.item_grida_image);
+				holder.btn_image_del = (ImageView) convertView
+						.findViewById(R.id.btn_image_del);
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
 			holder.image.setVisibility(View.VISIBLE);
-			if (position == Bimp.bmp.size()) {
+			if (position == mSelectPath.size()) {
+				holder.btn_image_del.setVisibility(View.GONE);
 				holder.image.setImageResource(R.drawable.icon_addpic_unfocused);
-				if (position == Bimp.MAX_SIZE) {
+				if (position == 3) {
 					holder.image.setVisibility(View.GONE);
 				}
 			} else {
-				holder.image.setImageBitmap(Bimp.bmp.get(position));
+				holder.btn_image_del.setVisibility(View.VISIBLE);
+				GlideLoaderUtils.loadGoodsImage(getActivity(),
+						mSelectPath.get(position), holder.image);
+				holder.btn_image_del.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						mSelectPath.remove(position);
+						notifyDataSetChanged();
+					}
+				});
 			}
 
 			return convertView;
 		}
 
 		public class ViewHolder {
-			public ImageView image;
-		}
-
-		Handler handler = new Handler() {
-			public void handleMessage(Message msg) {
-				switch (msg.what) {
-				case 1:
-					adapter.notifyDataSetChanged();
-					break;
-				}
-				super.handleMessage(msg);
-			}
-		};
-
-		public void loading() {
-			new Thread(new Runnable() {
-				public void run() {
-					while (true) {
-						if (Bimp.max == Bimp.drr.size()) {
-							Message message = new Message();
-							message.what = 1;
-							handler.sendMessage(message);
-							break;
-						} else {
-							try {
-								String path = Bimp.drr.get(Bimp.max);
-								System.out.println(path);
-								Bitmap bm = Bimp.revitionImageSize(path);
-								Bimp.bmp.add(bm);
-								String newStr = path.substring(
-										path.lastIndexOf("/") + 1,
-										path.lastIndexOf("."));
-								FileUtils.saveBitmap(bm, "" + newStr);
-								Bimp.max += 1;
-								Message message = new Message();
-								message.what = 1;
-								handler.sendMessage(message);
-							} catch (IOException e) {
-								e.printStackTrace();
-							}
-						}
-					}
-				}
-			}).start();
+			public ImageView image,btn_image_del;
+			
 		}
 	}
-
-	protected void onRestart() {
-		adapter.update();
-		super.onRestart();
-	}
-
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		Bimp.clearAll();
-		FileUtils.deleteDir();
-	}
-	
-	
 
 }

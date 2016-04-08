@@ -29,6 +29,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
@@ -47,12 +48,14 @@ import com.hanmimei.entity.Home;
 import com.hanmimei.entity.Slider;
 import com.hanmimei.entity.Theme;
 import com.hanmimei.manager.MessageMenager;
+import com.hanmimei.utils.GlideLoaderUtils;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.PreferenceUtil.IntroConfig;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.CycleViewPager;
 import com.hanmimei.view.IntroMsgDialog;
 import com.hanmimei.view.ViewFactory;
+import com.squareup.picasso.Picasso;
 import com.umeng.analytics.MobclickAgent;
 import com.viewpagerindicator.BaseIconFragment;
 
@@ -73,7 +76,7 @@ public class HomeFragment extends BaseIconFragment implements
 	private View headerView;
 	private List<ImageView> views = new ArrayList<ImageView>();
 	private CycleViewPager cycleViewPager;
-	private RelativeLayout back_top;
+	private View back_top;
 	private LinearLayout no_net;
 	private TextView reload;
 
@@ -99,7 +102,7 @@ public class HomeFragment extends BaseIconFragment implements
 		View view = inflater.inflate(R.layout.home_list_layout, null);
 		mListView = (PullToRefreshListView) view.findViewById(R.id.mylist);
 		mListView.getRefreshableView().setCacheColorHint(Color.TRANSPARENT);
-		back_top = (RelativeLayout) view.findViewById(R.id.back_top);
+		back_top = view.findViewById(R.id.back_top);
 		no_net = (LinearLayout) view.findViewById(R.id.no_net);
 		reload = (TextView) view.findViewById(R.id.reload);
 		reload.setOnClickListener(this);
@@ -368,30 +371,24 @@ public class HomeFragment extends BaseIconFragment implements
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem,
 			int visibleItemCount, int totalItemCount) {
-
+		
+		if (mListView.getRefreshableView().getFirstVisiblePosition() <= 4) {
+			if(back_top.getVisibility() == View.VISIBLE)
+				back_top.setVisibility(View.GONE);
+		} else {
+			if(back_top.getVisibility() == View.GONE)
+				back_top.setVisibility(View.VISIBLE);
+		}
 	}
 
 	@Override
 	public void onScrollStateChanged(AbsListView view, int scrollState) {
-		switch (scrollState) {
-		case SCROLL_STATE_IDLE: // 屏幕停止滚动
-			// 判断滚动到顶部
-			if (mListView.getRefreshableView().getFirstVisiblePosition() <= 4) {
-				back_top.setVisibility(View.GONE);
-			} else {
-				back_top.setVisibility(View.VISIBLE);
-			}
-			break;
-		case SCROLL_STATE_TOUCH_SCROLL: // 滚动时
-			if (mListView.getRefreshableView().getFirstVisiblePosition() <= 4) {
-				back_top.setVisibility(View.GONE);
-			} else {
-				back_top.setVisibility(View.VISIBLE);
-			}
-			break;
-		default:
-			break;
-		}
+		
+		 if (scrollState == SCROLL_STATE_FLING) {
+             GlideLoaderUtils.pauseRequests(getActivity());
+         } else {
+        	 GlideLoaderUtils.resumeRequests(getActivity());
+         }
 	}
 
 	private MyBroadCastReceiver myReceiver;

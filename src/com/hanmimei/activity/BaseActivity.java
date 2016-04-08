@@ -45,6 +45,12 @@ import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.LoadingDialog;
 import com.sliding.finish.SwipeBackActivity;
 
+
+/**
+ * @Author vince.liu
+ * @Description 公用
+ * 
+ */
 public class BaseActivity extends SwipeBackActivity  {
 
 	private LoadingDialog loadingDialog;

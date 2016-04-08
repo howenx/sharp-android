@@ -16,7 +16,7 @@ public class ToastUtils {
 
 	private static String oldMsg;
 //	protected static SuperToast toast = null;
-	static SuperActivityToast toast = null;
+	static SuperToast toast = null;
 	private static int duration = SuperToast.Duration.VERY_SHORT;
 
 	public static void cancel() {
@@ -34,17 +34,17 @@ public class ToastUtils {
 	 */
 	public static void Toast(Context context, final String s) {
 		if (toast == null) {
-			toast = new SuperActivityToast((Activity) context);
-			toast.setAnimations(Animations.POPUP);
-			toast.setTextSize(SuperToast.TextSize.SMALL);
+//			toast = new SuperActivityToast((Activity) context);
+//			toast.setAnimations(Animations.POPUP);
+//			toast.setTextSize(SuperToast.TextSize.SMALL);
+//			toast.setBackground(SuperToast.Background.RED);
+			toast = new SuperToast(context);
+			toast.setAnimations(SuperToast.Animations.POPUP);
+			toast.setDuration(duration);
 			toast.setBackground(SuperToast.Background.RED);
-//			toast = new SuperToast(context);
-//			toast.setAnimations(SuperToast.Animations.POPUP);
-//			toast.setDuration(duration);
-//			toast.setBackground(SuperToast.Background.BLACK);
 			oldMsg = s;
 			toast.setText(s);
-			toast.setTextSize(12);
+			toast.setTextSize(SuperToast.TextSize.SMALL);
 			toast.show();
 		} else {
 			if(toast.isShowing()){

@@ -2,25 +2,28 @@ package com.hanmimei.view;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import com.hanmimei.R;
+import com.hanmimei.utils.effects.BaseEffects;
+import com.hanmimei.utils.effects.Shake;
 
 public class CustomDialog extends AlertDialog {
 
-	
-	String[] tb ;
+	String[] tb;
 	private android.view.View.OnClickListener l;
-	
-	
-	public CustomDialog(Context context,String[] tb,android.view.View.OnClickListener l) {
-		super(context,R.style.CustomDialog);
+	private View main;
+	private BaseEffects bEffect;
+
+	public CustomDialog(Context context, String[] tb,
+			android.view.View.OnClickListener l) {
+		super(context, R.style.CustomDialog);
 		this.tb = tb;
 		this.l = l;
 	}
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +31,8 @@ public class CustomDialog extends AlertDialog {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.dialog_custom_layout);
 		setCanceledOnTouchOutside(false);
-		
+
+		main = findViewById(R.id.main);
 		TextView title = (TextView) findViewById(R.id.title);
 		TextView content = (TextView) findViewById(R.id.content);
 		TextView btn_cancel = (TextView) findViewById(R.id.btn_cancel);
@@ -67,8 +71,22 @@ public class CustomDialog extends AlertDialog {
 				dismiss();
 			}
 		});
+
+		this.setOnShowListener(new CustomShowListener());
 	}
 
-	
-	
+	public CustomDialog withBaseEffect(BaseEffects bEffect) {
+		this.bEffect = bEffect;
+		return this;
+	}
+
+	private class CustomShowListener implements OnShowListener {
+
+		@Override
+		public void onShow(DialogInterface arg0) {
+			if (bEffect != null)
+				bEffect.start(main);
+		}
+	}
+
 }

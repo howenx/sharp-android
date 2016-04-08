@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@drawable/background"
     android:fitsSystemWindows="true"
     android:orientation="vertical" >
 
@@ -76,12 +76,19 @@
 
         <TextView
             android:id="@+id/versionName"
+            android:visibility="invisible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right|center_vertical"
             android:layout_marginRight="15dp"
-            android:textColor="@color/fontcolor"
-            android:textSize="14sp" />
+            android:paddingTop="3dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="3dp"
+            android:paddingLeft="8dp"
+            android:background="@drawable/theme_border"
+            android:textColor="@color/theme"
+            android:text="新版本"
+            android:textSize="12sp" />
     </FrameLayout>
 
     <View

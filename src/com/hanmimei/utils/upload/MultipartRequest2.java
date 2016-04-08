@@ -20,7 +20,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
-import com.squareup.picasso.Picasso;
 
 public class MultipartRequest2 extends Request<String> {
 

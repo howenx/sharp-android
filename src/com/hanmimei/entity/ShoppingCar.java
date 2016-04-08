@@ -17,10 +17,25 @@ public class ShoppingCar implements Serializable {
 	private BigDecimal portalFee = BigDecimal.ZERO;		//理论行邮税
 	private BigDecimal factPortalFee =  BigDecimal.ZERO;	//	实际行邮税
 	private BigDecimal factShipFee =  BigDecimal.ZERO; //实际邮费
-	private BigDecimal denomination =  BigDecimal.ZERO; //优惠额度
+	private BigDecimal denomination =  BigDecimal.ZERO; //优惠券额度
+	private BigDecimal discountFee = BigDecimal.ZERO;	//商品活动优惠额度
+	private BigDecimal totalFee = BigDecimal.ZERO;
 	
 	 private Integer buyNow = 1;         //1.立即支付,2.购物车结算
-	 
+
+	public void setDiscountFee(BigDecimal discountFee) {
+		if(discountFee !=null)
+			this.discountFee = discountFee;
+	}
+
+	public BigDecimal getTotalFee() {
+		return totalFee;
+	}
+
+	public void setTotalFee(BigDecimal totalFee) {
+		this.totalFee = totalFee;
+	}
+
 	public String getOrderType() {
 		return orderType;
 	}
@@ -61,14 +76,6 @@ public class ShoppingCar implements Serializable {
 		this.list = list;
 	}
 
-	public BigDecimal getAllPrice() {
-		BigDecimal allPrice = BigDecimal.ZERO;
-		for(Customs cs :list){
-			allPrice = allPrice.add(new BigDecimal(cs.getAllPrice().toString()));
-		}
-		return allPrice;
-	}
-	
 	
 	public BigDecimal getShipFee() {
 		return shipFee;
@@ -102,8 +109,12 @@ public class ShoppingCar implements Serializable {
 		this.factShipFee = factShipFee;
 	}
 
-	public BigDecimal getAllMoney(){
-		return getAllPrice().add(this.factPortalFee).add(this.factShipFee).subtract(this.denomination) ;
+	public BigDecimal getTotalPayFee(){
+		return this.totalFee.add(this.factPortalFee).add(this.factShipFee).subtract(this.denomination) ;
+	}
+	
+	public BigDecimal getDiscountFee() {
+		return discountFee.add(denomination);
 	}
 
 }

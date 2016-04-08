@@ -115,7 +115,8 @@ public class PingouDetailActivity extends BaseActivity implements
 	private void findView() {
 		mScrollLayout = (ScrollableLayout) findViewById(R.id.mScrollLayout);
 		slider = (ConvenientBanner<ImgInfo>) findViewById(R.id.slider);
-		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(CommonUtil.getScreenWidth(this),
+		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+				CommonUtil.getScreenWidth(this),
 				CommonUtil.getScreenWidth(this));
 		slider.setLayoutParams(lp);
 
@@ -257,21 +258,25 @@ public class PingouDetailActivity extends BaseActivity implements
 		if (getUser() == null) {
 			startActivity(new Intent(this, LoginActivity.class));
 		} else {
-			toObject();
+			findViewById(R.id.btn_attention).setOnClickListener(null);
 			if (isCollection) {
 				delCollection();
 			} else {
-				addCollection();
+				addCollection(getCollectedGoodsInfo());
 			}
 		}
 	}
 
 	private void delCollection() {
+		getLoading().show();
 		Http2Utils.doGetRequestTask(this, getHeaders(), UrlUtil.DEL_COLLECTION
 				+ detail.getStock().getCollectId(), new VolleyJsonCallback() {
 
 			@Override
 			public void onSuccess(String result) {
+				getLoading().dismiss();
+				findViewById(R.id.btn_attention).setOnClickListener(
+						PingouDetailActivity.this);
 				HMessage message = DataParser.paserResultMsg(result);
 				if (message.getCode() == 200) {
 					isCollection = false;
@@ -286,31 +291,36 @@ public class PingouDetailActivity extends BaseActivity implements
 
 			@Override
 			public void onError() {
+				getLoading().dismiss();
+				findViewById(R.id.btn_attention).setOnClickListener(
+						PingouDetailActivity.this);
 				ToastUtils.Toast(PingouDetailActivity.this, "取消收藏失败");
 			}
 		});
 	}
 
-	private JSONObject object;
-
-	private void toObject() {
-		object = new JSONObject();
+	private String getCollectedGoodsInfo() {
+		JSONObject object = new JSONObject();
 		try {
 			object.put("skuId", detail.getStock().getId());
 			object.put("skuType", detail.getStock().getSkuType());
 			object.put("skuTypeId", detail.getStock().getSkuTypeId());
 		} catch (JSONException e) {
-			e.printStackTrace();
 		}
+		return object.toString();
 	}
 
 	// 添加收藏
-	private void addCollection() {
+	private void addCollection(String cGoods) {
+		getLoading().show();
 		Http2Utils.doRequestTask2(this, Method.POST, getHeaders(),
 				UrlUtil.ADD_COLLECTION, new VolleyJsonCallback() {
 
 					@Override
 					public void onSuccess(String result) {
+						getLoading().dismiss();
+						findViewById(R.id.btn_attention).setOnClickListener(
+								PingouDetailActivity.this);
 						HMessage message = DataParser.paserResultMsg(result);
 						int collectionId = DataParser.parserCollectId(result);
 						if (message.getCode() == 200) {
@@ -327,9 +337,12 @@ public class PingouDetailActivity extends BaseActivity implements
 
 					@Override
 					public void onError() {
+						getLoading().dismiss();
+						findViewById(R.id.btn_attention).setOnClickListener(
+								PingouDetailActivity.this);
 						ToastUtils.Toast(getActivity(), R.string.error);
 					}
-				}, object.toString());
+				}, cGoods);
 	}
 
 	private void initFragmentPager(MainVo main) {

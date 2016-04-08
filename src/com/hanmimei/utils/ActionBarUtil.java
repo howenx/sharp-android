@@ -8,7 +8,6 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.facebook.shimmer.ShimmerFrameLayout;
 import com.hanmimei.R;
 import com.hanmimei.activity.BaseActivity;
 
@@ -88,9 +87,9 @@ public class ActionBarUtil {
 		ImageView btn_back = (ImageView) view.findViewById(R.id.back);
 		ImageView btn_setting = (ImageView) view.findViewById(R.id.setting);
 		if (!TextUtils.isEmpty(title)) {
-			ShimmerFrameLayout shimmer_view_container = (ShimmerFrameLayout) view
-					.findViewById(R.id.shimmer_view_container);
-			activity.setShimmer_view_container(shimmer_view_container);
+//			ShimmerFrameLayout shimmer_view_container = (ShimmerFrameLayout) view
+//					.findViewById(R.id.shimmer_view_container);
+//			activity.setShimmer_view_container(shimmer_view_container);
 		}
 
 		if (isBack) {
