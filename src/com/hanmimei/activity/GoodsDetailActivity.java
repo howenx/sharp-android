@@ -17,6 +17,7 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.DecelerateInterpolator;
@@ -70,6 +71,7 @@ import com.hanmimei.view.TagCloudView.OnTagClickListener;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
+import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.UMShareAPI;
 
 public class GoodsDetailActivity extends BaseActivity implements
@@ -100,7 +102,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		ActionBarUtil.setActionBarStyle(this, "商品详情",
-				R.drawable.hmm_icon_share, true, null, this);
+				R.drawable.hmm_icon_share, true, this, this);
 		setContentView(R.layout.goods_detail_layout);
 		findView();
 		initGoodsNumView();
@@ -325,6 +327,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 		case R.id.more_view:
 			showPopupwindow();
 			break;
+		case R.id.back:
+			exitClick();
+			break;
 		default:
 			break;
 		}
@@ -465,14 +470,18 @@ public class GoodsDetailActivity extends BaseActivity implements
 			vo.setContent(shareStock.getInvTitle());
 			vo.setTitle("全球正品，尽在韩秘美");
 			vo.setImgUrl(shareStock.getInvImgForObj().getUrl());
-			vo.setTargetUrl("http://www.hanmimei.com/");
+			
+			vo.setTargetUrl("http://style.hanmimei.com" + shareStock.getInvUrl().split("comm")[1]);
 			vo.setInfoUrl(shareStock.getInvUrl());
 			vo.setType("C");
 			shareWindow = new ShareWindow(this, vo);
 		}
 		shareWindow.show();
 	}
-
+	private String caseUrl(String url){
+		
+		return "";
+	}
 	// =========================================================================
 	// ===============================响应方法 ==================================
 	// =========================================================================
@@ -892,5 +901,25 @@ public class GoodsDetailActivity extends BaseActivity implements
 			sendBroadcast(new Intent(
 					AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
 	}
+	// 主界面返回之后在后台运行
+		@Override
+		public boolean onKeyDown(int keyCode, KeyEvent event) {
+			if (keyCode == KeyEvent.KEYCODE_BACK) {
+				exitClick();
+			}
+			return super.onKeyDown(keyCode, event);
+		}
+
+		/**
+		 * 退出函数
+		 */
+		private void exitClick() {
+			if(getIntent().getStringExtra("from") != null){
+				startActivity(new Intent(this,MainTestActivity.class));
+				finish();
+			}else{
+				finish();
+			}
+		}
 
 }

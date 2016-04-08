@@ -12,8 +12,10 @@
     <color name="huise">#969696</color>
     <color name="red">#EF2528</color>
     <color name="fontcolor">#646566</color>
+    <color name="msg_title">#333333</color>
+    <color name="msg_content">#999999</color>
     <color name="qianhui">#EEEEEE</color>
-    <color name="xian">#E0E0E0</color>
+    <color name="xian">#dcdcdc</color>
     <color name="province_line_border">#C7C7C7</color>
     <color name="gree">#72AF1A</color>
     <color name="rippelColor">#FFFFFF</color>

@@ -1,11 +1,15 @@
 package com.hanmimei.activity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
@@ -16,8 +20,10 @@ import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.MessageType;
+import com.hanmimei.entity.MessageTypeInfo;
 import com.hanmimei.manager.MessageMenager;
 import com.hanmimei.utils.ActionBarUtil;
+import com.hanmimei.utils.DateUtils;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
@@ -29,19 +35,23 @@ public class MessageTypeActivity extends BaseActivity implements OnClickListener
 	private TextView tishi3;
 	private TextView tishi4;
 	private TextView tishi5;
+	private TextView time1;
+	private TextView time2;
+	private TextView time3;
+	private TextView time4;
+	private TextView time5;
 	private RelativeLayout sys_msg;
 	private RelativeLayout goods_msg;
 	private RelativeLayout youhui_msg;
 	private RelativeLayout wuliu_msg;
 	private RelativeLayout zichan_msg;
 	private TextView no_data;
-	private boolean showText;
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.my_message_layout);
-		ActionBarUtil.setActionBarStyle(this, "消息盒子");
-		MessageMenager.getInstance().setMsgDrawble(R.drawable.hmm_icon_message_n);
+		ActionBarUtil.setActionBarStyle(this, "消息盒子",this);
+//		MessageMenager.getInstance().setMsgDrawble(R.drawable.hmm_icon_message_n);
 		registerReceivers();
 		findView();
 		loadData();
@@ -53,6 +63,11 @@ public class MessageTypeActivity extends BaseActivity implements OnClickListener
 		tishi3 = (TextView) findViewById(R.id.tishi3);
 		tishi4 = (TextView) findViewById(R.id.tishi4);
 		tishi5 = (TextView) findViewById(R.id.tishi5);
+		time1 = (TextView) findViewById(R.id.time1);
+		time2 = (TextView) findViewById(R.id.time2);
+		time3 = (TextView) findViewById(R.id.time3);
+		time4 = (TextView) findViewById(R.id.time4);
+		time5 = (TextView) findViewById(R.id.time5);
 		sys_msg = (RelativeLayout) findViewById(R.id.sys_msg);
 		goods_msg = (RelativeLayout) findViewById(R.id.good_msg);
 		youhui_msg = (RelativeLayout) findViewById(R.id.ac_msg);
@@ -67,112 +82,133 @@ public class MessageTypeActivity extends BaseActivity implements OnClickListener
 	}
 
 	private void loadData() {
-		showText = false;
+		getLoading().show();
 		Http2Utils.doGetRequestTask(this, getHeaders(), UrlUtil.GET_MSG_TYPE, new VolleyJsonCallback() {
 			
 			@Override
 			public void onSuccess(String result) {
-				MessageType type = DataParser.parseMsgType(result);
-				if(type.getCode() == 200){
-					initView(type);
+				getLoading().dismiss();
+				MessageTypeInfo typeInfo = DataParser.parseMsgType(result);
+				if(typeInfo.getMessage().getCode() == 200){
+					initView(typeInfo.getList());
 				}else{
-					ToastUtils.Toast(MessageTypeActivity.this, type.getMessage());
+					ToastUtils.Toast(MessageTypeActivity.this, typeInfo.getMessage().getMessage());
 				}
 			}
 			
 			@Override
 			public void onError() {
+				getLoading().dismiss();
 				ToastUtils.Toast(MessageTypeActivity.this, "请检查您的网络");
 			}
 		});
 	}
 
-	private void initView(MessageType type) {
-		if(type.getSysNum() > 0){
-			showText = true;
-			sys_msg.setVisibility(View.VISIBLE);
-			tishi1.setText("您有" + type.getSysNum() + "条新的消息");
-		}else if(type.getSysNum() == -1){
-			sys_msg.setVisibility(View.GONE);
-		}else{
-			showText = true;
-			sys_msg.setVisibility(View.VISIBLE);
-		}
-		if(type.getWuliuNum() > 0){
-			showText = true;
-			wuliu_msg.setVisibility(View.VISIBLE);
-			tishi3.setText("您有" + type.getWuliuNum() + "条新的消息");
-		}else if(type.getWuliuNum() == -1){
-			wuliu_msg.setVisibility(View.GONE);
-		}else{
-			showText = true;
-			wuliu_msg.setVisibility(View.VISIBLE);
-		}
-		if(type.getGoodNum() > 0){
-			showText = true;
-			goods_msg.setVisibility(View.VISIBLE);
-			tishi2.setText("您有" + type.getGoodNum()+ "条新的消息");
-		}else if(type.getGoodNum() == -1){
-			goods_msg.setVisibility(View.GONE);
-		}else{
-			showText = true;
-			goods_msg.setVisibility(View.VISIBLE);
-		}
-		if(type.getHuodongNum() > 0){
-			showText = true;
-			youhui_msg.setVisibility(View.VISIBLE);
-			tishi5.setText("您有" + type.getHuodongNum()+ "条新的消息");
-		}else if(type.getHuodongNum() == -1){
-			youhui_msg.setVisibility(View.GONE);
-		}else{
-			showText = true;
-			youhui_msg.setVisibility(View.VISIBLE);
-		}
-		if(type.getZichanNum() > 0){
-			showText = true;
-			zichan_msg.setVisibility(View.VISIBLE);
-			tishi4.setText("您有" + type.getZichanNum()+ "条新的消息");
-		}else if(type.getZichanNum() == -1){
-			zichan_msg.setVisibility(View.GONE);
-		}else{
-			showText = true;
-			zichan_msg.setVisibility(View.VISIBLE);
-		}
-		if(showText){
-			no_data.setVisibility(View.GONE);
+	private void initView(List<MessageType> type) {
+		if(type != null && type.size() > 0){
+			for(int i = 0; i < type.size(); i++){
+				if(type.get(i).getType().equals("system")){
+					sys_msg.setVisibility(View.VISIBLE);
+					tishi1.setText(type.get(i).getContent());
+					time1.setText(DateUtils.getTimeDiffDesc(DateUtils.getDate(type.get(i).getTime())));
+					if(type.get(i).getNum() > 0){
+						findViewById(R.id.hasNew1).setVisibility(View.VISIBLE);
+					}else{
+						findViewById(R.id.hasNew1).setVisibility(View.GONE);
+					}
+				}else if(type.get(i).getType().equals("discount")){
+					youhui_msg.setVisibility(View.VISIBLE);
+					tishi5.setText(type.get(i).getContent());
+					time5.setText(DateUtils.getTimeDiffDesc(DateUtils.getDate(type.get(i).getTime())));
+					if(type.get(i).getNum() > 0){
+						findViewById(R.id.hasNew5).setVisibility(View.VISIBLE);
+					}else{
+						findViewById(R.id.hasNew5).setVisibility(View.GONE);
+					}
+				}else if(type.get(i).getType().equals("coupon")){
+					zichan_msg.setVisibility(View.VISIBLE);
+					tishi4.setText(type.get(i).getContent());
+					time4.setText(DateUtils.getTimeDiffDesc(DateUtils.getDate(type.get(i).getTime())));
+					if(type.get(i).getNum() > 0){
+						findViewById(R.id.hasNew4).setVisibility(View.VISIBLE);
+					}else{
+						findViewById(R.id.hasNew4).setVisibility(View.GONE);
+					}
+				}else if(type.get(i).getType().equals("logistics")){
+					wuliu_msg.setVisibility(View.VISIBLE);
+					tishi3.setText(type.get(i).getContent());
+					time3.setText(DateUtils.getTimeDiffDesc(DateUtils.getDate(type.get(i).getTime())));
+					if(type.get(i).getNum() > 0){
+						findViewById(R.id.hasNew3).setVisibility(View.VISIBLE);
+					}else{
+						findViewById(R.id.hasNew3).setVisibility(View.GONE);
+					}
+				}else if(type.get(i).getType().equals("goods")){
+					goods_msg.setVisibility(View.VISIBLE);
+					tishi2.setText(type.get(i).getContent());
+					time2.setText(DateUtils.getTimeDiffDesc(DateUtils.getDate(type.get(i).getTime())));
+					if(type.get(i).getNum() > 0){
+						findViewById(R.id.hasNew2).setVisibility(View.VISIBLE);
+					}else{
+						findViewById(R.id.hasNew2).setVisibility(View.GONE);
+					}
+				}
+			}
 		}else{
 			no_data.setVisibility(View.VISIBLE);
 		}
+		
+	}
+	private void clearAllMsg(){
+		sys_msg.setVisibility(View.GONE);
+		youhui_msg.setVisibility(View.GONE);
+		zichan_msg.setVisibility(View.GONE);
+		wuliu_msg.setVisibility(View.GONE);
+		goods_msg.setVisibility(View.GONE);
 	}
 
 	@Override
 	public void onClick(View v) {
-		Intent intent = new Intent(this,MessageActivity.class);
 		switch (v.getId()) {
 		case R.id.sys_msg:
-			intent.putExtra("type", "system");
-			tishi1.setVisibility(View.GONE);
+			doJump("system");
+			findViewById(R.id.hasNew1).setVisibility(View.GONE);
 			break;
 		case R.id.good_msg:
-			intent.putExtra("type", "goods");
-			tishi2.setVisibility(View.GONE);
+			doJump("goods");
+			findViewById(R.id.hasNew2).setVisibility(View.GONE);
 			break;
 		case R.id.wuliu_msg:
-			intent.putExtra("type", "logistics");
-			tishi3.setVisibility(View.GONE);
+			doJump("logistics");
+			findViewById(R.id.hasNew3).setVisibility(View.GONE);
 			break;
 		case R.id.zichan_msg:
-			intent.putExtra("type", "coupon");
-			tishi4.setVisibility(View.GONE);
+			doJump("coupon");
+			findViewById(R.id.hasNew4).setVisibility(View.GONE);
 			break;
 		case R.id.ac_msg:
-			intent.putExtra("type", "discount");
-			tishi5.setVisibility(View.GONE);
+			doJump("discount");
+			findViewById(R.id.hasNew5).setVisibility(View.GONE);
+			break;
+		case R.id.back:
+			exitClick();
 			break;
 		default:
 			break;
 		}
+		
+	}
+	private void doJump(String type){
+		Intent intent = new Intent(this,MessageActivity.class);
+		intent.putExtra("type", type);
 		startActivity(intent);
+	}
+	private void exitClick() {
+		if(findViewById(R.id.hasNew1).getVisibility() == 8 && findViewById(R.id.hasNew2).getVisibility() == 8 && findViewById(R.id.hasNew3).getVisibility()
+				== 8 && findViewById(R.id.hasNew4).getVisibility() == 8 && findViewById(R.id.hasNew5).getVisibility() == 8){
+			MessageMenager.getInstance().setMsgDrawble(R.drawable.hmm_icon_message_n);
+		}
+		finish();
 	}
 	private MyBroadCastReceiver myReceiver;
 
@@ -189,6 +225,7 @@ public class MessageTypeActivity extends BaseActivity implements OnClickListener
 		public void onReceive(Context context, Intent intent) {
 			if (intent.getAction().equals(
 					AppConstant.MESSAGE_BROADCAST_UPDATE_MSG)) {
+				clearAllMsg();
 					loadData();
 			}
 		}
@@ -198,6 +235,14 @@ public class MessageTypeActivity extends BaseActivity implements OnClickListener
 		// TODO Auto-generated method stub
 		super.onDestroy();
 		unregisterReceiver(myReceiver);
+	}
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			exitClick();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 	
 

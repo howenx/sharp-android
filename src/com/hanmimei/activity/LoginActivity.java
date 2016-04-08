@@ -3,7 +3,6 @@ package com.hanmimei.activity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -35,7 +34,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import cn.jpush.android.api.JPushInterface;
-import cn.jpush.android.api.TagAliasCallback;
 
 import com.hanmimei.R;
 import com.hanmimei.application.HMMApplication;
@@ -50,7 +48,10 @@ import com.hanmimei.entity.User;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.DateUtil;
+import com.hanmimei.utils.Http2Utils;
+import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.HttpUtils;
+import com.hanmimei.utils.ToastUtils;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -225,10 +226,11 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 						.getText().toString().length());
 			}
 			break;
-//		case R.id.qq:
-//			platform = SHARE_MEDIA.QQ;
-//			doOtherLogin();
-//			break;
+		case R.id.qq:
+			//应用宝上线或添加测试账户
+			platform = SHARE_MEDIA.QQ;
+			doOtherLogin();
+			break;
 		case R.id.weixin:
 			platform = SHARE_MEDIA.WEIXIN;
 			doOtherLogin();
@@ -250,26 +252,42 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		@Override
 		public void onComplete(SHARE_MEDIA platform, int action,
 				Map<String, String> data) {
-			Toast.makeText(getApplicationContext(), "登陆成功", Toast.LENGTH_SHORT)
-					.show();
+//			Toast.makeText(getApplicationContext(), "登陆成功", Toast.LENGTH_SHORT)
+//					.show();
+			ToastUtils.Toast(getApplicationContext(),  data.get("openid").toString());
+			chekWinxin(data);
 
 		}
 
 		@Override
 		public void onError(SHARE_MEDIA platform, int action, Throwable t) {
-			Toast.makeText(getApplicationContext(), "登陆失败", Toast.LENGTH_SHORT)
-					.show();
+			ToastUtils.Toast(getApplicationContext(), "登陆失败");
 		}
 
 		@Override
 		public void onCancel(SHARE_MEDIA platform, int action) {
-			Toast.makeText(getApplicationContext(), "登陆取消", Toast.LENGTH_SHORT)
-					.show();
+			ToastUtils.Toast(getApplicationContext(),  "登陆取消");
 		}
 	};
 	private SHARE_MEDIA platform;
 	private UMShareAPI mShareAPI = null;
 
+	private void chekWinxin(Map<String, String> data) {
+		Http2Utils.doPostRequestTask(this, "", new VolleyJsonCallback() {
+			
+			@Override
+			public void onSuccess(String result) {
+				if(result == ""){
+					
+				}else{
+				}
+			}
+			@Override
+			public void onError() {
+				ToastUtils.Toast(LoginActivity.this, "登录失败，请检查您的网络");
+			}
+		});
+	}
 	@SuppressLint("ShowToast")
 	private void loadImg() {
 		new Thread(new Runnable() {

@@ -39,16 +39,16 @@ public class ShareWindow extends AlertDialog implements OnClickListener {
 		Config.OpenEditor = true;
 		// 添加选择窗口范围监听可以优先获取触点，即不再执行onTouchEvent()函数，点击其他地方时执行onTouchEvent()函数销毁Activity
 
-		if (vo.getType().equals("T")) {
-			findViewById(R.id.qq).setVisibility(View.GONE);
-			findViewById(R.id.weixin).setVisibility(View.GONE);
-			findViewById(R.id.weixinq).setVisibility(View.GONE);
-		} else {
+//		if (vo.getType().equals("T")) {
+//			findViewById(R.id.qq).setVisibility(View.GONE);
+//			findViewById(R.id.weixin).setVisibility(View.GONE);
+//			findViewById(R.id.weixinq).setVisibility(View.GONE);
+//		} else {
 			// 添加按钮监听
 			findViewById(R.id.qq).setOnClickListener(this);
 			findViewById(R.id.weixin).setOnClickListener(this);
 			findViewById(R.id.weixinq).setOnClickListener(this);
-		}
+//		}
 
 		findViewById(R.id.copy).setOnClickListener(this);
 
@@ -121,15 +121,18 @@ public class ShareWindow extends AlertDialog implements OnClickListener {
 	
 	private void doCopy(){
 		String[] code = null;
+		String url = "";
 		if(vo.getType().equals("C")||vo.getType().equals("P")){
 			code = vo.getInfoUrl().split("detail");
+			url = "https://style.hanmimei.com/detail" + code[1];
 		}else if(vo.getType().equals("T")){
 			code = vo.getInfoUrl().split("activity");
+			url =  "https://style.hanmimei.com/pin/activity" + code[1];
 		}
 		HMMApplication application = (HMMApplication) mActivity
 				.getApplication();
 		application.setKouling("KAKAO-HMM 复制这条信息,打开👉韩秘美👈即可看到<"+vo.getType()+">【"
-				+ vo.getTitle() + "】," + code[1] + ",－🔑 M令 🔑");
+				+ vo.getTitle() + "】," + url + "－🔑 M令 🔑");
 		ToastUtils.Toast(mActivity, "复制成功，快去粘贴吧");
 	}
 	

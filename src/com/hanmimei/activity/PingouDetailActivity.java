@@ -14,6 +14,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -72,7 +73,7 @@ public class PingouDetailActivity extends BaseActivity implements
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		ActionBarUtil.setActionBarStyle(this, "商品详情",
-				R.drawable.hmm_icon_share, true, null, this);
+				R.drawable.hmm_icon_share, true, this, this);
 		setContentView(R.layout.pingou_detail_layout);
 		findView();
 		loadUrl();
@@ -217,6 +218,9 @@ public class PingouDetailActivity extends BaseActivity implements
 		case R.id.setting:
 			showShareboard();
 			break;
+		case R.id.back:
+			exitClick();
+			break;
 		default:
 			break;
 		}
@@ -233,7 +237,7 @@ public class PingouDetailActivity extends BaseActivity implements
 			vo.setContent(detail.getStock().getPinTitle());
 			vo.setTitle("全球正品，尽在韩秘美");
 			vo.setImgUrl(detail.getStock().getInvImgForObj().getUrl());
-			vo.setTargetUrl("http://www.hanmimei.com/");
+			vo.setTargetUrl("http://style.hanmimei.com" + detail.getStock().getPinRedirectUrl().split("comm")[1]);
 			vo.setInfoUrl(detail.getStock().getPinRedirectUrl());
 			vo.setType("P");
 			shareWindow = new ShareWindow(this, vo);
@@ -478,6 +482,25 @@ public class PingouDetailActivity extends BaseActivity implements
 	protected void onDestroy() {
 		super.onDestroy();
 		unregisterReceiver(netReceiver);
+	}
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			exitClick();
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
+	/**
+	 * 退出函数
+	 */
+	private void exitClick() {
+		if(getIntent().getStringExtra("from") != null){
+			startActivity(new Intent(this,MainTestActivity.class));
+			finish();
+		}else{
+			finish();
+		}
 	}
 
 }
