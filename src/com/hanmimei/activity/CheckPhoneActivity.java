@@ -35,6 +35,10 @@ import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.HttpUtils;
 
+/**
+ * @author eric
+ *
+ */
 @SuppressLint("NewApi")
 public class CheckPhoneActivity extends BaseActivity implements OnClickListener {
 

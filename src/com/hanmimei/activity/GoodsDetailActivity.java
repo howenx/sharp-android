@@ -467,7 +467,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 			shareStock = detail.getCurrentStock();
 			ShareVo vo = new ShareVo();
 			vo.setContent(shareStock.getInvTitle());
-			vo.setTitle("全球正品，尽在韩秘美");
+			vo.setTitle("韩秘美，只卖韩国正品");
 			vo.setImgUrl(shareStock.getInvImgForObj().getUrl());
 			
 			vo.setTargetUrl("http://style.hanmimei.com" + shareStock.getInvUrl().split("comm")[1]);

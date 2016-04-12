@@ -53,8 +53,8 @@ public class HMMApplication extends Application {
 	// 初始化PlatformConfig
 	private void initPlatformConfig() {
 		// 微信 appid appsecret
-		PlatformConfig.setWeixin("wx4ee4a992a10d1253",
-				"b1a54352a4e78028fc54de89b29505a6");
+		PlatformConfig.setWeixin("wx578f993da4b29f97",
+				"e78a99aec4b6860370107be78a5faf9d");
 		// 新浪微博 appkey appsecret
 		PlatformConfig.setSinaWeibo("794664710",
 				"0dc274fafeabec336673331c633a115e");

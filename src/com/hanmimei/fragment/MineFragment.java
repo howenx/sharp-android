@@ -4,6 +4,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteCursorDriver;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteQuery;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -24,6 +28,9 @@ import com.hanmimei.activity.MyCouponActivity;
 import com.hanmimei.activity.MyOrderActivity;
 import com.hanmimei.activity.MyPingouActivity;
 import com.hanmimei.activity.SettingActivity;
+import com.hanmimei.dao.DaoMaster;
+import com.hanmimei.dao.DaoMaster.DevOpenHelper;
+import com.hanmimei.dao.DaoMaster.OpenHelper;
 import com.hanmimei.dao.UserDao;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
@@ -36,6 +43,10 @@ import com.hanmimei.view.RoundImageView;
 import com.umeng.analytics.MobclickAgent;
 import com.viewpagerindicator.BaseIconFragment;
 
+/**
+ * @author eric
+ *
+ */
 public class MineFragment extends BaseIconFragment implements OnClickListener {
 	private RoundImageView header;
 	private TextView user_name;

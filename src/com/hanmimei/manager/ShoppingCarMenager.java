@@ -14,6 +14,10 @@ import com.hanmimei.entity.Customs;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.utils.CommonUtil;
 
+/**
+ * @author eric
+ *
+ */
 public class ShoppingCarMenager {
 	private TextView totalPrice_t;
 	private TextView pay;

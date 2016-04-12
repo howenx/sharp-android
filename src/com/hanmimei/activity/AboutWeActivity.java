@@ -10,6 +10,10 @@ import com.hanmimei.R;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.utils.ActionBarUtil;
 
+/**
+ * @author eric
+ *
+ */
 @SuppressLint("NewApi") 
 public class AboutWeActivity extends BaseActivity {
 

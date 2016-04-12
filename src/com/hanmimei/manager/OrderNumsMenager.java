@@ -4,6 +4,10 @@ import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
+/**
+ * @author eric
+ *
+ */
 public class OrderNumsMenager {
 
 	private TextView t1_num;

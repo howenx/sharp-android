@@ -14,6 +14,10 @@ import android.widget.TextView;
 import com.hanmimei.R;
 import com.hanmimei.entity.Coupon;
 
+/**
+ * @author eric
+ *
+ */
 public class TicketAdapter extends BaseAdapter {
 	private List<Coupon> data;
 	private LayoutInflater inflater;

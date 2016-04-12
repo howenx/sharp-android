@@ -27,6 +27,10 @@ import com.hanmimei.utils.ToastUtils;
 import com.umeng.analytics.MobclickAgent;
 import com.viewpagerindicator.TabPageIndicator;
 
+/**
+ * @author eric
+ *
+ */
 @SuppressLint("NewApi") 
 public class MyCouponActivity extends BaseActivity implements OnClickListener{
 

@@ -17,6 +17,10 @@ import com.hanmimei.entity.MessageInfo;
 import com.hanmimei.utils.DateUtils;
 import com.hanmimei.utils.GlideLoaderUtils;
 
+/**
+ * @author eric
+ *
+ */
 public class MyMsgAdapter extends BaseAdapter {
 
 	private List<MessageInfo> list;

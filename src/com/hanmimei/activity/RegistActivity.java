@@ -45,6 +45,10 @@ import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.KeyWordUtil;
 import com.hanmimei.view.YanZhengCodeTextView;
 
+/**
+ * @author eric
+ *
+ */
 @SuppressLint("NewApi")
 public class RegistActivity extends BaseActivity implements OnClickListener,
 		TimeEndListner {

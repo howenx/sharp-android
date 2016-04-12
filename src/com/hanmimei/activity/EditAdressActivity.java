@@ -52,6 +52,10 @@ import com.umeng.analytics.MobclickAgent;
 import com.zcw.togglebutton.ToggleButton;
 import com.zcw.togglebutton.ToggleButton.OnToggleChanged;
 
+/**
+ * @author eric
+ *
+ */
 @SuppressLint("NewApi")
 public class EditAdressActivity extends BaseActivity implements
 		OnClickListener, OnWheelChangedListener {

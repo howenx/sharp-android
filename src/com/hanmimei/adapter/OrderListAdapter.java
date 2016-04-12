@@ -17,6 +17,10 @@ import com.hanmimei.entity.Sku;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.GlideLoaderUtils;
 
+/**
+ * @author eric
+ *
+ */
 @SuppressLint("InflateParams")
 public class OrderListAdapter extends BaseAdapter {
 

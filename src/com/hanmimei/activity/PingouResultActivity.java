@@ -261,7 +261,7 @@ public class PingouResultActivity extends BaseActivity implements
 		if (shareWindow == null) {
 			ShareVo vo = new ShareVo();
 			vo.setContent(pinActivity.getPinTitle());
-			vo.setTitle("全球正品，尽在韩秘美");
+			vo.setTitle("韩秘美，只卖韩国正品");
 			vo.setInfoUrl(pinActivity.getPinUrl());
 			vo.setImgUrl(pinActivity.getPinImg().getUrl());
 			vo.setTargetUrl("http://style.hanmimei.com/pin" + pinActivity.getPinUrl().split("promotion/pin")[1]);

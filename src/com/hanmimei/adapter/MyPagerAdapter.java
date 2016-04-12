@@ -8,6 +8,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.hanmimei.entity.Category;
 
+/**
+ * @author eric
+ *
+ */
 public class MyPagerAdapter extends FragmentPagerAdapter {
 	private List<Fragment> data;
 	private List<Category> cats;
