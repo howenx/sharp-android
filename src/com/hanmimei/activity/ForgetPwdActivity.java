@@ -36,6 +36,10 @@ import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.HttpUtils;
 
+/**
+ * @author eric
+ *
+ */
 @SuppressLint("NewApi")
 public class ForgetPwdActivity extends BaseActivity implements
 		OnClickListener {

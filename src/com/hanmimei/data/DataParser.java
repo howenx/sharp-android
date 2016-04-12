@@ -31,6 +31,10 @@ import com.hanmimei.entity.Slider;
 import com.hanmimei.entity.Theme;
 import com.hanmimei.entity.User;
 
+/**
+ * @author eric
+ *
+ */
 public class DataParser {
 	public static Home parserHomeData(String result) {	
 		Home home = new Home();

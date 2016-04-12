@@ -43,6 +43,10 @@ import com.hanmimei.utils.ToastUtils;
 /*
  * 同shoppingcarfragment
  */
+/**
+ * @author eric
+ *
+ */
 public class ShoppingCarActivity extends BaseActivity implements
 		OnClickListener, OnRefreshListener2<ListView> {
 

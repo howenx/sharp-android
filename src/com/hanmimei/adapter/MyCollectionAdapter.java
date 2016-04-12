@@ -15,6 +15,10 @@ import com.hanmimei.R;
 import com.hanmimei.entity.Collection;
 import com.hanmimei.utils.GlideLoaderUtils;
 
+/**
+ * @author eric
+ *
+ */
 @SuppressLint("InflateParams")
 public class MyCollectionAdapter extends BaseAdapter {
 

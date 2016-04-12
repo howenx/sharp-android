@@ -18,6 +18,10 @@ import com.hanmimei.fragment.OrderFragment;
 import com.hanmimei.manager.OrderNumsMenager;
 import com.hanmimei.utils.ActionBarUtil;
 
+/**
+ * @author eric
+ *
+ */
 public class MyOrderActivity extends BaseActivity implements OnClickListener,
 		OnPageChangeListener {
 	private static final String TAG_01_ID = "tag01";

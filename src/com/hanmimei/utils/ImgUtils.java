@@ -41,7 +41,7 @@ public class ImgUtils {
 		} else {
 			Intent intent = new Intent();
 			intent.setType("image/*");
-			intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+			intent.setAction(Intent.ACTION_GET_CONTENT);
 			activity.startActivityForResult(intent, AppConstant.KITKAT_ABOVE);
 		}
 	}

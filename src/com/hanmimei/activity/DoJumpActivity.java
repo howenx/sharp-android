@@ -6,6 +6,10 @@ import android.support.annotation.Nullable;
 
 import com.hanmimei.data.UrlUtil;
 
+/**
+ * @author eric
+ *
+ */
 public class DoJumpActivity extends BaseActivity {
 	// hmmapp://data/vary/889544/241865
 	@Override

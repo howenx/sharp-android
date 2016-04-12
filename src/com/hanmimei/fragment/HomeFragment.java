@@ -56,6 +56,10 @@ import com.hanmimei.view.ViewFactory;
 import com.umeng.analytics.MobclickAgent;
 import com.viewpagerindicator.BaseIconFragment;
 
+/**
+ * @author eric
+ *
+ */
 public class HomeFragment extends BaseIconFragment implements
 		OnRefreshListener2<ListView>, OnClickListener, OnScrollListener {
 	private LayoutInflater inflater;

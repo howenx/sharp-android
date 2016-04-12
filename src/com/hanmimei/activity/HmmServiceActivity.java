@@ -9,6 +9,10 @@ import android.support.annotation.Nullable;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+/**
+ * @author eric
+ *
+ */
 public class HmmServiceActivity extends BaseActivity {
 
 	@Override

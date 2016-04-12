@@ -27,6 +27,10 @@ import com.hanmimei.utils.PostStringRequest;
 import com.hanmimei.utils.PreferenceUtil.IntroConfig;
 import com.hanmimei.utils.ToastUtils;
 
+/**
+ * @author eric
+ *
+ */
 @SuppressLint("NewApi")
 public class FirstShowActivity extends AppCompatActivity {
 

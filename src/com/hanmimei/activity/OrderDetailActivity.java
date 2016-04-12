@@ -42,6 +42,10 @@ import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.CustomListView;
 import com.hanmimei.view.TimerTextView;
 
+/**
+ * @author eric
+ *
+ */
 @SuppressLint({ "NewApi", "InflateParams" }) 
 public class OrderDetailActivity extends BaseActivity implements OnClickListener, TimeEndListner{
 	private Order order;

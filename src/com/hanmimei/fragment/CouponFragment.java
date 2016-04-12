@@ -26,6 +26,10 @@ import com.hanmimei.entity.User;
 import com.hanmimei.utils.HttpUtils;
 import com.umeng.analytics.MobclickAgent;
 
+/**
+ * @author eric
+ *
+ */
 public class CouponFragment extends Fragment {
 
 	

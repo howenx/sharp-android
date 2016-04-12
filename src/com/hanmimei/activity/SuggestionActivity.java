@@ -13,6 +13,10 @@ import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.ToastUtils;
 
+/**
+ * @author eric
+ *
+ */
 public class SuggestionActivity extends BaseActivity implements OnClickListener{
 
 	private EditText editText;

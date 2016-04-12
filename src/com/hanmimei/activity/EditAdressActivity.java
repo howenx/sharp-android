@@ -51,6 +51,10 @@ import com.hanmimei.wheel.widget.adapter.ArrayWheelAdapter;
 import com.zcw.togglebutton.ToggleButton;
 import com.zcw.togglebutton.ToggleButton.OnToggleChanged;
 
+/**
+ * @author eric
+ *
+ */
 @SuppressLint("NewApi")
 public class EditAdressActivity extends BaseActivity implements
 		OnClickListener, OnWheelChangedListener {

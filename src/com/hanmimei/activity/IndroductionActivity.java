@@ -16,6 +16,10 @@ import com.hanmimei.utils.PreferenceUtil.IntroConfig;
 import com.hanmimei.view.viewflow.CircleFlowIndicator;
 import com.hanmimei.view.viewflow.ViewFlow;
 
+/**
+ * @author eric
+ *
+ */
 @SuppressLint("NewApi") 
 public class IndroductionActivity extends AppCompatActivity {
 

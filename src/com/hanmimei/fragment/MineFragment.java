@@ -24,19 +24,21 @@ import com.hanmimei.activity.MyCouponActivity;
 import com.hanmimei.activity.MyOrderActivity;
 import com.hanmimei.activity.MyPingouActivity;
 import com.hanmimei.activity.SettingActivity;
-import com.hanmimei.activity.SuggestionActivity;
 import com.hanmimei.dao.UserDao;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.User;
-import com.hanmimei.utils.DoJumpUtils;
 import com.hanmimei.utils.GlideLoaderUtils;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.view.RoundImageView;
 import com.umeng.analytics.MobclickAgent;
 import com.viewpagerindicator.BaseIconFragment;
 
+/**
+ * @author eric
+ *
+ */
 public class MineFragment extends BaseIconFragment implements OnClickListener {
 	private RoundImageView header;
 	private TextView user_name;

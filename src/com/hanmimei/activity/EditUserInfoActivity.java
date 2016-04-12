@@ -52,6 +52,10 @@ import com.hanmimei.view.RoundImageView;
 import com.hanmimei.view.SexDialog;
 import com.hanmimei.view.SexDialog.SexSelectListener;
 
+/**
+ * @author eric
+ *
+ */
 @SuppressLint({ "SdCardPath", "InflateParams" })
 public class EditUserInfoActivity extends BaseActivity implements
 		OnClickListener {
@@ -260,13 +264,13 @@ public class EditUserInfoActivity extends BaseActivity implements
 			switch (requestCode) {
 			case AppConstant.KITKAT_LESS:
 				uri = data.getData();
-				Log.d("tag", "uri=" + uri);
+//				Log.d("tag", "uri=" + uri);
 				// 调用裁剪方法
 				ImgUtils.getInstance().cropPicture(this, uri);
 				break;
 			case AppConstant.KITKAT_ABOVE:
 				uri = data.getData();
-				Log.d("tag", "uri=" + uri);
+//				Log.d("tag", "uri=" + uri);
 				// 先将这个uri转换为path，然后再转换为uri
 				String thePath = ImgUtils.getInstance().getPath(this, uri);
 				ImgUtils.getInstance().cropPicture(this,

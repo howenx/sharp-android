@@ -241,7 +241,7 @@ public class PingouDetailActivity extends BaseActivity implements
 		if (shareWindow == null) {
 			ShareVo vo = new ShareVo();
 			vo.setContent(detail.getStock().getPinTitle());
-			vo.setTitle("全球正品，尽在韩秘美");
+			vo.setTitle("韩秘美，只卖韩国正品");
 			vo.setImgUrl(detail.getStock().getInvImgForObj().getUrl());
 			vo.setTargetUrl("http://style.hanmimei.com" + detail.getStock().getPinRedirectUrl().split("comm")[1]);
 			vo.setInfoUrl(detail.getStock().getPinRedirectUrl());

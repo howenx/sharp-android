@@ -36,6 +36,10 @@ import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
 
+/**
+ * @author eric
+ *
+ */
 public class MyCollectionActivity extends BaseActivity implements
 		OnClickListener {
 

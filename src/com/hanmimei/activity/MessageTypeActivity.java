@@ -27,6 +27,10 @@ import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
 
+/**
+ * @author eric
+ *
+ */
 public class MessageTypeActivity extends BaseActivity implements OnClickListener {
 
 	private TextView tishi1;

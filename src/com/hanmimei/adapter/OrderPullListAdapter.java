@@ -34,6 +34,10 @@ import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.view.HorizontalListView;
 
+/**
+ * @author eric
+ *
+ */
 @SuppressLint("InflateParams")
 public class OrderPullListAdapter extends BaseAdapter {
 

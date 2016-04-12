@@ -26,6 +26,10 @@ import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ToastUtils;
 
+/**
+ * @author eric
+ *
+ */
 public class EditUserNameActivity extends BaseActivity implements OnClickListener{
 
 	private EditText nameText;

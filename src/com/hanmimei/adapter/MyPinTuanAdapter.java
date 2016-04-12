@@ -20,6 +20,10 @@ import com.hanmimei.entity.Order;
 import com.hanmimei.entity.PinActivity;
 import com.hanmimei.utils.GlideLoaderUtils;
 
+/**
+ * @author eric
+ *
+ */
 public class MyPinTuanAdapter extends BaseAdapter {
 
 	private List<PinActivity> data;

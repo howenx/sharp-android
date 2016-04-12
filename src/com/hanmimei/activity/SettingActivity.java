@@ -24,6 +24,10 @@ import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.DownloadTools;
 import com.hanmimei.utils.ToastUtils;
 
+/**
+ * @author eric
+ *
+ */
 @SuppressLint("NewApi")
 public class SettingActivity extends BaseActivity implements OnClickListener {
 

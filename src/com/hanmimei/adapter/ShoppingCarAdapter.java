@@ -41,6 +41,10 @@ import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ToastUtils;
 
+/**
+ * @author eric
+ *
+ */
 public class ShoppingCarAdapter extends BaseAdapter {
 
 	private LayoutInflater inflater;
@@ -110,6 +114,9 @@ public class ShoppingCarAdapter extends BaseAdapter {
 			holder.checkBox.setVisibility(View.VISIBLE);
 			holder.checkBox.setImageDrawable(check_Drawable);
 		} else if (goods.getState().equals("S")) {
+			//购物车商品失效，增减按钮置灰，选择按钮消失
+			holder.plus.setTextColor(activity.getResources().getColor(R.color.qianhui));
+			holder.jian.setTextColor(activity.getResources().getColor(R.color.qianhui));
 			holder.checkBox.setVisibility(View.INVISIBLE);
 			if (user == null) {
 				ShoppingGoodsDao goodsDao = activity.getDaoSession()
@@ -126,14 +133,15 @@ public class ShoppingCarAdapter extends BaseAdapter {
 			holder.checkBox.setVisibility(View.VISIBLE);
 			holder.checkBox.setImageDrawable(uncheck_Drawable);
 		}
-		// }
-
+		// 根据限购数量，判断是否可以继续增减
+		if(!goods.getState().equals("S")){
 		if(goods.getGoodsNums() >= goods.getRestrictAmount()){
 			holder.plus.setTextColor(activity.getResources().getColor(R.color.qianhui));
 			holder.plus.setClickable(false);
 		}else{
 			holder.plus.setTextColor(activity.getResources().getColor(R.color.fontcolor));
 			holder.plus.setClickable(true);
+		}
 		}
 		GlideLoaderUtils.loadGoodsImage(activity,goods.getGoodsImg(), holder.img);
 		holder.name.setText(goods.getGoodsName());
@@ -196,13 +204,15 @@ public class ShoppingCarAdapter extends BaseAdapter {
 						|| goods.getRestrictAmount() == 0) {
 					// 登录状态增加到服务器，未登录状态增加到本地数据库
 					if (user != null) {
-						goods.setGoodsNums(goods.getGoodsNums() + 1);
-						if(!goods.getState().equals("S"))
+						if(!goods.getState().equals("S")){
+							goods.setGoodsNums(goods.getGoodsNums() + 1);
 							upGoods(goods);
+						}
 					} else {
-						goods.setGoodsNums(goods.getGoodsNums() + 1);
-						if(!goods.getState().equals("S"))
+						if(!goods.getState().equals("S")){
+							goods.setGoodsNums(goods.getGoodsNums() + 1);
 							upGoodsN(goods);
+					}
 					}
 				} 
 				else {

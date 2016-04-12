@@ -46,6 +46,10 @@ import com.hanmimei.utils.ToastUtils;
 import com.umeng.analytics.MobclickAgent;
 import com.viewpagerindicator.BaseIconFragment;
 
+/**
+ * @author eric
+ *
+ */
 public class ShoppingCartFragment extends BaseIconFragment implements
 		OnClickListener, OnRefreshListener2<ListView> {
 

@@ -14,6 +14,10 @@ import com.hanmimei.R;
 import com.hanmimei.entity.Theme;
 import com.hanmimei.utils.GlideLoaderUtils;
 
+/**
+ * @author eric
+ *
+ */
 public class HomeAdapter extends BaseAdapter {
 	private List<Theme> data;
 	private LayoutInflater inflater;
