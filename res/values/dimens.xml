@@ -54,4 +54,7 @@
     <dimen name="panel_loading_size">100dp</dimen>
     <dimen name="driver_padding_normal">8dp</dimen>
     <dimen name="driver_padding_small">5dp</dimen>
+    
+    <dimen name="theme_tip_padding_left">25dp</dimen>
+    <dimen name="theme_tip_padding_right">25dp</dimen>
 </resources>

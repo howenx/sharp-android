@@ -27,7 +27,6 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.util.Base64;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
@@ -69,7 +68,6 @@ public class EditUserInfoActivity extends BaseActivity implements
 	private String sex_str = "null";
 
 	private AlertDialog sexDialog, photoDialog;
-	private View parenView;
 	private static final String IMAGE_FILE_NAME = "header";
 	private static final int CAMERA_REQUEST_CODE = 1;
 	private Bitmap photo;
@@ -103,8 +101,6 @@ public class EditUserInfoActivity extends BaseActivity implements
 		up_header.setOnClickListener(this);
 		up_name.setOnClickListener(this);
 		up_sex.setOnClickListener(this);
-		parenView = LayoutInflater.from(this).inflate(
-				R.layout.user_info_layout, null);
 	}
 
 	// 填充数据
@@ -232,7 +228,6 @@ public class EditUserInfoActivity extends BaseActivity implements
 	}
 
 	// 初始化选择头像popwindow
-	@SuppressWarnings("deprecation")
 	private void initSelectPop() {
 		photoDialog = AlertDialogUtils.showPhotoDialog(this, new OnPhotoSelListener() {
 			

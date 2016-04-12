@@ -1,6 +1,5 @@
 package com.hanmimei.activity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.content.BroadcastReceiver;

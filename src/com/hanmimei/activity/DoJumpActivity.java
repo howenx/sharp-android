@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.hanmimei.data.UrlUtil;
-import com.hanmimei.utils.ToastUtils;
 
 public class DoJumpActivity extends BaseActivity {
 	// hmmapp://data/vary/889544/241865
@@ -20,6 +19,7 @@ public class DoJumpActivity extends BaseActivity {
 			intent = new Intent(this, PingouResultActivity.class);
 			intent.putExtra("url",UrlUtil.SERVERY5 + "/promotion/pin/activity"
 					+ data.split("activity")[1]);
+			startActivity(new Intent(intent));
 		} else {
 			if (data.contains("pin")) {
 				intent = new Intent(this, PingouDetailActivity.class);

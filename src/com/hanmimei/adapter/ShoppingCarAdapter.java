@@ -1,9 +1,11 @@
 package com.hanmimei.adapter;
 
 import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.hanmimei.R;
 import com.hanmimei.activity.BaseActivity;
 import com.hanmimei.activity.GoodsDetailActivity;
@@ -32,8 +35,10 @@ import com.hanmimei.manager.BadgeViewManager;
 import com.hanmimei.manager.ShoppingCarMenager;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.CommonUtil;
-import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.GlideLoaderUtils;
+import com.hanmimei.utils.Http2Utils;
+import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
+import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ToastUtils;
 
 public class ShoppingCarAdapter extends BaseAdapter {
@@ -308,19 +313,49 @@ public class ShoppingCarAdapter extends BaseAdapter {
 	}
 
 	private void upGoodsN(final ShoppingGoods goods) {
+		final JSONArray array = new JSONArray();
+		JSONObject object = new JSONObject();
+		try {
+			object.put("skuId", goods.getGoodsId());
+			object.put("amount", goods.getGoodsNums());
+			object.put("skuTypeId", goods.getSkuTypeId());
+			object.put("skuType", goods.getSkuType());
+			array.put(object);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 		activity.getLoading().show();
-		new Thread(new Runnable() {
-
+		Http2Utils.doPostRequestTask2(activity, UrlUtil.POST_ADD_CART, new VolleyJsonCallback() {
+			
 			@Override
-			public void run() {
-				String result = HttpUtils.get(UrlUtil.SEND_CAR_TO_SERVER_UN
-						+ goods.getGoodsId() + "/" + goods.getGoodsNums());
-				HMessage hm = DataParser.paserResultMsg(result);
-				Message msg = mHandler.obtainMessage(2);
-				msg.obj = hm;
-				mHandler.sendMessage(msg);
+			public void onSuccess(String result) {
+				activity.getLoading().dismiss();
+				HMessage hmm = DataParser.paserResultMsg(result);
+				if (hmm.getCode() != null) {
+					if (hmm.getCode() == 200) {
+						notifyDataSetChanged();
+						ShoppingCarMenager.getInstance().setBottom();
+						goodsDao.deleteAll();
+						goodsDao.insertInTx(data);
+						if(isAdd){
+							BadgeViewManager.getInstance().addShoppingCarNum(1);
+						}else{
+							BadgeViewManager.getInstance().addShoppingCarNum(-1);
+						}
+					} else {
+						ToastUtils.Toast(activity, hmm.getMessage());
+					}
+				} else {
+					ToastUtils.Toast(activity, "操作失败！");
+				}
 			}
-		}).start();
+			
+			@Override
+			public void onError() {
+				activity.getLoading().dismiss();
+				ToastUtils.Toast(activity, "操作失败！请检查您的网络");
+			}
+		},object.toString());
 
 	}
 
@@ -344,27 +379,6 @@ public class ShoppingCarAdapter extends BaseAdapter {
 					}
 				} else {
 					ToastUtils.Toast(activity, "删除失败！");
-				}
-				break;
-			case 2:
-				activity.getLoading().dismiss();
-				HMessage hmm = (HMessage) msg.obj;
-				if (hmm.getCode() != null) {
-					if (hmm.getCode() == 200) {
-						notifyDataSetChanged();
-						ShoppingCarMenager.getInstance().setBottom();
-						goodsDao.deleteAll();
-						goodsDao.insertInTx(data);
-						if(isAdd){
-							BadgeViewManager.getInstance().addShoppingCarNum(1);
-						}else{
-							BadgeViewManager.getInstance().addShoppingCarNum(-1);
-						}
-					} else {
-						ToastUtils.Toast(activity, hmm.getMessage());
-					}
-				} else {
-					ToastUtils.Toast(activity, "操作失败！");
 				}
 				break;
 			case 3:

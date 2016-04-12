@@ -37,7 +37,6 @@ import com.hanmimei.activity.BaseActivity;
 import com.hanmimei.activity.ThemeGoodsActivity;
 import com.hanmimei.activity.WebviewActivity;
 import com.hanmimei.adapter.HomeAdapter;
-import com.hanmimei.dao.DaoMaster;
 import com.hanmimei.dao.SliderDao;
 import com.hanmimei.dao.ThemeDao;
 import com.hanmimei.data.AppConstant;
@@ -113,6 +112,8 @@ public class HomeFragment extends BaseIconFragment implements
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View view,
 					int position, long arg3) {
+				if(data.get(position-2).getType()== null)
+					return;
 				Intent intent = null;
 				if (data.get(position - 2).getType().equals("ordinary")) {
 					intent = new Intent(mContext, ThemeGoodsActivity.class);
@@ -156,6 +157,7 @@ public class HomeFragment extends BaseIconFragment implements
 
 		cycleViewPager = (CycleViewPager) getActivity().getFragmentManager()
 				.findFragmentById(R.id.fragment_cycle_viewpager_content);
+//		cycleViewPager.disableParentViewPagerTouchEvent(parentViewPager);
 	}
 
 	private void addHeaderView() {
@@ -439,12 +441,11 @@ public class HomeFragment extends BaseIconFragment implements
 
 	@Override
 	public String getTitle() {
-		return "首页";
+		return "韩秘美";
 	}
 
 	@Override
 	public int getIconId() {
-		// TODO Auto-generated method stub
 		return R.drawable.tab_home;
 	}
 

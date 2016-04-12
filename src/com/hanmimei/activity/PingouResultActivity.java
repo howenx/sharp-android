@@ -422,6 +422,7 @@ public class PingouResultActivity extends BaseActivity implements
 			return arg0;
 		}
 
+		@SuppressLint("InflateParams")
 		@Override
 		public View getView(int arg0, View arg1, ViewGroup arg2) {
 			ViewHolder holder = null;

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="theme_tip_padding_left">25dp</dimen>
+    <dimen name="theme_tip_padding_right">25dp</dimen>
+    
+</resources>

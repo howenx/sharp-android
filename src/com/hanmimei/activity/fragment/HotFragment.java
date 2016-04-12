@@ -1,7 +1,9 @@
 package com.hanmimei.activity.fragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -22,21 +24,23 @@ import com.hanmimei.entity.HMMGoods;
 public class HotFragment extends ScrollAbleFragment {
 	
 	private List<HMMGoods> themeList;
+	private ThemeAdapter adapter;
 	
 	
-	public void setThemeList(List<HMMGoods> themeList) {
-		this.themeList = themeList;
-	}
+//	public void setThemeList(List<HMMGoods> themeList) {
+//		this.themeList = themeList;
+//	}
 
-	public static HotFragment newInstance(List<HMMGoods> themeList) {
-		HotFragment newFragment = new HotFragment();
-		newFragment.setThemeList(themeList);
-		// bundle还可以在每个标签里传送数据
-		return newFragment;
-	}
+//	public static HotFragment newInstance(List<HMMGoods> themeList) {
+//		HotFragment newFragment = new HotFragment();
+//		newFragment.setThemeList(themeList);
+//		// bundle还可以在每个标签里传送数据
+//		return newFragment;
+//	}
 
 	private GridView mGridView;
 
+	@SuppressLint("InflateParams")
 	@Override
 	@Nullable
 	public View onCreateView(LayoutInflater inflater,
@@ -44,7 +48,9 @@ public class HotFragment extends ScrollAbleFragment {
 		// TODO Auto-generated method stub
 		View view = inflater.inflate(R.layout.gridview_layout, null);
 		mGridView = (GridView) view.findViewById(R.id.mGridView);
-		mGridView.setAdapter(new ThemeAdapter(themeList, getActivity()));
+		themeList = new ArrayList<HMMGoods>();
+		adapter = new ThemeAdapter(themeList, getActivity());
+		mGridView.setAdapter(adapter);
 		mGridView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -70,5 +76,19 @@ public class HotFragment extends ScrollAbleFragment {
 	@Override
 	public View getScrollableView() {
 		return mGridView;
+	}
+
+	@Override
+	public String getTitle() {
+		// TODO Auto-generated method stub
+		return "热门商品";
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void showData(Object obj) {
+		themeList.addAll((List<HMMGoods>)obj);
+		adapter.notifyDataSetChanged();
+		
 	}
 }

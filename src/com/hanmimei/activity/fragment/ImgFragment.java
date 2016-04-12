@@ -1,5 +1,6 @@
 package com.hanmimei.activity.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -15,25 +16,26 @@ import com.hanmimei.R;
 public class ImgFragment extends ScrollAbleFragment   {
 	
 
-	public static ImgFragment newInstance(String data) {
-		ImgFragment newFragment = new ImgFragment();
-		Bundle bundle = new Bundle();
-		bundle.putString("data", data);
-		newFragment.setArguments(bundle);
-		// bundle还可以在每个标签里传送数据
-		return newFragment;
-	}
+//	public static ImgFragment newInstance(String data) {
+//		ImgFragment newFragment = new ImgFragment();
+//		Bundle bundle = new Bundle();
+//		bundle.putString("data", data);
+//		newFragment.setArguments(bundle);
+//		// bundle还可以在每个标签里传送数据
+//		return newFragment;
+//	}
 	
 	private WebView mWebView;
 	private ProgressBar mProgressBar;
 
+	@SuppressLint({ "SetJavaScriptEnabled", "InflateParams" })
 	@Override
 	@Nullable
 	public View onCreateView(LayoutInflater inflater,
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		View view = inflater.inflate(R.layout.webview_layout, null);
-		String data = getArguments().getString("data");
+//		String data = getArguments().getString("data");
 		mWebView = (WebView) view.findViewById(R.id.mWebView);
 		mProgressBar = (ProgressBar) view.findViewById(R.id.mProgressBar);
 		
@@ -42,7 +44,7 @@ public class ImgFragment extends ScrollAbleFragment   {
 //		mWebView.getSettings().setBuiltInZoomControls(true);
 //		mWebView.getSettings().setDisplayZoomControls(false);
 		
-		mWebView.loadData(data, "text/html; charset=UTF-8", null);
+//		mWebView.loadData(data, "text/html; charset=UTF-8", null);
 		mWebView.setWebChromeClient(new WebChromeClient(){
 
 			@Override
@@ -69,6 +71,16 @@ public class ImgFragment extends ScrollAbleFragment   {
 		super.onDestroy();
 		mWebView.removeAllViews();
 		mWebView.destroy();
+	}
+
+	@Override
+	public String getTitle() {
+		return "图文详情";
+	}
+
+	@Override
+	public void showData(Object obj) {
+		mWebView.loadData((String)obj, "text/html; charset=UTF-8", null);
 	}
 	
 }

@@ -24,4 +24,7 @@
     
     <color name="notice">#ffeedd</color>
 	<color name="activity_bg">#00000000</color>
+	
+	
+	<color name="theme_shadow">#77000000</color>
 </resources>

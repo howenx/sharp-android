@@ -4,7 +4,7 @@ package com.hanmimei.entity;
  * 版本 Created by howen on 16/1/29.
  */
 public class VersionVo {
-	
+
 	public final static int UPDATA_NONEED = 0;
 	public final static int UPDATA_CLIENT = 1;
 	public final static int GET_UNDATAINFO_ERROR = 2;
@@ -21,24 +21,25 @@ public class VersionVo {
 	private String fileName;
 	private String updateReqXml;
 	private Integer currentVersion;
+	private String releaseName;
 
 	public VersionVo() {
 	}
 
-	public VersionVo(Long id, String releaseNumber, String productType,
-			String downloadLink, String adminUserId, String releaseDesc,
-			String releaseAt, String fileName, String updateReqXml,
-			Integer currentVersion) {
-		this.id = id;
+	public String getReleaseName() {
+		return releaseName;
+	}
+
+	public void setReleaseName(String releaseName) {
+		this.releaseName = releaseName;
+	}
+
+	public void setReleaseNumber(String releaseNumber) {
 		this.releaseNumber = releaseNumber;
-		this.productType = productType;
-		this.downloadLink = downloadLink;
-		this.adminUserId = adminUserId;
-		this.releaseDesc = releaseDesc;
-		this.releaseAt = releaseAt;
-		this.fileName = fileName;
-		this.updateReqXml = updateReqXml;
-		this.currentVersion = currentVersion;
+	}
+
+	public Integer getReleaseNumber() {
+		return Integer.valueOf(releaseNumber);
 	}
 
 	public Long getId() {
@@ -47,14 +48,6 @@ public class VersionVo {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getReleaseNumber() {
-		return releaseNumber;
-	}
-
-	public void setReleaseNumber(String releaseNumber) {
-		this.releaseNumber = releaseNumber;
 	}
 
 	public String getProductType() {

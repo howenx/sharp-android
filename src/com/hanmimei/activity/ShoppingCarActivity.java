@@ -223,7 +223,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 		mListView = (PullToRefreshListView) findViewById(R.id.mylist);
 		mListView.setVisibility(View.GONE);
 		mListView.setOnRefreshListener(this);
-		mListView.setMode(Mode.PULL_DOWN_TO_REFRESH);
+		mListView.setMode(Mode.PULL_FROM_END);
 		no_data = (LinearLayout) findViewById(R.id.data_null);
 		no_net = (LinearLayout) findViewById(R.id.no_net);
 //		check_all.setOnClickListener(this);
@@ -285,7 +285,9 @@ public class ShoppingCarActivity extends BaseActivity implements
 		intent.putExtra("orderType", "item");
 		getActivity().startActivity(intent);
 	}
-
+	
+	@SuppressWarnings("unused")
+	@Deprecated
 	private void doPrice() {
 		for (int i = 0; i < data.size(); i++) {
 			for (int j = 0; j < data.get(i).getList().size(); j++) {
