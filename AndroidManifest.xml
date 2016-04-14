@@ -184,6 +184,9 @@
         <activity
             android:name="com.hanmimei.activity.WebviewActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.hanmimei.activity.ApplyRefundActivity"
+            android:screenOrientation="portrait" />
         
         <meta-data android:name="com.hanmimei.override.GlideConfiguration"  
             android:value="GlideModule"/>  

@@ -137,6 +137,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 //		I:初始化即未支付状态，S:成功，C：取消， F:失败，R:已收货，D:已经发货，J:拒收
 		if(order.getOrderStatus().equals("S")){
 			order_state.setText("订单状态：待发货");
+			findViewById(R.id.go_money).setVisibility(View.VISIBLE);
 		}else if(order.getOrderStatus().equals("I")){
 			attention.setVisibility(View.VISIBLE);
 			attention.setTimes(CommonUtil.getTimer(order.getCountDown()/1000 - 300),"订单超过24小时，已经过期");
@@ -203,6 +204,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		item_order_id = (TextView) findViewById(R.id.item_order);
 		cancle.setOnClickListener(this);
 		go_pay.setOnClickListener(this);
+		findViewById(R.id.go_money).setOnClickListener(this);
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -231,6 +233,11 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 			break;
 		case R.id.setting:
 			showDelDialog();
+			break;
+		case R.id.go_money:
+			Intent intent1 = new Intent(this, ApplyRefundActivity.class);
+			intent1.putExtra("order", order);
+			startActivity(intent1);
 			break;
 		default:
 			break;

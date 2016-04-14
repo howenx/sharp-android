@@ -83,7 +83,7 @@ public class MyCollectionActivity extends BaseActivity implements
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
 				showDelDialog(arg2);
-				return false;
+				return true;
 			}
 		});
 		registerReceivers();

@@ -50,16 +50,14 @@ public class CustomerServiceActivity extends BaseActivity implements
 	private static final int REQUEST_IMAGE = 2;
 	private static final int IMAGE_MAX_NUM = 3;
 	private Sku sku;
-	private ImageView imgView;
-	private TextView name, price, num, apply_num, num_sel_max;
 	private EditText discription;
 	private CustomGridView mGridView;
 	private List<Drawable> imgList;
 	private GridAdapter adapter;
 	private ArrayList<String> mSelectPath;
-	private String      refundType = "deliver";//退款类型，pin：拼购自动退款，receive：收货后申请退款，deliver：发货前退款
-	
-	 private Order order;
+	private String refundType = "deliver";// 退款类型，pin：拼购自动退款，receive：收货后申请退款，deliver：发货前退款
+
+	private Order order;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,31 +74,15 @@ public class CustomerServiceActivity extends BaseActivity implements
 	 * 初始化获取view
 	 */
 	private void findView() {
-		imgView = (ImageView) findViewById(R.id.imgView);
-		name = (TextView) findViewById(R.id.name);
-		price = (TextView) findViewById(R.id.price);
-		num = (TextView) findViewById(R.id.num);
-		apply_num = (TextView) findViewById(R.id.apply_num);
-		num_sel_max = (TextView) findViewById(R.id.num_sel_max);
 		discription = (EditText) findViewById(R.id.discription);
 		mGridView = (CustomGridView) findViewById(R.id.mGridView);
 
-		findViewById(R.id.jian).setOnClickListener(this);
-		findViewById(R.id.plus).setOnClickListener(this);
 		findViewById(R.id.btn_next).setOnClickListener(this);
 
 		initViewData();
 	}
 
 	private void initViewData() {
-		GlideLoaderUtils
-				.loadGoodsImage(getActivity(), sku.getInvImg(), imgView);
-		name.setText(sku.getSkuTitle());
-		price.setText(getResources().getString(R.string.price, sku.getPrice()));
-		num.setText(getResources().getString(R.string.num, sku.getAmount()));
-		apply_num.setText(sku.getAmount() + "");
-		num_sel_max.setText(getResources().getString(R.string.sel_max,
-				sku.getAmount()));
 		imgList = new ArrayList<Drawable>();
 		imgList.add(getResources().getDrawable(R.drawable.ic_launcher));
 		adapter = new GridAdapter(this);
@@ -110,11 +92,12 @@ public class CustomerServiceActivity extends BaseActivity implements
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				if(arg2 == mSelectPath.size()){
+				if (arg2 == mSelectPath.size()) {
 					Intent intent = new Intent(CustomerServiceActivity.this,
 							MultiImageSelectorActivity.class);
 					// 最大可选择图片数量
-					intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_COUNT,
+					intent.putExtra(
+							MultiImageSelectorActivity.EXTRA_SELECT_COUNT,
 							IMAGE_MAX_NUM);
 					// 默认选择
 					if (mSelectPath != null && mSelectPath.size() > 0) {
@@ -143,20 +126,6 @@ public class CustomerServiceActivity extends BaseActivity implements
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.jian:
-			int size = Integer.parseInt(apply_num.getText().toString());
-			if (size <= 1)
-				return;
-			size--;
-			apply_num.setText(size + "");
-			break;
-		case R.id.plus:
-			size = Integer.parseInt(apply_num.getText().toString());
-			if (size >= sku.getAmount())
-				return;
-			size++;
-			apply_num.setText(size + "");
-			break;
 		case R.id.btn_next:
 			next();
 			break;
@@ -203,25 +172,6 @@ public class CustomerServiceActivity extends BaseActivity implements
 
 	private void submitData(final ProcessButton button, String name,
 			String phone) {
-		MultipartRequestParams params = new MultipartRequestParams();
-
-		params.put("orderId", getIntent().getStringExtra("orderId"));
-		params.put("splitOrderId", getIntent().getStringExtra("splitOrderId"));
-		params.put("skuId", sku.getSkuId());
-		
-		params.put("skuType", sku.getSkuType());
-		params.put("skuTypeId", sku.getSkuTypeId());
-		params.put("refundType", refundType);
-
-//		params.put("payBackFee", );
-		
-		params.put("reason", discription.getText().toString());
-		params.put("contactName", name);
-		params.put("contactTel", phone);
-		for (int i = 0; i < mSelectPath.size(); i++) {
-			String path = mSelectPath.get(i);
-			params.put("refundImg" + i, new File(path));
-		}
 
 		Http3Utils.doPostRequestTask(this, getHeaders(),
 				UrlUtil.CUSTOMER_SERVICE_APPLY, new VolleyJsonCallback() {
@@ -246,7 +196,43 @@ public class CustomerServiceActivity extends BaseActivity implements
 						ToastUtils.Toast(getActivity(), R.string.error);
 						button.setProgress(-1);
 					}
-				}, params);
+				}, getParams());
+	}
+
+	private MultipartRequestParams getParams(){
+		MultipartRequestParams params = new MultipartRequestParams();
+
+		if(order !=null){
+			params.put("orderId", order.getOrderId());
+			params.put("splitOrderId", order.getOrderSplitId());
+			
+			params.put("refundType", refundType);
+
+			params.put("payBackFee", order.getTotalFee()+"");
+			
+			params.put("reason", discription.getText().toString());
+			for (int i = 0; i < mSelectPath.size(); i++) {
+				String path = mSelectPath.get(i);
+				params.put("refundImg" + i, new File(path));
+			}
+		}else if(sku !=null){
+				params.put("orderId", getIntent().getStringExtra("orderId"));
+				params.put("splitOrderId", getIntent().getStringExtra("splitOrderId"));
+				params.put("skuId", sku.getSkuId());
+				
+				params.put("skuType", sku.getSkuType());
+				params.put("skuTypeId", sku.getSkuTypeId());
+				params.put("refundType", refundType);
+
+				params.put("reason", discription.getText().toString());
+//				params.put("contactName", name);
+//				params.put("contactTel", phone);
+				for (int i = 0; i < mSelectPath.size(); i++) {
+					String path = mSelectPath.get(i);
+					params.put("refundImg" + i, new File(path));
+				}
+			}
+		return params;
 	}
 
 	@SuppressLint("HandlerLeak")
@@ -272,7 +258,8 @@ public class CustomerServiceActivity extends BaseActivity implements
 		/**
 		 * ListView Item设置
 		 */
-		public View getView(final int position, View convertView, ViewGroup parent) {
+		public View getView(final int position, View convertView,
+				ViewGroup parent) {
 			ViewHolder holder = null;
 			if (convertView == null) {
 
@@ -299,7 +286,7 @@ public class CustomerServiceActivity extends BaseActivity implements
 				GlideLoaderUtils.loadGoodsImage(getActivity(),
 						mSelectPath.get(position), holder.image);
 				holder.btn_image_del.setOnClickListener(new OnClickListener() {
-					
+
 					@Override
 					public void onClick(View v) {
 						mSelectPath.remove(position);
@@ -312,8 +299,8 @@ public class CustomerServiceActivity extends BaseActivity implements
 		}
 
 		public class ViewHolder {
-			public ImageView image,btn_image_del;
-			
+			public ImageView image, btn_image_del;
+
 		}
 	}
 

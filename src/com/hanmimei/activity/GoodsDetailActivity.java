@@ -151,10 +151,10 @@ public class GoodsDetailActivity extends BaseActivity implements
 	 */
 	private void initGoodsNumView() {
 		goodsNumView = new BadgeView(this, findViewById(R.id.shopcart));
-		goodsNumView.setTextColor(Color.WHITE);
+		goodsNumView.setTextColor(getResources().getColor(R.color.theme));
 		goodsNumView.setBadgePosition(BadgeView.POSITION_CENTER_HORIZONTAL);
 		goodsNumView.setTextSize(10);
-		goodsNumView.setBackgroundResource(R.drawable.bg_badgeview);
+		goodsNumView.setBackgroundResource(R.drawable.bg_badgeview2);
 	}
 
 	private void showGoodsNums() {

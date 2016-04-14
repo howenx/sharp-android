@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/view01"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_gray_boarder"
+                android:orientation="vertical"
+                android:padding="15dp" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/hmm_xinghao"
+                    android:drawablePadding="@dimen/driver_padding_small"
+                    android:gravity="center_vertical"
+                    android:text="退款说明："
+                    android:textColor="@color/fontcolor"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/discription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_edittext"
+                    android:gravity="top"
+                    android:hint="最多200个字"
+                    android:minLines="2"
+                    android:padding="8dp"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/view02"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view01"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_gray_boarder"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="15dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/hmm_xinghao"
+                    android:drawablePadding="@dimen/driver_padding_small"
+                    android:gravity="center_vertical"
+                    android:text="退款金额：¥"
+                    android:focusableInTouchMode="true"
+                    android:textColor="@color/fontcolor"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/payBackFee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:gravity="center_vertical"
+                    android:text="666"
+                    android:textColor="@color/theme"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/view03"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view02"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_gray_boarder"
+                android:focusableInTouchMode="true"
+                android:orientation="vertical"
+                android:padding="15dp" >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/text1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="选填写："
+                        android:textColor="@color/fontcolor"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@id/text1"
+                        android:layout_toRightOf="@id/text1"
+                        android:text="(非必填)"
+                        android:textColor="@color/fontcolor"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_edittext"
+                    android:padding="8dp" >
+
+                    <LinearLayout
+                        android:id="@+id/nameView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:text="联系人："
+                            android:textColor="#999999"
+                            android:textSize="14sp" />
+
+                        <EditText
+                            android:id="@+id/contact_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/transparent"
+                            android:hint=""
+                            android:padding="8dp"
+                            android:singleLine="true"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/nameView"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:text="联系电话："
+                            android:textColor="#999999"
+                            android:textSize="14sp" />
+
+                        <EditText
+                            android:id="@+id/contact_phone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/transparent"
+                            android:hint=""
+                            android:padding="8dp"
+                            android:singleLine="true"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <com.dd.processbutton.iml.ActionProcessButton
+        android:id="@+id/btn_submit"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
+        android:text="提交"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        custom:pb_colorComplete="@color/btn_pin_pressed"
+        custom:pb_colorNormal="@color/theme"
+        custom:pb_colorPressed="@color/theme"
+        custom:pb_colorProgress="@color/btn_pin_pressed"
+        custom:pb_textComplete="@string/submit_success"
+        custom:pb_textError="@string/submit_error"
+        custom:pb_textProgress="@string/submit_loading" />
+
+</LinearLayout>
