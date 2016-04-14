@@ -7,13 +7,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AlertDialog;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -34,6 +33,7 @@ import com.hanmimei.entity.OrderInfo;
 import com.hanmimei.entity.Result;
 import com.hanmimei.entity.Sku;
 import com.hanmimei.utils.ActionBarUtil;
+import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
@@ -72,7 +72,6 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 	private CustomListView listView;
 	private OrderDetailListAdapter adapter;
 	private AlertDialog dialog;
-	private LayoutInflater inflater;
 	private JSONObject object;
 	private ProgressDialog progressDialog;
 	private boolean isShow = false;
@@ -84,7 +83,6 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		addressInfo = new HMMAddress();
 		list = new ArrayList<Sku>();
 		order = (Order) getIntent().getSerializableExtra("order");
-		inflater = LayoutInflater.from(this);
 		if(order.getOrderStatus().equals("R")){
 			isShow = true;
 		}
@@ -239,19 +237,10 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		}
 	}
 	private void showDelDialog() {
-		View view = inflater.inflate(R.layout.dialog_layout, null);
-		dialog = new AlertDialog.Builder(this).create();
-		dialog.setView(view);
-		dialog.show();
-		view.findViewById(R.id.cancel).setOnClickListener(new OnClickListener() {
+		dialog = AlertDialogUtils.showDialog(this, new OnClickListener() {
+			
 			@Override
 			public void onClick(View arg0) {
-				dialog.dismiss();
-			}
-		});
-		view.findViewById(R.id.confirm).setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
 				delOrder();
 			}
 		});
@@ -274,22 +263,10 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		}).start();
 	}
 	private void showDialog(){
-		View view = inflater.inflate(R.layout.dialog_layout, null);
-		TextView title = (TextView) view.findViewById(R.id.title);
-		title.setText("确定取消订单？");
-		dialog = new AlertDialog.Builder(this).create();
-		dialog.setView(view);
-		dialog.show();
-		view.findViewById(R.id.cancel).setOnClickListener(new OnClickListener() {
+		dialog = AlertDialogUtils.showCancelDialog(this, new OnClickListener() {
 			
 			@Override
 			public void onClick(View arg0) {
-				dialog.dismiss();
-			}
-		});
-		view.findViewById(R.id.confirm).setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
 				toObject();
 				cancleOrder();
 			}

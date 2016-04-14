@@ -119,6 +119,15 @@ public class AlertDialogUtils {
 		return showDialog(mContext, l, "确定删除？", "取消", "确定");
 	}
 	/**
+	 * 取消订单
+	 * @param mContext	
+	 * @param l
+	 * @return
+	 */
+	public static AlertDialog showCancelDialog(Context mContext, OnClickListener l) {
+		return showDialog(mContext, l, "确定取消？", "取消", "确定");
+	}
+	/**
 	 * 操作提示窗
 	 * @param mContext
 	 * @param l	右边按钮回调
@@ -130,7 +139,7 @@ public class AlertDialogUtils {
 	public static AlertDialog showDialog(Context mContext, OnClickListener l,
 			String top, String left, String right) {
 		String[] tb = { top, "", left, right};
-		return showCustomDialog(mContext, tb, l, new SlideTop());
+		return showCustomDialog(mContext, tb, l, null);
 	}
 	
 
@@ -141,7 +150,7 @@ public class AlertDialogUtils {
 	 */
 	public static void showAddressDialog(Context context, final OnClickListener l) {
 		String[] tb = { "请添加收货地址", null, "取消", "确定" };
-		showCustomDialog(context, tb, l,new SlideTop());
+		showCustomDialog(context, tb, l,null);
 	}
 	/**
 	 * 

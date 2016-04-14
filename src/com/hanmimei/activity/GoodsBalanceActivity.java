@@ -6,8 +6,8 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -41,7 +41,6 @@ import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
-import com.hanmimei.utils.effects.Shake;
 
 public class GoodsBalanceActivity extends BaseActivity implements
 		OnClickListener {
@@ -429,6 +428,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 				car.getTotalPayFee()));
 	}
 
+	@SuppressLint("InflateParams")
 	private RadioButton getCustomRadioButton() {
 		return (RadioButton) getLayoutInflater().inflate(
 				R.layout.panel_radiobutton, null);

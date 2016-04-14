@@ -35,7 +35,6 @@ import com.hanmimei.manager.MessageMenager;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.CommonUtil;
-import com.hanmimei.utils.DoJumpUtils;
 import com.hanmimei.utils.DownloadTools;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.utils.XMLPaserTools;
@@ -169,7 +168,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 				if (getUser() == null) {
 					startActivity(new Intent(getActivity(), LoginActivity.class));
 				} else {
-					DoJumpUtils.doJump(this, MessageTypeActivity.class);
+					startActivity(new Intent(getActivity(), MessageTypeActivity.class));
 				}
 //			}else{
 //				DoJumpUtils.doJump(this, SettingActivity.class);

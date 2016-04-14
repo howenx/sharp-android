@@ -4,10 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteCursorDriver;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteQuery;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -28,15 +24,11 @@ import com.hanmimei.activity.MyCouponActivity;
 import com.hanmimei.activity.MyOrderActivity;
 import com.hanmimei.activity.MyPingouActivity;
 import com.hanmimei.activity.SettingActivity;
-import com.hanmimei.dao.DaoMaster;
-import com.hanmimei.dao.DaoMaster.DevOpenHelper;
-import com.hanmimei.dao.DaoMaster.OpenHelper;
 import com.hanmimei.dao.UserDao;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.User;
-import com.hanmimei.utils.DoJumpUtils;
 import com.hanmimei.utils.GlideLoaderUtils;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.view.RoundImageView;
@@ -158,7 +150,7 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 			doJump(MyPingouActivity.class);
 			break;
 		case R.id.more:
-			DoJumpUtils.doJump(getActivity(), SettingActivity.class);
+			startActivity(new Intent(getActivity(), SettingActivity.class));
 			break;
 		default:
 			break;
@@ -171,7 +163,7 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 					new Intent(getActivity(), LoginActivity.class),
 					AppConstant.LOGIN_CODE);
 		} else {
-			DoJumpUtils.doJump(getActivity(), clazz);
+			startActivity(new Intent(getActivity(), clazz));
 		}
 	}
 

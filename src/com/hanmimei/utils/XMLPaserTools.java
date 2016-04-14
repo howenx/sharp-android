@@ -39,6 +39,9 @@ public class XMLPaserTools {
 					} else if ("releaseNumber".equals(parser.getAttributeValue(0))) {
 						parser.nextTag();
 						info.setReleaseNumber(parser.nextText());
+					} else if ("releaseName".equals(parser.getAttributeValue(0))) {
+						parser.nextTag();
+						info.setReleaseName(parser.nextText());
 					}
 				}
 				break;

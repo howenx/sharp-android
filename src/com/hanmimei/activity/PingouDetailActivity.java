@@ -40,7 +40,6 @@ import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.Customs;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.ImgInfo;
-import com.hanmimei.entity.MainVo;
 import com.hanmimei.entity.PinDetail;
 import com.hanmimei.entity.ShareVo;
 import com.hanmimei.entity.ShoppingCar;
@@ -68,6 +67,10 @@ public class PingouDetailActivity extends BaseActivity implements
 	private TextView more_view;
 
 	private String noticeText = "正在加载数据";
+	
+	private ScrollAbleFragment imgFragment;
+	private ScrollAbleFragment parFragment;
+	private ScrollAbleFragment gridViewFragment;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,6 +79,7 @@ public class PingouDetailActivity extends BaseActivity implements
 				R.drawable.hmm_icon_share, true, this, this);
 		setContentView(R.layout.pingou_detail_layout);
 		findView();
+		initFragmentPager();
 		loadUrl();
 		registerReceivers();
 	}
@@ -95,8 +99,9 @@ public class PingouDetailActivity extends BaseActivity implements
 				}
 
 				if (detail.getMessage().getCode() == 200) {
-					initFragmentPager(detail.getMain());
+					loadFragmentData();
 					initGoodsDetail(detail.getStock());
+					mScrollLayout.canScroll();
 				} else {
 					ToastUtils.Toast(getActivity(), detail.getMessage()
 							.getMessage());
@@ -349,28 +354,19 @@ public class PingouDetailActivity extends BaseActivity implements
 				}, cGoods);
 	}
 
-	private void initFragmentPager(MainVo main) {
-		if (main == null)
-			return;
-		mScrollLayout.canScroll();
-		List<String> titles = new ArrayList<String>();
-		titles.add("图文详情");
-		titles.add("商品参数");
-		titles.add("热门商品");
-
+	private void initFragmentPager() {
+		
 		final List<ScrollAbleFragment> fragments = new ArrayList<ScrollAbleFragment>();
-		ScrollAbleFragment imgFragment = ImgFragment.newInstance(main
-				.getItemDetailImgs());
-		ScrollAbleFragment parFragment = ParamsFragment.newInstance(main
-				.getItemFeaturess());
-		ScrollAbleFragment gridViewFragment = HotFragment.newInstance(detail
-				.getPush());
+		imgFragment = new ImgFragment();
+		parFragment = new ParamsFragment();
+		gridViewFragment = new HotFragment();
+		
 		fragments.add(imgFragment);
 		fragments.add(parFragment);
 		fragments.add(gridViewFragment);
 
 		GoodsDetailPagerAdapter adapter = new GoodsDetailPagerAdapter(
-				getSupportFragmentManager(), fragments, titles);
+				getSupportFragmentManager(), fragments);
 		ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
 		PagerSlidingTabStrip pagerSlidingTabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
 
@@ -407,6 +403,16 @@ public class PingouDetailActivity extends BaseActivity implements
 				});
 		viewPager.setCurrentItem(0);
 	}
+	
+	/**
+	 * 加载商品详情数据
+	 */
+	private void loadFragmentData() {
+		imgFragment.showData(detail.getMain().getItemDetailImgs());
+		parFragment.showData(detail.getMain().getItemFeaturess());
+		gridViewFragment.showData(detail.getPush());
+
+	}
 
 	/**
 	 * 点击立即购买按钮的响应事件
@@ -418,7 +424,6 @@ public class PingouDetailActivity extends BaseActivity implements
 			return;
 		}
 		if (!detail.getStock().getStatus().equals("Y")) {
-			ToastUtils.Toast(this, noticeText);
 			return;
 		}
 		ShoppingCar car = new ShoppingCar();
@@ -440,7 +445,7 @@ public class PingouDetailActivity extends BaseActivity implements
 			sgoods.setPostalTaxRate(s.getPostalTaxRate());
 			sgoods.setPostalStandard(s.getPostalStandard());
 			sgoods.setSkuType("item");
-			sgoods.setSkuTypeId(s.getPinId());
+			sgoods.setSkuTypeId(s.getId());
 		} else if (s.getStatus().equals("P")) {
 			ToastUtils.Toast(this, "尚未开售");
 			return;
@@ -462,7 +467,6 @@ public class PingouDetailActivity extends BaseActivity implements
 
 	private void showEasyDialog(StockVo stock) {
 		if (!detail.getStock().getStatus().equals("Y")) {
-			ToastUtils.Toast(this, noticeText);
 			return;
 		}
 		Intent intent = new Intent(this, PingouDetailSelActivity.class);

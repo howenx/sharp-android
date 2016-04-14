@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
@@ -17,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+
 import com.hanmimei.R;
 import com.hanmimei.adapter.TabPagerAdapter;
 import com.hanmimei.data.AppConstant;
@@ -31,7 +33,6 @@ import com.hanmimei.override.ViewPageChangeListener;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.CommonUtil;
-import com.hanmimei.utils.DoJumpUtils;
 import com.hanmimei.utils.DownloadTools;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
@@ -76,6 +77,7 @@ public class MainTestActivity extends BaseActivity implements OnClickListener {
 //		ToastUtils.Toast(this, getIntent().getStringExtra("data"));
 	}
 
+	@SuppressLint("InflateParams")
 	private void showGuangGao() {
 		View view = LayoutInflater.from(this).inflate(R.layout.guanggao_layout, null);
 		final Dialog dialog = new Dialog(this,R.style.CustomDialog);
@@ -165,10 +167,10 @@ public class MainTestActivity extends BaseActivity implements OnClickListener {
 				if (getUser() == null) {
 					startActivity(new Intent(getActivity(), LoginActivity.class));
 				} else {
-					DoJumpUtils.doJump(this, MessageTypeActivity.class);
+					startActivity(new Intent(getActivity(), MessageTypeActivity.class));
 				}
 			} else {
-				DoJumpUtils.doJump(this, SettingActivity.class);
+				startActivity(new Intent(getActivity(), SettingActivity.class));
 			}
 			break;
 		default:
@@ -224,8 +226,7 @@ public class MainTestActivity extends BaseActivity implements OnClickListener {
 							InputStream is = new ByteArrayInputStream(result
 									.getBytes());
 							info = XMLPaserTools.getUpdataInfo(is);
-							if (!info.getReleaseNumber().equals(
-									CommonUtil.getVersionName(getActivity()))) {
+							if (info.getReleaseNumber()>CommonUtil.getVersionCode(getActivity())) {
 								// 版本号不同,发送消息更新客户端
 								setVersionInfo(info);
 								AlertDialogUtils.showUpdate2Dialog(

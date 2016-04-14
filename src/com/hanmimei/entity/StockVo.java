@@ -45,7 +45,7 @@ public class StockVo implements Serializable{
 	private String invWeight;// 商品重量单位g
 	private String browseCount;// 浏览次数
 	private String collectCount;// 收藏数
-	private String pinId;
+	private String pinId; 
 	private String shareUrl; // 分享短连接 
 	private String status; // 拼购ID
 	private BigDecimal invPrice; //商品原价

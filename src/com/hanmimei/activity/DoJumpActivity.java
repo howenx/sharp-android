@@ -11,7 +11,9 @@ import com.hanmimei.data.UrlUtil;
  *
  */
 public class DoJumpActivity extends BaseActivity {
-	// hmmapp://data/vary/889544/241865
+	// hmmapp://data/item/889544/241865
+	// hmmapp://data/pin/889544/241865 拼团详情页面
+	// hmmapp://data/pin/activity/889544/241865 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		// TODO Auto-generated method stub

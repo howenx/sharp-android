@@ -17,6 +17,7 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.astuetz.PagerSlidingTabStrip;
 import com.hanmimei.R;
 import com.hanmimei.adapter.MyPagerAdapter;
 import com.hanmimei.entity.Category;
@@ -25,7 +26,6 @@ import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.ToastUtils;
 import com.umeng.analytics.MobclickAgent;
-import com.viewpagerindicator.TabPageIndicator;
 
 /**
  * @author eric
@@ -33,7 +33,6 @@ import com.viewpagerindicator.TabPageIndicator;
  */
 @SuppressLint("NewApi") 
 public class MyCouponActivity extends BaseActivity implements OnClickListener{
-
 	
 	private static final String TAG_ID_01 = "tag01";
 	private static final String TAG_ID_02 = "tag02";
@@ -41,7 +40,7 @@ public class MyCouponActivity extends BaseActivity implements OnClickListener{
 	private static final String TAG_01 = "未使用";
 	private static final String TAG_02 = "已使用";
 	private static final String TAG_03 = "已过期";
-	private TabPageIndicator indicator;
+	private PagerSlidingTabStrip indicator;
 	private ViewPager viewPager;
 	private List<Category> data;
 	private List<Fragment> fragmentList;
@@ -53,7 +52,7 @@ public class MyCouponActivity extends BaseActivity implements OnClickListener{
 		super.onCreate(bundle);
 		setContentView(R.layout.my_order_layout);
 		ActionBarUtil.setActionBarStyle(this, "优惠券", R.drawable.icon_duihuan, true, this);
-		indicator = (TabPageIndicator) findViewById(R.id.indicator);
+		indicator = (PagerSlidingTabStrip) findViewById(R.id.indicator);
 		viewPager = (ViewPager) findViewById(R.id.pager);
 		initCategory();
 		initFragment();

@@ -2,59 +2,95 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:gravity="center_vertical">
+    android:orientation="vertical">
     <ImageView 
         android:id="@+id/bg"
-        android:src="@drawable/youhuiquan_bg"
+        android:src="@drawable/hmm_bg_youhuiquan"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:scaleType="fitXY"
         />
+    <RelativeLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="90dp">
+        <LinearLayout 
+            android:id="@+id/linear"
+            android:layout_width="85dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_centerVertical="true">
+       		<TextView 
+       		    android:id="@+id/biaoshi"
+        		android:layout_width="wrap_content"
+        		android:layout_height="match_parent"
+        		android:layout_marginTop="5dp"
+        		android:text="¥"
+        		android:layout_gravity="top"
+        		android:textSize="18sp"
+        		android:textColor="@color/huang"/>
     <TextView 
+        android:id="@+id/denomination"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="50"
+        android:textSize="30sp"
+        android:textColor="@color/huang"/>
+    </LinearLayout>
+    <View 
+        android:layout_toRightOf="@id/linear"
+        android:layout_centerVertical="true"
+        android:layout_height="40dp"
+        android:layout_width="0.1dp"
+        android:background="@color/xian"/>
+    <RelativeLayout 
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical">
+    <TextView 
+        android:id="@+id/fanwei"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="使用范围："
+        android:textColor="@color/msg_content"
+        android:textSize="12sp"/>
+     <TextView 
         android:id="@+id/cat"
-        android:layout_marginTop="10dp"
-        android:paddingLeft="15dp"
+        android:layout_below="@id/fanwei"
+        android:layout_marginTop="3dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="全场通用"
-        android:textSize="16sp"
-        android:textColor="@color/white"/>
-    <LinearLayout 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center_vertical">
-    <TextView 
+        android:textSize="18sp"
+        android:textColor="@color/fontcolor"/>
+      <TextView 
         android:id="@+id/limit"
-        android:paddingLeft="15dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/cat"
+        android:layout_below="@id/fanwei"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="right"
         android:text="全场满200可用"
-        android:textSize="18sp"
-        android:textColor="@color/white"/>
-    <TextView 
-        android:id="@+id/denomination"
-        android:paddingRight="30dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="right"
-        android:text="¥ 50"
-        android:textSize="28sp"
-        android:textColor="@color/white"
-        android:textStyle="bold"/>
-    </LinearLayout>
+        android:textSize="14sp"
+        android:textColor="@color/fontcolor"/>
+      </RelativeLayout>
+   </RelativeLayout>
+    
     <TextView 
         android:id="@+id/date"
-        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         android:paddingBottom="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:gravity="left"
-        android:text="有效期：2015-12-10"
-        android:textColor="@color/white"
+        android:gravity="right"
+        android:text="2015.12.10--2016.07.26"
+        android:textColor="@color/msg_content"
         android:textSize="12sp"/>
 
 </FrameLayout>

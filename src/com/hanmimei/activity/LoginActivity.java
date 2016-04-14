@@ -32,7 +32,6 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import cn.jpush.android.api.JPushInterface;
 
 import com.hanmimei.R;
@@ -343,6 +342,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		}).start();
 	}
 
+	@SuppressLint("HandlerLeak")
 	private Handler mHandler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
@@ -453,6 +453,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	private EditText codeEditText;
 	private TextView code_attention;
 
+	@SuppressLint("InflateParams")
 	private void showDialog() {
 		isDialogShow = true;
 		View view = LayoutInflater.from(this).inflate(R.layout.img_save_layout,

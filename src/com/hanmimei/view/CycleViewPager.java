@@ -361,6 +361,7 @@ public class CycleViewPager extends Fragment implements OnPageChangeListener{
 			}
 			position = currentPosition - 1;
 		}
+//		parentViewPager.setCurrentItem(position);
 		setIndicator(position);
 	}
 

@@ -6,6 +6,7 @@
     <color name="theme_pressed">#D63939</color>
     <color name="background">#F3F8FB</color>
     <color name="white">#FFFFFF</color>
+    <color name="huang">#ffa800</color>
     <color name="black">#000000</color>
     <color name="black_01_pressed">#CC000000</color>
     <color name="black_01">#AA000000</color>
@@ -16,6 +17,7 @@
     <color name="msg_title">#333333</color>
     <color name="msg_content">#999999</color>
     <color name="qianhui">#EEEEEE</color>
+    <color name="shixiao_bg">#e7e7e7</color>
     <color name="xian">#dcdcdc</color>
     <color name="province_line_border">#C7C7C7</color>
     <color name="green">#72AF1A</color>
@@ -25,4 +27,7 @@
     
     <color name="notice">#ffeedd</color>
 	<color name="activity_bg">#00000000</color>
+	
+	
+	<color name="theme_shadow">#77000000</color>
 </resources>

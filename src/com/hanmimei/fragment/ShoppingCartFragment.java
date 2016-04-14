@@ -48,7 +48,7 @@ import com.viewpagerindicator.BaseIconFragment;
 
 /**
  * @author eric
- *
+ * 
  */
 public class ShoppingCartFragment extends BaseIconFragment implements
 		OnClickListener, OnRefreshListener2<ListView> {
@@ -190,8 +190,8 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 				data.addAll(car.getList());
 				//
 				ShoppingCarMenager.getInstance().initShoppingCarMenager(
-						activity, adapter, data,  attention,
-						total_price, pay, no_data, bottom, mListView);
+						activity, adapter, data, attention, total_price, pay,
+						no_data, bottom, mListView);
 				clearPrice();
 			} else {
 				attention.setVisibility(View.INVISIBLE);
@@ -256,16 +256,7 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 		reload.setOnClickListener(this);
 	}
 
-	private void doPrice() {
-		for (int i = 0; i < data.size(); i++) {
-			for (int j = 0; j < data.get(i).getList().size(); j++) {
-				if (!data.get(i).getList().get(j).getState().equals("S"))
-					data.get(i).getList().get(j).setState("G");
-			}
-		}
-		adapter.notifyDataSetChanged();
-		ShoppingCarMenager.getInstance().setBottom();
-	}
+	
 
 	private void clearPrice() {
 		for (int i = 0; i < data.size(); i++) {

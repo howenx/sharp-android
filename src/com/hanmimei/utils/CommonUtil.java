@@ -473,12 +473,34 @@ public class CommonUtil {
 	 * @return
 	 * @throws Exception
 	 */
-	public static String getVersionName(Context context) throws Exception {
+	public static String getVersionName(Context context) {
 		// getPackageName()是你当前类的包名，0代表是获取版本信息
 		PackageManager packageManager = context.getPackageManager();
-		PackageInfo packInfo = packageManager.getPackageInfo(context.getPackageName(),
+		PackageInfo packInfo= null;
+		try {
+		packInfo = packageManager.getPackageInfo(context.getPackageName(),
 				0);
+		} catch (NameNotFoundException e) {
+		}
 		return packInfo.versionName;
+	}
+	/**
+	 * 获取当前系统版本号
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public static Integer getVersionCode(Context context)  {
+		// getPackageName()是你当前类的包名，0代表是获取版本信息
+		PackageManager packageManager = context.getPackageManager();
+		PackageInfo packInfo= null;
+		try {
+			packInfo = packageManager.getPackageInfo(context.getPackageName(),
+					0);
+			return packInfo.versionCode;
+		} catch (NameNotFoundException e) {
+		}
+		return null;
 	}
 
 	/**
@@ -847,23 +869,6 @@ public class CommonUtil {
 		return view.getMeasuredWidth();
 	}
 	
-	/**
-	 * 获取当前系统版本名
-	 * 
-	 * @return
-	 * @throws Exception
-	 */
-	public static String getVersionCode(Context context)  {
-		// getPackageName()是你当前类的包名，0代表是获取版本信息
-		PackageManager packageManager = context.getPackageManager();
-		PackageInfo packInfo= null;
-		try {
-			packInfo = packageManager.getPackageInfo(context.getPackageName(),
-					0);
-			return packInfo.versionName;
-		} catch (NameNotFoundException e) {
-		}
-		return null;
-	}
+	
 
 }

@@ -15,7 +15,7 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.AssetManager;
-import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -48,7 +48,6 @@ import com.hanmimei.wheel.entity.ProvinceModel;
 import com.hanmimei.wheel.widget.OnWheelChangedListener;
 import com.hanmimei.wheel.widget.WheelView;
 import com.hanmimei.wheel.widget.adapter.ArrayWheelAdapter;
-import com.umeng.analytics.MobclickAgent;
 import com.zcw.togglebutton.ToggleButton;
 import com.zcw.togglebutton.ToggleButton.OnToggleChanged;
 
@@ -337,7 +336,7 @@ public class EditAdressActivity extends BaseActivity implements
 				null);
 		pop.setWidth(LayoutParams.MATCH_PARENT);
 		pop.setHeight(LayoutParams.WRAP_CONTENT);
-		pop.setBackgroundDrawable(new BitmapDrawable());
+		pop.setBackgroundDrawable(new ColorDrawable());
 		pop.setFocusable(true);
 		pop.setOutsideTouchable(true);
 		pop.setContentView(popView);

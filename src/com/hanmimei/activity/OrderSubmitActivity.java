@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,9 +14,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.JavascriptInterface;
-import android.webkit.JsResult;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -25,9 +23,7 @@ import com.hanmimei.entity.OrderInfo;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.ToastUtils;
-import com.hanmimei.utils.effects.Shake;
 import com.hanmimei.view.ProgressWebView;
-import com.umeng.analytics.MobclickAgent;
 
 public class OrderSubmitActivity extends BaseActivity {
 
@@ -37,6 +33,7 @@ public class OrderSubmitActivity extends BaseActivity {
 
 	Map<String, String> extraHeaders;
 
+	@SuppressLint("SetJavaScriptEnabled")
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -53,7 +50,8 @@ public class OrderSubmitActivity extends BaseActivity {
 
 		// 获取用户token 添加到header中
 		extraHeaders = new HashMap<String, String>();
-		extraHeaders.put("id-token", getUser().getToken());
+		if(getUser() !=null)
+			extraHeaders.put("id-token", getUser().getToken());
 
 		mWebView.setWebViewClient(new WebViewClient() {
 

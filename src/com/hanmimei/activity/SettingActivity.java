@@ -21,7 +21,6 @@ import com.hanmimei.manager.DataCleanManager;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.CommonUtil;
-import com.hanmimei.utils.DoJumpUtils;
 import com.hanmimei.utils.DownloadTools;
 import com.hanmimei.utils.ToastUtils;
 
@@ -33,7 +32,6 @@ import com.hanmimei.utils.ToastUtils;
 public class SettingActivity extends BaseActivity implements OnClickListener {
 
 	
-//	private final String TAG = this.getClass().getName();
 	private TextView exit,cur_version;
 	private TextView versionName,cacheSize;
 	private ProgressDialog pdialog;
@@ -62,7 +60,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 		} else {
 			exit.setVisibility(View.VISIBLE);
 		}
-		cur_version.setText(getResources().getString(R.string.current_version, CommonUtil.getVersionCode(this)));
+		cur_version.setText(getResources().getString(R.string.current_version, CommonUtil.getVersionName(this)));
 		cacheSize.setText(DataCleanManager.getTotalCacheSize(this));
 		if(getVersionInfo() !=null){
 			versionName.setVisibility(View.VISIBLE);
@@ -81,10 +79,10 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.about:
-			DoJumpUtils.doJump(this, AboutWeActivity.class);
+			startActivity(new Intent(this, AboutWeActivity.class));
 			break;
 		case R.id.idea:
-			DoJumpUtils.doJump(this, SuggestionActivity.class);
+			startActivity(new Intent(this, SuggestionActivity.class));
 			break;
 		case R.id.tel:
 			showDialog();

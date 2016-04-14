@@ -274,6 +274,10 @@ public class DataParser {
 							sku.setItemColor(skuObject.getString("itemColor"));
 						if(skuObject.has("itemSize"))
 							sku.setItemSize(skuObject.getString("itemSize"));
+						if(skuObject.has("skuType"))
+							sku.setSkuType(skuObject.getString("skuType"));
+						if(skuObject.has("skuTypeId"))
+							sku.setSkuTypeId(skuObject.getString("skuTypeId"));
 						skuList.add(sku);
 					}
 					order.setList(skuList);

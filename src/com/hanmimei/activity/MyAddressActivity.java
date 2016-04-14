@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,8 +16,10 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.baoyz.swipemenulistview.SwipeMenu;
@@ -33,6 +36,7 @@ import com.hanmimei.entity.From;
 import com.hanmimei.entity.HMMAddress;
 import com.hanmimei.entity.Result;
 import com.hanmimei.utils.ActionBarUtil;
+import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
@@ -45,14 +49,14 @@ import com.hanmimei.utils.ToastUtils;
 @SuppressLint("NewApi")
 public class MyAddressActivity extends BaseActivity implements OnClickListener {
 
-	private SwipeMenuListView mListView;
+	private ListView mListView;
 	private TextView addAddress;
 	private List<HMMAddress> data;
 	private AdressAdapter adapter;
 	private JSONObject object;
 	private long selectedId = 0;
 	private int fromm = From.AboutMyFragment;
-
+	private AlertDialog dialog;
 
 	@Override
 	protected void onCreate(Bundle bundle) {
@@ -67,24 +71,6 @@ public class MyAddressActivity extends BaseActivity implements OnClickListener {
 		loadData();
 
 	}
-
-	private SwipeMenuCreator creator = new SwipeMenuCreator() {
-
-		@Override
-		public void create(SwipeMenu menu) {
-
-			SwipeMenuItem deleteItem = new SwipeMenuItem(
-					getApplicationContext());
-			// 设置背景颜色
-			deleteItem.setBackground(R.drawable.btn_theme_selector);
-			// 设置删除的宽度
-			deleteItem.setWidth(CommonUtil.dip2px(90));
-			// 设置图标
-			deleteItem.setIcon(R.drawable.hmm_edit_delete);
-			// 增加到menu中
-			menu.addMenuItem(deleteItem);
-		}
-	};
 	//VOLLEY框架加载网络数据
 	private void loadData() {
 		//加载动画
@@ -114,18 +100,18 @@ public class MyAddressActivity extends BaseActivity implements OnClickListener {
 	private void findView() {
 		data = new ArrayList<HMMAddress>();
 		adapter = new AdressAdapter(this, data);
-		mListView = (SwipeMenuListView) findViewById(R.id.list);
+		mListView = (ListView) findViewById(R.id.list);
 		mListView.setAdapter(adapter);
-		if(fromm != From.GoodsBalanceActivity)
-			mListView.setMenuCreator(creator);
 		addAddress = (TextView) findViewById(R.id.add);
 		addAddress.setOnClickListener(this);
-		//侧滑事件
-		mListView.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+		mListView.setOnItemLongClickListener(new OnItemLongClickListener() {
 
 			@Override
-			public void onMenuItemClick(int position, SwipeMenu menu,int index,SwipeMenuView view) {
-				toObject(position);
+			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+//				toObject(arg2);
+				showDelDialog(arg2);
+				return false;
 			}
 		});
 		
@@ -146,7 +132,19 @@ public class MyAddressActivity extends BaseActivity implements OnClickListener {
 			}
 		});
 	}
-
+	
+	/**
+	 * @param arg2
+	 */
+	private void showDelDialog(final int arg2) {
+		dialog = AlertDialogUtils.showDialog(this, new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				toObject(arg2);
+			}
+		});
+	}
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -168,18 +166,18 @@ public class MyAddressActivity extends BaseActivity implements OnClickListener {
 		}
 	}
 
-	private List<HMMAddress> sequenceData(List<HMMAddress> list){
-		List<HMMAddress> addresses = new ArrayList<HMMAddress>();
-		for(int i = 0; i < list.size(); i ++){
-			if(list.get(i).isDefault() == true){
-				addresses.add(0, list.get(i));
-			}else{
-				addresses.add(list.get(i));
-			}
-		}
-		return addresses;
-		
-	}
+//	private List<HMMAddress> sequenceData(List<HMMAddress> list){
+//		List<HMMAddress> addresses = new ArrayList<HMMAddress>();
+//		for(int i = 0; i < list.size(); i ++){
+//			if(list.get(i).isDefault() == true){
+//				addresses.add(0, list.get(i));
+//			}else{
+//				addresses.add(list.get(i));
+//			}
+//		}
+//		return addresses;
+//		
+//	}
 
 	private class AdressAdapter extends BaseAdapter {
 
@@ -289,6 +287,7 @@ public class MyAddressActivity extends BaseActivity implements OnClickListener {
 	}
 	
 	private void delAddress(final int position) {
+		dialog.dismiss();
 		getLoading().show();
 		Http2Utils.doPostRequestTask2(this, getHeaders(), UrlUtil.ADDRESS_DEL_URL, new VolleyJsonCallback() {
 			

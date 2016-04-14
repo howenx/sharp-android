@@ -55,18 +55,25 @@ public class TicketAdapter extends BaseAdapter {
 			holder.more_pay = (TextView) convertView.findViewById(R.id.limit);
 			holder.use_date = (TextView) convertView.findViewById(R.id.date);
 			holder.cat = (TextView) convertView.findViewById(R.id.cat);
+			holder.biaoshi = (TextView) convertView.findViewById(R.id.biaoshi);
 			convertView.setTag(holder);
 		}else{
 			holder = (ViewHolder) convertView.getTag();
 		}
 		if(coupon.getState().equals("N")){
-			holder.bg_img.setImageDrawable(activity.getResources().getDrawable(R.drawable.youhuiquan_bg));
+			holder.money.setTextColor(activity.getResources().getColor(R.color.huang));
+			holder.biaoshi.setTextColor(activity.getResources().getColor(R.color.huang));
+			holder.bg_img.setImageDrawable(activity.getResources().getDrawable(R.drawable.hmm_bg_youhuiquan));
 		}else if(coupon.getState().equals("Y")){
-			holder.bg_img.setImageDrawable(activity.getResources().getDrawable(R.drawable.youhuiquan_bg_use));
+			holder.biaoshi.setTextColor(activity.getResources().getColor(R.color.fontcolor));
+			holder.money.setTextColor(activity.getResources().getColor(R.color.fontcolor));
+			holder.bg_img.setImageDrawable(activity.getResources().getDrawable(R.drawable.hmm_bg_hui_youhuiquan));
 		}else{
-			holder.bg_img.setImageDrawable(activity.getResources().getDrawable(R.drawable.youhuiquan_bg_use));
+			holder.biaoshi.setTextColor(activity.getResources().getColor(R.color.fontcolor));
+			holder.money.setTextColor(activity.getResources().getColor(R.color.fontcolor));
+			holder.bg_img.setImageDrawable(activity.getResources().getDrawable(R.drawable.hmm_bg_hui_youhuiquan));
 		}
-		holder.money.setText("¥" + coupon.getDenomination());
+		holder.money.setText("" + coupon.getDenomination());
 		holder.more_pay.setText("满" + coupon.getLimitQuota() + "可用");
 		holder.use_date.setText("有效期至：" + coupon.getEndAt());
 		holder.cat.setText(coupon.getCateNm());
@@ -78,6 +85,7 @@ public class TicketAdapter extends BaseAdapter {
 		private TextView use_date;
 		private ImageView bg_img;
 		private TextView cat;
+		private TextView biaoshi;
 	}
 
 }
