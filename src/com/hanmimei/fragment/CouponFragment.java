@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -36,7 +37,7 @@ import com.umeng.analytics.MobclickAgent;
 public class CouponFragment extends Fragment implements OnClickListener{
 
 	
-	private PullToRefreshListView mListView;
+	private ListView mListView;
 	private TicketAdapter adapter;
 	private List<Coupon> data;
 	private BaseActivity activity;
@@ -61,7 +62,7 @@ public class CouponFragment extends Fragment implements OnClickListener{
 	@Nullable
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.my_coupon_layout, null);
-		mListView = (PullToRefreshListView) view.findViewById(R.id.mylist);
+		mListView = (ListView) view.findViewById(R.id.mylist);
 		no_data = (TextView) view.findViewById(R.id.no_data);
 		no_net = (LinearLayout) view.findViewById(R.id.no_net);
 		view.findViewById(R.id.reload).setOnClickListener(this);
