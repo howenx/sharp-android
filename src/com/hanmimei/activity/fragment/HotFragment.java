@@ -78,12 +78,14 @@ public class HotFragment extends ScrollAbleFragment {
 		return mGridView;
 	}
 
+	@Override
 	public String getTitle() {
 		// TODO Auto-generated method stub
 		return "热门商品";
 	}
 
 	@SuppressWarnings("unchecked")
+	@Override
 	public void showData(Object obj) {
 		themeList.addAll((List<HMMGoods>)obj);
 		adapter.notifyDataSetChanged();

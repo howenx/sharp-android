@@ -69,11 +69,13 @@ public class ParamsFragment extends ScrollAbleFragment{
 		return mListView;
 	}
 
+	@Override
 	public String getTitle() {
 		// TODO Auto-generated method stub
 		return "商品参数";
 	}
 
+	@Override
 	public void showData(Object obj) {
 		data.addAll(getItemFeatures(obj.toString()));
 		adpater.notifyDataSetChanged();

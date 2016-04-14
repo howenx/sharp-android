@@ -73,10 +73,12 @@ public class ImgFragment extends ScrollAbleFragment   {
 		mWebView.destroy();
 	}
 
+	@Override
 	public String getTitle() {
 		return "图文详情";
 	}
 
+	@Override
 	public void showData(Object obj) {
 		mWebView.loadData((String)obj, "text/html; charset=UTF-8", null);
 	}
