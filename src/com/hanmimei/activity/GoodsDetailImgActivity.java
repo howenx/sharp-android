@@ -3,15 +3,15 @@ package com.hanmimei.activity;
 import java.util.List;
 
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.diegocarloslima.byakugallery.lib.GalleryViewPager;
 import com.hanmimei.R;
 import com.hanmimei.adapter.GoodsDetailImgPagerAdapter;
 import com.hanmimei.override.ViewPageChangeListener;
-import com.sliding.finish.SwipeBackActivity;
 
-public class GoodsDetailImgActivity extends SwipeBackActivity {
+public class GoodsDetailImgActivity extends AppCompatActivity {
 
 	private GalleryViewPager mViewPager;
 	private TextView pageNum;

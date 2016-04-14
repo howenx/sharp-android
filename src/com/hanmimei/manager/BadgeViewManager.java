@@ -2,9 +2,11 @@ package com.hanmimei.manager;
 
 import android.content.Context;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 
 import com.hanmimei.R;
 import com.hanmimei.fragment.FragmentTabHost;
+import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.view.BadgeView;
 
 public class BadgeViewManager {

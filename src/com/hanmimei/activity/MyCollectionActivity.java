@@ -101,7 +101,7 @@ public class MyCollectionActivity extends BaseActivity implements
 			SwipeMenuItem deleteItem = new SwipeMenuItem(
 					getApplicationContext());
 			// 设置背景颜色
-			deleteItem.setBackground(R.drawable.btn_theme_selector);
+			deleteItem.setBackground(R.drawable.btn_buy_selector);
 			// 设置删除的宽度
 			deleteItem.setWidth(CommonUtil.dip2px(90));
 			// 设置图标

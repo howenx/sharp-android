@@ -13,7 +13,7 @@
         android:paddingTop="5dp"
         android:singleLine="true"
         android:ellipsize="end"
-        android:text="adskfjashjkldfkljasdfkjlaskjldf"
+        android:text="adskfjashjkldfklj"
         android:textColor="@color/white"
         android:textSize="10sp" />
 

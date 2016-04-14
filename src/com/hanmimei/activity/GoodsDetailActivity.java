@@ -360,7 +360,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 			}
 		}
 		if (goods == null) {
-//			ToastUtils.Toast(this, "商品已售罄");
+			ToastUtils.Toast(this, "请选择商品");
 			return;
 		}
 
@@ -523,7 +523,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 					// sgoods.setPinTieredPriceId(s.getPinTieredPrices());
 					break;
 				} else {
-//					ToastUtils.Toast(this, "商品已售罄");
+					ToastUtils.Toast(this, "请选择商品");
 					return;
 				}
 			}
@@ -756,7 +756,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 				if (currentY <= 1 && back_top.getVisibility() == View.VISIBLE) {
 					back_top.setVisibility(View.GONE);
 				}
-				setScrollDown(currentY);
+//				setScrollDown(currentY);
 			}
 		});
 		pagerSlidingTabStrip
@@ -805,6 +805,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 		if (outDate) {
 			more_view.setVisibility(View.VISIBLE);
 			more_view.setOnClickListener(this);
+			findViewById(R.id.btn_pay).setEnabled(false);
+			findViewById(R.id.btn_add_shopcart).setEnabled(false);
 			showPopupwindow();
 		}
 		initStocks(stock);

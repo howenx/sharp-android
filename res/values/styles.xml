@@ -10,24 +10,30 @@
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
         -->
+      
     </style>
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
-
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+  <!-- All customizations that are NOT specific to a particular API-level can go here. -->
         <item name="actionBarSize">@dimen/actionbar_size</item>
         <item name="actionBarStyle"> @style/MyActionBarStyle</item>
+        <item name="colorPrimary">@color/theme</item>
+        <item name="colorPrimaryDark">@color/btn_pin_pressed</item>
+        <item name="colorAccent">@color/theme</item>
         <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowBackground">@color/activity_bg</item>
-        <item name="android:colorBackgroundCacheHint">@null</item>
-        <item name="android:windowAnimationStyle">@style/ActivityAnimationStyle</item>
+        <item name="android:windowAnimationStyle">@style/Animation_Right</item>
     </style>
-    
-    <style name="ActivityAnimationStyle" parent="@android:style/Animation">
+
+    <style name="ActivityAnimationStyle" parent="@android:style/Animation"></style>
+
+    <style name="Animation_Right">
+        <item name="android:activityOpenEnterAnimation">@anim/pl_slide_from_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/pl_slide_out_to_left</item>
+        <item name="android:activityCloseEnterAnimation">@anim/pl_slide_in_from_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/pl_slide_out_to_right</item>
     </style>
-    
+
     <!-- acitonbar 样式 -->
     <style name="MyActionBarStyle" parent="@style/Widget.AppCompat.ActionBar">
         <item name="background">@color/theme</item>
@@ -36,24 +42,23 @@
     </style>
 
     <style name="SplashStyle" parent="AppBaseTheme">
+
         <!-- 填充屏幕 -->
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowFullscreen">true</item>
     </style>
 
-    
-    <style name="MainActivityTheme" parent="AppTheme">  
-     <item name="tabView">@style/MainTabView</item>  
- </style>  
-  
- <style name="MainTabView" parent="TabView">  
-     <item name="android:textColor">@color/indicator_font_color_selector</item>
-     <item name="android:textSize">12sp</item>
+    <style name="MainActivityTheme" parent="AppTheme">
+        <item name="tabView">@style/MainTabView</item>
+    </style>
+
+    <style name="MainTabView" parent="TabView">
+        <item name="android:textColor">@color/indicator_font_color_selector</item>
+        <item name="android:textSize">12sp</item>
         <item name="iconWidth">25dp</item>
         <item name="iconHeight">25dp</item>
- </style> 
-    
-    
+    </style>
+
     <style name="AppThemeForOrder" parent="AppTheme">
         <item name="vpiTabPageIndicatorStyle">@style/OrderTabPageIndicator</item>
     </style>
@@ -104,6 +109,7 @@
         <item name="android:paddingTop">10dp</item>
         <item name="android:gravity">center</item>
     </style>
+
     <style name="submit_mid_m">
         <item name="android:background">@drawable/btn_theme_radius_selector</item>
         <item name="android:textSize">14sp</item>
@@ -206,7 +212,7 @@
     </style>
     <!-- 设置全凭dialog样式 -->
     <style name="FullscreenDialog" parent="@style/CustomDialog">
-        <item name="android:windowFullscreen">true</item> 
+        <item name="android:windowFullscreen">true</item>
     </style>
 
     <!-- popwindow 显示与消失的动画 -->
@@ -267,6 +273,7 @@
         <item name="android:windowEnterAnimation">@anim/push_bottom_in</item>
         <item name="android:windowExitAnimation">@anim/push_bottom_out</item>
     </style>
+
     <style name="msg_title_style">
         <item name="android:layout_marginTop">3dp</item>
         <item name="android:layout_width">wrap_content</item>
@@ -274,12 +281,14 @@
         <item name="android:textColor">@color/msg_title</item>
         <item name="android:textSize">16sp</item>
     </style>
+
     <style name="msg_img_style">
         <item name="android:layout_margin">3dp</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_centerVertical">true</item>
     </style>
+
     <style name="msg_content_style">
         <item name="android:layout_marginTop">3dp</item>
         <item name="android:layout_width">wrap_content</item>
@@ -288,6 +297,7 @@
         <item name="android:textSize">12sp</item>
         <item name="android:maxLines">1</item>
     </style>
+
     <style name="msg_time_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>

@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.github.anzewei.parallaxbacklayout.ParallaxActivityBase;
 import com.google.gson.Gson;
 import com.hanmimei.R;
 import com.hanmimei.application.HMMApplication;
@@ -43,7 +44,6 @@ import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.SystemBarTintManager;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.LoadingDialog;
-import com.sliding.finish.SwipeBackActivity;
 
 
 /**
@@ -51,11 +51,11 @@ import com.sliding.finish.SwipeBackActivity;
  * @Description 公用
  * 
  */
-public class BaseActivity extends SwipeBackActivity  {
+public class BaseActivity extends ParallaxActivityBase  {
 
 	private LoadingDialog loadingDialog;
 	private boolean shoppingcarChanged = false;
-	ShimmerFrameLayout shimmer_view_container ;
+	ShimmerFrameLayout shimmer_view_container;
 
 	/*
 	 * 获得用于数据库管理的DaoSession
@@ -67,23 +67,30 @@ public class BaseActivity extends SwipeBackActivity  {
 		return getMyApplication().getDaoMaster();
 	}
 
+	
+	
 	@Override
-	protected void onCreate(@Nullable Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		super.onCreate(savedInstanceState);
-		getSupportActionBar().setElevation(0);
-		// 沉浸式状态栏的设置
+	protected void onPostCreate(Bundle savedInstanceState) {
+		super.onPostCreate(savedInstanceState);
 		if (VERSION.SDK_INT >= 19) {
 			// 创建状态栏的管理实例
 			SystemBarTintManager tintManager = new SystemBarTintManager(this);
 			// 激活状态栏设置
 			tintManager.setStatusBarTintEnabled(true);
 			// 设置一个颜色给系统栏
-			tintManager.setTintColor(getResources().getColor(R.color.theme));
+			tintManager.setTintColor(getResources().getColor(R.color.btn_pin_pressed));
 			if (VERSION.SDK_INT >= 21) {
 				setStatus();
 			}
 		}
+	}
+	
+	@Override
+	protected void onCreate(@Nullable Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		// 沉浸式状态栏的设置
+		getSupportActionBar().setElevation(0);
 		getClipboard();
 	}
 
@@ -151,7 +158,6 @@ public class BaseActivity extends SwipeBackActivity  {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		ToastUtils.cancel();
 		stopShimmerAnimation();
 	}
 

@@ -4,12 +4,14 @@
     android:layout_height="wrap_content"
     android:background="@drawable/bg_theme_topline"
     android:orientation="vertical"
-    android:padding="10dp" >
+    android:paddingTop="10dp"
+    android:paddingRight="10dp" 
+    android:paddingBottom="10dp">
 
     <com.hanmimei.view.HorizontalListView
         android:id="@+id/more_grid"
         android:layout_width="match_parent"
-        android:layout_height="235dp"
+        android:layout_height="250dp"
         android:scrollbars="@null" />
 
 </LinearLayout>

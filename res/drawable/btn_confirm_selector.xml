@@ -4,14 +4,14 @@
         <shape >
             <corners android:radius="5dp"
                 />
-            <solid android:color="@color/theme_pressed"/>
+            <solid android:color="@color/btn_pin_pressed"/>
         </shape>
     </item>
       <item >
         <shape >
             <corners android:radius="5dp"
                 />
-            <solid android:color="@color/theme"/>
+            <solid android:color="@color/btn_pin_normal"/>
         </shape>
     </item>
 

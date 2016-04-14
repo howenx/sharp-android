@@ -72,7 +72,7 @@ public class OrderDetailListAdapter extends BaseAdapter {
 		if(isShow){
 			holder.btn_apply_service.setVisibility(View.VISIBLE);
 		}else{
-			holder.btn_apply_service.setVisibility(View.INVISIBLE);
+			holder.btn_apply_service.setVisibility(View.VISIBLE);
 		}
 		holder.btn_apply_service.setOnClickListener(new OnClickListener() {
 			

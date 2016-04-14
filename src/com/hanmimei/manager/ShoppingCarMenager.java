@@ -148,7 +148,7 @@ public class ShoppingCarMenager {
 	public void setPayClick(){
 		attention.setText("友情提示：同一保税区商品总额有限制");
 		pay.setClickable(true);
-		pay.setBackgroundResource(R.drawable.btn_theme_selector);
+		pay.setBackgroundResource(R.drawable.btn_buy_selector);
 	}
 	private ShoppingCarPullListAdapter adapter;
 	
