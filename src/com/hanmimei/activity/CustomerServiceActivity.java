@@ -56,6 +56,7 @@ public class CustomerServiceActivity extends BaseActivity implements
 	private List<Drawable> imgList;
 	private GridAdapter adapter;
 	private ArrayList<String> mSelectPath;
+	private String      refundType = "deliver";//退款类型，pin：拼购自动退款，receive：收货后申请退款，deliver：发货前退款
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -202,9 +203,15 @@ public class CustomerServiceActivity extends BaseActivity implements
 
 		params.put("orderId", getIntent().getStringExtra("orderId"));
 		params.put("splitOrderId", getIntent().getStringExtra("splitOrderId"));
-		params.put("skuId", sku.getSkuId() + "");
+		params.put("skuId", sku.getSkuId());
+		
+		params.put("skuType", sku.getSkuType());
+		params.put("skuTypeId", sku.getSkuTypeId());
+		params.put("refundType", refundType);
+
+//		params.put("payBackFee", );
+		
 		params.put("reason", discription.getText().toString());
-		params.put("amount", apply_num.getText().toString());
 		params.put("contactName", name);
 		params.put("contactTel", phone);
 		for (int i = 0; i < mSelectPath.size(); i++) {

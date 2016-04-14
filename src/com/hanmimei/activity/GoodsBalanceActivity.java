@@ -66,8 +66,8 @@ public class GoodsBalanceActivity extends BaseActivity implements
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
+		setBackEnable(false);
 		ActionBarUtil.setActionBarStyle(this, "支付结算", this);
-		closeSwipeBack();
 		setContentView(R.layout.goods_balance_layout);
 		// 获取要购买的数据
 		car = (ShoppingCar) getIntent().getSerializableExtra("car");
@@ -80,7 +80,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 		mListView.setAdapter(adapter);
 		mListView.setFocusable(false);
 		loadData(selectedId);
-	
+		
 	}
 
 	/**
@@ -336,7 +336,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 											14,
 											settle.getAddress().getIdCardNum()
 													.length())));
-			findViewById(R.id.btn_pay).setBackgroundResource(R.drawable.btn_theme_selector);
+			findViewById(R.id.btn_pay).setBackgroundResource(R.drawable.btn_buy_selector);
 			findViewById(R.id.btn_pay).setOnClickListener(this);
 
 		} else {
@@ -464,7 +464,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 			}
 			loadData(selectedId);
 			if (goodsBalance != null) {
-				findViewById(R.id.btn_pay).setBackgroundResource(R.drawable.btn_theme_selector);
+				findViewById(R.id.btn_pay).setBackgroundResource(R.drawable.btn_buy_selector);
 				findViewById(R.id.btn_pay).setOnClickListener(this);
 			}
 		}

@@ -2,6 +2,7 @@ package com.hanmimei.adapter;
 
 import java.util.List;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,7 +16,6 @@ import android.view.ViewGroup;
 import com.diegocarloslima.byakugallery.lib.TouchImageView;
 import com.hanmimei.R;
 import com.hanmimei.utils.GlideLoaderUtils;
-import com.sliding.finish.SwipeBackActivity;
 
 /**
  * 商品详情页 轮播图展示
@@ -48,11 +48,11 @@ public class GoodsDetailImgPagerAdapter extends FragmentStatePagerAdapter {
 
 	public static final class GalleryFragment extends Fragment {
 		
-		private SwipeBackActivity mActivity;
+		private Activity mActivity;
 		@Override
 		public void onAttach(Context context) {
 			super.onAttach(context);
-			mActivity = (SwipeBackActivity) context;
+			mActivity = (Activity) context;
 		}
 
 		public static GalleryFragment getInstance(String imageUrl) {
@@ -78,7 +78,6 @@ public class GoodsDetailImgPagerAdapter extends FragmentStatePagerAdapter {
 				
 				@Override
 				public void onClick(View arg0) {
-					mActivity.onBackPressed();
 					mActivity.finish();
 				}
 			});

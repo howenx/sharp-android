@@ -69,7 +69,7 @@ public class MainTestActivity extends BaseActivity implements OnClickListener {
 		ImageView view = (ImageView) findViewById(R.id.setting);
 		MessageMenager.getInstance().initMessageMenager(this,view);
 		// 关闭左滑退出
-		closeSwipeBack();
+		setBackEnable(false);
 //		showGuangGao();
 		initViewPager();
 		registerReceivers();

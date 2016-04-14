@@ -174,6 +174,10 @@ public class PingouDetailActivity extends BaseActivity implements
 			noticeText = "活动已结束";
 			more_view.setVisibility(View.VISIBLE);
 			more_view.setOnClickListener(this);
+			findViewById(R.id.btn_buy_01).setEnabled(false);
+			findViewById(R.id.btn_buy_02).setEnabled(false);
+			findViewById(R.id.btn_pin_01).setEnabled(false);
+			findViewById(R.id.btn_pin_02).setEnabled(false);
 			showPopupwindow();
 		}
 	}
@@ -385,7 +389,7 @@ public class PingouDetailActivity extends BaseActivity implements
 				if (currentY <= 1 && back_top.getVisibility() == View.VISIBLE) {
 					back_top.setVisibility(View.GONE);
 				}
-				setScrollDown(currentY);
+//				setScrollDown(currentY);
 			}
 
 		});

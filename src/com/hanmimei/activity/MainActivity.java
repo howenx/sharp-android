@@ -70,7 +70,6 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 		setContentView(R.layout.activity_main);
 		ActionBarUtil.setActionBarStyle(this, "", 0, false, this);
 		//关闭左滑退出
-		closeSwipeBack();
 		showGuangGao();
 //		guanggao = (LinearLayout) findViewById(R.id.guanggao);
 //		guanggao.setOnClickListener(this);

@@ -3,11 +3,14 @@
 
     <color name="theme">#FF5359</color>
     <color name="bg_hui">#f1f1f1</color>
-    <color name="theme_pressed">#D63939</color>
     <color name="background">#F3F8FB</color>
     <color name="white">#FFFFFF</color>
+    <color name="black">#FF000000</color>
+    <color name="btn_buy_pressed">#E82E43</color>
+    <color name="btn_buy_normal">#f03046</color>
+    <color name="btn_pin_pressed">#F55156</color>
+    <color name="btn_pin_normal">#FF5359</color>
     <color name="huang">#ffa800</color>
-    <color name="black">#000000</color>
     <color name="black_01_pressed">#CC000000</color>
     <color name="black_01">#AA000000</color>
     <color name="gray">#ECECEC</color>
@@ -27,7 +30,6 @@
     
     <color name="notice">#ffeedd</color>
 	<color name="activity_bg">#00000000</color>
-	
 	
 	<color name="theme_shadow">#77000000</color>
 </resources>

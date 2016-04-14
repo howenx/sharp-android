@@ -37,8 +37,8 @@ public class OrderSubmitActivity extends BaseActivity {
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setBackEnable(false);
 		setContentView(R.layout.order_submit_layout);
-		closeSwipeBack();
 		// 初始化actionbar
 		ActionBarUtil.setActionBarStyle(this, "收银台", new BackClickListener());
 		OrderInfo orderInfo = (OrderInfo) getIntent().getSerializableExtra(

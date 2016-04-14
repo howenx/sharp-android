@@ -1,5 +1,7 @@
 package com.hanmimei.view;
 
+import com.hanmimei.utils.CommonUtil;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -118,7 +120,7 @@ public class BadgeView extends TextView {
 		
 		setTypeface(Typeface.DEFAULT_BOLD);
 		int paddingPixels = dipToPixels(DEFAULT_LR_PADDING_DIP);
-		setPadding(paddingPixels, 0, paddingPixels, 0);
+//		setPadding(paddingPixels, paddingPixels, paddingPixels, paddingPixels);
 		setTextColor(DEFAULT_TEXT_COLOR);
 		
 		fadeIn = new AlphaAnimation(0, 1);
@@ -337,7 +339,7 @@ public class BadgeView extends TextView {
 	
 	private void applyLayoutParams() {
 		
-		FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(dipToPixels(15), dipToPixels(15));
 		
 		switch (badgePosition) {
 		case POSITION_TOP_LEFT:
@@ -346,7 +348,7 @@ public class BadgeView extends TextView {
 			break;
 		case POSITION_TOP_RIGHT:
 			lp.gravity = Gravity.RIGHT | Gravity.TOP;
-			lp.setMargins(0, 0, dipToPixels(40), 0);
+			lp.setMargins(0, dipToPixels(4), dipToPixels(40), 0);
 			break;
 		case POSITION_BOTTOM_LEFT:
 			lp.gravity = Gravity.LEFT | Gravity.BOTTOM;
@@ -370,7 +372,7 @@ public class BadgeView extends TextView {
 		}
 		
 		setLayoutParams(lp);
-		
+		setGravity(Gravity.CENTER);
 	}
 
 	/**

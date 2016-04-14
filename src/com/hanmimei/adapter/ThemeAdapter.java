@@ -77,6 +77,7 @@ public class ThemeAdapter extends BaseAdapter {
 			} else {
 				holder.timeView.setText("已结束");
 				holder.sold_out.setVisibility(View.VISIBLE);
+				holder.sold_out.setText("已结束");
 			}
 		} else {
 			holder.price.setText(activity.getResources().getString(
@@ -99,15 +100,16 @@ public class ThemeAdapter extends BaseAdapter {
 			} else {
 				holder.sold_ready.setVisibility(View.GONE);
 				holder.sold_out.setVisibility(View.VISIBLE);
+				holder.sold_out.setText("已抢光");
 			}
 		}
 		return convertView;
 	}
 
 	private class ViewHolder {
-		private ImageView img, sold_out;
+		private ImageView img;
 		private View sold_ready;
-		private TextView title;
+		private TextView title,sold_out;
 		private TextView price;
 		private TextView old_price;
 		private TextView discount;
@@ -122,7 +124,7 @@ public class ThemeAdapter extends BaseAdapter {
 			this.old_price = (TextView) convertView
 					.findViewById(R.id.old_price);
 			this.discount = (TextView) convertView.findViewById(R.id.discount);
-			this.sold_out = (ImageView) convertView.findViewById(R.id.sold_out);
+			this.sold_out = (TextView) convertView.findViewById(R.id.sold_out);
 			this.sold_ready = convertView.findViewById(R.id.sold_ready);
 			this.timeView = (TextView) convertView.findViewById(R.id.timeView);
 			this.pin_tip = convertView.findViewById(R.id.pin_tip);
