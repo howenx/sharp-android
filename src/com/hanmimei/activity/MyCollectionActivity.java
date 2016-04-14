@@ -3,6 +3,7 @@ package com.hanmimei.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -13,15 +14,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
-import com.baoyz.swipemenulistview.SwipeMenu;
-import com.baoyz.swipemenulistview.SwipeMenuCreator;
-import com.baoyz.swipemenulistview.SwipeMenuItem;
-import com.baoyz.swipemenulistview.SwipeMenuListView;
-import com.baoyz.swipemenulistview.SwipeMenuListView.OnMenuItemClickListener;
-import com.baoyz.swipemenulistview.SwipeMenuView;
 import com.hanmimei.R;
 import com.hanmimei.adapter.MyCollectionAdapter;
 import com.hanmimei.data.AppConstant;
@@ -31,7 +28,7 @@ import com.hanmimei.entity.Collection;
 import com.hanmimei.entity.CollectionInfo;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.utils.ActionBarUtil;
-import com.hanmimei.utils.CommonUtil;
+import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
@@ -43,7 +40,7 @@ import com.hanmimei.utils.ToastUtils;
 public class MyCollectionActivity extends BaseActivity implements
 		OnClickListener {
 
-	private SwipeMenuListView mListView;
+	private ListView mListView;
 	private List<Collection> datas;
 	private MyCollectionAdapter adapter;
 	private MyBroadCastReceiver netReceiver;
@@ -55,7 +52,7 @@ public class MyCollectionActivity extends BaseActivity implements
 		super.onCreate(savedInstanceState);
 		ActionBarUtil.setActionBarStyle(this, "我的收藏");
 		setContentView(R.layout.my_collection_layout);
-		mListView = (SwipeMenuListView) findViewById(R.id.mListView);
+		mListView = (ListView) findViewById(R.id.mListView);
 		no_data = (TextView) findViewById(R.id.no_data);
 		no_net = (LinearLayout) findViewById(R.id.no_net);
 		findViewById(R.id.reload).setOnClickListener(this);
@@ -63,70 +60,70 @@ public class MyCollectionActivity extends BaseActivity implements
 		adapter = new MyCollectionAdapter(datas, this);
 		mListView.setAdapter(adapter);
 		loadCollectionData();
-		mListView.setMenuCreator(creator);
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				if (datas.get(arg2).getSkuType().equals("item")) {
-					Intent intent = new Intent(MyCollectionActivity.this,
-							GoodsDetailActivity.class);
-					intent.putExtra("url", datas.get(arg2).getSku().getInvUrl());
-					startActivity(intent);
-				} else if (datas.get(arg2).getSkuType().equals("pin")) {
+				if (datas.get(arg2).getSkuType().equals("pin")) {
 					Intent intent = new Intent(MyCollectionActivity.this,
 							PingouDetailActivity.class);
 					intent.putExtra("url", datas.get(arg2).getSku().getInvUrl());
 					startActivity(intent);
-				}
+				}else{
+					Intent intent = new Intent(MyCollectionActivity.this,
+							GoodsDetailActivity.class);
+					intent.putExtra("url", datas.get(arg2).getSku().getInvUrl());
+					startActivity(intent);
+				} 
 			}
 		});
-		mListView.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+		mListView.setOnItemLongClickListener(new OnItemLongClickListener() {
 
 			@Override
-			public void onMenuItemClick(int position, SwipeMenu menu,
-					int index, SwipeMenuView view) {
-				// TODO Auto-generated method stub
-				delCollect(position, view);
+			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				showDelDialog(arg2);
+				return false;
 			}
-
 		});
 		registerReceivers();
 	}
 
-	private SwipeMenuCreator creator = new SwipeMenuCreator() {
 
-		@Override
-		public void create(SwipeMenu menu) {
-			SwipeMenuItem deleteItem = new SwipeMenuItem(
-					getApplicationContext());
-			// 设置背景颜色
-			deleteItem.setBackground(R.drawable.btn_buy_selector);
-			// 设置删除的宽度
-			deleteItem.setWidth(CommonUtil.dip2px(90));
-			// 设置图标
-			deleteItem.setIcon(R.drawable.hmm_edit_delete);
-			// 增加到menu中
-			menu.addMenuItem(deleteItem);
-		}
-	};
+	private AlertDialog dialog;
+	/**
+	 * @param arg2
+	 */
+	private void showDelDialog(final int arg2) {
+		dialog = AlertDialogUtils.showDialog(this, new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				delCollect(arg2);
+			}
+		});
+	}
 
 	private void loadCollectionData() {
+		getActivity().getLoading().show();
 		Http2Utils.doGetRequestTask(this, getHeaders(),
 				UrlUtil.COLLECTION_LIST, new VolleyJsonCallback() {
 
 					@Override
 					public void onSuccess(String result) {
+						getActivity().getLoading().dismiss();
 						no_net.setVisibility(View.GONE);
 						CollectionInfo collectionInfo = DataParser
 								.parserCollect(result);
 						if (collectionInfo.gethMessage().getCode() == 200) {
 							if (collectionInfo.getList().size() > 0) {
+								mListView.setVisibility(View.VISIBLE);
 								no_data.setVisibility(View.GONE);
 								datas.clear();
 								datas.addAll(collectionInfo.getList());
 								adapter.notifyDataSetChanged();
 							} else {
+								mListView.setVisibility(View.GONE);
 								no_data.setVisibility(View.VISIBLE);
 							}
 						} else {
@@ -137,25 +134,26 @@ public class MyCollectionActivity extends BaseActivity implements
 
 					@Override
 					public void onError() {
+						getActivity().getLoading().dismiss();
 						no_net.setVisibility(View.VISIBLE);
 						ToastUtils.Toast(MyCollectionActivity.this,
 								"请求失败，请检查您的网络");
 					}
 				});
 	}
-
-	private void delCollect(final int position, final SwipeMenuView index) {
+//, final SwipeMenuView index
+	private void delCollect(final int position) {
 		String collectId = datas.get(position).getCollectId();
 		Http2Utils.doGetRequestTask(this, getHeaders(), UrlUtil.DEL_COLLECTION
 				+ collectId, new VolleyJsonCallback() {
 
 			@Override
 			public void onSuccess(String result) {
+				dialog.dismiss();
 				HMessage hMessage = DataParser.paserResultMsg(result);
 				if (hMessage.getCode() == 200) {
-					// removeListItem(mListView.getChildAt(position), position);
 					datas.remove(position);
-					mListView.deleteViewAt(index, true);
+					adapter.notifyDataSetChanged();
 					if (datas.size() <= 0) {
 						no_data.setVisibility(View.VISIBLE);
 						mListView.setVisibility(View.GONE);

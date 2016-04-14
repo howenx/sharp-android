@@ -10,7 +10,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -24,13 +26,14 @@ import com.hanmimei.entity.Coupon;
 import com.hanmimei.entity.Ticket;
 import com.hanmimei.entity.User;
 import com.hanmimei.utils.HttpUtils;
+import com.hanmimei.utils.ToastUtils;
 import com.umeng.analytics.MobclickAgent;
 
 /**
  * @author eric
  *
  */
-public class CouponFragment extends Fragment {
+public class CouponFragment extends Fragment implements OnClickListener{
 
 	
 	private PullToRefreshListView mListView;
@@ -41,6 +44,7 @@ public class CouponFragment extends Fragment {
 	private User user;
 	private int state;
 	private TextView no_data;
+	private LinearLayout no_net;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -59,6 +63,8 @@ public class CouponFragment extends Fragment {
 		View view = inflater.inflate(R.layout.my_coupon_layout, null);
 		mListView = (PullToRefreshListView) view.findViewById(R.id.mylist);
 		no_data = (TextView) view.findViewById(R.id.no_data);
+		no_net = (LinearLayout) view.findViewById(R.id.no_net);
+		view.findViewById(R.id.reload).setOnClickListener(this);
 		mListView.setAdapter(adapter);
 		if (category.getId().equals("tag01")) {
 			state = 0;
@@ -72,6 +78,7 @@ public class CouponFragment extends Fragment {
 	}
 
 	private void loadData() {
+		activity.getLoading().show();
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -109,8 +116,10 @@ public class CouponFragment extends Fragment {
 			super.handleMessage(msg);
 			switch (msg.what) {
 			case 1:
+				activity.getLoading().dismiss();
 				Ticket ticket = (Ticket) msg.obj;
 				if(ticket != null){
+					no_net.setVisibility(View.GONE);
 					data.clear();
 					mCoupno(ticket.getCoupons());
 					if(ticket.getMessage().getCode() == 200){
@@ -122,6 +131,9 @@ public class CouponFragment extends Fragment {
 							no_data.setVisibility(View.VISIBLE);
 						}
 					}
+				}else{
+					no_net.setVisibility(View.VISIBLE);
+					ToastUtils.Toast(activity, "请求失败，请检查您的网络！");
 				}
 				break;
 			default:
@@ -137,5 +149,20 @@ public class CouponFragment extends Fragment {
 	public void onPause() {
 	    super.onPause();
 	    MobclickAgent.onPageEnd("CouponFragment"); 
+	}
+
+	/* (non-Javadoc)
+	 * @see android.view.View.OnClickListener#onClick(android.view.View)
+	 */
+	@Override
+	public void onClick(View view) {
+		switch (view.getId()) {
+		case R.id.reload:
+			loadData();
+			break;
+
+		default:
+			break;
+		}
 	}
 }

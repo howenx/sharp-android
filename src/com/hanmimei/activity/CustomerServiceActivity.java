@@ -203,14 +203,15 @@ public class CustomerServiceActivity extends BaseActivity implements
 
 		params.put("orderId", getIntent().getStringExtra("orderId"));
 		params.put("splitOrderId", getIntent().getStringExtra("splitOrderId"));
-		params.put("skuId", sku.getSkuId() + "");
+		params.put("skuId", sku.getSkuId());
 		
-		params.put("skuType", sku.getSkuId() + "");
-		params.put("skuTypeId", sku.getSkuId() + "");
+		params.put("skuType", sku.getSkuType());
+		params.put("skuTypeId", sku.getSkuTypeId());
 		params.put("refundType", refundType);
+
+//		params.put("payBackFee", );
 		
 		params.put("reason", discription.getText().toString());
-		params.put("amount", apply_num.getText().toString());
 		params.put("contactName", name);
 		params.put("contactTel", phone);
 		for (int i = 0; i < mSelectPath.size(); i++) {

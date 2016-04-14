@@ -4,10 +4,10 @@ public class UrlUtil {
 	/*
 	 * 阿里云
 //	 */
-	 public static final String SERVERY3 = "https://api.hanmimei.com";
-	 public static final String SERVERY1 = "https://shopping.hanmimei.com";
-	 public static final String SERVERY4 = "https://id.hanmimei.com";
-	 public static final String SERVERY5 = "https://promotion.hanmimei.com";
+//	 public static final String SERVERY3 = "https://api.hanmimei.com";
+//	 public static final String SERVERY1 = "https://shopping.hanmimei.com";
+//	 public static final String SERVERY4 = "https://id.hanmimei.com";
+//	 public static final String SERVERY5 = "https://promotion.hanmimei.com";
 	/*
 	 * http://172.28.3.78
 	 */
@@ -18,10 +18,10 @@ public class UrlUtil {
 	/*
 	 * http://172.28.3.51
 	 */
-//	public static final String SERVERY3 = "http://172.28.3.51:9001";
-//	public static final String SERVERY1 = "http://172.28.3.51:9003";
-//	public static final String SERVERY4 = "http://172.28.3.51:9004";
-//	public static final String SERVERY5 = "http://172.28.3.51:9005";
+	public static final String SERVERY3 = "http://172.28.3.51:9001";
+	public static final String SERVERY1 = "http://172.28.3.51:9003";
+	public static final String SERVERY4 = "http://172.28.3.51:9004";
+	public static final String SERVERY5 = "http://172.28.3.51:9005";
 	/*
 	 * http://172.28.3.18
 	 */
@@ -59,8 +59,8 @@ public class UrlUtil {
 	//未登录状态下请求购物车数据
 	public static final String CAR_LIST_URL = SERVERY1 + "/client/cart/get/sku/list";
 	// 未登录状态加入购物车
-	@Deprecated
-	public static final String SEND_CAR_TO_SERVER_UN = SERVERY1 + "/client/cart/verify/amount/";
+//	@Deprecated
+//	public static final String SEND_CAR_TO_SERVER_UN = SERVERY1 + "/client/cart/verify/amount/";
 	public static final String POST_ADD_CART =SERVERY1 + "/client/cart/nologin/verify/amount";
 	// 用户登录接口
 	public static final String LOGIN_URL = SERVERY4 + "/api/login_phone_num";

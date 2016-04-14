@@ -4,15 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" 
-    android:background="@color/white">
+    android:background="@color/bg_hui">
     <com.handmark.pulltorefresh.library.PullToRefreshListView
-        	android:layout_marginLeft="15dp"
-        	android:layout_marginRight="15dp"
+        	android:layout_marginLeft="5dp"
+        	android:layout_marginRight="5dp"
       		android:layout_width="fill_parent"
       		android:layout_height="match_parent"
-      		android:cacheColorHint="#00000000"
-      		android:divider="@color/white"
-      		android:dividerHeight="20dp"
+      		android:divider="@color/bg_hui"
+      		android:dividerHeight="10dp"
       		android:fadingEdge="none"
       		android:fastScrollEnabled="false"
       		android:footerDividersEnabled="false"
@@ -23,13 +22,20 @@
       		ptr:ptrShowIndicator="false"
       		ptr:ptrDrawable="@drawable/refreshing"/>
 
-<TextView 
+<TextView
     android:id="@+id/no_data"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:textSize="16sp"
-    android:textColor="@color/huise"
     android:text="暂无优惠券"
-    android:visibility="gone"/>
+    android:textColor="@color/huise"
+    android:textSize="16sp"
+    android:visibility="gone" />
+<include
+        android:id="@+id/no_net"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        layout="@layout/offline_wuxinhao_layout"
+        android:visibility="gone" />
+
 </FrameLayout>

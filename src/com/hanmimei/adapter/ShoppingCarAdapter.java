@@ -6,7 +6,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -18,6 +17,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hanmimei.R;
@@ -33,7 +33,6 @@ import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.User;
 import com.hanmimei.manager.BadgeViewManager;
 import com.hanmimei.manager.ShoppingCarMenager;
-import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.GlideLoaderUtils;
 import com.hanmimei.utils.Http2Utils;
@@ -55,7 +54,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 	private Drawable uncheck_Drawable;
 	private ShoppingGoodsDao goodsDao;
 	private int check_nums;
-	private AlertDialog dialog;
+//	private AlertDialog dialog;
 	private boolean isAdd;
 	private BaseActivity baseActivity;
 
@@ -100,10 +99,11 @@ public class ShoppingCarAdapter extends BaseAdapter {
 			holder.name = (TextView) convertView.findViewById(R.id.name);
 			holder.price = (TextView) convertView.findViewById(R.id.price);
 			holder.nums = (TextView) convertView.findViewById(R.id.nums);
-			holder.del = (ImageView) convertView.findViewById(R.id.delete);
+			holder.shixiao = (ImageView) convertView.findViewById(R.id.shixiao);
 			holder.jian = (TextView) convertView.findViewById(R.id.jian);
 			holder.plus = (TextView) convertView.findViewById(R.id.plus);
 			holder.size = (TextView) convertView.findViewById(R.id.size);
+			holder.shopping_main = (RelativeLayout) convertView.findViewById(R.id.shopping_main);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -114,10 +114,12 @@ public class ShoppingCarAdapter extends BaseAdapter {
 			holder.checkBox.setVisibility(View.VISIBLE);
 			holder.checkBox.setImageDrawable(check_Drawable);
 		} else if (goods.getState().equals("S")) {
-			//购物车商品失效，增减按钮置灰，选择按钮消失
+			holder.shixiao.setVisibility(View.VISIBLE);
+			holder.shopping_main.setBackgroundColor(activity.getResources().getColor(R.color.shixiao_bg));
 			holder.plus.setTextColor(activity.getResources().getColor(R.color.qianhui));
 			holder.jian.setTextColor(activity.getResources().getColor(R.color.qianhui));
 			holder.checkBox.setVisibility(View.INVISIBLE);
+			//购物车商品失效，增减按钮置灰，选择按钮消失
 			if (user == null) {
 				ShoppingGoodsDao goodsDao = activity.getDaoSession()
 						.getShoppingGoodsDao();
@@ -135,13 +137,17 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		}
 		// 根据限购数量，判断是否可以继续增减
 		if(!goods.getState().equals("S")){
-		if(goods.getGoodsNums() >= goods.getRestrictAmount()){
-			holder.plus.setTextColor(activity.getResources().getColor(R.color.qianhui));
-			holder.plus.setClickable(false);
-		}else{
 			holder.plus.setTextColor(activity.getResources().getColor(R.color.fontcolor));
-			holder.plus.setClickable(true);
-		}
+			holder.jian.setTextColor(activity.getResources().getColor(R.color.fontcolor));
+			holder.shixiao.setVisibility(View.GONE);
+			holder.shopping_main.setBackgroundColor(activity.getResources().getColor(R.color.white));
+			if(goods.getGoodsNums() >= goods.getRestrictAmount()){
+				holder.plus.setTextColor(activity.getResources().getColor(R.color.qianhui));
+				holder.plus.setClickable(false);
+			}else{
+				holder.plus.setTextColor(activity.getResources().getColor(R.color.fontcolor));
+				holder.plus.setClickable(true);
+			}
 		}
 		GlideLoaderUtils.loadGoodsImage(activity,goods.getGoodsImg(), holder.img);
 		holder.name.setText(goods.getGoodsName());
@@ -220,13 +226,13 @@ public class ShoppingCarAdapter extends BaseAdapter {
 				}
 			}
 		});
-		holder.del.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				// 登录状态删除服务器数据，未登录状态删除本地数据
-				showDialog(goods,v);	
-			}
-		});
+//		holder.del.setOnClickListener(new OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				// 登录状态删除服务器数据，未登录状态删除本地数据
+//				showDialog(goods,v);	
+//			}
+//		});
 		holder.checkBox.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
@@ -246,52 +252,52 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		return convertView;
 	}
 
-	private void showDialog(final ShoppingGoods goods,final View v){
-		dialog = AlertDialogUtils.showDialog(activity, new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				baseActivity.setShoppingcarChanged(true);
-				if (user != null) {
-					delGoods(goods, v);
-				} else {
-					dialog.dismiss();
-					if (!goods.getState().equals("S")) {
-						goodsDao.delete(goodsDao.queryBuilder()
-								.where(Properties.GoodsId.eq(goods.getGoodsId()))
-								.build().unique());
-					}
-					data.remove(goods);
-					notifyDataSetChanged();
-					ShoppingCarMenager.getInstance().setBottom();
-					
-				}
-				
-			}
-		});
-	}
-	
-	private ShoppingGoods delGoods;
-
-	// 删除购物车商品
-	private void delGoods(final ShoppingGoods goods,final View v) {
-		dialog.dismiss();
-		activity.getLoading().show();
-		delGoods = goods;
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				String result = HttpUtils.get(goods.getDelUrl(),
-						user.getToken());
-				HMessage hm = DataParser.paserResultMsg(result);
-				Message msg = mHandler.obtainMessage(1);
-				msg.obj = hm;
-				mHandler.sendMessage(msg);
-			}
-		}).start();
-
-	}
+//	private void showDialog(final ShoppingGoods goods,final View v){
+//		dialog = AlertDialogUtils.showDialog(activity, new OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View v) {
+//				baseActivity.setShoppingcarChanged(true);
+//				if (user != null) {
+//					delGoods(goods, v);
+//				} else {
+//					dialog.dismiss();
+//					if (!goods.getState().equals("S")) {
+//						goodsDao.delete(goodsDao.queryBuilder()
+//								.where(Properties.GoodsId.eq(goods.getGoodsId()))
+//								.build().unique());
+//					}
+//					data.remove(goods);
+//					notifyDataSetChanged();
+//					ShoppingCarMenager.getInstance().setBottom();
+//					
+//				}
+//				
+//			}
+//		});
+//	}
+//	
+//	private ShoppingGoods delGoods;
+//
+//	// 删除购物车商品
+//	private void delGoods(final ShoppingGoods goods,final View v) {
+//		dialog.dismiss();
+//		activity.getLoading().show();
+//		delGoods = goods;
+//		new Thread(new Runnable() {
+//
+//			@Override
+//			public void run() {
+//				String result = HttpUtils.get(goods.getDelUrl(),
+//						user.getToken());
+//				HMessage hm = DataParser.paserResultMsg(result);
+//				Message msg = mHandler.obtainMessage(1);
+//				msg.obj = hm;
+//				mHandler.sendMessage(msg);
+//			}
+//		}).start();
+//
+//	}
 
 	// 更新购物车 商品状态
 	private void upGoods(final ShoppingGoods goods) {
@@ -375,22 +381,22 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
 			switch (msg.what) {
-			case 1:
-				activity.getLoading().dismiss();
-				HMessage hm = (HMessage) msg.obj;
-				if (hm.getCode() != null) {
-					if (hm.getCode() == 200) {
-						data.remove(delGoods);
-						BadgeViewManager.getInstance().addShoppingCarNum(-delGoods.getGoodsNums());
-						notifyDataSetChanged();
-						ShoppingCarMenager.getInstance().setBottom();
-					} else {
-						ToastUtils.Toast(activity, hm.getMessage());
-					}
-				} else {
-					ToastUtils.Toast(activity, "删除失败！");
-				}
-				break;
+//			case 1:
+//				activity.getLoading().dismiss();
+//				HMessage hm = (HMessage) msg.obj;
+//				if (hm.getCode() != null) {
+//					if (hm.getCode() == 200) {
+//						data.remove(delGoods);
+//						BadgeViewManager.getInstance().addShoppingCarNum(-delGoods.getGoodsNums());
+//						notifyDataSetChanged();
+//						ShoppingCarMenager.getInstance().setBottom();
+//					} else {
+//						ToastUtils.Toast(activity, hm.getMessage());
+//					}
+//				} else {
+//					ToastUtils.Toast(activity, "删除失败！");
+//				}
+//				break;
 			case 3:
 				activity.getLoading().dismiss();
 				ShoppingCar car = (ShoppingCar) msg.obj;
@@ -423,10 +429,11 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		private TextView name;
 		private TextView price;
 		private TextView nums;
-		private ImageView del;
+		private ImageView shixiao;
 		private TextView jian;
 		private TextView plus;
 		private TextView size;
+		private RelativeLayout shopping_main;
 	}
 
 }

@@ -119,6 +119,15 @@ public class AlertDialogUtils {
 		return showDialog(mContext, l, "确定删除？", "取消", "确定");
 	}
 	/**
+	 * 取消订单
+	 * @param mContext	
+	 * @param l
+	 * @return
+	 */
+	public static AlertDialog showCancelDialog(Context mContext, OnClickListener l) {
+		return showDialog(mContext, l, "确定取消？", "取消", "确定");
+	}
+	/**
 	 * 操作提示窗
 	 * @param mContext
 	 * @param l	右边按钮回调

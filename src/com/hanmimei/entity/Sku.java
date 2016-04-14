@@ -13,7 +13,21 @@ public class Sku implements Serializable{
 	private String itemColor;
 	private String itemSize;
 	private String what;
+	private String skuType;
+	private String skuTypeId;
 	
+	public String getSkuType() {
+		return skuType;
+	}
+	public void setSkuType(String skuType) {
+		this.skuType = skuType;
+	}
+	public String getSkuTypeId() {
+		return skuTypeId;
+	}
+	public void setSkuTypeId(String skuTypeId) {
+		this.skuTypeId = skuTypeId;
+	}
 	public String getWhat() {
 		return what;
 	}
