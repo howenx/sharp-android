@@ -39,7 +39,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
-                        android:padding="8dp"
+                        android:layout_marginTop="10dp"
+                        android:padding="8dp" 
                         android:textColor="#AA000000"
                         android:textSize="14sp" />
 
@@ -175,6 +176,7 @@
                 layout="@layout/back_to_top_layout"
                 android:visibility="gone" />
         </RelativeLayout>
+        
 
         <TextView
             android:id="@+id/more_view"
@@ -187,8 +189,9 @@
             android:textColor="@color/theme"
             android:textSize="14sp"
             android:visibility="gone" />
-
-        <LinearLayout
+        
+        
+       <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/navigationbar_size"
             android:layout_gravity="bottom"
@@ -205,10 +208,10 @@
                     android:id="@+id/shopcart"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
                     android:contentDescription="@null"
                     android:scaleType="center"
-                    android:src="@drawable/icon_gouwuche2" />
+                    android:src="@drawable/hmm_shoppingcar_select" />
+
             </FrameLayout>
 
             <View

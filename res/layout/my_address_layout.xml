@@ -28,7 +28,6 @@
         android:divider="@color/bg_hui"
         android:dividerHeight="@dimen/driver_line"
         android:layout_above="@id/add" 
-        android:scrollbars="none"
-        android:layoutAnimation="@anim/list_anim_layout"/>
+        android:scrollbars="none"/>
 
 </RelativeLayout>

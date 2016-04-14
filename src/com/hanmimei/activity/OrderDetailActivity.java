@@ -260,7 +260,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 			showDelDialog();
 			break;
 		case R.id.go_money:
-			Intent intent1 = new Intent(this, CustomerServiceActivity.class);
+			Intent intent1 = new Intent(this, ApplyRefundActivity.class);
 			intent1.putExtra("order", order);
 			startActivity(intent1);
 			break;

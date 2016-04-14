@@ -328,6 +328,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
                 android:background="@color/white"
                 android:orientation="vertical" >
 
@@ -528,9 +529,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:background="#AA000000"
+            android:background="@drawable/bg_gray_boarder"
             android:padding="15dp"
-            android:textColor="#FFFFFF"
+            android:gravity="center"
+            android:textColor="@color/btn_buy_normal"
             android:textSize="16sp" />
 
         <TextView

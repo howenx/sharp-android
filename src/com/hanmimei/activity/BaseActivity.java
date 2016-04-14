@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build.VERSION;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -72,16 +73,17 @@ public class BaseActivity extends ParallaxActivityBase  {
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
-		if (VERSION.SDK_INT >= 19) {
+		if (VERSION.SDK_INT >=  Build.VERSION_CODES.KITKAT ) {
 			// 创建状态栏的管理实例
 			SystemBarTintManager tintManager = new SystemBarTintManager(this);
 			// 激活状态栏设置
 			tintManager.setStatusBarTintEnabled(true);
 			// 设置一个颜色给系统栏
 			tintManager.setTintColor(getResources().getColor(R.color.btn_pin_pressed));
-			if (VERSION.SDK_INT >= 21) {
-				setStatus();
-			}
+//			if (VERSION.SDK_INT >= 21) {
+//				setStatus();
+//			}
+			
 		}
 	}
 	
@@ -102,18 +104,18 @@ public class BaseActivity extends ParallaxActivityBase  {
 		this.shoppingcarChanged = shoppingcarChanged;
 	}
 
-	@SuppressLint("NewApi")
-	private void setStatus() {
-		Window window = getWindow();
-		window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
-				| WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-		window.getDecorView().setSystemUiVisibility(
-				View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-						| View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-						| View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-		window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-		window.setStatusBarColor(Color.TRANSPARENT);
-	}
+//	@SuppressLint("NewApi")
+//	private void setStatus() {
+//		Window window = getWindow();
+//		window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
+//				| WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+//		window.getDecorView().setSystemUiVisibility(
+//				View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+//						| View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+//						| View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+//		window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+//		window.setStatusBarColor(Color.TRANSPARENT);
+//	}
 
 	public BaseActivity getActivity() {
 		return this;
