@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:paddingTop="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:background="@drawable/bg_underline_normal" >
+
+        <RelativeLayout
+            android:id="@+id/tv_guid1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0">
+
+            <TextView
+                android:id="@+id/t1"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:layout_marginTop="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="未使用（0）"
+                android:textSize="14sp" 
+                android:textColor="@color/theme"/>
+
+            <TextView
+        		android:id="@+id/cursor1"
+        		android:layout_below="@id/t1"
+        		android:layout_marginTop="5dp"
+                android:layout_centerHorizontal="true"
+        		android:layout_width="match_parent"
+        		android:layout_height="2dp"
+        		android:background="@color/theme" />
+            
+        </RelativeLayout>
+
+       <RelativeLayout
+            android:id="@+id/tv_guid2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0">
+
+            <TextView
+                android:id="@+id/t2"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:layout_marginTop="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="已使用（0）"
+                android:textSize="14sp" 
+                android:textColor="@color/fontcolor"/>
+            <TextView
+        		android:id="@+id/cursor2"
+        		android:layout_below="@id/t2"
+        		android:layout_marginTop="5dp"
+                android:layout_centerHorizontal="true"
+        		android:layout_width="match_parent"
+        		android:layout_height="2dp"
+        		android:background="@color/theme" 
+        		android:visibility="invisible"/>
+            
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/tv_guid3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0">
+
+            <TextView
+                android:id="@+id/t3"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:layout_marginTop="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="已过期（0）"
+                android:textSize="14sp" 
+                android:textColor="@color/fontcolor"/>
+            <TextView
+        		android:id="@+id/cursor3"
+        		android:layout_below="@id/t3"
+        		android:layout_marginTop="5dp"
+                android:layout_centerHorizontal="true"
+        		android:layout_width="match_parent"
+        		android:layout_height="2dp"
+        		android:background="@color/theme" 
+        		android:visibility="invisible"/>
+            
+        </RelativeLayout>
+        
+     
+    </LinearLayout>
+
+    
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:flipInterval="30"
+        android:persistentDrawingCache="animation" />
+
+</LinearLayout>

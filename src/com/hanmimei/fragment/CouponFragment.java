@@ -17,7 +17,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.hanmimei.R;
 import com.hanmimei.activity.BaseActivity;
 import com.hanmimei.adapter.TicketAdapter;
@@ -26,6 +25,7 @@ import com.hanmimei.entity.Category;
 import com.hanmimei.entity.Coupon;
 import com.hanmimei.entity.Ticket;
 import com.hanmimei.entity.User;
+import com.hanmimei.manager.CouponMenager;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ToastUtils;
 import com.umeng.analytics.MobclickAgent;
@@ -109,6 +109,21 @@ public class CouponFragment extends Fragment implements OnClickListener{
 		}
 		adapter.notifyDataSetChanged();
 	}
+	private int num1 = 0;
+	private int num2 = 0;
+	private int num3 = 0;
+	private void getNums(List<Coupon> list){
+		for(int i = 0; i < list.size(); i ++){
+			if(list.get(i).getState().equals("N")){
+				num1 ++;
+			}else if(list.get(i).getState().equals("Y")){
+				num2 ++;
+			}else{
+				num3 ++;
+			}
+		}
+		CouponMenager.getInstance().setTitle("未使用（" + num1 + "）", "已使用（" + num2 + "）", "已过期（" + num3 + "）");
+	}
 	
 	private Handler mHandler = new Handler(){
 
@@ -122,6 +137,7 @@ public class CouponFragment extends Fragment implements OnClickListener{
 				if(ticket != null){
 					no_net.setVisibility(View.GONE);
 					data.clear();
+					getNums(ticket.getCoupons());
 					mCoupno(ticket.getCoupons());
 					if(ticket.getMessage().getCode() == 200){
 						if(data.size() > 0){

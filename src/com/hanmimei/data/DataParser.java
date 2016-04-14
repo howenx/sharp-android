@@ -23,6 +23,7 @@ import com.hanmimei.entity.MessageTypeInfo;
 import com.hanmimei.entity.MsgResult;
 import com.hanmimei.entity.Notify;
 import com.hanmimei.entity.Order;
+import com.hanmimei.entity.Refund;
 import com.hanmimei.entity.Result;
 import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
@@ -248,6 +249,28 @@ public class DataParser {
 						if(!orderObject.getString("countDown").equals("null"))
 						order.setCountDown(orderObject.getInt("countDown"));
 					}
+				}
+				if(obj.has("refund")){
+					Refund refund = new Refund();
+					JSONObject refundObject = obj.getJSONObject("refund");
+					if(refundObject.has("orderId"))
+						refund.setOrderId(refundObject.getString("orderId"));
+					if(refundObject.has("splitOrderId"))
+						refund.setSplitOrderId(refundObject.getString("splitOrderId"));
+					if(refundObject.has("payBackFee"))
+						refund.setPayBackFee(refundObject.getString("payBackFee"));
+					if(refundObject.has("reason"))
+						refund.setReason(refundObject.getString("reason"));
+					if(refundObject.has("state"))
+						refund.setState(refundObject.getString("state"));
+					if(refundObject.has("contactTel"))
+						refund.setContactTel(refundObject.getString("contactTel"));
+					if(refundObject.has("rejectReason"))
+						refund.setRejectReason(refundObject.getString("rejectReason"));
+					if(refundObject.has("refundType"))
+						refund.setRefundType(refundObject.getString("refundType"));
+					order.setRefund(refund);
+						
 				}
 				if(obj.has("sku")){
 					JSONArray skuArray = obj.getJSONArray("sku");

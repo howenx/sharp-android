@@ -104,7 +104,7 @@ public class MyAddressActivity extends BaseActivity implements OnClickListener {
 					int arg2, long arg3) {
 //				toObject(arg2);
 				showDelDialog(arg2);
-				return false;
+				return true;
 			}
 		});
 		

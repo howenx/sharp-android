@@ -266,7 +266,79 @@
                     android:layout_marginTop="5dp"
                     android:text="订单应付金额：¥112.00" />
             </LinearLayout>
+ 			<LinearLayout
+ 			    android:id="@+id/linear_refund"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_gray_boarder"
+                android:orientation="vertical" >
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:text="退款信息"
+                    android:textColor="@color/huise"
+                    android:textSize="12sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="@color/qianhui" />
+
+                <TextView
+                    android:id="@+id/refund_money"
+                    style="@style/order_font_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@null" />
+
+                <TextView
+                    android:id="@+id/reason"
+                    style="@style/order_font_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@null" />
+
+                <TextView
+                    android:id="@+id/refund_state"
+                    style="@style/order_font_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@null" />
+
+                <TextView
+                    android:id="@+id/contactTel"
+                    style="@style/order_font_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@null" />
+
+                <TextView
+                    android:id="@+id/rejectReason"
+                    style="@style/order_font_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@null" />
+            </LinearLayout>
             <TextView
                 android:id="@+id/go_money"
                 style="@style/submit"

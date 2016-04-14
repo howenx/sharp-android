@@ -67,6 +67,13 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 	private TextView tax;
 	private TimerTextView attention;
 	private TextView item_order_id;
+	
+	private TextView payBackFee;
+	private TextView reason;
+	private TextView refund_state;
+	private TextView contactTel;
+	private TextView rejectReason;
+	
 	private HMMAddress addressInfo;
 	private List<Sku> list;
 	private CustomListView listView;
@@ -179,6 +186,18 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		tax.setText("行邮税：" + CommonUtil.doubleTrans(order.getPostalFee()));
 		cut_price.setText("已优惠金额：" + CommonUtil.doubleTrans(order.getDiscount()));
 		order_price.setText("订单应付金额：" + CommonUtil.doubleTrans(order.getPayTotal()));
+		if(order.getRefund() != null){
+			findViewById(R.id.linear_refund).setVisibility(View.VISIBLE);
+			payBackFee.setText("退款金额：" + order.getRefund().getPayBackFee());
+			reason.setText("退款原因：" + order.getRefund().getReason());
+			refund_state.setText("退款状态：" + order.getRefund().getState());
+			contactTel.setText("联系电话：" + order.getRefund().getContactTel());
+			if(order.getRefund().getState().equals("R")){
+				rejectReason.setText("拒绝原因：" + order.getRefund().getRejectReason());
+			}else{
+				rejectReason.setVisibility(View.GONE);
+			}
+		}
 	}
 	private void findView() {
 		order_code = (TextView) findViewById(R.id.order_code);
@@ -216,6 +235,12 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 				startActivity(intent);
 			}
 		});
+		
+		payBackFee = (TextView) findViewById(R.id.refund_money);
+		reason = (TextView) findViewById(R.id.reason);
+		refund_state = (TextView) findViewById(R.id.refund_state);
+		contactTel = (TextView) findViewById(R.id.contactTel);
+		rejectReason = (TextView) findViewById(R.id.rejectReason);
 	}
 	@Override
 	public void onClick(View v) {

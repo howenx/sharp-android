@@ -7,7 +7,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
@@ -22,7 +21,6 @@ import android.widget.TextView;
 
 import com.hanmimei.R;
 import com.hanmimei.activity.BaseActivity;
-import com.hanmimei.activity.GoodsDetailActivity;
 import com.hanmimei.dao.ShoppingGoodsDao;
 import com.hanmimei.dao.ShoppingGoodsDao.Properties;
 import com.hanmimei.data.DataParser;
@@ -154,22 +152,6 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		holder.size.setText(goods.getItemColor() + "  " + goods.getItemSize());
 		holder.price.setText("¥" + CommonUtil.doubleTrans(goods.getGoodsPrice()));
 		holder.nums.setText(goods.getGoodsNums() + "");
-		holder.name.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				Intent intent = new Intent(activity, GoodsDetailActivity.class);
-				intent.putExtra("url", goods.getGoodsUrl());
-				activity.startActivity(intent);
-			}
-		});
-		holder.img.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				Intent intent = new Intent(activity, GoodsDetailActivity.class);
-				intent.putExtra("url", goods.getGoodsUrl());
-				activity.startActivity(intent);
-			}
-		});
 		holder.jian.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
@@ -226,13 +208,6 @@ public class ShoppingCarAdapter extends BaseAdapter {
 				}
 			}
 		});
-//		holder.del.setOnClickListener(new OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//				// 登录状态删除服务器数据，未登录状态删除本地数据
-//				showDialog(goods,v);	
-//			}
-//		});
 		holder.checkBox.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
@@ -251,53 +226,6 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		});
 		return convertView;
 	}
-
-//	private void showDialog(final ShoppingGoods goods,final View v){
-//		dialog = AlertDialogUtils.showDialog(activity, new OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View v) {
-//				baseActivity.setShoppingcarChanged(true);
-//				if (user != null) {
-//					delGoods(goods, v);
-//				} else {
-//					dialog.dismiss();
-//					if (!goods.getState().equals("S")) {
-//						goodsDao.delete(goodsDao.queryBuilder()
-//								.where(Properties.GoodsId.eq(goods.getGoodsId()))
-//								.build().unique());
-//					}
-//					data.remove(goods);
-//					notifyDataSetChanged();
-//					ShoppingCarMenager.getInstance().setBottom();
-//					
-//				}
-//				
-//			}
-//		});
-//	}
-//	
-//	private ShoppingGoods delGoods;
-//
-//	// 删除购物车商品
-//	private void delGoods(final ShoppingGoods goods,final View v) {
-//		dialog.dismiss();
-//		activity.getLoading().show();
-//		delGoods = goods;
-//		new Thread(new Runnable() {
-//
-//			@Override
-//			public void run() {
-//				String result = HttpUtils.get(goods.getDelUrl(),
-//						user.getToken());
-//				HMessage hm = DataParser.paserResultMsg(result);
-//				Message msg = mHandler.obtainMessage(1);
-//				msg.obj = hm;
-//				mHandler.sendMessage(msg);
-//			}
-//		}).start();
-//
-//	}
 
 	// 更新购物车 商品状态
 	private void upGoods(final ShoppingGoods goods) {
@@ -321,7 +249,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 				String result = HttpUtils.post(UrlUtil.GET_CAR_LIST_URL, array,
 						"id-token", user.getToken());
 				ShoppingCar car = DataParser.parserShoppingCar(result);
-				Message msg = mHandler.obtainMessage(3);
+				Message msg = mHandler.obtainMessage(1);
 				msg.obj = car;
 				mHandler.sendMessage(msg);
 			}
@@ -381,23 +309,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
 			switch (msg.what) {
-//			case 1:
-//				activity.getLoading().dismiss();
-//				HMessage hm = (HMessage) msg.obj;
-//				if (hm.getCode() != null) {
-//					if (hm.getCode() == 200) {
-//						data.remove(delGoods);
-//						BadgeViewManager.getInstance().addShoppingCarNum(-delGoods.getGoodsNums());
-//						notifyDataSetChanged();
-//						ShoppingCarMenager.getInstance().setBottom();
-//					} else {
-//						ToastUtils.Toast(activity, hm.getMessage());
-//					}
-//				} else {
-//					ToastUtils.Toast(activity, "删除失败！");
-//				}
-//				break;
-			case 3:
+			case 1:
 				activity.getLoading().dismiss();
 				ShoppingCar car = (ShoppingCar) msg.obj;
 				HMessage m = car.getMessage();

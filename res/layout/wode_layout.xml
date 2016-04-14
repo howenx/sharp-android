@@ -124,14 +124,6 @@
                 android:drawableLeft="@drawable/hmm_mine_address"
                 android:text="管理收货地址" />
 
-            <TextView
-                android:id="@+id/more"
-                style="@style/wode_font_style"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/icon_setting_more"
-                android:text="更多" 
-                android:visibility="gone"/>
         </LinearLayout>
     </ScrollView>
 

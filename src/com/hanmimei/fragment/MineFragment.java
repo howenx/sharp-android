@@ -23,7 +23,6 @@ import com.hanmimei.activity.MyCollectionActivity;
 import com.hanmimei.activity.MyCouponActivity;
 import com.hanmimei.activity.MyOrderActivity;
 import com.hanmimei.activity.MyPingouActivity;
-import com.hanmimei.activity.SettingActivity;
 import com.hanmimei.dao.UserDao;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
@@ -122,7 +121,6 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 		view.findViewById(R.id.collect).setOnClickListener(this);
 		view.findViewById(R.id.youhui_linear).setOnClickListener(this);
 		view.findViewById(R.id.pintuan).setOnClickListener(this);
-		view.findViewById(R.id.more).setOnClickListener(this);
 	}
 
 	@Override
@@ -148,9 +146,6 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 			break;
 		case R.id.pintuan:
 			doJump(MyPingouActivity.class);
-			break;
-		case R.id.more:
-			startActivity(new Intent(getActivity(), SettingActivity.class));
 			break;
 		default:
 			break;

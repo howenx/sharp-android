@@ -80,7 +80,7 @@
             android:name="com.hanmimei.activity.MyOrderActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
-        <activity
+         <activity
             android:name="com.hanmimei.activity.MyCouponActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeForOrder" />

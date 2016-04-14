@@ -144,9 +144,6 @@ public class OrderPullListAdapter extends BaseAdapter {
 		}else if(order.getOrderStatus().equals("C")){
 			holder.state.setText("已取消");
 			holder.bootom.setVisibility(View.GONE);
-//			holder.goods_post.setVisibility(View.GONE);
-//			holder.go_pay.setVisibility(View.VISIBLE);
-//			holder.go_pay.setText("再次购买");
 			holder.apply_customer.setVisibility(View.GONE);
 		}else if(order.getOrderStatus().equals("R")){
 			holder.state.setText("已完成");
