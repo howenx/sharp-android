@@ -32,6 +32,7 @@ import com.hanmimei.R;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.GoodsBalance;
 import com.hanmimei.entity.HMessage;
+import com.hanmimei.entity.Order;
 import com.hanmimei.entity.Sku;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
@@ -57,6 +58,8 @@ public class CustomerServiceActivity extends BaseActivity implements
 	private GridAdapter adapter;
 	private ArrayList<String> mSelectPath;
 	private String      refundType = "deliver";//退款类型，pin：拼购自动退款，receive：收货后申请退款，deliver：发货前退款
+	
+	 private Order order;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,6 +67,7 @@ public class CustomerServiceActivity extends BaseActivity implements
 		setContentView(R.layout.customer_service_main_layout);
 		ActionBarUtil.setActionBarStyle(this, "申请售后服务");
 		sku = (Sku) getIntent().getSerializableExtra("sku");
+		order = (Order) getIntent().getSerializableExtra("order");
 		mSelectPath = new ArrayList<String>();
 		findView();
 	}
