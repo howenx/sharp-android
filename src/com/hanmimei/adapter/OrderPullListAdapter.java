@@ -174,18 +174,13 @@ public class OrderPullListAdapter extends BaseAdapter {
 			holder.apply_customer.setVisibility(View.GONE);
 		} else if (order.getOrderStatus().equals("R")) {
 			holder.state.setText("已完成");
-<<<<<<< HEAD
-			holder.bootom.setVisibility(View.GONE);
-		} else if (order.getOrderStatus().equals("T")) {
-=======
-			holder.all_price.setVisibility(View.GONE);
 			holder.bootom.setVisibility(View.VISIBLE);
-			holder.do_shou.setVisibility(View.VISIBLE);
+			holder.do_shou.setVisibility(View.GONE);
 			holder.go_pay.setVisibility(View.GONE);
-			holder.goods_post.setVisibility(View.GONE);
+			holder.all_price.setVisibility(View.GONE);
+			holder.goods_post.setVisibility(View.VISIBLE);
 			holder.apply_customer.setVisibility(View.GONE);
 		}else if(order.getOrderStatus().equals("T")){
->>>>>>> 703d8925bb1c39bcd7c221983fa41c762feee896
 			holder.state.setText("已退款");
 			holder.bootom.setVisibility(View.GONE);
 		}
