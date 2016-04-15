@@ -174,10 +174,10 @@ public class OrderPullListAdapter extends BaseAdapter {
 			holder.apply_customer.setVisibility(View.GONE);
 		} else if (order.getOrderStatus().equals("R")) {
 			holder.state.setText("已完成");
-			holder.all_price.setVisibility(View.GONE);
 			holder.bootom.setVisibility(View.VISIBLE);
 			holder.do_shou.setVisibility(View.GONE);
 			holder.go_pay.setVisibility(View.GONE);
+			holder.all_price.setVisibility(View.GONE);
 			holder.goods_post.setVisibility(View.VISIBLE);
 			holder.apply_customer.setVisibility(View.GONE);
 		}else if(order.getOrderStatus().equals("T")){
