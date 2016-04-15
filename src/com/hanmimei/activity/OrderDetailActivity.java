@@ -144,7 +144,33 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 //		I:初始化即未支付状态，S:成功，C：取消， F:失败，R:已收货，D:已经发货，J:拒收
 		if(order.getOrderStatus().equals("S")){
 			order_state.setText("订单状态：待发货");
-			findViewById(R.id.go_money).setVisibility(View.VISIBLE);
+			if(order.getRefund() != null){
+				findViewById(R.id.go_money).setVisibility(View.GONE);
+				findViewById(R.id.linear_refund).setVisibility(View.VISIBLE);
+				if(order.getRefund().getPayBackFee() !=null){
+					payBackFee.setText("退款金额：" + order.getRefund().getPayBackFee());
+				}else{
+					payBackFee.setVisibility(View.GONE);
+				}
+				reason.setText("退款原因：" + order.getRefund().getReason());
+				if(order.getRefund().getState() !=null){
+					refund_state.setText("退款状态：" + order.getRefund().getStateText());
+				}else{
+					refund_state.setVisibility(View.GONE);
+				}
+				if(order.getRefund().getContactTel() !=null){
+					contactTel.setText("联系电话：" + order.getRefund().getContactTel());
+				}else{
+					contactTel.setVisibility(View.GONE);
+				}
+				if(order.getRefund().getState().equals("R")){
+					rejectReason.setText("拒绝原因：" + order.getRefund().getRejectReason());
+				}else{
+					rejectReason.setVisibility(View.GONE);
+				}
+			}else {
+				findViewById(R.id.go_money).setVisibility(View.VISIBLE);
+			}
 		}else if(order.getOrderStatus().equals("I")){
 			attention.setVisibility(View.VISIBLE);
 			attention.setTimes(CommonUtil.getTimer(order.getCountDown()/1000 - 300),"订单超过24小时，已经过期");
@@ -186,18 +212,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		tax.setText("行邮税：" + CommonUtil.doubleTrans(order.getPostalFee()));
 		cut_price.setText("已优惠金额：" + CommonUtil.doubleTrans(order.getDiscount()));
 		order_price.setText("订单应付金额：" + CommonUtil.doubleTrans(order.getPayTotal()));
-		if(order.getRefund() != null){
-			findViewById(R.id.linear_refund).setVisibility(View.VISIBLE);
-			payBackFee.setText("退款金额：" + order.getRefund().getPayBackFee());
-			reason.setText("退款原因：" + order.getRefund().getReason());
-			refund_state.setText("退款状态：" + order.getRefund().getState());
-			contactTel.setText("联系电话：" + order.getRefund().getContactTel());
-			if(order.getRefund().getState().equals("R")){
-				rejectReason.setText("拒绝原因：" + order.getRefund().getRejectReason());
-			}else{
-				rejectReason.setVisibility(View.GONE);
-			}
-		}
+		
 	}
 	private void findView() {
 		order_code = (TextView) findViewById(R.id.order_code);
@@ -262,7 +277,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		case R.id.go_money:
 			Intent intent1 = new Intent(this, ApplyRefundActivity.class);
 			intent1.putExtra("order", order);
-			startActivity(intent1);
+			startActivityForResult(intent1,1);
 			break;
 		default:
 			break;
@@ -385,5 +400,13 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 			isSendBroad = false;
 		}
 	}
+	@Override
+	protected void onActivityResult(int arg0, int arg1, Intent arg2) {
+		super.onActivityResult(arg0, arg1, arg2);
+		if(arg0 == 1){
+			loadData();
+		}
+	}
+	
 	
 }

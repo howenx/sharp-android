@@ -2,28 +2,13 @@ package com.hanmimei.activity;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
-import me.nereo.multi_image_selector.MultiImageSelectorActivity;
-
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnDismissListener;
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.BaseAdapter;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dd.processbutton.OnStateListener;
@@ -37,14 +22,10 @@ import com.hanmimei.entity.Order;
 import com.hanmimei.entity.Sku;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
-import com.hanmimei.utils.GlideLoaderUtils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.utils.upload.Http3Utils;
 import com.hanmimei.utils.upload.MultipartRequestParams;
-import com.hanmimei.view.CustomGridView;
-import com.hanmimei.view.UDialog;
-import com.hanmimei.view.UDialog.CallBack;
 
 public class ApplyRefundActivity extends BaseActivity implements
 		OnClickListener {
@@ -56,6 +37,7 @@ public class ApplyRefundActivity extends BaseActivity implements
 	private Order order;
 	private ProcessButton btn_submit;
 	private TextView nameView, phoneView,payBackFee;
+	private boolean isComplete= false;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -86,19 +68,21 @@ public class ApplyRefundActivity extends BaseActivity implements
 		
 		@Override
 		public void onProgress() {
+			discription.setEnabled(false);
 			nameView.setEnabled(false);
 			phoneView.setEnabled(false);
 		}
 		
 		@Override
 		public void onError() {
+			discription.setEnabled(true);
 			nameView.setEnabled(true);
 			phoneView.setEnabled(true);
 		}
 		
 		@Override
 		public void onComplete() {
-			finish();
+			isComplete = true;
 		}
 	};
 	
@@ -106,7 +90,10 @@ public class ApplyRefundActivity extends BaseActivity implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btn_submit:
-			submit();
+			if(isComplete)
+				finish();
+			else
+				submit();
 			break;
 		default:
 			break;
