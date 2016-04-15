@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.hanmimei.R;
 import com.hanmimei.activity.BaseActivity;
+import com.hanmimei.activity.LogisticsActivity;
 import com.hanmimei.activity.OrderDetailActivity;
 import com.hanmimei.activity.OrderSubmitActivity;
 import com.hanmimei.data.AppConstant;
@@ -133,6 +134,15 @@ public class OrderPullListAdapter extends BaseAdapter {
 				confirmDelivery(order);
 			}
 		});
+		holder.goods_post.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				Intent intent = new Intent(activity,LogisticsActivity.class);
+				intent.putExtra("orderId", order.getOrderId());
+				activity.startActivity(intent);
+			}
+		});
 		holder.orderCode.setText("订单号： " + order.getOrderId());
 		// 根据订单state判断订单的状态，I:初始化即未支付状态，S:成功，C：取消， F:失败，R:已收货，D:已经发货，J:拒收
 		if (order.getOrderStatus().equals("I")) {
@@ -164,8 +174,18 @@ public class OrderPullListAdapter extends BaseAdapter {
 			holder.apply_customer.setVisibility(View.GONE);
 		} else if (order.getOrderStatus().equals("R")) {
 			holder.state.setText("已完成");
+<<<<<<< HEAD
 			holder.bootom.setVisibility(View.GONE);
 		} else if (order.getOrderStatus().equals("T")) {
+=======
+			holder.all_price.setVisibility(View.GONE);
+			holder.bootom.setVisibility(View.VISIBLE);
+			holder.do_shou.setVisibility(View.VISIBLE);
+			holder.go_pay.setVisibility(View.GONE);
+			holder.goods_post.setVisibility(View.GONE);
+			holder.apply_customer.setVisibility(View.GONE);
+		}else if(order.getOrderStatus().equals("T")){
+>>>>>>> 703d8925bb1c39bcd7c221983fa41c762feee896
 			holder.state.setText("已退款");
 			holder.bootom.setVisibility(View.GONE);
 		}

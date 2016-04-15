@@ -13,5 +13,6 @@
         android:scrollbars="none"
         android:divider="@null"
         android:dividerHeight="0dp"
-        android:background="@color/bg_hui"/>
+        android:background="@color/bg_hui"
+        android:visibility="gone"/>
 </LinearLayout>

@@ -134,7 +134,7 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 			doJump(MyOrderActivity.class);
 			break;
 		case R.id.address:
-			doJump(LogisticsActivity.class);
+			doJump(MyAddressActivity.class);
 			break;
 		case R.id.user_name:
 			doJump(EditUserInfoActivity.class);

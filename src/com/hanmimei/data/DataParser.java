@@ -17,6 +17,8 @@ import com.hanmimei.entity.HMMAddress;
 import com.hanmimei.entity.HMMThemeGoods;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.Home;
+import com.hanmimei.entity.Logistics;
+import com.hanmimei.entity.LogisticsData;
 import com.hanmimei.entity.MessageInfo;
 import com.hanmimei.entity.MessageType;
 import com.hanmimei.entity.MessageTypeInfo;
@@ -654,6 +656,63 @@ public class DataParser {
 			e.printStackTrace();
 		}
 		return msgResult;
+	}
+	public static Logistics parserLogistics(String result){
+		Logistics logistics = new Logistics();
+		try {
+			JSONObject object = new JSONObject(result);
+			if(object.has("nu"))
+				logistics.setNu(object.getString("nu"));
+			if(object.has("comcontact"))
+				logistics.setComcontact(object.getString("comcontact"));
+			if(object.has("companytype"))
+				logistics.setCompanytype(object.getString("companytype"));
+			if(object.has("expressName"))
+				logistics.setCom(object.getString("expressName"));
+			if(object.has("signname"))
+				logistics.setSignname(object.getString("signname"));
+			if(object.has("condition"))
+				logistics.setCondition(object.getString("condition"));
+			if(object.has("status"))
+				logistics.setStatus(object.getString("status"));
+			if(object.has("codenumber"))
+				logistics.setCodenumber(object.getString("codenumber"));
+			if(object.has("signedtime"))
+				logistics.setSignedtime(object.getString("signedtime"));
+			if(object.has("state"))
+				logistics.setState(object.getInt("state"));
+			if(object.has("addressee"))
+				logistics.setAddressee(object.getString("addressee"));
+			if(object.has("departure"))
+				logistics.setDeparture(object.getString("departure"));
+			if(object.has("destination"))
+				logistics.setDestination(object.getString("destination"));
+			if(object.has("message"))
+				logistics.setMessage(object.getString("message"));
+			if(object.has("ischeck"))
+				logistics.setIscheck(object.getString("ischeck"));
+			if(object.has("pickuptime"))
+				logistics.setPickuptime(object.getString("pickuptime"));
+			if(object.has("comurl"))
+				logistics.setComurl(object.getString("comurl"));
+			if(object.has("data")){
+				JSONArray array = object.getJSONArray("data");
+				List<LogisticsData> list = new ArrayList<LogisticsData>();
+				for(int i = 0; i < array.length(); i ++){
+					JSONObject obj = array.getJSONObject(i);
+					LogisticsData logisticsData = new LogisticsData();
+					if(obj.has("time"))
+						logisticsData.setTime(obj.getString("time"));
+					if(obj.has("context"))
+						logisticsData.setContent(obj.getString("context"));
+					list.add(logisticsData);
+				}
+				logistics.setList(list);
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return logistics;
 	}
 	
 	
