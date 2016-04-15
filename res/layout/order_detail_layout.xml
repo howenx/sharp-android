@@ -271,6 +271,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:paddingBottom="10dp"
+                android:visibility="gone"
                 android:background="@drawable/bg_gray_boarder"
                 android:orientation="vertical" >
 
@@ -319,8 +321,9 @@
                     android:layout_marginTop="5dp"
                     android:text="@null" />
 
+
                 <TextView
-                    android:id="@+id/contactTel"
+                    android:id="@+id/rejectReason"
                     style="@style/order_font_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -328,9 +331,8 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="5dp"
                     android:text="@null" />
-
                 <TextView
-                    android:id="@+id/rejectReason"
+                    android:id="@+id/contactTel"
                     style="@style/order_font_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
