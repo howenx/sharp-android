@@ -57,6 +57,7 @@ public class OrderFragment extends Fragment implements
 		Bundle bundle = getArguments();
 		category = (Category) bundle.getSerializable("category");
 		activity = (BaseActivity) getActivity();
+		
 	}
 
 	@Override

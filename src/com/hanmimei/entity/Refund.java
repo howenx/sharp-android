@@ -50,15 +50,15 @@ public class Refund implements Serializable{
 	}
 	public String getStateText() {
 		if(state.equals("I")){
-			return "申请受理中";
+			return "退款状态：申请受理中";
 		}else if(state.equals("A")){
-			return "退款受理中，资金会在1-5个工作日内退回您的账户";
+			return "退款状态：退款受理中，资金会在1-5个工作日内退回您的账户";
 		}else if(state.equals("R")){
-			return "拒绝退款";
+			return "退款状态：拒绝退款";
 		}else if(state.equals("N")){
-			return "退款受理失败";
+			return "退款状态：退款受理失败";
 		}else if(state.equals("Y")){
-			return "退款受理成功";
+			return "退款状态：退款受理成功";
 		}
 		return null;
 	}

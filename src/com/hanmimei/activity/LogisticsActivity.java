@@ -94,11 +94,12 @@ public class LogisticsActivity extends BaseActivity {
 	 * 
 	 */
 	private void loadData() {
-		
+		getLoading().show();
 		Http2Utils.doGetRequestTask(this, getHeaders(), UrlUtil.WULIU_LIST + orderId, new VolleyJsonCallback() {
 			
 			@Override
 			public void onSuccess(String result) {
+				getLoading().dismiss();
 				Logistics logistics = DataParser.parserLogistics(result);
 				if(logistics != null){
 					mListView.setVisibility(View.VISIBLE);
@@ -110,6 +111,7 @@ public class LogisticsActivity extends BaseActivity {
 			
 			@Override
 			public void onError() {
+				getLoading().dismiss();
 				ToastUtils.Toast(LogisticsActivity.this, "请求失败，青检查您的网络！");
 			}
 		});

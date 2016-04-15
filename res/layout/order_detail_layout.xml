@@ -266,15 +266,16 @@
                     android:layout_marginTop="5dp"
                     android:text="订单应付金额：¥112.00" />
             </LinearLayout>
- 			<LinearLayout
- 			    android:id="@+id/linear_refund"
+
+            <LinearLayout
+                android:id="@+id/linear_refund"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:paddingBottom="10dp"
-                android:visibility="gone"
                 android:background="@drawable/bg_gray_boarder"
-                android:orientation="vertical" >
+                android:orientation="vertical"
+                android:paddingBottom="10dp"
+                android:visibility="gone" >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -302,16 +303,6 @@
                     android:text="@null" />
 
                 <TextView
-                    android:id="@+id/reason"
-                    style="@style/order_font_style"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="5dp"
-                    android:text="@null" />
-
-                <TextView
                     android:id="@+id/refund_state"
                     style="@style/order_font_style"
                     android:layout_width="wrap_content"
@@ -320,7 +311,6 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="5dp"
                     android:text="@null" />
-
 
                 <TextView
                     android:id="@+id/rejectReason"
@@ -331,6 +321,17 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="5dp"
                     android:text="@null" />
+
+                <TextView
+                    android:id="@+id/reason"
+                    style="@style/order_font_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@null" />
+
                 <TextView
                     android:id="@+id/contactTel"
                     style="@style/order_font_style"
@@ -341,6 +342,7 @@
                     android:layout_marginTop="5dp"
                     android:text="@null" />
             </LinearLayout>
+
             <TextView
                 android:id="@+id/go_money"
                 style="@style/submit"
