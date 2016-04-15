@@ -2,18 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
-    android:padding="10dp"
+    android:background="@color/bg_hui"
     android:fitsSystemWindows="true"
-    android:background="@color/bg_hui">
-   
-    <ListView 
+    android:orientation="vertical">
+
+    <ListView
         android:id="@+id/mylist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="none"
+        android:background="@color/white"
         android:divider="@null"
+        android:layout_margin="10dp"
         android:dividerHeight="0dp"
-        android:background="@color/bg_hui"
-        android:visibility="gone"/>
+        android:scrollbars="none"/>
+
 </LinearLayout>
