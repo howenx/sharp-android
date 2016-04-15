@@ -18,6 +18,7 @@ import com.hanmimei.R;
 import com.hanmimei.activity.BaseActivity;
 import com.hanmimei.activity.EditUserInfoActivity;
 import com.hanmimei.activity.LoginActivity;
+import com.hanmimei.activity.LogisticsActivity;
 import com.hanmimei.activity.MyAddressActivity;
 import com.hanmimei.activity.MyCollectionActivity;
 import com.hanmimei.activity.MyCouponActivity;
@@ -133,7 +134,7 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 			doJump(MyOrderActivity.class);
 			break;
 		case R.id.address:
-			doJump(MyAddressActivity.class);
+			doJump(LogisticsActivity.class);
 			break;
 		case R.id.user_name:
 			doJump(EditUserInfoActivity.class);

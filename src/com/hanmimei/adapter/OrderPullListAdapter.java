@@ -5,7 +5,6 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
 import android.view.LayoutInflater;
@@ -90,6 +89,7 @@ public class OrderPullListAdapter extends BaseAdapter {
 					.findViewById(R.id.my_listview);
 			holder.goods_post = (TextView) convertView.findViewById(R.id.goods_post);
 			holder.bootom = (LinearLayout) convertView.findViewById(R.id.bottom);
+			holder.do_shou = (TextView) convertView.findViewById(R.id.do_shou);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -130,6 +130,7 @@ public class OrderPullListAdapter extends BaseAdapter {
 			holder.go_pay.setText("去支付");
 			holder.apply_customer.setVisibility(View.GONE);
 			holder.bootom.setVisibility(View.VISIBLE);
+			holder.do_shou.setVisibility(View.GONE);
 		} else if (order.getOrderStatus().equals("S")) {
 			//holder.all_price.setText("已付金额： ¥" + order.getPayTotal());
 			holder.bootom.setVisibility(View.GONE);
@@ -138,6 +139,7 @@ public class OrderPullListAdapter extends BaseAdapter {
 			holder.bootom.setVisibility(View.VISIBLE);
 			holder.all_price.setVisibility(View.GONE);
 			holder.state.setText("待收货");
+			holder.do_shou.setVisibility(View.VISIBLE);
 			holder.go_pay.setVisibility(View.GONE);
 			holder.goods_post.setVisibility(View.VISIBLE);
 			holder.apply_customer.setVisibility(View.GONE);
@@ -226,6 +228,7 @@ public class OrderPullListAdapter extends BaseAdapter {
 		private TextView goods_post;
 		private TextView apply_customer;
 		private LinearLayout bootom;
+		private TextView do_shou;
 	}
 
 }
