@@ -77,9 +77,13 @@ import android.widget.TextView;
 			holder = (ViewHolder) convertView.getTag();
 		}
 		if(position == 0){
+			holder.content.setTextColor(activity.getResources().getColor(R.color.theme));
+			holder.time.setTextColor(activity.getResources().getColor(R.color.theme));
 			holder.xianView.setVisibility(View.INVISIBLE);
 			holder.image.setBackground(activity.getResources().getDrawable(R.drawable.theme_radio_bg));
 		}else{
+			holder.content.setTextColor(activity.getResources().getColor(R.color.fontcolor));
+			holder.time.setTextColor(activity.getResources().getColor(R.color.fontcolor));
 			holder.xianView.setVisibility(View.VISIBLE);
 			holder.image.setBackground(activity.getResources().getDrawable(R.drawable.huise_radio_bg));
 		}
