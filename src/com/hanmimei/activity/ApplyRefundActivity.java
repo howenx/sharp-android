@@ -157,24 +157,7 @@ public class ApplyRefundActivity extends BaseActivity implements
 				params.put("contactName", nameView.getText().toString().trim());
 			if (TextUtils.isEmpty(phoneView.getText()))
 				params.put("contactTel", phoneView.getText().toString().trim());
-		} else if (sku != null) {
-			params.put("orderId", getIntent().getStringExtra("orderId"));
-			params.put("splitOrderId",
-					getIntent().getStringExtra("splitOrderId"));
-			params.put("skuId", sku.getSkuId());
-
-			params.put("skuType", sku.getSkuType());
-			params.put("skuTypeId", sku.getSkuTypeId());
-			params.put("refundType", refundType);
-
-			params.put("reason", discription.getText().toString());
-			// params.put("contactName", name);
-			// params.put("contactTel", phone);
-			for (int i = 0; i < mSelectPath.size(); i++) {
-				String path = mSelectPath.get(i);
-				params.put("refundImg" + i, new File(path));
-			}
-		}
+		} 
 		return params;
 	}
 	

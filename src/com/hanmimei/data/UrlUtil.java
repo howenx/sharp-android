@@ -123,4 +123,8 @@ public class UrlUtil {
 	public static final String GET_MSG_LIST = SERVERY1 + "/client/msg/list/";
 	// 删除消息 按type删除
 	public static final String DEL_MSG_TYPE = SERVERY1 + "/client/msg/clean/";
+	//确认收货
+	public static final String CONFIRM_DELIVERY = SERVERY1 + "/client/order/confirm/delivery/";
+	
+	
 }

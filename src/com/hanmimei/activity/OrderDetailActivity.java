@@ -38,9 +38,11 @@ import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.HttpUtils;
+import com.hanmimei.utils.KeyWordUtil;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.CustomListView;
 import com.hanmimei.view.TimerTextView;
+import com.ypy.eventbus.EventBus;
 
 /**
  * @author eric
@@ -71,7 +73,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 	private TextView payBackFee;
 	private TextView reason;
 	private TextView refund_state;
-	private TextView contactTel;
+	private TextView contactTel,contactName;
 	private TextView rejectReason;
 	
 	private HMMAddress addressInfo;
@@ -154,7 +156,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 				}
 				reason.setText("退款原因：" + order.getRefund().getReason());
 				if(order.getRefund().getState() !=null){
-					refund_state.setText("退款状态：" + order.getRefund().getStateText());
+					KeyWordUtil.setDifferentFontColor(this, refund_state,order.getRefund().getStateText(), 5, order.getRefund().getStateText().length());
 				}else{
 					refund_state.setVisibility(View.GONE);
 				}
@@ -407,6 +409,8 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 			loadData();
 		}
 	}
+	
+	
 	
 	
 }

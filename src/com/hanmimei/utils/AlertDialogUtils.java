@@ -13,7 +13,6 @@ import com.hanmimei.R;
 import com.hanmimei.entity.VersionVo;
 import com.hanmimei.utils.effects.BaseEffects;
 import com.hanmimei.utils.effects.Shake;
-import com.hanmimei.utils.effects.SlideTop;
 import com.hanmimei.view.CustomDialog;
 import com.hanmimei.view.UpdateDialog;
 import com.hanmimei.view.UpdateNewDialog;
@@ -149,7 +148,16 @@ public class AlertDialogUtils {
 	 * @param l
 	 */
 	public static void showAddressDialog(Context context, final OnClickListener l) {
-		String[] tb = { "请添加收货地址", null, "取消", "确定" };
+		String[] tb = { "请添加收货地址", "", "取消", "确定" };
+		showCustomDialog(context, tb, l,null);
+	}
+	/**
+	 * 
+	 * @param context
+	 * @param l
+	 */
+	public static void showDeliveryDialog(Context context, final OnClickListener l) {
+		String[] tb = { "确定已经收到货物", "", "尚未收到", "确认收货" };
 		showCustomDialog(context, tb, l,null);
 	}
 	/**
