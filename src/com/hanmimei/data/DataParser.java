@@ -8,11 +8,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.hanmimei.entity.Collection;
 import com.hanmimei.entity.CollectionInfo;
 import com.hanmimei.entity.Customs;
-import com.hanmimei.entity.GoodsDetail;
 import com.hanmimei.entity.HMMAddress;
 import com.hanmimei.entity.HMMThemeGoods;
 import com.hanmimei.entity.HMessage;
@@ -25,7 +23,7 @@ import com.hanmimei.entity.MessageTypeInfo;
 import com.hanmimei.entity.MsgResult;
 import com.hanmimei.entity.Notify;
 import com.hanmimei.entity.Order;
-import com.hanmimei.entity.Refund;
+import com.hanmimei.entity.RefundVo;
 import com.hanmimei.entity.Result;
 import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
@@ -253,7 +251,7 @@ public class DataParser {
 					}
 				}
 				if(obj.has("refund")){
-					Refund refund = new Refund();
+					RefundVo refund = new RefundVo();
 					JSONObject refundObject = obj.getJSONObject("refund");
 					if(refundObject.has("orderId"))
 						refund.setOrderId(refundObject.getString("orderId"));

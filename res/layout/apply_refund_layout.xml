@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical" >
+    android:fitsSystemWindows="true" >
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" >
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical" >
 
             <LinearLayout
@@ -175,24 +173,24 @@
                     </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>
+
+            <com.dd.processbutton.iml.ActionProcessButton
+                android:id="@+id/btn_submit"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="10dp"
+                android:text="提交"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                custom:pb_colorComplete="@color/btn_pin_pressed"
+                custom:pb_colorNormal="@color/theme"
+                custom:pb_colorPressed="@color/theme"
+                custom:pb_colorProgress="@color/btn_pin_pressed"
+                custom:pb_textComplete="@string/submit_success"
+                custom:pb_textError="@string/submit_error"
+                custom:pb_textProgress="@string/submit_loading" />
         </LinearLayout>
     </ScrollView>
 
-    <com.dd.processbutton.iml.ActionProcessButton
-        android:id="@+id/btn_submit"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="10dp"
-        android:text="提交"
-        android:textColor="@android:color/white"
-        android:textSize="14sp"
-        custom:pb_colorComplete="@color/btn_pin_pressed"
-        custom:pb_colorNormal="@color/theme"
-        custom:pb_colorPressed="@color/theme"
-        custom:pb_colorProgress="@color/btn_pin_pressed"
-        custom:pb_textComplete="@string/submit_success"
-        custom:pb_textError="@string/submit_error"
-        custom:pb_textProgress="@string/submit_loading" />
-
-</LinearLayout>
+</RelativeLayout>

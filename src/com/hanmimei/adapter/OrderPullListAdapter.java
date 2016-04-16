@@ -33,6 +33,7 @@ import com.hanmimei.entity.OrderInfo;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.Http2Utils;
+import com.hanmimei.utils.KeyWordUtil;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.view.HorizontalListView;
@@ -159,7 +160,13 @@ public class OrderPullListAdapter extends BaseAdapter {
 		} else if (order.getOrderStatus().equals("S")) {
 			// holder.all_price.setText("已付金额： ¥" + order.getPayTotal());
 			holder.bootom.setVisibility(View.GONE);
-			holder.state.setText("待发货");
+			if(order.getRefund() !=null){
+				String state = "待发货(已锁定)";
+				KeyWordUtil.setDifrentFontColor12(activity, holder.state, state, 3, state.length());
+//				KeyWordUtil.setDifferentFontColor(activity, holder.state,state , 3, state.length());
+			}else{
+				holder.state.setText("待发货");
+			}
 		} else if (order.getOrderStatus().equals("D")) {
 			holder.bootom.setVisibility(View.VISIBLE);
 			holder.all_price.setVisibility(View.GONE);

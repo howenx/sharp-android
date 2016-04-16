@@ -66,28 +66,68 @@ public class KeyWordUtil {
 		return s;
 	}
 	
-	//同一textview  不同字体设置 mid截止到 end 
-	public static void setDifrentFontStyle(Context mContext, TextView textView, String font, int mid, int end){
-		SpannableString styledText = new SpannableString(font);  
-        styledText.setSpan(new TextAppearanceSpan(mContext, R.style.youhui1), 0, mid, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);  
-        styledText.setSpan(new TextAppearanceSpan(mContext, R.style.youhui2), 14, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); 
-        textView.setText(styledText, TextView.BufferType.SPANNABLE);
-	}
-	//同一textview  不同字体颜色设置 mid截止到 end 
+	/**
+	 * 设置不同文字style 同一textview  不同字体颜色设置 mid截止到 end 
+	 * 正常文字： 12sp 灰色
+	 * 高亮文字：14sp 主题色
+	 * 
+	 * @param mContext
+	 * @param textView
+	 * @param font
+	 * @param mid
+	 * @param end
+	 */
 		public static void setDifrentFontColor(Context mContext, TextView textView, String font, int mid, int end){
 			SpannableString styledText = new SpannableString(font);  
 	        styledText.setSpan(new TextAppearanceSpan(mContext, R.style.tax01), 0, mid, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);  
 	        styledText.setSpan(new TextAppearanceSpan(mContext, R.style.tax02), mid+1, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); 
 	        textView.setText(styledText, TextView.BufferType.SPANNABLE);
 		}
-		//同一textview  不同字体颜色设置 mid截止到 end 
+		/**
+		 * 设置不同文字style 同一textview  不同字体颜色设置 mid截止到 end 
+		 * 正常文字： 12sp 灰色
+		 * 高亮文字：12sp 主题色
+		 * 
+		 * @param mContext
+		 * @param textView
+		 * @param font
+		 * @param mid
+		 * @param end
+		 */
+		public static void setDifrentFontColor12(Context mContext, TextView textView, String font, int mid, int end){
+			SpannableString styledText = new SpannableString(font);  
+			styledText.setSpan(new TextAppearanceSpan(mContext, R.style.tax05), 0, mid, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);  
+			styledText.setSpan(new TextAppearanceSpan(mContext, R.style.tax04), mid+1, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); 
+			textView.setText(styledText, TextView.BufferType.SPANNABLE);
+		}
+		/**
+		 * 设置不同文字style   同一textview  不同字体颜色设置 mid截止到 end 
+		 * 正常文字： 原设定文字属性
+		 * 高亮文字：14sp 主题色
+		 * 
+		 * @param mContext
+		 * @param textView
+		 * @param font
+		 * @param mid
+		 * @param end
+		 */
 		public static void setDifferentFontColor(Context mContext, TextView textView, String font, int start, int end){
 			SpannableString styledText = new SpannableString(font);  
 			styledText.setSpan(new TextAppearanceSpan(mContext, R.style.tax02), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);  
 			textView.setText(styledText, TextView.BufferType.SPANNABLE);
 		}
-		//同一textview  不同字体颜色设置 mid截止到 end 
-		public static void setDifferentFontColor13(Context mContext, TextView textView, String font, int start, int end){
+		/**
+		 * 设置不同文字style   同一textview  不同字体颜色设置 mid截止到 end 
+		 * 正常文字： 原设定文字属性
+		 * 高亮文字：18sp 主题色
+		 * 
+		 * @param mContext
+		 * @param textView
+		 * @param font
+		 * @param mid
+		 * @param end
+		 */
+		public static void setDifferentFontColor18(Context mContext, TextView textView, String font, int start, int end){
 			SpannableString styledText = new SpannableString(font);  
 			styledText.setSpan(new TextAppearanceSpan(mContext, R.style.tax03), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);  
 			textView.setText(styledText, TextView.BufferType.SPANNABLE);

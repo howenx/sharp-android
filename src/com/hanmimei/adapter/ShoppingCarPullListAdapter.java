@@ -132,10 +132,11 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 				KeyWordUtil.setDifrentFontColor(activity, holder.tax, tax, 4,
 						tax.length());
 			} else {
-				tax = "行邮税:¥" + custom.getTax() + "（免）";
+				tax = "行邮税:¥" + custom.getTax() + "(免)";
 				KeyWordUtil.setDifrentFontColor(activity, holder.tax, tax, 4,
 						tax.length());
 			}
+			
 		} else {
 			holder.tax.setVisibility(View.GONE);
 		}

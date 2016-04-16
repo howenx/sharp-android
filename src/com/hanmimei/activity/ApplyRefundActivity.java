@@ -82,7 +82,7 @@ public class ApplyRefundActivity extends BaseActivity implements
 		
 		@Override
 		public void onComplete() {
-			isComplete = true;
+			finish();
 		}
 	};
 	
@@ -90,9 +90,6 @@ public class ApplyRefundActivity extends BaseActivity implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btn_submit:
-			if(isComplete)
-				finish();
-			else
 				submit();
 			break;
 		default:
@@ -115,12 +112,13 @@ public class ApplyRefundActivity extends BaseActivity implements
 	}
 
 	private void submitData() {
-		btn_submit.setProgress(50);
+		getLoading().show();
 		Http3Utils.doPostRequestTask(this, getHeaders(),
 				UrlUtil.CUSTOMER_SERVICE_APPLY, new VolleyJsonCallback() {
 
 					@Override
 					public void onSuccess(String result) {
+						getLoading().dismiss();
 						GoodsBalance b = new Gson().fromJson(result,
 								GoodsBalance.class);
 						HMessage msg = b.getMessage();
@@ -135,6 +133,7 @@ public class ApplyRefundActivity extends BaseActivity implements
 
 					@Override
 					public void onError() {
+						getLoading().dismiss();
 						ToastUtils.Toast(getActivity(), R.string.error);
 						btn_submit.setProgress(-1);
 					}

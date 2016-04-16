@@ -195,7 +195,15 @@
         <item name="android:windowNoTitle">true</item> <!-- 无标题 -->
         <item name="android:windowBackground">@android:color/transparent</item> <!-- 自己想要的背景 -->
         <item name="android:backgroundDimEnabled">true</item> <!-- 模糊 -->
+        <item name="android:windowAnimationStyle">@style/customDialogAnimationStyle</item>
     </style>
+    
+    <style name="customDialogAnimationStyle" parent="@android:style/Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/modal_in</item>
+        <item name="android:windowExitAnimation">@anim/modal_out</item>
+    </style>
+    
+    
     <!-- 设置dialog 样式 -->
     <style name="CustomDimDialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item> <!-- 边框 -->
@@ -205,6 +213,7 @@
         <item name="android:windowBackground">@android:color/transparent</item> <!-- 自己想要的背景 -->
         <item name="android:backgroundDimEnabled">false</item> <!-- 模糊 -->
     </style>
+    
 
     <!-- 设置sharewindow 样式 -->
     <style name="BottomShowDialog" parent="@style/CustomDialog">
@@ -215,39 +224,7 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
-    <!-- popwindow 显示与消失的动画 -->
-    <style name="popwindow_anim_style">
-
-        <!-- 指定显示的动画xml -->
-        <item name="android:windowEnterAnimation">@anim/popshow_anim</item>
-        <!-- 指定消失的动画xml -->
-        <item name="android:windowExitAnimation">@anim/pophidden_anim</item>
-    </style>
-
-    <style name="youhui1">
-        <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/fontcolor</item>
-    </style>
-
-    <style name="youhui2">
-        <item name="android:textSize">13sp</item>
-        <item name="android:textColor">@color/theme</item>
-    </style>
-
-    <style name="tax01">
-        <item name="android:textSize">12sp</item>
-        <item name="android:textColor">@color/huise</item>
-    </style>
-
-    <style name="tax02">
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/theme</item>
-    </style>
-
-    <style name="tax03">
-        <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@color/red</item>
-    </style>
+    
     <!-- 友盟 -->
     <style name="Theme.UMDefault" parent="android:style/Theme.NoTitleBar"></style>
 
