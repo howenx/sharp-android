@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/faceView"
         android:layout_alignTop="@+id/faceView"
-        android:background="@drawable/bg_badgeview"
+        android:background="@drawable/bg_theme_master"
         android:paddingLeft="3dp"
         android:paddingRight="3dp"
         android:text="团长"

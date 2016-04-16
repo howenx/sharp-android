@@ -145,8 +145,9 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		order_code.setText("订单号：" + order.getOrderId());
 //		I:初始化即未支付状态，S:成功，C：取消， F:失败，R:已收货，D:已经发货，J:拒收
 		if(order.getOrderStatus().equals("S")){
-			order_state.setText("订单状态：待发货");
 			if(order.getRefund() != null){
+				String state = "订单状态：待发货(已锁定)";
+				KeyWordUtil.setDifrentFontColor12(this, order_state, state, 8, state.length());
 				findViewById(R.id.go_money).setVisibility(View.GONE);
 				findViewById(R.id.linear_refund).setVisibility(View.VISIBLE);
 				if(order.getRefund().getPayBackFee() !=null){
@@ -171,6 +172,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 					rejectReason.setVisibility(View.GONE);
 				}
 			}else {
+				order_state.setText("订单状态：待发货");
 				findViewById(R.id.go_money).setVisibility(View.VISIBLE);
 			}
 		}else if(order.getOrderStatus().equals("I")){

@@ -167,7 +167,7 @@ public class AlertDialogUtils {
 	 */
 	public static void showBackDialog(Context context, final OnClickListener l) {
 		String[] tb = { "便宜不等人，请三思而行", "", "我再想想", "去意已决" };
-		showCustomDialog(context, tb, l,new Shake());
+		showCustomDialog(context, tb, l,null);
 	}
 
 	/**
@@ -177,7 +177,7 @@ public class AlertDialogUtils {
 	 */
 	public static void showPayDialog(Context context, final OnClickListener l) {
 		String[] tb = { "确认要离开收银台", "若未在24小时内完成在线支付，逾期订单作废。", "继续支付", "确定离开" };
-		showCustomDialog(context, tb, l,new Shake());
+		showCustomDialog(context, tb, l,null);
 	}
 
 	/**

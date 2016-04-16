@@ -59,12 +59,12 @@ public class PingouListAdapter extends BaseAdapter {
 		}else{
 			holder = (ViewHolder) convertView.getTag();
 		}
-		holder.title.setText("韩国发希fascy陆心媛娃娃护手霜 80ml3支深层滋润保湿五件套");
-		holder.zhekou.setText("20%");
-		holder.iniPrice.setText("市场价：¥600");
-		holder.zhePrice.setText(KeyWordUtil.matcherSearchTitle(activity.getResources().getColor(R.color.theme), "折扣价：¥480", "¥480"));
-		holder.pinNum.setText("（4人拼购价）");
-		holder.pinPrice.setText("¥400");
+//		holder.title.setText("韩国发希fascy陆心媛娃娃护手霜 80ml3支深层滋润保湿五件套");
+//		holder.zhekou.setText("20%");
+//		holder.iniPrice.setText("市场价：¥600");
+//		holder.zhePrice.setText(KeyWordUtil.matcherSearchTitle(activity.getResources().getColor(R.color.theme), "折扣价：¥480", "¥480"));
+//		holder.pinNum.setText("（4人拼购价）");
+//		holder.pinPrice.setText("¥400");
 		return convertView;
 	}
 	private class ViewHolder{

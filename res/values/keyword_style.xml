@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+     <style name="tax01">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/huise</item>
+    </style>
+
+    <style name="tax02">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/theme</item>
+    </style>
+
+    <style name="tax03">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/theme</item>
+    </style>
+    
+    <style name="tax04">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/theme</item>
+    </style>
+    <style name="tax05">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/fontcolor</item>
+    </style>
+</resources>

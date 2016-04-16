@@ -23,13 +23,13 @@ public class Order implements Serializable{
 	private List<Sku> list;
 	private HMMAddress adress;
 	private Result result;
-	private Refund refund;
+	private RefundVo refund;
 	
-	public Refund getRefund() {
+	public RefundVo getRefund() {
 		return refund;
 	}
 
-	public void setRefund(Refund refund) {
+	public void setRefund(RefundVo refund) {
 		this.refund = refund;
 	}
 

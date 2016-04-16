@@ -127,7 +127,7 @@ public class PingouResultActivity extends BaseActivity implements
 		pro_title.setText(pinActivity.getPinTitle() + "");
 		String guige = getResources().getString(R.string.tuan_gui,
 				pinActivity.getPersonNum(), pinActivity.getPinPrice());
-		KeyWordUtil.setDifferentFontColor13(this, tuan_guige, guige,
+		KeyWordUtil.setDifferentFontColor(this, tuan_guige, guige,
 				guige.indexOf("¥"), guige.length());
 
 		PinUser master = pinActivity.getPinUsersForMaster();

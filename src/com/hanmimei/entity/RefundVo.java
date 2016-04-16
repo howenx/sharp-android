@@ -1,9 +1,12 @@
 package com.hanmimei.entity;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.security.Timestamp;
 
-public class RefundVo {
+import android.text.TextUtils;
+
+public class RefundVo implements Serializable{
 	private Long        id;//主键
     private String        orderId;//订单ID
     private String        splitOrderId;//子订单ID
@@ -25,6 +28,16 @@ public class RefundVo {
     private String      expressCompCode;//快递公司编码
     private String      expressNum;//快递编号
     private String      rejectReason;//客服拒绝退款原因
+    
+    private String refundType; //退款类型
+    
+    
+	public String getRefundType() {
+		return refundType;
+	}
+	public void setRefundType(String refundType) {
+		this.refundType = refundType;
+	}
 	public Long getId() {
 		return id;
 	}
@@ -54,8 +67,8 @@ public class RefundVo {
 	public BigDecimal getPayBackFee() {
 		return payBackFee;
 	}
-	public void setPayBackFee(BigDecimal payBackFee) {
-		this.payBackFee = payBackFee;
+	public void setPayBackFee(String payBackFee) {
+		this.payBackFee = BigDecimal.valueOf(Double.valueOf(payBackFee));
 	}
 	public String getReason() {
 		return reason;
@@ -118,7 +131,9 @@ public class RefundVo {
 		this.contactName = contactName;
 	}
 	public String getContactTel() {
+		if(TextUtils.isEmpty(contactTel) && !contactTel.equals("null"))
 		return contactTel;
+		return null;
 	}
 	public void setContactTel(String contactTel) {
 		this.contactTel = contactTel;
@@ -146,6 +161,21 @@ public class RefundVo {
 	}
 	public void setRejectReason(String rejectReason) {
 		this.rejectReason = rejectReason;
+	}
+	
+	public String getStateText() {
+		if(state.equals("I")){
+			return "退款状态：申请受理中";
+		}else if(state.equals("A")){
+			return "退款状态：退款受理中，资金会在1-5个工作日内退回您的账户";
+		}else if(state.equals("R")){
+			return "退款状态：拒绝退款";
+		}else if(state.equals("N")){
+			return "退款状态：由于某种不可抗力量，导致退款受理失败，我们客服MM会及时联系您";
+		}else if(state.equals("Y")){
+			return "退款状态：退款受理成功";
+		}
+		return null;
 	}
     
 }
