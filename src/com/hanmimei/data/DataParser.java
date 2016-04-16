@@ -416,6 +416,13 @@ public class DataParser {
 					if(goodsObject.has("invCustoms"))
 						goods.setInvCustoms(goodsObject.getString("invCustoms"));
 					if(goodsObject.has("postalTaxRate"))
+//					{
+//						if(goodsObject.getInt("postalTaxRate") >= 0){
+//							goods.setPostalTaxRate(goodsObject.getInt("postalTaxRate"));
+//						}else{
+//							goods.setPostalTaxRate(0);
+//						}
+//					}
 						goods.setPostalTaxRate(goodsObject.getInt("postalTaxRate"));
 //					if(goodsObject.has("postalStandard"))
 //						goods.setPostalStandard(goodsObject.getInt("postalStandard"));
