@@ -32,6 +32,7 @@ import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.HMessage;
+import com.hanmimei.override.HTextWatcher;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.HttpUtils;
@@ -80,21 +81,11 @@ public class ForgetPwdActivity extends BaseActivity implements
 		clear_phone.setOnClickListener(this);
 	}
 
-	TextWatcher mTextWatcher = new TextWatcher() {
+	TextWatcher mTextWatcher = new HTextWatcher(){
+
 		@Override
 		public void onTextChanged(CharSequence s, int start, int before,
 				int count) {
-
-		}
-
-		@Override
-		public void beforeTextChanged(CharSequence s, int start, int count,
-				int after) {
-
-		}
-
-		@Override
-		public void afterTextChanged(Editable s) {
 			if (s.length() == 11) {
 				next.setBackgroundResource(R.drawable.btn_theme_radius_selector);
 				next.setClickable(true);
