@@ -35,7 +35,7 @@
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:gravity="center_vertical"
-        android:text="111"
+        android:text="待付款"
         android:textSize="13sp"
         android:drawablePadding="5dp"
         android:drawableRight="@drawable/hmm_next_page_gray"

@@ -2,28 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-    <TextView 
+    android:orientation="horizontal" 
+    android:gravity="center_vertical"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp">
+        <TextView 
         android:id="@+id/all_price"
-        android:padding="6dp"
-        android:layout_width="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="right"
-        android:text="应付金额： ¥222.2"
+        android:text="合计： ¥240.5"
         android:textSize="14sp"
-        android:textColor="@color/red"/>
-    <View 
-        android:layout_height="0.1dp"
-        android:layout_width="match_parent"
-        android:background="@color/qianhui"/>
-    <LinearLayout 
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginRight="10dp"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:gravity="right">
+        android:textColor="@color/fontcolor"/>
+        <LinearLayout 
+            android:layout_marginRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="right|center_vertical">
     <TextView 
         android:id="@+id/goods_post"
         style="@style/submit_mid_huise"
@@ -40,11 +37,10 @@
         android:visibility="gone"/>
     <TextView 
         android:id="@+id/go_pay"
-        android:layout_marginLeft="15dp"
         style="@style/submit_mid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="去支付"/>
+        android:text="付款"/>
     
     <TextView 
         android:id="@+id/do_shou"
@@ -54,6 +50,5 @@
         android:layout_height="wrap_content"
         android:text="确认收货"
         android:visibility="gone"/>
-    </LinearLayout>
-
+</LinearLayout>
 </LinearLayout>

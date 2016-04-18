@@ -145,10 +145,10 @@ public class OrderPullListAdapter extends BaseAdapter {
 			}
 		});
 		holder.orderCode.setText("订单号： " + order.getOrderId());
-		// 根据订单state判断订单的状态，I:初始化即未支付状态，S:成功，C：取消， F:失败，R:已收货，D:已经发货，J:拒收
+		// 根据订单state判断订单的状态，I:初始化即未支付状态，S:成功，C：取消， F:失败，R:已收货，D:已经发货，J:拒收， T已退款
 		if (order.getOrderStatus().equals("I")) {
 			holder.all_price.setVisibility(View.VISIBLE);
-			holder.all_price.setText("应付金额： ¥"
+			holder.all_price.setText("应付金额：¥"
 					+ CommonUtil.doubleTrans(order.getPayTotal()));
 			holder.state.setText("待支付");
 			holder.goods_post.setVisibility(View.GONE);
@@ -162,8 +162,7 @@ public class OrderPullListAdapter extends BaseAdapter {
 			holder.bootom.setVisibility(View.GONE);
 			if(order.getRefund() !=null){
 				String state = "待发货(已锁定)";
-				KeyWordUtil.setDifrentFontColor12(activity, holder.state, state, 3, state.length());
-//				KeyWordUtil.setDifferentFontColor(activity, holder.state,state , 3, state.length());
+				KeyWordUtil.setDifrentFontColor12(activity, holder.state, state, 2, state.length());
 			}else{
 				holder.state.setText("待发货");
 			}

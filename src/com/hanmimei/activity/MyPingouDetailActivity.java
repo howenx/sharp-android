@@ -15,6 +15,7 @@ import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.Order;
+import com.hanmimei.entity.OrderList;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.GlideLoaderUtils;
@@ -51,8 +52,9 @@ public class MyPingouDetailActivity extends BaseActivity {
 
 					@Override
 					public void onSuccess(String result) {
-						List<Order> orders = DataParser.parserOrder(result);
-						initPingouDetail(orders);
+						OrderList orderList = DataParser.parserOrder(result);
+//						List<Order> orders = DataParser.parserOrder(result);
+						initPingouDetail(orderList.getList());
 						getLoading().dismiss();
 					}
 

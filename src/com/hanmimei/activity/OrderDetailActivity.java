@@ -30,6 +30,7 @@ import com.hanmimei.entity.HAddress;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.Order;
 import com.hanmimei.entity.OrderInfo;
+import com.hanmimei.entity.OrderList;
 import com.hanmimei.entity.Result;
 import com.hanmimei.entity.Sku;
 import com.hanmimei.utils.ActionBarUtil;
@@ -42,7 +43,6 @@ import com.hanmimei.utils.KeyWordUtil;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.CustomListView;
 import com.hanmimei.view.TimerTextView;
-import com.ypy.eventbus.EventBus;
 
 /**
  * @author eric
@@ -73,7 +73,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 	private TextView payBackFee;
 	private TextView reason;
 	private TextView refund_state;
-	private TextView contactTel,contactName;
+	private TextView contactTel;
 	private TextView rejectReason;
 	
 	private HAddress addressInfo;
@@ -97,8 +97,8 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		}
 		adapter = new OrderDetailListAdapter(list, this, isShow);
 		findView();
-//		order.getOrderStatus().equals("R") ||
-		if(order.getOrderStatus().equals("C")){
+		//取消，退款可以删除
+		if(order.getOrderStatus().equals("C") || order.getOrderStatus().equals("T")){
 			ActionBarUtil.setActionBarStyle(this, "订单详情", R.drawable.hmm_edit_delete, true, this);
 		}else{
 			ActionBarUtil.setActionBarStyle(this, "订单详情");
@@ -120,10 +120,10 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 			
 			@Override
 			public void onSuccess(String result) {
-				List<Order> orders = DataParser.parserOrder(result);
+				OrderList orderList = DataParser.parserOrder(result);
 				getLoading().dismiss();
-				if(orders.size() > 0 && orders != null){
-					order = orders.get(0);
+				if(orderList.getList().size() > 0 && orderList.getList() != null){
+					order = orderList.getList().get(0);
 					addressInfo = order.getAdress();
 					list.addAll(order.getList());
 					initView();
@@ -143,11 +143,12 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 	};
 	private void initView() {
 		order_code.setText("订单号：" + order.getOrderId());
-//		I:初始化即未支付状态，S:成功，C：取消， F:失败，R:已收货，D:已经发货，J:拒收
+//		I:初始化即未支付状态，S:成功，C：取消， F:失败，R:已收货，D:已经发货，J:拒收， T已退款
 		if(order.getOrderStatus().equals("S")){
 			if(order.getRefund() != null){
+				findViewById(R.id.bottom).setVisibility(View.GONE);
 				String state = "订单状态：待发货(已锁定)";
-				KeyWordUtil.setDifrentFontColor12(this, order_state, state, 8, state.length());
+				KeyWordUtil.setDifrentFontColor12(this, order_state, state, 7, state.length());
 				findViewById(R.id.go_money).setVisibility(View.GONE);
 				findViewById(R.id.linear_refund).setVisibility(View.VISIBLE);
 				if(order.getRefund().getPayBackFee() !=null){
@@ -177,20 +178,45 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 			}
 		}else if(order.getOrderStatus().equals("I")){
 			attention.setVisibility(View.VISIBLE);
-			attention.setTimes(CommonUtil.getTimer(order.getCountDown()/1000 - 300),"订单超过24小时，已经过期");
+			attention.setTimes(CommonUtil.getTimer(order.getCountDown()/1000 - 10),"订单超过24小时，已经过期");
 			attention.beginRun();
 			order_state.setText("订单状态：待支付");
 			cancle.setVisibility(View.VISIBLE);
 			go_pay.setVisibility(View.VISIBLE);
 		}else if(order.getOrderStatus().equals("C")){
+			findViewById(R.id.bottom).setVisibility(View.GONE);
 			order_state.setText("订单状态：已取消");
-			cancle.setVisibility(View.GONE);
 		}else if(order.getOrderStatus().equals("D")){
+			findViewById(R.id.bottom).setVisibility(View.GONE);
 			order_state.setText("订单状态：待收货");
-			cancle.setVisibility(View.GONE);
+		}else if(order.getOrderStatus().equals("T")){
+			findViewById(R.id.linear_refund).setVisibility(View.VISIBLE);
+			if(order.getRefund().getPayBackFee() !=null){
+				payBackFee.setText("退款金额：" + order.getRefund().getPayBackFee());
+			}else{
+				payBackFee.setVisibility(View.GONE);
+			}
+			reason.setText("退款原因：" + order.getRefund().getReason());
+			if(order.getRefund().getState() !=null){
+				KeyWordUtil.setDifferentFontColor(this, refund_state,order.getRefund().getStateText(), 5, order.getRefund().getStateText().length());
+			}else{
+				refund_state.setVisibility(View.GONE);
+			}
+			if(order.getRefund().getContactTel() !=null){
+				contactTel.setText("联系电话：" + order.getRefund().getContactTel());
+			}else{
+				contactTel.setVisibility(View.GONE);
+			}
+			if(order.getRefund().getState().equals("R")){
+				rejectReason.setText("拒绝原因：" + order.getRefund().getRejectReason());
+			}else{
+				rejectReason.setVisibility(View.GONE);
+			}
+			order_state.setText("订单状态：已退款");
+			findViewById(R.id.bottom).setVisibility(View.GONE);
 		}else{
+			findViewById(R.id.bottom).setVisibility(View.GONE);
 			order_state.setText("订单状态：已完成");
-			cancle.setVisibility(View.GONE);
 		}
 		if(!order.getOrderSplitId().equals("null") && !order.getOrderSplitId().equals("")){
 			item_order_id.setVisibility(View.VISIBLE);
@@ -272,6 +298,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 			orderInfo.setOrderId(order.getOrderId());
 			Intent intent = new Intent(this, OrderSubmitActivity.class);
 			intent.putExtra("orderInfo", orderInfo);
+			intent.putExtra("orderType", "item");
 			startActivity(intent);
 			finish();
 			break;

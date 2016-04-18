@@ -173,14 +173,15 @@
             android:layout_height="wrap_content"
             android:src="@drawable/hmm_login_eye_close"/>
         
-        <ImageView 
+       <ImageView 
             android:id="@+id/clear_pwd2"
             android:padding="3dp"
             android:layout_toLeftOf="@id/show_pwd2"
             android:layout_marginRight="5dp"
+            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_guanbi"
+            android:src="@drawable/hmm_login_close"
             android:visibility="invisible"/>
         <EditText 
             android:id="@+id/two_pwd"

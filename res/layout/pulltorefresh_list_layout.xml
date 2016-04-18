@@ -27,7 +27,7 @@
 	    android:text="@string/no_order"
 	    android:textSize="16sp"
 	    android:textColor="@color/huise"
-	    android:background="@color/white"
+	    android:background="@color/bg_hui"
 	    android:visibility="gone"/>
 	<include 
         android:id="@+id/no_net"

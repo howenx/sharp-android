@@ -118,7 +118,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 		}
 		regist.setOnClickListener(this);
 		phone_TextView.setText("已经发送验证码至  " + phone.substring(0, 3) + "****"
-				+ phone.substring(8, phone.length()));
+				+ phone.substring(7, phone.length()));
 		getYanZheng();
 		userDao = getDaoSession().getUserDao();
 		goodsDao = getDaoSession().getShoppingGoodsDao();
