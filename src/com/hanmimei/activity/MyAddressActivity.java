@@ -27,7 +27,7 @@ import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.From;
-import com.hanmimei.entity.HMMAddress;
+import com.hanmimei.entity.HAddress;
 import com.hanmimei.entity.Result;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
@@ -44,7 +44,7 @@ public class MyAddressActivity extends BaseActivity implements OnClickListener {
 
 	private ListView mListView;
 	private TextView addAddress;
-	private List<HMMAddress> data;
+	private List<HAddress> data;
 	private AdressAdapter adapter;
 	private JSONObject object;
 	private long selectedId = 0;
@@ -74,7 +74,7 @@ public class MyAddressActivity extends BaseActivity implements OnClickListener {
 			public void onSuccess(String result) {
 				//请求成功
 				getLoading().dismiss();
-				List<HMMAddress> list = DataParser.parserAddressList(result);
+				List<HAddress> list = DataParser.parserAddressList(result);
 				data.clear();
 				//自我排序
 //				if (list != null && list.size() > 0) {
@@ -91,7 +91,7 @@ public class MyAddressActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void findView() {
-		data = new ArrayList<HMMAddress>();
+		data = new ArrayList<HAddress>();
 		adapter = new AdressAdapter(this, data);
 		mListView = (ListView) findViewById(R.id.list);
 		mListView.setAdapter(adapter);
@@ -174,9 +174,9 @@ public class MyAddressActivity extends BaseActivity implements OnClickListener {
 
 	private class AdressAdapter extends BaseAdapter {
 
-		private List<HMMAddress> adresses;
+		private List<HAddress> adresses;
 
-		public AdressAdapter(Context mContext, List<HMMAddress> data) {
+		public AdressAdapter(Context mContext, List<HAddress> data) {
 			adresses = data;
 		}
 
@@ -197,7 +197,7 @@ public class MyAddressActivity extends BaseActivity implements OnClickListener {
 
 		@Override
 		public View getView(final int position, View convertView, ViewGroup arg2) {
-			final HMMAddress adress = adresses.get(position);
+			final HAddress adress = adresses.get(position);
 			ViewHolder holder = null;
 			if (convertView == null) {
 				convertView = getLayoutInflater().inflate(R.layout.adress_list_item, null);
@@ -264,7 +264,7 @@ public class MyAddressActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void toObject(int position) {
-		HMMAddress adress = data.get(position);
+		HAddress adress = data.get(position);
 		object = new JSONObject();
 		try {
 			object.put("addId", adress.getAdress_id());

@@ -35,7 +35,7 @@ import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.data.XmlParserHandler;
-import com.hanmimei.entity.HMMAddress;
+import com.hanmimei.entity.HAddress;
 import com.hanmimei.entity.Result;
 import com.hanmimei.entity.User;
 import com.hanmimei.utils.ActionBarUtil;
@@ -72,10 +72,10 @@ public class EditAdressActivity extends BaseActivity implements
 	private String address;
 	private String idCard;
 	private int isDefaut = 0;
-	private HMMAddress old_Adress;
+	private HAddress old_Adress;
 	private int isWhat;
 	private JSONObject object;
-	private HMMAddress new_Adress;
+	private HAddress new_Adress;
 	//
 	private View popView;
 	private View parenView;
@@ -133,7 +133,7 @@ public class EditAdressActivity extends BaseActivity implements
 		super.onCreate(bundle);
 		setContentView(R.layout.edit_adress_layout);
 		ActionBarUtil.setActionBarStyle(this, "管理地址");
-		new_Adress = new HMMAddress();
+		new_Adress = new HAddress();
 		user = getUser();
 		findView();
 		isWhat = getIntent().getIntExtra("isWhat", 0);
@@ -143,7 +143,7 @@ public class EditAdressActivity extends BaseActivity implements
 		setUpListener();
 		setUpData();
 		if (isWhat == 1) {
-			old_Adress = (HMMAddress) getIntent().getExtras().get("address");
+			old_Adress = (HAddress) getIntent().getExtras().get("address");
 			initView();
 		}
 	}

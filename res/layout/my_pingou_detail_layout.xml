@@ -34,18 +34,19 @@
 
                 <TextView
                     style="@style/order_font_style"
-                    android:layout_width="70dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="订单状态：" />
 
                 <TextView
                     android:id="@+id/order_state"
-                    android:textColor="@color/red"
-                    android:textSize="12sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/red"
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -55,18 +56,19 @@
 
                 <TextView
                     style="@style/order_font_style"
-                    android:layout_width="70dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="总额：" />
+                    android:text="总额　　：" />
 
                 <TextView
                     android:id="@+id/order_price"
-                    android:textColor="@color/red"
-                    android:textSize="16sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/red"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -76,7 +78,7 @@
 
                 <TextView
                     style="@style/order_font_style"
-                    android:layout_width="70dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="收货地址：" />
@@ -86,7 +88,8 @@
                     style="@style/order_font_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -96,17 +99,18 @@
 
                 <TextView
                     style="@style/order_font_style"
-                    android:layout_width="70dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="收货人：" />
+                    android:text="收货人　：" />
 
                 <TextView
                     android:id="@+id/order_person"
                     style="@style/order_font_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -116,7 +120,7 @@
 
                 <TextView
                     style="@style/order_font_style"
-                    android:layout_width="70dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="订单编号：" />
@@ -126,7 +130,8 @@
                     style="@style/order_font_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -136,7 +141,7 @@
 
                 <TextView
                     style="@style/order_font_style"
-                    android:layout_width="70dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="下单时间：" />
@@ -146,7 +151,8 @@
                     style="@style/order_font_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -163,7 +169,8 @@
                     android:background="@color/huise"
                     android:gravity="center"
                     android:padding="8dp"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/btn_right"
@@ -174,7 +181,8 @@
                     android:background="@color/theme"
                     android:gravity="center"
                     android:padding="8dp"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:visibility="gone" />
             </LinearLayout>
         </LinearLayout>
 
@@ -194,7 +202,6 @@
                 android:text="商品详情"
                 android:textColor="@color/huise"
                 android:textSize="12sp" />
-
 
             <RelativeLayout
                 android:id="@+id/btn_see_goods"
@@ -237,7 +244,6 @@
                     android:layout_alignParentRight="true"
                     android:textColor="@color/fontcolor"
                     android:textSize="12sp" />
-
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>

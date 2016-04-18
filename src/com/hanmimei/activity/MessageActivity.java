@@ -23,7 +23,7 @@ import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.MessageInfo;
-import com.hanmimei.entity.MsgResult;
+import com.hanmimei.entity.MessageResult;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.Http2Utils;
@@ -146,7 +146,7 @@ public class MessageActivity extends BaseActivity implements OnClickListener {
 					@Override
 					public void onSuccess(String result) {
 						getLoading().dismiss();
-						MsgResult msgResult = DataParser.parseMsgInfo(result);
+						MessageResult msgResult = DataParser.parseMsgInfo(result);
 						if (msgResult.getMessage().getCode() == 200) {
 							list.addAll(msgResult.getList());
 							adapter.notifyDataSetChanged();

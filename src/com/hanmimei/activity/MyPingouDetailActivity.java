@@ -77,7 +77,10 @@ public class MyPingouDetailActivity extends BaseActivity {
 			} else if (o.getOrderStatus().equals("D")) {
 				order_state.setText("配送中");
 				order_img.setImageResource(R.drawable.hmm_distribution);
+				btn_left.setVisibility(View.VISIBLE);
+				btn_right.setVisibility(View.VISIBLE);
 				btn_left.setText("查看物流");
+				
 				btn_left.setOnClickListener(new OnClickListener() {
 
 					@Override
@@ -100,7 +103,9 @@ public class MyPingouDetailActivity extends BaseActivity {
 			} else if (o.getOrderStatus().equals("R")) {
 				order_state.setText("已签收");
 				order_img.setImageResource(R.drawable.hmm_sign);
-				btn_left.setText("退货");
+				btn_left.setVisibility(View.VISIBLE);
+				btn_right.setVisibility(View.VISIBLE);
+				btn_left.setText("申请售后");
 				btn_right.setText("评价");
 			} else {
 				order_state.setText("过期");

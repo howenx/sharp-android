@@ -11,8 +11,8 @@ import com.google.gson.Gson;
 import com.hanmimei.entity.Collection;
 import com.hanmimei.entity.CollectionInfo;
 import com.hanmimei.entity.Customs;
-import com.hanmimei.entity.HMMAddress;
-import com.hanmimei.entity.HMMThemeGoods;
+import com.hanmimei.entity.HAddress;
+import com.hanmimei.entity.HThemeGoods;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.Home;
 import com.hanmimei.entity.Logistics;
@@ -20,7 +20,7 @@ import com.hanmimei.entity.LogisticsData;
 import com.hanmimei.entity.MessageInfo;
 import com.hanmimei.entity.MessageType;
 import com.hanmimei.entity.MessageTypeInfo;
-import com.hanmimei.entity.MsgResult;
+import com.hanmimei.entity.MessageResult;
 import com.hanmimei.entity.Notify;
 import com.hanmimei.entity.Order;
 import com.hanmimei.entity.OrderList;
@@ -113,18 +113,18 @@ public class DataParser {
 
 	}
 
-	public static HMMThemeGoods parserThemeItem(String result) {
-		return new Gson().fromJson(result, HMMThemeGoods.class);
+	public static HThemeGoods parserThemeItem(String result) {
+		return new Gson().fromJson(result, HThemeGoods.class);
 	}
 
-	public static List<HMMAddress> parserAddressList(String result) {
-		List<HMMAddress> list = new ArrayList<HMMAddress>();
+	public static List<HAddress> parserAddressList(String result) {
+		List<HAddress> list = new ArrayList<HAddress>();
 		try {
 			JSONObject object = new JSONObject(result);
 			JSONArray array = object.getJSONArray("address");
 			for (int i = 0; i < array.length(); i++) {
 				JSONObject obj = array.getJSONObject(i);
-				HMMAddress adress = new HMMAddress();
+				HAddress adress = new HAddress();
 				if (obj.has("addId"))
 					adress.setAdress_id(obj.getInt("addId"));
 				// if(obj.has("userId"))
@@ -215,7 +215,7 @@ public class DataParser {
 				JSONObject obj = array.getJSONObject(i);
 				if(obj.has("address")){
 					JSONObject addObject = obj.getJSONObject("address");
-					HMMAddress adress = new HMMAddress();
+					HAddress adress = new HAddress();
 					if(addObject.has("tel"))
 						adress.setPhone(addObject.getString("tel"));
 					if(addObject.has("idCardNum"))
@@ -630,8 +630,8 @@ public class DataParser {
 		
 		return typeInfo;
 	}
-	public static MsgResult parseMsgInfo(String result){
-		MsgResult msgResult = new MsgResult();
+	public static MessageResult parseMsgInfo(String result){
+		MessageResult msgResult = new MessageResult();
 		try {
 			JSONObject object = new JSONObject(result);
 			if(object.has("msgList")){

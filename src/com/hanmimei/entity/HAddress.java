@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  * Entity mapped to table "ADRESS".
  */
-public class HMMAddress implements Serializable{
+public class HAddress implements Serializable{
 
     private Long id;
     private Integer adress_id;
@@ -25,13 +25,13 @@ public class HMMAddress implements Serializable{
     // KEEP FIELDS - put your custom fields here
     // KEEP FIELDS END
 
-    public HMMAddress() {
+    public HAddress() {
     }
 
-    public HMMAddress(Long id) {
+    public HAddress(Long id) {
         this.id = id;
     }
-    public HMMAddress(String name, String city, String phone, String adress) {
+    public HAddress(String name, String city, String phone, String adress) {
         this.name = name;
         this.city = city;
         this.phone = phone;
@@ -39,7 +39,7 @@ public class HMMAddress implements Serializable{
     }
 
 
-    public HMMAddress(Long id, Integer adress_id, Integer user_id, String name,
+    public HAddress(Long id, Integer adress_id, Integer user_id, String name,
 			String city, String phone, String adress, String other,
 			String idCard, boolean isDefault) {
 		super();

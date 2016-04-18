@@ -2,7 +2,7 @@
 <resources>
 
     <color name="theme">#FF5359</color>
-    <color name="bg_hui">#f1f1f1</color>
+    <color name="bg_hui">#F0F0F0</color>
     <color name="background">#F0F0F0</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#FF000000</color>

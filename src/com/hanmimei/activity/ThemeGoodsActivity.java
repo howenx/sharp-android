@@ -24,10 +24,10 @@ import com.hanmimei.adapter.ThemeAdapter;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
-import com.hanmimei.entity.HMMGoods;
-import com.hanmimei.entity.HMMGoods.ImgTag;
-import com.hanmimei.entity.HMMThemeGoods;
-import com.hanmimei.entity.HMMThemeGoods.ThemeList;
+import com.hanmimei.entity.HGoods;
+import com.hanmimei.entity.HGoods.ImgTag;
+import com.hanmimei.entity.HThemeGoods;
+import com.hanmimei.entity.HThemeGoods.ThemeList;
 import com.hanmimei.entity.ImgInfo;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.utils.ActionBarUtil;
@@ -52,7 +52,7 @@ import com.ui.tag.TagViewRight;
 public class ThemeGoodsActivity extends BaseActivity implements OnClickListener {
 
 	private ThemeAdapter adapter; // 商品适配器
-	private List<HMMGoods> data;// 显示的商品数据
+	private List<HGoods> data;// 显示的商品数据
 	private BadgeView bView;
 
 	FrameLayout mframeLayout; // 主推商品容器 添加tag使用
@@ -65,7 +65,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 				R.drawable.white_shoppingcar, true, this);
 		View cartView = view.findViewById(R.id.setting);
 
-		data = new ArrayList<HMMGoods>();
+		data = new ArrayList<HGoods>();
 		adapter = new ThemeAdapter(data, this);
 		findView(cartView);
 		GridView gridView = (GridView) findViewById(R.id.my_grid);
@@ -118,7 +118,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 			@Override
 			public void onSuccess(String result) {
 				findViewById(R.id.no_net).setVisibility(View.GONE);
-				HMMThemeGoods detail = DataParser.parserThemeItem(result);
+				HThemeGoods detail = DataParser.parserThemeItem(result);
 				getLoading().dismiss();
 				if (detail.getMessage().getCode() == 200) {
 					initThemeView(detail);
@@ -163,7 +163,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 
 						@Override
 						public void onSuccess(String result) {
-							HMMThemeGoods detail = DataParser
+							HThemeGoods detail = DataParser
 									.parserThemeItem(result);
 							if (detail.getMessage().getCode() == 200) {
 								if (detail.getCartNum() != null) {
@@ -186,7 +186,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		}
 	}
 
-	private void initShopCartView(HMMThemeGoods detail) {
+	private void initShopCartView(HThemeGoods detail) {
 		if (getUser() == null) {
 			List<ShoppingGoods> goods = getDaoSession().getShoppingGoodsDao()
 					.queryBuilder().list();
@@ -215,7 +215,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 	}
 
 	// 初始化主推商品显示
-	private void initThemeView(HMMThemeGoods detail) {
+	private void initThemeView(HThemeGoods detail) {
 		ThemeList themeList = detail.getThemeList();
 		if (themeList == null)
 			return;

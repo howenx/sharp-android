@@ -12,7 +12,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -24,6 +23,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import butterknife.ButterKnife;
 
 import com.android.volley.Request.Method;
 import com.astuetz.PagerSlidingTabStrip;
@@ -75,7 +75,11 @@ import com.umeng.socialize.UMShareAPI;
 public class GoodsDetailActivity extends BaseActivity implements
 		OnClickListener {
 
-	private TextView itemTitle, itemSrcPrice, itemPrice, area;// 标题、 原价、现价、发货区
+	private TextView itemTitle;
+	private TextView itemSrcPrice;
+	private TextView itemPrice;
+	private TextView area;// 标题、 原价、现价、发货区
+
 	private TextView num_restrictAmount; // 限购数量
 	private ImageView img_hide, collectionImg;
 	private TextView more_view;
@@ -105,6 +109,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		ActionBarUtil.setActionBarStyle(this, "商品详情",
 				R.drawable.hmm_icon_share, true, this, this);
 		setContentView(R.layout.goods_detail_layout);
+		ButterKnife.bind(GoodsDetailActivity.this);
 		findView();
 		initGoodsNumView();
 		initAnimatorSetValue();
@@ -756,7 +761,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 				if (currentY <= 1 && back_top.getVisibility() == View.VISIBLE) {
 					back_top.setVisibility(View.GONE);
 				}
-//				setScrollDown(currentY);
+				// setScrollDown(currentY);
 			}
 		});
 		pagerSlidingTabStrip
@@ -796,7 +801,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		for (StockVo s : detail.getStock()) {
 			tags.add(new Tag(s.getItemColor() + " " + s.getItemSize(), s
 					.getState(), s.getOrMasterInv()));
-			if (s.getOrMasterInv()){
+			if (s.getOrMasterInv()) {
 				stock = s;
 			}
 			if (s.getState().equals("Y"))
