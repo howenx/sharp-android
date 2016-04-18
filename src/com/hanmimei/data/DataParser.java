@@ -23,6 +23,7 @@ import com.hanmimei.entity.MessageTypeInfo;
 import com.hanmimei.entity.MsgResult;
 import com.hanmimei.entity.Notify;
 import com.hanmimei.entity.Order;
+import com.hanmimei.entity.OrderList;
 import com.hanmimei.entity.RefundVo;
 import com.hanmimei.entity.Result;
 import com.hanmimei.entity.ShoppingCar;
@@ -193,10 +194,20 @@ public class DataParser {
 		}
 		return result;
 	}
-	public static List<Order> parserOrder(String result){
+	public static OrderList parserOrder(String result){
 		List<Order> list = null;
+		OrderList orderList = new OrderList();
+		HMessage hMessage = new HMessage();
 		try {
 			JSONObject object = new JSONObject(result);
+			if(object.has("message")){
+				JSONObject msgObject = object.getJSONObject("message");
+				if(msgObject.has("message"))
+					hMessage.setMessage(msgObject.getString("message"));
+				if(msgObject.has("code"))
+					hMessage.setCode(msgObject.getInt("code"));
+				orderList.setMessage(hMessage);
+			}
 			JSONArray array = object.getJSONArray("orderList");
 			list = new ArrayList<Order>();
 			for(int i = 0; i < array.length(); i ++){
@@ -306,11 +317,12 @@ public class DataParser {
 					order.setList(skuList);
 				}
 				list.add(order);
+				orderList.setList(list);
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		return list;
+		return orderList;
 	}
 	public static String decode2(String s) {
         StringBuilder sb = new StringBuilder(s.length());

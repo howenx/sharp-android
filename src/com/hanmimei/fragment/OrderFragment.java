@@ -30,6 +30,7 @@ import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.Category;
 import com.hanmimei.entity.Order;
+import com.hanmimei.entity.OrderList;
 import com.hanmimei.manager.OrderNumsMenager;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
@@ -97,14 +98,14 @@ public class OrderFragment extends Fragment implements
 			
 			@Override
 			public void onSuccess(String result) {
-				List<Order> list = DataParser.parserOrder(result);
+				OrderList orderList = DataParser.parserOrder(result);
 				activity.getLoading().dismiss();
 				mListView.onRefreshComplete();
 				data.clear();
-				if (list != null) {
+				if(orderList.getMessage().getCode() == 200){
 					no_net.setVisibility(View.GONE);
-					if (list.size() > 0) {
-						getOrderByState(list);
+					if (orderList.getList() != null) {
+						getOrderByState(orderList.getList());
 						if (data.size() > 0) {
 							no_order.setVisibility(View.GONE);
 						} else {
@@ -114,7 +115,7 @@ public class OrderFragment extends Fragment implements
 					} else {
 						no_order.setVisibility(View.VISIBLE);
 					}
-				} else {
+				}else{
 					no_order.setVisibility(View.GONE);
 					no_net.setVisibility(View.VISIBLE);
 				}
