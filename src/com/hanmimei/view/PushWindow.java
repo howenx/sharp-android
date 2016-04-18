@@ -18,14 +18,14 @@ import com.hanmimei.R;
 import com.hanmimei.activity.GoodsDetailActivity;
 import com.hanmimei.activity.PingouDetailActivity;
 import com.hanmimei.adapter.TuijianAdapter;
-import com.hanmimei.entity.HMMGoods;
+import com.hanmimei.entity.HGoods;
 
 public class PushWindow extends AlertDialog {
 
 	private Activity mActivity;
-	private List<HMMGoods> push;
+	private List<HGoods> push;
 
-	public PushWindow(Context context, List<HMMGoods> push) {
+	public PushWindow(Context context, List<HGoods> push) {
 		super(context, R.style.BottomShowDialog);
 		this.mActivity = (Activity) context;
 		this.push = push;

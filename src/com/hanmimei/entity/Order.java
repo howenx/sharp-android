@@ -21,7 +21,7 @@ public class Order implements Serializable{
 	private double postalFee;
 	private int countDown;
 	private List<Sku> list;
-	private HMMAddress adress;
+	private HAddress adress;
 	private Result result;
 	private RefundVo refund;
 	
@@ -133,10 +133,10 @@ public class Order implements Serializable{
 	public void setList(List<Sku> list) {
 		this.list = list;
 	}
-	public HMMAddress getAdress() {
+	public HAddress getAdress() {
 		return adress;
 	}
-	public void setAdress(HMMAddress adress) {
+	public void setAdress(HAddress adress) {
 		this.adress = adress;
 	}
 	public Result getResult() {

@@ -17,7 +17,7 @@ import com.google.gson.reflect.TypeToken;
 /**
  * Entity mapped to table "THEME_ITEM".
  */
-public class HMMGoods {
+public class HGoods {
 
 	private Long id;
 	private String themeId; //  主题id

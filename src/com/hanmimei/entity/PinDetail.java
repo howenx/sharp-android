@@ -6,7 +6,7 @@ public class PinDetail {
 	private HMessage message;
 	private MainVo main;
 	private StockVo stock;
-	private List<HMMGoods> push;
+	private List<HGoods> push;
 	public HMessage getMessage() {
 		return message;
 	}
@@ -25,10 +25,10 @@ public class PinDetail {
 	public void setStock(StockVo stock) {
 		this.stock = stock;
 	}
-	public List<HMMGoods> getPush() {
+	public List<HGoods> getPush() {
 		return push;
 	}
-	public void setPush(List<HMMGoods> push) {
+	public void setPush(List<HGoods> push) {
 		this.push = push;
 	}
 	

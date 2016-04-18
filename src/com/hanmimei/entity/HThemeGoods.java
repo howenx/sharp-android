@@ -4,9 +4,9 @@ import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.hanmimei.entity.HMMGoods.ImgTag;
+import com.hanmimei.entity.HGoods.ImgTag;
 
-public class HMMThemeGoods {
+public class HThemeGoods {
 	
 	private Integer cartNum;
 	private HMessage message ;
@@ -39,13 +39,13 @@ public class HMMThemeGoods {
 		private String masterItemTag;
 		private String masterItemTagAndroid;	
 		
-		private List<HMMGoods> themeItemList;
+		private List<HGoods> themeItemList;
 		
 		
-		public List<HMMGoods> getThemeItemList() {
+		public List<HGoods> getThemeItemList() {
 			return themeItemList;
 		}
-		public void setThemeItemList(List<HMMGoods> themeItemList) {
+		public void setThemeItemList(List<HGoods> themeItemList) {
 			this.themeItemList = themeItemList;
 		}
 		public String getThemeId() {

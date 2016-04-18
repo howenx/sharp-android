@@ -61,6 +61,7 @@ public class ShoppingCarMenager {
 			boolean customHas = false;
 			double morePrice = 0;
 			List<ShoppingGoods> goods = list.get(i).getList();
+//			if(list.get(i).getin)
 			for(int j = 0; j < goods.size(); j ++){
 				if(goods.get(j).getState().equals("G")){
 					morePrice = morePrice + goods.get(j).getGoodsPrice()* goods.get(j).getGoodsNums();

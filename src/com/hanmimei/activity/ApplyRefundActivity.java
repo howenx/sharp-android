@@ -1,6 +1,5 @@
 package com.hanmimei.activity;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import android.os.Bundle;

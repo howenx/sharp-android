@@ -13,16 +13,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hanmimei.R;
-import com.hanmimei.entity.HMMGoods;
+import com.hanmimei.entity.HGoods;
 import com.hanmimei.utils.DateUtils;
 import com.hanmimei.utils.GlideLoaderUtils;
 
 public class ThemeAdapter extends BaseAdapter {
-	private List<HMMGoods> data;
+	private List<HGoods> data;
 	private LayoutInflater inflater;
 	private Activity activity;
 
-	public ThemeAdapter(List<HMMGoods> data, Context mContext) {
+	public ThemeAdapter(List<HGoods> data, Context mContext) {
 		this.data = data;
 		activity = (Activity) mContext;
 		inflater = LayoutInflater.from(mContext);
@@ -46,7 +46,7 @@ public class ThemeAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup arg2) {
-		HMMGoods theme = data.get(position);
+		HGoods theme = data.get(position);
 		ViewHolder holder = null;
 		if (convertView == null) {
 			convertView = inflater.inflate(R.layout.theme_item_layout, null);

@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/item_selected_border"
-    android:padding="0.5dp">
+    android:background="@color/white"
+    android:paddingBottom="0.5dp">
     <TextView
         android:id="@+id/time"
 	    android:padding="8dp"
@@ -13,12 +13,13 @@
         android:text="@null"
         android:gravity="center_horizontal"
         android:textColor="@color/msg_content"
-        android:textSize="@dimen/font_normal"/>
+        android:textSize="@dimen/font_normal"
+        android:background="@color/bg_hui"/>
 	<RelativeLayout   
     	android:layout_width="match_parent"
     	android:layout_height="match_parent"
     	android:padding="10dp" 
-    	android:background="@color/white">
+    android:background="@drawable/item_selected_border">
     <ImageView
         android:id="@+id/img"
         android:layout_width="match_parent"

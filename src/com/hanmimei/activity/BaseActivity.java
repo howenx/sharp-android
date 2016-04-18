@@ -10,9 +10,8 @@ import android.app.ActivityManager.RunningAppProcessInfo;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build.VERSION;
 import android.os.Build;
+import android.os.Build.VERSION;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -20,10 +19,9 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import butterknife.ButterKnife;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.github.anzewei.parallaxbacklayout.ParallaxActivityBase;
@@ -83,8 +81,8 @@ public class BaseActivity extends ParallaxActivityBase  {
 //			if (VERSION.SDK_INT >= 21) {
 //				setStatus();
 //			}
-			
 		}
+		
 	}
 	
 	@Override

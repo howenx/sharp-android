@@ -7,12 +7,12 @@ public class PinResult {
 	private PinActivity activity;
 	private HMessage message;
 	//推荐的拼购商品
-    private List<HMMGoods> themeList;
+    private List<HGoods> themeList;
 	
-	public List<HMMGoods> getThemeList() {
+	public List<HGoods> getThemeList() {
 		return themeList;
 	}
-	public void setThemeList(List<HMMGoods> themeList) {
+	public void setThemeList(List<HGoods> themeList) {
 		this.themeList = themeList;
 	}
 	public PinActivity getActivity() {

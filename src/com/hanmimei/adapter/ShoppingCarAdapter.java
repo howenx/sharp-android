@@ -135,9 +135,9 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		}
 		// 根据限购数量，判断是否可以继续增减
 		if(!goods.getState().equals("S")){
-			holder.plus.setTextColor(activity.getResources().getColor(R.color.fontcolor));
-			holder.jian.setTextColor(activity.getResources().getColor(R.color.fontcolor));
-			holder.shixiao.setVisibility(View.GONE);
+				holder.plus.setTextColor(activity.getResources().getColor(R.color.fontcolor));
+				holder.jian.setTextColor(activity.getResources().getColor(R.color.fontcolor));
+				holder.shixiao.setVisibility(View.GONE);
 			holder.shopping_main.setBackgroundColor(activity.getResources().getColor(R.color.white));
 			if(goods.getGoodsNums() >= goods.getRestrictAmount()){
 				holder.plus.setTextColor(activity.getResources().getColor(R.color.qianhui));

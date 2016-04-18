@@ -226,6 +226,7 @@ public class MainTestActivity extends BaseActivity implements OnClickListener {
 							InputStream is = new ByteArrayInputStream(result
 									.getBytes());
 							info = XMLPaserTools.getUpdataInfo(is);
+							int str = CommonUtil.getVersionCode(getActivity());
 							if (info.getReleaseNumber()>CommonUtil.getVersionCode(getActivity())) {
 								// 版本号不同,发送消息更新客户端
 								setVersionInfo(info);

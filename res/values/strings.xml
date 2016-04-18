@@ -6,7 +6,7 @@
     <string name="forget"><u>忘记密码？</u></string>
     <string name="go_login"><u>去登录</u></string>
     <string name="phone_num">手机号</string>
-    <string name="pwd">密&#160;&#160;&#160;&#160;码</string>
+    <string name="pwd">密&#12288;码</string>
     <string name="set_pwd">设置密码</string>
     <string name="besure_pwd">确认密码</string>
     <string name="login">登录</string>

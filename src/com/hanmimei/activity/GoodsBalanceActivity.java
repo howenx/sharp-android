@@ -32,7 +32,7 @@ import com.hanmimei.entity.From;
 import com.hanmimei.entity.GoodsBalance;
 import com.hanmimei.entity.GoodsBalance.Settle;
 import com.hanmimei.entity.GoodsBalance.SingleCustoms;
-import com.hanmimei.entity.HMMAddress;
+import com.hanmimei.entity.HAddress;
 import com.hanmimei.entity.OrderInfo;
 import com.hanmimei.entity.OrderSubmit;
 import com.hanmimei.entity.ShoppingCar;
@@ -438,7 +438,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 	protected void onActivityResult(int arg0, int arg1, Intent arg2) {
 		super.onActivityResult(arg0, arg1, arg2);
 		if (arg1 == 1) {
-			HMMAddress adress = (HMMAddress) arg2
+			HAddress adress = (HAddress) arg2
 					.getSerializableExtra("address");
 			selectedId = adress.getAdress_id();
 			if (selectedId != 0) {

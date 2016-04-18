@@ -105,7 +105,7 @@ public class LogisticsActivity extends BaseActivity {
 			public void onSuccess(String result) {
 				getLoading().dismiss();
 				Logistics logistics = DataParser.parserLogistics(result);
-				if (logistics != null) {
+				if(logistics != null){
 					mListView.setVisibility(View.VISIBLE);
 					initHeaderView(logistics);
 					if (logistics.getList() != null) {

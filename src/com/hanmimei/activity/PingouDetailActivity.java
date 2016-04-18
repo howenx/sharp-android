@@ -450,12 +450,6 @@ public class PingouDetailActivity extends BaseActivity implements
 			sgoods.setPostalStandard(s.getPostalStandard());
 			sgoods.setSkuType("item");
 			sgoods.setSkuTypeId(s.getId());
-		} else if (s.getStatus().equals("P")) {
-			ToastUtils.Toast(this, "尚未开售");
-			return;
-		} else {
-			ToastUtils.Toast(this, "活动已结束");
-			return;
 		}
 		customs.addShoppingGoods(sgoods);
 		customs.setInvArea(sgoods.getInvArea());

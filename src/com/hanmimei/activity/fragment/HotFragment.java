@@ -19,11 +19,11 @@ import com.hanmimei.R;
 import com.hanmimei.activity.GoodsDetailActivity;
 import com.hanmimei.activity.PingouDetailActivity;
 import com.hanmimei.adapter.ThemeAdapter;
-import com.hanmimei.entity.HMMGoods;
+import com.hanmimei.entity.HGoods;
 
 public class HotFragment extends ScrollAbleFragment {
 	
-	private List<HMMGoods> themeList;
+	private List<HGoods> themeList;
 	private ThemeAdapter adapter;
 	
 	
@@ -48,7 +48,7 @@ public class HotFragment extends ScrollAbleFragment {
 		// TODO Auto-generated method stub
 		View view = inflater.inflate(R.layout.gridview_layout, null);
 		mGridView = (GridView) view.findViewById(R.id.mGridView);
-		themeList = new ArrayList<HMMGoods>();
+		themeList = new ArrayList<HGoods>();
 		adapter = new ThemeAdapter(themeList, getActivity());
 		mGridView.setAdapter(adapter);
 		mGridView.setOnItemClickListener(new OnItemClickListener() {
@@ -87,7 +87,7 @@ public class HotFragment extends ScrollAbleFragment {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void showData(Object obj) {
-		themeList.addAll((List<HMMGoods>)obj);
+		themeList.addAll((List<HGoods>)obj);
 		adapter.notifyDataSetChanged();
 		
 	}
