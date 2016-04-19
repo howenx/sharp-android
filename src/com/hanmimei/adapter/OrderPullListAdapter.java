@@ -160,9 +160,9 @@ public class OrderPullListAdapter extends BaseAdapter {
 		} else if (order.getOrderStatus().equals("S")) {
 			// holder.all_price.setText("已付金额： ¥" + order.getPayTotal());
 			holder.bootom.setVisibility(View.GONE);
-			if(order.getRefund() !=null){
-				String state = "待发货(已锁定)";
-				KeyWordUtil.setDifrentFontColor12(activity, holder.state, state, 2, state.length());
+			if(order.getRefund() !=null && !order.getRefund().getState().equals("R")){
+					String state = "待发货(已锁定)";
+					KeyWordUtil.setDifrentFontColor12(activity, holder.state, state, 2, state.length());
 			}else{
 				holder.state.setText("待发货");
 			}

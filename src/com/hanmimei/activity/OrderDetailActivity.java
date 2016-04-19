@@ -147,8 +147,12 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		if(order.getOrderStatus().equals("S")){
 			if(order.getRefund() != null){
 				findViewById(R.id.bottom).setVisibility(View.GONE);
-				String state = "订单状态：待发货(已锁定)";
-				KeyWordUtil.setDifrentFontColor12(this, order_state, state, 7, state.length());
+				if(order.getRefund().getState().equals("R")){
+					order_state.setText("订单状态：待发货");
+				}else{
+					String state = "订单状态：待发货(已锁定)";
+					KeyWordUtil.setDifrentFontColor12(this, order_state, state, 7, state.length());
+				}
 				findViewById(R.id.go_money).setVisibility(View.GONE);
 				findViewById(R.id.linear_refund).setVisibility(View.VISIBLE);
 				if(order.getRefund().getPayBackFee() !=null){
