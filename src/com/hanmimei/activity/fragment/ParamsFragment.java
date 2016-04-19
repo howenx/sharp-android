@@ -50,9 +50,15 @@ public class ParamsFragment extends ScrollAbleFragment{
 	
 	public List<ItemFeature> getItemFeatures(String itemFeatures) {
 		List<ItemFeature> list = new ArrayList<ItemFeature>();
-		Map<String, String> map = new Gson().fromJson(itemFeatures,
-				new TypeToken<Map<String, String>>() {
-				}.getType());
+		Map<String, String> map = null;
+		try {
+			map = new Gson().fromJson(itemFeatures,
+					new TypeToken<Map<String, String>>() {
+					}.getType());
+		} catch (Exception e) {
+			return null;
+		}
+		
 		ItemFeature f = null;
 		for (String key : map.keySet()) {
 			f = new ItemFeature();
@@ -77,6 +83,8 @@ public class ParamsFragment extends ScrollAbleFragment{
 
 	@Override
 	public void showData(Object obj) {
+		if(obj == null)
+			return;
 		data.addAll(getItemFeatures(obj.toString()));
 		adpater.notifyDataSetChanged();
 	}

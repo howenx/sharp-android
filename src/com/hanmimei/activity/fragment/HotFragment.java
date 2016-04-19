@@ -87,6 +87,8 @@ public class HotFragment extends ScrollAbleFragment {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void showData(Object obj) {
+		if(obj == null)
+			return;
 		themeList.addAll((List<HGoods>)obj);
 		adapter.notifyDataSetChanged();
 		

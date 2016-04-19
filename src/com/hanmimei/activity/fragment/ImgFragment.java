@@ -80,7 +80,8 @@ public class ImgFragment extends ScrollAbleFragment   {
 
 	@Override
 	public void showData(Object obj) {
-		mWebView.loadData((String)obj, "text/html; charset=UTF-8", null);
+		if(obj != null)
+			mWebView.loadData((String)obj, "text/html; charset=UTF-8", null);
 	}
 	
 }
