@@ -112,6 +112,7 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 			bottom.setVisibility(View.GONE);
 			no_data.setVisibility(View.VISIBLE);
 			mListView.setVisibility(View.GONE);
+			no_net.setVisibility(View.GONE);
 		}
 	}
 
@@ -253,7 +254,6 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 		reload.setOnClickListener(this);
 		pay.setOnClickListener(this);
 		go_home.setOnClickListener(this);
-		reload.setOnClickListener(this);
 	}
 
 	

@@ -151,6 +151,8 @@ public class OrderPullListAdapter extends BaseAdapter {
 			holder.all_price.setText("应付金额：¥"
 					+ CommonUtil.doubleTrans(order.getPayTotal()));
 			holder.state.setText("待支付");
+			//颜色
+			holder.state.setTextColor(activity.getResources().getColor(R.color.theme));
 			holder.goods_post.setVisibility(View.GONE);
 			holder.go_pay.setVisibility(View.VISIBLE);
 			holder.go_pay.setText("去支付");
@@ -158,11 +160,13 @@ public class OrderPullListAdapter extends BaseAdapter {
 			holder.bootom.setVisibility(View.VISIBLE);
 			holder.do_shou.setVisibility(View.GONE);
 		} else if (order.getOrderStatus().equals("S")) {
-			// holder.all_price.setText("已付金额： ¥" + order.getPayTotal());
 			holder.bootom.setVisibility(View.GONE);
+			//颜色
+			holder.state.setTextColor(activity.getResources().getColor(R.color.theme));
 			if(order.getRefund() !=null){
-				String state = "待发货(已锁定)";
-				KeyWordUtil.setDifrentFontColor12(activity, holder.state, state, 2, state.length());
+//				String state = "待发货(已锁定)";
+//				KeyWordUtil.setDifrentFontColor12(activity, holder.state, state, 2, state.length());
+				holder.state.setText("待发货(已锁定)");
 			}else{
 				holder.state.setText("待发货");
 			}
@@ -170,16 +174,22 @@ public class OrderPullListAdapter extends BaseAdapter {
 			holder.bootom.setVisibility(View.VISIBLE);
 			holder.all_price.setVisibility(View.GONE);
 			holder.state.setText("待收货");
+			//颜色
+			holder.state.setTextColor(activity.getResources().getColor(R.color.theme));
 			holder.do_shou.setVisibility(View.VISIBLE);
 			holder.go_pay.setVisibility(View.GONE);
 			holder.goods_post.setVisibility(View.VISIBLE);
 			holder.apply_customer.setVisibility(View.GONE);
 		} else if (order.getOrderStatus().equals("C")) {
 			holder.state.setText("已取消");
+			//颜色
+			holder.state.setTextColor(activity.getResources().getColor(R.color.fontcolor));
 			holder.bootom.setVisibility(View.GONE);
 			holder.apply_customer.setVisibility(View.GONE);
 		} else if (order.getOrderStatus().equals("R")) {
 			holder.state.setText("已完成");
+			//颜色
+			holder.state.setTextColor(activity.getResources().getColor(R.color.green));
 			holder.bootom.setVisibility(View.VISIBLE);
 			holder.do_shou.setVisibility(View.GONE);
 			holder.go_pay.setVisibility(View.GONE);
@@ -188,6 +198,8 @@ public class OrderPullListAdapter extends BaseAdapter {
 			holder.apply_customer.setVisibility(View.GONE);
 		}else if(order.getOrderStatus().equals("T")){
 			holder.state.setText("已退款");
+			//颜色
+			holder.state.setTextColor(activity.getResources().getColor(R.color.fontcolor));
 			holder.bootom.setVisibility(View.GONE);
 		}
 		holder.date.setText(order.getOrderCreateAt());
