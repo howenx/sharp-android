@@ -11,7 +11,6 @@ import com.hanmimei.dao.DaoSession;
 import com.hanmimei.entity.User;
 import com.hanmimei.entity.VersionVo;
 import com.testin.agent.TestinAgent;
-import com.testin.agent.TestinAgentConfig;
 import com.umeng.socialize.PlatformConfig;
 
 public class HMMApplication extends Application {
@@ -27,26 +26,11 @@ public class HMMApplication extends Application {
 		super.onCreate();
 		JPushInterface.setDebugMode(true);
 		JPushInterface.init(this); // 初始化 JPush
-		initTestinAgent();
+		TestinAgent.init(this);
 		queue = Volley.newRequestQueue(this);
 		initPlatformConfig();
 	}
 
-	private void initTestinAgent() {
-		TestinAgentConfig config = new TestinAgentConfig.Builder(this)
-				.withDebugModel(true) // Output the crash log in local if you
-										// open debug mode
-				.withErrorActivity(true) // Output the activity info in crash or
-											// error log
-				.withCollectNDKCrash(true) // Collect NDK crash or not if you
-											// use our NDK
-				.withOpenCrash(true) // Monitor crash if true
-				.withReportOnlyWifi(true) // Report data only on wifi mode
-				.withReportOnBack(true) // allow to report data when application
-										// in background
-				.build();
-		TestinAgent.init(config);
-	}
 
 
 

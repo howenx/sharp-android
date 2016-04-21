@@ -119,7 +119,6 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 			public void onSuccess(String result) {
 				findViewById(R.id.no_net).setVisibility(View.GONE);
 				HThemeGoods detail = DataParser.parserThemeItem(result);
-				getLoading().dismiss();
 				if (detail.getMessage().getCode() == 200) {
 					initThemeView(detail);
 					initShopCartView(detail);
@@ -128,6 +127,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 					ToastUtils.Toast(getActivity(), detail.getMessage()
 							.getMessage());
 				}
+				getLoading().dismiss();
 			}
 
 			@Override

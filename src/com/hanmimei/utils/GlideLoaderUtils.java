@@ -23,12 +23,18 @@ public class GlideLoaderUtils {
 
 	public static void loadGoodsImage(Context context, String url,
 			ImageView imgView) {
-		Glide.with(context).load(url).placeholder(R.drawable.hmm_avatar_w).animate(R.anim.abc_fade_in).into(imgView);
+		Glide.with(context).load(url).placeholder(R.drawable.hmm_place_holder_z)
+				.fitCenter().animate(R.anim.abc_fade_in).into(imgView);
+	}
+
+	public static void loadImage(Context context, String url,
+			ImageView imgView, int placeholder) {
+		Glide.with(context).load(url).placeholder(placeholder).animate(R.anim.abc_fade_in).centerCrop().into(imgView);
 	}
 
 	public static void loadThemeImage(Context context, String url,
 			ImageView imgView) {
-		Glide.with(context).load(url).placeholder(R.drawable.hmm_avatar_f_w).animate(R.anim.abc_fade_in).into(imgView);
+		Glide.with(context).load(url).placeholder(R.drawable.hmm_place_holder_z).centerCrop().animate(R.anim.abc_fade_in).into(imgView);
 	}
 
 	public static void loadThemeImage(Context mContext, ImageView imgView,
@@ -41,11 +47,12 @@ public class GlideLoaderUtils {
 		imgView.setLayoutParams(params);
 		loadThemeImage(mContext, url, imgView);
 	}
-	
-	public static void pauseRequests(Context context){
+
+	public static void pauseRequests(Context context) {
 		Glide.with(context).pauseRequestsRecursive();
 	}
-	public static void resumeRequests(Context context){
+
+	public static void resumeRequests(Context context) {
 		Glide.with(context).resumeRequestsRecursive();
 	}
 
