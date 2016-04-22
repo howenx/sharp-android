@@ -188,7 +188,7 @@
             android:name="com.hanmimei.activity.MyPingouDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.WebviewActivity"
+            android:name="com.hanmimei.activity.Html5LoadActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.hanmimei.activity.ApplyRefundActivity"

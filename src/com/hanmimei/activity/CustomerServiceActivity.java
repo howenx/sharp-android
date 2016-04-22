@@ -44,7 +44,11 @@ import com.hanmimei.utils.upload.MultipartRequestParams;
 import com.hanmimei.view.CustomGridView;
 import com.hanmimei.view.UDialog;
 import com.hanmimei.view.UDialog.CallBack;
-
+/**
+ * 
+ * @author vince
+ *
+ */
 public class CustomerServiceActivity extends BaseActivity implements
 		OnClickListener {
 	private static final int REQUEST_IMAGE = 2;

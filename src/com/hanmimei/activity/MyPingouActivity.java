@@ -19,7 +19,11 @@ import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
-
+/**
+ * 
+ * @author vince
+ *
+ */
 public class MyPingouActivity extends BaseActivity {
 
 	private ViewPager viewPager;

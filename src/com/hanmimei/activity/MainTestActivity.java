@@ -43,6 +43,11 @@ import com.viewpagerindicator.BaseIconFragment;
 import com.viewpagerindicator.IconTabPageIndicator;
 import com.viewpagerindicator.IconTabPageIndicator.OnTabReselectedListener;
 
+/**
+ * 
+ * @author vince
+ *
+ */
 @SuppressLint("NewApi")
 public class MainTestActivity extends BaseActivity implements OnClickListener {
 

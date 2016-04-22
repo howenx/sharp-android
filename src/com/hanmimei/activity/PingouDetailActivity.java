@@ -55,7 +55,11 @@ import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.NetworkImageHolderView;
 import com.hanmimei.view.PushWindow;
 import com.hanmimei.view.ShareWindow;
-
+/**
+ * 
+ * @author vince
+ *
+ */
 public class PingouDetailActivity extends BaseActivity implements
 		OnClickListener {
 

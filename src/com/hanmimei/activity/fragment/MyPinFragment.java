@@ -15,7 +15,11 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.hanmimei.R;
 import com.hanmimei.adapter.MyPinTuanAdapter;
 import com.hanmimei.entity.PinActivity;
-
+/**
+ * 
+ * @author vince
+ *
+ */
 public class MyPinFragment extends Fragment {
 
 	private MyPinTuanAdapter adapter;

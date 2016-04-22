@@ -13,7 +13,11 @@ import android.widget.TextView;
 import com.hanmimei.R;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.utils.GlideLoaderUtils;
-
+/**
+ * 
+ * @author vince
+ *
+ */
 public class GoodsBalanceAdapter extends BaseAdapter {
 	
 	private List<ShoppingGoods> goods;

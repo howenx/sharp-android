@@ -25,7 +25,11 @@ import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.utils.upload.Http3Utils;
 import com.hanmimei.utils.upload.MultipartRequestParams;
-
+/**
+ * 
+ * @author vince
+ *
+ */
 public class ApplyRefundActivity extends BaseActivity implements
 		OnClickListener {
 	private Sku sku;

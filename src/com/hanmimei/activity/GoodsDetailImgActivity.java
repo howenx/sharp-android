@@ -10,7 +10,11 @@ import com.diegocarloslima.byakugallery.lib.GalleryViewPager;
 import com.hanmimei.R;
 import com.hanmimei.adapter.GoodsDetailImgPagerAdapter;
 import com.hanmimei.override.ViewPageChangeListener;
-
+ /**
+  * 
+  * @author vince
+  *
+  */
 public class GoodsDetailImgActivity extends AppCompatActivity {
 
 	private GalleryViewPager mViewPager;

@@ -2,7 +2,11 @@ package com.hanmimei.activity.listener;
 
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.Animator.AnimatorListener;
-
+/**
+ * 
+ * @author vince
+ *
+ */
 public class SimpleAnimationListener implements AnimatorListener {
 
 	@Override

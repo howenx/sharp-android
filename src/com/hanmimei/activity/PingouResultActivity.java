@@ -40,7 +40,11 @@ import com.hanmimei.view.PushWindow;
 import com.hanmimei.view.RoundImageView;
 import com.hanmimei.view.ShareWindow;
 import com.hanmimei.view.TimeDownView;
-
+/**
+ * 
+ * @author vince
+ *
+ */
 public class PingouResultActivity extends BaseActivity implements
 		TimeEndListner, OnClickListener {
 

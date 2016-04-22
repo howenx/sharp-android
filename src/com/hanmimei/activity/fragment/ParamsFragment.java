@@ -18,7 +18,11 @@ import com.google.gson.reflect.TypeToken;
 import com.hanmimei.R;
 import com.hanmimei.adapter.GoodsDetailParamAdapter;
 import com.hanmimei.entity.ItemFeature;
-
+/**
+ * 
+ * @author vince
+ *
+ */
 public class ParamsFragment extends ScrollAbleFragment{
 	
 	private List<ItemFeature> data;
