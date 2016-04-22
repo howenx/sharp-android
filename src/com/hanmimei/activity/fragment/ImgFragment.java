@@ -12,7 +12,11 @@ import android.widget.ProgressBar;
 
 import com.cpoopc.scrollablelayoutlib.ScrollAbleFragment;
 import com.hanmimei.R;
-
+/**
+ * 
+ * @author vince
+ *
+ */
 public class ImgFragment extends ScrollAbleFragment   {
 	
 

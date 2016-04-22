@@ -22,7 +22,11 @@ import com.hanmimei.utils.GlideLoaderUtils;
 import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
-
+/**
+ * 
+ * @author vince
+ *
+ */
 public class MyPingouDetailActivity extends BaseActivity {
 
 	private TextView order_state, order_price, order_addr, order_person,

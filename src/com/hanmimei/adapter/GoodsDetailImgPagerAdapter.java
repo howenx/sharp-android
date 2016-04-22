@@ -30,19 +30,16 @@ public class GoodsDetailImgPagerAdapter extends FragmentStatePagerAdapter {
 
 	public GoodsDetailImgPagerAdapter(FragmentManager fm, List<String> imgUrl) {
 		super(fm);
-		// TODO Auto-generated constructor stub
 		this.imgUrl = imgUrl;
 	}
 	
 	@Override
 	public Fragment getItem(int arg0) {
-		// TODO Auto-generated method stub
 		return GalleryFragment.getInstance(this.imgUrl.get(arg0));
 	}
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return imgUrl.size();
 	}
 

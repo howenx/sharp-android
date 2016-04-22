@@ -20,7 +20,11 @@ import com.hanmimei.activity.GoodsDetailActivity;
 import com.hanmimei.activity.PingouDetailActivity;
 import com.hanmimei.adapter.ThemeAdapter;
 import com.hanmimei.entity.HGoods;
-
+/**
+ * 
+ * @author vince
+ *
+ */
 public class HotFragment extends ScrollAbleFragment {
 	
 	private List<HGoods> themeList;

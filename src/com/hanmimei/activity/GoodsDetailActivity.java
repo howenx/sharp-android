@@ -72,7 +72,11 @@ import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.animation.PropertyValuesHolder;
 import com.umeng.socialize.UMShareAPI;
-
+/**
+ * 
+ * @author vince
+ *
+ */
 public class GoodsDetailActivity extends BaseActivity implements
 		OnClickListener {
 

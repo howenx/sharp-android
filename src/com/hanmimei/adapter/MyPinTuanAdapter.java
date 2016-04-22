@@ -98,7 +98,6 @@ public class MyPinTuanAdapter extends BaseAdapter {
 			
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
 				doJumpDetail(goods);
 			}
 		});

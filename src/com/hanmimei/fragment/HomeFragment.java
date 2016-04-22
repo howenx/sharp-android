@@ -35,7 +35,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.hanmimei.R;
 import com.hanmimei.activity.BaseActivity;
 import com.hanmimei.activity.ThemeGoodsActivity;
-import com.hanmimei.activity.WebviewActivity;
+import com.hanmimei.activity.Html5LoadActivity;
 import com.hanmimei.adapter.HomeAdapter;
 import com.hanmimei.dao.SliderDao;
 import com.hanmimei.dao.ThemeDao;
@@ -124,7 +124,7 @@ public class HomeFragment extends BaseIconFragment implements
 				if (data.get(position - 2).getType().equals("ordinary")) {
 					intent = new Intent(mContext, ThemeGoodsActivity.class);
 				} else {
-					intent = new Intent(mContext, WebviewActivity.class);
+					intent = new Intent(mContext, Html5LoadActivity.class);
 				}
 				intent.putExtra("url", data.get(position - 2).getThemeUrl());
 				mContext.startActivity(intent);

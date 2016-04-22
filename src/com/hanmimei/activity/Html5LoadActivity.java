@@ -1,12 +1,12 @@
 package com.hanmimei.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -15,8 +15,12 @@ import com.hanmimei.R;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.utils.ActionBarUtil;
 
-
-public class WebviewActivity extends BaseActivity {
+/**
+ * 
+ * @author vince
+ *
+ */
+public class Html5LoadActivity extends BaseActivity {
 	
 	WebView mWebView;
 
@@ -24,11 +28,12 @@ public class WebviewActivity extends BaseActivity {
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.webview_layout);
+		ActionBarUtil.setActionBarStyle(this, "韩秘美");
 		
 		mWebView = (WebView) findViewById(R.id.mWebView);
+		findViewById(R.id.mProgressBar).setVisibility(View.INVISIBLE);
 		
 		mWebView.getSettings().setJavaScriptEnabled(true);
-		mWebView.addJavascriptInterface(new JavaScriptInterface(), "handler");  
 		mWebView.setWebViewClient(new WebViewClient(){
 			
 			@Override
@@ -48,12 +53,22 @@ public class WebviewActivity extends BaseActivity {
 				}
 				return super.shouldOverrideUrlLoading(view, url);
 			}
+			
+			
+
+			@Override
+			public void onPageStarted(WebView view, String url, Bitmap favicon) {
+				super.onPageStarted(view, url, favicon);
+				getLoading().show();
+			}
+
+
 
 			@Override
 			public void onPageFinished(WebView view, String url) {
 				super.onPageFinished(view, url);
-				mWebView.loadUrl("javascript:handler.hideHeader()");
-//				mWebView.loadUrl("javascript:function myFunction(){x=document.getElementById(\"header\");  x.innerHTML=\"改变了html内容!\";}");
+				mWebView.loadUrl("javascript:$(function(){$(window).load(function(){document.getElementsByTagName(\"header\")[0].style.display=\"none\";});" +
+						"$('.banner').css(\"margin-top\",\"-44px\");});");
 			}
 			
 		});
@@ -62,9 +77,9 @@ public class WebviewActivity extends BaseActivity {
 			@Override
 			public void onProgressChanged(WebView view, int newProgress) {
 				super.onProgressChanged(view, newProgress);
-				if(newProgress>=40){
-					findViewById(R.id.mProgressBar).setVisibility(View.INVISIBLE);
+				if(newProgress>=100){
 					mWebView.setVisibility(View.VISIBLE);
+					getLoading().dismiss();
 				}
 			}
 
@@ -77,7 +92,6 @@ public class WebviewActivity extends BaseActivity {
 						if(mWebView.canGoBack()){
 							mWebView.goBack();
 						}else{
-							onBackPressed();
 							finish();
 						}
 					}
@@ -87,17 +101,5 @@ public class WebviewActivity extends BaseActivity {
 		Log.i("url", getIntent().getStringExtra("url"));
 		mWebView.loadUrl(getIntent().getStringExtra("url"),getHeaders());
 	}
-	
-	// 网页调动js方法
-		final class JavaScriptInterface {
-
-			public JavaScriptInterface() {}
-
-			@JavascriptInterface
-			public void hideHeader() {
-				mWebView.loadUrl("javascript:document.getElementsByTagName(\"header\")[0].style.display=\"none\";");
-			}
-		}
-
 
 }

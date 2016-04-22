@@ -27,7 +27,11 @@ import com.hanmimei.entity.StockVo;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.GlideLoaderUtils;
 import com.hanmimei.utils.ToastUtils;
-
+/**
+ * 
+ * @author vince
+ *
+ */
 public class PingouDetailSelActivity extends BaseActivity {
 
 	private StockVo stock;

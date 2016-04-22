@@ -39,7 +39,11 @@ import com.hanmimei.utils.DownloadTools;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.utils.XMLPaserTools;
 import com.umeng.analytics.MobclickAgent;
-
+/**
+ * 
+ * @author 
+ *
+ */
 @SuppressLint("NewApi")
 public class MainActivity extends BaseActivity implements OnTabChangeListener,
 		OnClickListener {

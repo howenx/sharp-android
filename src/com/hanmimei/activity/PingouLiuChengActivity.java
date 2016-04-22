@@ -6,7 +6,11 @@ import android.widget.ImageView;
 
 import com.hanmimei.R;
 import com.hanmimei.utils.ActionBarUtil;
-
+/**
+ * 
+ * @author vince
+ *
+ */
 public class PingouLiuChengActivity extends BaseActivity {
 
 	@Override
