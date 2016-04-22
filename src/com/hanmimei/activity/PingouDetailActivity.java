@@ -412,6 +412,8 @@ public class PingouDetailActivity extends BaseActivity implements
 	 * 加载商品详情数据
 	 */
 	private void loadFragmentData() {
+		if(detail == null || detail.getMain() == null)
+			return;
 		imgFragment.showData(detail.getMain().getItemDetailImgs());
 		parFragment.showData(detail.getMain().getItemFeaturess());
 		gridViewFragment.showData(detail.getPush());

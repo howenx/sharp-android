@@ -116,6 +116,8 @@ public class HomeFragment extends BaseIconFragment implements
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View view,
 					int position, long arg3) {
+				if(position <2)
+					return;
 				if(data.get(position-2).getType()== null)
 					return;
 				Intent intent = null;

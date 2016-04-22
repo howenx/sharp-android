@@ -88,8 +88,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private ConvenientBanner<ImgInfo> slider;
 
 	private ShareWindow shareWindow;
-	private AlertDialog postDialog;
-
 	private View back_top;
 	private ScrollableLayout mScrollLayout;
 
@@ -550,12 +548,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 	 */
 	private void showPortalFeeInfo() {
 		// TODO 弹出显示税费的提醒框
-		if (postDialog == null) {
-			postDialog = AlertDialogUtils.showPostDialog(this, curItemPrice,
-					curPostalTaxRate, postalStandard);
-		} else {
-			postDialog.show();
-		}
+		AlertDialogUtils.showPostDialog(this, curItemPrice, curPostalTaxRate,
+				postalStandard);
 
 	}
 

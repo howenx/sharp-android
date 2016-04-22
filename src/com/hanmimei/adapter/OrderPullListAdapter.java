@@ -163,9 +163,9 @@ public class OrderPullListAdapter extends BaseAdapter {
 			holder.bootom.setVisibility(View.GONE);
 			//颜色
 			holder.state.setTextColor(activity.getResources().getColor(R.color.theme));
-			if(order.getRefund() !=null){
-//				String state = "待发货(已锁定)";
-//				KeyWordUtil.setDifrentFontColor12(activity, holder.state, state, 2, state.length());
+			if(order.getRefund() !=null && !order.getRefund().getState().equals("R")){
+//					String state = "待发货(已锁定)";
+//					KeyWordUtil.setDifrentFontColor12(activity, holder.state, state, 2, state.length());
 				holder.state.setText("待发货(已锁定)");
 			}else{
 				holder.state.setText("待发货");

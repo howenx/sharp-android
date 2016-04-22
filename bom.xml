@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 北京兰贝科技有限公司版权所有 -->
+<project>
+	<dependencies>
+		<dependency>
+			<groupId>com.marsor.android.common</groupId>
+			<artifactId>MarsorUtils</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+	<repositories>
+		<repository>
+			<id>MarsorRepository</id>
+			<name>Marsor Maven Mirror</name>
+			<url>http://maven.marsorstudio.cn:8088/</url>
+		</repository>
+	</repositories>
+	<package>
+		<!-- 不区分大小写，逗号隔开的metaName,代表不同SDK的渠道标识符 -->
+		<channels keyname="TESTIN_CHANNEL">
+			<!-- channel的数量代表最终生成的apk文件的数量 -->
+			<channel value="baidu" />
+			<channel value="91zhushou" />
+			<channel value="yingyongbao" />
+		</channels>
+		<keystore path="/Users/vince/Documents/Keystore" passwd="hanmimei">
+			<alias name="hanmimei" passwd="hanmimei" />
+		</keystore>
+		<outpath value="/Users/vince/Downloads/多渠道包_android" />
+	</package>	
+</project>
+

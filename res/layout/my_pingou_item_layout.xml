@@ -64,7 +64,7 @@
             android:paddingRight="8dp"
             android:paddingTop="5dp"
             android:text="@string/see_tuan"
-            android:textColor="@color/btn_font_selector"
+            android:textColor="@color/btn_theme_font_selector"
             android:textSize="14sp" />
 
         <TextView
