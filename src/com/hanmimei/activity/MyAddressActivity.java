@@ -1,5 +1,6 @@
 package com.hanmimei.activity;
 
+import java.text.Normalizer.Form;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -130,6 +131,8 @@ public class MyAddressActivity extends BaseActivity implements OnClickListener {
 	 * @param arg2
 	 */
 	private void showDelDialog(final int arg2) {
+		if(fromm == From.GoodsBalanceActivity)
+			return;
 		dialog = AlertDialogUtils.showDialog(this, new OnClickListener() {
 			
 			@Override

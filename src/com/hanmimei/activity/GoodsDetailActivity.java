@@ -15,6 +15,7 @@ import android.content.IntentFilter;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -193,6 +194,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private GoodsDetail detail;
 
 	private void loadDataByUrl() {
+		if(TextUtils.isEmpty(getIntent().getStringExtra("url")))
+			return;
 		getLoading().show();
 		Log.i("detailUrl", getIntent().getStringExtra("url"));
 		Http2Utils.doGetRequestTask(this, getHeaders(), getIntent()

@@ -24,7 +24,7 @@ public class LoadingDialog extends AlertDialog {
 		setCanceledOnTouchOutside(false);
 		
 		ImageView imageView = (ImageView) findViewById(R.id.loading);
-		Glide.with(context).load(R.raw.loading).asGif().into(imageView);
+		Glide.with(context).load(R.raw.loading).into(imageView);
 	}
 
 	

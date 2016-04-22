@@ -20,7 +20,7 @@ public class ViewFactory {
 	public static ImageView getImageView(Context context, String url) {
 		ImageView imageView = (ImageView)LayoutInflater.from(context).inflate(
 				R.layout.view_banner, null);
-		GlideLoaderUtils.loadThemeImage(context,url, imageView);
+		GlideLoaderUtils.loadImage(context,url, imageView,R.drawable.hmm_place_holder_j);
 		return imageView;
 	}
 }

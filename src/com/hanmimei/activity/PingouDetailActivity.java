@@ -14,6 +14,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -85,6 +86,8 @@ public class PingouDetailActivity extends BaseActivity implements
 	}
 
 	private void loadUrl() {
+		if(TextUtils.isEmpty(getIntent().getStringExtra("url")))
+			return;
 		getLoading().show();
 		Http2Utils.doGetRequestTask(this, getHeaders(), getIntent()
 				.getStringExtra("url"), new VolleyJsonCallback() {
