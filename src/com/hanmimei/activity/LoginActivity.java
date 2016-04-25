@@ -324,7 +324,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void doLogin() {
-		dialog = CommonUtil.dialog(this, "正在登录，请稍后...");
+		dialog = CommonUtil.dialog(this, "正在登录，请稍等...");
 		dialog.show();
 		new Thread(new Runnable() {
 			@Override

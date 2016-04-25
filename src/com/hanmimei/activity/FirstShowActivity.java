@@ -3,24 +3,22 @@ package com.hanmimei.activity;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import cn.jpush.android.api.JPushInterface;
-
 import com.android.volley.Request.Method;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
-import com.google.gson.Gson;
 import com.hanmimei.R;
 import com.hanmimei.application.HMMApplication;
 import com.hanmimei.dao.DaoSession;
+import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
-import com.hanmimei.entity.TokenVo;
+import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.User;
 import com.hanmimei.utils.DateUtil;
 import com.hanmimei.utils.PostStringRequest;
@@ -52,6 +50,7 @@ public class FirstShowActivity extends AppCompatActivity {
 		} else {
 			loginUser();
 		}
+		getNewToken();
 	}
 
 	// 判断用户token信息
@@ -104,27 +103,26 @@ public class FirstShowActivity extends AppCompatActivity {
 	// 更新token
 	private void getNewToken() {
 		Map<String, String> params = new HashMap<String, String>();
-		params.put("token", user.getToken());
+		params.put("id-token", user.getToken());
 		PostStringRequest request = null;
 		try {
-			request = new PostStringRequest(Method.POST, UrlUtil.UPDATE_TOKEN,
+			request = new PostStringRequest(Method.GET, UrlUtil.UPDATE_TOKEN,
 					new Listener<String>() {
 
 						@Override
 						public void onResponse(String arg0) {
-							TokenVo tokenVo = new Gson().fromJson(arg0,
-									TokenVo.class);
-							if (tokenVo.getResult()) {
-								user.setToken(tokenVo.getToken());
-								user.setExpired(DateUtil.turnToDate(tokenVo
-										.getExpired()));
+							HMessage loginInfo = DataParser.paserResultMsg(arg0);
+							if (loginInfo.getCode() == 200) {
+								user.setToken(loginInfo.getTag());
+								user.setExpired(DateUtil.turnToDate(loginInfo
+										.getTime()));
 								user.setLast_login(DateUtil.getCurrentDate());
 								getDaoSession().getUserDao().insertOrReplace(
 										user);
 								application.setLoginUser(user);
 							} else {
 								ToastUtils.Toast(FirstShowActivity.this,
-										tokenVo.getMessage());
+										loginInfo.getMessage());
 							}
 							mHandler.postDelayed(new FirstRun(1), 1000);
 						}
@@ -134,11 +132,13 @@ public class FirstShowActivity extends AppCompatActivity {
 							ToastUtils.Toast(FirstShowActivity.this,
 									R.string.error);
 						}
-					}, params, null);
+					}, null, params);
 		} catch (IOException e) {
 			ToastUtils.Toast(FirstShowActivity.this, R.string.error);
 		}
 		((HMMApplication) getApplication()).getRequestQueue().add(request);
+		
+		
 	}
 
 	private DaoSession getDaoSession() {
