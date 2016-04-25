@@ -1,7 +1,5 @@
 package com.hanmimei.activity;
 
-import java.util.ArrayList;
-
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -18,7 +16,6 @@ import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.GoodsBalance;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.Order;
-import com.hanmimei.entity.Sku;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
@@ -32,15 +29,12 @@ import com.hanmimei.utils.upload.MultipartRequestParams;
  */
 public class ApplyRefundActivity extends BaseActivity implements
 		OnClickListener {
-	private Sku sku;
 	private EditText discription;
-	private ArrayList<String> mSelectPath;
 	private String refundType = "deliver";// 退款类型，pin：拼购自动退款，receive：收货后申请退款，deliver：发货前退款
 
 	private Order order;
 	private ProcessButton btn_submit;
 	private TextView nameView, phoneView,payBackFee;
-	private boolean isComplete= false;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,7 +42,6 @@ public class ApplyRefundActivity extends BaseActivity implements
 		setContentView(R.layout.apply_refund_layout);
 		ActionBarUtil.setActionBarStyle(this, "申请退款");
 		order = (Order) getIntent().getSerializableExtra("order");
-		mSelectPath = new ArrayList<String>();
 		findView();
 	}
 
