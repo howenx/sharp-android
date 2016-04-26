@@ -20,11 +20,11 @@ import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.MessageType;
 import com.hanmimei.entity.MessageTypeInfo;
+import com.hanmimei.http.VolleyHttp;
+import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.manager.MessageMenager;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.DateUtils;
-import com.hanmimei.utils.Http2Utils;
-import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
 
 /**
@@ -86,7 +86,7 @@ public class MessageTypeActivity extends BaseActivity implements OnClickListener
 
 	private void loadData() {
 		getLoading().show();
-		Http2Utils.doGetRequestTask(this, getHeaders(), UrlUtil.GET_MSG_TYPE, new VolleyJsonCallback() {
+		VolleyHttp.doGetRequestTask( getHeaders(), UrlUtil.GET_MSG_TYPE, new VolleyJsonCallback() {
 			
 			@Override
 			public void onSuccess(String result) {

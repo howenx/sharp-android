@@ -16,12 +16,12 @@ import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.GoodsBalance;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.Order;
+import com.hanmimei.http.MultipartRequestParams;
+import com.hanmimei.http.VolleyHttp;
+import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
-import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
-import com.hanmimei.utils.upload.Http3Utils;
-import com.hanmimei.utils.upload.MultipartRequestParams;
 /**
  * 
  * @author vince
@@ -109,7 +109,7 @@ public class ApplyRefundActivity extends BaseActivity implements
 
 	private void submitData() {
 		getLoading().show();
-		Http3Utils.doPostRequestTask(this, getHeaders(),
+		VolleyHttp.doPostRequestTask3( getHeaders(),
 				UrlUtil.CUSTOMER_SERVICE_APPLY, new VolleyJsonCallback() {
 
 					@Override

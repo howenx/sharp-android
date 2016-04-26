@@ -46,11 +46,11 @@ import com.hanmimei.entity.ShareVo;
 import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.StockVo;
+import com.hanmimei.http.VolleyHttp;
+import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.override.ViewPageChangeListener;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
-import com.hanmimei.utils.Http2Utils;
-import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.NetworkImageHolderView;
 import com.hanmimei.view.PushWindow;
@@ -93,7 +93,7 @@ public class PingouDetailActivity extends BaseActivity implements
 		if(TextUtils.isEmpty(getIntent().getStringExtra("url")))
 			return;
 		getLoading().show();
-		Http2Utils.doGetRequestTask(this, getHeaders(), getIntent()
+		VolleyHttp.doGetRequestTask( getHeaders(), getIntent()
 				.getStringExtra("url"), new VolleyJsonCallback() {
 
 			@Override
@@ -289,7 +289,7 @@ public class PingouDetailActivity extends BaseActivity implements
 
 	private void delCollection() {
 		getLoading().show();
-		Http2Utils.doGetRequestTask(this, getHeaders(), UrlUtil.DEL_COLLECTION
+		VolleyHttp.doGetRequestTask( getHeaders(), UrlUtil.DEL_COLLECTION
 				+ detail.getStock().getCollectId(), new VolleyJsonCallback() {
 
 			@Override
@@ -333,7 +333,7 @@ public class PingouDetailActivity extends BaseActivity implements
 	// 添加收藏
 	private void addCollection(String cGoods) {
 		getLoading().show();
-		Http2Utils.doRequestTask2(this, Method.POST, getHeaders(),
+		VolleyHttp.doRequestTask2( Method.POST, getHeaders(),
 				UrlUtil.ADD_COLLECTION, new VolleyJsonCallback() {
 
 					@Override

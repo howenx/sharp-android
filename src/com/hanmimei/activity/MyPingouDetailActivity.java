@@ -16,16 +16,17 @@ import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.Order;
 import com.hanmimei.entity.OrderList;
+import com.hanmimei.http.VolleyHttp;
+import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.GlideLoaderUtils;
-import com.hanmimei.utils.Http2Utils;
-import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
+
 /**
  * 
  * @author vince
- *
+ * 
  */
 public class MyPingouDetailActivity extends BaseActivity {
 
@@ -47,17 +48,14 @@ public class MyPingouDetailActivity extends BaseActivity {
 	private void loadPingouDetail() {
 		getLoading().show();
 		Log.i("orderId", getIntent().getStringExtra("orderId"));
-		Http2Utils.doGetRequestTask(
-				this,
-				getHeaders(),
-				UrlUtil.GET_ORDER_LIST_URL + "/"
-						+ getIntent().getStringExtra("orderId"),
+		VolleyHttp.doGetRequestTask(getHeaders(), UrlUtil.GET_ORDER_LIST_URL
+				+ "/" + getIntent().getStringExtra("orderId"),
 				new VolleyJsonCallback() {
 
 					@Override
 					public void onSuccess(String result) {
 						OrderList orderList = DataParser.parserOrder(result);
-//						List<Order> orders = DataParser.parserOrder(result);
+						// List<Order> orders = DataParser.parserOrder(result);
 						initPingouDetail(orderList.getList());
 						getLoading().dismiss();
 					}
@@ -84,7 +82,7 @@ public class MyPingouDetailActivity extends BaseActivity {
 				btn_left.setVisibility(View.VISIBLE);
 				btn_right.setVisibility(View.VISIBLE);
 				btn_left.setText("查看物流");
-				
+
 				btn_left.setOnClickListener(new OnClickListener() {
 
 					@Override
@@ -164,22 +162,21 @@ public class MyPingouDetailActivity extends BaseActivity {
 
 	private void confirmDeliveryR(Order order) {
 		getLoading().show();
-		Http2Utils.doGetRequestTask(this, getHeaders(),
-				UrlUtil.CONFIRM_DELIVERY + order.getOrderId(),
-				new VolleyJsonCallback() {
+		VolleyHttp.doGetRequestTask(getHeaders(), UrlUtil.CONFIRM_DELIVERY
+				+ order.getOrderId(), new VolleyJsonCallback() {
 
-					@Override
-					public void onSuccess(String result) {
-						getLoading().dismiss();
-						sendBroadcast(new Intent(
-								AppConstant.MESSAGE_BROADCAST_CANCLE_ORDER));
-					}
+			@Override
+			public void onSuccess(String result) {
+				getLoading().dismiss();
+				sendBroadcast(new Intent(
+						AppConstant.MESSAGE_BROADCAST_CANCLE_ORDER));
+			}
 
-					@Override
-					public void onError() {
-						getLoading().dismiss();
-					}
-				});
+			@Override
+			public void onError() {
+				getLoading().dismiss();
+			}
+		});
 	}
 
 }

@@ -30,10 +30,10 @@ import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.From;
 import com.hanmimei.entity.HAddress;
 import com.hanmimei.entity.Result;
+import com.hanmimei.http.VolleyHttp;
+import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
-import com.hanmimei.utils.Http2Utils;
-import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
 
 /**
@@ -69,7 +69,7 @@ public class MyAddressActivity extends BaseActivity implements OnClickListener {
 	private void loadData() {
 		//加载动画
 		getLoading().show();
-		Http2Utils.doGetRequestTask(this, getHeaders(), UrlUtil.ADDRESS_LIST_URL, new VolleyJsonCallback() {
+		VolleyHttp.doGetRequestTask( getHeaders(), UrlUtil.ADDRESS_LIST_URL, new VolleyJsonCallback() {
 			
 			@Override
 			public void onSuccess(String result) {
@@ -285,7 +285,7 @@ public class MyAddressActivity extends BaseActivity implements OnClickListener {
 	private void delAddress(final int position) {
 		dialog.dismiss();
 		getLoading().show();
-		Http2Utils.doPostRequestTask2(this, getHeaders(), UrlUtil.ADDRESS_DEL_URL, new VolleyJsonCallback() {
+		VolleyHttp.doPostRequestTask2( getHeaders(), UrlUtil.ADDRESS_DEL_URL, new VolleyJsonCallback() {
 			
 			@Override
 			public void onSuccess(String result) {

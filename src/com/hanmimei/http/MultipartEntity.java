@@ -1,4 +1,4 @@
-package com.hanmimei.utils.upload;
+package com.hanmimei.http;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

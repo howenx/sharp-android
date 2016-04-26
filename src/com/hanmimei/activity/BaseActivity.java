@@ -21,9 +21,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
-import butterknife.ButterKnife;
 
-import com.facebook.shimmer.ShimmerFrameLayout;
 import com.github.anzewei.parallaxbacklayout.ParallaxActivityBase;
 import com.google.gson.Gson;
 import com.hanmimei.R;
@@ -36,25 +34,23 @@ import com.hanmimei.entity.PinDetail;
 import com.hanmimei.entity.PinResult;
 import com.hanmimei.entity.User;
 import com.hanmimei.entity.VersionVo;
+import com.hanmimei.http.VolleyHttp;
+import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.manager.ThreadPoolManager;
 import com.hanmimei.utils.GlideLoaderUtils;
-import com.hanmimei.utils.Http2Utils;
-import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.SystemBarTintManager;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.LoadingDialog;
-
 
 /**
  * @Author vince.liu
  * @Description 公用
  * 
  */
-public class BaseActivity extends ParallaxActivityBase  {
+public class BaseActivity extends ParallaxActivityBase {
 
 	private LoadingDialog loadingDialog;
 	private boolean shoppingcarChanged = false;
-	ShimmerFrameLayout shimmer_view_container;
 
 	/*
 	 * 获得用于数据库管理的DaoSession
@@ -62,29 +58,28 @@ public class BaseActivity extends ParallaxActivityBase  {
 	public DaoSession getDaoSession() {
 		return getMyApplication().getDaoSession();
 	}
-	public DaoMaster getDaoMaster(){
+
+	public DaoMaster getDaoMaster() {
 		return getMyApplication().getDaoMaster();
 	}
 
-	
-	
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
-		if (VERSION.SDK_INT >=  Build.VERSION_CODES.KITKAT ) {
+		if (VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 			// 创建状态栏的管理实例
 			SystemBarTintManager tintManager = new SystemBarTintManager(this);
 			// 激活状态栏设置
 			tintManager.setStatusBarTintEnabled(true);
 			// 设置一个颜色给系统栏
-			tintManager.setTintColor(getResources().getColor(R.color.btn_pin_pressed));
-//			if (VERSION.SDK_INT >= 21) {
-//				setStatus();
-//			}
+			tintManager.setTintColor(getResources().getColor(
+					R.color.btn_pin_pressed));
+			// if (VERSION.SDK_INT >= 21) {
+			// setStatus();
+			// }
 		}
-		
 	}
-	
+
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -102,18 +97,18 @@ public class BaseActivity extends ParallaxActivityBase  {
 		this.shoppingcarChanged = shoppingcarChanged;
 	}
 
-//	@SuppressLint("NewApi")
-//	private void setStatus() {
-//		Window window = getWindow();
-//		window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
-//				| WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-//		window.getDecorView().setSystemUiVisibility(
-//				View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-//						| View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-//						| View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-//		window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-//		window.setStatusBarColor(Color.TRANSPARENT);
-//	}
+	// @SuppressLint("NewApi")
+	// private void setStatus() {
+	// Window window = getWindow();
+	// window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
+	// | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+	// window.getDecorView().setSystemUiVisibility(
+	// View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+	// | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+	// | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+	// window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+	// window.setStatusBarColor(Color.TRANSPARENT);
+	// }
 
 	public BaseActivity getActivity() {
 		return this;
@@ -147,18 +142,16 @@ public class BaseActivity extends ParallaxActivityBase  {
 	@Override
 	protected void onStop() {
 		super.onStop();
-//		getMyApplication().getRequestQueue().cancelAll(new VolleyRequestFilter());
+		// getMyApplication().getRequestQueue().cancelAll(new
+		// VolleyRequestFilter());
 		if (!isAppOnForeground()) {
 			setClipboard();
 		}
 	}
-	
-	
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		stopShimmerAnimation();
 	}
 
 	@Override
@@ -206,7 +199,6 @@ public class BaseActivity extends ParallaxActivityBase  {
 	public void onResume() {
 		super.onResume();
 		getClipboard();
-		startShimmerAnimation();
 	}
 
 	@SuppressWarnings("deprecation")
@@ -214,26 +206,29 @@ public class BaseActivity extends ParallaxActivityBase  {
 		ClipboardManager cbm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
 		if (!TextUtils.isEmpty(cbm.getText())) {
 			if (cbm.getText().toString().trim().contains("KAKAO-HMM")) {
-				if(cbm.getText().toString().trim().contains("】,")){
+				if (cbm.getText().toString().trim().contains("】,")) {
 					String[] url = cbm.getText().toString().trim().split("】,");
-				if (url[1].contains("－🔑")) {
-					String cutUrl = url[1].split("－🔑")[0];
-					if (cbm.getText().toString().trim().contains("<C>")) {
-						what = 0;
-						loadData(UrlUtil.SERVERY3 + "/comm/detail"
-								+ cutUrl.split("detail")[1]);
-					} else if (cbm.getText().toString().trim().contains("<P>")) {
-						what = 2;
-						loadData(UrlUtil.SERVERY3 + "/comm/detail"
-								+ cutUrl.split("detail")[1]);
-					} else if (cbm.getText().toString().trim().contains("<T>")) {
-						what = 1;
-						loadData(UrlUtil.SERVERY5 + "/promotion/pin/activity"
-								+ cutUrl.split("activity")[1]);
+					if (url[1].contains("－🔑")) {
+						String cutUrl = url[1].split("－🔑")[0];
+						if (cbm.getText().toString().trim().contains("<C>")) {
+							what = 0;
+							loadData(UrlUtil.SERVERY3 + "/comm/detail"
+									+ cutUrl.split("detail")[1]);
+						} else if (cbm.getText().toString().trim()
+								.contains("<P>")) {
+							what = 2;
+							loadData(UrlUtil.SERVERY3 + "/comm/detail"
+									+ cutUrl.split("detail")[1]);
+						} else if (cbm.getText().toString().trim()
+								.contains("<T>")) {
+							what = 1;
+							loadData(UrlUtil.SERVERY5
+									+ "/promotion/pin/activity"
+									+ cutUrl.split("activity")[1]);
+						}
+						cbm.setText("");
+						getMyApplication().setKouling("");
 					}
-					cbm.setText("");
-					getMyApplication().setKouling("");
-				}
 				}
 			}
 		}
@@ -245,7 +240,7 @@ public class BaseActivity extends ParallaxActivityBase  {
 	private PinDetail pinDetail;
 
 	private void loadData(String url) {
-		Http2Utils.doGetRequestTask(this, null, url, new VolleyJsonCallback() {
+		VolleyHttp.doGetRequestTask( url, new VolleyJsonCallback() {
 
 			@Override
 			public void onSuccess(String result) {
@@ -299,7 +294,7 @@ public class BaseActivity extends ParallaxActivityBase  {
 				R.style.CustomDialog).create();
 		View view = inflater.inflate(R.layout.hanmimei_command_layout, null);
 		ImageView img = (ImageView) view.findViewById(R.id.img);
-		GlideLoaderUtils.loadGoodsImage(getActivity(),imgurl, img);
+		GlideLoaderUtils.loadGoodsImage(getActivity(), imgurl, img);
 		TextView title = (TextView) view.findViewById(R.id.title);
 		TextView price = (TextView) view.findViewById(R.id.price);
 		title.setText(ti);
@@ -360,17 +355,4 @@ public class BaseActivity extends ParallaxActivityBase  {
 		getMyApplication().setVersionInfo(versionInfo);
 	}
 
-	public void setShimmer_view_container(ShimmerFrameLayout shimmer_view_container) {
-		this.shimmer_view_container = shimmer_view_container;
-	}
-	
-	protected void startShimmerAnimation(){
-		if(shimmer_view_container !=null)
-			shimmer_view_container.startShimmerAnimation();
-	}
-	protected void stopShimmerAnimation(){
-		if(shimmer_view_container !=null)
-			shimmer_view_container.stopShimmerAnimation();
-	}
-	
 }

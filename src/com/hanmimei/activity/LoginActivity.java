@@ -44,11 +44,11 @@ import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.User;
+import com.hanmimei.http.VolleyHttp;
+import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.DateUtil;
-import com.hanmimei.utils.Http2Utils;
-import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ToastUtils;
 import com.umeng.socialize.UMAuthListener;
@@ -276,7 +276,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	private UMShareAPI mShareAPI = null;
 
 	private void chekWinxin(Map<String, String> data) {
-		Http2Utils.doPostRequestTask(this, "", new VolleyJsonCallback() {
+		VolleyHttp.doPostRequestTask( "", new VolleyJsonCallback() {
 			
 			@Override
 			public void onSuccess(String result) {
@@ -324,7 +324,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void doLogin() {
-		dialog = CommonUtil.dialog(this, "正在登录，请稍后...");
+		dialog = CommonUtil.dialog(this, "正在登录，请稍等...");
 		dialog.show();
 		new Thread(new Runnable() {
 			@Override

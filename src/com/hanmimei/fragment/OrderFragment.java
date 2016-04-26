@@ -31,9 +31,9 @@ import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.Category;
 import com.hanmimei.entity.Order;
 import com.hanmimei.entity.OrderList;
+import com.hanmimei.http.VolleyHttp;
+import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.manager.OrderNumsMenager;
-import com.hanmimei.utils.Http2Utils;
-import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.umeng.analytics.MobclickAgent;
 
 @SuppressLint("InflateParams")
@@ -94,7 +94,7 @@ public class OrderFragment extends Fragment implements
 //		else {
 //			state = 5;
 //		}
-		Http2Utils.doGetRequestTask(activity,activity.getHeaders(), UrlUtil.GET_ORDER_LIST_URL, new VolleyJsonCallback() {
+		VolleyHttp.doGetRequestTask(activity.getHeaders(), UrlUtil.GET_ORDER_LIST_URL, new VolleyJsonCallback() {
 			
 			@Override
 			public void onSuccess(String result) {

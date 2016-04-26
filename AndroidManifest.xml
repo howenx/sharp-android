@@ -193,6 +193,9 @@
         <activity
             android:name="com.hanmimei.activity.ApplyRefundActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.hanmimei.activity.GoodsEvaluateActivity"
+            android:screenOrientation="portrait" />
         
         <!-- 友盟相关 -->
         <activity

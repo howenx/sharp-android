@@ -21,23 +21,15 @@
         android:layout_height="match_parent"
         android:layout_weight="1" >
 
-        <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/shimmer_view_container"
+        <TextView
+            android:id="@+id/header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            shimmer:duration="1500"
-            shimmer:base_alpha="0.7">
-
-            <TextView
-                android:id="@+id/header"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@null"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-        </com.facebook.shimmer.ShimmerFrameLayout>
+            android:gravity="center"
+            android:text="@null"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
     </FrameLayout>
 
     <ImageView

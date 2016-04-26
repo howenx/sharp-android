@@ -38,10 +38,10 @@ import com.hanmimei.entity.Customs;
 import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.User;
+import com.hanmimei.http.VolleyHttp;
+import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.manager.BadgeViewManager;
 import com.hanmimei.manager.ShoppingCarMenager;
-import com.hanmimei.utils.Http2Utils;
-import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
 import com.umeng.analytics.MobclickAgent;
 import com.viewpagerindicator.BaseIconFragment;
@@ -141,7 +141,7 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 
 	private void getData() {
 		activity.getLoading().show();
-		Http2Utils.doPostRequestTask2(activity, null, UrlUtil.CAR_LIST_URL,
+		VolleyHttp.doPostRequestTask2( UrlUtil.CAR_LIST_URL,
 				new VolleyJsonCallback() {
 
 					@Override
@@ -218,7 +218,7 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 
 	private void getNetData() {
 		activity.getLoading().show();
-		Http2Utils.doGetRequestTask(activity, activity.getHeaders(),
+		VolleyHttp.doGetRequestTask( activity.getHeaders(),
 				UrlUtil.GET_CAR_LIST, new VolleyJsonCallback() {
 
 					@Override

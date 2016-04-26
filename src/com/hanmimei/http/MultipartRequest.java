@@ -1,4 +1,4 @@
-package com.hanmimei.utils.upload;
+package com.hanmimei.http;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -29,7 +29,7 @@ public class MultipartRequest extends Request<JSONObject> {
 	private Map<String, String> header = null;
 
 	public MultipartRequest(int method, MultipartRequestParams params,
-			String url, Context context, VolleyResponseListener listener,
+			String url, VolleyResponseListener listener,
 			Map<String, String> header) {
 		super(method, url, null);
 		this.params = params;

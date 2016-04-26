@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="8dp" >
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_launcher" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/icon"
+            android:layout_toRightOf="@id/icon"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+    </RelativeLayout>
+    
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_underline_normal"
+        android:orientation="horizontal" 
+        android:padding="8dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:text="评价"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <RatingBar
+            android:id="@+id/ratingbar"
+            style="@style/hmm_evaluate_ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:rating="0.0"
+            android:stepSize="1.0" />
+    </LinearLayout>
+    
+      <EditText 
+		android:id="@+id/question"        
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@color/white"
+        android:hint="长度在10-500个字之间\n写下购买体会或使用过程中带来的帮助等,可以为其他小伙伴提供参考"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:gravity="top" 
+        android:padding="7dp"
+        android:maxLength="500"/>
+	<View 
+	    android:layout_width="match_parent"
+	    android:layout_height="0dp"
+	    android:layout_weight="1"/>
+      <RelativeLayout 
+          android:layout_width="match_parent"
+          android:layout_height="40dp"
+		  android:gravity="center_vertical"
+		 android:paddingLeft="5dp"
+		 android:background="@color/gray"
+		 android:paddingRight="10dp">
+          <CheckBox 
+              android:id="@+id/niming"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="匿名评价"
+              android:textSize="14sp"
+              android:textColor="@color/black"
+              android:layout_alignParentLeft="true"/>
+          
+          <TextView 
+              android:id="@+id/submit"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="提交"
+              android:clickable="true"
+              android:textColor="@color/white"
+              android:textSize="14sp"
+              android:paddingTop="5dp"
+              android:paddingBottom="5dp"
+              android:paddingLeft="20dp"
+              android:paddingRight="20dp"
+              android:layout_alignParentRight="true"
+              android:background="@drawable/btn_confirm_selector"/>
+      </RelativeLayout>
+</LinearLayout>

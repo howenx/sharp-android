@@ -8,8 +8,21 @@ public class GoodsDetail {
 	private HMessage message;
 	private Integer cartNum;
 	private List<HGoods> push;
+	private CommentVo comment;
 	
 	
+	public CommentVo getCommentVo() {
+		if(comment == null)
+			comment = new CommentVo();
+		return comment;
+	}
+
+
+	public void setCommentVo(CommentVo comment) {
+		this.comment = comment;
+	}
+
+
 	public StockVo getCurrentStock(){
 		StockVo sto = new StockVo();
 		for (int i = 0; i < stock.size(); i++) {
