@@ -27,6 +27,8 @@ import com.hanmimei.entity.VersionVo;
 import com.hanmimei.fragment.HomeFragment;
 import com.hanmimei.fragment.MineFragment;
 import com.hanmimei.fragment.ShoppingCartFragment;
+import com.hanmimei.http.VolleyHttp;
+import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.manager.BadgeViewManager;
 import com.hanmimei.manager.MessageMenager;
 import com.hanmimei.override.ViewPageChangeListener;
@@ -34,8 +36,6 @@ import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.DownloadTools;
-import com.hanmimei.utils.Http2Utils;
-import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.utils.XMLPaserTools;
 import com.umeng.analytics.MobclickAgent;
@@ -153,7 +153,6 @@ public class MainTestActivity extends BaseActivity implements OnClickListener {
 			ActionBarUtil.setActionBarStyle(this, "",
 					R.drawable.hmm_icon_setting, false, this);
 		}
-		startShimmerAnimation();
 	}
 
 	private List<BaseIconFragment> initFragmentList() {
@@ -222,7 +221,7 @@ public class MainTestActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void doCheckVersionTask() {
-		Http2Utils.doGetRequestTask(this, UrlUtil.UPDATE_HMM,
+		VolleyHttp.doGetRequestTask( UrlUtil.UPDATE_HMM,
 				new VolleyJsonCallback() {
 
 					@Override
@@ -231,7 +230,6 @@ public class MainTestActivity extends BaseActivity implements OnClickListener {
 							InputStream is = new ByteArrayInputStream(result
 									.getBytes());
 							info = XMLPaserTools.getUpdataInfo(is);
-							int str = CommonUtil.getVersionCode(getActivity());
 							if (info.getReleaseNumber()>CommonUtil.getVersionCode(getActivity())) {
 								// 版本号不同,发送消息更新客户端
 								setVersionInfo(info);

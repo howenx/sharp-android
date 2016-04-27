@@ -28,11 +28,11 @@ import com.hanmimei.entity.Customs;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.User;
+import com.hanmimei.http.VolleyHttp;
+import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.manager.BadgeViewManager;
 import com.hanmimei.manager.ShoppingCarMenager;
 import com.hanmimei.utils.AlertDialogUtils;
-import com.hanmimei.utils.Http2Utils;
-import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.KeyWordUtil;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.CustomListView;
@@ -201,7 +201,7 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 	protected void delGoods(final ShoppingGoods goods) {
 		dialog.dismiss();
 		activity.getLoading().show();
-		Http2Utils.doGetRequestTask(activity, activity.getHeaders(), goods.getDelUrl(), new VolleyJsonCallback() {
+		VolleyHttp.doGetRequestTask( activity.getHeaders(), goods.getDelUrl(), new VolleyJsonCallback() {
 			
 			@Override
 			public void onSuccess(String result) {

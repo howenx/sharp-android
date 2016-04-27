@@ -29,12 +29,12 @@ import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.User;
+import com.hanmimei.http.VolleyHttp;
+import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.manager.BadgeViewManager;
 import com.hanmimei.manager.ShoppingCarMenager;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.GlideLoaderUtils;
-import com.hanmimei.utils.Http2Utils;
-import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ToastUtils;
 
@@ -269,7 +269,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 			e.printStackTrace();
 		}
 		activity.getLoading().show();
-		Http2Utils.doPostRequestTask2(activity, UrlUtil.POST_ADD_CART, new VolleyJsonCallback() {
+		VolleyHttp.doPostRequestTask2( UrlUtil.POST_ADD_CART, new VolleyJsonCallback() {
 			
 			@Override
 			public void onSuccess(String result) {

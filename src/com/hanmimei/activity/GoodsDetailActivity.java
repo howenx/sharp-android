@@ -44,6 +44,7 @@ import com.hanmimei.dao.ShoppingGoodsDao.Properties;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
+import com.hanmimei.entity.CommentVo;
 import com.hanmimei.entity.Customs;
 import com.hanmimei.entity.GoodsDetail;
 import com.hanmimei.entity.HMessage;
@@ -53,13 +54,13 @@ import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.StockVo;
 import com.hanmimei.entity.Tag;
+import com.hanmimei.http.VolleyHttp;
+import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.override.ViewPageChangeListener;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.GlideLoaderUtils;
-import com.hanmimei.utils.Http2Utils;
-import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.KeyWordUtil;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.BadgeView;
@@ -72,10 +73,11 @@ import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.animation.PropertyValuesHolder;
 import com.umeng.socialize.UMShareAPI;
+
 /**
  * 
  * @author vince
- *
+ * 
  */
 public class GoodsDetailActivity extends BaseActivity implements
 		OnClickListener {
@@ -152,6 +154,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		findViewById(R.id.btn_add_shopcart).setOnClickListener(this);
 		findViewById(R.id.btn_portalFee).setOnClickListener(this);
 		findViewById(R.id.back_top).setOnClickListener(this);
+		findViewById(R.id.btn_comment).setOnClickListener(this);
 	}
 
 	/**
@@ -198,11 +201,11 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private GoodsDetail detail;
 
 	private void loadDataByUrl() {
-		if(TextUtils.isEmpty(getIntent().getStringExtra("url")))
+		if (TextUtils.isEmpty(getIntent().getStringExtra("url")))
 			return;
 		getLoading().show();
 		Log.i("detailUrl", getIntent().getStringExtra("url"));
-		Http2Utils.doGetRequestTask(this, getHeaders(), getIntent()
+		VolleyHttp.doGetRequestTask( getHeaders(), getIntent()
 				.getStringExtra("url"), new VolleyJsonCallback() {
 
 			@Override
@@ -232,8 +235,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private void sendData(ShoppingGoods goods) {
 		JSONArray array = toJSONArray(goods);
 		getLoading().show();
-		Http2Utils.doPostRequestTask2(this, getHeaders(),
-				UrlUtil.GET_CAR_LIST_URL, new VolleyJsonCallback() {
+		VolleyHttp.doPostRequestTask2(getHeaders(), UrlUtil.GET_CAR_LIST_URL,
+				new VolleyJsonCallback() {
 
 					@Override
 					public void onSuccess(String result) {
@@ -265,7 +268,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		if (getUser() == null) {
 			showGoodsNums();
 		} else {
-			Http2Utils.doGetRequestTask(this, getHeaders(),
+			VolleyHttp.doGetRequestTask( getHeaders(),
 					UrlUtil.GET_CART_NUM_URL, new VolleyJsonCallback() {
 
 						@Override
@@ -343,6 +346,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 		case R.id.back:
 			exitClick();
 			break;
+		case R.id.btn_comment:
+			startActivity(new Intent(this, GoodsEvaluateActivity.class));
+			break;
 		default:
 			break;
 		}
@@ -406,7 +412,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 			goods2.setSkuTypeId(goods.getSkuTypeId());
 		}
 		getLoading().show();
-		Http2Utils.doPostRequestTask2(this, UrlUtil.POST_ADD_CART,
+		VolleyHttp.doPostRequestTask2(UrlUtil.POST_ADD_CART,
 				new VolleyJsonCallback() {
 
 					@Override
@@ -626,7 +632,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	// 添加收藏
 	private void addCollection(String collected) {
 		getLoading().show();
-		Http2Utils.doRequestTask2(this, Method.POST, getHeaders(),
+		VolleyHttp.doRequestTask2(Method.POST, getHeaders(),
 				UrlUtil.ADD_COLLECTION, new VolleyJsonCallback() {
 
 					@Override
@@ -661,7 +667,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 	private void delCollection() {
 		getLoading().show();
-		Http2Utils.doGetRequestTask(this, getHeaders(), UrlUtil.DEL_COLLECTION
+		VolleyHttp.doGetRequestTask( getHeaders(), UrlUtil.DEL_COLLECTION
 				+ detail.getCurrentStock().getCollectId(),
 				new VolleyJsonCallback() {
 
@@ -817,7 +823,17 @@ public class GoodsDetailActivity extends BaseActivity implements
 		}
 		initStocks(stock);
 		initTags(tags);
+		initGoodsComment(detail.getCommentVo());
 	}
+	
+	
+	private void initGoodsComment(CommentVo comm){
+		TextView remarkRate = (TextView) findViewById(R.id.remarkRate);
+		TextView remarkCount = (TextView) findViewById(R.id.remarkCount);
+		remarkCount.setText(getResources().getString(R.string.comment, comm.getRemarkCount()));
+		remarkRate.setText(getResources().getString(R.string.comment_good, comm.getRemarkRate()));
+	}
+
 
 	private void initTags(List<Tag> tags) {
 		if (tags.size() <= 0)

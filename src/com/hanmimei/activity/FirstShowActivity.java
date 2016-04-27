@@ -3,12 +3,14 @@ package com.hanmimei.activity;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import cn.jpush.android.api.JPushInterface;
+
 import com.android.volley.Request.Method;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
@@ -20,22 +22,24 @@ import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.User;
+import com.hanmimei.http.VolleyHttp;
+import com.hanmimei.http.StringRequestTask;
+import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.utils.DateUtil;
-import com.hanmimei.utils.PostStringRequest;
 import com.hanmimei.utils.PreferenceUtil.IntroConfig;
 import com.hanmimei.utils.ToastUtils;
 
 /**
  * @author eric
- *
+ * 
  */
 @SuppressLint("NewApi")
 public class FirstShowActivity extends AppCompatActivity {
 
 	private HMMApplication application;
 	private User user;
-	
-	private Handler mHandler = new Handler() ;
+
+	private Handler mHandler = new Handler();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,13 +54,12 @@ public class FirstShowActivity extends AppCompatActivity {
 		} else {
 			loginUser();
 		}
-		getNewToken();
 	}
 
 	// 判断用户token信息
 	private void loginUser() {
 		user = getDaoSession().getUserDao().queryBuilder().build().unique();
-		if (user != null && user.getExpired()!=null ) {
+		if (user != null && user.getExpired() != null) {
 			if (user.getToken() != null) {
 				int difDay = DateUtil.getDate(user.getExpired());
 				if (difDay < 24 && difDay >= 0) {
@@ -69,7 +72,7 @@ public class FirstShowActivity extends AppCompatActivity {
 					mHandler.postDelayed(new FirstRun(1), 1500);
 				}
 			}
-		}else{
+		} else {
 			mHandler.postDelayed(new FirstRun(1), 1500);
 		}
 	}
@@ -86,11 +89,13 @@ public class FirstShowActivity extends AppCompatActivity {
 		public void run() {
 			switch (what) {
 			case 0:
-				startActivity(new Intent(FirstShowActivity.this,IndroductionActivity.class));
+				startActivity(new Intent(FirstShowActivity.this,
+						IndroductionActivity.class));
 				finish();
 				break;
 			case 1:
-				startActivity(new Intent(FirstShowActivity.this,MainTestActivity.class));
+				startActivity(new Intent(FirstShowActivity.this,
+						MainTestActivity.class));
 				finish();
 				break;
 			default:
@@ -102,43 +107,34 @@ public class FirstShowActivity extends AppCompatActivity {
 
 	// 更新token
 	private void getNewToken() {
-		Map<String, String> params = new HashMap<String, String>();
-		params.put("id-token", user.getToken());
-		PostStringRequest request = null;
-		try {
-			request = new PostStringRequest(Method.GET, UrlUtil.UPDATE_TOKEN,
-					new Listener<String>() {
+		Map<String, String> headers = new HashMap<String, String>();
+		headers.put("id-token", user.getToken());
+		VolleyHttp.doGetRequestTask(headers, UrlUtil.UPDATE_TOKEN,
+				new VolleyJsonCallback() {
 
-						@Override
-						public void onResponse(String arg0) {
-							HMessage loginInfo = DataParser.paserResultMsg(arg0);
-							if (loginInfo.getCode() == 200) {
-								user.setToken(loginInfo.getTag());
-								user.setExpired(DateUtil.turnToDate(loginInfo
-										.getTime()));
-								user.setLast_login(DateUtil.getCurrentDate());
-								getDaoSession().getUserDao().insertOrReplace(
-										user);
-								application.setLoginUser(user);
-							} else {
-								ToastUtils.Toast(FirstShowActivity.this,
-										loginInfo.getMessage());
-							}
-							mHandler.postDelayed(new FirstRun(1), 1000);
-						}
-					}, new ErrorListener() {
-						@Override
-						public void onErrorResponse(VolleyError arg0) {
+					@Override
+					public void onSuccess(String result) {
+						HMessage loginInfo = DataParser.paserResultMsg(result);
+						if (loginInfo.getCode() == 200) {
+							user.setToken(loginInfo.getTag());
+							user.setExpired(DateUtil.turnToDate(loginInfo
+									.getTime()));
+							user.setLast_login(DateUtil.getCurrentDate());
+							getDaoSession().getUserDao().insertOrReplace(user);
+							application.setLoginUser(user);
+						} else {
 							ToastUtils.Toast(FirstShowActivity.this,
-									R.string.error);
+									loginInfo.getMessage());
 						}
-					}, null, params);
-		} catch (IOException e) {
-			ToastUtils.Toast(FirstShowActivity.this, R.string.error);
-		}
-		((HMMApplication) getApplication()).getRequestQueue().add(request);
-		
-		
+						mHandler.postDelayed(new FirstRun(1), 1000);
+
+					}
+
+					@Override
+					public void onError() {
+						ToastUtils.Toast(FirstShowActivity.this, R.string.error);
+					}
+				});
 	}
 
 	private DaoSession getDaoSession() {
@@ -148,14 +144,12 @@ public class FirstShowActivity extends AppCompatActivity {
 
 	@Override
 	protected void onPause() {
-		// TODO Auto-generated method stub
 		super.onPause();
 		JPushInterface.onPause(this);
 	}
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 		JPushInterface.onResume(this);
 	}

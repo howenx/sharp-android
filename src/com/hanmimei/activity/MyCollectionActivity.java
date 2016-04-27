@@ -27,10 +27,10 @@ import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.Collection;
 import com.hanmimei.entity.CollectionInfo;
 import com.hanmimei.entity.HMessage;
+import com.hanmimei.http.VolleyHttp;
+import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
-import com.hanmimei.utils.Http2Utils;
-import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
 
 /**
@@ -106,7 +106,7 @@ public class MyCollectionActivity extends BaseActivity implements
 
 	private void loadCollectionData() {
 		getActivity().getLoading().show();
-		Http2Utils.doGetRequestTask(this, getHeaders(),
+		VolleyHttp.doGetRequestTask( getHeaders(),
 				UrlUtil.COLLECTION_LIST, new VolleyJsonCallback() {
 
 					@Override
@@ -144,7 +144,7 @@ public class MyCollectionActivity extends BaseActivity implements
 //, final SwipeMenuView index
 	private void delCollect(final int position) {
 		String collectId = datas.get(position).getCollectId();
-		Http2Utils.doGetRequestTask(this, getHeaders(), UrlUtil.DEL_COLLECTION
+		VolleyHttp.doGetRequestTask( getHeaders(), UrlUtil.DEL_COLLECTION
 				+ collectId, new VolleyJsonCallback() {
 
 			@Override

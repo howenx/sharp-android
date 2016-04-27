@@ -34,10 +34,10 @@ import com.hanmimei.entity.Customs;
 import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.User;
+import com.hanmimei.http.VolleyHttp;
+import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.manager.ShoppingCarMenager;
 import com.hanmimei.utils.ActionBarUtil;
-import com.hanmimei.utils.Http2Utils;
-import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
 
 /*
@@ -135,7 +135,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 
 	private void getData() {
 		getLoading().show();
-		Http2Utils.doPostRequestTask2(this,null,UrlUtil.CAR_LIST_URL,new VolleyJsonCallback() {
+		VolleyHttp.doPostRequestTask2(null,UrlUtil.CAR_LIST_URL,new VolleyJsonCallback() {
 			
 			@Override
 			public void onSuccess(String result) {
@@ -196,7 +196,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 	}
 	private void getNetData() {
 		getLoading().show();
-		Http2Utils.doGetRequestTask(this, getHeaders(),UrlUtil.GET_CAR_LIST,new VolleyJsonCallback() {
+		VolleyHttp.doGetRequestTask( getHeaders(),UrlUtil.GET_CAR_LIST,new VolleyJsonCallback() {
 			
 			@Override
 			public void onSuccess(String result) {

@@ -30,12 +30,12 @@ import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.Comment;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.Sku;
+import com.hanmimei.http.MultipartRequestParams;
+import com.hanmimei.http.VolleyHttp;
+import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.GlideLoaderUtils;
-import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
-import com.hanmimei.utils.upload.Http3Utils;
-import com.hanmimei.utils.upload.MultipartRequestParams;
 import com.hanmimei.view.CustomGridView;
 
 /**
@@ -177,7 +177,7 @@ public class PubCommentActivity extends BaseActivity implements OnClickListener{
 	 */
 	private void pubComment() {
 		getLoading().show();
-		Http3Utils.doPostRequestTask(this, getHeaders(),
+		VolleyHttp.doPostRequestTask3(getHeaders(),
 				UrlUtil.PUB_COMMENT, new VolleyJsonCallback() {
 
 					@Override

@@ -20,14 +20,6 @@ import com.hanmimei.R;
 public class ImgFragment extends ScrollAbleFragment   {
 	
 
-//	public static ImgFragment newInstance(String data) {
-//		ImgFragment newFragment = new ImgFragment();
-//		Bundle bundle = new Bundle();
-//		bundle.putString("data", data);
-//		newFragment.setArguments(bundle);
-//		// bundle还可以在每个标签里传送数据
-//		return newFragment;
-//	}
 	
 	private WebView mWebView;
 	private ProgressBar mProgressBar;
@@ -48,7 +40,6 @@ public class ImgFragment extends ScrollAbleFragment   {
 //		mWebView.getSettings().setBuiltInZoomControls(true);
 //		mWebView.getSettings().setDisplayZoomControls(false);
 		
-//		mWebView.loadData(data, "text/html; charset=UTF-8", null);
 		mWebView.setWebChromeClient(new WebChromeClient(){
 
 			@Override

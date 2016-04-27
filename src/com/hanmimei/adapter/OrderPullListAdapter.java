@@ -31,11 +31,11 @@ import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.Order;
 import com.hanmimei.entity.OrderInfo;
+import com.hanmimei.http.VolleyHttp;
+import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.CommonUtil;
-import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.KeyWordUtil;
-import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.view.HorizontalListView;
 
@@ -311,7 +311,7 @@ public class OrderPullListAdapter extends BaseAdapter {
 
 	private void confirmDeliveryR(Order order) {
 		activity.getLoading().show();
-		Http2Utils.doGetRequestTask(activity, activity.getHeaders(),
+		VolleyHttp.doGetRequestTask( activity.getHeaders(),
 				UrlUtil.CONFIRM_DELIVERY + order.getOrderId(),
 				new VolleyJsonCallback() {
 

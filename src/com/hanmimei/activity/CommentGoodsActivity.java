@@ -23,9 +23,9 @@ import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.CommentCenter;
 import com.hanmimei.entity.OrderRemark;
+import com.hanmimei.http.VolleyHttp;
+import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.utils.ActionBarUtil;
-import com.hanmimei.utils.Http2Utils;
-import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
 
 /**
@@ -59,7 +59,7 @@ public class CommentGoodsActivity extends BaseActivity{
 	 */
 	private void loadData() {
 		getLoading().show();
-		Http2Utils.doGetRequestTask(this, getHeaders(), UrlUtil.COMMENT_CENTER + orderId, new VolleyJsonCallback() {
+		VolleyHttp.doGetRequestTask(getHeaders(), UrlUtil.COMMENT_CENTER + orderId, new VolleyJsonCallback() {
 			
 			@Override
 			public void onSuccess(String result) {

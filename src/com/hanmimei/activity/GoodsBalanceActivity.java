@@ -36,15 +36,16 @@ import com.hanmimei.entity.HAddress;
 import com.hanmimei.entity.OrderInfo;
 import com.hanmimei.entity.OrderSubmit;
 import com.hanmimei.entity.ShoppingCar;
+import com.hanmimei.http.VolleyHttp;
+import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
-import com.hanmimei.utils.Http2Utils;
-import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
+
 /**
  * 
  * @author vince
- *
+ * 
  */
 public class GoodsBalanceActivity extends BaseActivity implements
 		OnClickListener {
@@ -84,7 +85,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 		mListView.setAdapter(adapter);
 		mListView.setFocusable(false);
 		loadData(selectedId);
-		
+
 	}
 
 	/**
@@ -155,7 +156,8 @@ public class GoodsBalanceActivity extends BaseActivity implements
 							+ "元");
 					car.setDenomination(new BigDecimal(btn.getTag(
 							R.id.coupon_de).toString()));
-					orderSubmit.setCouponId(btn.getTag(R.id.coupon_id).toString());
+					orderSubmit.setCouponId(btn.getTag(R.id.coupon_id)
+							.toString());
 				}
 				youhui.setText(getResources().getString(R.string.price,
 						car.getDiscountFee()));
@@ -229,13 +231,14 @@ public class GoodsBalanceActivity extends BaseActivity implements
 		orderSubmit.setSettleDtos(array);
 		orderSubmit.setAddressId(addressId);
 		final JSONObject json = JSONPaserTool.OrderSubmitPaser(orderSubmit);
-		Http2Utils.doPostRequestTask2(this, getHeaders(),
-				UrlUtil.POST_CLIENT_SETTLE, new VolleyJsonCallback() {
+		VolleyHttp.doPostRequestTask2(getHeaders(), UrlUtil.POST_CLIENT_SETTLE,
+				new VolleyJsonCallback() {
 
 					@Override
 					public void onSuccess(String result) {
 						getLoading().dismiss();
-						goodsBalance = new Gson().fromJson(result,GoodsBalance.class);
+						goodsBalance = new Gson().fromJson(result,
+								GoodsBalance.class);
 						initViewData();
 					}
 
@@ -256,7 +259,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 	private void sendData(OrderSubmit os) {
 		final JSONObject json = JSONPaserTool.OrderSubmitPaser(os);
 		getLoading().show();
-		Http2Utils.doPostRequestTask2(this, getHeaders(),
+		VolleyHttp.doPostRequestTask2(getHeaders(),
 				UrlUtil.POST_CLIENT_ORDER_SUBMIT, new VolleyJsonCallback() {
 
 					@Override
@@ -268,12 +271,15 @@ public class GoodsBalanceActivity extends BaseActivity implements
 							Intent intent = new Intent(getActivity(),
 									OrderSubmitActivity.class);
 							intent.putExtra("orderInfo", info);
-							intent.putExtra("orderType", getIntent().getStringExtra("orderType"));
+							intent.putExtra("orderType", getIntent()
+									.getStringExtra("orderType"));
 							startActivity(intent);
-							sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
+							sendBroadcast(new Intent(
+									AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
 							finish();
 						} else {
-							ToastUtils.Toast(getActivity(), info.getMessage().getMessage());
+							ToastUtils.Toast(getActivity(), info.getMessage()
+									.getMessage());
 						}
 					}
 
@@ -316,7 +322,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 	 * @param settle
 	 */
 	private void initAddressInfo(Settle settle) {
-		if (settle.getAddress()!=null && !settle.getAddress().isEmpty()) {
+		if (settle.getAddress() != null && !settle.getAddress().isEmpty()) {
 			findViewById(R.id.selectAddress).setVisibility(View.VISIBLE);
 			findViewById(R.id.newAddress).setVisibility(View.GONE);
 
@@ -340,7 +346,8 @@ public class GoodsBalanceActivity extends BaseActivity implements
 											14,
 											settle.getAddress().getIdCardNum()
 													.length())));
-			findViewById(R.id.btn_pay).setBackgroundResource(R.drawable.btn_buy_selector);
+			findViewById(R.id.btn_pay).setBackgroundResource(
+					R.drawable.btn_buy_selector);
 			findViewById(R.id.btn_pay).setOnClickListener(this);
 
 		} else {
@@ -442,8 +449,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 	protected void onActivityResult(int arg0, int arg1, Intent arg2) {
 		super.onActivityResult(arg0, arg1, arg2);
 		if (arg1 == 1) {
-			HAddress adress = (HAddress) arg2
-					.getSerializableExtra("address");
+			HAddress adress = (HAddress) arg2.getSerializableExtra("address");
 			selectedId = adress.getAdress_id();
 			if (selectedId != 0) {
 				findViewById(R.id.newAddress).setVisibility(View.GONE);
@@ -462,18 +468,19 @@ public class GoodsBalanceActivity extends BaseActivity implements
 				} else {
 					findViewById(R.id.isDefault).setVisibility(View.GONE);
 				}
-			}else{
+			} else {
 				findViewById(R.id.newAddress).setVisibility(View.VISIBLE);
 				findViewById(R.id.selectAddress).setVisibility(View.GONE);
 			}
 			loadData(selectedId);
 			if (goodsBalance != null) {
-				findViewById(R.id.btn_pay).setBackgroundResource(R.drawable.btn_buy_selector);
+				findViewById(R.id.btn_pay).setBackgroundResource(
+						R.drawable.btn_buy_selector);
 				findViewById(R.id.btn_pay).setOnClickListener(this);
 			}
 		}
 	}
-	
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -485,14 +492,14 @@ public class GoodsBalanceActivity extends BaseActivity implements
 	}
 
 	// 显示取消支付窗口
-		private void showBackDialog() {
-			AlertDialogUtils.showBackDialog(getActivity(), new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					onBackPressed();
-					finish();
-				}
-			});
-		}
+	private void showBackDialog() {
+		AlertDialogUtils.showBackDialog(getActivity(), new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				onBackPressed();
+				finish();
+			}
+		});
+	}
 
 }

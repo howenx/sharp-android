@@ -21,10 +21,10 @@ import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.Logistics;
 import com.hanmimei.entity.LogisticsData;
+import com.hanmimei.http.VolleyHttp;
+import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.utils.ActionBarUtil;
-import com.hanmimei.utils.Http2Utils;
 import com.hanmimei.utils.KeyWordUtil;
-import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
 
 /**
@@ -98,7 +98,7 @@ public class LogisticsActivity extends BaseActivity {
 	 */
 	private void loadData() {
 		getLoading().show();
-		Http2Utils.doGetRequestTask(this, getHeaders(), UrlUtil.WULIU_LIST
+		VolleyHttp.doGetRequestTask( getHeaders(), UrlUtil.WULIU_LIST
 				+ orderId, new VolleyJsonCallback() {
 
 			@Override

@@ -1,4 +1,4 @@
-package com.hanmimei.utils;
+package com.hanmimei.http;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -16,28 +16,28 @@ import com.android.volley.toolbox.StringRequest;
  * 
  */
 
-public class PostStringRequest extends StringRequest {
+public class StringRequestTask extends StringRequest {
 
 	private Map<String, String> map;
 	private Map<String, String> headers  ;
 
-	public PostStringRequest(int method, String url, Listener<String> listener,ErrorListener errorListener) {
+	public StringRequestTask(int method, String url, Listener<String> listener,ErrorListener errorListener) {
 		super(method, url, listener, errorListener);
 
 	}
 
-	public PostStringRequest(String path, Listener<String> listener,ErrorListener errorListener) {
+	public StringRequestTask(String path, Listener<String> listener,ErrorListener errorListener) {
 		super(path, listener, errorListener);
 	}
 
-	public PostStringRequest(int method, String path,Listener<String> listener, ErrorListener errorListener,Map<String, String> map) throws IOException {
+	public StringRequestTask(int method, String path,Listener<String> listener, ErrorListener errorListener,Map<String, String> map) throws IOException {
 		super(method, path, listener, errorListener);
 		if (map != null) {
 			this.map = map;
 		}
 	}
 
-	public PostStringRequest(int method, String path,Listener<String> listener, ErrorListener errorListener,Map<String, String> params, Map<String, String> headers)
+	public StringRequestTask(int method, String path,Listener<String> listener, ErrorListener errorListener,Map<String, String> params, Map<String, String> headers)
 			throws IOException {
 		super(method, path, listener, errorListener);
 		if (params != null) {

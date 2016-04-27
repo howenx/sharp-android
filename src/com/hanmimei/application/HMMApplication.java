@@ -10,6 +10,7 @@ import com.hanmimei.dao.DaoMaster.DevOpenHelper;
 import com.hanmimei.dao.DaoSession;
 import com.hanmimei.entity.User;
 import com.hanmimei.entity.VersionVo;
+import com.hanmimei.http.VolleyHttp;
 import com.testin.agent.TestinAgent;
 import com.umeng.socialize.PlatformConfig;
 
@@ -17,7 +18,6 @@ public class HMMApplication extends Application {
 	private DaoMaster daoMaster;
 	private DaoSession daoSession;
 	private User loginUser;
-	private RequestQueue queue;
 	private String kouling;
 	private VersionVo versionInfo;
 
@@ -27,7 +27,7 @@ public class HMMApplication extends Application {
 		JPushInterface.setDebugMode(true);
 		JPushInterface.init(this); // 初始化 JPush
 		TestinAgent.init(this);
-		queue = Volley.newRequestQueue(this);
+		VolleyHttp.registRequestQueue(this);
 		initPlatformConfig();
 	}
 
@@ -46,9 +46,6 @@ public class HMMApplication extends Application {
 		PlatformConfig.setQQZone("1104980747", "eDLFyqWCM2GzdkMB");
 	}
 
-	public RequestQueue getRequestQueue() {
-		return this.queue;
-	}
 
 	public User getLoginUser() {
 		return loginUser;

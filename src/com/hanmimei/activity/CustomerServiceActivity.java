@@ -32,13 +32,13 @@ import com.hanmimei.entity.GoodsBalance;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.Order;
 import com.hanmimei.entity.Sku;
+import com.hanmimei.http.MultipartRequestParams;
+import com.hanmimei.http.VolleyHttp;
+import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.GlideLoaderUtils;
-import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
-import com.hanmimei.utils.upload.Http3Utils;
-import com.hanmimei.utils.upload.MultipartRequestParams;
 import com.hanmimei.view.CustomGridView;
 import com.hanmimei.view.UDialog;
 import com.hanmimei.view.UDialog.CallBack;
@@ -164,8 +164,7 @@ public class CustomerServiceActivity extends BaseActivity implements
 				if (dialog.getState()) {
 					finish();
 				} else {
-					getMyApplication().getRequestQueue().cancelAll(
-							UrlUtil.CUSTOMER_SERVICE_APPLY);
+					VolleyHttp.getRequestQueue().cancelAll(UrlUtil.CUSTOMER_SERVICE_APPLY);
 				}
 			}
 		});
@@ -175,7 +174,7 @@ public class CustomerServiceActivity extends BaseActivity implements
 	private void submitData(final ProcessButton button, String name,
 			String phone) {
 
-		Http3Utils.doPostRequestTask(this, getHeaders(),
+		VolleyHttp.doPostRequestTask3( getHeaders(),
 				UrlUtil.CUSTOMER_SERVICE_APPLY, new VolleyJsonCallback() {
 
 					@Override

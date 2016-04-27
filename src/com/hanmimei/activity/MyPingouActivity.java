@@ -15,9 +15,9 @@ import com.hanmimei.activity.fragment.MyPinFragment;
 import com.hanmimei.adapter.PinPagerAdapter;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.PinList;
+import com.hanmimei.http.VolleyHttp;
+import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.utils.ActionBarUtil;
-import com.hanmimei.utils.Http2Utils;
-import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.ToastUtils;
 /**
  * 
@@ -42,7 +42,7 @@ public class MyPingouActivity extends BaseActivity {
 
 	private void loadData() {
 		getLoading().show();
-		Http2Utils.doGetRequestTask(this, getHeaders(), UrlUtil.GET_MY_PINTUAN,
+		VolleyHttp.doGetRequestTask( getHeaders(), UrlUtil.GET_MY_PINTUAN,
 				new VolleyJsonCallback() {
 
 					@Override

@@ -33,11 +33,11 @@ import com.hanmimei.entity.OrderInfo;
 import com.hanmimei.entity.OrderList;
 import com.hanmimei.entity.Result;
 import com.hanmimei.entity.Sku;
+import com.hanmimei.http.VolleyHttp;
+import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.CommonUtil;
-import com.hanmimei.utils.Http2Utils;
-import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.KeyWordUtil;
 import com.hanmimei.utils.ToastUtils;
@@ -118,7 +118,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 	//当订单的状态为i时，加载详情数据
 	private void loadData() {
 		getLoading().show();
-		Http2Utils.doGetRequestTask(this, getHeaders(), UrlUtil.GET_ORDER_LIST_URL+"/" + order.getOrderId(), new VolleyJsonCallback() {
+		VolleyHttp.doGetRequestTask( getHeaders(), UrlUtil.GET_ORDER_LIST_URL+"/" + order.getOrderId(), new VolleyJsonCallback() {
 			
 			@Override
 			public void onSuccess(String result) {

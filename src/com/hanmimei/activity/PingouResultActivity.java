@@ -30,10 +30,10 @@ import com.hanmimei.entity.PinUser;
 import com.hanmimei.entity.ShareVo;
 import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
+import com.hanmimei.http.VolleyHttp;
+import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.GlideLoaderUtils;
-import com.hanmimei.utils.Http2Utils;
-import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.KeyWordUtil;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.PushWindow;
@@ -93,7 +93,7 @@ public class PingouResultActivity extends BaseActivity implements
 	 */
 	private void loadPinUrl() {
 		getLoading().show();
-		Http2Utils.doGetRequestTask(this, getHeaders(), getIntent().getStringExtra("url"), new VolleyJsonCallback() {
+		VolleyHttp.doGetRequestTask( getHeaders(), getIntent().getStringExtra("url"), new VolleyJsonCallback() {
 
 			@Override
 			public void onSuccess(String result) {

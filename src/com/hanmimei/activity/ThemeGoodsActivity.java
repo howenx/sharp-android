@@ -30,10 +30,10 @@ import com.hanmimei.entity.HThemeGoods;
 import com.hanmimei.entity.HThemeGoods.ThemeList;
 import com.hanmimei.entity.ImgInfo;
 import com.hanmimei.entity.ShoppingGoods;
+import com.hanmimei.http.VolleyHttp;
+import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
-import com.hanmimei.utils.Http2Utils;
-import com.hanmimei.utils.Http2Utils.VolleyJsonCallback;
 import com.hanmimei.utils.GlideLoaderUtils;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.BadgeView;
@@ -112,7 +112,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 	private void loadUrl() {
 		getLoading().show();
 		Log.i("url", getIntent().getStringExtra("url"));
-		Http2Utils.doGetRequestTask(this, getHeaders(), getIntent()
+		VolleyHttp.doGetRequestTask( getHeaders(), getIntent()
 				.getStringExtra("url"), new VolleyJsonCallback() {
 
 			@Override
@@ -158,7 +158,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 				bView.show(true);
 			}
 		} else {
-			Http2Utils.doGetRequestTask(this, getHeaders(),
+			VolleyHttp.doGetRequestTask( getHeaders(),
 					UrlUtil.GET_CART_NUM_URL, new VolleyJsonCallback() {
 
 						@Override
