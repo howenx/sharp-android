@@ -1,0 +1,28 @@
+/**
+ * @Description: TODO(用一句话描述该文件做什么) 
+ * @author A18ccms A18ccms_gmail_com   
+ * @date 2016-4-26 下午1:21:43 
+**/
+package com.hanmimei.entity;
+
+/**
+ * @author eric
+ *
+ */
+public class OrderRemark {
+	private Sku sku;
+	private Comment comment;
+	public Sku getSku() {
+		return sku;
+	}
+	public void setSku(Sku sku) {
+		this.sku = sku;
+	}
+	public Comment getComment() {
+		return comment;
+	}
+	public void setComment(Comment comment) {
+		this.comment = comment;
+	}
+	
+}

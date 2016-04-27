@@ -80,7 +80,7 @@ public class MyPingouActivity extends BaseActivity {
 
 			PinPagerAdapter adapter = new PinPagerAdapter(
 					this.getSupportFragmentManager(), fragments, titles);
-
+			
 			viewPager.setAdapter(adapter);
 			pagerSlidingTabStrip.setViewPager(viewPager);
 			if(list.getActivityListForMaster().size()<=0 && list.getActivityListForMember().size()>0){

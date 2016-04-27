@@ -193,7 +193,13 @@
         <activity
             android:name="com.hanmimei.activity.ApplyRefundActivity"
             android:screenOrientation="portrait" />
-        
+        <activity
+            android:name="com.hanmimei.activity.PubCommentActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name="com.hanmimei.activity.CommentGoodsActivity"
+            android:screenOrientation="portrait"/>
         <!-- 友盟相关 -->
         <activity
             android:name="com.umeng.socialize.editorpage.ShareActivity"

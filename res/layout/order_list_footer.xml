@@ -41,6 +41,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="付款"/>
+    <TextView 
+        android:id="@+id/go_comment"
+        android:layout_marginLeft="15dp"
+        style="@style/submit_mid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="评价晒单"
+        android:visibility="gone"/>
     
     <TextView 
         android:id="@+id/do_shou"

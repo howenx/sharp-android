@@ -24,6 +24,7 @@ import com.hanmimei.activity.MyCollectionActivity;
 import com.hanmimei.activity.MyCouponActivity;
 import com.hanmimei.activity.MyOrderActivity;
 import com.hanmimei.activity.MyPingouActivity;
+import com.hanmimei.activity.PubCommentActivity;
 import com.hanmimei.dao.UserDao;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
@@ -132,6 +133,7 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 			break;
 		case R.id.order:
 			doJump(MyOrderActivity.class);
+//			doJump(PubCommentActivity.class);
 			break;
 		case R.id.address:
 			doJump(MyAddressActivity.class);

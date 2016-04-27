@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/bg_gray_boarder"
+        android:contentDescription="@null"
+        android:padding="0.1dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/hmm_place_holder_z" />
+
+    <EditText
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/img"
+        android:background="@drawable/bg_gray_boarder"
+        android:gravity="left|top"
+        android:hint="写下您的评价"
+        android:padding="5dp"
+        android:textColor="@color/msg_content"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:id="@+id/img_linear"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/img"
+        android:gravity="center_vertical"
+        android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="上传图片"
+                android:textColor="@color/msg_content"
+                android:textSize="14sp" />
+
+            <com.hanmimei.view.CustomGridView
+                android:id="@+id/mGridView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:horizontalSpacing="8dp"
+                android:numColumns="3"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/upload"
+                android:textColor="#BBBBBB"
+                android:textSize="12sp" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/xian"
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/img_linear"
+        android:background="@color/xian" />
+    <LinearLayout 
+        android:layout_below="@id/xian"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+        <TextView 
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="总体评分"
+            android:textSize="16sp"
+            android:textColor="@color/fontcolor"/>
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_marginLeft="50dp"
+            android:progressDrawable="@drawable/rating_yellow"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:stepSize="1"
+            android:rating="5"/>
+    </LinearLayout>
+
+</RelativeLayout>
