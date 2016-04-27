@@ -7,7 +7,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -77,6 +76,7 @@ import com.umeng.socialize.UMShareAPI;
 /**
  * 
  * @author vince
+ * 
  * 
  */
 public class GoodsDetailActivity extends BaseActivity implements
@@ -347,7 +347,10 @@ public class GoodsDetailActivity extends BaseActivity implements
 			exitClick();
 			break;
 		case R.id.btn_comment:
-			startActivity(new Intent(this, GoodsEvaluateActivity.class));
+			Intent intent = new Intent(this, GoodsCommentActivity.class);
+			intent.putExtra("skuType", detail.getCurrentStock().getSkuType());
+			intent.putExtra("skuTypeId", detail.getCurrentStock().getSkuTypeId());
+			startActivity(intent);
 			break;
 		default:
 			break;

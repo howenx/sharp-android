@@ -4,10 +4,10 @@ public class UrlUtil {
 	/*
 	 * 阿里云
 	 */
-	 public static final String SERVERY3 = "https://api.hanmimei.com";
-	 public static final String SERVERY1 = "https://shopping.hanmimei.com";
-	 public static final String SERVERY4 = "https://id.hanmimei.com";
-	 public static final String SERVERY5 = "https://promotion.hanmimei.com";
+//	 public static final String SERVERY3 = "https://api.hanmimei.com";
+//	 public static final String SERVERY1 = "https://shopping.hanmimei.com";
+//	 public static final String SERVERY4 = "https://id.hanmimei.com";
+//	 public static final String SERVERY5 = "https://promotion.hanmimei.com";
 	/*
 	 * http://172.28.3.78
 	 */
@@ -18,10 +18,10 @@ public class UrlUtil {
 	/*
 	 * http://172.28.3.51
 	 */
-//	public static final String SERVERY3 = "http://172.28.3.51:9001";
-//	public static final String SERVERY1 = "http://172.28.3.51:9003";
-//	public static final String SERVERY4 = "http://172.28.3.51:9004";
-//	public static final String SERVERY5 = "http://172.28.3.51:9005";
+	public static final String SERVERY3 = "http://172.28.3.51:9001";
+	public static final String SERVERY1 = "http://172.28.3.51:9003";
+	public static final String SERVERY4 = "http://172.28.3.51:9004";
+	public static final String SERVERY5 = "http://172.28.3.51:9005";
 	/*
 	 * http://172.28.3.18
 	 */
@@ -131,4 +131,16 @@ public class UrlUtil {
 	public static final String CONFIRM_DELIVERY = SERVERY1 + "/client/order/confirm/delivery/";
 	//查询物流
 	public static final String WULIU_LIST = SERVERY1 + "/client/order/express/";
+	
+	//商品所有评价/comm/detail/comment/$skuType<item|vary|customize|pin>/$skuTypeId<[0-9]+>/$pageNum<[0-9]+>
+	public static final String GOODS_REMARK_ALL = SERVERY3 +"/comm/detail/comment/";
+	
+	//商品好评/comm/comment/rank/best/$skuType<item|vary|customize|pin>/$skuTypeId<[0-9]+>/$pageNum<[0-9]+>  
+	public static final String GOODS_REMARK_GOOD = SERVERY3 +"/comm/comment/rank/best/";
+	
+	//商品差评   /comm/comment/rank/worst/$skuType<item|vary|customize|pin>/$skuTypeId<[0-9]+>/$pageNum<[0-9]+> 
+	public static final String GOODS_REMARK_BAD = SERVERY3 +"/comm/comment/rank/worst/";
+	
+	//商品品论图片/comm/comment/rank/img/$skuType<item|vary|customize|pin>/$skuTypeId<[0-9]+>/$pageNum<[0-9]+>   
+	public static final String GOODS_REMARK_PICTURE = SERVERY3 +"/comm/comment/rank/img/";
 }

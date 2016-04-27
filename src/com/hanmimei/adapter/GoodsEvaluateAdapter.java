@@ -7,7 +7,6 @@ package com.hanmimei.adapter;
 
 import java.util.List;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,18 +17,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hanmimei.R;
-import com.hanmimei.entity.GoodsCommentVo;
+import com.hanmimei.activity.CustomerServiceActivity.GridAdapter;
+import com.hanmimei.entity.RemarkVo;
+import com.hanmimei.utils.GlideLoaderUtils;
 
 /**
  * @author vince
+ * @param <Remark>
  *
  */
 public class GoodsEvaluateAdapter extends BaseAdapter {
 	
-	private List<GoodsCommentVo> datas;
+	private List<RemarkVo> datas;
 	private Context mContext;
 
-	public GoodsEvaluateAdapter(List<GoodsCommentVo> datas, Context mContext) {
+	public GoodsEvaluateAdapter(List<RemarkVo> datas, Context mContext) {
 		super();
 		this.datas = datas;
 		this.mContext = mContext;
@@ -77,7 +79,13 @@ public class GoodsEvaluateAdapter extends BaseAdapter {
 			mViewHolder = (ViewHolder) convertView.getTag();
 		}
 		
+		RemarkVo raRemarkVo = datas.get(position);
+
+		mViewHolder.name.setText(raRemarkVo.getUserName());
+		GlideLoaderUtils.loadGoodsImage(mContext, raRemarkVo.getUserImg(), mViewHolder.header);
+		mViewHolder.content.setText(raRemarkVo.getContent());
 		
+		mViewHolder.images.setAdapter(new GoodsCommentImageAdapter(mContext, raRemarkVo.getPicture()));
 		
 		return convertView;
 	}

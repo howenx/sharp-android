@@ -265,7 +265,7 @@ public class VolleyHttp {
 	//=====================================================================
 	
 	/**
-	 * 实现文件 字典混合提交
+	 * 实现多图片上传 以及文字字典上传
 	 * @param url
 	 * @param callback
 	 * @param params
@@ -276,11 +276,12 @@ public class VolleyHttp {
 	}
 	
 	/**
-	 * 实现文件 字典混合提交
+	 * 实现多图片上传 以及文字字典上传
 	 * @param headers
 	 * @param url
 	 * @param callback
 	 * @param params
+	 * 
 	 */
 	public static void doPostRequestTask3(
 			Map<String, String> headers, String url,
@@ -289,7 +290,7 @@ public class VolleyHttp {
 	}
 		
 		/**
-		 *  实现Volley 异步回调请求的结果
+		 * @Description  实现多图片上传 以及文字字典上传
 		 * @param method
 		 * @param url
 		 * @param callback
