@@ -20,9 +20,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.hanmimei.R;
-import com.hanmimei.activity.GoodsDetailActivity;
-import com.hanmimei.activity.PingouDetailActivity;
-import com.hanmimei.activity.ThemeGoodsActivity;
+import com.hanmimei.activity.goods.detail.GoodsDetailActivity;
+import com.hanmimei.activity.goods.pin.PingouDetailActivity;
+import com.hanmimei.activity.goods.theme.ThemeGoodsActivity;
 import com.hanmimei.entity.Slider;
 
 /**

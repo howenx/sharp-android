@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 
 public class Sku implements Serializable{
+	private String orderId;
 	private String skuId;
 	private int amount;
 	private int price;
@@ -16,6 +17,12 @@ public class Sku implements Serializable{
 	private String skuType;
 	private String skuTypeId;
 	
+	public String getOrderId() {
+		return orderId;
+	}
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
+	}
 	public String getSkuType() {
 		return skuType;
 	}
@@ -45,6 +52,11 @@ public class Sku implements Serializable{
 		this.invUrl = invUrl;
 		this.itemColor = itemColor;
 		this.itemSize = itemSize;
+	}
+	public Sku(String skuId, String invImg) {
+		super();
+		this.skuId = skuId;
+		this.invImg = invImg;
 	}
 	public Sku() {
 		super();

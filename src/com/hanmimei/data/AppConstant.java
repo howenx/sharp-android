@@ -35,4 +35,6 @@ public class AppConstant {
 	public static final String MESSAGE_BROADCAST_UPDATE_NUMBER = "MESSAGE_BROADCAST_UPDATE_NUMBER";
 	//更新消息盒子
 	public static final String MESSAGE_BROADCAST_UPDATE_MSG = "MESSAGE_BROADCAST_UPDATE_MSG";
+	//更新评价
+	public static final String MESSAGE_BROADCAST_UPDATE_COMMENT = "MESSAGE_BROADCAST_UPDATE_COMMENT";
 }

@@ -164,7 +164,7 @@
                     android:orientation="horizontal"
                     android:padding="8dp" >
 
-                    <com.hanmimei.view.RoundImageView
+                    <com.hanmimei.view.CircleImageView
                         android:id="@+id/master_face"
                         android:layout_width="30dp"
                         android:layout_height="30dp"

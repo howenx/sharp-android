@@ -77,31 +77,31 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.ThemeGoodsActivity"
+            android:name="com.hanmimei.activity.goods.theme.ThemeGoodsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.MyOrderActivity"
+            android:name="com.hanmimei.activity.mine.order.MyOrderActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
          <activity
-            android:name="com.hanmimei.activity.MyCouponActivity"
+            android:name="com.hanmimei.activity.mine.coupon.MyCouponActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeForOrder" />
         <activity
-            android:name="com.hanmimei.activity.MyAddressActivity"
+            android:name="com.hanmimei.activity.mine.address.MyAddressActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.EditAdressActivity"
+            android:name="com.hanmimei.activity.mine.address.EditAdressActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.GoodsDetailActivity"
+            android:name="com.hanmimei.activity.goods.detail.GoodsDetailActivity"
             android:screenOrientation="portrait"
              />
         <activity
             android:name="com.hanmimei.activity.OrderDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.SettingActivity"
+            android:name="com.hanmimei.activity.mine.config.SettingActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.hanmimei.activity.LoginActivity"
@@ -117,7 +117,7 @@
             android:name="com.hanmimei.activity.ForgetPwdActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.GoodsBalanceActivity"
+            android:name="com.hanmimei.activity.balance.GoodsBalanceActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.hanmimei.activity.ShoppingCarActivity"
@@ -130,16 +130,16 @@
             android:name="com.hanmimei.activity.EditUserNameActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.GoodsDetailImgActivity"
+            android:name="com.hanmimei.activity.goods.detail.GoodsDetailImgActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.OrderSubmitActivity"
+            android:name="com.hanmimei.activity.balance.OrderSubmitActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.MyCollectionActivity"
+            android:name="com.hanmimei.activity.mine.collect.MyCollectionActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.CustomerServiceActivity"
+            android:name="com.hanmimei.activity.apply.CustomerServiceActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
@@ -152,13 +152,13 @@
             android:name="com.hanmimei.upload.AlbumActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.PingouDetailActivity"
+            android:name="com.hanmimei.activity.goods.pin.PingouDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.PingouResultActivity"
+            android:name="com.hanmimei.activity.goods.pin.PingouResultActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.PingouLiuChengActivity"
+            android:name="com.hanmimei.activity.goods.pin.PingouLiuChengActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.hanmimei.activity.LogisticsActivity"
@@ -173,10 +173,10 @@
             android:name="com.hanmimei.activity.HmmServiceActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.MyPingouActivity"
+            android:name="com.hanmimei.activity.mine.pin.MyPingouActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.PingouDetailSelActivity"
+            android:name="com.hanmimei.activity.goods.pin.PingouDetailSelActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.hanmimei.activity.MessageTypeActivity"
@@ -185,16 +185,26 @@
             android:name="com.hanmimei.activity.MessageActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.MyPingouDetailActivity"
+            android:name="com.hanmimei.activity.mine.pin.MyPingouDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.Html5LoadActivity"
+            android:name="com.hanmimei.activity.goods.h5.Html5LoadActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.ApplyRefundActivity"
+            android:name="com.hanmimei.activity.apply.ApplyRefundActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.GoodsCommentActivity"
+            android:name="com.hanmimei.activity.PubCommentActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name="com.hanmimei.activity.CommentGoodsActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.hanmimei.activity.goods.comment.GoodsCommentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.hanmimei.activity.goods.comment.GoodsCommentImgActivity"
             android:screenOrientation="portrait" />
         
         <!-- 友盟相关 -->

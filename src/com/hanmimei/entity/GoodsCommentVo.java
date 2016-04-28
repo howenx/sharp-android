@@ -5,16 +5,27 @@
  **/
 package com.hanmimei.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author vince
  * 
  */
-public class GoodsCommentVo {
+public class GoodsCommentVo implements Serializable{
 	private HMessage message;
 	private List<RemarkVo> remarkList;
 	private Integer page_count;
+	private String count_num;
+	
+
+	public String getCount_num() {
+		return count_num;
+	}
+
+	public void setCount_num(String count_num) {
+		this.count_num = count_num;
+	}
 
 	public HMessage getMessage() {
 		return message;

@@ -34,8 +34,8 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.hanmimei.R;
 import com.hanmimei.activity.BaseActivity;
-import com.hanmimei.activity.ThemeGoodsActivity;
-import com.hanmimei.activity.Html5LoadActivity;
+import com.hanmimei.activity.goods.h5.Html5LoadActivity;
+import com.hanmimei.activity.goods.theme.ThemeGoodsActivity;
 import com.hanmimei.adapter.HomeAdapter;
 import com.hanmimei.dao.SliderDao;
 import com.hanmimei.dao.ThemeDao;
@@ -52,7 +52,6 @@ import com.hanmimei.utils.PreferenceUtil.IntroConfig;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.CycleViewPager;
 import com.hanmimei.view.IntroMsgDialog;
-import com.hanmimei.view.ViewFactory;
 import com.umeng.analytics.MobclickAgent;
 import com.viewpagerindicator.BaseIconFragment;
 
@@ -175,14 +174,14 @@ public class HomeFragment extends BaseIconFragment implements
 		headerView.setVisibility(View.VISIBLE);
 		views.clear();
 		// 将最后一个ImageView添加进来
-		views.add(ViewFactory.getImageView(mContext,
+		views.add(getImageView(mContext,
 				dataSliders.get(dataSliders.size() - 1).getImgUrl()));
 		for (int i = 0; i < dataSliders.size(); i++) {
-			views.add(ViewFactory.getImageView(mContext, dataSliders.get(i)
+			views.add(getImageView(mContext, dataSliders.get(i)
 					.getImgUrl()));
 		}
 		// 将第一个ImageView添加进来
-		views.add(ViewFactory.getImageView(mContext, dataSliders.get(0)
+		views.add(getImageView(mContext, dataSliders.get(0)
 				.getImgUrl()));
 
 		// 设置循环，在调用setData方法前调用
@@ -453,6 +452,13 @@ public class HomeFragment extends BaseIconFragment implements
 	@Override
 	public int getIconId() {
 		return R.drawable.tab_home;
+	}
+	
+	 private ImageView getImageView(Context context, String url) {
+		ImageView imageView = (ImageView)LayoutInflater.from(context).inflate(
+				R.layout.view_banner, null);
+		GlideLoaderUtils.loadImage(context,url, imageView,R.drawable.hmm_place_holder_j);
+		return imageView;
 	}
 
 }

@@ -31,7 +31,7 @@
             android:layout_centerVertical="true"
             android:src="@drawable/hmm_mine_pagedown" />
 
-        <com.hanmimei.view.RoundImageView
+        <com.hanmimei.view.CircleImageView
             android:id="@+id/headerImg"
             android:layout_width="50dp"
             android:layout_height="50dp"

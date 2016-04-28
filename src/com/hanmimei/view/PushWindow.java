@@ -15,8 +15,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.hanmimei.R;
-import com.hanmimei.activity.GoodsDetailActivity;
-import com.hanmimei.activity.PingouDetailActivity;
+import com.hanmimei.activity.goods.detail.GoodsDetailActivity;
+import com.hanmimei.activity.goods.pin.PingouDetailActivity;
 import com.hanmimei.adapter.TuijianAdapter;
 import com.hanmimei.entity.HGoods;
 

@@ -21,9 +21,10 @@ import android.widget.Toast;
 
 import com.hanmimei.R;
 import com.hanmimei.activity.BaseActivity;
+import com.hanmimei.activity.CommentGoodsActivity;
 import com.hanmimei.activity.LogisticsActivity;
 import com.hanmimei.activity.OrderDetailActivity;
-import com.hanmimei.activity.OrderSubmitActivity;
+import com.hanmimei.activity.balance.OrderSubmitActivity;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
@@ -99,6 +100,8 @@ public class OrderPullListAdapter extends BaseAdapter {
 			holder.bootom = (LinearLayout) convertView
 					.findViewById(R.id.bottom);
 			holder.do_shou = (TextView) convertView.findViewById(R.id.do_shou);
+			holder.go_comment = (TextView) convertView
+					.findViewById(R.id.go_comment);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -136,10 +139,19 @@ public class OrderPullListAdapter extends BaseAdapter {
 			}
 		});
 		holder.goods_post.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(activity,LogisticsActivity.class);
+				Intent intent = new Intent(activity, LogisticsActivity.class);
+				intent.putExtra("orderId", order.getOrderId());
+				activity.startActivity(intent);
+			}
+		});
+		holder.go_comment.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				Intent intent = new Intent(activity, CommentGoodsActivity.class);
 				intent.putExtra("orderId", order.getOrderId());
 				activity.startActivity(intent);
 			}
@@ -151,55 +163,70 @@ public class OrderPullListAdapter extends BaseAdapter {
 			holder.all_price.setText("应付金额：¥"
 					+ CommonUtil.doubleTrans(order.getPayTotal()));
 			holder.state.setText("待支付");
-			//颜色
-			holder.state.setTextColor(activity.getResources().getColor(R.color.theme));
+			// 颜色
+			holder.state.setTextColor(activity.getResources().getColor(
+					R.color.theme));
 			holder.goods_post.setVisibility(View.GONE);
 			holder.go_pay.setVisibility(View.VISIBLE);
 			holder.go_pay.setText("去支付");
 			holder.apply_customer.setVisibility(View.GONE);
 			holder.bootom.setVisibility(View.VISIBLE);
 			holder.do_shou.setVisibility(View.GONE);
+			holder.go_comment.setVisibility(View.GONE);
 		} else if (order.getOrderStatus().equals("S")) {
 			holder.bootom.setVisibility(View.GONE);
-			//颜色
-			holder.state.setTextColor(activity.getResources().getColor(R.color.theme));
-			if(order.getRefund() !=null && !order.getRefund().getState().equals("R")){
-//					String state = "待发货(已锁定)";
-//					KeyWordUtil.setDifrentFontColor12(activity, holder.state, state, 2, state.length());
+			// 颜色
+			holder.state.setTextColor(activity.getResources().getColor(
+					R.color.theme));
+			if (order.getRefund() != null
+					&& !order.getRefund().getState().equals("R")) {
+				// String state = "待发货(已锁定)";
+				// KeyWordUtil.setDifrentFontColor12(activity, holder.state,
+				// state, 2, state.length());
 				holder.state.setText("待发货(已锁定)");
-			}else{
+			} else {
 				holder.state.setText("待发货");
 			}
 		} else if (order.getOrderStatus().equals("D")) {
 			holder.bootom.setVisibility(View.VISIBLE);
 			holder.all_price.setVisibility(View.GONE);
 			holder.state.setText("待收货");
-			//颜色
-			holder.state.setTextColor(activity.getResources().getColor(R.color.theme));
+			// 颜色
+			holder.state.setTextColor(activity.getResources().getColor(
+					R.color.theme));
 			holder.do_shou.setVisibility(View.VISIBLE);
 			holder.go_pay.setVisibility(View.GONE);
 			holder.goods_post.setVisibility(View.VISIBLE);
 			holder.apply_customer.setVisibility(View.GONE);
+			holder.go_comment.setVisibility(View.GONE);
 		} else if (order.getOrderStatus().equals("C")) {
 			holder.state.setText("已取消");
-			//颜色
-			holder.state.setTextColor(activity.getResources().getColor(R.color.fontcolor));
+			// 颜色
+			holder.state.setTextColor(activity.getResources().getColor(
+					R.color.fontcolor));
 			holder.bootom.setVisibility(View.GONE);
 			holder.apply_customer.setVisibility(View.GONE);
 		} else if (order.getOrderStatus().equals("R")) {
 			holder.state.setText("已完成");
-			//颜色
-			holder.state.setTextColor(activity.getResources().getColor(R.color.green));
+			// 颜色
+			holder.state.setTextColor(activity.getResources().getColor(
+					R.color.green));
 			holder.bootom.setVisibility(View.VISIBLE);
 			holder.do_shou.setVisibility(View.GONE);
 			holder.go_pay.setVisibility(View.GONE);
 			holder.all_price.setVisibility(View.GONE);
 			holder.goods_post.setVisibility(View.VISIBLE);
 			holder.apply_customer.setVisibility(View.GONE);
-		}else if(order.getOrderStatus().equals("T")){
+			if(order.getRemark().equals("N")){
+				holder.go_comment.setVisibility(View.VISIBLE);
+			}else{
+				holder.go_comment.setVisibility(View.GONE);
+			}
+		} else if (order.getOrderStatus().equals("T")) {
 			holder.state.setText("已退款");
-			//颜色
-			holder.state.setTextColor(activity.getResources().getColor(R.color.fontcolor));
+			// 颜色
+			holder.state.setTextColor(activity.getResources().getColor(
+					R.color.fontcolor));
 			holder.bootom.setVisibility(View.GONE);
 		}
 		holder.date.setText(order.getOrderCreateAt());
@@ -291,7 +318,8 @@ public class OrderPullListAdapter extends BaseAdapter {
 					@Override
 					public void onSuccess(String result) {
 						activity.getLoading().dismiss();
-						activity.sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_CANCLE_ORDER));
+						activity.sendBroadcast(new Intent(
+								AppConstant.MESSAGE_BROADCAST_CANCLE_ORDER));
 					}
 
 					@Override
@@ -313,6 +341,7 @@ public class OrderPullListAdapter extends BaseAdapter {
 		private TextView apply_customer;
 		private LinearLayout bootom;
 		private TextView do_shou;
+		private TextView go_comment;
 	}
 
 }

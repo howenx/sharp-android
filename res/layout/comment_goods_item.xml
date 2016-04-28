@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white" 
+    android:padding="10dp">
+    <ImageView 
+        android:id="@+id/img"
+        android:padding="0.1dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:contentDescription="@null"
+        android:scaleType="fitXY"
+        android:src="@drawable/hmm_place_holder_z"
+        android:background="@drawable/bg_gray_boarder"/>
+    <TextView 
+        android:id="@+id/title"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="这里是商品的标题"
+        android:maxLines="2"
+        android:textSize="14sp"
+        android:textColor="@color/fontcolor"/>
+    <TextView 
+        android:id="@+id/comment"
+        android:padding="2dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="评价晒单"
+        android:textSize="13sp"
+        android:textColor="@color/theme"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/theme_border"/>
+
+</RelativeLayout>

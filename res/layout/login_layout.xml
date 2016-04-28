@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
@@ -207,30 +209,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center"
-        android:visibility="gone">
+        android:gravity="center">
 
-        <com.hanmimei.view.RoundImageView
+        <com.hanmimei.view.CircleImageView
             android:id="@+id/qq"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/umeng_socialize_qq_on" 
-            android:background="@drawable/qq_border"
-        	android:visibility="gone"/>
-		<com.hanmimei.view.RoundImageView
-		    android:id="@+id/weixin"
-		    android:layout_margin="15dp"
+            app:border_width="0.2dp"
+            app:border_color="#1392D3"/>
+
+        <com.hanmimei.view.CircleImageView
+            android:id="@+id/weixin"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/umeng_socialize_wechat"  
-            android:background="@drawable/weixin_border"/>
-		<com.hanmimei.view.RoundImageView
+            android:layout_margin="15dp"
+            app:border_width="0.2dp"
+            app:border_color="#5DA735"
+            android:src="@drawable/umeng_socialize_wechat" />
+
+		<com.hanmimei.view.CircleImageView
 		    android:id="@+id/sina"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/umeng_socialize_sina_on"  
-            android:background="@drawable/sina_border"
-        	android:visibility="gone"/>
+             app:border_width="0.2dp"
+            app:border_color="#CE625A"
+            android:src="@drawable/umeng_socialize_sina_on"  />
     </LinearLayout>
 
 </LinearLayout>

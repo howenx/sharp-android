@@ -55,6 +55,24 @@
             android:gravity="center"
             android:text="去支付"
             android:visibility="gone" />
+        <TextView
+            android:id="@+id/go_wuliu"
+            style="@style/submit_mid_huise"
+            android:layout_marginLeft="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="查看物流"
+            android:visibility="gone" />
+        <TextView
+            android:id="@+id/go_comment"
+            style="@style/submit_mid"
+            android:layout_marginLeft="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="评价嗮单"
+            android:visibility="gone" />
     </LinearLayout>
 
     <ScrollView

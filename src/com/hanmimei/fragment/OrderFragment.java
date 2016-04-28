@@ -90,7 +90,9 @@ public class OrderFragment extends Fragment implements
 //		} 
 		else if (category.getId().equals("tag04")) {
 			state = 4;
-		} 
+		} else {
+			state = 5;
+		}
 //		else {
 //			state = 5;
 //		}
@@ -156,6 +158,14 @@ public class OrderFragment extends Fragment implements
 					data.add(orders.get(i));
 				}
 			}
+		}else if(state == 5){
+			for (int i = 0; i < orders.size(); i++) {
+				if(orders.get(i).getRemark() != null){
+				if (orders.get(i).getRemark().equals("N")) {
+					data.add(orders.get(i));
+				}
+				}
+			}
 		}
 	}
 
@@ -167,7 +177,10 @@ public class OrderFragment extends Fragment implements
 			}else if(orders.get(i).getOrderStatus().equals("D")){
 				nums_2 = nums_2 + 1;
 			}else if(orders.get(i).getOrderStatus().equals("R")){
-				nums_3 = nums_3 + 1;
+				if(orders.get(i).getRemark() != null){
+					if(orders.get(i).getRemark().equals("N"))
+						nums_3 = nums_3 + 1;
+				}
 			}
 		}
 		OrderNumsMenager.getInstance().numsChanged(nums_1, nums_2, nums_3);

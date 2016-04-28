@@ -30,6 +30,10 @@ public class UrlUtil {
 //	 public static final String SERVERY4 = "http://172.28.3.18:9004";
 //	 public static final String SERVERY5 = "http://172.28.3.18:9005";
 
+	//评价中心
+	public static final String COMMENT_CENTER = SERVERY1 + "/client/comment/center/";
+	//发表评价
+	public static final String PUB_COMMENT  = SERVERY1 + "/client/comment/add";
 	// 图形验证码接口
 	public static final String GET_IMG_CODE = SERVERY4 + "/getImageCodes/";
 	// 忘记密码，手机号检测接口

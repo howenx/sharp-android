@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.hanmimei.activity.goods.detail.GoodsDetailActivity;
+import com.hanmimei.activity.goods.pin.PingouDetailActivity;
+import com.hanmimei.activity.goods.pin.PingouResultActivity;
 import com.hanmimei.data.UrlUtil;
 
 /**

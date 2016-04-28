@@ -21,6 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hanmimei.R;
+import com.hanmimei.activity.apply.ApplyRefundActivity;
+import com.hanmimei.activity.balance.OrderSubmitActivity;
+import com.hanmimei.activity.goods.detail.GoodsDetailActivity;
 import com.hanmimei.activity.listener.TimeEndListner;
 import com.hanmimei.adapter.OrderDetailListAdapter;
 import com.hanmimei.data.AppConstant;
@@ -69,6 +72,8 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 	private TextView tax;
 	private TimerTextView attention;
 	private TextView item_order_id;
+	private TextView go_wuliu;
+	private TextView go_comment;
 	
 	private TextView payBackFee;
 	private TextView reason;
@@ -218,8 +223,10 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 			}
 			order_state.setText("订单状态：已退款");
 			findViewById(R.id.bottom).setVisibility(View.GONE);
-		}else{
-			findViewById(R.id.bottom).setVisibility(View.GONE);
+		}else if(order.getOrderStatus().equals("R")){
+			findViewById(R.id.bottom).setVisibility(View.VISIBLE);
+			go_wuliu.setVisibility(View.VISIBLE);
+			go_comment.setVisibility(View.VISIBLE);
 			order_state.setText("订单状态：已完成");
 		}
 		if(!order.getOrderSplitId().equals("null") && !order.getOrderSplitId().equals("")){
@@ -273,6 +280,10 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		cancle.setOnClickListener(this);
 		go_pay.setOnClickListener(this);
 		findViewById(R.id.go_money).setOnClickListener(this);
+		go_wuliu = (TextView) findViewById(R.id.go_wuliu);
+		go_comment = (TextView) findViewById(R.id.go_comment);
+		go_wuliu.setOnClickListener(this);
+		go_comment.setOnClickListener(this);
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -314,6 +325,15 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 			intent1.putExtra("order", order);
 			startActivityForResult(intent1,1);
 			break;
+		case R.id.go_comment:
+			Intent intentComment = new Intent(this, CommentGoodsActivity.class);
+			intentComment.putExtra("orderId", order.getOrderId());
+			startActivity(intentComment);
+			break;
+		case R.id.go_wuliu:
+			Intent intentPost = new Intent(this, LogisticsActivity.class);
+			intentPost.putExtra("orderId", order.getOrderId());
+			startActivity(intentPost);
 		default:
 			break;
 		}

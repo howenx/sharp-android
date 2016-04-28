@@ -16,8 +16,8 @@
 
         <RelativeLayout
             android:id="@+id/tv_guid1"
-            android:paddingRight="20dp"
-            android:paddingLeft="20dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.0">
@@ -45,8 +45,8 @@
 
        <RelativeLayout
             android:id="@+id/tv_guid2"
-            android:paddingRight="20dp"
-            android:paddingLeft="20dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.0">
@@ -87,8 +87,8 @@
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/tv_guid3"
-            android:paddingRight="20dp"
-            android:paddingLeft="20dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.0">
@@ -134,8 +134,7 @@
             android:paddingLeft="10dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.0"
-            android:visibility="gone">
+            android:layout_weight="1.0">
 
             <TextView
                 android:id="@+id/t4"
@@ -149,8 +148,8 @@
 			<TextView
                 android:id="@+id/t4_nums"
                 android:layout_marginTop="2dp"
-                android:layout_width="12dp"
-                android:layout_height="12dp"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:gravity="center"
@@ -171,6 +170,7 @@
         		android:visibility="invisible"/>
             
         </RelativeLayout>
+        
     </LinearLayout>
 
     

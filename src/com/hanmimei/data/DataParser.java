@@ -10,6 +10,8 @@ import org.json.JSONObject;
 import com.google.gson.Gson;
 import com.hanmimei.entity.Collection;
 import com.hanmimei.entity.CollectionInfo;
+import com.hanmimei.entity.Comment;
+import com.hanmimei.entity.CommentCenter;
 import com.hanmimei.entity.Customs;
 import com.hanmimei.entity.HAddress;
 import com.hanmimei.entity.HThemeGoods;
@@ -24,6 +26,7 @@ import com.hanmimei.entity.MessageResult;
 import com.hanmimei.entity.Notify;
 import com.hanmimei.entity.Order;
 import com.hanmimei.entity.OrderList;
+import com.hanmimei.entity.OrderRemark;
 import com.hanmimei.entity.RefundVo;
 import com.hanmimei.entity.Result;
 import com.hanmimei.entity.ShoppingCar;
@@ -260,6 +263,8 @@ public class DataParser {
 						if(!orderObject.getString("countDown").equals("null"))
 						order.setCountDown(orderObject.getInt("countDown"));
 					}
+					if(orderObject.has("remark"))
+						order.setRemark(orderObject.getString("remark"));
 				}
 				if(obj.has("refund")){
 					RefundVo refund = new RefundVo();
@@ -730,6 +735,85 @@ public class DataParser {
 			e.printStackTrace();
 		}
 		return logistics;
+	}
+	public static CommentCenter parserCommentCenter(String result){
+		CommentCenter center = new CommentCenter();
+		try {
+			JSONObject object = new JSONObject(result);
+			if(object.has("message")){
+				HMessage message = new HMessage();
+				JSONObject msgObject = object.getJSONObject("message");
+				if(msgObject.has("message"))
+					message.setMessage(msgObject.getString("message"));
+				if(msgObject.has("code"))
+					message.setCode(msgObject.getInt("code"));
+				center.setMessage(message);
+			}
+			if(object.has("orderRemark")){
+				List<OrderRemark> list = new ArrayList<OrderRemark>();
+				JSONArray array = object.getJSONArray("orderRemark");
+				for(int i = 0; i < array.length(); i ++){
+					OrderRemark remark = new OrderRemark();
+					JSONObject obj = array.getJSONObject(i);
+					if(obj.has("orderLine")){
+						Sku sku = new Sku();
+						JSONObject skuObject = obj.getJSONObject("orderLine");
+						if(skuObject.has("orderId"))
+							sku.setOrderId(skuObject.getString("orderId"));
+						if(skuObject.has("skuId"))
+							sku.setSkuId(skuObject.getString("skuId"));
+						if(skuObject.has("amount"))
+							sku.setAmount(skuObject.getInt("amount"));
+						if(skuObject.has("price"))
+							sku.setPrice(skuObject.getInt("price"));
+						if(skuObject.has("skuTitle"))
+								sku.setSkuTitle(decode2(skuObject.getString("skuTitle")));
+						if(skuObject.has("invImg")){
+							JSONObject imgObj = new JSONObject(skuObject.getString("invImg"));
+							if(imgObj.has("url"))
+								sku.setInvImg(imgObj.getString("url"));
+						}
+						if(skuObject.has("invUrl"))
+							sku.setInvUrl(skuObject.getString("invUrl"));
+						if(skuObject.has("itemColor"))
+							sku.setItemColor(skuObject.getString("itemColor"));
+						if(skuObject.has("itemSize"))
+							sku.setItemSize(skuObject.getString("itemSize"));
+						if(skuObject.has("skuType"))
+							sku.setSkuType(skuObject.getString("skuType"));
+						if(skuObject.has("skuTypeId"))
+							sku.setSkuTypeId(skuObject.getString("skuTypeId"));
+						remark.setSku(sku);
+					}
+					if(obj.has("comment")){
+						Comment comment = new Comment();
+						JSONObject commentObject = obj.getJSONObject("comment");
+						if(commentObject.has("createAt"))
+							comment.setCreateAt(commentObject.getString("createAt"));
+						if(commentObject.has("content"))
+							comment.setComment(commentObject.getString("content"));
+						if(commentObject.has("picture")){
+//							String path = commentObject.getString("picture");
+							ArrayList<String> arrayList = new ArrayList<>();
+							JSONArray jsonArray = new JSONArray(commentObject.getString("picture"));
+							for(int j = 0; j < jsonArray.length(); j ++){
+								arrayList.add(jsonArray.getString(j));
+							}
+							comment.setPhotoList(arrayList);
+						}
+						if(commentObject.has("grade"))
+							comment.setScore(commentObject.getInt("grade"));
+						remark.setComment(comment);
+					}
+					list.add(remark);
+				}
+				center.setList(list);
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return center;
+		
 	}
 	
 	

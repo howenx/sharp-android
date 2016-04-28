@@ -5,9 +5,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-   <ImageView 
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:id="@+id/my_image_view"/>
+    <com.hanmimei.view.RoundImageView
+        android:id="@+id/my_image_view"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        fresco:borderRadius="10dp"/>
 
 </LinearLayout>

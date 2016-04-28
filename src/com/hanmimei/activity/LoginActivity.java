@@ -231,35 +231,32 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			break;
 		case R.id.qq:
 			//应用宝上线或添加测试账户
-			platform = SHARE_MEDIA.QQ;
-			doOtherLogin();
+			doOtherLogin(SHARE_MEDIA.QQ);
 			break;
 		case R.id.weixin:
-			platform = SHARE_MEDIA.WEIXIN;
-			doOtherLogin();
+			doOtherLogin(SHARE_MEDIA.WEIXIN);
 			break;
-//		case R.id.sina:
-//			platform = SHARE_MEDIA.SINA;
-//			doOtherLogin();
-//			break;
+		case R.id.sina:
+			doOtherLogin(SHARE_MEDIA.SINA);
+			break;
 		default:
 			break;
 		}
 	}
 
-	private void doOtherLogin() {
-		mShareAPI = UMShareAPI.get(this);
+	private void doOtherLogin(SHARE_MEDIA platform) {
+		UMShareAPI mShareAPI = UMShareAPI.get(this);
+		if(!mShareAPI.isInstall(this, platform)){
+			ToastUtils.Toast(this,"请安装客户端");
+			return;
+		}
 		mShareAPI.doOauthVerify(this, platform, umAuthListener);
 	}
 	private UMAuthListener umAuthListener = new UMAuthListener() {
 		@Override
 		public void onComplete(SHARE_MEDIA platform, int action,
 				Map<String, String> data) {
-//			Toast.makeText(getApplicationContext(), "登陆成功", Toast.LENGTH_SHORT)
-//					.show();
-			ToastUtils.Toast(getApplicationContext(),  data.get("openid").toString());
-			chekWinxin(data);
-
+			
 		}
 
 		@Override
@@ -272,24 +269,22 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			ToastUtils.Toast(getApplicationContext(),  "登陆取消");
 		}
 	};
-	private SHARE_MEDIA platform;
-	private UMShareAPI mShareAPI = null;
 
 	private void chekWinxin(Map<String, String> data) {
-		VolleyHttp.doPostRequestTask( "", new VolleyJsonCallback() {
-			
-			@Override
-			public void onSuccess(String result) {
-				if(result == ""){
-					
-				}else{
-				}
-			}
-			@Override
-			public void onError() {
-				ToastUtils.Toast(LoginActivity.this, "登录失败，请检查您的网络");
-			}
-		});
+//		VolleyHttp.doPostRequestTask( "", new VolleyJsonCallback() {
+//			
+//			@Override
+//			public void onSuccess(String result) {
+//				if(result == ""){
+//					
+//				}else{
+//				}
+//			}
+//			@Override
+//			public void onError() {
+//				ToastUtils.Toast(LoginActivity.this, "登录失败，请检查您的网络");
+//			}
+//		});
 	}
 	@SuppressLint("ShowToast")
 	private void loadImg() {
