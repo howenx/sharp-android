@@ -13,15 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hanmimei.R;
-<<<<<<< HEAD:src/com/hanmimei/adapter/MyPinTuanAdapter.java
-import com.hanmimei.activity.MyPingouDetailActivity;
-import com.hanmimei.activity.PingouResultActivity;
-=======
-import com.hanmimei.activity.OrderDetailActivity;
 import com.hanmimei.activity.goods.pin.PingouResultActivity;
 import com.hanmimei.activity.mine.pin.MyPingouDetailActivity;
-import com.hanmimei.entity.Order;
->>>>>>> 97601a51ccb83d925df56dfe80e81785be923218:src/com/hanmimei/activity/mine/pin/adapter/MyPinTuanAdapter.java
 import com.hanmimei.entity.PinActivity;
 import com.hanmimei.utils.GlideLoaderUtils;
 

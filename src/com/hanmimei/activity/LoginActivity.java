@@ -256,15 +256,12 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		@Override
 		public void onComplete(SHARE_MEDIA platform, int action,
 				Map<String, String> data) {
-<<<<<<< HEAD
 //			Toast.makeText(getApplicationContext(), "登陆成功", Toast.LENGTH_SHORT)
 //					.show();
-			ToastUtils.Toast(getApplicationContext(),  data.get("openid").toString() + "!!!!!");
+//			ToastUtils.Toast(getApplicationContext(),  data.get("openid").toString() + "!!!!!");
 			chekWinxin(data);
 
-=======
 			
->>>>>>> 97601a51ccb83d925df56dfe80e81785be923218
 		}
 
 		@Override

@@ -209,32 +209,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-<<<<<<< HEAD
         android:gravity="center"
         android:visibility="visible">
-=======
-        android:gravity="center">
->>>>>>> 97601a51ccb83d925df56dfe80e81785be923218
 
         <com.hanmimei.view.CircleImageView
             android:id="@+id/qq"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/umeng_socialize_qq_on" 
-<<<<<<< HEAD
             android:background="@drawable/qq_border"/>
-		<com.hanmimei.view.RoundImageView
-		    android:id="@+id/weixin"
-		    android:layout_margin="15dp"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/umeng_socialize_wechat"  
-            android:background="@drawable/weixin_border"
-        	android:visibility="gone"/>
-		<com.hanmimei.view.RoundImageView
-=======
-            app:border_width="0.2dp"
-            app:border_color="#1392D3"/>
 
         <com.hanmimei.view.CircleImageView
             android:id="@+id/weixin"
@@ -246,7 +229,6 @@
             android:src="@drawable/umeng_socialize_wechat" />
 
 		<com.hanmimei.view.CircleImageView
->>>>>>> 97601a51ccb83d925df56dfe80e81785be923218
 		    android:id="@+id/sina"
             android:layout_width="40dp"
             android:layout_height="40dp"
