@@ -20,7 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hanmimei.R;
-import com.hanmimei.activity.BaseActivity;
+import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.dao.ShoppingGoodsDao;
 import com.hanmimei.dao.ShoppingGoodsDao.Properties;
 import com.hanmimei.data.DataParser;

@@ -7,6 +7,19 @@ public class PinDetail {
 	private MainVo main;
 	private StockVo stock;
 	private List<HGoods> push;
+	
+	private CommentVo comment;
+	
+	
+	
+	public CommentVo getComment() {
+		if(comment == null)
+			comment = new CommentVo();
+		return comment;
+	}
+	public void setComment(CommentVo comment) {
+		this.comment = comment;
+	}
 	public HMessage getMessage() {
 		return message;
 	}

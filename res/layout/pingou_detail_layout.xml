@@ -125,6 +125,37 @@
                     android:layout_height="wrap_content"
                     android:contentDescription="@null"
                     android:src="@drawable/pingou_wanfa" />
+
+                <RelativeLayout
+                    android:id="@+id/btn_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/white"
+                    android:padding="8dp" >
+
+                    <TextView
+                        android:id="@+id/remarkCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/comment"
+                        android:textColor="@color/fontcolor"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/remarkRate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:drawablePadding="@dimen/driver_padding_small"
+                        android:drawableRight="@drawable/hmm_next_page_gray"
+                        android:text="@string/comment"
+                        android:textColor="@color/fontcolor"
+                        android:textSize="12sp" />
+                </RelativeLayout>
             </LinearLayout>
 
             <com.astuetz.PagerSlidingTabStrip

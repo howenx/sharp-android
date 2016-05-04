@@ -13,7 +13,7 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 import com.hanmimei.R;
-import com.hanmimei.activity.BaseActivity;
+import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.adapter.MyPagerAdapter;
 import com.hanmimei.entity.Category;
 import com.hanmimei.fragment.CouponFragment;

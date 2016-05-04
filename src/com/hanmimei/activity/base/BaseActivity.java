@@ -1,4 +1,4 @@
-package com.hanmimei.activity;
+package com.hanmimei.activity.base;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Build.VERSION;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
@@ -41,6 +42,7 @@ import com.hanmimei.http.VolleyHttp;
 import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.manager.ThreadPoolManager;
 import com.hanmimei.utils.GlideLoaderUtils;
+import com.hanmimei.utils.StatusBarCompat;
 import com.hanmimei.utils.SystemBarTintManager;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.LoadingDialog;
@@ -83,6 +85,9 @@ public class BaseActivity extends ParallaxActivityBase {
 					R.color.btn_pin_pressed));
 		}
 	}
+	
+	
+
 
 	public boolean isShoppingcarChanged() {
 		return shoppingcarChanged;

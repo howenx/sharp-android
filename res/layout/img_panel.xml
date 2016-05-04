@@ -9,6 +9,6 @@
         android:id="@+id/my_image_view"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        fresco:borderRadius="10dp"/>
+        fresco:borderRadius="3dp"/>
 
 </LinearLayout>

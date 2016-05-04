@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
 import com.hanmimei.R;
-import com.hanmimei.activity.BaseActivity;
+import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.utils.ActionBarUtil;
 /**
  * 

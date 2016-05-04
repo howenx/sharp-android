@@ -794,12 +794,14 @@ public class DataParser {
 							comment.setComment(commentObject.getString("content"));
 						if(commentObject.has("picture")){
 //							String path = commentObject.getString("picture");
-							ArrayList<String> arrayList = new ArrayList<>();
-							JSONArray jsonArray = new JSONArray(commentObject.getString("picture"));
-							for(int j = 0; j < jsonArray.length(); j ++){
-								arrayList.add(jsonArray.getString(j));
+							if(commentObject.getString("picture") !=null){
+								ArrayList<String> arrayList = new ArrayList<>();
+								JSONArray jsonArray = new JSONArray(commentObject.getString("picture"));
+								for(int j = 0; j < jsonArray.length(); j ++){
+									arrayList.add(jsonArray.getString(j));
+								}
+								comment.setPhotoList(arrayList);
 							}
-							comment.setPhotoList(arrayList);
 						}
 						if(commentObject.has("grade"))
 							comment.setScore(commentObject.getInt("grade"));

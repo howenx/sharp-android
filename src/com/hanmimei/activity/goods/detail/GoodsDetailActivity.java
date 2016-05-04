@@ -34,11 +34,11 @@ import com.cpoopc.scrollablelayoutlib.ScrollableLayout;
 import com.cpoopc.scrollablelayoutlib.ScrollableLayout.OnScrollListener;
 import com.google.gson.Gson;
 import com.hanmimei.R;
-import com.hanmimei.activity.BaseActivity;
 import com.hanmimei.activity.LoginActivity;
 import com.hanmimei.activity.MainTestActivity;
 import com.hanmimei.activity.ShoppingCarActivity;
 import com.hanmimei.activity.balance.GoodsBalanceActivity;
+import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.activity.goods.comment.GoodsCommentActivity;
 import com.hanmimei.activity.goods.detail.adapter.GoodsDetailPagerAdapter;
 import com.hanmimei.activity.goods.detail.fragment.HotFragment;
@@ -160,7 +160,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		findViewById(R.id.btn_add_shopcart).setOnClickListener(this);
 		findViewById(R.id.btn_portalFee).setOnClickListener(this);
 		findViewById(R.id.back_top).setOnClickListener(this);
-		findViewById(R.id.btn_comment).setOnClickListener(this);
+		
 	}
 
 	/**
@@ -839,8 +839,13 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private void initGoodsComment(CommentVo comm){
 		TextView remarkRate = (TextView) findViewById(R.id.remarkRate);
 		TextView remarkCount = (TextView) findViewById(R.id.remarkCount);
-		remarkCount.setText(getResources().getString(R.string.comment, comm.getRemarkCount()));
-		remarkRate.setText(getResources().getString(R.string.comment_good, comm.getRemarkRate()));
+		if(comm.getRemarkCount()<=0){
+			findViewById(R.id.btn_comment).setVisibility(View.GONE);
+		}else{
+			findViewById(R.id.btn_comment).setOnClickListener(this);
+			remarkCount.setText(getResources().getString(R.string.comment, comm.getRemarkCount()));
+			remarkRate.setText(getResources().getString(R.string.comment_good, comm.getRemarkRate()));
+		}
 	}
 
 

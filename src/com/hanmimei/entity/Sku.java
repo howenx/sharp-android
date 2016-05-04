@@ -2,6 +2,8 @@ package com.hanmimei.entity;
 
 import java.io.Serializable;
 
+import com.google.gson.Gson;
+
 
 public class Sku implements Serializable{
 	private String orderId;
@@ -87,6 +89,9 @@ public class Sku implements Serializable{
 	}
 	public String getInvImg() {
 		return invImg;
+	}
+	public String getInvImg_() {
+		return new Gson().fromJson(invImg, ImgInfo.class).getUrl();
 	}
 	public void setInvImg(String invImg) {
 		this.invImg = invImg;

@@ -7,6 +7,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.hanmimei.R;
+import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.utils.ActionBarUtil;
 

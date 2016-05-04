@@ -16,7 +16,7 @@ import com.android.volley.Response.Listener;
 import com.android.volley.toolbox.HttpStack;
 import com.android.volley.toolbox.Volley;
 import com.android.volley.VolleyError;
-import com.hanmimei.activity.BaseActivity;
+import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.http.MultipartRequest.VolleyResponseListener;
 
 /**

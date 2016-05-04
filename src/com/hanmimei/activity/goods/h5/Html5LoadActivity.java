@@ -12,7 +12,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.hanmimei.R;
-import com.hanmimei.activity.BaseActivity;
+import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.activity.goods.detail.GoodsDetailActivity;
 import com.hanmimei.activity.goods.pin.PingouDetailActivity;
 import com.hanmimei.data.UrlUtil;

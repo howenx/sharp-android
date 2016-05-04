@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hanmimei"
-    android:versionCode="25"
-    android:versionName="v0.2.5" >
+    android:versionCode="27"
+    android:versionName="v0.2.7" >
 
     <uses-sdk
         android:minSdkVersion="11"

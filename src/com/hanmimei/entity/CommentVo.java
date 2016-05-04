@@ -11,7 +11,7 @@ package com.hanmimei.entity;
  */
 public class CommentVo {
 	private Integer remarkCount = 0;
-	private Integer remarkRate = 100;
+	private String remarkRate = "100";
 
 	public Integer getRemarkCount() {
 		return remarkCount;
@@ -25,7 +25,7 @@ public class CommentVo {
 		return remarkRate+"%";
 	}
 
-	public void setRemarkRate(Integer remarkRate) {
+	public void setRemarkRate(String remarkRate) {
 		this.remarkRate = remarkRate;
 	}
 

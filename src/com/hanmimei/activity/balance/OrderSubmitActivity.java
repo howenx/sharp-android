@@ -18,8 +18,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.hanmimei.R;
-import com.hanmimei.activity.BaseActivity;
 import com.hanmimei.activity.MainActivity;
+import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.activity.goods.pin.PingouResultActivity;
 import com.hanmimei.activity.mine.order.MyOrderActivity;
 import com.hanmimei.data.UrlUtil;

@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/background"
-    android:orientation="vertical"
-    android:paddingTop="10dp" >
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -15,8 +14,8 @@
 
         <com.hanmimei.view.CircleImageView
             android:id="@+id/header"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_centerVertical="true"
             android:contentDescription="@null"
             android:src="@drawable/hmm_place_holder_z"/>
@@ -30,7 +29,7 @@
             android:layout_toRightOf="@id/header"
             android:text="会飞的猪"
             android:textColor="@color/fontcolor"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/create_time"
@@ -41,7 +40,7 @@
             android:layout_marginLeft="20dp"
             android:text="sdfsdf"
             android:textColor="@color/huise"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -73,10 +72,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="5dp"
             android:horizontalSpacing="5dp"
             android:numColumns="3"
             android:verticalSpacing="5dp" />
+         <TextView
+            android:id="@+id/size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/mGridView"
+            android:layout_marginTop="5dp"
+            android:text="asdkjfaklsdf;klasfklakllkalk;ads"
+            android:textColor="@color/huise"
+            android:textSize="12sp" />
+          <TextView
+            android:id="@+id/buy_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/size"
+            android:layout_marginTop="5dp"
+            android:text="asdkjfaklsdf;klasfklakllkalk;ads"
+            android:textColor="@color/huise"
+            android:textSize="12sp" />
     </RelativeLayout>
 
 </LinearLayout>

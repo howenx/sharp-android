@@ -68,7 +68,8 @@ public class CommentGoodsAdapter extends BaseAdapter {
 	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup arg2) {
-		final Sku sku = list.get(position).getSku();
+//		final Sku sku = list.get(position).getSku();
+		final Sku sku = list.get(position).getOrderLine();
 		final Comment comment = list.get(position).getComment();
 		ViewHolder holder = null;
 		if(convertView == null){
@@ -82,7 +83,7 @@ public class CommentGoodsAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		holder.title.setText(sku.getSkuTitle());
-		GlideLoaderUtils.loadCirlceImage(mContext, sku.getInvImg(), holder.img);
+		GlideLoaderUtils.loadImage(mContext, sku.getInvImg_(), holder.img);
 		if(comment != null){
 			holder.comment.setText("查看评价");
 		}else{

@@ -12,7 +12,7 @@ import com.dd.processbutton.OnStateListener;
 import com.dd.processbutton.ProcessButton;
 import com.google.gson.Gson;
 import com.hanmimei.R;
-import com.hanmimei.activity.BaseActivity;
+import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.GoodsBalance;
 import com.hanmimei.entity.HMessage;

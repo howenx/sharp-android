@@ -22,8 +22,8 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.hanmimei.R;
-import com.hanmimei.activity.BaseActivity;
 import com.hanmimei.activity.balance.adapter.GoodsBalanceCustomAdapter;
+import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.activity.mine.address.MyAddressActivity;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.JSONPaserTool;

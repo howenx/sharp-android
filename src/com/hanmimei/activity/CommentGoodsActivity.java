@@ -16,7 +16,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.ListView;
 
+import com.google.gson.Gson;
 import com.hanmimei.R;
+import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.adapter.CommentGoodsAdapter;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
@@ -64,11 +66,12 @@ public class CommentGoodsActivity extends BaseActivity{
 			@Override
 			public void onSuccess(String result) {
 				getLoading().dismiss();
-				CommentCenter center = DataParser.parserCommentCenter(result);
+//				CommentCenter center = DataParser.parserCommentCenter(result);
+				CommentCenter center = new Gson().fromJson(result, CommentCenter.class);
 				if(center.getMessage() != null){
 					if(center.getMessage().getCode() == 200){
 						list.clear();
-						list.addAll(center.getList());
+						list.addAll(center.getOrderRemark());
 						adapter.notifyDataSetChanged();
 					}else{
 						ToastUtils.Toast(CommentGoodsActivity.this, center.getMessage().getMessage());

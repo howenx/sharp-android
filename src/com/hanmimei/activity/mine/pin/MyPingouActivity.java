@@ -11,7 +11,7 @@ import android.support.v4.view.ViewPager;
 import com.astuetz.PagerSlidingTabStrip;
 import com.google.gson.Gson;
 import com.hanmimei.R;
-import com.hanmimei.activity.BaseActivity;
+import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.activity.mine.pin.adapter.PinPagerAdapter;
 import com.hanmimei.activity.mine.pin.fragment.MyPinFragment;
 import com.hanmimei.data.UrlUtil;

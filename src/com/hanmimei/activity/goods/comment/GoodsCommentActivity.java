@@ -17,7 +17,7 @@ import android.support.v4.view.ViewPager;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.hanmimei.R;
-import com.hanmimei.activity.BaseActivity;
+import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.activity.goods.comment.fragment.GoodsComImgFragment;
 import com.hanmimei.activity.goods.comment.fragment.GoodsCommentFragment;
 import com.hanmimei.activity.goods.comment.fragment.GoodsCommentFragment.EvaType;

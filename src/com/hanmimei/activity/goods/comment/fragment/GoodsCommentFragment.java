@@ -192,7 +192,7 @@ public class GoodsCommentFragment extends BaseIconFragment implements
 	 */
 	@Override
 	public String getTitle() {
-		if (vo != null && vo.getCount_num() != null)
+		if (vo != null)
 			return type.getName() + "\n" + vo.getCount_num();
 		return type.getName();
 	}

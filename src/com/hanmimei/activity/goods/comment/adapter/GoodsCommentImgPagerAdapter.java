@@ -70,8 +70,14 @@ public class GoodsCommentImgPagerAdapter extends FragmentStatePagerAdapter {
 
 			final TouchImageView image = (TouchImageView) v
 					.findViewById(R.id.mImageView);
+			View parentPanel = v.findViewById(R.id.parentPanel);
+			
 			final String imageUrl = getArguments().getString("imageUrl");
 			GlideLoaderUtils.loadGoodsImage(getActivity(), imageUrl, image);
+			
+			
+			
+			
 			image.setOnClickListener(new OnClickListener() {
 				
 				@Override
@@ -84,5 +90,22 @@ public class GoodsCommentImgPagerAdapter extends FragmentStatePagerAdapter {
 		}
 
 	}
+	
+	private int mChildCount = 0;
+	 
+    @Override
+    public void notifyDataSetChanged() {         
+          mChildCount = getCount();
+          super.notifyDataSetChanged();
+    }
+
+    @Override
+    public int getItemPosition(Object object)   {          
+          if ( mChildCount > 0) {
+          mChildCount --;
+          return POSITION_NONE;
+          }
+          return super.getItemPosition(object);
+    }
 
 }

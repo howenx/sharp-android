@@ -55,6 +55,7 @@ public class GlideLoaderUtils {
 		Glide.with(context).load(url).placeholder(R.drawable.hmm_place_holder_z)
 				.animate(R.anim.abc_fade_in).into(imgView);
 	}
+	
 
 	public static void loadThemeImage(Context mContext, ImageView imgView,
 			String url, int w, int h) {

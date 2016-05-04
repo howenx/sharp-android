@@ -20,11 +20,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hanmimei.R;
-import com.hanmimei.activity.BaseActivity;
 import com.hanmimei.activity.CommentGoodsActivity;
 import com.hanmimei.activity.LogisticsActivity;
 import com.hanmimei.activity.OrderDetailActivity;
 import com.hanmimei.activity.balance.OrderSubmitActivity;
+import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;

@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.hanmimei.R;
-import com.hanmimei.activity.BaseActivity;
+import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.adapter.TicketAdapter;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.Category;

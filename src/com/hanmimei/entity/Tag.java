@@ -2,8 +2,8 @@ package com.hanmimei.entity;
 
 public class Tag {
 	private String content;
-	private String state;			//Y'--正常,'D'--下架,'N'--删除,'K'--售空
-	private Boolean orMasterInv;
+	private String state="Y";			//Y'--正常,'D'--下架,'N'--删除,'K'--售空
+	private Boolean orMasterInv=false;
 	public String getContent() {
 		return content;
 	}

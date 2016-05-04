@@ -33,7 +33,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.hanmimei.R;
-import com.hanmimei.activity.BaseActivity;
+import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.activity.goods.h5.Html5LoadActivity;
 import com.hanmimei.activity.goods.theme.ThemeGoodsActivity;
 import com.hanmimei.adapter.HomeAdapter;
@@ -133,7 +133,6 @@ public class HomeFragment extends BaseIconFragment implements
 		findHeaderView();
 		loadData();
 		addHeaderView();
-		IntroMsg();
 		return view;
 	}
 	
@@ -300,6 +299,7 @@ public class HomeFragment extends BaseIconFragment implements
 					mListView.setVisibility(View.GONE);
 					no_net.setVisibility(View.VISIBLE);
 				}
+				IntroMsg();
 				break;
 			case 2:
 				mListView.onRefreshComplete();

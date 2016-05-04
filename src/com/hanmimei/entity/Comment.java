@@ -7,6 +7,10 @@ package com.hanmimei.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 /**
  * @author eric
@@ -59,6 +63,56 @@ public class Comment implements Serializable{
 	public void setScore(float score) {
 		this.score = score;
 	}
+	
+	private String content;
+	private String picture;
+	private Integer grade;
+	private String skuType;
+	private String skuTypeId;
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public String getPicture() {
+		return picture;
+	}
+	public List<String> getPicture_() {
+		return new Gson().fromJson(picture, new TypeToken<List<String>>(){}.getType());
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+
+	public Integer getGrade() {
+		return grade;
+	}
+
+	public void setGrade(Integer grade) {
+		this.grade = grade;
+	}
+
+	public String getSkuType() {
+		return skuType;
+	}
+
+	public void setSkuType(String skuType) {
+		this.skuType = skuType;
+	}
+
+	public String getSkuTypeId() {
+		return skuTypeId;
+	}
+
+	public void setSkuTypeId(String skuTypeId) {
+		this.skuTypeId = skuTypeId;
+	}
+	
+	
 	
 	
 }

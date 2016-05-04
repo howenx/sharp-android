@@ -26,10 +26,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hanmimei.R;
+import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.HMessage;
+import com.hanmimei.override.HTextWatcher;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.CommonUtil;
@@ -39,7 +41,6 @@ import com.hanmimei.utils.HttpUtils;
  * @author eric
  *
  */
-@SuppressLint("NewApi")
 public class CheckPhoneActivity extends BaseActivity implements OnClickListener {
 
 	private TextView next;
@@ -73,19 +74,7 @@ public class CheckPhoneActivity extends BaseActivity implements OnClickListener 
 		clear_phone.setOnClickListener(this);
 	}
 
-	TextWatcher mTextWatcher = new TextWatcher() {
-		@Override
-		public void onTextChanged(CharSequence s, int start, int before,
-				int count) {
-
-		}
-
-		@Override
-		public void beforeTextChanged(CharSequence s, int start, int count,
-				int after) {
-
-		}
-
+	HTextWatcher mTextWatcher = new HTextWatcher(){
 		@Override
 		public void afterTextChanged(Editable s) {
 			if (s.length() == 11) {
@@ -151,6 +140,7 @@ public class CheckPhoneActivity extends BaseActivity implements OnClickListener 
 		}).start();
 	}
 
+	@SuppressLint("HandlerLeak")
 	private Handler mHandler = new Handler() {
 
 		@Override
@@ -212,7 +202,7 @@ public class CheckPhoneActivity extends BaseActivity implements OnClickListener 
 	}
 	@Override
 	public void onDestroy() {
-		// TODO Auto-generated method stub
+		// TODO 活动销毁
 		super.onDestroy();
 		unregisterReceiver(netReceiver);
 	}

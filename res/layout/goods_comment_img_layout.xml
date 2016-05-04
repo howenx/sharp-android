@@ -43,11 +43,22 @@
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:layout_below="@id/ratingBar"
+            android:layout_marginTop="5dp"
             android:text="ddasdfadlkahlsdhjlahlkjasdflkhjfdklhjafsdklhjafkhjalsdkjhafdskjhfakhjfa"
             android:textColor="@color/white"
             android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/content"
+            android:layout_marginTop="5dp"
+            android:text="asdkjfaklsdf;klasfklakllkalk;ads"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+
     </RelativeLayout>
 
 </RelativeLayout>

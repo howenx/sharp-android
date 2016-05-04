@@ -23,7 +23,9 @@ import android.widget.Toast;
 import com.hanmimei.R;
 import com.hanmimei.activity.apply.ApplyRefundActivity;
 import com.hanmimei.activity.balance.OrderSubmitActivity;
+import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.activity.goods.detail.GoodsDetailActivity;
+import com.hanmimei.activity.goods.pin.PingouDetailActivity;
 import com.hanmimei.activity.listener.TimeEndListner;
 import com.hanmimei.adapter.OrderDetailListAdapter;
 import com.hanmimei.data.AppConstant;
@@ -226,7 +228,12 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		}else if(order.getOrderStatus().equals("R")){
 			findViewById(R.id.bottom).setVisibility(View.VISIBLE);
 			go_wuliu.setVisibility(View.VISIBLE);
-			go_comment.setVisibility(View.VISIBLE);
+			if(order.getRemark().equals("N")){
+				go_comment.setVisibility(View.VISIBLE);
+			}else{
+				go_comment.setVisibility(View.GONE);
+			}
+			
 			order_state.setText("订单状态：已完成");
 		}
 		if(!order.getOrderSplitId().equals("null") && !order.getOrderSplitId().equals("")){
@@ -289,8 +296,14 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				Intent intent = new Intent(OrderDetailActivity.this,
-						GoodsDetailActivity.class);
+				Intent intent = null;
+				if(list.get(arg2).getSkuType().equals("pin")){
+					intent = new Intent(OrderDetailActivity.this,
+							PingouDetailActivity.class);
+				}else{
+					intent = new Intent(OrderDetailActivity.this,
+							GoodsDetailActivity.class);
+				}
 				intent.putExtra("url", list.get(arg2).getInvUrl());
 				startActivity(intent);
 			}

@@ -23,6 +23,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.hanmimei.R;
+import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.adapter.ImageGridAdapter;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
@@ -84,13 +85,23 @@ public class PubCommentActivity extends BaseActivity implements OnClickListener{
 	 */
 	private void initView() {
 //		GlideLoaderUtils.loadImage(this, sku.getInvImg(), img, R.drawable.hmm_place_holder_z);
-		content.setText(comment.getComment());
+//		content.setText(comment.getComment());
+//		content.setCursorVisible(false);      
+//		content.setFocusable(false);         
+//		content.setFocusableInTouchMode(false);
+//		photoList.addAll(comment.getPhotoList());
+//		adapter.notifyDataSetChanged();
+//		ratingBar.setRating(comment.getScore());
+//		ratingBar.setIsIndicator(true);
+		content.setText(comment.getContent());
 		content.setCursorVisible(false);      
 		content.setFocusable(false);         
 		content.setFocusableInTouchMode(false);
-		photoList.addAll(comment.getPhotoList());
-		adapter.notifyDataSetChanged();
-		ratingBar.setRating(comment.getScore());
+		if(comment.getPicture() !=null){
+			photoList.addAll(comment.getPicture_());
+			adapter.notifyDataSetChanged();
+		}
+		ratingBar.setRating(comment.getGrade());
 		ratingBar.setIsIndicator(true);
 	}
 
@@ -135,7 +146,7 @@ public class PubCommentActivity extends BaseActivity implements OnClickListener{
 			findViewById(R.id.attention).setVisibility(View.GONE);
 			findViewById(R.id.submit).setVisibility(View.GONE);
 		}
-		GlideLoaderUtils.loadImage(this, sku.getInvImg(), img, R.drawable.hmm_place_holder_z);
+		GlideLoaderUtils.loadImage(this, sku.getInvImg_(), img, R.drawable.hmm_place_holder_z);
 		content.addTextChangedListener(new TextWatcher() {
 			
 			@Override

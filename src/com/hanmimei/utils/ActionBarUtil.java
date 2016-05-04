@@ -2,13 +2,13 @@ package com.hanmimei.utils;
 
 import android.content.Context;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hanmimei.R;
-import com.hanmimei.activity.BaseActivity;
 
 public class ActionBarUtil {
 	/**
@@ -74,11 +74,11 @@ public class ActionBarUtil {
 	 */
 	public static View setActionBarStyle(Context context, String title,
 			int img, Boolean isBack, OnClickListener bl, OnClickListener l) {
-		final BaseActivity activity = (BaseActivity) context;
+		final AppCompatActivity activity = (AppCompatActivity) context;
 		ActionBar actionbar = activity.getSupportActionBar();
 		actionbar.show();
 		actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-		actionbar.setDisplayShowTitleEnabled(true);
+		actionbar.setDisplayShowTitleEnabled(false);
 		actionbar.setDisplayShowCustomEnabled(true);
 		actionbar.setCustomView(R.layout.main_header_layout);
 		View view = actionbar.getCustomView();

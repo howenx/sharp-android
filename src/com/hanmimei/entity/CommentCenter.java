@@ -14,6 +14,7 @@ import java.util.List;
 public class CommentCenter {
 	private HMessage message;
 	private List<OrderRemark> list;
+	private List<OrderRemark> orderRemark;
 	public HMessage getMessage() {
 		return message;
 	}
@@ -25,6 +26,12 @@ public class CommentCenter {
 	}
 	public void setList(List<OrderRemark> list) {
 		this.list = list;
+	}
+	public List<OrderRemark> getOrderRemark() {
+		return orderRemark;
+	}
+	public void setOrderRemark(List<OrderRemark> orderRemark) {
+		this.orderRemark = orderRemark;
 	}
 	
 }

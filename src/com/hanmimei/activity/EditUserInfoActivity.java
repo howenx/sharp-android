@@ -26,7 +26,6 @@ import android.os.Message;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
@@ -34,6 +33,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hanmimei.R;
+import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
@@ -43,7 +43,7 @@ import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.AlertDialogUtils.OnPhotoSelListener;
 import com.hanmimei.utils.CommonUtil;
-import com.hanmimei.utils.DateUtil;
+import com.hanmimei.utils.DateUtils;
 import com.hanmimei.utils.GlideLoaderUtils;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ImgUtils;
@@ -341,7 +341,7 @@ public class EditUserInfoActivity extends BaseActivity implements
 	// 将图片保存至本地制定文件夹
 	@SuppressLint("SdCardPath")
 	private File saveBitmapFile(Bitmap bitmap) {
-		file_name = DateUtil.getStringDate() + ".jpg";
+		file_name = DateUtils.getStringDate() + ".jpg";
 		File file = new File(IMG_PATH + "/" + file_name);// 将要保存图片的路径
 		File mWorkingPath = new File(IMG_PATH);
 		// 路径不存在就创建

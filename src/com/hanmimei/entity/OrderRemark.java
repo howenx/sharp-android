@@ -25,4 +25,14 @@ public class OrderRemark {
 		this.comment = comment;
 	}
 	
+	private Sku orderLine;
+	public Sku getOrderLine() {
+		return orderLine;
+	}
+	public void setOrderLine(Sku orderLine) {
+		this.orderLine = orderLine;
+	}
+	
+	
+	
 }

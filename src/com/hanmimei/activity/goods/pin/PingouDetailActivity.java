@@ -31,10 +31,10 @@ import com.cpoopc.scrollablelayoutlib.ScrollableLayout;
 import com.cpoopc.scrollablelayoutlib.ScrollableLayout.OnScrollListener;
 import com.google.gson.Gson;
 import com.hanmimei.R;
-import com.hanmimei.activity.BaseActivity;
 import com.hanmimei.activity.LoginActivity;
 import com.hanmimei.activity.MainTestActivity;
 import com.hanmimei.activity.balance.GoodsBalanceActivity;
+import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.activity.goods.detail.adapter.GoodsDetailPagerAdapter;
 import com.hanmimei.activity.goods.detail.fragment.HotFragment;
 import com.hanmimei.activity.goods.detail.fragment.ImgFragment;
@@ -42,6 +42,7 @@ import com.hanmimei.activity.goods.detail.fragment.ParamsFragment;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
+import com.hanmimei.entity.CommentVo;
 import com.hanmimei.entity.Customs;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.ImgInfo;
@@ -112,6 +113,7 @@ public class PingouDetailActivity extends BaseActivity implements
 				if (detail.getMessage().getCode() == 200) {
 					loadFragmentData();
 					initGoodsDetail(detail.getStock());
+					initGoodsComment(detail.getComment());
 					mScrollLayout.canScroll();
 				} else {
 					ToastUtils.Toast(getActivity(), detail.getMessage()
@@ -209,6 +211,18 @@ public class PingouDetailActivity extends BaseActivity implements
 		}, networkImages).setPageIndicator(
 				new int[] { R.drawable.page_indicator,
 						R.drawable.page_indicator_fcoused });
+	}
+	
+	private void initGoodsComment(CommentVo comm){
+		if(comm.getRemarkCount()<=0){
+			findViewById(R.id.btn_comment).setVisibility(View.GONE);
+		}else{
+			findViewById(R.id.btn_comment).setOnClickListener(this);
+			TextView remarkRate = (TextView) findViewById(R.id.remarkRate);
+			TextView remarkCount = (TextView) findViewById(R.id.remarkCount);
+			remarkCount.setText(getResources().getString(R.string.comment, comm.getRemarkCount()));
+			remarkRate.setText(getResources().getString(R.string.comment_good, comm.getRemarkRate()));
+		}
 	}
 
 	@Override

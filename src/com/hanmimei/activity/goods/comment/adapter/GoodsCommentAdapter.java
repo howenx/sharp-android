@@ -11,6 +11,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -97,15 +99,24 @@ public class GoodsCommentAdapter extends BaseAdapter {
 		mViewHolder.content.setText(raRemarkVo.getContent());
 		mViewHolder.create_time.setText(raRemarkVo.getCreateAt());
 		mViewHolder.ratingBar.setImageResource(raRemarkVo.getGradeResource());
-		if (raRemarkVo.getPictureList() != null)
+		if(raRemarkVo.getSize()!=null){
+			mViewHolder.size.setVisibility(View.VISIBLE);
+			mViewHolder.size.setText("规格："+raRemarkVo.getSize());
+		}else{
+			mViewHolder.size.setVisibility(View.GONE);
+		}
+		mViewHolder.buy_time.setText("购买日期："+raRemarkVo.getBuyAt());
+		if (raRemarkVo.getPictureList() != null){
 			mViewHolder.images.setAdapter(new GoodsCommentImageAdapter(
 					mContext, raRemarkVo.getPictureList()));
+		}
+			
 
 		return convertView;
 	}
 
 	private class ViewHolder {
-		TextView name, content, create_time;
+		TextView name, content, create_time,buy_time,size;
 		ImageView ratingBar;
 		CircleImageView header;
 		GridView images;
@@ -116,6 +127,10 @@ public class GoodsCommentAdapter extends BaseAdapter {
 			this.content = (TextView) convertView.findViewById(R.id.content);
 			this.create_time = (TextView) convertView
 					.findViewById(R.id.create_time);
+			this.buy_time = (TextView) convertView
+					.findViewById(R.id.buy_time);
+			this.size = (TextView) convertView
+					.findViewById(R.id.size);
 			this.header = (CircleImageView) convertView
 					.findViewById(R.id.header);
 			this.images = (GridView) convertView.findViewById(R.id.mGridView);

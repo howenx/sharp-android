@@ -21,9 +21,9 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.hanmimei.R;
-import com.hanmimei.activity.BaseActivity;
 import com.hanmimei.activity.LoginActivity;
 import com.hanmimei.activity.balance.GoodsBalanceActivity;
+import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.activity.listener.TimeEndListner;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.entity.Customs;

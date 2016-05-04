@@ -1,3 +1,4 @@
+
 package com.hanmimei.view;
 
 import android.content.Context;
@@ -9,7 +10,13 @@ import android.widget.TextView;
 
 import com.hanmimei.R;
 import com.hanmimei.activity.listener.TimeEndListner;
-
+/**
+ * 倒计时 （天时分秒）
+ * 
+ * @author vince
+ * @since 
+ *
+ */
 public class TimeDownView extends RelativeLayout implements Runnable {
 
 	private TextView timedown_day, timedown_hour, timedown_min,

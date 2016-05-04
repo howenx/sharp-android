@@ -27,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hanmimei.R;
+import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.activity.listener.TimeEndListner;
 import com.hanmimei.application.HMMApplication;
 import com.hanmimei.dao.ShoppingGoodsDao;
@@ -39,7 +40,7 @@ import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.User;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
-import com.hanmimei.utils.DateUtil;
+import com.hanmimei.utils.DateUtils;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.KeyWordUtil;
 import com.hanmimei.view.YanZhengCodeTextView;
@@ -369,8 +370,8 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 		user.setUserId(0);
 		user.setToken(hMessage.getTag());
 		user.setIsBind(false);
-		user.setExpired(DateUtil.turnToDate(hMessage.getTime()));
-		user.setLast_login(DateUtil.getCurrentDate());
+		user.setExpired(DateUtils.turnToDate(hMessage.getTime()));
+		user.setLast_login(DateUtils.getCurrentDate());
 		HMMApplication application = (HMMApplication) getApplication();
 		application.setLoginUser(user);
 		// 登录用户存储到本地sql

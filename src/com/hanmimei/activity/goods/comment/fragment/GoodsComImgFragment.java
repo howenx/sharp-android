@@ -75,8 +75,11 @@ public class GoodsComImgFragment extends BaseIconFragment  implements OnScrollTo
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				Intent intent = new Intent(getActivity(), GoodsCommentImgActivity.class);
+				vo.setPosition(position);
+				vo.setLoadUrl(loadUrl);
+				vo.setPics(pics);
+				vo.setIndex(index);
 				intent.putExtra("GoodsCommentVo", vo);
-				intent.putExtra("position", position);
 				startActivity(intent);
 			}
 		});
