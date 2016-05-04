@@ -68,8 +68,8 @@ public class PubCommentActivity extends BaseActivity implements OnClickListener{
 		if(getIntent().getSerializableExtra("comment") != null){
 			comment = (Comment) getIntent().getSerializableExtra("comment");
 		}
-//		orderId = getIntent().getStringExtra("orderId");
 		photoList = new ArrayList<String>();
+		//有评论展示，未评论评论
 		if(comment != null){
 			adapter = new ImageGridAdapter(this, photoList,true);
 			findView();
@@ -81,7 +81,7 @@ public class PubCommentActivity extends BaseActivity implements OnClickListener{
 	}
 
 	/**
-	 * 
+	 * 界面控件只读
 	 */
 	private void initView() {
 //		GlideLoaderUtils.loadImage(this, sku.getInvImg(), img, R.drawable.hmm_place_holder_z);
@@ -106,7 +106,7 @@ public class PubCommentActivity extends BaseActivity implements OnClickListener{
 	}
 
 	/**
-	 * 
+	 * 初始化控件
 	 */
 	private void findView() {
 		img = (ImageView) findViewById(R.id.img);
@@ -151,15 +151,11 @@ public class PubCommentActivity extends BaseActivity implements OnClickListener{
 			
 			@Override
 			public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-				// TODO Auto-generated method stub
-				
 			}
 			
 			@Override
 			public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
 					int arg3) {
-				// TODO Auto-generated method stub
-				
 			}
 			
 			@Override
@@ -172,19 +168,19 @@ public class PubCommentActivity extends BaseActivity implements OnClickListener{
 			}
 		});
 	}
-
+	//检查输入是否符合要求
 	private void checkInput(){
 		comment_str = content.getText().toString();
 		grade = (int)ratingBar.getRating();
-		if(10 <= comment_str.length() &&  comment_str.length()<= 100){
+		if(10 <= comment_str.length() &&  comment_str.length()<= 500){
 			pubComment();
 		}else{
-			ToastUtils.Toast(this, "评价在10到100字之间，请检查您输入的字数");
+			ToastUtils.Toast(this, "评价在10到500字之间，请检查您输入的字数");
 		}
 	}
 
 	/**
-	 * 
+	 * 发表评论
 	 */
 	private void pubComment() {
 		getLoading().show();
@@ -210,6 +206,7 @@ public class PubCommentActivity extends BaseActivity implements OnClickListener{
 					}
 				}, getParams());
 	}
+	//获得所需的params
 	private MultipartRequestParams getParams(){
 		MultipartRequestParams params = new MultipartRequestParams();
 		params.put("orderId", sku.getOrderId());
@@ -241,6 +238,7 @@ public class PubCommentActivity extends BaseActivity implements OnClickListener{
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
+		//更新显示图片
 		if (requestCode == REQUEST_IMAGE && resultCode == RESULT_OK) {
 			photoList.clear();
 			photoList.addAll(data

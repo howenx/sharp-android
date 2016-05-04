@@ -180,12 +180,12 @@
             android:textStyle="italic" />
     </LinearLayout>
     <LinearLayout 
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="25dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:visibility="gone">
+        android:visibility="visible">
         <View 
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -217,8 +217,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/umeng_socialize_qq_on" 
-            app:border_width="0.2dp"
-            app:border_color="#1392D3"/>
+            android:background="@drawable/qq_border"/>
 
         <com.hanmimei.view.CircleImageView
             android:id="@+id/weixin"

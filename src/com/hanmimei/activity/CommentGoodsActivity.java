@@ -14,6 +14,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
@@ -34,19 +37,19 @@ import com.hanmimei.utils.ToastUtils;
  * @author eric
  *
  */
-public class CommentGoodsActivity extends BaseActivity{
+public class CommentGoodsActivity extends BaseActivity implements OnClickListener{
 
 	private ListView mListView;
 	private CommentGoodsAdapter adapter;
 	private List<OrderRemark> list;
 	private String orderId;
+	private boolean isRemarkOk = false;
 	
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.comment_goods_layout);
-		ActionBarUtil.setActionBarStyle(this, "评价中心");
-//		list = ((Order)getIntent().getSerializableExtra("order")).getList();
+		ActionBarUtil.setActionBarStyle(this, "评价中心",this);
 		list = new ArrayList<OrderRemark>();
 		orderId = getIntent().getStringExtra("orderId");
 		mListView = (ListView) findViewById(R.id.mylist);
@@ -57,7 +60,7 @@ public class CommentGoodsActivity extends BaseActivity{
 	}
 
 	/**
-	 * 
+	 * 获取评价中心数据
 	 */
 	private void loadData() {
 		getLoading().show();
@@ -72,6 +75,7 @@ public class CommentGoodsActivity extends BaseActivity{
 					if(center.getMessage().getCode() == 200){
 						list.clear();
 						list.addAll(center.getOrderRemark());
+						isRemarkOk(center.getList());
 						adapter.notifyDataSetChanged();
 					}else{
 						ToastUtils.Toast(CommentGoodsActivity.this, center.getMessage().getMessage());
@@ -89,6 +93,17 @@ public class CommentGoodsActivity extends BaseActivity{
 		});
 	}
 
+	private void isRemarkOk(List<OrderRemark> list){
+		int remarkNum = 0;
+		for(int i = 0; i < list.size(); i ++){
+			if(list.get(i).getComment() != null){
+				remarkNum ++;
+			}
+		}
+		if(remarkNum == list.size()){
+			isRemarkOk = true;
+		}
+	}
 	private NetBroadCastReceiver netReceiver;
 
 	// 广播接收者 注册
@@ -113,5 +128,34 @@ public class CommentGoodsActivity extends BaseActivity{
 		// TODO Auto-generated method stub
 		super.onDestroy();
 		getActivity().unregisterReceiver(netReceiver);
+	}
+
+	/* (non-Javadoc)
+	 * @see android.view.View.OnClickListener#onClick(android.view.View)
+	 */
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.back:
+			exitClick();
+			break;
+
+		default:
+			break;
+		}
+	}
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			exitClick();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+	private void exitClick() {
+		if(isRemarkOk){
+			sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_CANCLE_ORDER));
+		}
+		finish();
 	}
 }

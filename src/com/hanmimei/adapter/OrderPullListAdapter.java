@@ -35,7 +35,6 @@ import com.hanmimei.http.VolleyHttp;
 import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.CommonUtil;
-import com.hanmimei.utils.KeyWordUtil;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.view.HorizontalListView;
 

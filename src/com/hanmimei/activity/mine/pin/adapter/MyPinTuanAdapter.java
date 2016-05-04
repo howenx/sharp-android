@@ -13,10 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hanmimei.R;
-import com.hanmimei.activity.OrderDetailActivity;
 import com.hanmimei.activity.goods.pin.PingouResultActivity;
 import com.hanmimei.activity.mine.pin.MyPingouDetailActivity;
-import com.hanmimei.entity.Order;
 import com.hanmimei.entity.PinActivity;
 import com.hanmimei.utils.GlideLoaderUtils;
 

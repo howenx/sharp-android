@@ -35,7 +35,10 @@ import com.hanmimei.http.VolleyHttp;
 import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.manager.OrderNumsMenager;
 import com.umeng.analytics.MobclickAgent;
-
+/**
+ * @author eric
+ *
+ */
 @SuppressLint("InflateParams")
 public class OrderFragment extends Fragment implements
 		OnRefreshListener2<ListView>, OnClickListener {

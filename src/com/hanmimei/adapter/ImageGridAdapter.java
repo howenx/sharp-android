@@ -18,7 +18,10 @@ import android.widget.ImageView;
 
 import com.hanmimei.R;
 import com.hanmimei.utils.GlideLoaderUtils;
-
+/**
+ * @author eric
+ *
+ */
 public class ImageGridAdapter extends BaseAdapter {
 	private LayoutInflater inflater; // 视图容器
 	private List<String> mSelectPath;

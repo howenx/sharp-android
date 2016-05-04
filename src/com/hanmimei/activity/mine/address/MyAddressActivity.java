@@ -1,6 +1,5 @@
 package com.hanmimei.activity.mine.address;
 
-import java.text.Normalizer.Form;
 import java.util.ArrayList;
 import java.util.List;
 
