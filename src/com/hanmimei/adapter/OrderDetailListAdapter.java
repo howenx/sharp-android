@@ -17,7 +17,10 @@ import com.hanmimei.R;
 import com.hanmimei.activity.CustomerServiceActivity;
 import com.hanmimei.entity.Sku;
 import com.hanmimei.utils.GlideLoaderUtils;
-
+/**
+ * @author eric
+ *
+ */
 public class OrderDetailListAdapter extends BaseAdapter {
 
 	private List<Sku> data;

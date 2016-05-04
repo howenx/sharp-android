@@ -257,7 +257,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 				Map<String, String> data) {
 //			Toast.makeText(getApplicationContext(), "登陆成功", Toast.LENGTH_SHORT)
 //					.show();
-			ToastUtils.Toast(getApplicationContext(),  data.get("openid").toString());
+			ToastUtils.Toast(getApplicationContext(),  data.get("openid").toString() + "!!!!!");
 			chekWinxin(data);
 
 		}

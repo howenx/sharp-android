@@ -1,6 +1,5 @@
 package com.hanmimei.activity;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,10 +10,6 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import cn.jpush.android.api.JPushInterface;
 
-import com.android.volley.Request.Method;
-import com.android.volley.Response.ErrorListener;
-import com.android.volley.Response.Listener;
-import com.android.volley.VolleyError;
 import com.hanmimei.R;
 import com.hanmimei.application.HMMApplication;
 import com.hanmimei.dao.DaoSession;
@@ -23,7 +18,6 @@ import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.User;
 import com.hanmimei.http.VolleyHttp;
-import com.hanmimei.http.StringRequestTask;
 import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.utils.DateUtil;
 import com.hanmimei.utils.PreferenceUtil.IntroConfig;

@@ -14,9 +14,7 @@ import android.widget.TextView;
 
 import com.hanmimei.R;
 import com.hanmimei.activity.MyPingouDetailActivity;
-import com.hanmimei.activity.OrderDetailActivity;
 import com.hanmimei.activity.PingouResultActivity;
-import com.hanmimei.entity.Order;
 import com.hanmimei.entity.PinActivity;
 import com.hanmimei.utils.GlideLoaderUtils;
 

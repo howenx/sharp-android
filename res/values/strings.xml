@@ -82,5 +82,6 @@
     <string name="tab_one">首页</string>
     <string name="tab_two">购物车</string>
 	<string name="tab_three">我的</string>
+	<string name="wuliu_noinfo">此快递单号暂未获取到物流信息\n请稍候再查</string>
 	
 </resources>

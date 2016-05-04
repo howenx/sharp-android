@@ -3,8 +3,6 @@ package com.hanmimei.application;
 import android.app.Application;
 import cn.jpush.android.api.JPushInterface;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
 import com.hanmimei.dao.DaoMaster;
 import com.hanmimei.dao.DaoMaster.DevOpenHelper;
 import com.hanmimei.dao.DaoSession;

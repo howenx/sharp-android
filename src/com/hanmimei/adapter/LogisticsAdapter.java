@@ -7,9 +7,6 @@ package com.hanmimei.adapter;
 
 import java.util.List;
 
-import com.hanmimei.R;
-import com.hanmimei.entity.LogisticsData;
-
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
@@ -18,8 +15,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.hanmimei.R;
+import com.hanmimei.entity.LogisticsData;
 
 /**
  * @author eric

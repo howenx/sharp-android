@@ -683,40 +683,40 @@ public class DataParser {
 		Logistics logistics = new Logistics();
 		try {
 			JSONObject object = new JSONObject(result);
-			if(object.has("nu"))
-				logistics.setNu(object.getString("nu"));
-			if(object.has("comcontact"))
-				logistics.setComcontact(object.getString("comcontact"));
-			if(object.has("companytype"))
-				logistics.setCompanytype(object.getString("companytype"));
+			if(object.has("expressNum"))
+				logistics.setNu(object.getString("expressNum"));
+//			if(object.has("comcontact"))
+//				logistics.setComcontact(object.getString("comcontact"));
+//			if(object.has("companytype"))
+//				logistics.setCompanytype(object.getString("companytype"));
 			if(object.has("expressName"))
 				logistics.setCom(object.getString("expressName"));
-			if(object.has("signname"))
-				logistics.setSignname(object.getString("signname"));
+//			if(object.has("signname"))
+//				logistics.setSignname(object.getString("signname"));
 			if(object.has("condition"))
 				logistics.setCondition(object.getString("condition"));
 			if(object.has("status"))
 				logistics.setStatus(object.getString("status"));
-			if(object.has("codenumber"))
-				logistics.setCodenumber(object.getString("codenumber"));
-			if(object.has("signedtime"))
-				logistics.setSignedtime(object.getString("signedtime"));
+//			if(object.has("codenumber"))
+//				logistics.setCodenumber(object.getString("codenumber"));
+//			if(object.has("signedtime"))
+//				logistics.setSignedtime(object.getString("signedtime"));
 			if(object.has("state"))
 				logistics.setState(object.getInt("state"));
-			if(object.has("addressee"))
-				logistics.setAddressee(object.getString("addressee"));
-			if(object.has("departure"))
-				logistics.setDeparture(object.getString("departure"));
-			if(object.has("destination"))
-				logistics.setDestination(object.getString("destination"));
+//			if(object.has("addressee"))
+//				logistics.setAddressee(object.getString("addressee"));
+//			if(object.has("departure"))
+//				logistics.setDeparture(object.getString("departure"));
+//			if(object.has("destination"))
+//				logistics.setDestination(object.getString("destination"));
 			if(object.has("message"))
 				logistics.setMessage(object.getString("message"));
 			if(object.has("ischeck"))
 				logistics.setIscheck(object.getString("ischeck"));
-			if(object.has("pickuptime"))
-				logistics.setPickuptime(object.getString("pickuptime"));
-			if(object.has("comurl"))
-				logistics.setComurl(object.getString("comurl"));
+//			if(object.has("pickuptime"))
+//				logistics.setPickuptime(object.getString("pickuptime"));
+//			if(object.has("comurl"))
+//				logistics.setComurl(object.getString("comurl"));
 			if(object.has("data")){
 				JSONArray array = object.getJSONArray("data");
 				List<LogisticsData> list = new ArrayList<LogisticsData>();
@@ -793,6 +793,7 @@ public class DataParser {
 						if(commentObject.has("content"))
 							comment.setComment(commentObject.getString("content"));
 						if(commentObject.has("picture")){
+							if(commentObject.getString("picture").equals("") && !commentObject.getString("picture").equals("null")){
 //							String path = commentObject.getString("picture");
 							ArrayList<String> arrayList = new ArrayList<>();
 							JSONArray jsonArray = new JSONArray(commentObject.getString("picture"));
@@ -800,6 +801,7 @@ public class DataParser {
 								arrayList.add(jsonArray.getString(j));
 							}
 							comment.setPhotoList(arrayList);
+							}
 						}
 						if(commentObject.has("grade"))
 							comment.setScore(commentObject.getInt("grade"));

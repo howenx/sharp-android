@@ -90,7 +90,7 @@ public class LogisticsActivity extends BaseActivity {
 		KeyWordUtil.setDifferentFontColor(this, state, logistState, 5,
 				logistState.length());
 		from.setText("快递类型：" + logistics.getCom());
-		order_id.setText("快递单号：" + logistics.getCodenumber());
+		order_id.setText("快递单号：" + logistics.getNu());
 	}
 
 	/**
@@ -111,6 +111,9 @@ public class LogisticsActivity extends BaseActivity {
 					if (logistics.getList() != null) {
 						data.addAll(logistics.getList());
 						adapter.notifyDataSetChanged();
+//						findViewById(R.id.no_data).setVisibility(View.VISIBLE);
+					}else{
+						findViewById(R.id.no_data).setVisibility(View.VISIBLE);
 					}
 				}
 			}
