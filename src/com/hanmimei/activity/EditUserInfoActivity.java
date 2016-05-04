@@ -48,7 +48,7 @@ import com.hanmimei.utils.GlideLoaderUtils;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ImgUtils;
 import com.hanmimei.utils.ToastUtils;
-import com.hanmimei.view.RoundImageView;
+import com.hanmimei.view.CircleImageView;
 import com.hanmimei.view.SexDialog;
 import com.hanmimei.view.SexDialog.SexSelectListener;
 
@@ -63,7 +63,7 @@ public class EditUserInfoActivity extends BaseActivity implements
 	private RelativeLayout up_header;
 	private RelativeLayout up_name;
 	private RelativeLayout up_sex;
-	private RoundImageView header;
+	private CircleImageView header;
 	private TextView name;
 	private TextView sex;
 	private TextView phone;
@@ -95,7 +95,7 @@ public class EditUserInfoActivity extends BaseActivity implements
 
 	// 初始化控件
 	private void findView() {
-		header = (RoundImageView) findViewById(R.id.headerImg);
+		header = (CircleImageView) findViewById(R.id.headerImg);
 		up_header = (RelativeLayout) findViewById(R.id.up_header);
 		up_name = (RelativeLayout) findViewById(R.id.up_name);
 		up_sex = (RelativeLayout) findViewById(R.id.up_sex);

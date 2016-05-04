@@ -19,12 +19,12 @@ import com.hanmimei.activity.BaseActivity;
 import com.hanmimei.activity.EditUserInfoActivity;
 import com.hanmimei.activity.LoginActivity;
 import com.hanmimei.activity.LogisticsActivity;
-import com.hanmimei.activity.MyAddressActivity;
-import com.hanmimei.activity.MyCollectionActivity;
-import com.hanmimei.activity.MyCouponActivity;
-import com.hanmimei.activity.MyOrderActivity;
-import com.hanmimei.activity.MyPingouActivity;
 import com.hanmimei.activity.PubCommentActivity;
+import com.hanmimei.activity.mine.address.MyAddressActivity;
+import com.hanmimei.activity.mine.collect.MyCollectionActivity;
+import com.hanmimei.activity.mine.coupon.MyCouponActivity;
+import com.hanmimei.activity.mine.order.MyOrderActivity;
+import com.hanmimei.activity.mine.pin.MyPingouActivity;
 import com.hanmimei.dao.UserDao;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
@@ -32,7 +32,7 @@ import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.User;
 import com.hanmimei.utils.GlideLoaderUtils;
 import com.hanmimei.utils.HttpUtils;
-import com.hanmimei.view.RoundImageView;
+import com.hanmimei.view.CircleImageView;
 import com.umeng.analytics.MobclickAgent;
 import com.viewpagerindicator.BaseIconFragment;
 
@@ -41,7 +41,7 @@ import com.viewpagerindicator.BaseIconFragment;
  *
  */
 public class MineFragment extends BaseIconFragment implements OnClickListener {
-	private RoundImageView header;
+	private CircleImageView header;
 	private TextView user_name;
 	private TextView youhui_nums;
 	private ImageView sex;
@@ -112,7 +112,7 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 	}
 
 	private void findView(View view) {
-		header = (RoundImageView) view.findViewById(R.id.header);
+		header = (CircleImageView) view.findViewById(R.id.header);
 		user_name = (TextView) view.findViewById(R.id.user_name);
 		sex = (ImageView) view.findViewById(R.id.sex);
 		youhui_nums = (TextView) view.findViewById(R.id.youhui_nums);

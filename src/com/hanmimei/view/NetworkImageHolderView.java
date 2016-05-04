@@ -11,7 +11,7 @@ import android.widget.ImageView;
 
 import com.bigkoo.convenientbanner.CBPageAdapter;
 import com.hanmimei.R;
-import com.hanmimei.activity.GoodsDetailImgActivity;
+import com.hanmimei.activity.goods.detail.GoodsDetailImgActivity;
 import com.hanmimei.entity.ImgInfo;
 import com.hanmimei.utils.GlideLoaderUtils;
 

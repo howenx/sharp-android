@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hanmimei.R;
-import com.hanmimei.activity.CustomerServiceActivity;
+import com.hanmimei.activity.apply.CustomerServiceActivity;
 import com.hanmimei.entity.Sku;
 import com.hanmimei.utils.GlideLoaderUtils;
 /**

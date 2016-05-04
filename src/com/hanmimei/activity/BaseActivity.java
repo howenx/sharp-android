@@ -25,6 +25,9 @@ import android.widget.TextView;
 import com.github.anzewei.parallaxbacklayout.ParallaxActivityBase;
 import com.google.gson.Gson;
 import com.hanmimei.R;
+import com.hanmimei.activity.goods.detail.GoodsDetailActivity;
+import com.hanmimei.activity.goods.pin.PingouDetailActivity;
+import com.hanmimei.activity.goods.pin.PingouResultActivity;
 import com.hanmimei.application.HMMApplication;
 import com.hanmimei.dao.DaoMaster;
 import com.hanmimei.dao.DaoSession;
@@ -64,8 +67,12 @@ public class BaseActivity extends ParallaxActivityBase {
 	}
 
 	@Override
-	protected void onPostCreate(Bundle savedInstanceState) {
-		super.onPostCreate(savedInstanceState);
+	protected void onCreate(@Nullable Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		// 沉浸式状态栏的设置
+		getSupportActionBar().setElevation(0);
+		getClipboard();
 		if (VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 			// 创建状态栏的管理实例
 			SystemBarTintManager tintManager = new SystemBarTintManager(this);
@@ -74,19 +81,7 @@ public class BaseActivity extends ParallaxActivityBase {
 			// 设置一个颜色给系统栏
 			tintManager.setTintColor(getResources().getColor(
 					R.color.btn_pin_pressed));
-			// if (VERSION.SDK_INT >= 21) {
-			// setStatus();
-			// }
 		}
-	}
-
-	@Override
-	protected void onCreate(@Nullable Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		super.onCreate(savedInstanceState);
-		// 沉浸式状态栏的设置
-		getSupportActionBar().setElevation(0);
-		getClipboard();
 	}
 
 	public boolean isShoppingcarChanged() {
@@ -96,19 +91,6 @@ public class BaseActivity extends ParallaxActivityBase {
 	public void setShoppingcarChanged(boolean shoppingcarChanged) {
 		this.shoppingcarChanged = shoppingcarChanged;
 	}
-
-	// @SuppressLint("NewApi")
-	// private void setStatus() {
-	// Window window = getWindow();
-	// window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
-	// | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-	// window.getDecorView().setSystemUiVisibility(
-	// View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-	// | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-	// | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-	// window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-	// window.setStatusBarColor(Color.TRANSPARENT);
-	// }
 
 	public BaseActivity getActivity() {
 		return this;
@@ -240,7 +222,7 @@ public class BaseActivity extends ParallaxActivityBase {
 	private PinDetail pinDetail;
 
 	private void loadData(String url) {
-		VolleyHttp.doGetRequestTask( url, new VolleyJsonCallback() {
+		VolleyHttp.doGetRequestTask(url, new VolleyJsonCallback() {
 
 			@Override
 			public void onSuccess(String result) {

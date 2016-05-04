@@ -6,10 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import cn.jpush.android.api.JPushInterface;
 
-import com.hanmimei.activity.GoodsDetailActivity;
 import com.hanmimei.activity.MainActivity;
-import com.hanmimei.activity.PingouDetailActivity;
-import com.hanmimei.activity.PingouResultActivity;
+import com.hanmimei.activity.goods.detail.GoodsDetailActivity;
+import com.hanmimei.activity.goods.pin.PingouDetailActivity;
+import com.hanmimei.activity.goods.pin.PingouResultActivity;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.entity.Notify;
 import com.hanmimei.utils.ToastUtils;

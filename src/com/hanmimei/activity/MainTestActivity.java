@@ -20,6 +20,7 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 
 import com.hanmimei.R;
+import com.hanmimei.activity.mine.config.SettingActivity;
 import com.hanmimei.adapter.TabPagerAdapter;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.UrlUtil;
@@ -70,6 +71,7 @@ public class MainTestActivity extends BaseActivity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_layout);
+		
 		ActionBarUtil.setActionBarStyle(this, "韩秘美",R.drawable.hmm_icon_message_n, false, this);
 		ImageView view = (ImageView) findViewById(R.id.setting);
 		MessageMenager.getInstance().initMessageMenager(this,view);

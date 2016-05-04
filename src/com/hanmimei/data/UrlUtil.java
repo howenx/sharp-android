@@ -135,4 +135,16 @@ public class UrlUtil {
 	public static final String CONFIRM_DELIVERY = SERVERY1 + "/client/order/confirm/delivery/";
 	//查询物流
 	public static final String WULIU_LIST = SERVERY1 + "/client/order/express/";
+	
+	//商品所有评价/comm/detail/comment/$skuType<item|vary|customize|pin>/$skuTypeId<[0-9]+>/$pageNum<[0-9]+>
+	public static final String GOODS_REMARK_ALL = SERVERY3 +"/comm/detail/comment/";
+	
+	//商品好评/comm/comment/rank/best/$skuType<item|vary|customize|pin>/$skuTypeId<[0-9]+>/$pageNum<[0-9]+>  
+	public static final String GOODS_REMARK_GOOD = SERVERY3 +"/comm/comment/rank/best/";
+	
+	//商品差评   /comm/comment/rank/worst/$skuType<item|vary|customize|pin>/$skuTypeId<[0-9]+>/$pageNum<[0-9]+> 
+	public static final String GOODS_REMARK_BAD = SERVERY3 +"/comm/comment/rank/worst/";
+	
+	//商品品论图片/comm/comment/rank/img/$skuType<item|vary|customize|pin>/$skuTypeId<[0-9]+>/$pageNum<[0-9]+>   
+	public static final String GOODS_REMARK_PICTURE = SERVERY3 +"/comm/comment/rank/img/";
 }

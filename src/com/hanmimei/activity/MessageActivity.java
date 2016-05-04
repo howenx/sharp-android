@@ -17,6 +17,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.hanmimei.R;
+import com.hanmimei.activity.goods.detail.GoodsDetailActivity;
+import com.hanmimei.activity.goods.pin.PingouDetailActivity;
+import com.hanmimei.activity.goods.pin.PingouResultActivity;
+import com.hanmimei.activity.mine.coupon.MyCouponActivity;
 import com.hanmimei.adapter.MyMsgAdapter;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
