@@ -13,9 +13,9 @@ import android.widget.TextView;
 
 import com.hanmimei.R;
 import com.hanmimei.activity.base.BaseActivity;
+import com.hanmimei.activity.mine.order.fragment.OrderFragment;
 import com.hanmimei.adapter.MyPagerAdapter;
 import com.hanmimei.entity.Category;
-import com.hanmimei.fragment.OrderFragment;
 import com.hanmimei.manager.OrderNumsMenager;
 import com.hanmimei.utils.ActionBarUtil;
 

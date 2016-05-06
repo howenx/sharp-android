@@ -21,7 +21,9 @@ import android.widget.ImageView;
 
 import com.hanmimei.R;
 import com.hanmimei.activity.base.BaseActivity;
+import com.hanmimei.activity.login.LoginActivity;
 import com.hanmimei.activity.mine.config.SettingActivity;
+import com.hanmimei.activity.mine.message.MessageTypeActivity;
 import com.hanmimei.adapter.TabPagerAdapter;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.UrlUtil;

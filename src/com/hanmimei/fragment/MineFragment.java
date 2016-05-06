@@ -15,16 +15,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hanmimei.R;
-import com.hanmimei.activity.EditUserInfoActivity;
-import com.hanmimei.activity.LoginActivity;
-import com.hanmimei.activity.LogisticsActivity;
-import com.hanmimei.activity.PubCommentActivity;
 import com.hanmimei.activity.base.BaseActivity;
+import com.hanmimei.activity.login.LoginActivity;
 import com.hanmimei.activity.mine.address.MyAddressActivity;
 import com.hanmimei.activity.mine.collect.MyCollectionActivity;
 import com.hanmimei.activity.mine.coupon.MyCouponActivity;
 import com.hanmimei.activity.mine.order.MyOrderActivity;
 import com.hanmimei.activity.mine.pin.MyPingouActivity;
+import com.hanmimei.activity.mine.user.EditUserInfoActivity;
 import com.hanmimei.dao.UserDao;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;

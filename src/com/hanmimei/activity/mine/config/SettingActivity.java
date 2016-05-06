@@ -13,8 +13,6 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 import com.hanmimei.R;
-import com.hanmimei.activity.AboutWeActivity;
-import com.hanmimei.activity.SuggestionActivity;
 import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.application.HMMApplication;
 import com.hanmimei.dao.UserDao;

@@ -20,8 +20,8 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.hanmimei.R;
-import com.hanmimei.activity.ShoppingCarActivity;
 import com.hanmimei.activity.base.BaseActivity;
+import com.hanmimei.activity.car.ShoppingCarActivity;
 import com.hanmimei.activity.goods.detail.GoodsDetailActivity;
 import com.hanmimei.activity.goods.pin.PingouDetailActivity;
 import com.hanmimei.activity.goods.theme.adapter.ThemeAdapter;
@@ -75,6 +75,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		GridView gridView = (GridView) findViewById(R.id.my_grid);
 		gridView.setAdapter(adapter);
 		gridView.setFocusable(false);
+		
 		// 获取数据
 		loadUrl();
 

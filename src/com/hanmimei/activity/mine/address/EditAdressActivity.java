@@ -56,7 +56,7 @@ import com.zcw.togglebutton.ToggleButton.OnToggleChanged;
  * @author eric
  *
  */
-@SuppressLint("NewApi")
+@SuppressLint({ "NewApi", "DefaultLocale" })
 public class EditAdressActivity extends BaseActivity implements
 		OnClickListener, OnWheelChangedListener {
 
@@ -430,7 +430,7 @@ public class EditAdressActivity extends BaseActivity implements
 			object.put("name", name);
 			object.put("deliveryDetail", address);
 			object.put("orDefault", isDefaut);
-			object.put("idCardNum", idCard);
+			object.put("idCardNum", idCard.toLowerCase());
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

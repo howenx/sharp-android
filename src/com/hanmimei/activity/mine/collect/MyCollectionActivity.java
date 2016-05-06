@@ -23,7 +23,7 @@ import com.hanmimei.R;
 import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.activity.goods.detail.GoodsDetailActivity;
 import com.hanmimei.activity.goods.pin.PingouDetailActivity;
-import com.hanmimei.adapter.MyCollectionAdapter;
+import com.hanmimei.activity.mine.collect.adapter.MyCollectionAdapter;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;

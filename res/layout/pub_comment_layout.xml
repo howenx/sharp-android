@@ -58,6 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="21dp"
                     android:layout_marginLeft="20dp"
+                    android:numStars="5"
                     android:progressDrawable="@drawable/rating_yellow"
                     android:rating="5"
                     android:stepSize="1" />

@@ -14,9 +14,9 @@ import android.widget.TextView;
 
 import com.hanmimei.R;
 import com.hanmimei.activity.base.BaseActivity;
+import com.hanmimei.activity.mine.coupon.fragment.CouponFragment;
 import com.hanmimei.adapter.MyPagerAdapter;
 import com.hanmimei.entity.Category;
-import com.hanmimei.fragment.CouponFragment;
 import com.hanmimei.manager.CouponMenager;
 import com.hanmimei.utils.ActionBarUtil;
 import com.umeng.analytics.MobclickAgent;

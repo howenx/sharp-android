@@ -3,13 +3,15 @@ package com.hanmimei.manager;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
 import android.content.Context;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.hanmimei.R;
-import com.hanmimei.adapter.ShoppingCarPullListAdapter;
+import com.hanmimei.activity.car.adapter.ShoppingCarPullListAdapter;
 import com.hanmimei.entity.Customs;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.utils.CommonUtil;

@@ -98,36 +98,36 @@
             android:screenOrientation="portrait"
              />
         <activity
-            android:name="com.hanmimei.activity.OrderDetailActivity"
+            android:name="com.hanmimei.activity.mine.order.OrderDetailActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.hanmimei.activity.mine.config.SettingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.LoginActivity"
+            android:name="com.hanmimei.activity.login.LoginActivity"
             android:screenOrientation="portrait">
             </activity>
         <activity
-            android:name="com.hanmimei.activity.RegistActivity"
+            android:name="com.hanmimei.activity.login.RegistActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.CheckPhoneActivity"
+            android:name="com.hanmimei.activity.login.CheckPhoneActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.ForgetPwdActivity"
+            android:name="com.hanmimei.activity.login.ForgetPwdActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.hanmimei.activity.balance.GoodsBalanceActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.ShoppingCarActivity"
+            android:name="com.hanmimei.activity.car.ShoppingCarActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.EditUserInfoActivity"
+            android:name="com.hanmimei.activity.mine.user.EditUserInfoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.EditUserNameActivity"
+            android:name="com.hanmimei.activity.mine.user.EditUserNameActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.hanmimei.activity.goods.detail.GoodsDetailImgActivity"
@@ -161,16 +161,16 @@
             android:name="com.hanmimei.activity.goods.pin.PingouLiuChengActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.LogisticsActivity"
+            android:name="com.hanmimei.activity.mine.order.LogisticsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.AboutWeActivity"
+            android:name="com.hanmimei.activity.mine.config.AboutWeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.SuggestionActivity"
+            android:name="com.hanmimei.activity.mine.config.SuggestionActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.HmmServiceActivity"
+            android:name="com.hanmimei.activity.mine.config.HmmServiceActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.hanmimei.activity.mine.pin.MyPingouActivity"
@@ -179,10 +179,10 @@
             android:name="com.hanmimei.activity.goods.pin.PingouDetailSelActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.MessageTypeActivity"
+            android:name="com.hanmimei.activity.mine.message.MessageTypeActivity"
             android:screenOrientation="portrait" />
          <activity
-            android:name="com.hanmimei.activity.MessageActivity"
+            android:name="com.hanmimei.activity.mine.message.MessageActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.hanmimei.activity.mine.pin.MyPingouDetailActivity"
@@ -194,11 +194,11 @@
             android:name="com.hanmimei.activity.apply.ApplyRefundActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.PubCommentActivity"
+            android:name="com.hanmimei.activity.mine.comment.PubCommentActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name="com.hanmimei.activity.CommentGoodsActivity"
+            android:name="com.hanmimei.activity.mine.comment.CommentGoodsActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name="com.hanmimei.activity.goods.comment.GoodsCommentActivity"
