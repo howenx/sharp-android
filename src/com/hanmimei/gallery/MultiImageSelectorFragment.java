@@ -415,7 +415,7 @@ public class MultiImageSelectorFragment extends Fragment {
                 MediaStore.Images.Media.DATE_ADDED,
                 MediaStore.Images.Media.MIME_TYPE,
                 MediaStore.Images.Media.SIZE,
-                MediaStore.Images.Media._ID };
+                MediaStore.Images.Media._ID ,};
 
         @Override
         public Loader<Cursor> onCreateLoader(int id, Bundle args) {
