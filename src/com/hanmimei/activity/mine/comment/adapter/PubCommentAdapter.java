@@ -7,7 +7,6 @@ package com.hanmimei.activity.mine.comment.adapter;
 
 import java.util.List;
 
-import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -27,6 +26,7 @@ import android.widget.TextView;
 
 import com.hanmimei.R;
 import com.hanmimei.entity.Comment;
+import com.hanmimei.gallery.MultiImageSelectorActivity;
 import com.hanmimei.view.CustomGridView;
 
 /**

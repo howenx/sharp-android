@@ -130,7 +130,7 @@ public class PingouResultActivity extends BaseActivity implements
 	 */
 	private void initPageData() {
 
-		GlideLoaderUtils.loadGoodsImage(getActivity(),pinActivity.getPinImg().getUrl(), pro_img);
+		GlideLoaderUtils.loadSquareImage(getActivity(),pinActivity.getPinImg().getUrl(), pro_img);
 		pro_title.setText(pinActivity.getPinTitle() + "");
 		String guige = getResources().getString(R.string.tuan_gui,
 				pinActivity.getPersonNum(), pinActivity.getPinPrice());

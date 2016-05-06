@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView.ScaleType;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
@@ -213,8 +214,8 @@ public class GoodsComImgFragment extends BaseIconFragment  implements OnScrollTo
 			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
-			GlideLoaderUtils.loadImage(context, images.get(position).getPicture(),
-					holder.imageView);
+			GlideLoaderUtils.loadSquareImage(context, images.get(position).getPicture(),
+					holder.imageView, ScaleType.CENTER_CROP);
 
 			return convertView;
 		}

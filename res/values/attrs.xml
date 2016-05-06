@@ -93,4 +93,14 @@
         <attr name="type" />  
     </declare-styleable>  
     
+     <!-- ==================================================== -->
+     <!-- TasksCompletedView（进度条图片）自定义属性 -->
+    <!-- ==================================================== -->
+     <declare-styleable name="TasksCompletedView">
+        <attr name="taskRadius" format="dimension"/>
+        <attr name="taskStrokeWidth" format="dimension"/>
+        <attr name="circleColor" format="color"/>
+        <attr name="ringColor" format="color"/>
+    </declare-styleable>
+    
 </resources>

@@ -126,7 +126,7 @@ public class MyPingouDetailActivity extends BaseActivity {
 			order_time.setText(o.getOrderCreateAt());
 			pro_shipfee.setText("配送费：" + o.getShipFee());
 
-			GlideLoaderUtils.loadGoodsImage(getActivity(), o.getList().get(0)
+			GlideLoaderUtils.loadSquareImage(getActivity(), o.getList().get(0)
 					.getInvImg(), pro_img);
 			pro_guige.setText("¥" + o.getList().get(0).getPrice());
 			pro_title.setText(o.getList().get(0).getSkuTitle());

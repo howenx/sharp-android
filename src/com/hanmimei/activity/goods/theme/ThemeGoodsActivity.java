@@ -229,7 +229,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		int height = CommonUtil.getScreenWidth(this) * themeImg.getHeight()
 				/ themeImg.getWidth();
 		ImageView img = (ImageView) findViewById(R.id.img); // 主推商品图片
-		GlideLoaderUtils.loadThemeImage(this, img, themeImg.getUrl(),
+		GlideLoaderUtils.loadRectImage(this, img, themeImg.getUrl(),
 				themeImg.getWidth(), themeImg.getHeight());
 		// 初始化标签信息
 		initTagInfo(themeList, width, height);

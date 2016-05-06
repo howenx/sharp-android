@@ -26,7 +26,6 @@ public class ThemeAdapter extends BaseAdapter {
 		this.data = data;
 		activity = (Activity) mContext;
 		inflater = LayoutInflater.from(mContext);
-		// 图片的比例适配
 	}
 
 	@Override
@@ -57,7 +56,7 @@ public class ThemeAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		GlideLoaderUtils.loadGoodsImage(activity, theme.getItemImgForImgInfo()
+		GlideLoaderUtils.loadSquareImage(activity, theme.getItemImgForImgInfo()
 				.getUrl(), holder.img);
 		holder.title.setText(theme.getItemTitle());
 

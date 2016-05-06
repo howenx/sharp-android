@@ -52,7 +52,7 @@ public class PingouDetailSelActivity extends BaseActivity {
 		TextView btn_pin = (TextView) findViewById(R.id.btn_pin);
 		ImageView iconView = (ImageView) findViewById(R.id.iconView);
 		ListView mListView = (ListView) findViewById(R.id.mListView);
-		GlideLoaderUtils.loadGoodsImage(getActivity(),stock.getInvImgForObj().getUrl(), iconView);
+		GlideLoaderUtils.loadSquareImage(getActivity(),stock.getInvImgForObj().getUrl(), iconView);
 		adapter = new ListDialogAdapter(btn_pin);
 		mListView.setAdapter(adapter);
 		titleView.setText(stock.getPinTitle());

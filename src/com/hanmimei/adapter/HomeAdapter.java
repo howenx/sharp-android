@@ -56,7 +56,7 @@ public class HomeAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		
-		GlideLoaderUtils.loadThemeImage(activity, holder.img, theme.getThemeImg(), theme.getWidth(), theme.getHeight());
+		GlideLoaderUtils.loadRectImage(activity, holder.img, theme.getThemeImg(), theme.getWidth(), theme.getHeight());
 		return convertView;
 	}
 	private class ViewHolder{

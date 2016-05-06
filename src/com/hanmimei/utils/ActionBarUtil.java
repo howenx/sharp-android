@@ -80,7 +80,7 @@ public class ActionBarUtil {
 		actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 		actionbar.setDisplayShowTitleEnabled(false);
 		actionbar.setDisplayShowCustomEnabled(true);
-		actionbar.setCustomView(R.layout.main_header_layout);
+		actionbar.setCustomView(R.layout.actionbar_custom_layout);
 		View view = actionbar.getCustomView();
 		TextView titleView = (TextView) view.findViewById(R.id.header);
 		ImageView btn_back = (ImageView) view.findViewById(R.id.back);

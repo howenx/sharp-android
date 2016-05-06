@@ -12,7 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageView.ScaleType;
 
+import com.bumptech.glide.Glide;
 import com.diegocarloslima.byakugallery.lib.TouchImageView;
 import com.hanmimei.R;
 import com.hanmimei.entity.RemarkVo;
@@ -70,12 +72,11 @@ public class GoodsCommentImgPagerAdapter extends FragmentStatePagerAdapter {
 
 			final TouchImageView image = (TouchImageView) v
 					.findViewById(R.id.mImageView);
-			View parentPanel = v.findViewById(R.id.parentPanel);
-			
 			final String imageUrl = getArguments().getString("imageUrl");
-			GlideLoaderUtils.loadGoodsImage(getActivity(), imageUrl, image);
-			
-			
+//			GlideLoaderUtils.loadSquareImage(mActivity, imageUrl, image);
+			Glide.with(mActivity).load(imageUrl)
+			.placeholder(R.drawable.hmm_place_holder_z).fitCenter()
+			.animate(R.anim.abc_fade_in).thumbnail(0.1f).into(image);
 			
 			
 			image.setOnClickListener(new OnClickListener() {

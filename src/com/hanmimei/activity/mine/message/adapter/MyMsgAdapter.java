@@ -75,7 +75,7 @@ public class MyMsgAdapter extends BaseAdapter {
 		hold.msg.setText(info.getMsgTitle());
 		hold.content.setText(info.getMsgContent());
 		if(type.equals("goods") || type.equals("discount")){
-			GlideLoaderUtils.loadThemeImage(mActivity, hold.img, info.getMsgImg(), 2, 1);
+			GlideLoaderUtils.loadRectImage(mActivity, hold.img, info.getMsgImg(), 2, 1);
 		}
 		hold.go.setOnClickListener(new OnClickListener() {
 			

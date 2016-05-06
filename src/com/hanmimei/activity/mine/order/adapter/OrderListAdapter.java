@@ -71,7 +71,7 @@ public class OrderListAdapter extends BaseAdapter {
 			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
-			GlideLoaderUtils.loadGoodsImage(activity, sku.getInvImg(), holder.img);
+			GlideLoaderUtils.loadSquareImage(activity, sku.getInvImg(), holder.img);
 			holder.name.setText(sku.getSkuTitle());
 			holder.price.setText("¥" + CommonUtil.doubleTrans(sku.getPrice()));
 			holder.nums.setText("共" + sku.getAmount() + "件商品");
@@ -88,7 +88,7 @@ public class OrderListAdapter extends BaseAdapter {
 			} else {
 				holderMore = (ViewHolderMore) convertView.getTag();
 			}
-			GlideLoaderUtils.loadGoodsImage(activity,sku.getInvImg(), holderMore.img);
+			GlideLoaderUtils.loadSquareImage(activity,sku.getInvImg(), holderMore.img);
 			return convertView;
 		}
 	}

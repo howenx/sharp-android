@@ -57,7 +57,7 @@ public class TuijianAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		GlideLoaderUtils.loadGoodsImage(activity, theme.getItemImgForImgInfo()
+		GlideLoaderUtils.loadSquareImage(activity, theme.getItemImgForImgInfo()
 				.getUrl(), holder.img);
 		holder.title.setText(theme.getItemTitle());
 

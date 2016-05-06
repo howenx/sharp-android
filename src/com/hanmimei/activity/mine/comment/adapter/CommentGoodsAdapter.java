@@ -83,7 +83,7 @@ public class CommentGoodsAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		holder.title.setText(sku.getSkuTitle());
-		GlideLoaderUtils.loadImage(mContext, sku.getInvImg_(), holder.img);
+		GlideLoaderUtils.loadSquareImage(mContext, sku.getInvImg_(), holder.img);
 		if(comment != null){
 			holder.comment.setText("查看评价");
 		}else{

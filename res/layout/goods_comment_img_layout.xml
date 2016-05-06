@@ -39,25 +39,31 @@
             android:layout_height="wrap_content"
             android:src="@drawable/hmm_star_1" />
 
-        <TextView
-            android:id="@+id/content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/ratingBar"
-            android:layout_marginTop="5dp"
-            android:text="ddasdfadlkahlsdhjlahlkjasdflkhjfdklhjafsdklhjafkhjalsdkjhafdskjhfakhjfa"
-            android:textColor="@color/white"
-            android:textSize="13sp" />
-
-        <TextView
+        
+         <TextView
             android:id="@+id/size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/content"
+            android:layout_below="@id/ratingBar"
             android:layout_marginTop="5dp"
             android:text="asdkjfaklsdf;klasfklakllkalk;ads"
             android:textColor="@color/white"
             android:textSize="12sp" />
+         
+         
+        <EditText
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/size"
+            android:layout_marginTop="5dp"
+            android:maxLines="5"
+            android:background="@null"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:text="ddasdfadlkahlsdhjlahlkjasdflkhjfdklhjafsdklhjafkhjalsdkjhafdskjhfakhjfa"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
 
     </RelativeLayout>
 

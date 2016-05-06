@@ -485,7 +485,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	}
 
 	private void displayAnimation() {
-		GlideLoaderUtils.loadGoodsImage(getActivity(), detail.getCurrentStock()
+		GlideLoaderUtils.loadSquareImage(getActivity(), detail.getCurrentStock()
 				.getInvImgForObj().getUrl(), img_hide);
 		objectAnimator.start();
 	}
@@ -900,7 +900,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		} else {
 			num_restrictAmount.setVisibility(View.GONE);
 		}
-		// GlideLoaderUtils.loadGoodsImage(getActivity(), s.getInvImgForObj()
+		// GlideLoaderUtils.loadSquareImage(getActivity(), s.getInvImgForObj()
 		// .getUrl(), img_hide);
 		if (s.getPostalTaxRate() != null)
 			curPostalTaxRate = s.getPostalTaxRate();

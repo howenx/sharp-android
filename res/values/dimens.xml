@@ -58,4 +58,8 @@
     <dimen name="theme_tip_padding_left">25dp</dimen>
     <dimen name="theme_tip_padding_right">25dp</dimen>
     
+    <!-- gallery  -->
+    <dimen name="image_size">120dp</dimen>
+    <dimen name="space_size">4dp</dimen>
+    <dimen name="folder_cover_size">72dp</dimen>
 </resources>
