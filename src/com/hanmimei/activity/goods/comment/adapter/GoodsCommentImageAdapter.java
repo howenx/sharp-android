@@ -85,7 +85,7 @@ public class GoodsCommentImageAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		GlideLoaderUtils.loadImage(context, images.get(position),
+		GlideLoaderUtils.loadSquareImage(context, images.get(position),
 				holder.imageView);
 
 		return convertView;

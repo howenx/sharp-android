@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -33,6 +32,7 @@ import com.hanmimei.entity.GoodsBalance;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.Order;
 import com.hanmimei.entity.Sku;
+import com.hanmimei.gallery.MultiImageSelectorActivity;
 import com.hanmimei.http.MultipartRequestParams;
 import com.hanmimei.http.VolleyHttp;
 import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
@@ -285,7 +285,7 @@ public class CustomerServiceActivity extends BaseActivity implements
 				}
 			} else {
 				holder.btn_image_del.setVisibility(View.VISIBLE);
-				GlideLoaderUtils.loadGoodsImage(getActivity(),
+				GlideLoaderUtils.loadSquareImage(getActivity(),
 						mSelectPath.get(position), holder.image);
 				holder.btn_image_del.setOnClickListener(new OnClickListener() {
 

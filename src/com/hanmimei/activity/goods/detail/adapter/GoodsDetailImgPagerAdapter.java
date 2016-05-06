@@ -70,7 +70,7 @@ public class GoodsDetailImgPagerAdapter extends FragmentStatePagerAdapter {
 			final TouchImageView image = (TouchImageView) v
 					.findViewById(R.id.mImageView);
 			final String imageUrl = getArguments().getString("imageUrl");
-			GlideLoaderUtils.loadGoodsImage(getActivity(), imageUrl, image);
+			GlideLoaderUtils.loadSquareImage(getActivity(), imageUrl, image);
 			image.setOnClickListener(new OnClickListener() {
 				
 				@Override

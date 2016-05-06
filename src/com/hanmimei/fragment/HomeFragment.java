@@ -457,7 +457,7 @@ public class HomeFragment extends BaseIconFragment implements
 	 private ImageView getImageView(Context context, String url) {
 		ImageView imageView = (ImageView)LayoutInflater.from(context).inflate(
 				R.layout.view_banner, null);
-		GlideLoaderUtils.loadImage(context,url, imageView,R.drawable.hmm_place_holder_j);
+		GlideLoaderUtils.loadRectImage(context,url, imageView);
 		return imageView;
 	}
 

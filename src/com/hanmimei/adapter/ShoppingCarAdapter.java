@@ -147,7 +147,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 				holder.plus.setClickable(true);
 			}
 		}
-		GlideLoaderUtils.loadGoodsImage(activity,goods.getGoodsImg(), holder.img);
+		GlideLoaderUtils.loadSquareImage(activity,goods.getGoodsImg(), holder.img);
 		holder.name.setText(goods.getGoodsName());
 		holder.size.setText(goods.getItemColor() + "  " + goods.getItemSize());
 		holder.price.setText("¥" + CommonUtil.doubleTrans(goods.getGoodsPrice()));

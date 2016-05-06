@@ -75,7 +75,7 @@ public class CommentGoodsActivity extends BaseActivity implements OnClickListene
 					if(center.getMessage().getCode() == 200){
 						list.clear();
 						list.addAll(center.getOrderRemark());
-						isRemarkOk(center.getList());
+						isRemarkOk(center.getOrderRemark());
 						adapter.notifyDataSetChanged();
 					}else{
 						ToastUtils.Toast(CommentGoodsActivity.this, center.getMessage().getMessage());

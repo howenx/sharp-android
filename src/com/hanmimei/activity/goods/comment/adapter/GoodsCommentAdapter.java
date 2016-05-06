@@ -94,7 +94,7 @@ public class GoodsCommentAdapter extends BaseAdapter {
 		RemarkVo raRemarkVo = datas.get(position);
 
 		mViewHolder.name.setText(raRemarkVo.getUserName());
-		GlideLoaderUtils.loadImage(mContext, raRemarkVo.getUserImg(),
+		GlideLoaderUtils.loadCirlceImage(mContext, raRemarkVo.getUserImg(),
 				mViewHolder.header);
 		mViewHolder.content.setText(raRemarkVo.getContent());
 		mViewHolder.create_time.setText(raRemarkVo.getCreateAt());

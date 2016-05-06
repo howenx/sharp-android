@@ -8,7 +8,6 @@ package com.hanmimei.activity;
 import java.io.File;
 import java.util.ArrayList;
 
-import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -31,6 +30,7 @@ import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.Comment;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.Sku;
+import com.hanmimei.gallery.MultiImageSelectorActivity;
 import com.hanmimei.http.MultipartRequestParams;
 import com.hanmimei.http.VolleyHttp;
 import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
@@ -136,8 +136,7 @@ public class PubCommentActivity extends BaseActivity implements OnClickListener{
 								MultiImageSelectorActivity.EXTRA_DEFAULT_SELECTED_LIST,
 								photoList);
 					}
-					startActivityForResult(intent,
-							REQUEST_IMAGE);
+					startActivityForResult(intent,REQUEST_IMAGE);
 				}
 			}
 		});

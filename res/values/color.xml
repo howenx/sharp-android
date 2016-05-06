@@ -32,4 +32,7 @@
 	<color name="activity_bg">#00000000</color>
 	
 	<color name="theme_shadow">#77000000</color>
+	
+	<color name="circle_color">#323a45</color>
+    <color name="ring_color">#14b9d6</color>
 </resources>

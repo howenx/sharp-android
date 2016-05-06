@@ -67,7 +67,7 @@ public class MyCollectionAdapter extends BaseAdapter {
 			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
-			GlideLoaderUtils.loadGoodsImage(mContext,collection.getSku().getInvImg(), holder.img);
+			GlideLoaderUtils.loadSquareImage(mContext,collection.getSku().getInvImg(), holder.img);
 			holder.name.setText(collection.getSku().getSkuTitle());
 			holder.price.setText("¥" + collection.getSku().getPrice());
 			holder.size.setText(collection.getSku().getItemColor() + "  " + collection.getSku().getItemSize());

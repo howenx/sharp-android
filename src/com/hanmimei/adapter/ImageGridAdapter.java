@@ -65,7 +65,7 @@ public class ImageGridAdapter extends BaseAdapter {
 		if (isShow) {
 			if(position < mSelectPath.size()){
 			holder.btn_image_del.setVisibility(View.GONE);
-			GlideLoaderUtils.loadGoodsImage(activity, mSelectPath.get(position), holder.image);
+			GlideLoaderUtils.loadSquareImage(activity, mSelectPath.get(position), holder.image);
 			}else{
 				holder.image.setVisibility(View.GONE);
 			}
@@ -79,7 +79,7 @@ public class ImageGridAdapter extends BaseAdapter {
 				}
 			} else {
 				holder.btn_image_del.setVisibility(View.VISIBLE);
-				GlideLoaderUtils.loadGoodsImage(activity,
+				GlideLoaderUtils.loadSquareImage(activity,
 						mSelectPath.get(position), holder.image);
 				holder.btn_image_del.setOnClickListener(new OnClickListener() {
 

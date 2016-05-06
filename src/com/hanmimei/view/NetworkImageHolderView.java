@@ -31,7 +31,7 @@ public class NetworkImageHolderView implements CBPageAdapter.Holder<ImgInfo>{
 
     @Override
     public void UpdateUI(final Context context,List<ImgInfo> datas, final int position, ImgInfo data) {
-        GlideLoaderUtils.loadGoodsImage(context,data.getUrl(),imageView);
+        GlideLoaderUtils.loadSquareImage(context,data.getUrl(),imageView);
         final ArrayList<String> list = new ArrayList<String>();
         for(ImgInfo info :datas){
         	list.add(info.getUrl());

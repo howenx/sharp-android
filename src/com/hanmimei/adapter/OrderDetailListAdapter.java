@@ -68,7 +68,7 @@ public class OrderDetailListAdapter extends BaseAdapter {
 		}else{
 			holder = (ViewHolder) convertView.getTag();
 		}
-		GlideLoaderUtils.loadGoodsImage(activity,sku.getInvImg(), holder.img);
+		GlideLoaderUtils.loadSquareImage(activity,sku.getInvImg(), holder.img);
 		holder.title.setText(position + 1 + "." + sku.getSkuTitle());
 		holder.nums.setText("数量：" + sku.getAmount());
 		holder.price.setText("¥" + sku.getPrice());

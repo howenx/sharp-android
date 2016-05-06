@@ -281,7 +281,7 @@ public class BaseActivity extends ParallaxActivityBase {
 				R.style.CustomDialog).create();
 		View view = inflater.inflate(R.layout.hanmimei_command_layout, null);
 		ImageView img = (ImageView) view.findViewById(R.id.img);
-		GlideLoaderUtils.loadGoodsImage(getActivity(), imgurl, img);
+		GlideLoaderUtils.loadSquareImage(getActivity(), imgurl, img);
 		TextView title = (TextView) view.findViewById(R.id.title);
 		TextView price = (TextView) view.findViewById(R.id.price);
 		title.setText(ti);
