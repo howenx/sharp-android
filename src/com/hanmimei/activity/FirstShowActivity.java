@@ -89,7 +89,7 @@ public class FirstShowActivity extends AppCompatActivity {
 				break;
 			case 1:
 				startActivity(new Intent(FirstShowActivity.this,
-						MainTestActivity.class));
+						HMainActivity.class));
 				finish();
 				break;
 			default:

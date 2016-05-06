@@ -2,7 +2,7 @@ package com.hanmimei.entity;
 
 import java.util.List;
 
-public class CollectionInfo {
+public class CollectionVo {
 	private HMessage hMessage;
 	private List<Collection> list;
 	public HMessage gethMessage() {
@@ -17,7 +17,7 @@ public class CollectionInfo {
 	public void setList(List<Collection> list) {
 		this.list = list;
 	}
-	public CollectionInfo() {
+	public CollectionVo() {
 		super();
 	}
 	

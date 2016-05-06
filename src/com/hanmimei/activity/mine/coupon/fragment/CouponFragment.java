@@ -22,7 +22,7 @@ import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.activity.mine.coupon.adapter.TicketAdapter;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.Category;
-import com.hanmimei.entity.Coupon;
+import com.hanmimei.entity.CouponVo;
 import com.hanmimei.entity.Ticket;
 import com.hanmimei.entity.User;
 import com.hanmimei.manager.CouponMenager;
@@ -39,7 +39,7 @@ public class CouponFragment extends Fragment implements OnClickListener{
 	
 	private ListView mListView;
 	private TicketAdapter adapter;
-	private List<Coupon> data;
+	private List<CouponVo> data;
 	private BaseActivity activity;
 	private Category category;
 	private User user;
@@ -52,7 +52,7 @@ public class CouponFragment extends Fragment implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		activity = (BaseActivity) getActivity();
 		user = activity.getUser();
-		data = new ArrayList<Coupon>();
+		data = new ArrayList<CouponVo>();
 		adapter = new TicketAdapter(data, activity);
 		Bundle bundle = getArguments();
 		category = (Category) bundle.getSerializable("category");
@@ -92,7 +92,7 @@ public class CouponFragment extends Fragment implements OnClickListener{
 		}).start();
 	}
 	
-	private void mCoupno(List<Coupon> list){
+	private void mCoupno(List<CouponVo> list){
 		String mState = "N";
 		if(state == 0){
 			mState = "N";
@@ -112,7 +112,7 @@ public class CouponFragment extends Fragment implements OnClickListener{
 	private int num1 = 0;
 	private int num2 = 0;
 	private int num3 = 0;
-	private void getNums(List<Coupon> list){
+	private void getNums(List<CouponVo> list){
 		for(int i = 0; i < list.size(); i ++){
 			if(list.get(i).getState().equals("N")){
 				num1 ++;

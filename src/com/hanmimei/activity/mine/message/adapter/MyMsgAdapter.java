@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hanmimei.R;
-import com.hanmimei.entity.MessageInfo;
+import com.hanmimei.entity.PushMessageVo;
 import com.hanmimei.utils.DateUtils;
 import com.hanmimei.utils.GlideLoaderUtils;
 
@@ -23,11 +23,11 @@ import com.hanmimei.utils.GlideLoaderUtils;
  */
 public class MyMsgAdapter extends BaseAdapter {
 
-	private List<MessageInfo> list;
+	private List<PushMessageVo> list;
 	private LayoutInflater inflater;
 	private String type;
 	private Activity mActivity;
-	public MyMsgAdapter(List<MessageInfo> list,Context mContext, String type){
+	public MyMsgAdapter(List<PushMessageVo> list,Context mContext, String type){
 		this.list = list;
 		this.inflater = LayoutInflater.from(mContext);
 		this.type = type;
@@ -52,7 +52,7 @@ public class MyMsgAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup arg2) {
-		MessageInfo info = list.get(position);
+		PushMessageVo info = list.get(position);
 		ViewHold hold = null;
 		if(convertView == null){
 			convertView = inflater.inflate(R.layout.my_msg_item, null);

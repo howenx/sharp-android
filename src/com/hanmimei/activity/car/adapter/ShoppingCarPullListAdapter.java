@@ -24,7 +24,7 @@ import com.hanmimei.activity.goods.detail.GoodsDetailActivity;
 import com.hanmimei.dao.ShoppingGoodsDao;
 import com.hanmimei.dao.ShoppingGoodsDao.Properties;
 import com.hanmimei.data.DataParser;
-import com.hanmimei.entity.Customs;
+import com.hanmimei.entity.CustomsVo;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.User;
@@ -43,7 +43,7 @@ import com.hanmimei.view.CustomListView;
  */
 public class ShoppingCarPullListAdapter extends BaseAdapter {
 
-	private List<Customs> data;
+	private List<CustomsVo> data;
 	private LayoutInflater inflater;
 	private ShoppingCarAdapter adapter;
 	private BaseActivity activity;
@@ -55,7 +55,7 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 	private List<ShoppingGoods> goodsList;
 	private ShoppingGoods delGoods;
 
-	public ShoppingCarPullListAdapter(List<Customs> data, Context mContext) {
+	public ShoppingCarPullListAdapter(List<CustomsVo> data, Context mContext) {
 		this.data = ShoppingCarMenager.getInstance().getData();
 		inflater = LayoutInflater.from(mContext);
 		activity = (BaseActivity) mContext;
@@ -87,7 +87,7 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup arg2) {
-		final Customs custom = data.get(position);
+		final CustomsVo custom = data.get(position);
 		ViewHolder holder = null;
 		if (convertView == null) {
 			convertView = inflater

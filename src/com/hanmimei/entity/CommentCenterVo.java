@@ -11,21 +11,14 @@ import java.util.List;
  * @author eric
  *
  */
-public class CommentCenter {
+public class CommentCenterVo {
 	private HMessage message;
-	private List<OrderRemark> list;
 	private List<OrderRemark> orderRemark;
 	public HMessage getMessage() {
 		return message;
 	}
 	public void setMessage(HMessage message) {
 		this.message = message;
-	}
-	public List<OrderRemark> getList() {
-		return list;
-	}
-	public void setList(List<OrderRemark> list) {
-		this.list = list;
 	}
 	public List<OrderRemark> getOrderRemark() {
 		return orderRemark;

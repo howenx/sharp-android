@@ -53,7 +53,7 @@ import com.viewpagerindicator.IconTabPageIndicator.OnTabReselectedListener;
  *
  */
 @SuppressLint("NewApi")
-public class MainTestActivity extends BaseActivity implements OnClickListener {
+public class HMainActivity extends BaseActivity implements OnClickListener {
 
 	private DownloadTools downloadTools;
 
@@ -105,7 +105,7 @@ public class MainTestActivity extends BaseActivity implements OnClickListener {
 			@Override
 			public void onClick(View v) {
 				dialog.dismiss();
-				ToastUtils.Toast(MainTestActivity.this, "你点击了广告！！！");
+				ToastUtils.Toast(HMainActivity.this, "你点击了广告！！！");
 			}
 		});
 	}

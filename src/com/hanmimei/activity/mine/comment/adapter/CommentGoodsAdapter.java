@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 import com.hanmimei.R;
 import com.hanmimei.activity.mine.comment.PubCommentActivity;
-import com.hanmimei.entity.Comment;
+import com.hanmimei.entity.CommentVo;
 import com.hanmimei.entity.OrderRemark;
 import com.hanmimei.entity.Sku;
 import com.hanmimei.utils.GlideLoaderUtils;
@@ -70,7 +70,7 @@ public class CommentGoodsAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup arg2) {
 //		final Sku sku = list.get(position).getSku();
 		final Sku sku = list.get(position).getOrderLine();
-		final Comment comment = list.get(position).getComment();
+		final CommentVo comment = list.get(position).getComment();
 		ViewHolder holder = null;
 		if(convertView == null){
 			convertView = inflater.inflate(R.layout.comment_goods_item, null);

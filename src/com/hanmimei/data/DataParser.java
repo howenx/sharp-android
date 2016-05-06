@@ -9,24 +9,21 @@ import org.json.JSONObject;
 
 import com.google.gson.Gson;
 import com.hanmimei.entity.Collection;
-import com.hanmimei.entity.CollectionInfo;
-import com.hanmimei.entity.Comment;
-import com.hanmimei.entity.CommentCenter;
-import com.hanmimei.entity.Customs;
+import com.hanmimei.entity.CollectionVo;
+import com.hanmimei.entity.CustomsVo;
 import com.hanmimei.entity.HAddress;
-import com.hanmimei.entity.HThemeGoods;
 import com.hanmimei.entity.HMessage;
+import com.hanmimei.entity.HThemeGoods;
 import com.hanmimei.entity.Home;
 import com.hanmimei.entity.Logistics;
 import com.hanmimei.entity.LogisticsData;
-import com.hanmimei.entity.MessageInfo;
-import com.hanmimei.entity.MessageType;
-import com.hanmimei.entity.MessageTypeInfo;
-import com.hanmimei.entity.MessageResult;
+import com.hanmimei.entity.PushMessageVo;
+import com.hanmimei.entity.PushMessageResult;
+import com.hanmimei.entity.PushMessageType;
+import com.hanmimei.entity.PushMessageTypeInfo;
 import com.hanmimei.entity.Notify;
 import com.hanmimei.entity.Order;
 import com.hanmimei.entity.OrderList;
-import com.hanmimei.entity.OrderRemark;
 import com.hanmimei.entity.RefundVo;
 import com.hanmimei.entity.Result;
 import com.hanmimei.entity.ShoppingCar;
@@ -369,7 +366,7 @@ public class DataParser {
 
 	public static ShoppingCar parserShoppingCar(String result) {
 		ShoppingCar car = new ShoppingCar();
-		List<Customs> customs = new ArrayList<Customs>();
+		List<CustomsVo> customs = new ArrayList<CustomsVo>();
 		HMessage msg = new HMessage();
 		try {
 			JSONObject object = new JSONObject(result);
@@ -383,7 +380,7 @@ public class DataParser {
 				for (int i = 0; i < array.length(); i++) {
 					JSONObject obj = array.getJSONObject(i);
 					List<ShoppingGoods> list = new ArrayList<ShoppingGoods>();
-					Customs custom = new Customs();
+					CustomsVo custom = new CustomsVo();
 					if (obj.has("invCustoms"))
 						custom.setInvCustoms(obj.getString("invCustoms"));
 					if (obj.has("invArea"))
@@ -532,8 +529,8 @@ public class DataParser {
 		return user;
 	}
 
-	public static CollectionInfo parserCollect(String result) {
-		CollectionInfo collectionInfo = new CollectionInfo();
+	public static CollectionVo parserCollect(String result) {
+		CollectionVo collectionInfo = new CollectionVo();
 		try {
 			JSONObject object = new JSONObject(result);
 			if (object.has("message")) {
@@ -609,7 +606,6 @@ public class DataParser {
 
 	public static Notify parserJPush(String result) {
 		Notify notify = new Notify();
-		;
 		try {
 			JSONObject object = new JSONObject(result);
 			if (object.has("url"))
@@ -622,8 +618,8 @@ public class DataParser {
 		return notify;
 	}
 
-	public static MessageTypeInfo parseMsgType(String result) {
-		MessageTypeInfo typeInfo = new MessageTypeInfo();
+	public static PushMessageTypeInfo parseMsgType(String result) {
+		PushMessageTypeInfo typeInfo = new PushMessageTypeInfo();
 		JSONObject object;
 		try {
 			object = new JSONObject(result);
@@ -638,10 +634,10 @@ public class DataParser {
 				typeInfo.setMessage(message);
 			}
 			if (object.has("msgTypeDTOList")) {
-				List<MessageType> list = new ArrayList<MessageType>();
+				List<PushMessageType> list = new ArrayList<PushMessageType>();
 				JSONArray array = object.getJSONArray("msgTypeDTOList");
 				for (int i = 0; i < array.length(); i++) {
-					MessageType type = new MessageType();
+					PushMessageType type = new PushMessageType();
 					JSONObject obj = array.getJSONObject(i);
 					if (obj.has("msgType"))
 						type.setType(obj.getString("msgType"));
@@ -664,15 +660,15 @@ public class DataParser {
 		return typeInfo;
 	}
 
-	public static MessageResult parseMsgInfo(String result) {
-		MessageResult msgResult = new MessageResult();
+	public static PushMessageResult parseMsgInfo(String result) {
+		PushMessageResult msgResult = new PushMessageResult();
 		try {
 			JSONObject object = new JSONObject(result);
 			if (object.has("msgList")) {
-				List<MessageInfo> list = new ArrayList<MessageInfo>();
+				List<PushMessageVo> list = new ArrayList<PushMessageVo>();
 				JSONArray array = object.getJSONArray("msgList");
 				for (int i = 0; i < array.length(); i++) {
-					MessageInfo info = new MessageInfo();
+					PushMessageVo info = new PushMessageVo();
 					JSONObject obj = array.getJSONObject(i);
 					if (obj.has("id"))
 						info.setMsgId(obj.getString("id"));
@@ -767,96 +763,96 @@ public class DataParser {
 		return logistics;
 	}
 
-	public static CommentCenter parserCommentCenter(String result) {
-		CommentCenter center = new CommentCenter();
-		try {
-			JSONObject object = new JSONObject(result);
-			if (object.has("message")) {
-				HMessage message = new HMessage();
-				JSONObject msgObject = object.getJSONObject("message");
-				if (msgObject.has("message"))
-					message.setMessage(msgObject.getString("message"));
-				if (msgObject.has("code"))
-					message.setCode(msgObject.getInt("code"));
-				center.setMessage(message);
-			}
-			if (object.has("orderRemark")) {
-				List<OrderRemark> list = new ArrayList<OrderRemark>();
-				JSONArray array = object.getJSONArray("orderRemark");
-				for (int i = 0; i < array.length(); i++) {
-					OrderRemark remark = new OrderRemark();
-					JSONObject obj = array.getJSONObject(i);
-					if (obj.has("orderLine")) {
-						Sku sku = new Sku();
-						JSONObject skuObject = obj.getJSONObject("orderLine");
-						if (skuObject.has("orderId"))
-							sku.setOrderId(skuObject.getString("orderId"));
-						if (skuObject.has("skuId"))
-							sku.setSkuId(skuObject.getString("skuId"));
-						if (skuObject.has("amount"))
-							sku.setAmount(skuObject.getInt("amount"));
-						if (skuObject.has("price"))
-							sku.setPrice(skuObject.getInt("price"));
-						if (skuObject.has("skuTitle"))
-							sku.setSkuTitle(decode2(skuObject
-									.getString("skuTitle")));
-						if (skuObject.has("invImg")) {
-							JSONObject imgObj = new JSONObject(
-									skuObject.getString("invImg"));
-							if (imgObj.has("url"))
-								sku.setInvImg(imgObj.getString("url"));
-						}
-						if (skuObject.has("invUrl"))
-							sku.setInvUrl(skuObject.getString("invUrl"));
-						if (skuObject.has("itemColor"))
-							sku.setItemColor(skuObject.getString("itemColor"));
-						if (skuObject.has("itemSize"))
-							sku.setItemSize(skuObject.getString("itemSize"));
-						if (skuObject.has("skuType"))
-							sku.setSkuType(skuObject.getString("skuType"));
-						if (skuObject.has("skuTypeId"))
-							sku.setSkuTypeId(skuObject.getString("skuTypeId"));
-						remark.setSku(sku);
-					}
-					if (obj.has("comment")) {
-						Comment comment = new Comment();
-						JSONObject commentObject = obj.getJSONObject("comment");
-						if (commentObject.has("createAt"))
-							comment.setCreateAt(commentObject
-									.getString("createAt"));
-						if (commentObject.has("content"))
-							comment.setComment(commentObject
-									.getString("content"));
-						if (commentObject.has("picture")) {
-							if (commentObject.getString("picture").equals("")
-									&& !commentObject.getString("picture")
-											.equals("null")) {
-								// String path =
-								// commentObject.getString("picture");
-								if (commentObject.getString("picture") != null) {
-									ArrayList<String> arrayList = new ArrayList<>();
-									JSONArray jsonArray = new JSONArray(
-											commentObject.getString("picture"));
-									for (int j = 0; j < jsonArray.length(); j++) {
-										arrayList.add(jsonArray.getString(j));
-									}
-									comment.setPhotoList(arrayList);
-								}
-							}
-							if (commentObject.has("grade"))
-								comment.setScore(commentObject.getInt("grade"));
-							remark.setComment(comment);
-						}
-						list.add(remark);
-					}
-					center.setList(list);
-				}
-			}
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		return center;
-
-	}
+//	public static CommentCenter parserCommentCenter(String result) {
+//		CommentCenter center = new CommentCenter();
+//		try {
+//			JSONObject object = new JSONObject(result);
+//			if (object.has("message")) {
+//				HMessage message = new HMessage();
+//				JSONObject msgObject = object.getJSONObject("message");
+//				if (msgObject.has("message"))
+//					message.setMessage(msgObject.getString("message"));
+//				if (msgObject.has("code"))
+//					message.setCode(msgObject.getInt("code"));
+//				center.setMessage(message);
+//			}
+//			if (object.has("orderRemark")) {
+//				List<OrderRemark> list = new ArrayList<OrderRemark>();
+//				JSONArray array = object.getJSONArray("orderRemark");
+//				for (int i = 0; i < array.length(); i++) {
+//					OrderRemark remark = new OrderRemark();
+//					JSONObject obj = array.getJSONObject(i);
+//					if (obj.has("orderLine")) {
+//						Sku sku = new Sku();
+//						JSONObject skuObject = obj.getJSONObject("orderLine");
+//						if (skuObject.has("orderId"))
+//							sku.setOrderId(skuObject.getString("orderId"));
+//						if (skuObject.has("skuId"))
+//							sku.setSkuId(skuObject.getString("skuId"));
+//						if (skuObject.has("amount"))
+//							sku.setAmount(skuObject.getInt("amount"));
+//						if (skuObject.has("price"))
+//							sku.setPrice(skuObject.getInt("price"));
+//						if (skuObject.has("skuTitle"))
+//							sku.setSkuTitle(decode2(skuObject
+//									.getString("skuTitle")));
+//						if (skuObject.has("invImg")) {
+//							JSONObject imgObj = new JSONObject(
+//									skuObject.getString("invImg"));
+//							if (imgObj.has("url"))
+//								sku.setInvImg(imgObj.getString("url"));
+//						}
+//						if (skuObject.has("invUrl"))
+//							sku.setInvUrl(skuObject.getString("invUrl"));
+//						if (skuObject.has("itemColor"))
+//							sku.setItemColor(skuObject.getString("itemColor"));
+//						if (skuObject.has("itemSize"))
+//							sku.setItemSize(skuObject.getString("itemSize"));
+//						if (skuObject.has("skuType"))
+//							sku.setSkuType(skuObject.getString("skuType"));
+//						if (skuObject.has("skuTypeId"))
+//							sku.setSkuTypeId(skuObject.getString("skuTypeId"));
+//						remark.setSku(sku);
+//					}
+//					if (obj.has("comment")) {
+//						Comment comment = new Comment();
+//						JSONObject commentObject = obj.getJSONObject("comment");
+//						if (commentObject.has("createAt"))
+//							comment.setCreateAt(commentObject
+//									.getString("createAt"));
+//						if (commentObject.has("content"))
+//							comment.setComment(commentObject
+//									.getString("content"));
+//						if (commentObject.has("picture")) {
+//							if (commentObject.getString("picture").equals("")
+//									&& !commentObject.getString("picture")
+//											.equals("null")) {
+//								// String path =
+//								// commentObject.getString("picture");
+//								if (commentObject.getString("picture") != null) {
+//									ArrayList<String> arrayList = new ArrayList<>();
+//									JSONArray jsonArray = new JSONArray(
+//											commentObject.getString("picture"));
+//									for (int j = 0; j < jsonArray.length(); j++) {
+//										arrayList.add(jsonArray.getString(j));
+//									}
+//									comment.setPhotoList(arrayList);
+//								}
+//							}
+//							if (commentObject.has("grade"))
+//								comment.setScore(commentObject.getInt("grade"));
+//							remark.setComment(comment);
+//						}
+//						list.add(remark);
+//					}
+//					center.setList(list);
+//				}
+//			}
+//		} catch (JSONException e) {
+//			e.printStackTrace();
+//		}
+//		return center;
+//
+//	}
 
 }

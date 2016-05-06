@@ -28,15 +28,15 @@ import com.hanmimei.activity.mine.address.MyAddressActivity;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.JSONPaserTool;
 import com.hanmimei.data.UrlUtil;
-import com.hanmimei.entity.Coupon;
-import com.hanmimei.entity.Customs;
-import com.hanmimei.entity.From;
-import com.hanmimei.entity.GoodsBalance;
-import com.hanmimei.entity.GoodsBalance.Settle;
-import com.hanmimei.entity.GoodsBalance.SingleCustoms;
+import com.hanmimei.entity.CouponVo;
+import com.hanmimei.entity.CustomsVo;
+import com.hanmimei.entity.FromVo;
+import com.hanmimei.entity.GoodsBalanceVo;
+import com.hanmimei.entity.GoodsBalanceVo.Settle;
+import com.hanmimei.entity.GoodsBalanceVo.SingleCustoms;
 import com.hanmimei.entity.HAddress;
 import com.hanmimei.entity.OrderInfo;
-import com.hanmimei.entity.OrderSubmit;
+import com.hanmimei.entity.OrderSubmitVo;
 import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.http.VolleyHttp;
 import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
@@ -57,7 +57,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 																		// 优惠券
 	private TextView send_time, pay_type; // 选中的发送时间 /支付类型
 	private ListView mListView;//
-	private List<Customs> customslist; // 保税区列表
+	private List<CustomsVo> customslist; // 保税区列表
 
 	private TextView all_price, all_money, youhui, all_portalfee, all_shipfee;
 	private TextView name, phone, address, idCard, coupon_num, coupon_denomi;
@@ -67,8 +67,8 @@ public class GoodsBalanceActivity extends BaseActivity implements
 	private GoodsBalanceCustomAdapter adapter;
 
 	private ShoppingCar car; // 所要显示的商品数据
-	private GoodsBalance goodsBalance; // 本页数据集合
-	private OrderSubmit orderSubmit; // 提交订单数据集合
+	private GoodsBalanceVo goodsBalance; // 本页数据集合
+	private OrderSubmitVo orderSubmit; // 提交订单数据集合
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -79,7 +79,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 		// 获取要购买的数据
 		car = (ShoppingCar) getIntent().getSerializableExtra("car");
 		customslist = car.getList();
-		orderSubmit = new OrderSubmit();
+		orderSubmit = new OrderSubmitVo();
 		orderSubmit.setBuyNow(car.getBuyNow());
 		orderSubmit.setPinActiveId(getIntent().getStringExtra("pinActiveId"));
 		findView();
@@ -197,13 +197,13 @@ public class GoodsBalanceActivity extends BaseActivity implements
 
 		case R.id.newAddress:
 			Intent intnt = new Intent(this, MyAddressActivity.class);
-			intnt.putExtra("from", From.GoodsBalanceActivity);
+			intnt.putExtra("from", FromVo.GoodsBalanceActivity);
 			intnt.putExtra("selectedId", selectedId);
 			startActivityForResult(intnt, 1);
 			break;
 		case R.id.selectAddress:
 			intnt = new Intent(this, MyAddressActivity.class);
-			intnt.putExtra("from", From.GoodsBalanceActivity);
+			intnt.putExtra("from", FromVo.GoodsBalanceActivity);
 			intnt.putExtra("selectedId", selectedId);
 			Log.i("selectAddress_id", selectedId + "");
 			startActivityForResult(intnt, 1);
@@ -240,7 +240,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 					public void onSuccess(String result) {
 						getLoading().dismiss();
 						goodsBalance = new Gson().fromJson(result,
-								GoodsBalance.class);
+								GoodsBalanceVo.class);
 						initViewData();
 					}
 
@@ -258,7 +258,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 	 * @param os
 	 *            订单提交信息
 	 */
-	private void sendData(OrderSubmit os) {
+	private void sendData(OrderSubmitVo os) {
 		final JSONObject json = JSONPaserTool.OrderSubmitPaser(os);
 		getLoading().show();
 		VolleyHttp.doPostRequestTask2(getHeaders(),
@@ -361,7 +361,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 				public void onClick(View arg0) {
 					Intent intnt = new Intent(getActivity(),
 							MyAddressActivity.class);
-					intnt.putExtra("from", From.GoodsBalanceActivity);
+					intnt.putExtra("from", FromVo.GoodsBalanceActivity);
 					intnt.putExtra("selectedId", selectedId);
 					startActivityForResult(intnt, 1);
 				}
@@ -383,7 +383,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 		car.setTotalFee(settle.getTotalFee());
 		car.setDiscountFee(settle.getDiscountFee());
 
-		for (Customs cs : car.getList()) {
+		for (CustomsVo cs : car.getList()) {
 			for (SingleCustoms scs : settle.getSingleCustoms()) {
 				if (cs.getInvCustoms().equals(scs.getInvCustoms())) {
 					cs.setFactPortalFeeSingleCustoms(scs
@@ -409,7 +409,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 	 */
 	private void initCouponsInfo(Settle settle) {
 		if (settle.getCoupons() != null && settle.getCoupons().size() > 0) {
-			List<Coupon> coupons = settle.getCoupons();
+			List<CouponVo> coupons = settle.getCoupons();
 			coupon_num.setText(coupons.size() + "张可用");
 			RadioButton btn = null;
 			LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT,
@@ -417,7 +417,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 			if (group_coupons.getChildCount() > 1) {
 				group_coupons.removeViews(1, group_coupons.getChildCount() - 1);
 			}
-			for (Coupon c : coupons) {
+			for (CouponVo c : coupons) {
 				btn = getCustomRadioButton();
 				btn.setText("满" + c.getLimitQuota() + "减" + c.getDenomination());
 				btn.setTag(R.id.coupon_de, c.getDenomination());

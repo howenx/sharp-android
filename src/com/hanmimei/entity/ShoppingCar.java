@@ -10,7 +10,7 @@ public class ShoppingCar implements Serializable {
 	 */
 	private static final long serialVersionUID = 1;
 	private HMessage message;
-	private List<Customs> list;
+	private List<CustomsVo> list;
 	 private String orderType = "item";       //订单类型:1.vary,2.item,3.customize,4.pin
 	
 	private BigDecimal shipFee =  BigDecimal.ZERO;			//理论邮费
@@ -68,11 +68,11 @@ public class ShoppingCar implements Serializable {
 		this.message = message;
 	}
 
-	public List<Customs> getList() {
+	public List<CustomsVo> getList() {
 		return list;
 	}
 
-	public void setList(List<Customs> list) {
+	public void setList(List<CustomsVo> list) {
 		this.list = list;
 	}
 

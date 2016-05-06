@@ -17,7 +17,7 @@ import com.google.gson.reflect.TypeToken;
 /**
  * Entity mapped to table "THEME_ITEM".
  */
-public class HGoods {
+public class HGoodsVo {
 
 	private Long id;
 	private String themeId; //  主题id
@@ -58,8 +58,8 @@ public class HGoods {
 	
 	
 	
-	public ImgInfo getItemMasterImgForImgInfo(){
-		return new Gson().fromJson(itemMasterImg, ImgInfo.class);
+	public ImageVo getItemMasterImgForImgInfo(){
+		return new Gson().fromJson(itemMasterImg, ImageVo.class);
 	}
 	
 	public Date getStartAt() {
@@ -96,8 +96,8 @@ public class HGoods {
 		this.itemType = itemType;
 	}
 
-	public ImgInfo getItemImgForImgInfo(){
-		return new Gson().fromJson(itemImg, ImgInfo.class);
+	public ImageVo getItemImgForImgInfo(){
+		return new Gson().fromJson(itemImg, ImageVo.class);
 	}
 	
 	public List<ImgTag> getMasterItemTagForTag(){

@@ -7,7 +7,7 @@ import java.util.List;
 
 import android.util.Log;
 
-public class Customs implements Serializable{
+public class CustomsVo implements Serializable{
 	private String invArea;
 	private String  invCustoms;
 	private String invAreaNm;
@@ -104,14 +104,14 @@ public class Customs implements Serializable{
 		this.list = list;
 	}
 	
-	public Customs(String invArea, String invCustoms, List<ShoppingGoods> list) {
+	public CustomsVo(String invArea, String invCustoms, List<ShoppingGoods> list) {
 		super();
 		this.invArea = invArea;
 		this.invCustoms = invCustoms;
 		this.list = list;
 	
 	}
-	public Customs() {
+	public CustomsVo() {
 		super();
 	}
 	

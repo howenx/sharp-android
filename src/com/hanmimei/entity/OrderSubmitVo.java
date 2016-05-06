@@ -2,7 +2,7 @@ package com.hanmimei.entity;
 
 import org.json.JSONArray;
 
-public class OrderSubmit {
+public class OrderSubmitVo {
 	
 	public static final String PAY_TYPE_JD = "JD";
 	public static final String PAY_TYPE_APAY = "APAY";
@@ -26,7 +26,7 @@ public class OrderSubmit {
 		public void setPinActiveId(String pinActiveId) {
 			this.pinActiveId = pinActiveId;
 		}
-		public OrderSubmit() {
+		public OrderSubmitVo() {
 			super();
 			this.clientType = 1;
 			this.shipTime = 1;

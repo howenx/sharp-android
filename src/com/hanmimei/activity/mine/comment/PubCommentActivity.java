@@ -27,7 +27,7 @@ import com.hanmimei.activity.mine.comment.adapter.ImageGridAdapter;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
-import com.hanmimei.entity.Comment;
+import com.hanmimei.entity.CommentVo;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.Sku;
 import com.hanmimei.gallery.MultiImageSelectorActivity;
@@ -53,7 +53,7 @@ public class PubCommentActivity extends BaseActivity implements OnClickListener{
 	private String comment_str;
 	private int grade;
 	private Sku sku;
-	private Comment comment;
+	private CommentVo comment;
 	private ArrayList<String> photoList;
 	private ImageGridAdapter adapter;
 	private static final int REQUEST_IMAGE = 2;
@@ -66,7 +66,7 @@ public class PubCommentActivity extends BaseActivity implements OnClickListener{
 		ActionBarUtil.setActionBarStyle(this, "发表评价");
 		sku = (Sku) getIntent().getSerializableExtra("sku");
 		if(getIntent().getSerializableExtra("comment") != null){
-			comment = (Comment) getIntent().getSerializableExtra("comment");
+			comment = (CommentVo) getIntent().getSerializableExtra("comment");
 		}
 		photoList = new ArrayList<String>();
 		//有评论展示，未评论评论

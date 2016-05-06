@@ -1,6 +1,6 @@
 package com.hanmimei.entity;
 
-public class Tag {
+public class TagVo {
 	private String content;
 	private String state="Y";			//Y'--正常,'D'--下架,'N'--删除,'K'--售空
 	private Boolean orMasterInv=false;
@@ -25,13 +25,13 @@ public class Tag {
 		this.orMasterInv = orMasterInv;
 	}
 	
-	public Tag(String content, String state, Boolean orMasterInv) {
+	public TagVo(String content, String state, Boolean orMasterInv) {
 		super();
 		this.content = content;
 		this.state = state;
 		this.orMasterInv = orMasterInv;
 	}
-	public Tag() {
+	public TagVo() {
 		super();
 		// TODO Auto-generated constructor stub
 	} 

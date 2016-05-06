@@ -13,8 +13,8 @@ import android.widget.TextView;
 
 import com.hanmimei.R;
 import com.hanmimei.activity.base.BaseActivity;
+import com.hanmimei.activity.mine.coupon.adapter.CouponPagerAdapter;
 import com.hanmimei.activity.mine.order.fragment.OrderFragment;
-import com.hanmimei.adapter.MyPagerAdapter;
 import com.hanmimei.entity.Category;
 import com.hanmimei.manager.OrderNumsMenager;
 import com.hanmimei.utils.ActionBarUtil;
@@ -38,7 +38,7 @@ public class MyOrderActivity extends BaseActivity implements OnClickListener,
 	private ViewPager viewPager;
 	private List<Category> data;
 	private List<Fragment> fragmentList;
-	private MyPagerAdapter adapter;
+	private CouponPagerAdapter adapter;
 	private TextView t1;
 	private TextView t2;
 	private TextView t3;
@@ -94,7 +94,7 @@ public class MyOrderActivity extends BaseActivity implements OnClickListener,
 			fragment.setArguments(bundle);
 			fragmentList.add(fragment);
 		}
-		adapter = new MyPagerAdapter(getSupportFragmentManager(), fragmentList,
+		adapter = new CouponPagerAdapter(getSupportFragmentManager(), fragmentList,
 				data);
 		viewPager.setAdapter(adapter);
 	}

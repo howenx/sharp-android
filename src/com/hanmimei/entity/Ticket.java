@@ -10,9 +10,9 @@ import java.util.List;
  * Entity mapped to table "TICKET".
  */
 public class Ticket {
-	private List<Coupon> coupons;
+	private List<CouponVo> coupons;
 	private HMessage message;
-	public List<Coupon> getCoupons() {
+	public List<CouponVo> getCoupons() {
 		return coupons;
 	}
 	
@@ -20,7 +20,7 @@ public class Ticket {
 		super();
 	}
 
-	public void setCoupons(List<Coupon> coupons) {
+	public void setCoupons(List<CouponVo> coupons) {
 		this.coupons = coupons;
 	}
 	public HMessage getMessage() {

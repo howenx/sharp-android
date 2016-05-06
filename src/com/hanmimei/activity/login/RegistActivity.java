@@ -28,7 +28,6 @@ import android.widget.TextView;
 
 import com.hanmimei.R;
 import com.hanmimei.activity.base.BaseActivity;
-import com.hanmimei.activity.listener.TimeEndListner;
 import com.hanmimei.activity.mine.config.HmmServiceActivity;
 import com.hanmimei.application.HMMApplication;
 import com.hanmimei.dao.ShoppingGoodsDao;
@@ -39,6 +38,7 @@ import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.User;
+import com.hanmimei.override.TimeEndListner;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtil;
 import com.hanmimei.utils.DateUtils;

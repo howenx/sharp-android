@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.hanmimei.R;
 import com.hanmimei.activity.car.adapter.ShoppingCarPullListAdapter;
-import com.hanmimei.entity.Customs;
+import com.hanmimei.entity.CustomsVo;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.utils.CommonUtil;
 
@@ -32,7 +32,7 @@ public class ShoppingCarMenager {
 	private double totalPrice_e = 0;
 	private String customName;
 	private int bottommorePrice;
-	private List<Customs> list = new ArrayList<Customs>();
+	private List<CustomsVo> list = new ArrayList<CustomsVo>();
 
 	private static class ShopCartManagerHolder {
 		public static final ShoppingCarMenager instance = new ShoppingCarMenager();
@@ -41,7 +41,7 @@ public class ShoppingCarMenager {
 	public static ShoppingCarMenager getInstance() {
 		return ShopCartManagerHolder.instance;
 	}
-	public void initShoppingCarMenager(Context mContext, ShoppingCarPullListAdapter adapter, List<Customs> list, TextView attention, TextView totalPrice, TextView pay, LinearLayout no_data, LinearLayout bottom,PullToRefreshListView mListView){
+	public void initShoppingCarMenager(Context mContext, ShoppingCarPullListAdapter adapter, List<CustomsVo> list, TextView attention, TextView totalPrice, TextView pay, LinearLayout no_data, LinearLayout bottom,PullToRefreshListView mListView){
 		this.adapter = adapter;
 		this.list.clear();
 		this.list.addAll(list);
@@ -52,13 +52,13 @@ public class ShoppingCarMenager {
 		this.bottom = bottom;
 		this.mListView = mListView;
 	}
-	public List<Customs> getData(){
+	public List<CustomsVo> getData(){
 		return list;
 	}
 	
 	public void isMoreThan(){
 		boolean isfirst = false;
-		List<Customs> selectCustoms = new ArrayList<Customs>();
+		List<CustomsVo> selectCustoms = new ArrayList<CustomsVo>();
 		for(int i = 0; i < list.size(); i ++){
 			boolean customHas = false;
 			double morePrice = 0;
@@ -93,7 +93,7 @@ public class ShoppingCarMenager {
 		
 	}
 	//判断选中的商品所属仓库是否一致
-	private boolean isDifCustoms(List<Customs> list){
+	private boolean isDifCustoms(List<CustomsVo> list){
 		boolean isDif = false;
 		for(int i = 0; i < list.size() - 1; i ++){
 			if(!list.get(i).getInvArea().equals(list.get(i+1).getInvArea())){

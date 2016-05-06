@@ -28,11 +28,11 @@ import com.hanmimei.activity.goods.theme.adapter.ThemeAdapter;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
-import com.hanmimei.entity.HGoods;
-import com.hanmimei.entity.HGoods.ImgTag;
+import com.hanmimei.entity.HGoodsVo;
+import com.hanmimei.entity.HGoodsVo.ImgTag;
 import com.hanmimei.entity.HThemeGoods;
 import com.hanmimei.entity.HThemeGoods.ThemeList;
-import com.hanmimei.entity.ImgInfo;
+import com.hanmimei.entity.ImageVo;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.http.VolleyHttp;
 import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
@@ -56,7 +56,7 @@ import com.ui.tag.TagViewRight;
 public class ThemeGoodsActivity extends BaseActivity implements OnClickListener {
 
 	private ThemeAdapter adapter; // 商品适配器
-	private List<HGoods> data;// 显示的商品数据
+	private List<HGoodsVo> data;// 显示的商品数据
 	private BadgeView bView;
 
 	FrameLayout mframeLayout; // 主推商品容器 添加tag使用
@@ -69,7 +69,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 				R.drawable.white_shoppingcar, true, this);
 		View cartView = view.findViewById(R.id.setting);
 
-		data = new ArrayList<HGoods>();
+		data = new ArrayList<HGoodsVo>();
 		adapter = new ThemeAdapter(data, this);
 		findView(cartView);
 		GridView gridView = (GridView) findViewById(R.id.my_grid);
@@ -224,7 +224,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		ThemeList themeList = detail.getThemeList();
 		if (themeList == null)
 			return;
-		ImgInfo themeImg = themeList.getThemeImg();
+		ImageVo themeImg = themeList.getThemeImg();
 		int width = CommonUtil.getScreenWidth(this);
 		int height = CommonUtil.getScreenWidth(this) * themeImg.getHeight()
 				/ themeImg.getWidth();

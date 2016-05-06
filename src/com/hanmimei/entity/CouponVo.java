@@ -1,7 +1,7 @@
 package com.hanmimei.entity;
 
 
-public class Coupon {
+public class CouponVo {
 	private String coupId;
 	private String userId;
 	private String cateId;

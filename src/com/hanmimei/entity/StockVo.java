@@ -217,17 +217,17 @@ public class StockVo implements Serializable{
 		this.status = status;
 	}
 
-	public ImgInfo getInvImgForObj() {
-		return new Gson().fromJson(invImg, ImgInfo.class);
+	public ImageVo getInvImgForObj() {
+		return new Gson().fromJson(invImg, ImageVo.class);
 	}
 
 	public String getInvImg() {
 		return invImg;
 	}
 
-	public ArrayList<ImgInfo> getItemPreviewImgsForList() {
+	public ArrayList<ImageVo> getItemPreviewImgsForList() {
 		return new Gson().fromJson(itemPreviewImgs,
-				new TypeToken<ArrayList<ImgInfo>>() {
+				new TypeToken<ArrayList<ImageVo>>() {
 				}.getType());
 	}
 

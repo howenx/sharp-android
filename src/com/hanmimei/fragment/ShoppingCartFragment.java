@@ -34,7 +34,7 @@ import com.hanmimei.dao.ShoppingGoodsDao;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
-import com.hanmimei.entity.Customs;
+import com.hanmimei.entity.CustomsVo;
 import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.User;
@@ -60,7 +60,7 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 	private TextView attention;
 	private LinearLayout no_data;
 	private ImageView go_home;
-	private List<Customs> data;
+	private List<CustomsVo> data;
 	private ShoppingCarPullListAdapter adapter;
 	private BaseActivity activity;
 	private User user;
@@ -73,7 +73,7 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 		super.onCreate(savedInstanceState);
 		activity = (BaseActivity) getActivity();
 		goodsDao = activity.getDaoSession().getShoppingGoodsDao();
-		data = new ArrayList<Customs>();
+		data = new ArrayList<CustomsVo>();
 		shoppingCar = new ShoppingCar();
 	}
 
@@ -162,7 +162,7 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 				}, array.toString());
 	}
 
-	private int getShoppingCarNum(List<Customs> list) {
+	private int getShoppingCarNum(List<CustomsVo> list) {
 		int nums = 0;
 		for (int i = 0; i < list.size(); i++) {
 			List<ShoppingGoods> goods = list.get(i).getList();
@@ -275,10 +275,10 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.pay:
-			List<Customs> customsList = new ArrayList<Customs>();
+			List<CustomsVo> customsList = new ArrayList<CustomsVo>();
 			for (int i = 0; i < data.size(); i++) {
 				List<ShoppingGoods> goodsList = new ArrayList<ShoppingGoods>();
-				Customs customs = new Customs();
+				CustomsVo customs = new CustomsVo();
 				for (int j = 0; j < data.get(i).getList().size(); j++) {
 					if (data.get(i).getList().get(j).getState().equals("G")) {
 						goodsList.add(data.get(i).getList().get(j));

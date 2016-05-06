@@ -14,7 +14,7 @@ import com.google.gson.Gson;
 import com.hanmimei.R;
 import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.data.UrlUtil;
-import com.hanmimei.entity.GoodsBalance;
+import com.hanmimei.entity.GoodsBalanceVo;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.Order;
 import com.hanmimei.http.MultipartRequestParams;
@@ -116,8 +116,8 @@ public class ApplyRefundActivity extends BaseActivity implements
 					@Override
 					public void onSuccess(String result) {
 						getLoading().dismiss();
-						GoodsBalance b = new Gson().fromJson(result,
-								GoodsBalance.class);
+						GoodsBalanceVo b = new Gson().fromJson(result,
+								GoodsBalanceVo.class);
 						HMessage msg = b.getMessage();
 						if (msg.getCode() == 200) {
 							btn_submit.setProgress(100);

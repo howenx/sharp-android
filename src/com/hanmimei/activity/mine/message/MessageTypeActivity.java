@@ -19,8 +19,8 @@ import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
-import com.hanmimei.entity.MessageType;
-import com.hanmimei.entity.MessageTypeInfo;
+import com.hanmimei.entity.PushMessageType;
+import com.hanmimei.entity.PushMessageTypeInfo;
 import com.hanmimei.http.VolleyHttp;
 import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.manager.MessageMenager;
@@ -92,7 +92,7 @@ public class MessageTypeActivity extends BaseActivity implements OnClickListener
 			@Override
 			public void onSuccess(String result) {
 				getLoading().dismiss();
-				MessageTypeInfo typeInfo = DataParser.parseMsgType(result);
+				PushMessageTypeInfo typeInfo = DataParser.parseMsgType(result);
 				if(typeInfo.getMessage().getCode() == 200){
 					initView(typeInfo.getList());
 				}else{
@@ -108,7 +108,7 @@ public class MessageTypeActivity extends BaseActivity implements OnClickListener
 		});
 	}
 
-	private void initView(List<MessageType> type) {
+	private void initView(List<PushMessageType> type) {
 		if(type != null && type.size() > 0){
 			for(int i = 0; i < type.size(); i++){
 				if(type.get(i).getType().equals("system")){

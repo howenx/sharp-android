@@ -7,7 +7,7 @@ public class GoodsDetail {
 	private List<StockVo> stock;
 	private HMessage message;
 	private Integer cartNum;
-	private List<HGoods> push;
+	private List<HGoodsVo> push;
 	private CommentVo comment;
 	
 	
@@ -34,12 +34,12 @@ public class GoodsDetail {
 	}
 	
 
-	public List<HGoods> getPush() {
+	public List<HGoodsVo> getPush() {
 		return push;
 	}
 
 
-	public void setPush(List<HGoods> push) {
+	public void setPush(List<HGoodsVo> push) {
 		this.push = push;
 	}
 
