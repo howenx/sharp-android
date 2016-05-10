@@ -34,7 +34,7 @@ import com.hanmimei.entity.OrderInfo;
 import com.hanmimei.http.VolleyHttp;
 import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.utils.AlertDialogUtils;
-import com.hanmimei.utils.CommonUtil;
+import com.hanmimei.utils.CommonUtils;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.view.HorizontalListView;
 
@@ -160,7 +160,7 @@ public class OrderPullListAdapter extends BaseAdapter {
 		if (order.getOrderStatus().equals("I")) {
 			holder.all_price.setVisibility(View.VISIBLE);
 			holder.all_price.setText("应付金额：¥"
-					+ CommonUtil.doubleTrans(order.getPayTotal()));
+					+ CommonUtils.doubleTrans(order.getPayTotal()));
 			holder.state.setText("待支付");
 			// 颜色
 			holder.state.setTextColor(activity.getResources().getColor(

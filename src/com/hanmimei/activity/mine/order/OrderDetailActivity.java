@@ -43,7 +43,7 @@ import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.override.TimeEndListner;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
-import com.hanmimei.utils.CommonUtil;
+import com.hanmimei.utils.CommonUtils;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.KeyWordUtil;
 import com.hanmimei.utils.ToastUtils;
@@ -190,7 +190,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 			}
 		}else if(order.getOrderStatus().equals("I")){
 			attention.setVisibility(View.VISIBLE);
-			attention.setTimes(CommonUtil.getTimer(order.getCountDown()/1000 - 10),"订单超过24小时，已经过期");
+			attention.setTimes(CommonUtils.getTimer(order.getCountDown()/1000 - 10),"订单超过24小时，已经过期");
 			attention.beginRun();
 			order_state.setText("订单状态：待支付");
 			cancle.setVisibility(View.VISIBLE);
@@ -256,11 +256,11 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		idcard.setText("身份证：" + addressInfo.getIdCard().substring(0, 5) + "********" + addressInfo.getIdCard().substring(14, addressInfo.getIdCard().length()));
 		address.setText("收货地址：" + addressInfo.getCity() + addressInfo.getAdress());
 		nums.setText("订单总件数：" + list.size());
-		total_price.setText("商品总费用：" + CommonUtil.doubleTrans(order.getTotalFee()));
-		post_cost.setText("邮费：" + CommonUtil.doubleTrans(order.getShipFee()));
-		tax.setText("行邮税：" + CommonUtil.doubleTrans(order.getPostalFee()));
-		cut_price.setText("已优惠金额：" + CommonUtil.doubleTrans(order.getDiscount()));
-		order_price.setText("订单应付金额：" + CommonUtil.doubleTrans(order.getPayTotal()));
+		total_price.setText("商品总费用：" + CommonUtils.doubleTrans(order.getTotalFee()));
+		post_cost.setText("邮费：" + CommonUtils.doubleTrans(order.getShipFee()));
+		tax.setText("行邮税：" + CommonUtils.doubleTrans(order.getPostalFee()));
+		cut_price.setText("已优惠金额：" + CommonUtils.doubleTrans(order.getDiscount()));
+		order_price.setText("订单应付金额：" + CommonUtils.doubleTrans(order.getPayTotal()));
 		
 	}
 	private void findView() {

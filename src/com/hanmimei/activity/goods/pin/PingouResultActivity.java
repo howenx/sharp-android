@@ -36,7 +36,7 @@ import com.hanmimei.http.VolleyHttp;
 import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.override.TimeEndListner;
 import com.hanmimei.utils.ActionBarUtil;
-import com.hanmimei.utils.GlideLoaderUtils;
+import com.hanmimei.utils.GlideLoaderTools;
 import com.hanmimei.utils.KeyWordUtil;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.CircleImageView;
@@ -130,7 +130,7 @@ public class PingouResultActivity extends BaseActivity implements
 	 */
 	private void initPageData() {
 
-		GlideLoaderUtils.loadSquareImage(getActivity(),pinActivity.getPinImg().getUrl(), pro_img);
+		GlideLoaderTools.loadSquareImage(getActivity(),pinActivity.getPinImg().getUrl(), pro_img);
 		pro_title.setText(pinActivity.getPinTitle() + "");
 		String guige = getResources().getString(R.string.tuan_gui,
 				pinActivity.getPersonNum(), pinActivity.getPinPrice());
@@ -138,7 +138,7 @@ public class PingouResultActivity extends BaseActivity implements
 				guige.indexOf("¥"), guige.length());
 
 		PinUser master = pinActivity.getPinUsersForMaster();
-		GlideLoaderUtils.loadCirlceImage(getActivity(),master.getUserImg(), master_face);
+		GlideLoaderTools.loadCirlceImage(getActivity(),master.getUserImg(), master_face);
 		master_name.setText("团长" + master.getUserNm());
 		master_time.setText(master.getJoinAt() + "开团");
 		gridlayout
@@ -332,7 +332,7 @@ public class PingouResultActivity extends BaseActivity implements
 
 			PinUser p = members.get(arg0);
 			holder.nameView.setText(p.getUserNm());
-			GlideLoaderUtils.loadCirlceImage(getActivity(),p.getUserImg(), holder.faceView);
+			GlideLoaderTools.loadCirlceImage(getActivity(),p.getUserImg(), holder.faceView);
 			holder.timeView.setText(p.getJoinAt() + "参团");
 
 			return arg1;
@@ -448,7 +448,7 @@ public class PingouResultActivity extends BaseActivity implements
 				} else {
 					holder.roleView.setVisibility(View.INVISIBLE);
 				}
-				GlideLoaderUtils.loadCirlceImage(getActivity(),members.get(arg0).getUserImg(),
+				GlideLoaderTools.loadCirlceImage(getActivity(),members.get(arg0).getUserImg(),
 						holder.faceView);
 				holder.faceView.setBorderColor(getResources().getColor(
 						R.color.theme));

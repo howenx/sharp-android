@@ -23,7 +23,6 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import butterknife.ButterKnife;
 
 import com.android.volley.Request.Method;
 import com.astuetz.PagerSlidingTabStrip;
@@ -64,8 +63,8 @@ import com.hanmimei.override.SimpleAnimationListener;
 import com.hanmimei.override.ViewPageChangeListener;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
-import com.hanmimei.utils.CommonUtil;
-import com.hanmimei.utils.GlideLoaderUtils;
+import com.hanmimei.utils.CommonUtils;
+import com.hanmimei.utils.GlideLoaderTools;
 import com.hanmimei.utils.KeyWordUtil;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.BadgeView;
@@ -120,7 +119,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 		ActionBarUtil.setActionBarStyle(this, "商品详情",
 				R.drawable.hmm_icon_share, true, this, this);
 		setContentView(R.layout.goods_detail_layout);
-		ButterKnife.bind(GoodsDetailActivity.this);
 		findView();
 		initGoodsNumView();
 		initAnimatorSetValue();
@@ -139,8 +137,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private void findView() {
 		slider = (ConvenientBanner<ImageVo>) findViewById(R.id.slider);
 		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-				CommonUtil.getScreenWidth(this),
-				CommonUtil.getScreenWidth(this));
+				CommonUtils.getScreenWidth(this),
+				CommonUtils.getScreenWidth(this));
 		slider.setLayoutParams(lp);
 		itemTitle = (TextView) findViewById(R.id.itemTitle);
 		itemSrcPrice = (TextView) findViewById(R.id.itemSrcPrice);
@@ -456,7 +454,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private ObjectAnimator objectAnimator;
 
 	private void initAnimatorSetValue() {
-		int translationX = CommonUtil.getScreenWidth(this) * 4 / 11;
+		int translationX = CommonUtils.getScreenWidth(this) * 4 / 11;
 
 		PropertyValuesHolder pvhSX = PropertyValuesHolder.ofFloat("scaleX", 1f,
 				0.3f);
@@ -485,7 +483,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	}
 
 	private void displayAnimation() {
-		GlideLoaderUtils.loadSquareImage(getActivity(), detail.getCurrentStock()
+		GlideLoaderTools.loadSquareImage(getActivity(), detail.getCurrentStock()
 				.getInvImgForObj().getUrl(), img_hide);
 		objectAnimator.start();
 	}
@@ -863,6 +861,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 				detail.getStock().get(oldPostion).setOrMasterInv(false);
 				detail.getStock().get(position).setOrMasterInv(true);
 				initStocks(detail.getStock().get(position));
+				mScrollLayout.scrollToTop();
 				if (more_view.getVisibility() == View.VISIBLE) {
 					more_view.setVisibility(View.GONE);
 					more_view.setOnClickListener(null);

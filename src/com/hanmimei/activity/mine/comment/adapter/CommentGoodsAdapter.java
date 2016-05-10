@@ -22,7 +22,7 @@ import com.hanmimei.activity.mine.comment.PubCommentActivity;
 import com.hanmimei.entity.CommentVo;
 import com.hanmimei.entity.OrderRemark;
 import com.hanmimei.entity.Sku;
-import com.hanmimei.utils.GlideLoaderUtils;
+import com.hanmimei.utils.GlideLoaderTools;
 
 /**
  * @author eric
@@ -83,7 +83,7 @@ public class CommentGoodsAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		holder.title.setText(sku.getSkuTitle());
-		GlideLoaderUtils.loadSquareImage(mContext, sku.getInvImg_(), holder.img);
+		GlideLoaderTools.loadSquareImage(mContext, sku.getInvImg_(), holder.img);
 		if(comment != null){
 			holder.comment.setText("查看评价");
 		}else{

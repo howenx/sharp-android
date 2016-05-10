@@ -19,10 +19,10 @@ import com.hanmimei.dao.UserDao;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.entity.User;
 import com.hanmimei.manager.DataCleanManager;
+import com.hanmimei.manager.HDownloadManager;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
-import com.hanmimei.utils.CommonUtil;
-import com.hanmimei.utils.DownloadTools;
+import com.hanmimei.utils.CommonUtils;
 import com.hanmimei.utils.ToastUtils;
 
 /**
@@ -61,7 +61,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 		} else {
 			exit.setVisibility(View.VISIBLE);
 		}
-		cur_version.setText(getResources().getString(R.string.current_version, CommonUtil.getVersionName(this)));
+		cur_version.setText(getResources().getString(R.string.current_version, CommonUtils.getVersionName(this)));
 		cacheSize.setText(DataCleanManager.getTotalCacheSize(this));
 		if(getVersionInfo() !=null){
 			versionName.setVisibility(View.VISIBLE);
@@ -100,7 +100,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 					
 					@Override
 					public void onClick(View v) {
-						new DownloadTools(getActivity()).download(getVersionInfo().getDownloadLink());
+						new HDownloadManager(getActivity()).download(getVersionInfo().getDownloadLink());
 					}
 				});
 			}

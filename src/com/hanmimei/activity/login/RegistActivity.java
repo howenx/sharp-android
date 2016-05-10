@@ -40,7 +40,7 @@ import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.User;
 import com.hanmimei.override.TimeEndListner;
 import com.hanmimei.utils.ActionBarUtil;
-import com.hanmimei.utils.CommonUtil;
+import com.hanmimei.utils.CommonUtils;
 import com.hanmimei.utils.DateUtils;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.KeyWordUtil;
@@ -179,7 +179,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 			break;
 		case R.id.regist:
 			// 关闭键盘
-			CommonUtil.closeBoardIfShow(this);
+			CommonUtils.closeBoardIfShow(this);
 			checkInput();
 			break;
 		// 清空手机号的输入
@@ -240,23 +240,23 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 		pwd = pwd_edit.getText().toString();
 		pwd_agin = pwd_agin_edit.getText().toString();
 		if (yanzheng.length() != 6) {
-			CommonUtil.setAttention(attention, "请输入6位验证码");
+			CommonUtils.setAttention(attention, "请输入6位验证码");
 			return;
 		} else if (pwd.length() < 6 || pwd.length() > 12) {
-			CommonUtil.setAttention(attention, "请输入6-12位密码");
+			CommonUtils.setAttention(attention, "请输入6-12位密码");
 			return;
-		} else if (!CommonUtil.isPassWord(pwd)) {
-			CommonUtil.setAttention(attention, "密码必须位数字和字母的组合");
+		} else if (!CommonUtils.isPassWord(pwd)) {
+			CommonUtils.setAttention(attention, "密码必须位数字和字母的组合");
 			return;
 		} else if (!pwd.equals(pwd_agin)) {
-			CommonUtil.setAttention(attention, "两次输入的密码不一致");
+			CommonUtils.setAttention(attention, "两次输入的密码不一致");
 		} else {
 			doRegist();
 		}
 	}
 
 	private void doRegist() {
-		dialog = CommonUtil.dialog(this, "请稍后...");
+		dialog = CommonUtils.dialog(this, "请稍后...");
 		dialog.show();
 		new Thread(new Runnable() {
 			@Override
@@ -287,7 +287,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 		get_yanzheng.setTimes(80);
 		get_yanzheng.beginRun();
 		// 加密
-		msg = CommonUtil.md5(phone + "hmm");
+		msg = CommonUtils.md5(phone + "hmm");
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -325,31 +325,31 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 						//
 						// }
 					} else {
-						CommonUtil.setAttention(attention, result.getMessage());
+						CommonUtils.setAttention(attention, result.getMessage());
 					}
 				} else {
-					CommonUtil.setAttention(attention, "网络连接异常，请检查网络");
+					CommonUtils.setAttention(attention, "网络连接异常，请检查网络");
 				}
 				break;
 			case 2:
 				HMessage code_result = (HMessage) msg.obj;
 				if (code_result.getCode() != null) {
 					if (code_result.getCode() == 200) {
-						CommonUtil.setAttention(attention, "验证码发送成功！");
+						CommonUtils.setAttention(attention, "验证码发送成功！");
 					} else if (code_result.getCode() == 5005) {
 						get_yanzheng.stopRun();
 						get_yanzheng.setText("获取验证码");
 						get_yanzheng.setClickable(false);
 						get_yanzheng.setTextColor(getResources().getColor(
 								R.color.huise));
-						CommonUtil.setAttention(attention,
+						CommonUtils.setAttention(attention,
 								code_result.getMessage());
 					} else {
 						isTimeEnd();
-						CommonUtil.setAttention(attention, "验证码发送失败！");
+						CommonUtils.setAttention(attention, "验证码发送失败！");
 					}
 				} else {
-					CommonUtil.setAttention(attention, "网络连接异常，请检查网络");
+					CommonUtils.setAttention(attention, "网络连接异常，请检查网络");
 				}
 				break;
 			case 5:

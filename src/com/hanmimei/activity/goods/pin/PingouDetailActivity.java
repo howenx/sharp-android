@@ -55,7 +55,7 @@ import com.hanmimei.http.VolleyHttp;
 import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.override.ViewPageChangeListener;
 import com.hanmimei.utils.ActionBarUtil;
-import com.hanmimei.utils.CommonUtil;
+import com.hanmimei.utils.CommonUtils;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.NetworkImageHolderView;
 import com.hanmimei.view.PushWindow;
@@ -135,8 +135,8 @@ public class PingouDetailActivity extends BaseActivity implements
 		mScrollLayout = (ScrollableLayout) findViewById(R.id.mScrollLayout);
 		slider = (ConvenientBanner<ImageVo>) findViewById(R.id.slider);
 		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-				CommonUtil.getScreenWidth(this),
-				CommonUtil.getScreenWidth(this));
+				CommonUtils.getScreenWidth(this),
+				CommonUtils.getScreenWidth(this));
 		slider.setLayoutParams(lp);
 
 		back_top = findViewById(R.id.back_top);

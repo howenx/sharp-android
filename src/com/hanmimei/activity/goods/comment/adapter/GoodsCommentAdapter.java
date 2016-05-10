@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 import com.hanmimei.R;
 import com.hanmimei.entity.RemarkVo;
-import com.hanmimei.utils.GlideLoaderUtils;
+import com.hanmimei.utils.GlideLoaderTools;
 import com.hanmimei.view.CircleImageView;
 
 /**
@@ -94,7 +94,7 @@ public class GoodsCommentAdapter extends BaseAdapter {
 		RemarkVo raRemarkVo = datas.get(position);
 
 		mViewHolder.name.setText(raRemarkVo.getUserName());
-		GlideLoaderUtils.loadCirlceImage(mContext, raRemarkVo.getUserImg(),
+		GlideLoaderTools.loadCirlceImage(mContext, raRemarkVo.getUserImg(),
 				mViewHolder.header);
 		mViewHolder.content.setText(raRemarkVo.getContent());
 		mViewHolder.create_time.setText(raRemarkVo.getCreateAt());

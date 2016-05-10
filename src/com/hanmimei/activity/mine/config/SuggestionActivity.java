@@ -11,7 +11,7 @@ import android.widget.EditText;
 import com.hanmimei.R;
 import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.utils.ActionBarUtil;
-import com.hanmimei.utils.CommonUtil;
+import com.hanmimei.utils.CommonUtils;
 import com.hanmimei.utils.ToastUtils;
 
 /**
@@ -49,7 +49,7 @@ public class SuggestionActivity extends BaseActivity implements OnClickListener{
 		}
 	}
 	private void doSend() {
-		dialog = CommonUtil.dialog(this, "正在提交，请稍后...");
+		dialog = CommonUtils.dialog(this, "正在提交，请稍后...");
 		dialog.show();
 		new Thread(new Runnable() {
 			@Override

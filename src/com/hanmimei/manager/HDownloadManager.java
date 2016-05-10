@@ -1,4 +1,4 @@
-package com.hanmimei.utils;
+package com.hanmimei.manager;
 
 import java.io.File;
 
@@ -14,11 +14,12 @@ import android.view.View;
 import android.widget.RemoteViews;
 
 import com.hanmimei.R;
+import com.hanmimei.utils.ToastUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 
-public class DownloadTools {
+public class HDownloadManager {
 	@SuppressLint("SdCardPath")
 	public static final String DOWNLOAD_PATH = "/mnt/sdcard/hanmimei/downloads/";
 	private Context mContext;
@@ -27,7 +28,7 @@ public class DownloadTools {
 	private NotificationManager notificationManager;
 	private String filePath;
 
-	public DownloadTools(Context mContext) {
+	public HDownloadManager(Context mContext) {
 		this.mContext = mContext;
 	}
 
@@ -47,7 +48,7 @@ public class DownloadTools {
 	 * @param file
 	 *            APK文件
 	 */
-	public void installApk(Context context, File file) {
+	private void installApk(Context context, File file) {
 		Intent intent = new Intent();
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		intent.setAction(Intent.ACTION_VIEW);

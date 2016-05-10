@@ -35,7 +35,7 @@ import com.hanmimei.http.MultipartRequestParams;
 import com.hanmimei.http.VolleyHttp;
 import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.utils.ActionBarUtil;
-import com.hanmimei.utils.GlideLoaderUtils;
+import com.hanmimei.utils.GlideLoaderTools;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.CustomGridView;
 
@@ -145,7 +145,7 @@ public class PubCommentActivity extends BaseActivity implements OnClickListener{
 			findViewById(R.id.attention).setVisibility(View.GONE);
 			findViewById(R.id.submit).setVisibility(View.GONE);
 		}
-		GlideLoaderUtils.loadImage(this, sku.getInvImg_(), img, R.drawable.hmm_place_holder_z);
+		GlideLoaderTools.loadImage(this, sku.getInvImg_(), img, R.drawable.hmm_place_holder_z);
 		content.addTextChangedListener(new TextWatcher() {
 			
 			@Override

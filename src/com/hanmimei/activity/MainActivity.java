@@ -34,11 +34,11 @@ import com.hanmimei.fragment.HomeFragment;
 import com.hanmimei.fragment.MineFragment;
 import com.hanmimei.fragment.ShoppingCartFragment;
 import com.hanmimei.manager.BadgeViewManager;
+import com.hanmimei.manager.HDownloadManager;
 import com.hanmimei.manager.MessageMenager;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
-import com.hanmimei.utils.CommonUtil;
-import com.hanmimei.utils.DownloadTools;
+import com.hanmimei.utils.CommonUtils;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.utils.XMLPaserTools;
 import com.umeng.analytics.MobclickAgent;
@@ -59,7 +59,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 	private String TAB_CAR = "购物车";
 	private String TAB_MY = "我的";
 //	private int pingou_drawable = R.drawable.tab_pingou;
-	private DownloadTools downloadTools;
+	private HDownloadManager downloadTools;
 	
 	private VersionVo info;
 
@@ -77,7 +77,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 		setContentView(R.layout.activity_main);
 		ActionBarUtil.setActionBarStyle(this, "", 0, false, this);
 		//关闭左滑退出
-		showGuangGao();
+//		showGuangGao();
 //		guanggao = (LinearLayout) findViewById(R.id.guanggao);
 //		guanggao.setOnClickListener(this);
 		mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
@@ -278,7 +278,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 					// 从服务器获得一个输入流
 					is = conn.getInputStream();
 					info = XMLPaserTools.getUpdataInfo(is);
-					if (!info.getReleaseNumber().equals(CommonUtil.getVersionName(getActivity()))) {
+					if (!info.getReleaseNumber().equals(CommonUtils.getVersionName(getActivity()))) {
 						// 版本号不同,发送消息更新客户端
 						handler.sendEmptyMessage(VersionVo.UPDATA_CLIENT);
 					} 
@@ -349,7 +349,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,
 	}
 	
 	private void downloadApk(String url){
-		downloadTools = new DownloadTools(getActivity());
+		downloadTools = new HDownloadManager(getActivity());
 		downloadTools.download(url);
 	}
 	

@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.hanmimei.R;
 import com.hanmimei.entity.PushMessageVo;
 import com.hanmimei.utils.DateUtils;
-import com.hanmimei.utils.GlideLoaderUtils;
+import com.hanmimei.utils.GlideLoaderTools;
 
 /**
  * @author eric
@@ -75,7 +75,7 @@ public class MyMsgAdapter extends BaseAdapter {
 		hold.msg.setText(info.getMsgTitle());
 		hold.content.setText(info.getMsgContent());
 		if(type.equals("goods") || type.equals("discount")){
-			GlideLoaderUtils.loadRectImage(mActivity, hold.img, info.getMsgImg(), 2, 1);
+			GlideLoaderTools.loadRectImage(mActivity, hold.img, info.getMsgImg(), 2, 1);
 		}
 		hold.go.setOnClickListener(new OnClickListener() {
 			

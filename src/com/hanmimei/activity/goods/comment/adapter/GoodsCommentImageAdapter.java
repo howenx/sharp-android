@@ -8,7 +8,7 @@ package com.hanmimei.activity.goods.comment.adapter;
 import java.util.List;
 
 import com.hanmimei.R;
-import com.hanmimei.utils.GlideLoaderUtils;
+import com.hanmimei.utils.GlideLoaderTools;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -85,7 +85,7 @@ public class GoodsCommentImageAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		GlideLoaderUtils.loadSquareImage(context, images.get(position),
+		GlideLoaderTools.loadSquareImage(context, images.get(position),
 				holder.imageView);
 
 		return convertView;

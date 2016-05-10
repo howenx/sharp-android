@@ -18,7 +18,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.hanmimei.R;
 import com.hanmimei.gallery.bean.Image;
-import com.hanmimei.utils.CommonUtil;
+import com.hanmimei.utils.CommonUtils;
 
 /**
  * 图片Adapter
@@ -46,7 +46,7 @@ public class ImageGridAdapter extends BaseAdapter {
         this.mContext = context;
         this.showCamera = showCamera;
         this.mInflater = LayoutInflater.from(context);
-        int width = CommonUtil.getScreenWidth(context);
+        int width = CommonUtils.getScreenWidth(context);
         mGridWidth = width / column;
     }
     /**

@@ -46,7 +46,7 @@ import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.User;
 import com.hanmimei.utils.ActionBarUtil;
-import com.hanmimei.utils.CommonUtil;
+import com.hanmimei.utils.CommonUtils;
 import com.hanmimei.utils.DateUtils;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ToastUtils;
@@ -170,15 +170,15 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.forget:
-			CommonUtil.doJump(this, ForgetPwdActivity.class);
+			CommonUtils.doJump(this, ForgetPwdActivity.class);
 			break;
 		case R.id.login:
 			// 关闭键盘
-			CommonUtil.closeBoardIfShow(this);
+			CommonUtils.closeBoardIfShow(this);
 			checkInput();
 			break;
 		case R.id.regist:
-			CommonUtil.doJump(this, CheckPhoneActivity.class);
+			CommonUtils.doJump(this, CheckPhoneActivity.class);
 			break;
 		case R.id.refresh:
 			loadImg();
@@ -187,7 +187,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			code = codeEditText.getText().toString();
 			code_attention.setVisibility(View.GONE);
 			// 检查图形校验码的格式
-			if (code.length() != 4 || !CommonUtil.isJiaoYan(code)) {
+			if (code.length() != 4 || !CommonUtils.isJiaoYan(code)) {
 				code_attention.setText("验证码格式不正确");
 				code_attention.setVisibility(View.VISIBLE);
 				return;
@@ -308,14 +308,14 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	private void checkInput() {
 		phone = phone_edit.getText().toString();
 		pwd = pwd_edit.getText().toString();
-		if (!CommonUtil.isPhoneNum(phone)) {
+		if (!CommonUtils.isPhoneNum(phone)) {
 			// setAttention("请输入正确的手机号");
-			CommonUtil.setAttention(attention, "请输入正确的手机号");
+			CommonUtils.setAttention(attention, "请输入正确的手机号");
 			return;
 		} else if (pwd.length() < 6) {
-			CommonUtil.setAttention(attention, "密码至少应为6位");
-		} else if (!CommonUtil.isPassWord(pwd)) {
-			CommonUtil.setAttention(attention, "密码为数字和字母组合");
+			CommonUtils.setAttention(attention, "密码至少应为6位");
+		} else if (!CommonUtils.isPassWord(pwd)) {
+			CommonUtils.setAttention(attention, "密码为数字和字母组合");
 			return;
 		} else {
 			doLogin();
@@ -323,9 +323,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void doLogin() {
-		dialog = CommonUtil.dialog(this, "正在登录，请稍等...");
+		dialog = CommonUtils.dialog(this, "正在登录，请稍等...");
 		dialog.show();
-		new Thread(new Runnable() {
+		submitTask(new Runnable() {
 			@Override
 			public void run() {
 				List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -338,7 +338,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 				msg.obj = loginInfo;
 				mHandler.sendMessage(msg);
 			}
-		}).start();
+		});
 	}
 
 	@SuppressLint("HandlerLeak")
@@ -376,10 +376,10 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 							showDialog();
 						loadImg();
 					} else {
-						CommonUtil.setAttention(attention, result.getMessage());
+						CommonUtils.setAttention(attention, result.getMessage());
 					}
 				} else {
-					CommonUtil.setAttention(attention, "网络连接异常，请检查网络");
+					CommonUtils.setAttention(attention, "网络连接异常，请检查网络");
 				}
 				dialog.dismiss();
 				break;

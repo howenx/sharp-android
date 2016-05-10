@@ -13,7 +13,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Build.VERSION;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
@@ -40,10 +39,9 @@ import com.hanmimei.entity.User;
 import com.hanmimei.entity.VersionVo;
 import com.hanmimei.http.VolleyHttp;
 import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
+import com.hanmimei.manager.SystemBarTintManager;
 import com.hanmimei.manager.ThreadPoolManager;
-import com.hanmimei.utils.GlideLoaderUtils;
-import com.hanmimei.utils.StatusBarCompat;
-import com.hanmimei.utils.SystemBarTintManager;
+import com.hanmimei.utils.GlideLoaderTools;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.LoadingDialog;
 
@@ -129,8 +127,6 @@ public class BaseActivity extends ParallaxActivityBase {
 	@Override
 	protected void onStop() {
 		super.onStop();
-		// getMyApplication().getRequestQueue().cancelAll(new
-		// VolleyRequestFilter());
 		if (!isAppOnForeground()) {
 			setClipboard();
 		}
@@ -144,6 +140,7 @@ public class BaseActivity extends ParallaxActivityBase {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
+		VolleyHttp.parseRequestTask();
 		if (!isAppOnForeground()) {
 			setClipboard();
 		}
@@ -281,7 +278,7 @@ public class BaseActivity extends ParallaxActivityBase {
 				R.style.CustomDialog).create();
 		View view = inflater.inflate(R.layout.hanmimei_command_layout, null);
 		ImageView img = (ImageView) view.findViewById(R.id.img);
-		GlideLoaderUtils.loadSquareImage(getActivity(), imgurl, img);
+		GlideLoaderTools.loadSquareImage(getActivity(), imgurl, img);
 		TextView title = (TextView) view.findViewById(R.id.title);
 		TextView price = (TextView) view.findViewById(R.id.price);
 		title.setText(ti);

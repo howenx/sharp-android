@@ -33,8 +33,8 @@ import com.hanmimei.http.VolleyHttp;
 import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.manager.BadgeViewManager;
 import com.hanmimei.manager.ShoppingCarMenager;
-import com.hanmimei.utils.CommonUtil;
-import com.hanmimei.utils.GlideLoaderUtils;
+import com.hanmimei.utils.CommonUtils;
+import com.hanmimei.utils.GlideLoaderTools;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ToastUtils;
 
@@ -147,10 +147,10 @@ public class ShoppingCarAdapter extends BaseAdapter {
 				holder.plus.setClickable(true);
 			}
 		}
-		GlideLoaderUtils.loadSquareImage(activity,goods.getGoodsImg(), holder.img);
+		GlideLoaderTools.loadSquareImage(activity,goods.getGoodsImg(), holder.img);
 		holder.name.setText(goods.getGoodsName());
 		holder.size.setText(goods.getItemColor() + "  " + goods.getItemSize());
-		holder.price.setText("¥" + CommonUtil.doubleTrans(goods.getGoodsPrice()));
+		holder.price.setText("¥" + CommonUtils.doubleTrans(goods.getGoodsPrice()));
 		holder.nums.setText(goods.getGoodsNums() + "");
 		holder.jian.setOnClickListener(new OnClickListener() {
 			@Override

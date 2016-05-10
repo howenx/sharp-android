@@ -6,7 +6,7 @@ import android.view.ViewGroup.LayoutParams;
 
 import com.hanmimei.R;
 import com.hanmimei.fragment.FragmentTabHost;
-import com.hanmimei.utils.CommonUtil;
+import com.hanmimei.utils.CommonUtils;
 import com.hanmimei.view.BadgeView;
 
 public class BadgeViewManager {

@@ -37,12 +37,12 @@ import com.hanmimei.http.MultipartRequestParams;
 import com.hanmimei.http.VolleyHttp;
 import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.utils.ActionBarUtil;
-import com.hanmimei.utils.CommonUtil;
-import com.hanmimei.utils.GlideLoaderUtils;
+import com.hanmimei.utils.CommonUtils;
+import com.hanmimei.utils.GlideLoaderTools;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.CustomGridView;
-import com.hanmimei.view.UDialog;
-import com.hanmimei.view.UDialog.CallBack;
+import com.hanmimei.view.LinkDialog;
+import com.hanmimei.view.LinkDialog.CallBack;
 /**
  * 
  * @author vince
@@ -137,14 +137,14 @@ public class CustomerServiceActivity extends BaseActivity implements
 		}
 	}
 
-	private UDialog dialog;
+	private LinkDialog dialog;
 
 	private void next() {
 		if (TextUtils.isEmpty(discription.getText())) {
 			ToastUtils.Toast(this, "请填写问题描述");
 			return;
 		}
-		dialog = new UDialog(this);
+		dialog = new LinkDialog(this);
 		dialog.setCallBack(new CallBack() {
 
 			@Override
@@ -189,7 +189,7 @@ public class CustomerServiceActivity extends BaseActivity implements
 							ToastUtils.Toast(getActivity(), msg.getMessage());
 							button.setProgress(-1);
 							dialog.dismiss();
-							CommonUtil.closeBoardIfShow(getActivity());
+							CommonUtils.closeBoardIfShow(getActivity());
 						}
 					}
 
@@ -285,7 +285,7 @@ public class CustomerServiceActivity extends BaseActivity implements
 				}
 			} else {
 				holder.btn_image_del.setVisibility(View.VISIBLE);
-				GlideLoaderUtils.loadSquareImage(getActivity(),
+				GlideLoaderTools.loadSquareImage(getActivity(),
 						mSelectPath.get(position), holder.image);
 				holder.btn_image_del.setOnClickListener(new OnClickListener() {
 

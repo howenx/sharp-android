@@ -18,7 +18,7 @@ import com.bumptech.glide.Glide;
 import com.diegocarloslima.byakugallery.lib.TouchImageView;
 import com.hanmimei.R;
 import com.hanmimei.entity.RemarkVo;
-import com.hanmimei.utils.GlideLoaderUtils;
+import com.hanmimei.utils.GlideLoaderTools;
 
 /**
  * 商品详情页 轮播图展示

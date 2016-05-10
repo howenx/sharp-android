@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.hanmimei.R;
 import com.hanmimei.entity.ShoppingGoods;
-import com.hanmimei.utils.GlideLoaderUtils;
+import com.hanmimei.utils.GlideLoaderTools;
 /**
  * 
  * @author vince
@@ -63,7 +63,7 @@ public class GoodsBalanceAdapter extends BaseAdapter {
 		holder.pro_name.setText(sg.getGoodsName());
 		holder.pro_num.setText(context.getResources().getString(R.string.buyNum, sg.getGoodsNums()));
 		holder.pro_price.setText(context.getResources().getString(R.string.price, sg.getGoodsPrice().toString()));
-		GlideLoaderUtils.loadCirlceImage(context,sg.getGoodsImg(), holder.pro_img);
+		GlideLoaderTools.loadCirlceImage(context,sg.getGoodsImg(), holder.pro_img);
 		return arg1;
 	}
 	

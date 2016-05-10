@@ -21,7 +21,7 @@ import com.hanmimei.http.MultipartRequestParams;
 import com.hanmimei.http.VolleyHttp;
 import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.utils.ActionBarUtil;
-import com.hanmimei.utils.CommonUtil;
+import com.hanmimei.utils.CommonUtils;
 import com.hanmimei.utils.ToastUtils;
 /**
  * 
@@ -101,7 +101,7 @@ public class ApplyRefundActivity extends BaseActivity implements
 			return;
 		}
 		if (!TextUtils.isEmpty(phoneView.getText())
-				&& !CommonUtil.isPhoneNum(phoneView.getText().toString())) {
+				&& !CommonUtils.isPhoneNum(phoneView.getText().toString())) {
 			ToastUtils.Toast(this, "请填写正确的联系方式");
 			return;
 		}
@@ -124,7 +124,7 @@ public class ApplyRefundActivity extends BaseActivity implements
 						} else {
 							ToastUtils.Toast(getActivity(), msg.getMessage());
 							btn_submit.setProgress(-1);
-							CommonUtil.closeBoardIfShow(getActivity());
+							CommonUtils.closeBoardIfShow(getActivity());
 						}
 					}
 

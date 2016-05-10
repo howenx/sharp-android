@@ -21,12 +21,12 @@ import android.provider.MediaStore;
 import com.hanmimei.data.AppConstant;
 
 
-public class ImgUtils {
-	private static ImgUtils utils;
+public class ImageUtils {
+	private static ImageUtils utils;
 
-	public static ImgUtils getInstance() {
+	public static ImageUtils getInstance() {
 		if (utils == null) {
-			utils = new ImgUtils();
+			utils = new ImageUtils();
 		}
 		return utils;
 	}

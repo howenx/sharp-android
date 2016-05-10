@@ -14,7 +14,7 @@ import com.hanmimei.R;
 import com.hanmimei.activity.car.adapter.ShoppingCarPullListAdapter;
 import com.hanmimei.entity.CustomsVo;
 import com.hanmimei.entity.ShoppingGoods;
-import com.hanmimei.utils.CommonUtil;
+import com.hanmimei.utils.CommonUtils;
 
 /**
  * @author eric
@@ -123,7 +123,7 @@ public class ShoppingCarMenager {
 		}
 		pay.setText("结算" +"("+ nums_e + ")");
 		if(nums_e != 0){
-			totalPrice_t.setText("总计：¥" + CommonUtil.doubleTrans(totalPrice_e));
+			totalPrice_t.setText("总计：¥" + CommonUtils.doubleTrans(totalPrice_e));
 		}else{
 			totalPrice_t.setText("总计：¥0");
 		}

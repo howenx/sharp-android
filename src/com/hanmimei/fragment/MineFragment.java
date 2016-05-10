@@ -28,7 +28,7 @@ import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.User;
-import com.hanmimei.utils.GlideLoaderUtils;
+import com.hanmimei.utils.GlideLoaderTools;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.view.CircleImageView;
 import com.umeng.analytics.MobclickAgent;
@@ -82,7 +82,7 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 
 	public void initView() {
 		user = activity.getUser();
-		GlideLoaderUtils.loadCirlceImage(activity,user.getUserImg(), header);
+		GlideLoaderTools.loadCirlceImage(activity,user.getUserImg(), header);
 		user_name.setText(user.getUserName());
 		sex.setVisibility(View.VISIBLE);
 		if (user.getSex().equals("F")) {

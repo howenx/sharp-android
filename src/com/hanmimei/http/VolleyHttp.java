@@ -6,17 +6,15 @@ import java.util.Map;
 import org.json.JSONObject;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.RequestQueue;
 import com.android.volley.Request.Method;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpStack;
 import com.android.volley.toolbox.Volley;
-import com.android.volley.VolleyError;
-import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.http.MultipartRequest.VolleyResponseListener;
 
 /**
@@ -32,7 +30,8 @@ public class VolleyHttp {
 	}
 
 	private static RequestQueue requestQueue;
-
+	public static final String TAG = "volley_request";
+	
 	public static void registRequestQueue(Context mContext) {
 		requestQueue = Volley.newRequestQueue(mContext);
 	}
@@ -47,13 +46,14 @@ public class VolleyHttp {
 
 	
 	//=====================================================================
-	//===============================字典传输==============================
+	//===============================字典传输================================
 	//=====================================================================
 	/**
 	 * 
-	 * @param mContext
-	 * @param url
-	 * @param callback
+	 * @param mContext  上下文
+	 * @param url				请求接口
+	 * @param callback	回调
+	 * 
 	 */
 	public static void doPostRequestTask(String url,
 			final VolleyJsonCallback callback) {
@@ -186,6 +186,7 @@ public class VolleyHttp {
 						}
 					}, params, headers);
 			request.setRetryPolicy(new DefaultRetryPolicy(60 * 1000, 1, 1.0f));
+			request.setTag(TAG);
 		} catch (IOException e) {
 			callback.onError();
 		}
@@ -254,6 +255,7 @@ public class VolleyHttp {
 						}
 					}, params);
 			request.setRetryPolicy(new DefaultRetryPolicy(60 * 1000, 1, 1.0f));
+			request.setTag(TAG);
 		} catch (IOException e) {
 			callback.onError();
 		}
@@ -318,7 +320,15 @@ public class VolleyHttp {
 				}
 			},headers);
 			request.setRetryPolicy(new DefaultRetryPolicy(60 * 1000, 1, 1.0f));
+			request.setTag(TAG);
 			requestQueue.add(request);
+		}
+		
+		
+		
+		public static void parseRequestTask(){
+			if(requestQueue !=null && requestQueue.getSequenceNumber()>0)
+				requestQueue.cancelAll(TAG);
 		}
 	
 

@@ -37,8 +37,8 @@ import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.http.VolleyHttp;
 import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.utils.ActionBarUtil;
-import com.hanmimei.utils.CommonUtil;
-import com.hanmimei.utils.GlideLoaderUtils;
+import com.hanmimei.utils.CommonUtils;
+import com.hanmimei.utils.GlideLoaderTools;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.BadgeView;
 import com.ui.tag.TagInfo;
@@ -225,11 +225,11 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		if (themeList == null)
 			return;
 		ImageVo themeImg = themeList.getThemeImg();
-		int width = CommonUtil.getScreenWidth(this);
-		int height = CommonUtil.getScreenWidth(this) * themeImg.getHeight()
+		int width = CommonUtils.getScreenWidth(this);
+		int height = CommonUtils.getScreenWidth(this) * themeImg.getHeight()
 				/ themeImg.getWidth();
 		ImageView img = (ImageView) findViewById(R.id.img); // 主推商品图片
-		GlideLoaderUtils.loadRectImage(this, img, themeImg.getUrl(),
+		GlideLoaderTools.loadRectImage(this, img, themeImg.getUrl(),
 				themeImg.getWidth(), themeImg.getHeight());
 		// 初始化标签信息
 		initTagInfo(themeList, width, height);

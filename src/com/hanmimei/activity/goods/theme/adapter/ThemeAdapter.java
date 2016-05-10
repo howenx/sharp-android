@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.hanmimei.R;
 import com.hanmimei.entity.HGoodsVo;
 import com.hanmimei.utils.DateUtils;
-import com.hanmimei.utils.GlideLoaderUtils;
+import com.hanmimei.utils.GlideLoaderTools;
 
 public class ThemeAdapter extends BaseAdapter {
 	private List<HGoodsVo> data;
@@ -56,7 +56,7 @@ public class ThemeAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		GlideLoaderUtils.loadSquareImage(activity, theme.getItemImgForImgInfo()
+		GlideLoaderTools.loadSquareImage(activity, theme.getItemImgForImgInfo()
 				.getUrl(), holder.img);
 		holder.title.setText(theme.getItemTitle());
 

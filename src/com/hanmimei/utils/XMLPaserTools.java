@@ -48,6 +48,8 @@ public class XMLPaserTools {
 			}
 			type = parser.next();
 		}
+		if(is !=null)
+			is.close();
 		return info;
 	}
 }

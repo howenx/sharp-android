@@ -23,7 +23,7 @@ import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.utils.ActionBarUtil;
-import com.hanmimei.utils.CommonUtil;
+import com.hanmimei.utils.CommonUtils;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ToastUtils;
 
@@ -63,8 +63,8 @@ public class EditUserNameActivity extends BaseActivity implements OnClickListene
 	}
 	private void checkName() {
 		name = nameText.getText().toString();
-		if(!CommonUtil.inputIsName(name,2,15).equals("")){
-			ToastUtils.Toast(this, "姓名"+ CommonUtil.inputIsName(name,2,15));
+		if(!CommonUtils.inputIsName(name,2,15).equals("")){
+			ToastUtils.Toast(this, "姓名"+ CommonUtils.inputIsName(name,2,15));
 			return;
 		} else {
 			toObject();
@@ -72,7 +72,7 @@ public class EditUserNameActivity extends BaseActivity implements OnClickListene
 		}
 	}
 	private void UpUserInfo() {
-		dialog = CommonUtil.dialog(this, "正在修改，请稍后...");
+		dialog = CommonUtils.dialog(this, "正在修改，请稍后...");
 		dialog.show();
 		new Thread(new Runnable() {
 			@Override

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.hanmimei.utils;
+package com.hanmimei.manager;
 
 import java.lang.reflect.Method;
 
