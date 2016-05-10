@@ -2,7 +2,7 @@ package com.hanmimei.entity;
 
 import java.io.Serializable;
 
-public class ImgInfo implements Serializable{
+public class ImageVo implements Serializable{
 	private String url;
 	private int width;
 	private int height;
@@ -24,11 +24,11 @@ public class ImgInfo implements Serializable{
 	public void setHeight(int height) {
 		this.height = height;
 	}
-	public ImgInfo() {
+	public ImageVo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public ImgInfo(String url) {
+	public ImageVo(String url) {
 		super();
 		this.url = url;
 	}

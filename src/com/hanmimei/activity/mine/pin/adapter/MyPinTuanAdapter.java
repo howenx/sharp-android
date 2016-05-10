@@ -16,7 +16,7 @@ import com.hanmimei.R;
 import com.hanmimei.activity.goods.pin.PingouResultActivity;
 import com.hanmimei.activity.mine.pin.MyPingouDetailActivity;
 import com.hanmimei.entity.PinActivity;
-import com.hanmimei.utils.GlideLoaderUtils;
+import com.hanmimei.utils.GlideLoaderTools;
 
 /**
  * @author eric
@@ -61,7 +61,7 @@ public class MyPinTuanAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		GlideLoaderUtils.loadSquareImage(mContext,goods.getPinImg().getUrl(), holder.img);
+		GlideLoaderTools.loadSquareImage(mContext,goods.getPinImg().getUrl(), holder.img);
 		holder.title.setText(goods.getPinTitle());
 		holder.price.setText("成团价：" + goods.getPinPrice());
 		if(goods.getStatus().equals("Y")){

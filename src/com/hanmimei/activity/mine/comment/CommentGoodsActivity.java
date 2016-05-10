@@ -25,7 +25,7 @@ import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.activity.mine.comment.adapter.CommentGoodsAdapter;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.UrlUtil;
-import com.hanmimei.entity.CommentCenter;
+import com.hanmimei.entity.CommentCenterVo;
 import com.hanmimei.entity.OrderRemark;
 import com.hanmimei.http.VolleyHttp;
 import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
@@ -69,7 +69,7 @@ public class CommentGoodsActivity extends BaseActivity implements OnClickListene
 			public void onSuccess(String result) {
 				getLoading().dismiss();
 //				CommentCenter center = DataParser.parserCommentCenter(result);
-				CommentCenter center = new Gson().fromJson(result, CommentCenter.class);
+				CommentCenterVo center = new Gson().fromJson(result, CommentCenterVo.class);
 				if(center.getMessage() != null){
 					if(center.getMessage().getCode() == 200){
 						list.clear();

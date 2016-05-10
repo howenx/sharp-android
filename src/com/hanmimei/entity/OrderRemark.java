@@ -11,17 +11,17 @@ package com.hanmimei.entity;
  */
 public class OrderRemark {
 	private Sku sku;
-	private Comment comment;
+	private CommentVo comment;
 	public Sku getSku() {
 		return sku;
 	}
 	public void setSku(Sku sku) {
 		this.sku = sku;
 	}
-	public Comment getComment() {
+	public CommentVo getComment() {
 		return comment;
 	}
-	public void setComment(Comment comment) {
+	public void setComment(CommentVo comment) {
 		this.comment = comment;
 	}
 	

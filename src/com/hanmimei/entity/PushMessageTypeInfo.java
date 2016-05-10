@@ -2,17 +2,17 @@ package com.hanmimei.entity;
 
 import java.util.List;
 
-public class MessageTypeInfo {
+public class PushMessageTypeInfo {
 
-	private List<MessageType> list;
+	private List<PushMessageType> list;
 	private HMessage message;
-	public MessageTypeInfo() {
+	public PushMessageTypeInfo() {
 		super();
 	}
-	public List<MessageType> getList() {
+	public List<PushMessageType> getList() {
 		return list;
 	}
-	public void setList(List<MessageType> list) {
+	public void setList(List<PushMessageType> list) {
 		this.list = list;
 	}
 	public HMessage getMessage() {

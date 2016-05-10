@@ -34,7 +34,7 @@ import com.hanmimei.entity.HMessage;
 import com.hanmimei.override.HTextWatcher;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
-import com.hanmimei.utils.CommonUtil;
+import com.hanmimei.utils.CommonUtils;
 import com.hanmimei.utils.HttpUtils;
 
 /**
@@ -102,10 +102,10 @@ public class CheckPhoneActivity extends BaseActivity implements OnClickListener 
 			break;
 		case R.id.next:
 			//关闭键盘
-			CommonUtil.closeBoardIfShow(this);
+			CommonUtils.closeBoardIfShow(this);
 			phone_num = phone.getText().toString();
-			if (!CommonUtil.isPhoneNum(phone_num)) {
-				CommonUtil.setAttention(attention,"请填写正确的手机号");
+			if (!CommonUtils.isPhoneNum(phone_num)) {
+				CommonUtils.setAttention(attention,"请填写正确的手机号");
 				return;
 			} else {
 				checkPhone();
@@ -122,7 +122,7 @@ public class CheckPhoneActivity extends BaseActivity implements OnClickListener 
 	}
 
 	private void checkPhone() {
-		dialog = CommonUtil.dialog(this, "请稍后...");
+		dialog = CommonUtils.dialog(this, "请稍后...");
 		dialog.show();
 		new Thread(new Runnable() {
 
@@ -161,7 +161,7 @@ public class CheckPhoneActivity extends BaseActivity implements OnClickListener 
 						showDialog();
 					}
 				} else {
-					CommonUtil.setAttention(attention, "网络连接异常，请检查网络");
+					CommonUtils.setAttention(attention, "网络连接异常，请检查网络");
 				}
 				break;
 			default:

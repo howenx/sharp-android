@@ -1,4 +1,4 @@
-package com.hanmimei.adapter;
+package com.hanmimei.activity.mine.coupon.adapter;
 
 import java.util.List;
 
@@ -12,11 +12,11 @@ import com.hanmimei.entity.Category;
  * @author eric
  *
  */
-public class MyPagerAdapter extends FragmentPagerAdapter {
+public class CouponPagerAdapter extends FragmentPagerAdapter {
 	private List<Fragment> data;
 	private List<Category> cats;
 
-	public MyPagerAdapter(FragmentManager fm, List<Fragment> data, List<Category> cats) {
+	public CouponPagerAdapter(FragmentManager fm, List<Fragment> data, List<Category> cats) {
 		super(fm);
 		this.data = data;
 		this.cats = cats;

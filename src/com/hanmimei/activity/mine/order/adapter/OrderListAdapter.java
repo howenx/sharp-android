@@ -14,8 +14,8 @@ import android.widget.TextView;
 
 import com.hanmimei.R;
 import com.hanmimei.entity.Sku;
-import com.hanmimei.utils.CommonUtil;
-import com.hanmimei.utils.GlideLoaderUtils;
+import com.hanmimei.utils.CommonUtils;
+import com.hanmimei.utils.GlideLoaderTools;
 
 /**
  * @author eric
@@ -71,9 +71,9 @@ public class OrderListAdapter extends BaseAdapter {
 			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
-			GlideLoaderUtils.loadSquareImage(activity, sku.getInvImg(), holder.img);
+			GlideLoaderTools.loadSquareImage(activity, sku.getInvImg(), holder.img);
 			holder.name.setText(sku.getSkuTitle());
-			holder.price.setText("¥" + CommonUtil.doubleTrans(sku.getPrice()));
+			holder.price.setText("¥" + CommonUtils.doubleTrans(sku.getPrice()));
 			holder.nums.setText("共" + sku.getAmount() + "件商品");
 			holder.size.setText(sku.getItemColor() + "  " + sku.getItemSize());
 			return convertView;
@@ -88,7 +88,7 @@ public class OrderListAdapter extends BaseAdapter {
 			} else {
 				holderMore = (ViewHolderMore) convertView.getTag();
 			}
-			GlideLoaderUtils.loadSquareImage(activity,sku.getInvImg(), holderMore.img);
+			GlideLoaderTools.loadSquareImage(activity,sku.getInvImg(), holderMore.img);
 			return convertView;
 		}
 	}

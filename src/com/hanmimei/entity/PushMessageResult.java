@@ -2,23 +2,23 @@ package com.hanmimei.entity;
 
 import java.util.List;
 
-public class MessageResult {
+public class PushMessageResult {
 
 	private HMessage message;
-	private List<MessageInfo> list;
+	private List<PushMessageVo> list;
 	public HMessage getMessage() {
 		return message;
 	}
 	public void setMessage(HMessage message) {
 		this.message = message;
 	}
-	public List<MessageInfo> getList() {
+	public List<PushMessageVo> getList() {
 		return list;
 	}
-	public void setList(List<MessageInfo> list) {
+	public void setList(List<PushMessageVo> list) {
 		this.list = list;
 	}
-	public MessageResult() {
+	public PushMessageResult() {
 		super();
 	}
 	

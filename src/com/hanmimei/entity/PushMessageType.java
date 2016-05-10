@@ -1,6 +1,6 @@
 package com.hanmimei.entity;
 
-public class MessageType {
+public class PushMessageType {
 	private int num ;
 //	private int goodNum = -1;
 //	private int wuliuNum = -1;
@@ -55,7 +55,7 @@ public class MessageType {
 	}
 
 
-	public MessageType() {
+	public PushMessageType() {
 		super();
 	}
 

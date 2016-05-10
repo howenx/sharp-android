@@ -12,7 +12,7 @@ import android.widget.ImageView;
 
 import com.hanmimei.R;
 import com.hanmimei.entity.Theme;
-import com.hanmimei.utils.GlideLoaderUtils;
+import com.hanmimei.utils.GlideLoaderTools;
 
 /**
  * @author eric
@@ -56,7 +56,7 @@ public class HomeAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		
-		GlideLoaderUtils.loadRectImage(activity, holder.img, theme.getThemeImg(), theme.getWidth(), theme.getHeight());
+		GlideLoaderTools.loadRectImage(activity, holder.img, theme.getThemeImg(), theme.getWidth(), theme.getHeight());
 		return convertView;
 	}
 	private class ViewHolder{

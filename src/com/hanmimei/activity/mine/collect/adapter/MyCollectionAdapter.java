@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.hanmimei.R;
 import com.hanmimei.entity.Collection;
-import com.hanmimei.utils.GlideLoaderUtils;
+import com.hanmimei.utils.GlideLoaderTools;
 
 /**
  * @author eric
@@ -67,7 +67,7 @@ public class MyCollectionAdapter extends BaseAdapter {
 			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
-			GlideLoaderUtils.loadSquareImage(mContext,collection.getSku().getInvImg(), holder.img);
+			GlideLoaderTools.loadSquareImage(mContext,collection.getSku().getInvImg(), holder.img);
 			holder.name.setText(collection.getSku().getSkuTitle());
 			holder.price.setText("¥" + collection.getSku().getPrice());
 			holder.size.setText(collection.getSku().getItemColor() + "  " + collection.getSku().getItemSize());

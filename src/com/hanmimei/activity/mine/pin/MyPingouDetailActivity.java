@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.hanmimei.R;
 import com.hanmimei.activity.base.BaseActivity;
+import com.hanmimei.activity.mine.comment.CommentGoodsActivity;
 import com.hanmimei.activity.mine.order.LogisticsActivity;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
@@ -22,7 +23,7 @@ import com.hanmimei.http.VolleyHttp;
 import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
-import com.hanmimei.utils.GlideLoaderUtils;
+import com.hanmimei.utils.GlideLoaderTools;
 import com.hanmimei.utils.ToastUtils;
 
 /**
@@ -71,6 +72,7 @@ public class MyPingouDetailActivity extends BaseActivity {
 	}
 
 	private void initPingouDetail(List<Order> orders) {
+//		I:初始化即未支付状态，S:成功，C：取消， F:失败，R:已收货，D:已经发货，J:拒收， T已退款
 		if (orders != null && orders.size() > 0) {
 			final Order o = orders.get(0);
 			if (o.getOrderStatus().equals("S")) {
@@ -107,10 +109,20 @@ public class MyPingouDetailActivity extends BaseActivity {
 			} else if (o.getOrderStatus().equals("R")) {
 				order_state.setText("已签收");
 				order_img.setImageResource(R.drawable.hmm_sign);
-				btn_left.setVisibility(View.VISIBLE);
+				btn_left.setVisibility(View.GONE);
 				btn_right.setVisibility(View.VISIBLE);
 				btn_left.setText("申请售后");
 				btn_right.setText("评价");
+				btn_right.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent(getActivity(),
+								CommentGoodsActivity.class);
+						intent.putExtra("orderId", o.getOrderId());
+						startActivity(intent);
+					}
+				});
 			} else {
 				order_state.setText("过期");
 				order_img.setImageResource(R.drawable.hmm_order_error);
@@ -126,7 +138,7 @@ public class MyPingouDetailActivity extends BaseActivity {
 			order_time.setText(o.getOrderCreateAt());
 			pro_shipfee.setText("配送费：" + o.getShipFee());
 
-			GlideLoaderUtils.loadSquareImage(getActivity(), o.getList().get(0)
+			GlideLoaderTools.loadSquareImage(getActivity(), o.getList().get(0)
 					.getInvImg(), pro_img);
 			pro_guige.setText("¥" + o.getList().get(0).getPrice());
 			pro_title.setText(o.getList().get(0).getSkuTitle());
@@ -170,13 +182,13 @@ public class MyPingouDetailActivity extends BaseActivity {
 			@Override
 			public void onSuccess(String result) {
 				getLoading().dismiss();
-				sendBroadcast(new Intent(
-						AppConstant.MESSAGE_BROADCAST_CANCLE_ORDER));
+				
 			}
 
 			@Override
 			public void onError() {
 				getLoading().dismiss();
+				loadPingouDetail();
 			}
 		});
 	}

@@ -14,14 +14,14 @@ import com.google.gson.Gson;
 import com.hanmimei.R;
 import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.data.UrlUtil;
-import com.hanmimei.entity.GoodsBalance;
+import com.hanmimei.entity.GoodsBalanceVo;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.Order;
 import com.hanmimei.http.MultipartRequestParams;
 import com.hanmimei.http.VolleyHttp;
 import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.utils.ActionBarUtil;
-import com.hanmimei.utils.CommonUtil;
+import com.hanmimei.utils.CommonUtils;
 import com.hanmimei.utils.ToastUtils;
 /**
  * 
@@ -101,7 +101,7 @@ public class ApplyRefundActivity extends BaseActivity implements
 			return;
 		}
 		if (!TextUtils.isEmpty(phoneView.getText())
-				&& !CommonUtil.isPhoneNum(phoneView.getText().toString())) {
+				&& !CommonUtils.isPhoneNum(phoneView.getText().toString())) {
 			ToastUtils.Toast(this, "请填写正确的联系方式");
 			return;
 		}
@@ -116,15 +116,15 @@ public class ApplyRefundActivity extends BaseActivity implements
 					@Override
 					public void onSuccess(String result) {
 						getLoading().dismiss();
-						GoodsBalance b = new Gson().fromJson(result,
-								GoodsBalance.class);
+						GoodsBalanceVo b = new Gson().fromJson(result,
+								GoodsBalanceVo.class);
 						HMessage msg = b.getMessage();
 						if (msg.getCode() == 200) {
 							btn_submit.setProgress(100);
 						} else {
 							ToastUtils.Toast(getActivity(), msg.getMessage());
 							btn_submit.setProgress(-1);
-							CommonUtil.closeBoardIfShow(getActivity());
+							CommonUtils.closeBoardIfShow(getActivity());
 						}
 					}
 

@@ -51,9 +51,9 @@ import android.widget.TextView;
  * @author 刘奇
  * 
  */
-public class CommonUtil {
+public class CommonUtils {
 
-	private CommonUtil() {
+	private CommonUtils() {
 		/* cannot be instantiated */
 		throw new UnsupportedOperationException("cannot be instantiated");
 	}

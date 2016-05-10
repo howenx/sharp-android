@@ -13,16 +13,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hanmimei.R;
-import com.hanmimei.entity.HGoods;
+import com.hanmimei.entity.HGoodsVo;
 import com.hanmimei.utils.DateUtils;
-import com.hanmimei.utils.GlideLoaderUtils;
+import com.hanmimei.utils.GlideLoaderTools;
 
 public class ThemeAdapter extends BaseAdapter {
-	private List<HGoods> data;
+	private List<HGoodsVo> data;
 	private LayoutInflater inflater;
 	private Activity activity;
 
-	public ThemeAdapter(List<HGoods> data, Context mContext) {
+	public ThemeAdapter(List<HGoodsVo> data, Context mContext) {
 		this.data = data;
 		activity = (Activity) mContext;
 		inflater = LayoutInflater.from(mContext);
@@ -45,7 +45,7 @@ public class ThemeAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup arg2) {
-		HGoods theme = data.get(position);
+		HGoodsVo theme = data.get(position);
 		ViewHolder holder = null;
 		if (convertView == null) {
 			convertView = inflater.inflate(R.layout.theme_item_layout, null);
@@ -56,7 +56,7 @@ public class ThemeAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		GlideLoaderUtils.loadSquareImage(activity, theme.getItemImgForImgInfo()
+		GlideLoaderTools.loadSquareImage(activity, theme.getItemImgForImgInfo()
 				.getUrl(), holder.img);
 		holder.title.setText(theme.getItemTitle());
 

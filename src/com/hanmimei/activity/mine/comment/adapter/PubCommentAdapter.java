@@ -25,7 +25,7 @@ import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.TextView;
 
 import com.hanmimei.R;
-import com.hanmimei.entity.Comment;
+import com.hanmimei.entity.CommentVo;
 import com.hanmimei.gallery.MultiImageSelectorActivity;
 import com.hanmimei.view.CustomGridView;
 
@@ -38,12 +38,12 @@ import com.hanmimei.view.CustomGridView;
 public class PubCommentAdapter extends BaseAdapter {
 
 	private LayoutInflater inflater;
-	private List<Comment> data;
+	private List<CommentVo> data;
 	private Context mContext;
 	private static final int REQUEST_IMAGE = 2;
 	private static final int IMAGE_MAX_NUM = 3;
 
-	public PubCommentAdapter(Context mContext, List<Comment> data) {
+	public PubCommentAdapter(Context mContext, List<CommentVo> data) {
 		inflater = LayoutInflater.from(mContext);
 		this.mContext = mContext;
 		this.data = data;
@@ -88,7 +88,7 @@ public class PubCommentAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup arg2) {
 		final int index = position;
-		final Comment comment = data.get(position);
+		final CommentVo comment = data.get(position);
 		convertView = inflater.inflate(R.layout.pub_comment_item, null);
 		ViewHold hold = new ViewHold();
 		hold.img = (ImageView) convertView.findViewById(R.id.img);

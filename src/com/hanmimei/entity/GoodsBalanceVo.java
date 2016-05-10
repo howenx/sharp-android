@@ -3,7 +3,7 @@ package com.hanmimei.entity;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class GoodsBalance {
+public class GoodsBalanceVo {
 	private Settle settle;
 	private HMessage message;
 
@@ -25,7 +25,7 @@ public class GoodsBalance {
 
 	public class Settle {
 		private Address address;
-		private List<Coupon> coupons;
+		private List<CouponVo> coupons;
 		private BigDecimal shipFee;			//理论邮费
 		private BigDecimal portalFee;		//理论行邮税
 		private BigDecimal factPortalFee;	//	实际行邮税
@@ -102,11 +102,11 @@ public class GoodsBalance {
 			this.address = address;
 		}
 
-		public List<Coupon> getCoupons() {
+		public List<CouponVo> getCoupons() {
 			return coupons;
 		}
 
-		public void setCoupons(List<Coupon> coupons) {
+		public void setCoupons(List<CouponVo> coupons) {
 			this.coupons = coupons;
 		}
 

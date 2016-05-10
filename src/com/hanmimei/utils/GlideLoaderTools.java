@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide;
 import com.hanmimei.R;
 import com.hanmimei.override.GlideRoundTransform;
 
-public class GlideLoaderUtils {
+public class GlideLoaderTools {
 
 	/**
 	 * 加载图片(圆形)
@@ -102,7 +102,7 @@ public class GlideLoaderUtils {
 	 */
 	public static void loadRectImage(Context mContext, ImageView imgView,
 			String url, int w, int h) {
-		int screenWidth = CommonUtil.getScreenWidth(mContext);
+		int screenWidth = CommonUtils.getScreenWidth(mContext);
 		int height = screenWidth * h / w;
 		int width = screenWidth;
 		Glide.with(mContext).load(url).placeholder(R.drawable.hmm_place_holder_j).override(width, height).into(imgView);

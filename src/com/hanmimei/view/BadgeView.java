@@ -1,7 +1,5 @@
 package com.hanmimei.view;
 
-import com.hanmimei.utils.CommonUtil;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;

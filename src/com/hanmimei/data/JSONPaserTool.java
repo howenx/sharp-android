@@ -4,8 +4,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.hanmimei.entity.Customs;
-import com.hanmimei.entity.OrderSubmit;
+import com.hanmimei.entity.CustomsVo;
+import com.hanmimei.entity.OrderSubmitVo;
 import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
 
@@ -14,7 +14,7 @@ public class JSONPaserTool {
 	public static JSONArray ClientSettlePaser(ShoppingCar car) {
 		JSONArray array = new JSONArray();
 		try {
-			for (Customs cs : car.getList()) {
+			for (CustomsVo cs : car.getList()) {
 				JSONObject json = new JSONObject();
 
 				json.put("invCustoms", cs.getInvCustoms());
@@ -41,7 +41,7 @@ public class JSONPaserTool {
 		return array;
 	}
 	
-	public static JSONObject OrderSubmitPaser(OrderSubmit os){
+	public static JSONObject OrderSubmitPaser(OrderSubmitVo os){
 		JSONObject json = new JSONObject();
 		try {
 			json.put("settleDTOs", os.getSettleDtos());

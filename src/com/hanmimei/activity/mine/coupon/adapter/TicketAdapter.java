@@ -12,18 +12,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hanmimei.R;
-import com.hanmimei.entity.Coupon;
+import com.hanmimei.entity.CouponVo;
 
 /**
  * @author eric
  *
  */
 public class TicketAdapter extends BaseAdapter {
-	private List<Coupon> data;
+	private List<CouponVo> data;
 	private LayoutInflater inflater;
 	private Activity activity;
 
-	public TicketAdapter (List<Coupon> data, Context mContext){
+	public TicketAdapter (List<CouponVo> data, Context mContext){
 		this.data = data;
 		activity = (Activity) mContext;
 		inflater = LayoutInflater.from(mContext);
@@ -45,7 +45,7 @@ public class TicketAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup arg2) {
-		Coupon coupon = data.get(position);
+		CouponVo coupon = data.get(position);
 		ViewHolder holder = null;
 		if(convertView == null){
 			convertView = inflater.inflate(R.layout.ticket_item, null);

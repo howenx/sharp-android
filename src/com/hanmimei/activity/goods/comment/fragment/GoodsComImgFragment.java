@@ -30,7 +30,7 @@ import com.hanmimei.entity.MessageEvent;
 import com.hanmimei.entity.RemarkVo;
 import com.hanmimei.http.VolleyHttp;
 import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
-import com.hanmimei.utils.GlideLoaderUtils;
+import com.hanmimei.utils.GlideLoaderTools;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.GridBottomView;
 import com.hanmimei.view.GridBottomView.OnScrollToBottomListener;
@@ -214,7 +214,7 @@ public class GoodsComImgFragment extends BaseIconFragment  implements OnScrollTo
 			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
-			GlideLoaderUtils.loadSquareImage(context, images.get(position).getPicture(),
+			GlideLoaderTools.loadSquareImage(context, images.get(position).getPicture(),
 					holder.imageView, ScaleType.CENTER_CROP);
 
 			return convertView;

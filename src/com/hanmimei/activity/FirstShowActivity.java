@@ -23,10 +23,6 @@ import com.hanmimei.utils.DateUtils;
 import com.hanmimei.utils.PreferenceUtil.IntroConfig;
 import com.hanmimei.utils.ToastUtils;
 
-/**
- * @author eric
- * 
- */
 @SuppressLint("NewApi")
 public class FirstShowActivity extends AppCompatActivity {
 
@@ -75,7 +71,6 @@ public class FirstShowActivity extends AppCompatActivity {
 		private int what;
 
 		public FirstRun(int what) {
-			super();
 			this.what = what;
 		}
 
@@ -89,7 +84,7 @@ public class FirstShowActivity extends AppCompatActivity {
 				break;
 			case 1:
 				startActivity(new Intent(FirstShowActivity.this,
-						MainTestActivity.class));
+						HMainActivity.class));
 				finish();
 				break;
 			default:

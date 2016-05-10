@@ -27,7 +27,7 @@ import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
-import com.hanmimei.entity.From;
+import com.hanmimei.entity.FromVo;
 import com.hanmimei.entity.HAddress;
 import com.hanmimei.entity.Result;
 import com.hanmimei.http.VolleyHttp;
@@ -49,7 +49,7 @@ public class MyAddressActivity extends BaseActivity implements OnClickListener {
 	private AdressAdapter adapter;
 	private JSONObject object;
 	private long selectedId = 0;
-	private int fromm = From.AboutMyFragment;
+	private int fromm = FromVo.AboutMyFragment;
 	private AlertDialog dialog;
 
 	@Override
@@ -57,8 +57,8 @@ public class MyAddressActivity extends BaseActivity implements OnClickListener {
 		super.onCreate(bundle);
 		setContentView(R.layout.my_address_layout);
 		ActionBarUtil.setActionBarStyle(this, "地址管理");
-		fromm = getIntent().getIntExtra("from", From.AboutMyFragment);
-		if (fromm == From.GoodsBalanceActivity){
+		fromm = getIntent().getIntExtra("from", FromVo.AboutMyFragment);
+		if (fromm == FromVo.GoodsBalanceActivity){
 			selectedId = getIntent().getLongExtra("selectedId", 0);
 		}
 		findView();
@@ -114,7 +114,7 @@ public class MyAddressActivity extends BaseActivity implements OnClickListener {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1,
 					int position, long arg3) {
-				if (fromm == From.GoodsBalanceActivity) {
+				if (fromm == FromVo.GoodsBalanceActivity) {
 					selectedId = data.get(position).getAdress_id();
 					adapter.notifyDataSetChanged();
 					Intent intent = new Intent();
@@ -131,7 +131,7 @@ public class MyAddressActivity extends BaseActivity implements OnClickListener {
 	 * @param arg2
 	 */
 	private void showDelDialog(final int arg2) {
-		if(fromm == From.GoodsBalanceActivity)
+		if(fromm == FromVo.GoodsBalanceActivity)
 			return;
 		dialog = AlertDialogUtils.showDialog(this, new OnClickListener() {
 			
@@ -243,7 +243,7 @@ public class MyAddressActivity extends BaseActivity implements OnClickListener {
 			} else {
 				holder.isDefault.setVisibility(View.GONE);
 			}
-			if (fromm == From.GoodsBalanceActivity) {
+			if (fromm == FromVo.GoodsBalanceActivity) {
 				if (adress.getAdress_id() == selectedId) {
 					holder.isSelected.setVisibility(View.VISIBLE);
 				} else {

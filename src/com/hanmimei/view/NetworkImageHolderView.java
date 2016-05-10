@@ -12,14 +12,14 @@ import android.widget.ImageView;
 import com.bigkoo.convenientbanner.CBPageAdapter;
 import com.hanmimei.R;
 import com.hanmimei.activity.goods.detail.GoodsDetailImgActivity;
-import com.hanmimei.entity.ImgInfo;
-import com.hanmimei.utils.GlideLoaderUtils;
+import com.hanmimei.entity.ImageVo;
+import com.hanmimei.utils.GlideLoaderTools;
 
 /**
  * Created by Sai on 15/8/4.
  * 网络图片加载例子
  */
-public class NetworkImageHolderView implements CBPageAdapter.Holder<ImgInfo>{
+public class NetworkImageHolderView implements CBPageAdapter.Holder<ImageVo>{
     private ImageView imageView;
     @Override
     public View createView(Context context) {
@@ -30,10 +30,10 @@ public class NetworkImageHolderView implements CBPageAdapter.Holder<ImgInfo>{
     }
 
     @Override
-    public void UpdateUI(final Context context,List<ImgInfo> datas, final int position, ImgInfo data) {
-        GlideLoaderUtils.loadSquareImage(context,data.getUrl(),imageView);
+    public void UpdateUI(final Context context,List<ImageVo> datas, final int position, ImageVo data) {
+        GlideLoaderTools.loadSquareImage(context,data.getUrl(),imageView);
         final ArrayList<String> list = new ArrayList<String>();
-        for(ImgInfo info :datas){
+        for(ImageVo info :datas){
         	list.add(info.getUrl());
         }
         imageView.setOnClickListener(new View.OnClickListener() {

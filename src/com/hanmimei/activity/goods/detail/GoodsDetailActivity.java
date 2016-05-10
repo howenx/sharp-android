@@ -23,7 +23,6 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import butterknife.ButterKnife;
 
 import com.android.volley.Request.Method;
 import com.astuetz.PagerSlidingTabStrip;
@@ -34,7 +33,7 @@ import com.cpoopc.scrollablelayoutlib.ScrollableLayout;
 import com.cpoopc.scrollablelayoutlib.ScrollableLayout.OnScrollListener;
 import com.google.gson.Gson;
 import com.hanmimei.R;
-import com.hanmimei.activity.MainTestActivity;
+import com.hanmimei.activity.HMainActivity;
 import com.hanmimei.activity.balance.GoodsBalanceActivity;
 import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.activity.car.ShoppingCarActivity;
@@ -43,29 +42,29 @@ import com.hanmimei.activity.goods.detail.adapter.GoodsDetailPagerAdapter;
 import com.hanmimei.activity.goods.detail.fragment.HotFragment;
 import com.hanmimei.activity.goods.detail.fragment.ImgFragment;
 import com.hanmimei.activity.goods.detail.fragment.ParamsFragment;
-import com.hanmimei.activity.listener.SimpleAnimationListener;
 import com.hanmimei.activity.login.LoginActivity;
 import com.hanmimei.dao.ShoppingGoodsDao.Properties;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.CommentVo;
-import com.hanmimei.entity.Customs;
+import com.hanmimei.entity.CustomsVo;
 import com.hanmimei.entity.GoodsDetail;
 import com.hanmimei.entity.HMessage;
-import com.hanmimei.entity.ImgInfo;
+import com.hanmimei.entity.ImageVo;
 import com.hanmimei.entity.ShareVo;
 import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.StockVo;
-import com.hanmimei.entity.Tag;
+import com.hanmimei.entity.TagVo;
 import com.hanmimei.http.VolleyHttp;
 import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
+import com.hanmimei.override.SimpleAnimationListener;
 import com.hanmimei.override.ViewPageChangeListener;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
-import com.hanmimei.utils.CommonUtil;
-import com.hanmimei.utils.GlideLoaderUtils;
+import com.hanmimei.utils.CommonUtils;
+import com.hanmimei.utils.GlideLoaderTools;
 import com.hanmimei.utils.KeyWordUtil;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.BadgeView;
@@ -98,7 +97,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private TextView more_view;
 
 	private BadgeView goodsNumView;// 显示购买数量的控件
-	private ConvenientBanner<ImgInfo> slider;
+	private ConvenientBanner<ImageVo> slider;
 
 	private ShareWindow shareWindow;
 	private View back_top;
@@ -120,7 +119,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 		ActionBarUtil.setActionBarStyle(this, "商品详情",
 				R.drawable.hmm_icon_share, true, this, this);
 		setContentView(R.layout.goods_detail_layout);
-		ButterKnife.bind(GoodsDetailActivity.this);
 		findView();
 		initGoodsNumView();
 		initAnimatorSetValue();
@@ -137,10 +135,10 @@ public class GoodsDetailActivity extends BaseActivity implements
 	 */
 	@SuppressWarnings("unchecked")
 	private void findView() {
-		slider = (ConvenientBanner<ImgInfo>) findViewById(R.id.slider);
+		slider = (ConvenientBanner<ImageVo>) findViewById(R.id.slider);
 		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-				CommonUtil.getScreenWidth(this),
-				CommonUtil.getScreenWidth(this));
+				CommonUtils.getScreenWidth(this),
+				CommonUtils.getScreenWidth(this));
 		slider.setLayoutParams(lp);
 		itemTitle = (TextView) findViewById(R.id.itemTitle);
 		itemSrcPrice = (TextView) findViewById(R.id.itemSrcPrice);
@@ -456,7 +454,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private ObjectAnimator objectAnimator;
 
 	private void initAnimatorSetValue() {
-		int translationX = CommonUtil.getScreenWidth(this) * 4 / 11;
+		int translationX = CommonUtils.getScreenWidth(this) * 4 / 11;
 
 		PropertyValuesHolder pvhSX = PropertyValuesHolder.ofFloat("scaleX", 1f,
 				0.3f);
@@ -485,7 +483,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	}
 
 	private void displayAnimation() {
-		GlideLoaderUtils.loadSquareImage(getActivity(), detail.getCurrentStock()
+		GlideLoaderTools.loadSquareImage(getActivity(), detail.getCurrentStock()
 				.getInvImgForObj().getUrl(), img_hide);
 		objectAnimator.start();
 	}
@@ -525,8 +523,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 			return;
 		}
 		ShoppingCar car = new ShoppingCar();
-		List<Customs> list = new ArrayList<Customs>();
-		Customs customs = new Customs();
+		List<CustomsVo> list = new ArrayList<CustomsVo>();
+		CustomsVo customs = new CustomsVo();
 
 		ShoppingGoods sgoods = null;
 		for (StockVo s : detail.getStock()) {
@@ -812,10 +810,10 @@ public class GoodsDetailActivity extends BaseActivity implements
 		if (detail.getStock() == null)
 			return;
 		StockVo stock = null;
-		List<Tag> tags = new ArrayList<Tag>();
+		List<TagVo> tags = new ArrayList<TagVo>();
 		boolean outDate = true;
 		for (StockVo s : detail.getStock()) {
-			tags.add(new Tag(s.getItemColor() + " " + s.getItemSize(), s
+			tags.add(new TagVo(s.getItemColor() + " " + s.getItemSize(), s
 					.getState(), s.getOrMasterInv()));
 			if (s.getOrMasterInv()) {
 				stock = s;
@@ -849,7 +847,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	}
 
 
-	private void initTags(List<Tag> tags) {
+	private void initTags(List<TagVo> tags) {
 		if (tags.size() <= 0)
 			return;
 		TagCloudView tagCloudView = (TagCloudView) findViewById(R.id.tagCloudView);// 规格标签控件
@@ -859,10 +857,11 @@ public class GoodsDetailActivity extends BaseActivity implements
 		// 规格标签的点击事件
 		tagCloudView.setOnTagClickListener(new OnTagClickListener() {
 			@Override
-			public void onTagClick(int oldPostion, int position, Tag tag) {
+			public void onTagClick(int oldPostion, int position, TagVo tag) {
 				detail.getStock().get(oldPostion).setOrMasterInv(false);
 				detail.getStock().get(position).setOrMasterInv(true);
 				initStocks(detail.getStock().get(position));
+				mScrollLayout.scrollToTop();
 				if (more_view.getVisibility() == View.VISIBLE) {
 					more_view.setVisibility(View.GONE);
 					more_view.setOnClickListener(null);
@@ -992,7 +991,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	 */
 	private void exitClick() {
 		if (getIntent().getStringExtra("from") != null) {
-			startActivity(new Intent(this, MainTestActivity.class));
+			startActivity(new Intent(this, HMainActivity.class));
 			finish();
 		} else {
 			finish();

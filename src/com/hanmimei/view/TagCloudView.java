@@ -17,7 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hanmimei.R;
-import com.hanmimei.entity.Tag;
+import com.hanmimei.entity.TagVo;
 
 
 /**
@@ -27,7 +27,7 @@ public class TagCloudView extends ViewGroup{
 
     private static final String TAG = TagCloudView.class.getSimpleName();
     //自定义Search 修改
-    private List<Tag> tags;
+    private List<TagVo> tags;
 
     private LayoutInflater mInflater;
     private OnTagClickListener onTagClickListener;
@@ -322,12 +322,12 @@ public class TagCloudView extends ViewGroup{
     List<TextView> tagViewList = new ArrayList<TextView>();
     private int selectedPos = 0;
 
-    public void setTags(List<Tag> tagList) {
+    public void setTags(List<TagVo> tagList) {
         this.tags = tagList;
         if (tags != null && tags.size() > 0) {
             for (int i = 0; i < tags.size(); i++) {
                 TextView tagView = (TextView) mInflater.inflate(mTagResId, null);
-                final Tag tag = tags.get(i);
+                final TagVo tag = tags.get(i);
                 if (mTagResId == DEFAULT_TAG_RESID) {
                 	 if(tag.getOrMasterInv()){
                      	selectedPos = i;
@@ -388,7 +388,7 @@ public class TagCloudView extends ViewGroup{
     }
 
     public interface OnTagClickListener{
-        void onTagClick(int oldPosition,int position,Tag tag);
+        void onTagClick(int oldPosition,int position,TagVo tag);
     }
 
 }

@@ -34,7 +34,7 @@ import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.override.HTextWatcher;
 import com.hanmimei.utils.ActionBarUtil;
-import com.hanmimei.utils.CommonUtil;
+import com.hanmimei.utils.CommonUtils;
 import com.hanmimei.utils.HttpUtils;
 
 /**
@@ -110,10 +110,10 @@ public class ForgetPwdActivity extends BaseActivity implements
 			break;
 		case R.id.next:
 			//关闭键盘
-			CommonUtil.closeBoardIfShow(this);
+			CommonUtils.closeBoardIfShow(this);
 			phone_num = phone.getText().toString();
-			if (!CommonUtil.isPhoneNum(phone_num)) {
-				CommonUtil.setAttention(attention,"请填写正确的手机号");
+			if (!CommonUtils.isPhoneNum(phone_num)) {
+				CommonUtils.setAttention(attention,"请填写正确的手机号");
 				return;
 			} else {
 				showCodeDialog();
@@ -158,7 +158,7 @@ public class ForgetPwdActivity extends BaseActivity implements
 	}
 
 	private void checkPhone() {
-		dialog = CommonUtil.dialog(this, "请稍后...");
+		dialog = CommonUtils.dialog(this, "请稍后...");
 		dialog.show();
 		new Thread(new Runnable() {
 			@Override
@@ -196,10 +196,10 @@ public class ForgetPwdActivity extends BaseActivity implements
 						intent.putExtra("from", "forget");
 						startActivity(intent);
 					} else {
-						CommonUtil.setAttention(attention,hMessage.getMessage());
+						CommonUtils.setAttention(attention,hMessage.getMessage());
 					}
 				} else {
-					CommonUtil.setAttention(attention,"网络连接异常，请检查网络");
+					CommonUtils.setAttention(attention,"网络连接异常，请检查网络");
 				}
 				break;
 			case 3:
@@ -257,10 +257,10 @@ public class ForgetPwdActivity extends BaseActivity implements
 
 					@Override
 					public void onClick(View v) {
-						CommonUtil.closeBoard(ForgetPwdActivity.this);
+						CommonUtils.closeBoard(ForgetPwdActivity.this);
 						code_attention.setVisibility(View.GONE);
 						code = codeEditText.getText().toString();
-						if (code.length() != 4 || !CommonUtil.isJiaoYan(code)) {
+						if (code.length() != 4 || !CommonUtils.isJiaoYan(code)) {
 							code_attention.setText("验证码格式不正确");
 							code_attention.setVisibility(View.VISIBLE);
 							return;

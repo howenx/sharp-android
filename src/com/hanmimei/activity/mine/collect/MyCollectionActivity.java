@@ -28,7 +28,7 @@ import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.Collection;
-import com.hanmimei.entity.CollectionInfo;
+import com.hanmimei.entity.CollectionVo;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.http.VolleyHttp;
 import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
@@ -116,7 +116,7 @@ public class MyCollectionActivity extends BaseActivity implements
 					public void onSuccess(String result) {
 						getActivity().getLoading().dismiss();
 						no_net.setVisibility(View.GONE);
-						CollectionInfo collectionInfo = DataParser
+						CollectionVo collectionInfo = DataParser
 								.parserCollect(result);
 						if (collectionInfo.gethMessage().getCode() == 200) {
 							if (collectionInfo.getList().size() > 0) {

@@ -22,13 +22,13 @@ import com.hanmimei.R;
 import com.hanmimei.activity.balance.GoodsBalanceActivity;
 import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.activity.login.LoginActivity;
-import com.hanmimei.entity.Customs;
+import com.hanmimei.entity.CustomsVo;
 import com.hanmimei.entity.PinTieredPrice;
 import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.StockVo;
 import com.hanmimei.utils.ActionBarUtil;
-import com.hanmimei.utils.GlideLoaderUtils;
+import com.hanmimei.utils.GlideLoaderTools;
 import com.hanmimei.utils.ToastUtils;
 /**
  * 
@@ -52,7 +52,7 @@ public class PingouDetailSelActivity extends BaseActivity {
 		TextView btn_pin = (TextView) findViewById(R.id.btn_pin);
 		ImageView iconView = (ImageView) findViewById(R.id.iconView);
 		ListView mListView = (ListView) findViewById(R.id.mListView);
-		GlideLoaderUtils.loadSquareImage(getActivity(),stock.getInvImgForObj().getUrl(), iconView);
+		GlideLoaderTools.loadSquareImage(getActivity(),stock.getInvImgForObj().getUrl(), iconView);
 		adapter = new ListDialogAdapter(btn_pin);
 		mListView.setAdapter(adapter);
 		titleView.setText(stock.getPinTitle());
@@ -182,8 +182,8 @@ public class PingouDetailSelActivity extends BaseActivity {
 			return;
 		}
 		ShoppingCar car = new ShoppingCar();
-		List<Customs> list = new ArrayList<Customs>();
-		Customs customs = new Customs();
+		List<CustomsVo> list = new ArrayList<CustomsVo>();
+		CustomsVo customs = new CustomsVo();
 		ShoppingGoods sgoods;
 		if (s.getStatus().equals("Y")) {
 			sgoods = new ShoppingGoods();

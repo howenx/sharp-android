@@ -1,6 +1,6 @@
 package com.hanmimei.entity;
 
-public class MessageInfo {
+public class PushMessageVo {
 	private String msgId;
 	private long createAt;
 	private String msgTitle;
@@ -74,7 +74,7 @@ public class MessageInfo {
 		this.targetType = targetType;
 	}
 
-	public MessageInfo() {
+	public PushMessageVo() {
 		super();
 	}
 	

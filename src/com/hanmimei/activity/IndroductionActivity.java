@@ -82,7 +82,7 @@ public class IndroductionActivity extends AppCompatActivity {
 					@Override
 					public void onClick(View arg0) {
 						IntroConfig.putIntroCfg(IndroductionActivity.this, IntroConfig.INTRO_CONFIG_VALUE_NO);
-						startActivity(new Intent(IndroductionActivity.this,MainTestActivity.class));
+						startActivity(new Intent(IndroductionActivity.this,HMainActivity.class));
 						finish();
 					}
 				});

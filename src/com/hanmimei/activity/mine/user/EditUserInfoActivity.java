@@ -42,11 +42,11 @@ import com.hanmimei.entity.User;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.AlertDialogUtils.OnPhotoSelListener;
-import com.hanmimei.utils.CommonUtil;
+import com.hanmimei.utils.CommonUtils;
 import com.hanmimei.utils.DateUtils;
-import com.hanmimei.utils.GlideLoaderUtils;
+import com.hanmimei.utils.GlideLoaderTools;
 import com.hanmimei.utils.HttpUtils;
-import com.hanmimei.utils.ImgUtils;
+import com.hanmimei.utils.ImageUtils;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.CircleImageView;
 import com.hanmimei.view.SexDialog;
@@ -109,7 +109,7 @@ public class EditUserInfoActivity extends BaseActivity implements
 
 	// 填充数据
 	protected void initView() {
-		GlideLoaderUtils.loadCirlceImage(getActivity(),oldUser.getUserImg(), header);
+		GlideLoaderTools.loadCirlceImage(getActivity(),oldUser.getUserImg(), header);
 		name.setText(oldUser.getUserName());
 		if (oldUser.getSex().equals("M")) {
 			sex.setText("男");
@@ -144,7 +144,7 @@ public class EditUserInfoActivity extends BaseActivity implements
 
 	// 更新用户信息到服务器
 	private void UpUserInfo() {
-		dialog = CommonUtil.dialog(this, "正在修改，请稍后...");
+		dialog = CommonUtils.dialog(this, "正在修改，请稍后...");
 		dialog.show();
 		new Thread(new Runnable() {
 			@Override
@@ -239,7 +239,7 @@ public class EditUserInfoActivity extends BaseActivity implements
 			public void onSelPlay() {
 				Intent intentFromCapture = new Intent(
 						MediaStore.ACTION_IMAGE_CAPTURE);
-				if (CommonUtil.hasSdcard()) {
+				if (CommonUtils.hasSdcard()) {
 
 					intentFromCapture.putExtra(MediaStore.EXTRA_OUTPUT,
 							Uri.fromFile(new File(Environment
@@ -251,7 +251,7 @@ public class EditUserInfoActivity extends BaseActivity implements
 			
 			@Override
 			public void onSelLocal() {
-				ImgUtils.getInstance().selectPicture(EditUserInfoActivity.this);
+				ImageUtils.getInstance().selectPicture(EditUserInfoActivity.this);
 				
 			}
 		});
@@ -266,19 +266,19 @@ public class EditUserInfoActivity extends BaseActivity implements
 				uri = data.getData();
 //				Log.d("tag", "uri=" + uri);
 				// 调用裁剪方法
-				ImgUtils.getInstance().cropPicture(this, uri);
+				ImageUtils.getInstance().cropPicture(this, uri);
 				break;
 			case AppConstant.KITKAT_ABOVE:
 				uri = data.getData();
 //				Log.d("tag", "uri=" + uri);
 				// 先将这个uri转换为path，然后再转换为uri
-				String thePath = ImgUtils.getInstance().getPath(this, uri);
-				ImgUtils.getInstance().cropPicture(this,
+				String thePath = ImageUtils.getInstance().getPath(this, uri);
+				ImageUtils.getInstance().cropPicture(this,
 						Uri.fromFile(new File(thePath)));
 				break;
 			case CAMERA_REQUEST_CODE:
-				if (CommonUtil.hasSdcard()) {
-					ImgUtils.getInstance().cropPicture(
+				if (CommonUtils.hasSdcard()) {
+					ImageUtils.getInstance().cropPicture(
 							this,
 							Uri.fromFile(new File(Environment
 									.getExternalStorageDirectory(),

@@ -40,7 +40,7 @@ import com.hanmimei.entity.HAddress;
 import com.hanmimei.entity.Result;
 import com.hanmimei.entity.User;
 import com.hanmimei.utils.ActionBarUtil;
-import com.hanmimei.utils.CommonUtil;
+import com.hanmimei.utils.CommonUtils;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.wheel.entity.CityModel;
@@ -320,7 +320,7 @@ public class EditAdressActivity extends BaseActivity implements
 			break;
 		case R.id.show:
 			// 关闭键盘
-			CommonUtil.closeBoardIfShow(this);
+			CommonUtils.closeBoardIfShow(this);
 			parenView = LayoutInflater.from(this).inflate(
 					R.layout.edit_adress_layout, null);
 			pop.showAtLocation(parenView, Gravity.BOTTOM, 0, 0);
@@ -385,24 +385,24 @@ public class EditAdressActivity extends BaseActivity implements
 		city = city_edit.getText().toString();
 		address = adress_edit.getText().toString();
 
-		if (!CommonUtil.inputIsName(name, 2, 15).equals("")) {
-			ToastUtils.Toast(this, "姓名" + CommonUtil.inputIsName(name, 2, 15));
+		if (!CommonUtils.inputIsName(name, 2, 15).equals("")) {
+			ToastUtils.Toast(this, "姓名" + CommonUtils.inputIsName(name, 2, 15));
 			return;
 		} else if (phone.equals("")) {
 			ToastUtils.Toast(this, "请输入手机号");
 			return;
-		}  else if (!CommonUtil.isPhoneNum(phone)) {
+		}  else if (!CommonUtils.isPhoneNum(phone)) {
 			ToastUtils.Toast(this, "请输入正确的手机号");
 			return;
-		} else if (!CommonUtil.IDCardValidate(idCard.toLowerCase()).equals("")) {
-			ToastUtils.Toast(this, CommonUtil.IDCardValidate(idCard.toLowerCase()));
+		} else if (!CommonUtils.IDCardValidate(idCard.toLowerCase()).equals("")) {
+			ToastUtils.Toast(this, CommonUtils.IDCardValidate(idCard.toLowerCase()));
 			return;
 		} else if (city.equals("")) {
 			ToastUtils.Toast(this, "请选择省市区");
 			return;
-		} else if (!CommonUtil.inputIsName(address, 5, 50).equals("")) {
+		} else if (!CommonUtils.inputIsName(address, 5, 50).equals("")) {
 			ToastUtils.Toast(this,
-					"地址" + CommonUtil.inputIsName(address, 5, 50));
+					"地址" + CommonUtils.inputIsName(address, 5, 50));
 			return;
 		} else {
 			toObject();
@@ -439,7 +439,7 @@ public class EditAdressActivity extends BaseActivity implements
 
 	// 增加或是更新请求网络
 	private void addNewAdress() {
-		dialog = CommonUtil.dialog(this, "正在提交，请稍后...");
+		dialog = CommonUtils.dialog(this, "正在提交，请稍后...");
 		dialog.show();
 		new Thread(new Runnable() {
 			@Override

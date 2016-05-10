@@ -34,12 +34,12 @@ import com.hanmimei.fragment.ShoppingCartFragment;
 import com.hanmimei.http.VolleyHttp;
 import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.manager.BadgeViewManager;
+import com.hanmimei.manager.HDownloadManager;
 import com.hanmimei.manager.MessageMenager;
 import com.hanmimei.override.ViewPageChangeListener;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
-import com.hanmimei.utils.CommonUtil;
-import com.hanmimei.utils.DownloadTools;
+import com.hanmimei.utils.CommonUtils;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.utils.XMLPaserTools;
 import com.umeng.analytics.MobclickAgent;
@@ -53,9 +53,7 @@ import com.viewpagerindicator.IconTabPageIndicator.OnTabReselectedListener;
  *
  */
 @SuppressLint("NewApi")
-public class MainTestActivity extends BaseActivity implements OnClickListener {
-
-	private DownloadTools downloadTools;
+public class HMainActivity extends BaseActivity implements OnClickListener {
 
 	private VersionVo info;
 
@@ -68,7 +66,6 @@ public class MainTestActivity extends BaseActivity implements OnClickListener {
 	IconTabPageIndicator mIndicator;
 
 	private List<BaseIconFragment> fragments;
-//	private AlertDialog dialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -80,35 +77,33 @@ public class MainTestActivity extends BaseActivity implements OnClickListener {
 		MessageMenager.getInstance().initMessageMenager(this,view);
 		// 关闭左滑退出
 		setBackEnable(false);
-//		showGuangGao();
 		initViewPager();
 		registerReceivers();
 		doCheckVersionTask();
-//		ToastUtils.Toast(this, getIntent().getStringExtra("data"));
 	}
 
-	@SuppressLint("InflateParams")
-	private void showGuangGao() {
-		View view = LayoutInflater.from(this).inflate(R.layout.guanggao_layout, null);
-		final Dialog dialog = new Dialog(this,R.style.CustomDialog);
-		dialog.setContentView(view);
-		dialog.show();
-		view.findViewById(R.id.close).setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				dialog.dismiss();
-			}
-		});
-		view.findViewById(R.id.gg_img).setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				dialog.dismiss();
-				ToastUtils.Toast(MainTestActivity.this, "你点击了广告！！！");
-			}
-		});
-	}
+//	@SuppressLint("InflateParams")
+//	private void showGuangGao() {
+//		View view = LayoutInflater.from(this).inflate(R.layout.guanggao_layout, null);
+//		final Dialog dialog = new Dialog(this,R.style.CustomDialog);
+//		dialog.setContentView(view);
+//		dialog.show();
+//		view.findViewById(R.id.close).setOnClickListener(new OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View arg0) {
+//				dialog.dismiss();
+//			}
+//		});
+//		view.findViewById(R.id.gg_img).setOnClickListener(new OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View v) {
+//				dialog.dismiss();
+//				ToastUtils.Toast(HMainActivity.this, "你点击了广告！！！");
+//			}
+//		});
+//	}
 
 	private void initViewPager() {
 		mViewPager = (ViewPager) findViewById(R.id.id_viewpager);
@@ -235,7 +230,7 @@ public class MainTestActivity extends BaseActivity implements OnClickListener {
 							InputStream is = new ByteArrayInputStream(result
 									.getBytes());
 							info = XMLPaserTools.getUpdataInfo(is);
-							if (info.getReleaseNumber()>CommonUtil.getVersionCode(getActivity())) {
+							if (info.getReleaseNumber()>CommonUtils.getVersionCode(getActivity())) {
 								// 版本号不同,发送消息更新客户端
 								setVersionInfo(info);
 								AlertDialogUtils.showUpdate2Dialog(
@@ -287,7 +282,8 @@ public class MainTestActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void downloadApk(String url) {
-		downloadTools = new DownloadTools(getApplicationContext());
+		HDownloadManager downloadTools = 
+				new HDownloadManager(getApplicationContext());
 		downloadTools.download(url);
 	}
 

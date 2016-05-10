@@ -14,8 +14,8 @@ import android.widget.TextView;
 
 import com.hanmimei.R;
 import com.hanmimei.activity.base.BaseActivity;
+import com.hanmimei.activity.mine.coupon.adapter.CouponPagerAdapter;
 import com.hanmimei.activity.mine.coupon.fragment.CouponFragment;
-import com.hanmimei.adapter.MyPagerAdapter;
 import com.hanmimei.entity.Category;
 import com.hanmimei.manager.CouponMenager;
 import com.hanmimei.utils.ActionBarUtil;
@@ -43,7 +43,7 @@ public class MyCouponActivity extends BaseActivity implements OnClickListener, O
 	private TextView c3;
 	private List<Category> data;
 	private List<Fragment> fragmentList;
-	private MyPagerAdapter adapter;
+	private CouponPagerAdapter adapter;
 //	private AlertDialog dialog;
 	@Override
 	protected void onCreate(Bundle bundle) {
@@ -69,7 +69,7 @@ public class MyCouponActivity extends BaseActivity implements OnClickListener, O
 			fragment.setArguments(bundle);
 			fragmentList.add(fragment);
 		}
-		adapter = new MyPagerAdapter(getSupportFragmentManager(), fragmentList,
+		adapter = new CouponPagerAdapter(getSupportFragmentManager(), fragmentList,
 				data);
 		viewPager.setAdapter(adapter);
 	}

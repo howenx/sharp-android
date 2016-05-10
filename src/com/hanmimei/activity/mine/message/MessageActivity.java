@@ -27,8 +27,8 @@ import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.HMessage;
-import com.hanmimei.entity.MessageInfo;
-import com.hanmimei.entity.MessageResult;
+import com.hanmimei.entity.PushMessageVo;
+import com.hanmimei.entity.PushMessageResult;
 import com.hanmimei.http.VolleyHttp;
 import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.utils.ActionBarUtil;
@@ -41,7 +41,7 @@ import com.hanmimei.utils.ToastUtils;
  */
 public class MessageActivity extends BaseActivity implements OnClickListener {
 	private ListView mListView;
-	private List<MessageInfo> list;
+	private List<PushMessageVo> list;
 	private MyMsgAdapter adapter;
 	private TextView no_msg;
 
@@ -52,7 +52,7 @@ public class MessageActivity extends BaseActivity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.my_msg_layout);
 		String title = "";
-		list = new ArrayList<MessageInfo>();
+		list = new ArrayList<PushMessageVo>();
 		if (getIntent().getStringExtra("type").equals("system")) {
 			title = "系统消息";
 			adapter = new MyMsgAdapter(list, this, "system");
@@ -123,7 +123,7 @@ public class MessageActivity extends BaseActivity implements OnClickListener {
 		loadData();
 	}
 
-	private void delMsg(final MessageInfo messageInfo) {
+	private void delMsg(final PushMessageVo messageInfo) {
 		VolleyHttp.doGetRequestTask(getHeaders(),
 				UrlUtil.DEL_MSG + messageInfo.getMsgId(),
 				new VolleyJsonCallback() {
@@ -155,7 +155,7 @@ public class MessageActivity extends BaseActivity implements OnClickListener {
 			@Override
 			public void onSuccess(String result) {
 				getLoading().dismiss();
-				MessageResult msgResult = DataParser.parseMsgInfo(result);
+				PushMessageResult msgResult = DataParser.parseMsgInfo(result);
 				if (msgResult.getMessage().getCode() == 200) {
 					list.addAll(msgResult.getList());
 					adapter.notifyDataSetChanged();
@@ -212,7 +212,7 @@ public class MessageActivity extends BaseActivity implements OnClickListener {
 
 	private AlertDialog delDialog;
 
-	private void showDelLog(final MessageInfo messageInfo) {
+	private void showDelLog(final PushMessageVo messageInfo) {
 		delDialog = AlertDialogUtils.showDialog(this, new OnClickListener() {
 
 			@Override

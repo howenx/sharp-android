@@ -11,10 +11,10 @@ import com.dd.processbutton.OnStateListener;
 import com.dd.processbutton.ProcessButton;
 import com.dd.processbutton.iml.ActionProcessButton;
 import com.hanmimei.R;
-import com.hanmimei.utils.CommonUtil;
+import com.hanmimei.utils.CommonUtils;
 import com.hanmimei.utils.ToastUtils;
 
-public class UDialog extends Dialog{
+public class LinkDialog extends Dialog{
 
 	private TextView nameView,phoneView;
 	private Context context;
@@ -23,7 +23,7 @@ public class UDialog extends Dialog{
 	
 	private boolean isComplete = false;
 	
-	public UDialog(Context context) {
+	public LinkDialog(Context context) {
 		super(context,R.style.CustomDialog);
 		this.context = context;
 	}
@@ -82,7 +82,7 @@ public class UDialog extends Dialog{
 				ToastUtils.Toast(context, "请填写联系方式");
 				return;
 			}
-			if(!CommonUtil.isPhoneNum(phoneView.getText().toString())){
+			if(!CommonUtils.isPhoneNum(phoneView.getText().toString())){
 				ToastUtils.Toast(context, "请填写正确的联系方式");
 				return;
 			}

@@ -17,7 +17,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.hanmimei.R;
-import com.hanmimei.utils.GlideLoaderUtils;
+import com.hanmimei.utils.GlideLoaderTools;
 /**
  * @author eric
  *
@@ -65,7 +65,7 @@ public class ImageGridAdapter extends BaseAdapter {
 		if (isShow) {
 			if(position < mSelectPath.size()){
 			holder.btn_image_del.setVisibility(View.GONE);
-			GlideLoaderUtils.loadSquareImage(activity, mSelectPath.get(position), holder.image);
+			GlideLoaderTools.loadSquareImage(activity, mSelectPath.get(position), holder.image);
 			}else{
 				holder.image.setVisibility(View.GONE);
 			}
@@ -79,7 +79,7 @@ public class ImageGridAdapter extends BaseAdapter {
 				}
 			} else {
 				holder.btn_image_del.setVisibility(View.VISIBLE);
-				GlideLoaderUtils.loadSquareImage(activity,
+				GlideLoaderTools.loadSquareImage(activity,
 						mSelectPath.get(position), holder.image);
 				holder.btn_image_del.setOnClickListener(new OnClickListener() {
 

@@ -46,7 +46,7 @@ import com.hanmimei.entity.Home;
 import com.hanmimei.entity.Slider;
 import com.hanmimei.entity.Theme;
 import com.hanmimei.manager.MessageMenager;
-import com.hanmimei.utils.GlideLoaderUtils;
+import com.hanmimei.utils.GlideLoaderTools;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.PreferenceUtil.IntroConfig;
 import com.hanmimei.utils.ToastUtils;
@@ -390,9 +390,9 @@ public class HomeFragment extends BaseIconFragment implements
 	public void onScrollStateChanged(AbsListView view, int scrollState) {
 		
 		 if (scrollState == SCROLL_STATE_FLING) {
-             GlideLoaderUtils.pauseRequests(getActivity());
+             GlideLoaderTools.pauseRequests(getActivity());
          } else {
-        	 GlideLoaderUtils.resumeRequests(getActivity());
+        	 GlideLoaderTools.resumeRequests(getActivity());
          }
 	}
 
@@ -457,7 +457,7 @@ public class HomeFragment extends BaseIconFragment implements
 	 private ImageView getImageView(Context context, String url) {
 		ImageView imageView = (ImageView)LayoutInflater.from(context).inflate(
 				R.layout.view_banner, null);
-		GlideLoaderUtils.loadRectImage(context,url, imageView);
+		GlideLoaderTools.loadRectImage(context,url, imageView);
 		return imageView;
 	}
 

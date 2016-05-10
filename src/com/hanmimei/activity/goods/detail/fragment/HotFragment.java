@@ -19,7 +19,7 @@ import com.hanmimei.R;
 import com.hanmimei.activity.goods.detail.GoodsDetailActivity;
 import com.hanmimei.activity.goods.pin.PingouDetailActivity;
 import com.hanmimei.activity.goods.theme.adapter.ThemeAdapter;
-import com.hanmimei.entity.HGoods;
+import com.hanmimei.entity.HGoodsVo;
 /**
  * 
  * @author vince
@@ -27,7 +27,7 @@ import com.hanmimei.entity.HGoods;
  */
 public class HotFragment extends ScrollAbleFragment {
 	
-	private List<HGoods> themeList;
+	private List<HGoodsVo> themeList;
 	private ThemeAdapter adapter;
 	
 	
@@ -52,7 +52,7 @@ public class HotFragment extends ScrollAbleFragment {
 		// TODO Auto-generated method stub
 		View view = inflater.inflate(R.layout.gridview_layout, null);
 		mGridView = (GridView) view.findViewById(R.id.mGridView);
-		themeList = new ArrayList<HGoods>();
+		themeList = new ArrayList<HGoodsVo>();
 		adapter = new ThemeAdapter(themeList, getActivity());
 		mGridView.setAdapter(adapter);
 		mGridView.setOnItemClickListener(new OnItemClickListener() {
@@ -93,7 +93,7 @@ public class HotFragment extends ScrollAbleFragment {
 	public void showData(Object obj) {
 		if(obj == null)
 			return;
-		themeList.addAll((List<HGoods>)obj);
+		themeList.addAll((List<HGoodsVo>)obj);
 		adapter.notifyDataSetChanged();
 		
 	}

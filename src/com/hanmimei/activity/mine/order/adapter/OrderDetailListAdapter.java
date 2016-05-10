@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.hanmimei.R;
 import com.hanmimei.activity.apply.CustomerServiceActivity;
 import com.hanmimei.entity.Sku;
-import com.hanmimei.utils.GlideLoaderUtils;
+import com.hanmimei.utils.GlideLoaderTools;
 /**
  * @author eric
  *
@@ -68,12 +68,12 @@ public class OrderDetailListAdapter extends BaseAdapter {
 		}else{
 			holder = (ViewHolder) convertView.getTag();
 		}
-		GlideLoaderUtils.loadSquareImage(activity,sku.getInvImg(), holder.img);
+		GlideLoaderTools.loadSquareImage(activity,sku.getInvImg(), holder.img);
 		holder.title.setText(position + 1 + "." + sku.getSkuTitle());
 		holder.nums.setText("数量：" + sku.getAmount());
 		holder.price.setText("¥" + sku.getPrice());
 		if(isShow){
-			holder.btn_apply_service.setVisibility(View.VISIBLE);
+			holder.btn_apply_service.setVisibility(View.INVISIBLE);
 		}else{
 			holder.btn_apply_service.setVisibility(View.INVISIBLE);
 		}

@@ -87,11 +87,11 @@ public class AlertDialogUtils {
 
 		if (postalFee <= 50) {
 			num_portalfee.setText(mContext.getResources().getString(R.string.price,
-					CommonUtil.DecimalFormat(postalFee)));
+					CommonUtils.DecimalFormat(postalFee)));
 			num_portalfee.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 		} else {
 			num_portalfee.setText(mContext.getResources().getString(R.string.price,
-					CommonUtil.DecimalFormat(postalFee)));
+					CommonUtils.DecimalFormat(postalFee)));
 		}
 
 		view.findViewById(R.id.btn_cancel).setOnClickListener(new OnClickListener() {

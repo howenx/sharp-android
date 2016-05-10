@@ -9,7 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hanmimei.R;
-import com.hanmimei.activity.listener.TimeEndListner;
+import com.hanmimei.override.TimeEndListner;
 /**
  * 倒计时 （天时分秒）
  * 

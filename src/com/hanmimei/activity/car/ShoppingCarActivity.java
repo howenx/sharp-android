@@ -25,7 +25,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.hanmimei.R;
-import com.hanmimei.activity.MainTestActivity;
+import com.hanmimei.activity.HMainActivity;
 import com.hanmimei.activity.balance.GoodsBalanceActivity;
 import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.activity.car.adapter.ShoppingCarPullListAdapter;
@@ -34,7 +34,7 @@ import com.hanmimei.dao.ShoppingGoodsDao;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
-import com.hanmimei.entity.Customs;
+import com.hanmimei.entity.CustomsVo;
 import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.User;
@@ -62,7 +62,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 	private LinearLayout no_data;
 	private LinearLayout no_net;
 	private ImageView go_home;
-	private List<Customs> data;
+	private List<CustomsVo> data;
 	private ShoppingCarPullListAdapter adapter;
 	private User user;
 	private ShoppingGoodsDao goodsDao;
@@ -81,7 +81,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 		registerReceivers();
 		goodsDao = getDaoSession().getShoppingGoodsDao();
 		shoppingCar = new ShoppingCar();
-		data = new ArrayList<Customs>();
+		data = new ArrayList<CustomsVo>();
 		findView();
 		loadData();
 		
@@ -245,10 +245,10 @@ public class ShoppingCarActivity extends BaseActivity implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.pay:
-			List<Customs> customsList = new ArrayList<Customs>();
+			List<CustomsVo> customsList = new ArrayList<CustomsVo>();
 			for (int i = 0; i < data.size(); i++) {
 				List<ShoppingGoods> goodsList = new ArrayList<ShoppingGoods>();
-				Customs customs = new Customs();
+				CustomsVo customs = new CustomsVo();
 				for (int j = 0; j < data.get(i).getList().size(); j++) {
 					if (data.get(i).getList().get(j).getState().equals("G")) {
 						goodsList.add(data.get(i).getList().get(j));
@@ -277,7 +277,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 			}
 			break;
 		case R.id.go_home:
-			startActivity(new Intent(this,MainTestActivity.class));
+			startActivity(new Intent(this,HMainActivity.class));
 			break;
 		case R.id.reload:
 			loadData();

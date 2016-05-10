@@ -268,8 +268,8 @@ public class PinActivity implements Serializable{
 	
 	
 	
-	public ImgInfo getPinImg() {
-		return new Gson().fromJson(pinImg, ImgInfo.class);
+	public ImageVo getPinImg() {
+		return new Gson().fromJson(pinImg, ImageVo.class);
 	}
 
 	public void setPinImg(String pinImg) {

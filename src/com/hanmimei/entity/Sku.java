@@ -91,7 +91,7 @@ public class Sku implements Serializable{
 		return invImg;
 	}
 	public String getInvImg_() {
-		return new Gson().fromJson(invImg, ImgInfo.class).getUrl();
+		return new Gson().fromJson(invImg, ImageVo.class).getUrl();
 	}
 	public void setInvImg(String invImg) {
 		this.invImg = invImg;

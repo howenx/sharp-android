@@ -11,14 +11,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.hanmimei.R;
-import com.hanmimei.entity.Customs;
+import com.hanmimei.entity.CustomsVo;
 
 public class GoodsBalanceCustomAdapter extends BaseAdapter {
 	
-	private List<Customs> customs;
+	private List<CustomsVo> customs;
 	private Context context;
 	
-	public GoodsBalanceCustomAdapter(List<Customs> customs, Context context) {
+	public GoodsBalanceCustomAdapter(List<CustomsVo> customs, Context context) {
 		super();
 		this.customs = customs;
 		this.context = context;
@@ -54,7 +54,7 @@ public class GoodsBalanceCustomAdapter extends BaseAdapter {
 		}else{
 			holder = (ViewHolder) arg1.getTag();
 		}
-		Customs c = customs.get(arg0);
+		CustomsVo c = customs.get(arg0);
 		holder.area_name.setText(c.getInvAreaNm());
 		holder.mListView.setAdapter(new GoodsBalanceAdapter(c.getList(), context));
 		holder.protalFee.setText(context.getResources().getString(R.string.postalFee, c.getFactPortalFeeSingleCustoms()));

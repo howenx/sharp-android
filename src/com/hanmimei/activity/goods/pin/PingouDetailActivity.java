@@ -31,7 +31,7 @@ import com.cpoopc.scrollablelayoutlib.ScrollableLayout;
 import com.cpoopc.scrollablelayoutlib.ScrollableLayout.OnScrollListener;
 import com.google.gson.Gson;
 import com.hanmimei.R;
-import com.hanmimei.activity.MainTestActivity;
+import com.hanmimei.activity.HMainActivity;
 import com.hanmimei.activity.balance.GoodsBalanceActivity;
 import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.activity.goods.detail.adapter.GoodsDetailPagerAdapter;
@@ -43,9 +43,9 @@ import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.CommentVo;
-import com.hanmimei.entity.Customs;
+import com.hanmimei.entity.CustomsVo;
 import com.hanmimei.entity.HMessage;
-import com.hanmimei.entity.ImgInfo;
+import com.hanmimei.entity.ImageVo;
 import com.hanmimei.entity.PinDetail;
 import com.hanmimei.entity.ShareVo;
 import com.hanmimei.entity.ShoppingCar;
@@ -55,7 +55,7 @@ import com.hanmimei.http.VolleyHttp;
 import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.override.ViewPageChangeListener;
 import com.hanmimei.utils.ActionBarUtil;
-import com.hanmimei.utils.CommonUtil;
+import com.hanmimei.utils.CommonUtils;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.NetworkImageHolderView;
 import com.hanmimei.view.PushWindow;
@@ -69,7 +69,7 @@ public class PingouDetailActivity extends BaseActivity implements
 		OnClickListener {
 
 	private ScrollableLayout mScrollLayout;
-	private ConvenientBanner<ImgInfo> slider;
+	private ConvenientBanner<ImageVo> slider;
 	private View back_top;
 	private PinDetail detail;
 	private ImageView collectionImg;
@@ -133,10 +133,10 @@ public class PingouDetailActivity extends BaseActivity implements
 	@SuppressWarnings("unchecked")
 	private void findView() {
 		mScrollLayout = (ScrollableLayout) findViewById(R.id.mScrollLayout);
-		slider = (ConvenientBanner<ImgInfo>) findViewById(R.id.slider);
+		slider = (ConvenientBanner<ImageVo>) findViewById(R.id.slider);
 		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-				CommonUtil.getScreenWidth(this),
-				CommonUtil.getScreenWidth(this));
+				CommonUtils.getScreenWidth(this),
+				CommonUtils.getScreenWidth(this));
 		slider.setLayoutParams(lp);
 
 		back_top = findViewById(R.id.back_top);
@@ -201,8 +201,8 @@ public class PingouDetailActivity extends BaseActivity implements
 	 * @param s
 	 *            当前选中子商品
 	 */
-	private void initSliderImage(List<ImgInfo> imgUrls) {
-		ArrayList<ImgInfo> networkImages = new ArrayList<ImgInfo>(imgUrls);
+	private void initSliderImage(List<ImageVo> imgUrls) {
+		ArrayList<ImageVo> networkImages = new ArrayList<ImageVo>(imgUrls);
 		slider.setPages(new CBViewHolderCreator<NetworkImageHolderView>() {
 			@Override
 			public NetworkImageHolderView createHolder() {
@@ -458,8 +458,8 @@ public class PingouDetailActivity extends BaseActivity implements
 			return;
 		}
 		ShoppingCar car = new ShoppingCar();
-		List<Customs> list = new ArrayList<Customs>();
-		Customs customs = new Customs();
+		List<CustomsVo> list = new ArrayList<CustomsVo>();
+		CustomsVo customs = new CustomsVo();
 
 		ShoppingGoods sgoods = null;
 		StockVo s = detail.getStock();
@@ -538,7 +538,7 @@ public class PingouDetailActivity extends BaseActivity implements
 	 */
 	private void exitClick() {
 		if(getIntent().getStringExtra("from") != null){
-			startActivity(new Intent(this,MainTestActivity.class));
+			startActivity(new Intent(this,HMainActivity.class));
 			finish();
 		}else{
 			finish();

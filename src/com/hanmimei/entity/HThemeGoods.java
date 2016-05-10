@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.hanmimei.entity.HGoods.ImgTag;
+import com.hanmimei.entity.HGoodsVo.ImgTag;
 
 public class HThemeGoods {
 	
@@ -39,13 +39,13 @@ public class HThemeGoods {
 		private String masterItemTag;
 		private String masterItemTagAndroid;	
 		
-		private List<HGoods> themeItemList;
+		private List<HGoodsVo> themeItemList;
 		
 		
-		public List<HGoods> getThemeItemList() {
+		public List<HGoodsVo> getThemeItemList() {
 			return themeItemList;
 		}
-		public void setThemeItemList(List<HGoods> themeItemList) {
+		public void setThemeItemList(List<HGoodsVo> themeItemList) {
 			this.themeItemList = themeItemList;
 		}
 		public String getThemeId() {
@@ -54,8 +54,8 @@ public class HThemeGoods {
 		public void setThemeId(String themeId) {
 			this.themeId = themeId;
 		}
-		public ImgInfo getThemeImg() {
-			return  new Gson().fromJson(themeImg, ImgInfo.class);
+		public ImageVo getThemeImg() {
+			return  new Gson().fromJson(themeImg, ImageVo.class);
 		}
 		public List<ImgTag> getMasterItemTag(){
 			return new Gson().fromJson(masterItemTag, new TypeToken<List<ImgTag>>(){}.getType());
