@@ -139,12 +139,14 @@ public class ShoppingCarAdapter extends BaseAdapter {
 				holder.jian.setTextColor(activity.getResources().getColor(R.color.fontcolor));
 				holder.shixiao.setVisibility(View.GONE);
 			holder.shopping_main.setBackgroundColor(activity.getResources().getColor(R.color.white));
+			if(goods.getRestrictAmount() != 0){
 			if(goods.getGoodsNums() >= goods.getRestrictAmount()){
 				holder.plus.setTextColor(activity.getResources().getColor(R.color.qianhui));
 				holder.plus.setClickable(false);
 			}else{
 				holder.plus.setTextColor(activity.getResources().getColor(R.color.fontcolor));
 				holder.plus.setClickable(true);
+			}
 			}
 		}
 		GlideLoaderTools.loadSquareImage(activity,goods.getGoodsImg(), holder.img);
