@@ -25,9 +25,9 @@
     <string name="price">¥%1$s</string>
     <string name="price01">¥%1$s起售</string>
     <string name="discount">%1$s折</string>
-    <string name="shui"><u>行邮税</u></string>
+    <string name="shui">行邮税</string>
     <string name="error">网络连接异常</string>
-    <string name="restrictAmount">%1$s件</string>
+    <string name="restrictAmount">限购%1$s件</string>
     <string name="shipFee">运费:¥%1$s</string>
     <string name="postalFee">行邮税:¥%1$s</string>
     <string name="buyNum">购买数量:%1$s</string>

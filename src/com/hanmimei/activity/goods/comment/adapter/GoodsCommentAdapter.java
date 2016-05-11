@@ -108,7 +108,9 @@ public class GoodsCommentAdapter extends BaseAdapter {
 		mViewHolder.buy_time.setText("购买日期："+raRemarkVo.getBuyAt());
 		if (raRemarkVo.getPictureList() != null){
 			mViewHolder.images.setAdapter(new GoodsCommentImageAdapter(
-					mContext, raRemarkVo.getPictureList()));
+					mContext, raRemarkVo));
+		}else{
+			mViewHolder.images.setAdapter(null);
 		}
 			
 

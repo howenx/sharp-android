@@ -62,4 +62,9 @@
     <dimen name="image_size">120dp</dimen>
     <dimen name="space_size">4dp</dimen>
     <dimen name="folder_cover_size">72dp</dimen>
+    
+	<!--  -->
+	<dimen name="spacing_medium">2dp</dimen>    
+    
+
 </resources>

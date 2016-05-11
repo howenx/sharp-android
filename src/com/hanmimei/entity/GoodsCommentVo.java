@@ -25,23 +25,23 @@ public class GoodsCommentVo implements Serializable {
 
 	private List<RemarkVo> pics;
 
-	public List<RemarkVo> getPics_() {
-		List<RemarkVo> list = new ArrayList<RemarkVo>();
-		for(RemarkVo re : pics){
-			for(String url: re.getPictureList()){
-				RemarkVo vo = new RemarkVo();
-				vo.setBuyAt(re.getBuyAt());
-				vo.setContent(re.getContent());
-				vo.setCreateAt(re.getCreateAt());
-				vo.setGrade(re.getGrade());
-				vo.setPicture(url);
-				vo.setUserImg(re.getUserImg());
-				vo.setUserName(re.getUserName());
-				list.add(vo);
-			}
-		}
-		return list;
-	}
+//	public List<RemarkVo> getPics_() {
+//		List<RemarkVo> list = new ArrayList<RemarkVo>();
+//		for(RemarkVo re : pics){
+//			for(String url: re.getPictureList()){
+//				RemarkVo vo = new RemarkVo();
+//				vo.setBuyAt(re.getBuyAt());
+//				vo.setContent(re.getContent());
+//				vo.setCreateAt(re.getCreateAt());
+//				vo.setGrade(re.getGrade());
+//				vo.setPicture(url);
+//				vo.setUserImg(re.getUserImg());
+//				vo.setUserName(re.getUserName());
+//				list.add(vo);
+//			}
+//		}
+//		return list;
+//	}
 	
 	public List<RemarkVo> getPics(){
 		return pics;

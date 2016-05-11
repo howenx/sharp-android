@@ -7,15 +7,20 @@ package com.hanmimei.activity.goods.comment.adapter;
 
 import java.util.List;
 
-import com.hanmimei.R;
-import com.hanmimei.utils.GlideLoaderTools;
-
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+
+import com.hanmimei.R;
+import com.hanmimei.activity.goods.comment.GoodsCommentImgActivity;
+import com.hanmimei.entity.GoodsCommentVo;
+import com.hanmimei.entity.RemarkVo;
+import com.hanmimei.utils.GlideLoaderTools;
 
 /**
  * @author vince
@@ -24,12 +29,15 @@ import android.widget.ImageView;
 public class GoodsCommentImageAdapter extends BaseAdapter {
 
 	private Context context;
+	private RemarkVo remarkVo;
+	
 	private List<String> images;
 
-	public GoodsCommentImageAdapter(Context context, List<String> images) {
+	public GoodsCommentImageAdapter(Context context, RemarkVo remarkVo) {
 		super();
 		this.context = context;
-		this.images = images;
+		this.remarkVo = remarkVo;
+		this.images = remarkVo.getPictureList();
 	}
 
 	/*
@@ -71,7 +79,7 @@ public class GoodsCommentImageAdapter extends BaseAdapter {
 	 * android.view.ViewGroup)
 	 */
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(final int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 		ViewHolder holder = null;
 		if (convertView == null) {
@@ -88,6 +96,20 @@ public class GoodsCommentImageAdapter extends BaseAdapter {
 		GlideLoaderTools.loadSquareImage(context, images.get(position),
 				holder.imageView);
 
+		holder.imageView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(context, GoodsCommentImgActivity.class);
+				GoodsCommentVo vo = new GoodsCommentVo();
+				 vo.setPosition(position);
+				vo.setPics(remarkVo.getRemarkVos());
+				vo.setIndex(1);
+				vo.setCount_num(images.size());
+				intent.putExtra("GoodsCommentVo", vo);
+				context.startActivity(intent);
+			}
+		});
 		return convertView;
 	}
 

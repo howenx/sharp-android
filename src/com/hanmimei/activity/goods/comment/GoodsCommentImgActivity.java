@@ -91,6 +91,8 @@ public class GoodsCommentImgActivity extends AppCompatActivity {
 	}
 	
 	private void loadMorePics(){
+		if(vo.getLoadUrl() == null)
+			return;
 		if(index >= vo.getPage_count())
 			return;
 		index++;

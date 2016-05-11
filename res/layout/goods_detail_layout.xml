@@ -52,63 +52,68 @@
                         android:paddingRight="8dp" >
 
                         <TextView
-                            android:id="@+id/itemPrice"
+                            android:id="@+id/btn_portalFee"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:background="@drawable/btn_theme_boader_radius_selector"
                             android:layout_alignParentLeft="true"
-                            android:layout_centerVertical="true"
-                            android:background="@color/white"
-                            android:textColor="@color/red"
-                            android:textSize="@dimen/font_big" />
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:paddingTop="1dp"
+                            android:paddingBottom="1dp"
+                            android:text="@string/shui"
+                            android:textSize="12sp"
+                            android:textColor="@color/btn_theme_font_selector" />
+
+                        <TextView
+                            android:id="@+id/restrictAmount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBottom="@id/btn_portalFee"
+                            android:layout_centerHorizontal="true"
+                            android:textColor="#BBBBBB"
+                            android:textSize="@dimen/font_small" />
 
                         <TextView
                             android:id="@+id/itemSrcPrice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignBottom="@id/itemPrice"
+                            android:layout_alignBottom="@id/btn_portalFee"
+                            android:layout_alignParentRight="true"
                             android:layout_marginLeft="3dp"
-                            android:layout_toRightOf="@id/itemPrice"
                             android:background="@color/white"
                             android:textColor="#BBBBBB"
                             android:textSize="@dimen/font_small" />
-
-                        <TextView
-                            android:id="@+id/area"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:drawableLeft="@drawable/hmm_dingwei_icon"
-                            android:textColor="@color/fontcolor"
-                            android:textSize="12sp" />
                     </RelativeLayout>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
-                        android:padding="8dp" >
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:paddingBottom="8dp" >
+
+                       
 
                         <TextView
-                            android:id="@+id/restrictAmount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:layout_centerVertical="true"
-                            android:drawableLeft="@drawable/iconfont_xian"
-                            android:textColor="@color/fontcolor"
-                            android:textSize="@dimen/font_normal" />
-
-                        <TextView
-                            android:id="@+id/btn_portalFee"
+                            android:id="@+id/itemPrice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:drawablePadding="3dp"
-                            android:drawableRight="@drawable/hmm_shui_icon"
-                            android:text="@string/shui"
-                            android:textColor="@color/fontcolor" />
+                            android:background="@color/white"
+                            android:textColor="@color/red"
+                            android:textSize="@dimen/font_big" />
+                        
+                         <TextView
+                             android:id="@+id/area"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:layout_alignBottom="@id/itemPrice"
+                             android:layout_alignParentLeft="true"
+                             android:textColor="#BBBBBB"
+                             android:textSize="12sp" />
+
                     </RelativeLayout>
 
                     <TextView
@@ -151,28 +156,28 @@
                         android:layout_marginBottom="10dp"
                         android:background="@color/white"
                         android:padding="8dp" >
-                        <TextView 
+
+                        <TextView
                             android:id="@+id/remarkCount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                             android:layout_centerVertical="true"
                             android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
                             android:text="@string/comment"
-                            android:textColor="@color/fontcolor"/>
-                        
-                         <TextView 
-                             android:id="@+id/remarkRate"
+                            android:textColor="@color/fontcolor"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/remarkRate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="12sp"
+                            android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:drawablePadding="@dimen/driver_padding_small"
                             android:drawableRight="@drawable/hmm_next_page_gray"
-                            android:layout_alignParentRight="true"
                             android:text="@string/comment"
-                            android:textColor="@color/fontcolor"/>
-                        
+                            android:textColor="@color/fontcolor"
+                            android:textSize="12sp" />
                     </RelativeLayout>
                 </LinearLayout>
                 <!-- content view -->
