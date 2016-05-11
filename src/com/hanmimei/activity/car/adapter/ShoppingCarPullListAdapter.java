@@ -122,7 +122,8 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 		} else {
 			holder.check.setImageDrawable(uncheck_Drawable);
 		}
-		holder.area.setText(custom.getInvAreaNm());
+		if(custom.getInvAreaNm() != null)
+			holder.area.setText(custom.getInvAreaNm());
 		String tax = "";
 
 		if (Double.valueOf(custom.getTax()) != 0) {

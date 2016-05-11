@@ -40,6 +40,7 @@ import com.hanmimei.entity.OrderSubmitVo;
 import com.hanmimei.entity.ShoppingCar;
 import com.hanmimei.http.VolleyHttp;
 import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
+import com.hanmimei.override.ViewExpandAnimation;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.ToastUtils;
@@ -174,25 +175,13 @@ public class GoodsBalanceActivity extends BaseActivity implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btn_pay_type:
-			if (group_pay_type.getVisibility() == View.VISIBLE) {
-				group_pay_type.setVisibility(View.GONE);
-			} else {
-				group_pay_type.setVisibility(View.VISIBLE);
-			}
+			group_pay_type.startAnimation(new ViewExpandAnimation(group_pay_type));
 			break;
 		case R.id.btn_send_time:
-			if (group_send_time.getVisibility() == View.VISIBLE) {
-				group_send_time.setVisibility(View.GONE);
-			} else {
-				group_send_time.setVisibility(View.VISIBLE);
-			}
+			group_send_time.startAnimation(new ViewExpandAnimation(group_send_time));
 			break;
 		case R.id.btn_mCoupon:
-			if (group_coupons.getVisibility() == View.VISIBLE) {
-				group_coupons.setVisibility(View.GONE);
-			} else {
-				group_coupons.setVisibility(View.VISIBLE);
-			}
+			group_coupons.startAnimation(new ViewExpandAnimation(group_coupons));
 			break;
 
 		case R.id.newAddress:

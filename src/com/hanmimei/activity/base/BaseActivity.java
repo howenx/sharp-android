@@ -140,7 +140,7 @@ public class BaseActivity extends ParallaxActivityBase {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		VolleyHttp.parseRequestTask();
+//		VolleyHttp.parseRequestTask();
 		if (!isAppOnForeground()) {
 			setClipboard();
 		}

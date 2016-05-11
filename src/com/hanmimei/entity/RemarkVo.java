@@ -6,6 +6,7 @@
 package com.hanmimei.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.Gson;
@@ -109,4 +110,22 @@ public class RemarkVo implements Serializable{
 		this.userName = userName;
 	}
 
+	
+	public List<RemarkVo> getRemarkVos(){
+		List<RemarkVo> list = new ArrayList<RemarkVo>();
+		for(String pic : this.getPictureList()){
+			RemarkVo vo = new RemarkVo();
+			vo.setBuyAt(this.getBuyAt());
+			vo.setContent(this.getContent());
+			vo.setCreateAt(this.getCreateAt());
+			vo.setGrade(this.getGrade());
+			vo.setPicture(pic);
+			vo.setSize(this.getSize());
+			vo.setUserImg(this.getUserImg());
+			vo.setUserName(this.getUserName());
+			list.add(vo);
+		}
+		return list;
+	}
+	
 }

@@ -1,12 +1,15 @@
 package com.hanmimei.activity.goods.pin;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.hanmimei.R;
 import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.utils.ActionBarUtil;
+import com.hanmimei.utils.CommonUtils;
 /**
  * 
  * @author vince
@@ -20,7 +23,12 @@ public class PingouLiuChengActivity extends BaseActivity {
 		setContentView(R.layout.pingou_liucheng_layout);
 		ActionBarUtil.setActionBarStyle(this, "拼团流程");
 		ImageView my_image_view = (ImageView) findViewById(R.id.my_image_view);
-		my_image_view.setImageResource(R.drawable.pingou_liucheng);
+		Drawable able = getResources().getDrawable(R.drawable.hmm_pingou_liucheng);
+		int height = able.getIntrinsicHeight();
+		int width = able.getIntrinsicWidth();
+		int faceWidth = CommonUtils.getScreenWidth(getActivity());
+		int factHeight = faceWidth*height/width;
+		Glide.with(getActivity()).load(R.drawable.hmm_pingou_liucheng).override(faceWidth, factHeight).into(my_image_view);
 	}
 
 }

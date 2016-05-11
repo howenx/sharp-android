@@ -9,7 +9,6 @@
     <ImageView 
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:id="@+id/my_image_view"
-       android:scaleType="fitXY"/>
+       android:id="@+id/my_image_view"/>
 
 </ScrollView>

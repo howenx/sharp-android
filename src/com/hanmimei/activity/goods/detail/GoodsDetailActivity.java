@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -63,6 +64,7 @@ import com.hanmimei.override.SimpleAnimationListener;
 import com.hanmimei.override.ViewPageChangeListener;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
+import com.hanmimei.utils.AnimationTools;
 import com.hanmimei.utils.CommonUtils;
 import com.hanmimei.utils.GlideLoaderTools;
 import com.hanmimei.utils.KeyWordUtil;
@@ -74,6 +76,7 @@ import com.hanmimei.view.ShareWindow;
 import com.hanmimei.view.TagCloudView;
 import com.hanmimei.view.TagCloudView.OnTagClickListener;
 import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.Keyframe;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.animation.PropertyValuesHolder;
 import com.umeng.socialize.UMShareAPI;
@@ -102,7 +105,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private ShareWindow shareWindow;
 	private View back_top;
 	private ScrollableLayout mScrollLayout;
-
+	
 	// private User user;
 	private int num_shopcart;
 	private HMessage msg;
@@ -112,6 +115,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private ScrollAbleFragment imgFragment;
 	private ScrollAbleFragment parFragment;
 	private ScrollAbleFragment gridViewFragment;
+	
+	private ObjectAnimator shopcartAnimator , imgAnimator ;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -121,7 +126,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 		setContentView(R.layout.goods_detail_layout);
 		findView();
 		initGoodsNumView();
-		initAnimatorSetValue();
 		initFragmentPager();
 		getGoodsNums();
 		loadDataByUrl();
@@ -158,7 +162,22 @@ public class GoodsDetailActivity extends BaseActivity implements
 		findViewById(R.id.btn_add_shopcart).setOnClickListener(this);
 		findViewById(R.id.btn_portalFee).setOnClickListener(this);
 		findViewById(R.id.back_top).setOnClickListener(this);
-		
+		shopcartAnimator = AnimationTools.nope(findViewById(R.id.shopcart));
+		imgAnimator = AnimationTools.initAnimatorSetValue(this, img_hide, new SimpleAnimationListener() {
+
+			@Override
+			public void onAnimationStart(Animator arg0) {
+				img_hide.setVisibility(View.VISIBLE);
+			}
+
+			@Override
+			public void onAnimationEnd(Animator arg0) {
+				img_hide.setVisibility(View.GONE);
+				num_shopcart++;
+				showGoodsNums();
+				shopcartAnimator.start();
+			}
+		});
 	}
 
 	/**
@@ -249,8 +268,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 						if (hm.getCode() == 200) {
 							// 购物车添加成功，显示提示框
 							displayAnimation();
-							num_shopcart++;
-							showGoodsNums();
 						} else if (hm.getCode() == 3001 || hm.getCode() == 2001) {
 							// 提示添加失败原因
 							msg = hm;
@@ -451,41 +468,14 @@ public class GoodsDetailActivity extends BaseActivity implements
 				}, toJSONObject(goods2).toString());
 	}
 
-	private ObjectAnimator objectAnimator;
 
-	private void initAnimatorSetValue() {
-		int translationX = CommonUtils.getScreenWidth(this) * 4 / 11;
+	
 
-		PropertyValuesHolder pvhSX = PropertyValuesHolder.ofFloat("scaleX", 1f,
-				0.3f);
-		PropertyValuesHolder pvhSY = PropertyValuesHolder.ofFloat("scaleY", 1f,
-				0.3f);
-		PropertyValuesHolder pvhTY = PropertyValuesHolder.ofFloat(
-				"translationY", 0, -250, 50);
-		PropertyValuesHolder pvhTX = PropertyValuesHolder.ofFloat(
-				"translationX", 0, -translationX);
-		objectAnimator = ObjectAnimator.ofPropertyValuesHolder(img_hide, pvhSX,
-				pvhSY, pvhTY, pvhTX).setDuration(1200);
-		objectAnimator.setInterpolator(new DecelerateInterpolator());
-		objectAnimator.addListener(new SimpleAnimationListener() {
-
-			@Override
-			public void onAnimationStart(Animator arg0) {
-				img_hide.setVisibility(View.VISIBLE);
-			}
-
-			@Override
-			public void onAnimationEnd(Animator arg0) {
-				img_hide.setVisibility(View.GONE);
-			}
-		});
-
-	}
-
+	
 	private void displayAnimation() {
 		GlideLoaderTools.loadSquareImage(getActivity(), detail.getCurrentStock()
 				.getInvImgForObj().getUrl(), img_hide);
-		objectAnimator.start();
+		imgAnimator.start();
 	}
 
 	// 当前的商品
@@ -899,13 +889,11 @@ public class GoodsDetailActivity extends BaseActivity implements
 		} else {
 			num_restrictAmount.setVisibility(View.GONE);
 		}
-		// GlideLoaderUtils.loadSquareImage(getActivity(), s.getInvImgForObj()
-		// .getUrl(), img_hide);
 		if (s.getPostalTaxRate() != null)
 			curPostalTaxRate = s.getPostalTaxRate();
 		curItemPrice = s.getItemPrice().doubleValue();
 		postalStandard = s.getPostalStandard();
-		area.setText(s.getInvAreaNm());
+		area.setText("邮寄方式："+s.getInvAreaNm());
 		if (s.getCollectId() != 0) {
 			collectionImg.setImageResource(R.drawable.hmm_icon_collect_h);
 			isCollection = true;

@@ -77,8 +77,8 @@ public class GoodsComImgFragment extends BaseIconFragment  implements OnScrollTo
 					int position, long id) {
 				Intent intent = new Intent(getActivity(), GoodsCommentImgActivity.class);
 				vo.setPosition(position);
-				vo.setLoadUrl(loadUrl);
 				vo.setPics(pics);
+				vo.setLoadUrl(loadUrl);
 				vo.setIndex(index);
 				intent.putExtra("GoodsCommentVo", vo);
 				startActivity(intent);
