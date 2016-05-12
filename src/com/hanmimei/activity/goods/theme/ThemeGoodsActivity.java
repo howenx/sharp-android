@@ -233,6 +233,21 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 				themeImg.getWidth(), themeImg.getHeight());
 		// 初始化标签信息
 		initTagInfo(themeList, width, height);
+		if(themeList.getThemeItemList() !=null && themeList.getThemeItemList().size()== 1){
+			Intent intent = null;
+			if (themeList.getThemeItemList().get(0).getItemType().equals("pin")) {
+				intent = new Intent(getActivity(),
+						PingouDetailActivity.class);
+			} else {
+				intent = new Intent(getActivity(),
+						GoodsDetailActivity.class);
+			}
+			Log.i("detailUrl", themeList.getThemeItemList().get(0).getItemUrl());
+			intent.putExtra("url", themeList.getThemeItemList().get(0).getItemUrl());
+			startActivity(intent);
+			finish();
+			return;
+		}
 		data.clear();
 		data.addAll(themeList.getThemeItemList());
 		adapter.notifyDataSetChanged();

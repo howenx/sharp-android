@@ -188,9 +188,9 @@ public class ShoppingGoodsDao extends AbstractDao<ShoppingGoods, Long> {
             stmt.bindLong(17, restAmount);
         }
  
-        Integer postalTaxRate = entity.getPostalTaxRate();
+        String postalTaxRate = entity.getPostalTaxRate();
         if (postalTaxRate != null) {
-            stmt.bindLong(18, postalTaxRate);
+            stmt.bindString(18, postalTaxRate);
         }
  
         Integer postalStandard = entity.getPostalStandard();
@@ -261,7 +261,7 @@ public class ShoppingGoodsDao extends AbstractDao<ShoppingGoods, Long> {
             cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // invArea
             cursor.isNull(offset + 15) ? null : cursor.getInt(offset + 15), // restrictAmount
             cursor.isNull(offset + 16) ? null : cursor.getInt(offset + 16), // restAmount
-            cursor.isNull(offset + 17) ? null : cursor.getInt(offset + 17), // postalTaxRate
+            cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17), // postalTaxRate
             cursor.isNull(offset + 18) ? null : cursor.getInt(offset + 18), // postalStandard
             cursor.isNull(offset + 19) ? null : cursor.getInt(offset + 19), // postalLimit
             cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20), // invCustoms
@@ -294,7 +294,7 @@ public class ShoppingGoodsDao extends AbstractDao<ShoppingGoods, Long> {
         entity.setInvArea(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
         entity.setRestrictAmount(cursor.isNull(offset + 15) ? null : cursor.getInt(offset + 15));
         entity.setRestAmount(cursor.isNull(offset + 16) ? null : cursor.getInt(offset + 16));
-        entity.setPostalTaxRate(cursor.isNull(offset + 17) ? null : cursor.getInt(offset + 17));
+        entity.setPostalTaxRate(cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17));
         entity.setPostalStandard(cursor.isNull(offset + 18) ? null : cursor.getInt(offset + 18));
         entity.setPostalLimit(cursor.isNull(offset + 19) ? null : cursor.getInt(offset + 19));
         entity.setInvCustoms(cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20));

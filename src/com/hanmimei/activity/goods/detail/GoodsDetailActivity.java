@@ -233,13 +233,13 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 			@Override
 			public void onSuccess(String result) {
-				try {
+//				try {
 					detail = new Gson().fromJson(result, GoodsDetail.class);
-				} catch (Exception e) {
-					ToastUtils.Toast(getActivity(), R.string.error);
-					getLoading().dismiss();
-					return;
-				}
+//				} catch (Exception e) {
+//					ToastUtils.Toast(getActivity(), R.string.error);
+//					getLoading().dismiss();
+//					return;
+//				}
 				initGoodsDetail();
 				getLoading().dismiss();
 			}
@@ -792,7 +792,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 	}
 
-	private int curPostalTaxRate; // 当前商品税率
+	private double curPostalTaxRate; // 当前商品税率
 	private double curItemPrice; // 当前商品价格
 	private int postalStandard;// 关税收费标准
 
@@ -890,7 +890,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 			num_restrictAmount.setVisibility(View.GONE);
 		}
 		if (s.getPostalTaxRate() != null)
-			curPostalTaxRate = s.getPostalTaxRate();
+			curPostalTaxRate = s.getPostalTaxRate_();
 		curItemPrice = s.getItemPrice().doubleValue();
 		postalStandard = s.getPostalStandard();
 		area.setText("邮寄方式："+s.getInvAreaNm());

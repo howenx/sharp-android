@@ -209,7 +209,7 @@ public class HMainActivity extends BaseActivity implements OnClickListener {
 				setClipboard();
 				MobclickAgent.onKillProcess(this);
 				finish();
-				System.exit(0);
+//				System.exit(0);
 			}
 		}
 	}

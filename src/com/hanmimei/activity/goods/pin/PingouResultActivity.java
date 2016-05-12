@@ -381,7 +381,9 @@ public class PingouResultActivity extends BaseActivity implements
 			sgoods.setInvArea(s.getInvArea());
 			sgoods.setInvAreaNm(s.getInvAreaNm());
 			sgoods.setInvCustoms(s.getInvCustoms());
-			sgoods.setPostalTaxRate(Integer.valueOf(s.getPostalTaxRate()));
+			if(s.getPostalTaxRate() !=null)
+				sgoods.setPostalTaxRate(s.getPostalTaxRate());
+			if(s.getPostalStandard() !=null)
 			sgoods.setPostalStandard(Integer.valueOf(s.getPostalStandard()));
 			sgoods.setSkuType(s.getSkuType());
 			sgoods.setSkuTypeId(s.getSkuTypeId());

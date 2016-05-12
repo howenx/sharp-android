@@ -18,17 +18,15 @@ import com.hanmimei.view.viewflow.ViewFlow;
 
 /**
  * @author eric
- *
+ * 
  */
-@SuppressLint("NewApi") 
+@SuppressLint("NewApi")
 public class IndroductionActivity extends AppCompatActivity {
 
 	private ViewFlow viewFlow;
 	private CircleFlowIndicator indicator;
-	public int[] images = { R.drawable.indro_1, R.drawable.indro_2,
-			R.drawable.indro_3};
-//	private static final String FIRST = "first";
-//	private static final String FIRST_LOG_FLAG = "first_log_flag";
+	public int[] images = { R.drawable.indro_1, R.drawable.indro_2, R.drawable.indro_3 };
+
 	@Override
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
@@ -41,10 +39,11 @@ public class IndroductionActivity extends AppCompatActivity {
 		viewFlow.setFlowIndicator(indicator);
 		viewFlow.setSelection(0);
 	}
-	class ViewFlowAdapter extends BaseAdapter{
+
+	class ViewFlowAdapter extends BaseAdapter {
 		private LayoutInflater inflater;
-		
-		public ViewFlowAdapter(){
+
+		public ViewFlowAdapter() {
 			inflater = LayoutInflater.from(IndroductionActivity.this);
 		}
 
@@ -66,36 +65,40 @@ public class IndroductionActivity extends AppCompatActivity {
 		@Override
 		public View getView(int position, View convertView, ViewGroup arg2) {
 			ViewHolder holder = null;
-			if(convertView == null){
-				convertView = inflater.inflate(R.layout.viewpager_panel_item, null);
+			if (convertView == null) {
+				convertView = inflater.inflate(R.layout.viewpager_panel_item,
+						null);
 				holder = new ViewHolder();
 				holder.img = (ImageView) convertView.findViewById(R.id.img);
 				holder.experience = convertView.findViewById(R.id.experience);
 				convertView.setTag(holder);
-			}else{
-				holder = (ViewHolder)convertView.getTag();
+			} else {
+				holder = (ViewHolder) convertView.getTag();
 			}
 			holder.img.setImageResource(images[position % images.length]);
-			if(position == images.length - 1){
+			if (position == images.length - 1) {
 				holder.experience.setVisibility(View.VISIBLE);
 				holder.img.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View arg0) {
-						IntroConfig.putIntroCfg(IndroductionActivity.this, IntroConfig.INTRO_CONFIG_VALUE_NO);
-						startActivity(new Intent(IndroductionActivity.this,HMainActivity.class));
+						IntroConfig.putIntroCfg(IndroductionActivity.this,
+								IntroConfig.INTRO_CONFIG_VALUE_NO);
+						startActivity(new Intent(IndroductionActivity.this,
+								HMainActivity.class));
 						finish();
 					}
 				});
-			}else{
+			} else {
 				holder.experience.setVisibility(View.INVISIBLE);
 			}
 			return convertView;
 		}
-		private class ViewHolder{
+
+		private class ViewHolder {
 			private ImageView img;
 			private View experience;
 		}
-		
+
 	}
 
 }

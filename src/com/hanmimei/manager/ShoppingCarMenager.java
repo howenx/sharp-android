@@ -163,7 +163,7 @@ public class ShoppingCarMenager {
 			List<ShoppingGoods> goods = list.get(i).getList();
 			for(int j = 0; j < goods.size(); j ++){
 				if(goods.get(j).getState().equals("G")){
-					tax = tax + goods.get(j).getGoodsPrice() * goods.get(j).getGoodsNums() * goods.get(j).getPostalTaxRate() * 0.01;
+					tax = tax + goods.get(j).getGoodsPrice() * goods.get(j).getGoodsNums() * goods.get(j).getPostalTaxRate_() * 0.01;
 					custom_checknum = custom_checknum + 1;
 				}
 				if(!goods.get(j).getState().equals("S"))
