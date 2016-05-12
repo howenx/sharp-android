@@ -94,7 +94,7 @@ public class GlideLoaderTools {
 	}
 	
 	/**
-	 * 加载图片(圆形)
+	 * 加载图片(矩形)
 	 * 
 	 * @param mContext
 	 * @param url

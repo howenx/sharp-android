@@ -291,13 +291,13 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 
 			if (tagInfo.direct == com.ui.tag.TagInfo.Direction.Right) {
 				tagInfo.leftMargin = 0;
-				tagInfo.topMargin = (int) (height * tag.getTop());
-				tagInfo.rightMargin = (int) (width - width * tag.getLeft());
+				tagInfo.topMargin = (int) (height * tag.getTop()-tagInfo.getTagHeight());
+				tagInfo.rightMargin = (int) (width - width * tag.getLeft()-tagInfo.getTagWidth());
 				Log.i("width", tagInfo.rightMargin + "");
 				tagInfo.bottomMargin = 0;
 			} else {
-				tagInfo.leftMargin = (int) (width * tag.getLeft()); // 根据屏幕密度计算使动画中心在点击点，15dp是margin
-				tagInfo.topMargin = (int) (height * tag.getTop());
+				tagInfo.leftMargin = (int) (width * tag.getLeft()-tagInfo.getTagWidth()); // 根据屏幕密度计算使动画中心在点击点，15dp是margin
+				tagInfo.topMargin = (int) (height * tag.getTop()-tagInfo.getTagHeight());
 				tagInfo.rightMargin = 0;
 				tagInfo.bottomMargin = 0;
 			}
