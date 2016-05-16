@@ -219,10 +219,10 @@
             android:layout_height="wrap_content"
             android:background="@color/notice"
             android:gravity="center"
-            android:padding="10dp"
+            android:padding="8dp"
             android:text="@string/goods_over_notice"
             android:textColor="@color/theme"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:visibility="gone" />
 
         <LinearLayout

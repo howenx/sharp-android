@@ -33,7 +33,8 @@ public class VolleyHttp {
 	public static final String TAG = "volley_request";
 	
 	public static void registRequestQueue(Context mContext) {
-		requestQueue = Volley.newRequestQueue(mContext);
+		if(requestQueue == null)
+			requestQueue = Volley.newRequestQueue(mContext);
 	}
 
 	public static void registRequestQueue(Context mContext, HttpStack stack) {
@@ -193,7 +194,7 @@ public class VolleyHttp {
 		getRequestQueue().add(request);
 	}
 //=====================================================================
-//===============================字符串传输==============================
+//===============================字符串传输===============================
 //=====================================================================
 	/**
 	 * 
@@ -300,7 +301,7 @@ public class VolleyHttp {
 		 * @param headers
 		 */
 		public static void doRequestTask3(int method,
-				Map<String, String> headers, String url,
+				Map<String, String> headers, String url,   
 				final VolleyJsonCallback callback, MultipartRequestParams params) {
 			MultipartRequest request = new MultipartRequest(method, params, url, new VolleyResponseListener() {
 				
@@ -326,9 +327,9 @@ public class VolleyHttp {
 		
 		
 		
-		public static void parseRequestTask(){
+		public static void parseRequestTask(String tag){
 			if(requestQueue !=null && requestQueue.getSequenceNumber()>0)
-				requestQueue.cancelAll(TAG);
+				requestQueue.cancelAll(tag);
 		}
 	
 

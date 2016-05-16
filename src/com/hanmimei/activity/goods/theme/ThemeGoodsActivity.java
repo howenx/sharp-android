@@ -233,21 +233,21 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 				themeImg.getWidth(), themeImg.getHeight());
 		// 初始化标签信息
 		initTagInfo(themeList, width, height);
-		if(themeList.getThemeItemList() !=null && themeList.getThemeItemList().size()== 1){
-			Intent intent = null;
-			if (themeList.getThemeItemList().get(0).getItemType().equals("pin")) {
-				intent = new Intent(getActivity(),
-						PingouDetailActivity.class);
-			} else {
-				intent = new Intent(getActivity(),
-						GoodsDetailActivity.class);
-			}
-			Log.i("detailUrl", themeList.getThemeItemList().get(0).getItemUrl());
-			intent.putExtra("url", themeList.getThemeItemList().get(0).getItemUrl());
-			startActivity(intent);
-			finish();
-			return;
-		}
+//		if(themeList.getThemeItemList() !=null && themeList.getThemeItemList().size()== 1){
+//			Intent intent = null;
+//			if (themeList.getThemeItemList().get(0).getItemType().equals("pin")) {
+//				intent = new Intent(getActivity(),
+//						PingouDetailActivity.class);
+//			} else {
+//				intent = new Intent(getActivity(),
+//						GoodsDetailActivity.class);
+//			}
+//			Log.i("detailUrl", themeList.getThemeItemList().get(0).getItemUrl());
+//			intent.putExtra("url", themeList.getThemeItemList().get(0).getItemUrl());
+//			startActivity(intent);
+//			finish();
+//			return;
+//		}
 		data.clear();
 		data.addAll(themeList.getThemeItemList());
 		adapter.notifyDataSetChanged();
@@ -296,7 +296,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 				Log.i("width", tagInfo.rightMargin + "");
 				tagInfo.bottomMargin = 0;
 			} else {
-				tagInfo.leftMargin = (int) (width * tag.getLeft()-tagInfo.getTagWidth()); // 根据屏幕密度计算使动画中心在点击点，15dp是margin
+				tagInfo.leftMargin = (int) (width * tag.getLeft()-tagInfo.getTagWidth()); // 
 				tagInfo.topMargin = (int) (height * tag.getTop()-tagInfo.getTagHeight());
 				tagInfo.rightMargin = 0;
 				tagInfo.bottomMargin = 0;

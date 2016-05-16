@@ -2,12 +2,12 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
     <item>
         <shape>
-            <solid android:color="@color/qianhui" />
+            <solid android:color="@color/btn_selected" />
         </shape>
     </item>
     <item android:bottom="1px">
         <shape>
-            <solid android:color="@color/qianhui" />
+            <solid android:color="@color/btn_selected" />
         </shape>
     </item>
 

@@ -1,5 +1,7 @@
 package com.hanmimei.fragment;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,11 +47,18 @@ import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.Home;
 import com.hanmimei.entity.Slider;
 import com.hanmimei.entity.Theme;
+import com.hanmimei.entity.VersionVo;
+import com.hanmimei.http.VolleyHttp;
+import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
+import com.hanmimei.manager.HDownloadManager;
 import com.hanmimei.manager.MessageMenager;
+import com.hanmimei.utils.AlertDialogUtils;
+import com.hanmimei.utils.CommonUtils;
 import com.hanmimei.utils.GlideLoaderTools;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.PreferenceUtil.IntroConfig;
 import com.hanmimei.utils.ToastUtils;
+import com.hanmimei.utils.XMLPaserTools;
 import com.hanmimei.view.CycleViewPager;
 import com.hanmimei.view.IntroMsgDialog;
 import com.umeng.analytics.MobclickAgent;
@@ -131,6 +140,7 @@ public class HomeFragment extends BaseIconFragment implements
 		});
 		mListView.setOnScrollListener(this);
 		findHeaderView();
+//		doCheckVersionTask();
 		loadData();
 		addHeaderView();
 		return view;
@@ -161,7 +171,6 @@ public class HomeFragment extends BaseIconFragment implements
 
 		cycleViewPager = (CycleViewPager) getActivity().getFragmentManager()
 				.findFragmentById(R.id.fragment_cycle_viewpager_content);
-//		cycleViewPager.disableParentViewPagerTouchEvent(parentViewPager);
 	}
 
 	private void addHeaderView() {
@@ -460,5 +469,41 @@ public class HomeFragment extends BaseIconFragment implements
 		GlideLoaderTools.loadRectImage(context,url, imageView);
 		return imageView;
 	}
+	 
+	 private void doCheckVersionTask() {
+			VolleyHttp.doGetRequestTask( UrlUtil.UPDATE_HMM,
+					new VolleyJsonCallback() {
+
+						@Override
+						public void onSuccess(String result) {
+							try {
+								InputStream is = new ByteArrayInputStream(result
+										.getBytes());
+								final VersionVo info = XMLPaserTools.getUpdataInfo(is);
+								if (info.getReleaseNumber()>CommonUtils.getVersionCode(getActivity())) {
+									// 版本号不同,发送消息更新客户端
+									mActivity.setVersionInfo(info);
+									AlertDialogUtils.showUpdate2Dialog(
+											getActivity(), new OnClickListener() {
+
+												@Override
+												public void onClick(View v) {
+													HDownloadManager downloadTools = new HDownloadManager(getActivity());
+													downloadTools.download(info.getDownloadLink());
+												}
+											});
+
+								}
+							} catch (Exception e) {
+								ToastUtils.Toast(getActivity(), "获取服务器更新信息失败");
+							}
+						}
+
+						@Override
+						public void onError() {
+							ToastUtils.Toast(getActivity(), "获取服务器更新信息失败");
+						}
+					});
+		}
 
 }

@@ -34,6 +34,7 @@ import com.hanmimei.fragment.ShoppingCartFragment;
 import com.hanmimei.http.VolleyHttp;
 import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.manager.BadgeViewManager;
+import com.hanmimei.manager.DataCleanManager;
 import com.hanmimei.manager.HDownloadManager;
 import com.hanmimei.manager.MessageMenager;
 import com.hanmimei.override.ViewPageChangeListener;

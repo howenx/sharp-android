@@ -175,6 +175,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 				img_hide.setVisibility(View.GONE);
 				num_shopcart++;
 				showGoodsNums();
+				findViewById(R.id.btn_add_shopcart).setOnClickListener(GoodsDetailActivity.this);
 				shopcartAnimator.start();
 			}
 		});
@@ -403,7 +404,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 			ToastUtils.Toast(this, "请选择商品");
 			return;
 		}
-
+		findViewById(R.id.btn_add_shopcart).setOnClickListener(null);
 		if (getUser() != null) {
 			// 登录状态下加入购物车
 			sendData(goods);
@@ -412,6 +413,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 			addShoppingCartCheck(goods);
 		}
 		isChange = true;
+		
 	}
 
 	/**
