@@ -7,7 +7,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -20,7 +19,6 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -76,9 +74,7 @@ import com.hanmimei.view.ShareWindow;
 import com.hanmimei.view.TagCloudView;
 import com.hanmimei.view.TagCloudView.OnTagClickListener;
 import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.Keyframe;
 import com.nineoldandroids.animation.ObjectAnimator;
-import com.nineoldandroids.animation.PropertyValuesHolder;
 import com.umeng.socialize.UMShareAPI;
 
 /**
@@ -234,13 +230,13 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 			@Override
 			public void onSuccess(String result) {
-//				try {
+				try {
 					detail = new Gson().fromJson(result, GoodsDetail.class);
-//				} catch (Exception e) {
-//					ToastUtils.Toast(getActivity(), R.string.error);
-//					getLoading().dismiss();
-//					return;
-//				}
+				} catch (Exception e) {
+					ToastUtils.Toast(getActivity(), R.string.error);
+					getLoading().dismiss();
+					return;
+				}
 				initGoodsDetail();
 				getLoading().dismiss();
 			}
