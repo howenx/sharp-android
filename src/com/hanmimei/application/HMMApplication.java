@@ -23,7 +23,7 @@ public class HMMApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 		JPushInterface.setDebugMode(true);
-		JPushInterface.init(this); // 初始化 JPush
+		JPushInterface.init(this); // 初始化 JPush	
 		TestinAgent.init(this);
 		VolleyHttp.registRequestQueue(this);
 		initPlatformConfig();

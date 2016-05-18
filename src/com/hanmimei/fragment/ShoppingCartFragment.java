@@ -1,7 +1,9 @@
 package com.hanmimei.fragment;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -131,6 +133,7 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 				object.put("skuType", goods.getSkuType());
 				object.put("skuTypeId", goods.getSkuTypeId());
 				array.put(object);
+				
 			}
 
 		} catch (JSONException e) {

@@ -88,6 +88,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		ActionBarUtil.setActionBarStyle(this, "账号登录");
 		initView();
 		registerReceivers();
+		mShareAPI = UMShareAPI.get(this);
 	}
 
 	private void initView() {
@@ -242,9 +243,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			break;
 		}
 	}
-
+	private UMShareAPI mShareAPI;
 	private void doOtherLogin(SHARE_MEDIA platform) {
-		UMShareAPI mShareAPI = UMShareAPI.get(this);
+//		mShareAPI = UMShareAPI.get(this);
 		if(!mShareAPI.isInstall(this, platform)){
 			ToastUtils.Toast(this,"请安装客户端");
 			return;
@@ -255,12 +256,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		@Override
 		public void onComplete(SHARE_MEDIA platform, int action,
 				Map<String, String> data) {
-//			Toast.makeText(getApplicationContext(), "登陆成功", Toast.LENGTH_SHORT)
-//					.show();
-//			ToastUtils.Toast(getApplicationContext(),  data.get("openid").toString() + "!!!!!");
 			chekWinxin(data);
-
-			
+			ToastUtils.Toast(getApplicationContext(), "登陆成功" + data.toString());	
 		}
 
 		@Override
@@ -273,6 +270,13 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			ToastUtils.Toast(getApplicationContext(),  "登陆取消");
 		}
 	};
+	
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+        mShareAPI.onActivityResult(requestCode, resultCode, data);
+	}
 
 	private void chekWinxin(Map<String, String> data) {
 //		VolleyHttp.doPostRequestTask( "", new VolleyJsonCallback() {

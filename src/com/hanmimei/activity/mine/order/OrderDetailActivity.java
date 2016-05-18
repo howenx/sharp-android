@@ -133,6 +133,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 				if(orderList.getList().size() > 0 && orderList.getList() != null){
 					order = orderList.getList().get(0);
 					addressInfo = order.getAdress();
+					list.clear();
 					list.addAll(order.getList());
 					initView();
 					adapter.notifyDataSetChanged();
