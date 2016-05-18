@@ -109,10 +109,22 @@ public class MyPingouDetailActivity extends BaseActivity {
 			} else if (o.getOrderStatus().equals("R")) {
 				order_state.setText("已签收");
 				order_img.setImageResource(R.drawable.hmm_sign);
-				btn_left.setVisibility(View.GONE);
+				btn_left.setVisibility(View.VISIBLE);
 				btn_right.setVisibility(View.VISIBLE);
-				btn_left.setText("申请售后");
-				btn_right.setText("评价");
+				btn_right.setText("评价晒单");
+				btn_left.setText("查看物流");
+
+				btn_left.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent(getActivity(),
+								LogisticsActivity.class);
+						intent.putExtra("orderId", o.getOrderId());
+						startActivity(intent);
+					}
+				});
+				
 				btn_right.setOnClickListener(new OnClickListener() {
 					
 					@Override
@@ -124,7 +136,7 @@ public class MyPingouDetailActivity extends BaseActivity {
 					}
 				});
 			} else {
-				order_state.setText("过期");
+				order_state.setText("已过期");
 				order_img.setImageResource(R.drawable.hmm_order_error);
 				btn_left.setVisibility(View.GONE);
 				btn_right.setVisibility(View.GONE);

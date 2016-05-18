@@ -75,7 +75,7 @@ public class AlertDialogUtils {
 	 * @param postalStandard		收费标准
 	 * @return
 	 */
-	public static AlertDialog showPostDialog(Context mContext, double curItemPrice,int curPostalTaxRate,int postalStandard ) {
+	public static AlertDialog showPostDialog(Context mContext, double curItemPrice,double curPostalTaxRate,int postalStandard ) {
 		final AlertDialog dialog = new AlertDialog.Builder(mContext).create();
 		View view = LayoutInflater.from(mContext).inflate(R.layout.panel_portalfee, null);
 		TextView num_portalfee = (TextView) view.findViewById(R.id.num_portalfee);

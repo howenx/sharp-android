@@ -11,9 +11,9 @@ import java.util.Map;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-public class StockVo implements Serializable{
-	
-	//普通商品属性
+public class StockVo implements Serializable {
+
+	// 普通商品属性
 	private String id;
 	private String itemColor;
 	private String itemSize;
@@ -32,9 +32,9 @@ public class StockVo implements Serializable{
 	private String invUrl;
 	private String invTitle;
 	private String invCustoms;
-	private Integer postalTaxRate;
+	private String postalTaxRate;
 	private Integer postalStandard;// 关税收费标准
-	//拼购商品属性
+	// 拼购商品属性
 	private String pinTitle; // 拼购商品标题
 	private String startAt; // 开始时间
 	private String endAt;// 结束时间
@@ -45,17 +45,17 @@ public class StockVo implements Serializable{
 	private String invWeight;// 商品重量单位g
 	private String browseCount;// 浏览次数
 	private String collectCount;// 收藏数
-	private String pinId; 
-	private String shareUrl; // 分享短连接 
+	private String pinId;
+	private String shareUrl; // 分享短连接
 	private String status; // 拼购ID
-	private BigDecimal invPrice; //商品原价
+	private BigDecimal invPrice; // 商品原价
 	private int collectId;
-	
-	private String soldAmount ;//已售数量
-	
-	//共有属性
-    private     String              skuType;//商品类型 1.vary,2.item,3.customize,4.pin
-    private     String                skuTypeId;//商品类型所对应的ID
+
+	private String soldAmount;// 已售数量
+
+	// 共有属性
+	private String skuType;// 商品类型 1.vary,2.item,3.customize,4.pin
+	private String skuTypeId;// 商品类型所对应的ID
 
 	public String getSkuType() {
 		return skuType;
@@ -121,7 +121,6 @@ public class StockVo implements Serializable{
 		this.endAt = endAt;
 	}
 
-
 	public void setFloorPrice(String floorPrice) {
 		this.floorPrice = floorPrice;
 	}
@@ -133,20 +132,20 @@ public class StockVo implements Serializable{
 	public void setPinDiscount(String pinDiscount) {
 		this.pinDiscount = pinDiscount;
 	}
-	
 
 	public List<PinTieredPrice> getPinTieredPrices() {
-		Collections.sort(pinTieredPrices,new Comparator<PinTieredPrice>(){
-            public int compare(PinTieredPrice arg0, PinTieredPrice arg1) {
-                return arg1.getPeopleNum().compareTo(arg0.getPeopleNum());
-            }
-        });
+		Collections.sort(pinTieredPrices, new Comparator<PinTieredPrice>() {
+			public int compare(PinTieredPrice arg0, PinTieredPrice arg1) {
+				return arg1.getPeopleNum().compareTo(arg0.getPeopleNum());
+			}
+		});
 		return pinTieredPrices;
 	}
+
 	public List<PinTieredPrice> getPinTieredPricesDatas() {
 		List<PinTieredPrice> list = new ArrayList<PinTieredPrice>();
-		for(PinTieredPrice p :getPinTieredPrices()){
-			if(p.getPeopleNum() == 1)
+		for (PinTieredPrice p : getPinTieredPrices()) {
+			if (p.getPeopleNum() == 1)
 				continue;
 			list.add(p);
 		}
@@ -157,8 +156,10 @@ public class StockVo implements Serializable{
 		this.pinTieredPrices = pinTieredPrices;
 	}
 
-	public Map<String,String> getFloorPrice() {
-		return new Gson().fromJson(floorPrice, new TypeToken<Map<String,String>>(){}.getType());
+	public Map<String, String> getFloorPrice() {
+		return new Gson().fromJson(floorPrice,
+				new TypeToken<Map<String, String>>() {
+				}.getType());
 	}
 
 	public String getPinRedirectUrl() {
@@ -250,7 +251,6 @@ public class StockVo implements Serializable{
 	public void setPostalStandard(Integer postalStandard) {
 		this.postalStandard = postalStandard;
 	}
-
 
 	public String getInvCustoms() {
 		return invCustoms;
@@ -364,11 +364,17 @@ public class StockVo implements Serializable{
 		this.shipFee = shipFee;
 	}
 
-	public Integer getPostalTaxRate() {
+	public double getPostalTaxRate_() {
+		if (postalTaxRate != null)
+			return Double.valueOf(postalTaxRate);
+		return 0;
+	}
+
+	public String getPostalTaxRate() {
 		return postalTaxRate;
 	}
 
-	public void setPostalTaxRate(Integer postalTaxRate) {
+	public void setPostalTaxRate(String postalTaxRate) {
 		this.postalTaxRate = postalTaxRate;
 	}
 
@@ -387,10 +393,10 @@ public class StockVo implements Serializable{
 	public void setRestAmount(Integer restAmount) {
 		this.restAmount = restAmount;
 	}
-	
-	public PinTieredPrice getOnePersonPinTieredPrice(){
-		for(PinTieredPrice p : getPinTieredPrices()){
-			if(p.getPeopleNum() == 1)
+
+	public PinTieredPrice getOnePersonPinTieredPrice() {
+		for (PinTieredPrice p : getPinTieredPrices()) {
+			if (p.getPeopleNum() == 1)
 				return p;
 		}
 		return null;

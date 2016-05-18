@@ -169,9 +169,14 @@ public class PingouDetailActivity extends BaseActivity implements
 			item_src_price.setText(stock.getInvPrice() + "元/件");
 
 		}
-		pin_price.setText(stock.getFloorPrice().get("price") + "元/件起");
-		pin_per_num.setText("最高" + stock.getFloorPrice().get("person_num")
-				+ "人团");
+		if(stock.getPinTieredPrices().size()>2){
+			pin_price.setText(stock.getFloorPrice().get("price") + "元/件起");
+			pin_per_num.setText("最高"+stock.getFloorPrice().get("person_num") + "人团");
+		}else{
+			pin_price.setText(stock.getFloorPrice().get("price") + "元/件");
+			pin_per_num.setText(stock.getFloorPrice().get("person_num") + "人拼团");
+		}
+		
 		if (stock.getCollectId() != 0) {
 			collectionImg.setImageResource(R.drawable.hmm_icon_collect_h);
 			isCollection = true;

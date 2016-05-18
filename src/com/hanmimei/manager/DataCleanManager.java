@@ -83,7 +83,6 @@ public class DataCleanManager {
 //      cleanSharedPreference(context);
         cleanFiles(context);
         ToastUtils.Toast(context, "清除缓存成功");
-       
     }
     
    

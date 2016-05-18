@@ -46,7 +46,6 @@ public class GoodsDetailImgActivity extends AppCompatActivity {
 			public void onPageSelected(int arg0) {
 				pageNum.setText((arg0 + 1) + "/" + imgUrls.size());
 			}
-
 		});
 		
 	}

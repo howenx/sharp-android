@@ -77,7 +77,6 @@ public class OrderSubmitActivity extends BaseActivity {
 				extraHeaders);
 
 		mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-		// mWebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
 		// 添加js交互
 		mWebView.addJavascriptInterface(new JavaScriptInterface(this),
 				"handler");

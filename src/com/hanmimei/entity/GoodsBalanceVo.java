@@ -28,7 +28,7 @@ public class GoodsBalanceVo {
 		private List<CouponVo> coupons;
 		private BigDecimal shipFee;			//理论邮费
 		private BigDecimal portalFee;		//理论行邮税
-		private BigDecimal factPortalFee;	//	实际行邮税
+		private BigDecimal factPortalFee;	//实际行邮税
 		private BigDecimal factShipFee; //实际邮费
 		
 		private List<SingleCustoms> singleCustoms;

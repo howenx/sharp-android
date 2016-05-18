@@ -28,7 +28,7 @@ public class ShoppingGoods implements Serializable{
     private String invArea;
     private Integer restrictAmount;
     private Integer restAmount;
-    private Integer postalTaxRate;
+    private String postalTaxRate;
     private Integer postalStandard;
     private Integer postalLimit;
     private String invCustoms;
@@ -48,7 +48,7 @@ public class ShoppingGoods implements Serializable{
         this.id = id;
     }
 
-    public ShoppingGoods(Long id, String cartId, String goodsId, String goodsImg, String goodsUrl, String goodsName, Double goodsPrice, Boolean isChecked, String state, Integer goodsNums, String itemColor, String itemSize, String shipFee, String delUrl, String invArea, Integer restrictAmount, Integer restAmount, Integer postalTaxRate, Integer postalStandard, Integer postalLimit, String invCustoms, String skuType, String skuTypeId, String pinTieredPriceId, String invAreaNm, Double poastalFee) {
+    public ShoppingGoods(Long id, String cartId, String goodsId, String goodsImg, String goodsUrl, String goodsName, Double goodsPrice, Boolean isChecked, String state, Integer goodsNums, String itemColor, String itemSize, String shipFee, String delUrl, String invArea, Integer restrictAmount, Integer restAmount, String postalTaxRate, Integer postalStandard, Integer postalLimit, String invCustoms, String skuType, String skuTypeId, String pinTieredPriceId, String invAreaNm, Double poastalFee) {
         this.id = id;
         this.cartId = cartId;
         this.goodsId = goodsId;
@@ -213,11 +213,17 @@ public class ShoppingGoods implements Serializable{
         this.restAmount = restAmount;
     }
 
-    public Integer getPostalTaxRate() {
+    public String getPostalTaxRate() {
         return postalTaxRate;
     }
 
-    public void setPostalTaxRate(Integer postalTaxRate) {
+    public double getPostalTaxRate_() {
+		if (postalTaxRate != null)
+			return Double.valueOf(postalTaxRate);
+		return 0;
+	}
+    
+    public void setPostalTaxRate(String postalTaxRate) {
         this.postalTaxRate = postalTaxRate;
     }
 

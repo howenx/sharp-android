@@ -338,5 +338,4 @@ public class BaseActivity extends ParallaxActivityBase {
 	public void setVersionInfo(VersionVo versionInfo) {
 		getMyApplication().setVersionInfo(versionInfo);
 	}
-
 }

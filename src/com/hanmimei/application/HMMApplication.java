@@ -9,6 +9,7 @@ import com.hanmimei.dao.DaoSession;
 import com.hanmimei.entity.User;
 import com.hanmimei.entity.VersionVo;
 import com.hanmimei.http.VolleyHttp;
+import com.hanmimei.utils.UncaughtExceptionTools;
 import com.testin.agent.TestinAgent;
 import com.umeng.socialize.PlatformConfig;
 
@@ -22,28 +23,33 @@ public class HMMApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+<<<<<<< HEAD
 		JPushInterface.setDebugMode(true);
 		JPushInterface.init(this); // 初始化 JPush	
 		TestinAgent.init(this);
 		VolleyHttp.registRequestQueue(this);
+=======
+>>>>>>> db6fb310a8688b8736611a7cd6a34e70eb472f5a
 		initPlatformConfig();
+		VolleyHttp.registRequestQueue(this);
+		TestinAgent.init(this);
+		JPushInterface.init(this); // 初始化 JPush
+		UncaughtExceptionTools.handler(this);
 	}
-
-
-
 
 	// 初始化PlatformConfig
 	private void initPlatformConfig() {
 		// 微信 appid appsecret
-		PlatformConfig.setWeixin("wx578f993da4b29f97","e78a99aec4b6860370107be78a5faf9d");
+		PlatformConfig.setWeixin("wx578f993da4b29f97",
+				"e78a99aec4b6860370107be78a5faf9d");
 		// 新浪微博 appkey appsecret
-		PlatformConfig.setSinaWeibo("794664710","0dc274fafeabec336673331c633a115e");
+		PlatformConfig.setSinaWeibo("794664710",
+				"0dc274fafeabec336673331c633a115e");
 		// QQ和Qzone appid appkey
 		PlatformConfig.setQQZone("1105332776", "CKevSfjxt0dXEq0y");
-		//支付宝appid
+		// 支付宝appid
 		PlatformConfig.setAlipay("2015111700822536");
 	}
-
 
 	public User getLoginUser() {
 		return loginUser;
@@ -86,7 +92,7 @@ public class HMMApplication extends Application {
 	}
 
 	public void setVersionInfo(VersionVo versionInfo) {
-		this.versionInfo = versionInfo;
+		this.versionInfo = versionInfo; 
 	}
 
 }

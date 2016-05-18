@@ -455,7 +455,7 @@ public class DataParser {
 							// }
 							// }
 							goods.setPostalTaxRate(goodsObject
-									.getInt("postalTaxRate"));
+									.getString("postalTaxRate"));
 						// if(goodsObject.has("postalStandard"))
 						// goods.setPostalStandard(goodsObject.getInt("postalStandard"));
 						// if(goodsObject.has("postalLimit"))
