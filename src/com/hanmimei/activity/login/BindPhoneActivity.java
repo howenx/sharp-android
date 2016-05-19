@@ -69,7 +69,6 @@ public class BindPhoneActivity extends BaseActivity implements OnClickListener{
 		go_login.setOnClickListener(this);
 		phone.addTextChangedListener(mTextWatcher);
 		findViewById(R.id.bom_re).setVisibility(View.GONE);
-		findViewById(R.id.att).setVisibility(View.GONE);
 		clear_phone = (ImageView) findViewById(R.id.clear_phone);
 		clear_phone.setOnClickListener(this);
 		attention = (TextView) findViewById(R.id.attention);

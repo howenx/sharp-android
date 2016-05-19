@@ -22,7 +22,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.android.volley.Request.Method;
 import com.astuetz.PagerSlidingTabStrip;
 import com.bigkoo.convenientbanner.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.ConvenientBanner;
@@ -60,13 +59,16 @@ import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.NetworkImageHolderView;
 import com.hanmimei.view.PushWindow;
 import com.hanmimei.view.ShareWindow;
+
 /**
  * 
  * @author vince
- *
+ * 
  */
 public class PingouDetailActivity extends BaseActivity implements
 		OnClickListener {
+
+	private static final String Tag = "PingouDetailActivity";
 
 	private ScrollableLayout mScrollLayout;
 	private ConvenientBanner<ImageVo> slider;
@@ -76,8 +78,6 @@ public class PingouDetailActivity extends BaseActivity implements
 	private boolean isCollection = false;
 	private TextView more_view;
 
-	private String noticeText = "正在加载数据";
-	
 	private ScrollAbleFragment imgFragment;
 	private ScrollAbleFragment parFragment;
 	private ScrollAbleFragment gridViewFragment;
@@ -95,39 +95,40 @@ public class PingouDetailActivity extends BaseActivity implements
 	}
 
 	private void loadUrl() {
-		if(TextUtils.isEmpty(getIntent().getStringExtra("url")))
+		if (TextUtils.isEmpty(getIntent().getStringExtra("url")))
 			return;
 		getLoading().show();
-		VolleyHttp.doGetRequestTask( getHeaders(), getIntent()
-				.getStringExtra("url"), new VolleyJsonCallback() {
+		VolleyHttp.doGetRequestTask(getHeaders(),
+				getIntent().getStringExtra("url"), new VolleyJsonCallback() {
 
-			@Override
-			public void onSuccess(String result) {
-				try {
-					detail = new Gson().fromJson(result, PinDetail.class);
-				} catch (Exception e) {
-					ToastUtils.Toast(getActivity(), R.string.error);
-					return;
-				}
+					@Override
+					public void onSuccess(String result) {
+						try {
+							detail = new Gson().fromJson(result,
+									PinDetail.class);
+						} catch (Exception e) {
+							ToastUtils.Toast(getActivity(), R.string.error);
+							return;
+						}
 
-				if (detail.getMessage().getCode() == 200) {
-					loadFragmentData();
-					initGoodsDetail(detail.getStock());
-					initGoodsComment(detail.getComment());
-					mScrollLayout.canScroll();
-				} else {
-					ToastUtils.Toast(getActivity(), detail.getMessage()
-							.getMessage());
-				}
-				getLoading().dismiss();
-			}
+						if (detail.getMessage().getCode() == 200) {
+							loadFragmentData();
+							initGoodsDetail(detail.getStock());
+							initGoodsComment(detail.getComment());
+							mScrollLayout.canScroll();
+						} else {
+							ToastUtils.Toast(getActivity(), detail.getMessage()
+									.getMessage());
+						}
+						getLoading().dismiss();
+					}
 
-			@Override
-			public void onError() {
-				getLoading().dismiss();
-				ToastUtils.Toast(getActivity(), R.string.error);
-			}
-		});
+					@Override
+					public void onError() {
+						getLoading().dismiss();
+						ToastUtils.Toast(getActivity(), R.string.error);
+					}
+				}, Tag);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -169,14 +170,16 @@ public class PingouDetailActivity extends BaseActivity implements
 			item_src_price.setText(stock.getInvPrice() + "元/件");
 
 		}
-		if(stock.getPinTieredPrices().size()>2){
+		if (stock.getPinTieredPrices().size() > 2) {
 			pin_price.setText(stock.getFloorPrice().get("price") + "元/件起");
-			pin_per_num.setText("最高"+stock.getFloorPrice().get("person_num") + "人团");
-		}else{
+			pin_per_num.setText("最高" + stock.getFloorPrice().get("person_num")
+					+ "人团");
+		} else {
 			pin_price.setText(stock.getFloorPrice().get("price") + "元/件");
-			pin_per_num.setText(stock.getFloorPrice().get("person_num") + "人拼团");
+			pin_per_num
+					.setText(stock.getFloorPrice().get("person_num") + "人拼团");
 		}
-		
+
 		if (stock.getCollectId() != 0) {
 			collectionImg.setImageResource(R.drawable.hmm_icon_collect_h);
 			isCollection = true;
@@ -186,10 +189,7 @@ public class PingouDetailActivity extends BaseActivity implements
 		}
 		if (stock.getStatus().equals("Y")) {
 
-		} else if (stock.getStatus().equals("P")) {
-			noticeText = "活动尚未开始";
 		} else {
-			noticeText = "活动已结束";
 			more_view.setVisibility(View.VISIBLE);
 			more_view.setOnClickListener(this);
 			findViewById(R.id.btn_buy_01).setEnabled(false);
@@ -217,16 +217,18 @@ public class PingouDetailActivity extends BaseActivity implements
 				new int[] { R.drawable.page_indicator,
 						R.drawable.page_indicator_fcoused });
 	}
-	
-	private void initGoodsComment(CommentVo comm){
-		if(comm.getRemarkCount()<=0){
+
+	private void initGoodsComment(CommentVo comm) {
+		if (comm.getRemarkCount() <= 0) {
 			findViewById(R.id.btn_comment).setVisibility(View.GONE);
-		}else{
+		} else {
 			findViewById(R.id.btn_comment).setOnClickListener(this);
 			TextView remarkRate = (TextView) findViewById(R.id.remarkRate);
 			TextView remarkCount = (TextView) findViewById(R.id.remarkCount);
-			remarkCount.setText(getResources().getString(R.string.comment, comm.getRemarkCount()));
-			remarkRate.setText(getResources().getString(R.string.comment_good, comm.getRemarkRate()));
+			remarkCount.setText(getResources().getString(R.string.comment,
+					comm.getRemarkCount()));
+			remarkRate.setText(getResources().getString(R.string.comment_good,
+					comm.getRemarkRate()));
 		}
 	}
 
@@ -276,8 +278,13 @@ public class PingouDetailActivity extends BaseActivity implements
 			ShareVo vo = new ShareVo();
 			vo.setContent(detail.getStock().getPinTitle());
 			vo.setTitle("韩秘美，只卖韩国正品");
+			if (detail.getStock() == null) {
+				ToastUtils.Toast(this, "等待加载数据");
+				return;
+			}
 			vo.setImgUrl(detail.getStock().getInvImgForObj().getUrl());
-			vo.setTargetUrl("http://style.hanmimei.com" + detail.getStock().getPinRedirectUrl().split("comm")[1]);
+			vo.setTargetUrl("http://style.hanmimei.com"
+					+ detail.getStock().getPinRedirectUrl().split("comm")[1]);
 			vo.setInfoUrl(detail.getStock().getPinRedirectUrl());
 			vo.setType("P");
 			shareWindow = new ShareWindow(this, vo);
@@ -312,7 +319,7 @@ public class PingouDetailActivity extends BaseActivity implements
 
 	private void delCollection() {
 		getLoading().show();
-		VolleyHttp.doGetRequestTask( getHeaders(), UrlUtil.DEL_COLLECTION
+		VolleyHttp.doGetRequestTask(getHeaders(), UrlUtil.DEL_COLLECTION
 				+ detail.getStock().getCollectId(), new VolleyJsonCallback() {
 
 			@Override
@@ -356,8 +363,8 @@ public class PingouDetailActivity extends BaseActivity implements
 	// 添加收藏
 	private void addCollection(String cGoods) {
 		getLoading().show();
-		VolleyHttp.doRequestTask2( Method.POST, getHeaders(),
-				UrlUtil.ADD_COLLECTION, new VolleyJsonCallback() {
+		VolleyHttp.doPostRequestTask2(getHeaders(), UrlUtil.ADD_COLLECTION,
+				new VolleyJsonCallback() {
 
 					@Override
 					public void onSuccess(String result) {
@@ -389,12 +396,12 @@ public class PingouDetailActivity extends BaseActivity implements
 	}
 
 	private void initFragmentPager() {
-		
+
 		final List<ScrollAbleFragment> fragments = new ArrayList<ScrollAbleFragment>();
 		imgFragment = new ImgFragment();
 		parFragment = new ParamsFragment();
 		gridViewFragment = new HotFragment();
-		
+
 		fragments.add(imgFragment);
 		fragments.add(parFragment);
 		fragments.add(gridViewFragment);
@@ -419,7 +426,7 @@ public class PingouDetailActivity extends BaseActivity implements
 				if (currentY <= 1 && back_top.getVisibility() == View.VISIBLE) {
 					back_top.setVisibility(View.GONE);
 				}
-//				setScrollDown(currentY);
+				// setScrollDown(currentY);
 			}
 
 		});
@@ -437,12 +444,12 @@ public class PingouDetailActivity extends BaseActivity implements
 				});
 		viewPager.setCurrentItem(0);
 	}
-	
+
 	/**
 	 * 加载商品详情数据
 	 */
 	private void loadFragmentData() {
-		if(detail == null || detail.getMain() == null)
+		if (detail == null || detail.getMain() == null)
 			return;
 		imgFragment.showData(detail.getMain().getItemDetailImgs());
 		parFragment.showData(detail.getMain().getItemFeaturess());
@@ -529,7 +536,9 @@ public class PingouDetailActivity extends BaseActivity implements
 	protected void onDestroy() {
 		super.onDestroy();
 		unregisterReceiver(netReceiver);
+		VolleyHttp.parseRequestTask(Tag);
 	}
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -542,10 +551,10 @@ public class PingouDetailActivity extends BaseActivity implements
 	 * 退出函数
 	 */
 	private void exitClick() {
-		if(getIntent().getStringExtra("from") != null){
-			startActivity(new Intent(this,HMainActivity.class));
+		if (getIntent().getStringExtra("from") != null) {
+			startActivity(new Intent(this, HMainActivity.class));
 			finish();
-		}else{
+		} else {
 			finish();
 		}
 	}

@@ -24,7 +24,7 @@ public class GoodsDetail {
 
 
 	public StockVo getCurrentStock(){
-		StockVo sto = new StockVo();
+		StockVo sto = null;
 		for (int i = 0; i < stock.size(); i++) {
 			if (stock.get(i).getOrMasterInv()) {
 				sto = stock.get(i);

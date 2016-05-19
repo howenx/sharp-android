@@ -3,11 +3,14 @@ package com.hanmimei.activity.goods.theme;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -39,8 +42,11 @@ import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtils;
 import com.hanmimei.utils.GlideLoaderTools;
+import com.hanmimei.utils.StatusBarCompat;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.BadgeView;
+import com.hanmimei.view.CustomScrollView;
+import com.hanmimei.view.CustomScrollView.OnScrollUpListener;
 import com.ui.tag.TagInfo;
 import com.ui.tag.TagInfo.Type;
 import com.ui.tag.TagView;
@@ -53,29 +59,31 @@ import com.ui.tag.TagViewRight;
  * @Description 主题商品的二级界面 请求商品列表
  * 
  */
+@SuppressLint("NewApi")
 public class ThemeGoodsActivity extends BaseActivity implements OnClickListener {
+
+	private String Tag = "ThemeGoodsActivity";
 
 	private ThemeAdapter adapter; // 商品适配器
 	private List<HGoodsVo> data;// 显示的商品数据
 	private BadgeView bView;
 
 	FrameLayout mframeLayout; // 主推商品容器 添加tag使用
+	private CustomScrollView mScrollView;
+	private Drawable backgroundDrawable;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.theme_layout);
-		View view = ActionBarUtil.setActionBarStyle(this, "商品展示",
-				R.drawable.white_shoppingcar, true, this,getResources().getColor(R.color.green));
-		View cartView = view.findViewById(R.id.setting);
+		getSupportActionBar().hide();
 
 		data = new ArrayList<HGoodsVo>();
 		adapter = new ThemeAdapter(data, this);
-		findView(cartView);
+		findView();
 		GridView gridView = (GridView) findViewById(R.id.my_grid);
 		gridView.setAdapter(adapter);
 		gridView.setFocusable(false);
-		
 		// 获取数据
 		loadUrl();
 
@@ -102,46 +110,77 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 	}
 
 	// 初始化view对象
-	private void findView(View cartView) {
+	private void findView() {
+		View actionbarView = findViewById(R.id.actionbarView);
+		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+			actionbarView.setPadding(0, StatusBarCompat.getStatusBarHeight(this),0, 0);
+		}
+		
+		View cartView = findViewById(R.id.setting);
+		actionbarView.setBackgroundColor(Color.parseColor("#b6d4df"));
+		backgroundDrawable = actionbarView.getBackground();
+		backgroundDrawable.setAlpha(0);
 		bView = new BadgeView(this, cartView);
 		bView.setBackgroundResource(R.drawable.bg_badgeview2);
 		bView.setBadgePosition(BadgeView.POSITION_CENTER);
 		bView.setTextSize(10);
 		bView.setTextColor(Color.parseColor("#F9616A"));
 		mframeLayout = (FrameLayout) findViewById(R.id.mframeLayout);
+		mScrollView = (CustomScrollView) findViewById(R.id.mScrollView);
 		findViewById(R.id.reload).setOnClickListener(this);
+		findViewById(R.id.back).setOnClickListener(this);
+		cartView.setOnClickListener(this);
 
+		mScrollView.setBackgroundColor(Color.parseColor("#b6d4df"));
+		mScrollView.setOnScrollUpListener(new OnScrollUpListener() {
+
+			@Override
+			public void onScroll(int scrollY, boolean scrollDirection) {
+				if (mframeLayout.getMeasuredHeight() > 0) {
+					if (scrollY <= 0) {
+						backgroundDrawable.setAlpha(0);
+					} else if (scrollY <= mframeLayout.getMeasuredHeight()
+							&& scrollY > 0) {
+						backgroundDrawable.setAlpha(scrollY * 255
+								/ mframeLayout.getMeasuredHeight());
+					} else if (scrollY > mframeLayout.getMeasuredHeight()) {
+						backgroundDrawable.setAlpha(255);
+					}
+				}
+			}
+		});
 	}
 
 	// 获取显示数据
 	private void loadUrl() {
 		getLoading().show();
 		Log.i("url", getIntent().getStringExtra("url"));
-		VolleyHttp.doGetRequestTask( getHeaders(), getIntent()
-				.getStringExtra("url"), new VolleyJsonCallback() {
+		VolleyHttp.doGetRequestTask(getHeaders(),
+				getIntent().getStringExtra("url"), new VolleyJsonCallback() {
 
-			@Override
-			public void onSuccess(String result) {
-				findViewById(R.id.no_net).setVisibility(View.GONE);
-				HThemeGoods detail = DataParser.parserThemeItem(result);
-				if (detail.getMessage().getCode() == 200) {
-					initThemeView(detail);
-					initShopCartView(detail);
-				} else {
-					findViewById(R.id.no_net).setVisibility(View.VISIBLE);
-					ToastUtils.Toast(getActivity(), detail.getMessage()
-							.getMessage());
-				}
-				getLoading().dismiss();
-			}
+					@Override
+					public void onSuccess(String result) {
+						findViewById(R.id.no_net).setVisibility(View.GONE);
+						HThemeGoods detail = DataParser.parserThemeItem(result);
+						if (detail.getMessage().getCode() == 200) {
+							initThemeView(detail);
+							initShopCartView(detail);
+						} else {
+							findViewById(R.id.no_net).setVisibility(
+									View.VISIBLE);
+							ToastUtils.Toast(getActivity(), detail.getMessage()
+									.getMessage());
+						}
+						getLoading().dismiss();
+					}
 
-			@Override
-			public void onError() {
-				getLoading().dismiss();
-				findViewById(R.id.no_net).setVisibility(View.VISIBLE);
-				ToastUtils.Toast(getActivity(), R.string.error);
-			}
-		});
+					@Override
+					public void onError() {
+						getLoading().dismiss();
+						findViewById(R.id.no_net).setVisibility(View.VISIBLE);
+						ToastUtils.Toast(getActivity(), R.string.error);
+					}
+				}, Tag);
 	}
 
 	/**
@@ -163,8 +202,8 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 				bView.show(true);
 			}
 		} else {
-			VolleyHttp.doGetRequestTask( getHeaders(),
-					UrlUtil.GET_CART_NUM_URL, new VolleyJsonCallback() {
+			VolleyHttp.doGetRequestTask(getHeaders(), UrlUtil.GET_CART_NUM_URL,
+					new VolleyJsonCallback() {
 
 						@Override
 						public void onSuccess(String result) {
@@ -233,21 +272,24 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 				themeImg.getWidth(), themeImg.getHeight());
 		// 初始化标签信息
 		initTagInfo(themeList, width, height);
-//		if(themeList.getThemeItemList() !=null && themeList.getThemeItemList().size()== 1){
-//			Intent intent = null;
-//			if (themeList.getThemeItemList().get(0).getItemType().equals("pin")) {
-//				intent = new Intent(getActivity(),
-//						PingouDetailActivity.class);
-//			} else {
-//				intent = new Intent(getActivity(),
-//						GoodsDetailActivity.class);
-//			}
-//			Log.i("detailUrl", themeList.getThemeItemList().get(0).getItemUrl());
-//			intent.putExtra("url", themeList.getThemeItemList().get(0).getItemUrl());
-//			startActivity(intent);
-//			finish();
-//			return;
-//		}
+		// if(themeList.getThemeItemList() !=null &&
+		// themeList.getThemeItemList().size()== 1){
+		// Intent intent = null;
+		// if (themeList.getThemeItemList().get(0).getItemType().equals("pin"))
+		// {
+		// intent = new Intent(getActivity(),
+		// PingouDetailActivity.class);
+		// } else {
+		// intent = new Intent(getActivity(),
+		// GoodsDetailActivity.class);
+		// }
+		// Log.i("detailUrl", themeList.getThemeItemList().get(0).getItemUrl());
+		// intent.putExtra("url",
+		// themeList.getThemeItemList().get(0).getItemUrl());
+		// startActivity(intent);
+		// finish();
+		// return;
+		// }
 		data.clear();
 		data.addAll(themeList.getThemeItemList());
 		adapter.notifyDataSetChanged();
@@ -291,13 +333,17 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 
 			if (tagInfo.direct == com.ui.tag.TagInfo.Direction.Right) {
 				tagInfo.leftMargin = 0;
-				tagInfo.topMargin = (int) (height * tag.getTop()-tagInfo.getTagHeight());
-				tagInfo.rightMargin = (int) (width - width * tag.getLeft()-tagInfo.getTagWidth());
+				tagInfo.topMargin = (int) (height * tag.getTop() - tagInfo
+						.getTagHeight());
+				tagInfo.rightMargin = (int) (width - width * tag.getLeft() - tagInfo
+						.getTagWidth());
 				Log.i("width", tagInfo.rightMargin + "");
 				tagInfo.bottomMargin = 0;
 			} else {
-				tagInfo.leftMargin = (int) (width * tag.getLeft()-tagInfo.getTagWidth()); // 
-				tagInfo.topMargin = (int) (height * tag.getTop()-tagInfo.getTagHeight());
+				tagInfo.leftMargin = (int) (width * tag.getLeft() - tagInfo
+						.getTagWidth()); //
+				tagInfo.topMargin = (int) (height * tag.getTop() - tagInfo
+						.getTagHeight());
 				tagInfo.rightMargin = 0;
 				tagInfo.bottomMargin = 0;
 			}
@@ -318,6 +364,9 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 			break;
 		case R.id.reload:
 			loadUrl();
+			break;
+		case R.id.back:
+			finish();
 			break;
 		default:
 			break;
@@ -355,6 +404,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 	protected void onDestroy() {
 		super.onDestroy();
 		unregisterReceiver(netReceiver);
+		VolleyHttp.parseRequestTask(Tag);
 	}
 
 }

@@ -1,130 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:fitsSystemWindows="true"
-    >
+    android:background="@color/background"
+    android:fitsSystemWindows="true" >
 
-    <TextView
-        android:id="@+id/submit"
-        style="@style/submit"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="10dp"
-        android:text="提交" />
+        android:layout_height="match_parent"
+        android:background="@color/white" >
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/submit"
-        android:layout_alignParentTop="true" >
-
-        <RelativeLayout
+        <TextView
+            android:id="@+id/submit"
+            style="@style/submit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" 
-            android:padding="10dp" >
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="10dp"
+            android:text="提交" />s
 
-            <LinearLayout
-                android:id="@+id/bottom_linear"
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/submit"
+            android:layout_alignParentTop="true" >
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal" >
+                android:padding="10dp" >
 
-                <ImageView
-                    android:id="@+id/img"
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
-                    android:background="@drawable/bg_gray_boarder"
-                    android:contentDescription="@null"
-                    android:padding="0.1dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/hmm_place_holder_z" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="15dp"
-                    android:text="商品评价"
-                    android:textColor="@color/fontcolor"
-                    android:textSize="16sp" />
-
-                <RatingBar
-                    android:id="@+id/ratingBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="21dp"
-                    android:layout_marginLeft="20dp"
-                    android:numStars="5"
-                    android:progressDrawable="@drawable/rating_yellow"
-                    android:rating="5"
-                    android:stepSize="1" />
-            </LinearLayout>
-
-            <View
-                android:id="@+id/xian"
-                android:layout_width="match_parent"
-                android:layout_height="0.2dp"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/bottom_linear"
-                android:layout_marginTop="10dp"
-                android:background="@color/xian" />
-
-            <EditText
-                android:id="@+id/content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/xian"
-                android:layout_marginTop="5dp"
-                android:background="@color/white"
-                android:gravity="left|top"
-                android:hint="快来评价，让小伙伴们做个参考吧～"
-                android:maxLength="500"
-                android:minHeight="80dp"
-                android:padding="5dp"
-                android:textColor="@color/msg_content"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/fontNum"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/content"
-                android:gravity="right"
-                android:text="0/500"
-                android:textColor="@color/msg_content"
-                android:textSize="14sp" />
-
-            <LinearLayout
-                android:id="@+id/img_linear"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/fontNum"
-                android:gravity="center_vertical"
-                android:orientation="vertical" >
-
-                <com.hanmimei.view.CustomGridView
-                    android:id="@+id/mGridView"
+                <LinearLayout
+                    android:id="@+id/bottom_linear"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        android:id="@+id/img"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:background="@drawable/bg_gray_boarder"
+                        android:contentDescription="@null"
+                        android:padding="0.1dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/hmm_place_holder_z" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="15dp"
+                        android:text="商品评价"
+                        android:textColor="@color/fontcolor"
+                        android:textSize="16sp" />
+
+                    <RatingBar
+                        android:id="@+id/ratingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="21dp"
+                        android:layout_marginLeft="20dp"
+                        android:numStars="5"
+                        android:progressDrawable="@drawable/rating_yellow"
+                        android:rating="5"
+                        android:stepSize="1" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/xian"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.2dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/bottom_linear"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/xian" />
+
+                <EditText
+                    android:id="@+id/content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/xian"
+                    android:layout_marginTop="5dp"
                     android:background="@color/white"
-                    android:horizontalSpacing="15dp"
-                    android:numColumns="3"
-                    android:stretchMode="columnWidth"
-                    android:verticalSpacing="8dp" />
+                    android:gravity="left|top"
+                    android:hint="快来评价，让小伙伴们做个参考吧～"
+                    android:maxLength="500"
+                    android:minHeight="80dp"
+                    android:padding="5dp"
+                    android:textColor="@color/msg_content"
+                    android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/attention"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/fontNum"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/upload"
+                    android:layout_below="@id/content"
+                    android:gravity="right"
+                    android:text="0/500"
                     android:textColor="@color/msg_content"
-                    android:textSize="12sp" />
-            </LinearLayout>
-        </RelativeLayout>
-    </ScrollView>
+                    android:textSize="14sp" />
 
-</RelativeLayout>
+                <LinearLayout
+                    android:id="@+id/img_linear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/fontNum"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical" >
+
+                    <com.hanmimei.view.CustomGridView
+                        android:id="@+id/mGridView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:horizontalSpacing="15dp"
+                        android:numColumns="3"
+                        android:stretchMode="columnWidth"
+                        android:verticalSpacing="8dp" />
+
+                    <TextView
+                        android:id="@+id/attention"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/upload"
+                        android:textColor="@color/msg_content"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </RelativeLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+</FrameLayout>

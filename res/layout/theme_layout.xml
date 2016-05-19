@@ -1,50 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"  >
-    <ScrollView
+    android:background="@drawable/background" >
+
+    <com.hanmimei.view.CustomScrollView
+        android:id="@+id/mScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/bg"
         android:scrollbars="@null" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/background"
             android:orientation="vertical" >
 
             <FrameLayout
                 android:id="@+id/mframeLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" 
-                android:background="@color/white">
+                android:layout_height="wrap_content"
+                android:background="@color/white" >
 
                 <ImageView
                     android:id="@+id/img"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@null"/>
+                    android:contentDescription="@null" />
             </FrameLayout>
 
             <com.hanmimei.view.CustomGridView
                 android:id="@+id/my_grid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/transparent"
                 android:columnWidth="90dp"
                 android:horizontalSpacing="5dp"
                 android:numColumns="2"
-                android:paddingTop="10dp"
-                android:paddingRight="5dp"
                 android:paddingBottom="10dp"
-                android:background="@color/background"
+                android:paddingRight="5dp"
+                android:paddingTop="10dp"
                 android:scrollbars="@null"
                 android:stretchMode="columnWidth"
                 android:verticalSpacing="10dp" />
         </LinearLayout>
-    </ScrollView>
+    </com.hanmimei.view.CustomScrollView>
 
     <include
         android:id="@+id/no_net"
@@ -52,5 +53,39 @@
         android:layout_height="match_parent"
         layout="@layout/offline_wuxinhao_layout"
         android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/actionbarView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/theme" >
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="@dimen/actionbar_size"
+            android:layout_height="@dimen/actionbar_size"
+            android:layout_alignParentLeft="true"
+            android:contentDescription="@null"
+            android:scaleType="center"
+            android:src="@drawable/hmm_through_page" />
+
+        <TextView
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/actionbar_size"
+            android:gravity="center"
+            android:text="商品展示"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/setting"
+            android:layout_width="@dimen/actionbar_size"
+            android:layout_height="@dimen/actionbar_size"
+            android:layout_alignParentRight="true"
+            android:contentDescription="@null"
+            android:scaleType="center"
+            android:src="@drawable/white_shoppingcar"/>
+    </RelativeLayout>
 
 </FrameLayout>

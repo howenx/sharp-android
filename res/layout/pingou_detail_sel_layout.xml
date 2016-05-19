@@ -1,72 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical" >
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_gray_boarder"
-        android:layout_margin="10dp"
-        android:padding="10dp" >
-
-        <ImageView
-            android:id="@+id/iconView"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/bg_gray_boarder"
-            android:contentDescription="@null"
-            android:padding="1dp" />
-
-        <TextView
-            android:id="@+id/titleView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_toRightOf="@id/iconView"
-            android:text="alksdfhjklasdfklasdlkjhfhjkasd"
-            android:textColor="@color/fontcolor"
-            android:textSize="14sp" />
-    </RelativeLayout>
+    android:fitsSystemWindows="true" >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="10dp"
-        android:layout_weight="1"
-        android:background="@drawable/bg_gray_boarder"
+        android:layout_height="match_parent"
+        android:background="@color/bg"
         android:orientation="vertical" >
 
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/theme"
-            android:padding="10dp"
-            android:text="请选择拼购类型"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:layout_margin="10dp"
+            android:background="@drawable/bg_gray_boarder"
+            android:padding="10dp" >
 
-        <ListView
-            android:id="@+id/mListView"
+            <ImageView
+                android:id="@+id/iconView"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_gray_boarder"
+                android:contentDescription="@null"
+                android:padding="1dp" />
+
+            <TextView
+                android:id="@+id/titleView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/iconView"
+                android:text="alksdfhjklasdfklasdlkjhfhjkasd"
+                android:textColor="@color/fontcolor"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_gray_boarder"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/theme"
+                android:padding="10dp"
+                android:text="请选择拼购类型"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <ListView
+                android:id="@+id/mListView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:divider="@null" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/btn_pin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:divider="@null" />
+            android:layout_margin="10dp"
+            android:background="@drawable/bg_gray"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="立即开团"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/btn_pin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@drawable/bg_gray"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="立即开团"
-        android:textColor="@color/white"
-        android:textSize="12sp" />
-
-</LinearLayout>
+</FrameLayout>
