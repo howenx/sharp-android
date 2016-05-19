@@ -198,6 +198,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 			startActivityForResult(intnt, 1);
 			break;
 		case R.id.btn_pay:
+//			startActivity(new Intent(this,WeixinPayActivity.class));
 			sendData(orderSubmit);
 			break;
 		case R.id.back:

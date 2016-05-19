@@ -28,6 +28,9 @@ import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.ProgressWebView;
+import com.tencent.mm.sdk.modelpay.PayReq;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
 public class OrderSubmitActivity extends BaseActivity {
 
@@ -36,6 +39,8 @@ public class OrderSubmitActivity extends BaseActivity {
 	private boolean isSuccess = false; // 用于标志支付是否成功
 
 	Map<String, String> extraHeaders;
+	
+	private IWXAPI api;
 
 	@SuppressLint("SetJavaScriptEnabled")
 	@Override
@@ -80,6 +85,8 @@ public class OrderSubmitActivity extends BaseActivity {
 		// 添加js交互
 		mWebView.addJavascriptInterface(new JavaScriptInterface(this),
 				"handler");
+		
+		api = WXAPIFactory.createWXAPI(this, "wx578f993da4b29f97");
 
 	}
 
@@ -145,6 +152,40 @@ public class OrderSubmitActivity extends BaseActivity {
 			intent.putExtra("url", url);
 			startActivity(intent);
 			finish();
+		}
+		@JavascriptInterface
+		public void weixinpay(String appid,String partnerId,String prepayId,String pack,String nonceStr,String timeStamp,String sign) {
+			wxPay(appid,partnerId,prepayId,pack,nonceStr,timeStamp,sign);
+		}
+
+		/**
+		 * @param appid
+		 * @param partnerId
+		 * @param prepayId
+		 * @param pack
+		 * @param nonceStr
+		 * @param timeStamp
+		 * @param sign
+		 */
+		private void wxPay(String appid, String partnerId, String prepayId,
+				String pack, String nonceStr, String timeStamp, String sign) {
+			IWXAPI msgApi = WXAPIFactory.createWXAPI(context, null);
+
+			// 将该app注册到微信
+			msgApi.registerApp("wx578f993da4b29f97");
+			
+			PayReq req = new PayReq();
+			//req.appId = "wxf8b4f85f3a794e77";  // 测试用appId
+			req.appId			= appid;
+			req.partnerId		= partnerId;
+			req.prepayId		= prepayId;
+			req.nonceStr		= nonceStr;
+			req.timeStamp		= timeStamp;
+			req.packageValue	= pack;
+			req.sign			= sign;
+			ToastUtils.Toast(OrderSubmitActivity.this, "正常调起支付");
+			// 在支付之前，如果应用没有注册到微信，应该先调用IWXMsg.registerApp将应用注册到微信
+			api.sendReq(req);
 		}
 	}
 
