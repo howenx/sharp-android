@@ -10,8 +10,6 @@ import android.app.ActivityManager.RunningAppProcessInfo;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
-import android.os.Build.VERSION;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -39,7 +37,6 @@ import com.hanmimei.entity.User;
 import com.hanmimei.entity.VersionVo;
 import com.hanmimei.http.VolleyHttp;
 import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
-import com.hanmimei.manager.SystemBarTintManager;
 import com.hanmimei.manager.ThreadPoolManager;
 import com.hanmimei.utils.GlideLoaderTools;
 import com.hanmimei.utils.ToastUtils;
@@ -54,6 +51,15 @@ public class BaseActivity extends ParallaxActivityBase {
 
 	private LoadingDialog loadingDialog;
 	private boolean shoppingcarChanged = false;
+
+	
+	public Map<String, String> getMap() {
+		return getMyApplication().getMap();
+	}
+	public void setMap(Map<String, String> map) {
+		getMyApplication().setMap(map);
+	}
+
 
 	/*
 	 * 获得用于数据库管理的DaoSession
@@ -73,15 +79,6 @@ public class BaseActivity extends ParallaxActivityBase {
 		// 沉浸式状态栏的设置
 		getSupportActionBar().setElevation(0);
 		getClipboard();
-//		if (VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//			// 创建状态栏的管理实例
-//			SystemBarTintManager tintManager = new SystemBarTintManager(this);
-//			// 激活状态栏设置
-//			tintManager.setStatusBarTintEnabled(true);
-//			// 设置一个颜色给系统栏
-//			tintManager.setTintColor(getResources().getColor(
-//					R.color.btn_pin_pressed));
-//		}
 	}
 	
 	

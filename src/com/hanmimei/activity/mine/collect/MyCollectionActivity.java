@@ -114,10 +114,10 @@ public class MyCollectionActivity extends BaseActivity implements
 
 					@Override
 					public void onSuccess(String result) {
-						getActivity().getLoading().dismiss();
+						getActivity().getLoading().dismiss(); 
 						no_net.setVisibility(View.GONE);
 						CollectionVo collectionInfo = DataParser
-								.parserCollect(result);
+								.parserCollect(result); 
 						if (collectionInfo.gethMessage().getCode() == 200) {
 							if (collectionInfo.getList().size() > 0) {
 								mListView.setVisibility(View.VISIBLE);
@@ -151,7 +151,7 @@ public class MyCollectionActivity extends BaseActivity implements
 				+ collectId, new VolleyJsonCallback() {
 
 			@Override
-			public void onSuccess(String result) {
+			public void onSuccess(String result) { 
 				dialog.dismiss();
 				HMessage hMessage = DataParser.paserResultMsg(result);
 				if (hMessage.getCode() == 200) {

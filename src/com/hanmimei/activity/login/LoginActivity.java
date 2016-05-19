@@ -43,8 +43,11 @@ import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.HMessage;
+import com.hanmimei.entity.SerializableMap;
 import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.User;
+import com.hanmimei.http.VolleyHttp;
+import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtils;
 import com.hanmimei.utils.DateUtils;
@@ -88,6 +91,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		ActionBarUtil.setActionBarStyle(this, "账号登录");
 		initView();
 		registerReceivers();
+		mShareAPI = UMShareAPI.get(this);
 	}
 
 	private void initView() {
@@ -118,6 +122,13 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			phone_edit.setText(loginUser.getPhone());
 			Selection.setSelection((Spannable) phone_edit.getText(), phone_edit
 					.getText().toString().length());
+		}
+		if(getIntent().getStringExtra("phone") != null){
+			ActionBarUtil.setActionBarStyle(this, "绑定手机号");
+			phone_edit.setText(getIntent().getStringExtra("phone"));
+			findViewById(R.id.no_id).setVisibility(View.GONE);
+			findViewById(R.id.other).setVisibility(View.GONE);
+			findViewById(R.id.other_login).setVisibility(View.GONE);
 		}
 	}
 
@@ -233,6 +244,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			doOtherLogin(SHARE_MEDIA.QQ);
 			break;
 		case R.id.weixin:
+			dialog = CommonUtils.dialog(this, "正在登录，请稍等...");
+			dialog.show();
 			doOtherLogin(SHARE_MEDIA.WEIXIN);
 			break;
 		case R.id.sina:
@@ -242,9 +255,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			break;
 		}
 	}
-
+	private UMShareAPI mShareAPI;
 	private void doOtherLogin(SHARE_MEDIA platform) {
-		UMShareAPI mShareAPI = UMShareAPI.get(this);
+//		mShareAPI = UMShareAPI.get(this);
 		if(!mShareAPI.isInstall(this, platform)){
 			ToastUtils.Toast(this,"请安装客户端");
 			return;
@@ -255,40 +268,51 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		@Override
 		public void onComplete(SHARE_MEDIA platform, int action,
 				Map<String, String> data) {
-//			Toast.makeText(getApplicationContext(), "登陆成功", Toast.LENGTH_SHORT)
-//					.show();
-//			ToastUtils.Toast(getApplicationContext(),  data.get("openid").toString() + "!!!!!");
 			chekWinxin(data);
-
-			
+//			ToastUtils.Toast(getApplicationContext(), "登陆成功" + data.toString());	
 		}
 
 		@Override
 		public void onError(SHARE_MEDIA platform, int action, Throwable t) {
+			dialog.dismiss();
 			ToastUtils.Toast(getApplicationContext(), "登陆失败");
 		}
 
 		@Override
 		public void onCancel(SHARE_MEDIA platform, int action) {
+			dialog.dismiss();
 			ToastUtils.Toast(getApplicationContext(),  "登陆取消");
 		}
 	};
+	
 
-	private void chekWinxin(Map<String, String> data) {
-//		VolleyHttp.doPostRequestTask( "", new VolleyJsonCallback() {
-//			
-//			@Override
-//			public void onSuccess(String result) {
-//				if(result == ""){
-//					
-//				}else{
-//				}
-//			}
-//			@Override
-//			public void onError() {
-//				ToastUtils.Toast(LoginActivity.this, "登录失败，请检查您的网络");
-//			}
-//		});
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+        mShareAPI.onActivityResult(requestCode, resultCode, data);
+	}
+
+	private void chekWinxin(final Map<String, String> data) {
+		VolleyHttp.doGetRequestTask(UrlUtil.WEIXIN_CHECK + data.get("unionid") + "&openId=" + data.get("openid"), new VolleyJsonCallback() {
+			
+			@Override
+			public void onSuccess(String result) {
+				dialog.dismiss();
+				HMessage loginInfo = DataParser.paserResultMsg(result);
+				if(loginInfo.getCode() == 4003){
+					Intent intent = new Intent(LoginActivity.this,BindPhoneActivity.class);
+					setMap(data);
+					startActivity(intent);
+				}else if(loginInfo.getCode() == 200){
+					loginSuccess(loginInfo);
+				}
+			}
+			
+			@Override
+			public void onError() {
+				ToastUtils.Toast(LoginActivity.this, "登录失败，请检查您的网络");
+			}
+		});
 	}
 	@SuppressLint("ShowToast")
 	private void loadImg() {
@@ -332,6 +356,12 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 				params.add(new BasicNameValuePair("phone", phone));
 				params.add(new BasicNameValuePair("password", pwd));
 				params.add(new BasicNameValuePair("code", code));
+				if(getMap()  != null){
+					params.add(new BasicNameValuePair("accessToken", getMap().get("access_token")));
+					params.add(new BasicNameValuePair("openId", getMap().get("openid")));
+					params.add(new BasicNameValuePair("idType", "WO"));
+					params.add(new BasicNameValuePair("unionId", getMap().get("unionid")));
+				}
 				String result = HttpUtils.postCommon(UrlUtil.LOGIN_URL, params);
 				HMessage loginInfo = DataParser.paserResultMsg(result);
 				Message msg = mHandler.obtainMessage(1);
@@ -339,6 +369,27 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 				mHandler.sendMessage(msg);
 			}
 		});
+	}
+	private void loginSuccess(HMessage result){
+		User user = new User();
+		user.setPhone(phone);
+		user.setUserId(0);
+		user.setToken(result.getTag());
+		user.setIsBind(false);
+		user.setExpired(DateUtils.turnToDate(result.getTime()));
+		user.setLast_login(DateUtils.getCurrentDate());
+		HMMApplication application = (HMMApplication) getApplication();
+		application.setLoginUser(user);
+		JPushInterface.setAlias(LoginActivity.this, result.getUserId(),null);
+		// 登录用户存储到本地sql
+		userDao.deleteAll();
+		userDao.insert(user);
+		if (goodsDao.queryBuilder().list() != null && goodsDao.queryBuilder().list().size() > 0) {
+			sendShoppingCar();
+		} else {
+			sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION));
+		}
+		setMap(null);
 	}
 
 	@SuppressLint("HandlerLeak")
@@ -353,24 +404,25 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 				HMessage result = (HMessage) msg.obj;
 				if (result.getCode() != null) {
 					if (result.getCode() == 200) {
-						User user = new User();
-						user.setPhone(phone);
-						user.setUserId(0);
-						user.setToken(result.getTag());
-						user.setIsBind(false);
-						user.setExpired(DateUtils.turnToDate(result.getTime()));
-						user.setLast_login(DateUtils.getCurrentDate());
-						HMMApplication application = (HMMApplication) getApplication();
-						application.setLoginUser(user);
-						JPushInterface.setAlias(LoginActivity.this, result.getUserId(),null);
-						// 登录用户存储到本地sql
-						userDao.deleteAll();
-						userDao.insert(user);
-						if (goodsDao.queryBuilder().list() != null && goodsDao.queryBuilder().list().size() > 0) {
-							sendShoppingCar();
-						} else {
-							sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION));
-						}
+						loginSuccess(result);
+//						User user = new User();
+//						user.setPhone(phone);
+//						user.setUserId(0);
+//						user.setToken(result.getTag());
+//						user.setIsBind(false);
+//						user.setExpired(DateUtils.turnToDate(result.getTime()));
+//						user.setLast_login(DateUtils.getCurrentDate());
+//						HMMApplication application = (HMMApplication) getApplication();
+//						application.setLoginUser(user);
+//						JPushInterface.setAlias(LoginActivity.this, result.getUserId(),null);
+//						// 登录用户存储到本地sql
+//						userDao.deleteAll();
+//						userDao.insert(user);
+//						if (goodsDao.queryBuilder().list() != null && goodsDao.queryBuilder().list().size() > 0) {
+//							sendShoppingCar();
+//						} else {
+//							sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION));
+//						}
 					} else if (result.getCode() == 4001) {
 						if (!isDialogShow)
 							showDialog();

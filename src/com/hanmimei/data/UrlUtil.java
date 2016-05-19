@@ -29,6 +29,8 @@ public class UrlUtil {
 //	 public static final String SERVERY1 = "http://172.28.3.18:9003";
 //	 public static final String SERVERY4 = "http://172.28.3.18:9004";
 //	 public static final String SERVERY5 = "http://172.28.3.18:9005";
+	//微信登录检查
+	public static final String WEIXIN_CHECK = SERVERY4 + "/api/user/open?idType=WO&unionId=";
 
 	//评价中心
 	public static final String COMMENT_CENTER = SERVERY1 + "/client/comment/center/";

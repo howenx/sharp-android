@@ -34,7 +34,7 @@
                 android:id="@+id/my_grid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/bg"
+                android:background="@color/transparent"
                 android:columnWidth="90dp"
                 android:horizontalSpacing="5dp"
                 android:numColumns="2"
@@ -58,7 +58,6 @@
         android:id="@+id/actionbarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="10dp"
         android:background="@color/theme" >
 
         <ImageView

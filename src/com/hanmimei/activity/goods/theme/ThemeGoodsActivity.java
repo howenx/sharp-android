@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -111,9 +112,12 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 	// 初始化view对象
 	private void findView() {
 		View actionbarView = findViewById(R.id.actionbarView);
-		actionbarView.setPadding(0, StatusBarCompat.getStatusBarHeight(this),
-				0, 0);
+		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+			actionbarView.setPadding(0, StatusBarCompat.getStatusBarHeight(this),0, 0);
+		}
+		
 		View cartView = findViewById(R.id.setting);
+		actionbarView.setBackgroundColor(Color.parseColor("#b6d4df"));
 		backgroundDrawable = actionbarView.getBackground();
 		backgroundDrawable.setAlpha(0);
 		bView = new BadgeView(this, cartView);
@@ -127,21 +131,20 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		findViewById(R.id.back).setOnClickListener(this);
 		cartView.setOnClickListener(this);
 
+		mScrollView.setBackgroundColor(Color.parseColor("#b6d4df"));
 		mScrollView.setOnScrollUpListener(new OnScrollUpListener() {
 
 			@Override
 			public void onScroll(int scrollY, boolean scrollDirection) {
 				if (mframeLayout.getMeasuredHeight() > 0) {
 					if (scrollY <= 0) {
-						if (backgroundDrawable.getAlpha() != 0)
-							backgroundDrawable.setAlpha(0);
+						backgroundDrawable.setAlpha(0);
 					} else if (scrollY <= mframeLayout.getMeasuredHeight()
 							&& scrollY > 0) {
 						backgroundDrawable.setAlpha(scrollY * 255
 								/ mframeLayout.getMeasuredHeight());
 					} else if (scrollY > mframeLayout.getMeasuredHeight()) {
-						if (backgroundDrawable.getAlpha() != 255)
-							backgroundDrawable.setAlpha(255);	
+						backgroundDrawable.setAlpha(255);
 					}
 				}
 			}
