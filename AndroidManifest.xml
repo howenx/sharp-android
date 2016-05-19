@@ -114,6 +114,9 @@
             android:name="com.hanmimei.activity.login.CheckPhoneActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name="com.hanmimei.activity.login.BindPhoneActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.hanmimei.activity.login.ForgetPwdActivity"
             android:screenOrientation="portrait" />
         <activity

@@ -266,6 +266,12 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 				params.add(new BasicNameValuePair("phone", phone));
 				params.add(new BasicNameValuePair("code", yanzheng));
 				params.add(new BasicNameValuePair("password", pwd));
+				if(getMap() != null){
+					params.add(new BasicNameValuePair("accessToken", getMap().get("access_token")));
+					params.add(new BasicNameValuePair("openId", getMap().get("openid")));
+					params.add(new BasicNameValuePair("idType", "WO"));
+					params.add(new BasicNameValuePair("unionId", getMap().get("unionid")));
+				}
 				if (isRegist) {
 					result = HttpUtils.postCommon(UrlUtil.REGIST_URL, params);
 				} else {
@@ -385,6 +391,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 			sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION));
 			finish();
 		}
+		setMap(null);
 	}
 
 	private UserDao userDao;
@@ -400,7 +407,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 	}
 
 	private List<ShoppingGoods> list;
-
+	
 	private void sendShoppingCar() {
 		user = getUser();
 		list = goodsDao.queryBuilder().build().list();

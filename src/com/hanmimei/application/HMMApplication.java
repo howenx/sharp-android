@@ -1,5 +1,7 @@
 package com.hanmimei.application;
 
+import java.util.Map;
+
 import android.app.Application;
 import cn.jpush.android.api.JPushInterface;
 
@@ -19,7 +21,7 @@ public class HMMApplication extends Application {
 	private User loginUser;
 	private String kouling;
 	private VersionVo versionInfo;
-
+	private Map<String, String> map;
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -43,6 +45,14 @@ public class HMMApplication extends Application {
 		PlatformConfig.setQQZone("1105332776", "CKevSfjxt0dXEq0y");
 		// 支付宝appid
 		PlatformConfig.setAlipay("2015111700822536");
+	}
+
+	public Map<String, String> getMap() {
+		return map;
+	}
+
+	public void setMap(Map<String, String> map) {
+		this.map = map;
 	}
 
 	public User getLoginUser() {

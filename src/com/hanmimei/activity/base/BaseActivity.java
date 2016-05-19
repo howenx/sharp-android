@@ -55,6 +55,15 @@ public class BaseActivity extends ParallaxActivityBase {
 	private LoadingDialog loadingDialog;
 	private boolean shoppingcarChanged = false;
 
+	
+	public Map<String, String> getMap() {
+		return getMyApplication().getMap();
+	}
+	public void setMap(Map<String, String> map) {
+		getMyApplication().setMap(map);
+	}
+
+
 	/*
 	 * 获得用于数据库管理的DaoSession
 	 */

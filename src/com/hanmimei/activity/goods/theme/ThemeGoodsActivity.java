@@ -66,7 +66,7 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.theme_layout);
 		View view = ActionBarUtil.setActionBarStyle(this, "商品展示",
-				R.drawable.white_shoppingcar, true, this);
+				R.drawable.white_shoppingcar, true, this,getResources().getColor(R.color.green));
 		View cartView = view.findViewById(R.id.setting);
 
 		data = new ArrayList<HGoodsVo>();
