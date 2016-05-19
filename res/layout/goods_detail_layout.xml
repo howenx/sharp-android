@@ -8,6 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/bg"
         android:orientation="vertical" >
 
         <RelativeLayout
@@ -19,7 +20,7 @@
                 android:id="@+id/mScrollLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/background"
+                android:background="@color/bg"
                 android:orientation="vertical" >
 
                 <LinearLayout
@@ -300,6 +301,7 @@
         android:layout_marginBottom="30dp"
         android:contentDescription="@null"
         android:visibility="invisible"
+        android:background="@color/bg"
         app:border_color="@color/huise"
         app:border_width="1px" />
 

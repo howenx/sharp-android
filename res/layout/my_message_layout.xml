@@ -9,271 +9,295 @@
         android:id="@+id/no_data"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/bg"
         android:gravity="center"
         android:text="暂无消息"
         android:textColor="@color/fontcolor"
         android:textSize="16sp"
         android:visibility="gone" />
 
-    <ScrollView 
+    <ScrollView
         android:layout_width="match_parent"
-    	android:layout_height="wrap_content">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp" >
+        android:layout_height="match_parent"
+        android:background="@color/bg" >
 
-        <RelativeLayout
-            android:id="@+id/sys_msg"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:visibility="gone" >
-			<FrameLayout 
-			    android:id="@+id/frame1"
-			    android:layout_marginRight="12dp"
-			    android:layout_marginBottom="10dp"
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/img1"
-                style="@style/msg_img_style"
-                android:src="@drawable/hmm_msg_xitong" />
-            <ImageView 
-                android:id="@+id/hasNew1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/hmm_msg_tixing"
-                android:layout_gravity="right"
-              	android:visibility="gone"/>
-			</FrameLayout>
-            <TextView
-                android:id="@+id/title1"
-                style="@style/msg_title_style"
-                android:layout_toRightOf="@id/frame1"
-                android:text="系统通知" />
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" >
 
-            <TextView
-                android:id="@+id/time1"
-                style="@style/msg_time_style"
-                android:text="17:01" />
-
-            <TextView
-                android:id="@+id/tishi1"
-                android:layout_toLeftOf="@id/time1"
-                style="@style/msg_content_style"
-                android:layout_below="@id/title1"
-                android:layout_toRightOf="@id/frame1"
-                android:text="dgedjedjejdedd" />
-            <View
+            <RelativeLayout
+                android:id="@+id/sys_msg"
                 android:layout_width="match_parent"
-                android:layout_height="0.2dp"
-                android:layout_below="@id/frame1"
-                android:background="@color/xian" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/good_msg"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:visibility="gone" >
-			<FrameLayout 
-			    android:id="@+id/frame2"
-			    android:layout_marginRight="12dp"
-			    android:layout_marginBottom="10dp"
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/img2"
-                style="@style/msg_img_style"
-                android:src="@drawable/hmm_msg_shangpin" />
-            <ImageView 
-                android:id="@+id/hasNew2"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/hmm_msg_tixing"
-                android:layout_gravity="right"
-              	android:visibility="gone"/>
-			</FrameLayout>
-            <TextView
-                android:id="@+id/title2"
-                style="@style/msg_title_style"
-                android:layout_toRightOf="@id/frame2"
-                android:text="商品提醒" />
+                android:paddingTop="10dp"
+                android:visibility="gone" >
 
-            <TextView
-                android:id="@+id/time2"
-                style="@style/msg_time_style"
-                android:text="17:01" />
+                <FrameLayout
+                    android:id="@+id/frame1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="12dp" >
 
-            <TextView
-                android:id="@+id/tishi2"
-                android:layout_toLeftOf="@id/time2"
-                style="@style/msg_content_style"
-                android:layout_below="@id/title2"
-                android:layout_toRightOf="@id/frame2"
-                android:text="@null" />
+                    <ImageView
+                        android:id="@+id/img1"
+                        style="@style/msg_img_style"
+                        android:src="@drawable/hmm_msg_xitong" />
 
-            <View
+                    <ImageView
+                        android:id="@+id/hasNew1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:src="@drawable/hmm_msg_tixing"
+                        android:visibility="gone" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/title1"
+                    style="@style/msg_title_style"
+                    android:layout_toRightOf="@id/frame1"
+                    android:text="系统通知" />
+
+                <TextView
+                    android:id="@+id/time1"
+                    style="@style/msg_time_style"
+                    android:text="17:01" />
+
+                <TextView
+                    android:id="@+id/tishi1"
+                    style="@style/msg_content_style"
+                    android:layout_below="@id/title1"
+                    android:layout_toLeftOf="@id/time1"
+                    android:layout_toRightOf="@id/frame1"
+                    android:text="dgedjedjejdedd" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.2dp"
+                    android:layout_below="@id/frame1"
+                    android:background="@color/xian" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/good_msg"
                 android:layout_width="match_parent"
-                android:layout_height="0.2dp"
-                android:layout_below="@id/frame2"
-                android:background="@color/xian" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/ac_msg"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:visibility="gone" >
-			<FrameLayout 
-			    android:id="@+id/frame5"
-			    android:layout_marginRight="12dp"
-			    android:layout_marginBottom="10dp"
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/img5"
-                style="@style/msg_img_style"
-                android:src="@drawable/hmm_msg_youhui" />
-            <ImageView 
-                android:id="@+id/hasNew5"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/hmm_msg_tixing"
-                android:layout_gravity="right"
-              	android:visibility="gone"/>
+                android:paddingTop="10dp"
+                android:visibility="gone" >
 
-	</FrameLayout>
-            <TextView
-                android:id="@+id/title5"
-                style="@style/msg_title_style"
-                android:layout_toRightOf="@id/frame5"
-                android:text="优惠促销" />
+                <FrameLayout
+                    android:id="@+id/frame2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="12dp" >
 
-            <TextView
-                android:id="@+id/time5"
-                style="@style/msg_time_style"
-                android:text="17:01" />
+                    <ImageView
+                        android:id="@+id/img2"
+                        style="@style/msg_img_style"
+                        android:src="@drawable/hmm_msg_shangpin" />
 
-            <TextView
-                android:id="@+id/tishi5"
-                android:layout_toLeftOf="@id/time5"
-                style="@style/msg_content_style"
-                android:layout_below="@id/title5"
-                android:layout_toRightOf="@id/frame5"
-                android:text="@null" />
-            <View
+                    <ImageView
+                        android:id="@+id/hasNew2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:src="@drawable/hmm_msg_tixing"
+                        android:visibility="gone" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/title2"
+                    style="@style/msg_title_style"
+                    android:layout_toRightOf="@id/frame2"
+                    android:text="商品提醒" />
+
+                <TextView
+                    android:id="@+id/time2"
+                    style="@style/msg_time_style"
+                    android:text="17:01" />
+
+                <TextView
+                    android:id="@+id/tishi2"
+                    style="@style/msg_content_style"
+                    android:layout_below="@id/title2"
+                    android:layout_toLeftOf="@id/time2"
+                    android:layout_toRightOf="@id/frame2"
+                    android:text="@null" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.2dp"
+                    android:layout_below="@id/frame2"
+                    android:background="@color/xian" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/ac_msg"
                 android:layout_width="match_parent"
-                android:layout_height="0.2dp"
-                android:layout_below="@id/frame5"
-                android:background="@color/xian" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/wuliu_msg"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:visibility="gone" >
-<FrameLayout 
-			    android:id="@+id/frame3"
-			    android:layout_marginRight="12dp"
-			    android:layout_marginBottom="10dp"
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/img3"
-                style="@style/msg_img_style"
-                android:src="@drawable/hmm_msg_wuliu" />
-            <ImageView 
-                android:id="@+id/hasNew3"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/hmm_msg_tixing"
-                android:layout_gravity="right"
-              	android:visibility="gone"/>
-</FrameLayout>
-            <TextView
-                android:id="@+id/title3"
-                style="@style/msg_title_style"
-                android:layout_toRightOf="@id/frame3"
-                android:text="物流通知" />
+                android:paddingTop="10dp"
+                android:visibility="gone" >
 
-            <TextView
-                android:id="@+id/time3"
-                style="@style/msg_time_style"
-                android:text="17:01" />
+                <FrameLayout
+                    android:id="@+id/frame5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="12dp" >
 
-            <TextView
-                android:id="@+id/tishi3"
-                android:layout_toLeftOf="@id/time3"
-                style="@style/msg_content_style"
-                android:layout_below="@id/title3"
-                android:layout_toRightOf="@id/frame3"
-                android:text="@null" />
+                    <ImageView
+                        android:id="@+id/img5"
+                        style="@style/msg_img_style"
+                        android:src="@drawable/hmm_msg_youhui" />
 
-            <View
+                    <ImageView
+                        android:id="@+id/hasNew5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:src="@drawable/hmm_msg_tixing"
+                        android:visibility="gone" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/title5"
+                    style="@style/msg_title_style"
+                    android:layout_toRightOf="@id/frame5"
+                    android:text="优惠促销" />
+
+                <TextView
+                    android:id="@+id/time5"
+                    style="@style/msg_time_style"
+                    android:text="17:01" />
+
+                <TextView
+                    android:id="@+id/tishi5"
+                    style="@style/msg_content_style"
+                    android:layout_below="@id/title5"
+                    android:layout_toLeftOf="@id/time5"
+                    android:layout_toRightOf="@id/frame5"
+                    android:text="@null" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.2dp"
+                    android:layout_below="@id/frame5"
+                    android:background="@color/xian" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/wuliu_msg"
                 android:layout_width="match_parent"
-                android:layout_height="0.2dp"
-                android:layout_below="@id/frame3"
-                android:background="@color/xian" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/zichan_msg"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:visibility="gone" >
-<FrameLayout 
-			    android:id="@+id/frame4"
-			    android:layout_marginRight="12dp"
-			    android:layout_marginBottom="10dp"
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/img4"
-                style="@style/msg_img_style"
-                android:src="@drawable/hmm_msg_zichan" />
-            <ImageView 
-                android:id="@+id/hasNew4"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/hmm_msg_tixing"
-                android:layout_gravity="right"
-              	android:visibility="gone"/>
-</FrameLayout>
-            <TextView
-                android:id="@+id/title4"
-                style="@style/msg_title_style"
-                android:layout_toRightOf="@id/frame4"
-                android:text="我的资产" />
+                android:paddingTop="10dp"
+                android:visibility="gone" >
 
-            <TextView
-                android:id="@+id/time4"
-                style="@style/msg_time_style"
-                android:text="17:01" />
+                <FrameLayout
+                    android:id="@+id/frame3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="12dp" >
 
-            <TextView
-                android:id="@+id/tishi4"
-                android:layout_toLeftOf="@id/time4"
-                style="@style/msg_content_style"
-                android:layout_below="@id/title4"
-                android:layout_toRightOf="@id/frame4"
-                android:text="@null" />
+                    <ImageView
+                        android:id="@+id/img3"
+                        style="@style/msg_img_style"
+                        android:src="@drawable/hmm_msg_wuliu" />
 
-            <View
+                    <ImageView
+                        android:id="@+id/hasNew3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:src="@drawable/hmm_msg_tixing"
+                        android:visibility="gone" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/title3"
+                    style="@style/msg_title_style"
+                    android:layout_toRightOf="@id/frame3"
+                    android:text="物流通知" />
+
+                <TextView
+                    android:id="@+id/time3"
+                    style="@style/msg_time_style"
+                    android:text="17:01" />
+
+                <TextView
+                    android:id="@+id/tishi3"
+                    style="@style/msg_content_style"
+                    android:layout_below="@id/title3"
+                    android:layout_toLeftOf="@id/time3"
+                    android:layout_toRightOf="@id/frame3"
+                    android:text="@null" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.2dp"
+                    android:layout_below="@id/frame3"
+                    android:background="@color/xian" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/zichan_msg"
                 android:layout_width="match_parent"
-                android:layout_height="0.2dp"
-                android:layout_below="@id/frame4"
-                android:background="@color/xian" />
-        </RelativeLayout>
-    </LinearLayout>
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:visibility="gone" >
 
-</ScrollView>
+                <FrameLayout
+                    android:id="@+id/frame4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="12dp" >
+
+                    <ImageView
+                        android:id="@+id/img4"
+                        style="@style/msg_img_style"
+                        android:src="@drawable/hmm_msg_zichan" />
+
+                    <ImageView
+                        android:id="@+id/hasNew4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:src="@drawable/hmm_msg_tixing"
+                        android:visibility="gone" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/title4"
+                    style="@style/msg_title_style"
+                    android:layout_toRightOf="@id/frame4"
+                    android:text="我的资产" />
+
+                <TextView
+                    android:id="@+id/time4"
+                    style="@style/msg_time_style"
+                    android:text="17:01" />
+
+                <TextView
+                    android:id="@+id/tishi4"
+                    style="@style/msg_content_style"
+                    android:layout_below="@id/title4"
+                    android:layout_toLeftOf="@id/time4"
+                    android:layout_toRightOf="@id/frame4"
+                    android:text="@null" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.2dp"
+                    android:layout_below="@id/frame4"
+                    android:background="@color/xian" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
 </RelativeLayout>

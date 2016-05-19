@@ -1,33 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
     android:background="@drawable/background"
-    android:fitsSystemWindows="true" >
-    <TextView 
-        android:id="@+id/add"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginBottom="20dp"
-        android:padding="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:text="新增收货地址+"
-        android:textSize="16sp"
-        android:textColor="@color/white"
-        android:background="@drawable/btn_theme_radius_selector"/>
-    
-    <ListView
+    android:fitsSystemWindows="true">
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:id="@+id/list"
-        android:divider="@color/bg_hui"
-        android:dividerHeight="@dimen/driver_line"
-        android:layout_above="@id/add" 
-        android:scrollbars="none"/>
+        android:background="@color/bg">
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/btn_theme_radius_selector"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="新增收货地址+"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/add"
+            android:layout_marginTop="10dp"
+            android:background="@color/bg"
+            android:divider="@color/bg"
+            android:dividerHeight="@dimen/driver_line"
+            android:scrollbars="none" />
+    </RelativeLayout>
+
+</FrameLayout>

@@ -86,6 +86,8 @@ import com.umeng.socialize.UMShareAPI;
 public class GoodsDetailActivity extends BaseActivity implements
 		OnClickListener {
 
+	private static final String Tag = "GoodsDetailActivity";
+
 	private TextView itemTitle;
 	private TextView itemSrcPrice;
 	private TextView itemPrice;
@@ -101,7 +103,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private ShareWindow shareWindow;
 	private View back_top;
 	private ScrollableLayout mScrollLayout;
-	
+
 	// private User user;
 	private int num_shopcart;
 	private HMessage msg;
@@ -111,8 +113,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private ScrollAbleFragment imgFragment;
 	private ScrollAbleFragment parFragment;
 	private ScrollAbleFragment gridViewFragment;
-	
-	private ObjectAnimator shopcartAnimator , imgAnimator ;
+
+	private ObjectAnimator shopcartAnimator, imgAnimator;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -159,22 +161,24 @@ public class GoodsDetailActivity extends BaseActivity implements
 		findViewById(R.id.btn_portalFee).setOnClickListener(this);
 		findViewById(R.id.back_top).setOnClickListener(this);
 		shopcartAnimator = AnimationTools.nope(findViewById(R.id.shopcart));
-		imgAnimator = AnimationTools.initAnimatorSetValue(this, img_hide, new SimpleAnimationListener() {
+		imgAnimator = AnimationTools.initAnimatorSetValue(this, img_hide,
+				new SimpleAnimationListener() {
 
-			@Override
-			public void onAnimationStart(Animator arg0) {
-				img_hide.setVisibility(View.VISIBLE);
-			}
+					@Override
+					public void onAnimationStart(Animator arg0) {
+						img_hide.setVisibility(View.VISIBLE);
+					}
 
-			@Override
-			public void onAnimationEnd(Animator arg0) {
-				img_hide.setVisibility(View.GONE);
-				num_shopcart++;
-				showGoodsNums();
-				findViewById(R.id.btn_add_shopcart).setOnClickListener(GoodsDetailActivity.this);
-				shopcartAnimator.start();
-			}
-		});
+					@Override
+					public void onAnimationEnd(Animator arg0) {
+						img_hide.setVisibility(View.GONE);
+						num_shopcart++;
+						showGoodsNums();
+						findViewById(R.id.btn_add_shopcart).setOnClickListener(
+								GoodsDetailActivity.this);
+						shopcartAnimator.start();
+					}
+				});
 	}
 
 	/**
@@ -225,28 +229,29 @@ public class GoodsDetailActivity extends BaseActivity implements
 			return;
 		getLoading().show();
 		Log.i("detailUrl", getIntent().getStringExtra("url"));
-		VolleyHttp.doGetRequestTask( getHeaders(), getIntent()
-				.getStringExtra("url"), new VolleyJsonCallback() {
+		VolleyHttp.doGetRequestTask(getHeaders(),
+				getIntent().getStringExtra("url"), new VolleyJsonCallback() {
 
-			@Override
-			public void onSuccess(String result) {
-				try {
-					detail = new Gson().fromJson(result, GoodsDetail.class);
-				} catch (Exception e) {
-					ToastUtils.Toast(getActivity(), R.string.error);
-					getLoading().dismiss();
-					return;
-				}
-				initGoodsDetail();
-				getLoading().dismiss();
-			}
+					@Override
+					public void onSuccess(String result) {
+						try {
+							detail = new Gson().fromJson(result,
+									GoodsDetail.class);
+						} catch (Exception e) {
+							ToastUtils.Toast(getActivity(), R.string.error);
+							getLoading().dismiss();
+							return;
+						}
+						initGoodsDetail();
+						getLoading().dismiss();
+					}
 
-			@Override
-			public void onError() {
-				getLoading().dismiss();
-				ToastUtils.Toast(getActivity(), R.string.error);
-			}
-		});
+					@Override
+					public void onError() {
+						getLoading().dismiss();
+						ToastUtils.Toast(getActivity(), R.string.error);
+					}
+				}, Tag);
 	}
 
 	/**
@@ -286,8 +291,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 		if (getUser() == null) {
 			showGoodsNums();
 		} else {
-			VolleyHttp.doGetRequestTask( getHeaders(),
-					UrlUtil.GET_CART_NUM_URL, new VolleyJsonCallback() {
+			VolleyHttp.doGetRequestTask(getHeaders(), UrlUtil.GET_CART_NUM_URL,
+					new VolleyJsonCallback() {
 
 						@Override
 						public void onSuccess(String result) {
@@ -328,7 +333,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 	@Override
 	public void onClick(View arg0) {
-		if (detail != null && detail.getMain() == null) {
+		if (detail == null) {
 			ToastUtils.Toast(this, "正在加载数据");
 			return;
 		}
@@ -367,7 +372,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 		case R.id.btn_comment:
 			Intent intent = new Intent(this, GoodsCommentActivity.class);
 			intent.putExtra("skuType", detail.getCurrentStock().getSkuType());
-			intent.putExtra("skuTypeId", detail.getCurrentStock().getSkuTypeId());
+			intent.putExtra("skuTypeId", detail.getCurrentStock()
+					.getSkuTypeId());
 			startActivity(intent);
 			break;
 		default:
@@ -409,7 +415,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 			addShoppingCartCheck(goods);
 		}
 		isChange = true;
-		
+
 	}
 
 	/**
@@ -466,32 +472,31 @@ public class GoodsDetailActivity extends BaseActivity implements
 				}, toJSONObject(goods2).toString());
 	}
 
-
-	
-
-	
 	private void displayAnimation() {
-		GlideLoaderTools.loadSquareImage(getActivity(), detail.getCurrentStock()
-				.getInvImgForObj().getUrl(), img_hide);
+		GlideLoaderTools.loadSquareImage(getActivity(), detail
+				.getCurrentStock().getInvImgForObj().getUrl(), img_hide);
 		imgAnimator.start();
 	}
-
-	// 当前的商品
-	private StockVo shareStock;
 
 	// 分享面板
 	private void showShareboard() {
 
 		if (shareWindow == null) {
-			shareStock = detail.getCurrentStock();
+			StockVo shareStock = detail.getCurrentStock();
+			if(shareStock == null){
+				ToastUtils.Toast(this, "等待加载数据");
+				return;
+			}
 			ShareVo vo = new ShareVo();
 			vo.setContent(shareStock.getInvTitle());
 			vo.setTitle("韩秘美，只卖韩国正品");
-			vo.setImgUrl(shareStock.getInvImgForObj().getUrl());
-
-			vo.setTargetUrl("http://style.hanmimei.com"
-					+ shareStock.getInvUrl().split("comm")[1]);
-			vo.setInfoUrl(shareStock.getInvUrl());
+			if (shareStock.getInvImgForObj() != null)
+				vo.setImgUrl(shareStock.getInvImgForObj().getUrl());
+			if (shareStock.getInvUrl() != null) {
+				vo.setTargetUrl("http://style.hanmimei.com"
+						+ shareStock.getInvUrl().split("comm")[1]);
+				vo.setInfoUrl(shareStock.getInvUrl());
+			}
 			vo.setType("C");
 			shareWindow = new ShareWindow(this, vo);
 		}
@@ -627,8 +632,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 	// 添加收藏
 	private void addCollection(String collected) {
 		getLoading().show();
-		VolleyHttp.doRequestTask2(Method.POST, getHeaders(),
-				UrlUtil.ADD_COLLECTION, new VolleyJsonCallback() {
+		VolleyHttp.doPostRequestTask2(getHeaders(), UrlUtil.ADD_COLLECTION,
+				new VolleyJsonCallback() {
 
 					@Override
 					public void onSuccess(String result) {
@@ -662,7 +667,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 	private void delCollection() {
 		getLoading().show();
-		VolleyHttp.doGetRequestTask( getHeaders(), UrlUtil.DEL_COLLECTION
+		VolleyHttp.doGetRequestTask(getHeaders(), UrlUtil.DEL_COLLECTION
 				+ detail.getCurrentStock().getCollectId(),
 				new VolleyJsonCallback() {
 
@@ -784,6 +789,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 	 * 加载商品详情数据
 	 */
 	private void loadFragmentData() {
+		if (detail.getMain() == null)
+			return;
 		imgFragment.showData(detail.getMain().getItemDetailImgs());
 		parFragment.showData(detail.getMain().getItemFeaturess());
 		gridViewFragment.showData(detail.getPush());
@@ -820,20 +827,20 @@ public class GoodsDetailActivity extends BaseActivity implements
 		initTags(tags);
 		initGoodsComment(detail.getCommentVo());
 	}
-	
-	
-	private void initGoodsComment(CommentVo comm){
+
+	private void initGoodsComment(CommentVo comm) {
 		TextView remarkRate = (TextView) findViewById(R.id.remarkRate);
 		TextView remarkCount = (TextView) findViewById(R.id.remarkCount);
-		if(comm.getRemarkCount()<=0){
+		if (comm.getRemarkCount() <= 0) {
 			findViewById(R.id.btn_comment).setVisibility(View.GONE);
-		}else{
+		} else {
 			findViewById(R.id.btn_comment).setOnClickListener(this);
-			remarkCount.setText(getResources().getString(R.string.comment, comm.getRemarkCount()));
-			remarkRate.setText(getResources().getString(R.string.comment_good, comm.getRemarkRate()));
+			remarkCount.setText(getResources().getString(R.string.comment,
+					comm.getRemarkCount()));
+			remarkRate.setText(getResources().getString(R.string.comment_good,
+					comm.getRemarkRate()));
 		}
 	}
-
 
 	private void initTags(List<TagVo> tags) {
 		if (tags.size() <= 0)
@@ -891,7 +898,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 			curPostalTaxRate = s.getPostalTaxRate_();
 		curItemPrice = s.getItemPrice().doubleValue();
 		postalStandard = s.getPostalStandard();
-		area.setText("邮寄方式："+s.getInvAreaNm());
+		area.setText("邮寄方式：" + s.getInvAreaNm());
 		if (s.getCollectId() != 0) {
 			collectionImg.setImageResource(R.drawable.hmm_icon_collect_h);
 			isCollection = true;
@@ -961,6 +968,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		if (isChange)
 			sendBroadcast(new Intent(
 					AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
+		VolleyHttp.parseRequestTask(Tag);
 	}
 
 	// 主界面返回之后在后台运行

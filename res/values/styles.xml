@@ -36,7 +36,7 @@
 
     <!-- acitonbar 样式 -->
     <style name="MyActionBarStyle" parent="@style/Widget.AppCompat.ActionBar">
-        <item name="background">@color/theme</item>
+        <item name="background">@android:color/transparent</item>
         <item name="contentInsetStart">0dp</item>
         <item name="contentInsetEnd">0dp</item>
     </style>

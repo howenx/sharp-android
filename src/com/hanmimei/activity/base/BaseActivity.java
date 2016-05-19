@@ -73,15 +73,15 @@ public class BaseActivity extends ParallaxActivityBase {
 		// 沉浸式状态栏的设置
 		getSupportActionBar().setElevation(0);
 		getClipboard();
-		if (VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-			// 创建状态栏的管理实例
-			SystemBarTintManager tintManager = new SystemBarTintManager(this);
-			// 激活状态栏设置
-			tintManager.setStatusBarTintEnabled(true);
-			// 设置一个颜色给系统栏
-			tintManager.setTintColor(getResources().getColor(
-					R.color.btn_pin_pressed));
-		}
+//		if (VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//			// 创建状态栏的管理实例
+//			SystemBarTintManager tintManager = new SystemBarTintManager(this);
+//			// 激活状态栏设置
+//			tintManager.setStatusBarTintEnabled(true);
+//			// 设置一个颜色给系统栏
+//			tintManager.setTintColor(getResources().getColor(
+//					R.color.btn_pin_pressed));
+//		}
 	}
 	
 	
