@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.hanmimei.data.AppConstant;
+import com.hanmimei.R;
 import com.tencent.mm.sdk.constants.ConstantsAPI;
 import com.tencent.mm.sdk.modelbase.BaseReq;
 import com.tencent.mm.sdk.modelbase.BaseResp;
@@ -34,6 +35,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler{
 
 	@Override
 	public void onReq(BaseReq req) {
+		
 	}
 
 	@Override
