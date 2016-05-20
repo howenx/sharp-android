@@ -13,6 +13,7 @@ public class MessageEvent {
 	private String message;
 	private Integer positon;
 	
+	
 	public MessageEvent(String message, Integer positon) {
 		super();
 		this.message = message;
