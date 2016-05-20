@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,8 +29,12 @@ import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.ProgressWebView;
+import com.tencent.mm.sdk.constants.ConstantsAPI;
+import com.tencent.mm.sdk.modelbase.BaseReq;
+import com.tencent.mm.sdk.modelbase.BaseResp;
 import com.tencent.mm.sdk.modelpay.PayReq;
 import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
 public class OrderSubmitActivity extends BaseActivity {
@@ -39,7 +44,6 @@ public class OrderSubmitActivity extends BaseActivity {
 	private boolean isSuccess = false; // 用于标志支付是否成功
 
 	Map<String, String> extraHeaders;
-	
 	private IWXAPI api;
 
 	@SuppressLint("SetJavaScriptEnabled")
@@ -52,14 +56,15 @@ public class OrderSubmitActivity extends BaseActivity {
 		ActionBarUtil.setActionBarStyle(this, "收银台", new BackClickListener());
 		OrderInfo orderInfo = (OrderInfo) getIntent().getSerializableExtra(
 				"orderInfo");
-
+		api = WXAPIFactory.createWXAPI(this, "wx578f993da4b29f97");
+//		api.handleIntent(getIntent(), this);
 		startTime = new Date();
 		mWebView = (ProgressWebView) findViewById(R.id.mWebView);
 		mWebView.getSettings().setJavaScriptEnabled(true);
 
 		// 获取用户token 添加到header中
 		extraHeaders = new HashMap<String, String>();
-		if(getUser() !=null)
+		if (getUser() != null)
 			extraHeaders.put("id-token", getUser().getToken());
 
 		mWebView.setWebViewClient(new WebViewClient() {
@@ -85,8 +90,6 @@ public class OrderSubmitActivity extends BaseActivity {
 		// 添加js交互
 		mWebView.addJavascriptInterface(new JavaScriptInterface(this),
 				"handler");
-		
-		api = WXAPIFactory.createWXAPI(this, "wx578f993da4b29f97");
 
 	}
 
@@ -153,9 +156,11 @@ public class OrderSubmitActivity extends BaseActivity {
 			startActivity(intent);
 			finish();
 		}
+
 		@JavascriptInterface
-		public void weixinpay(String appid,String partnerId,String prepayId,String pack,String nonceStr,String timeStamp,String sign) {
-			wxPay(appid,partnerId,prepayId,pack,nonceStr,timeStamp,sign);
+		public void weixinpay(String appid, String partnerId, String prepayId,
+				String pack, String nonceStr, String timeStamp, String sign) {
+			wxPay(appid, partnerId, prepayId, pack, nonceStr, timeStamp, sign);
 		}
 
 		/**
@@ -169,21 +174,16 @@ public class OrderSubmitActivity extends BaseActivity {
 		 */
 		private void wxPay(String appid, String partnerId, String prepayId,
 				String pack, String nonceStr, String timeStamp, String sign) {
-			IWXAPI msgApi = WXAPIFactory.createWXAPI(context, null);
-
-			// 将该app注册到微信
-			msgApi.registerApp("wx578f993da4b29f97");
 			
 			PayReq req = new PayReq();
-			//req.appId = "wxf8b4f85f3a794e77";  // 测试用appId
-			req.appId			= appid;
-			req.partnerId		= partnerId;
-			req.prepayId		= prepayId;
-			req.nonceStr		= nonceStr;
-			req.timeStamp		= timeStamp;
-			req.packageValue	= pack;
-			req.sign			= sign;
-			ToastUtils.Toast(OrderSubmitActivity.this, "正常调起支付");
+			// req.appId = "wxf8b4f85f3a794e77"; // 测试用appId
+			req.appId = appid;
+			req.partnerId = partnerId;
+			req.prepayId = prepayId;
+			req.nonceStr = nonceStr;
+			req.timeStamp = timeStamp;
+			req.packageValue = pack;
+			req.sign = sign;
 			// 在支付之前，如果应用没有注册到微信，应该先调用IWXMsg.registerApp将应用注册到微信
 			api.sendReq(req);
 		}
@@ -214,5 +214,4 @@ public class OrderSubmitActivity extends BaseActivity {
 	private long formatTime(long mi) {
 		return mi * 1000 * 60;
 	}
-
 }
