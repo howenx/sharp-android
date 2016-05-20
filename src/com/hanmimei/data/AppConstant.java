@@ -37,4 +37,6 @@ public class AppConstant {
 	public static final String MESSAGE_BROADCAST_UPDATE_MSG = "MESSAGE_BROADCAST_UPDATE_MSG";
 	//更新评价
 	public static final String MESSAGE_BROADCAST_UPDATE_COMMENT = "MESSAGE_BROADCAST_UPDATE_COMMENT";
+	// 支付失败
+	public static final String MESSAGE_BROADCAST_WEIXINPAY_FAIL = "MESSAGE_BROADCAST_WEIXINPAY_FAIL";
 }

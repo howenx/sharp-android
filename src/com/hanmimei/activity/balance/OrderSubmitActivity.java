@@ -5,8 +5,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -22,6 +24,7 @@ import com.hanmimei.activity.MainActivity;
 import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.activity.goods.pin.PingouResultActivity;
 import com.hanmimei.activity.mine.order.MyOrderActivity;
+import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.OrderInfo;
 import com.hanmimei.utils.ActionBarUtil;
@@ -40,7 +43,7 @@ public class OrderSubmitActivity extends BaseActivity {
 
 	Map<String, String> extraHeaders;
 	
-	private IWXAPI api;
+//	private IWXAPI api;
 
 	@SuppressLint("SetJavaScriptEnabled")
 	@Override
@@ -86,8 +89,8 @@ public class OrderSubmitActivity extends BaseActivity {
 		mWebView.addJavascriptInterface(new JavaScriptInterface(this),
 				"handler");
 		
-		api = WXAPIFactory.createWXAPI(this, "wx578f993da4b29f97");
-
+//		api = WXAPIFactory.createWXAPI(this, "wx578f993da4b29f97");
+		registerReceivers();
 	}
 
 	// 返回按钮点击事件
@@ -158,35 +161,36 @@ public class OrderSubmitActivity extends BaseActivity {
 			wxPay(appid,partnerId,prepayId,pack,nonceStr,timeStamp,sign);
 		}
 
-		/**
-		 * @param appid
-		 * @param partnerId
-		 * @param prepayId
-		 * @param pack
-		 * @param nonceStr
-		 * @param timeStamp
-		 * @param sign
-		 */
-		private void wxPay(String appid, String partnerId, String prepayId,
-				String pack, String nonceStr, String timeStamp, String sign) {
-			IWXAPI msgApi = WXAPIFactory.createWXAPI(context, null);
+		
+	}
+	/**
+	 * @param appid
+	 * @param partnerId
+	 * @param prepayId
+	 * @param pack
+	 * @param nonceStr
+	 * @param timeStamp
+	 * @param sign
+	 */
+	private void wxPay(String appid, String partnerId, String prepayId,
+			String pack, String nonceStr, String timeStamp, String sign) {
+		IWXAPI msgApi = WXAPIFactory.createWXAPI(this, null);
 
-			// 将该app注册到微信
-			msgApi.registerApp("wx578f993da4b29f97");
-			
-			PayReq req = new PayReq();
-			//req.appId = "wxf8b4f85f3a794e77";  // 测试用appId
-			req.appId			= appid;
-			req.partnerId		= partnerId;
-			req.prepayId		= prepayId;
-			req.nonceStr		= nonceStr;
-			req.timeStamp		= timeStamp;
-			req.packageValue	= pack;
-			req.sign			= sign;
-			ToastUtils.Toast(OrderSubmitActivity.this, "正常调起支付");
-			// 在支付之前，如果应用没有注册到微信，应该先调用IWXMsg.registerApp将应用注册到微信
-			api.sendReq(req);
-		}
+		// 将该app注册到微信
+		msgApi.registerApp("wx578f993da4b29f97");
+		
+		PayReq req = new PayReq();
+		//req.appId = "wxf8b4f85f3a794e77";  // 测试用appId
+		req.appId			= appid;
+		req.partnerId		= partnerId;
+		req.prepayId		= prepayId;
+		req.nonceStr		= nonceStr;
+		req.timeStamp		= timeStamp;
+		req.packageValue	= pack;
+		req.sign			= sign;
+		ToastUtils.Toast(OrderSubmitActivity.this, "正常调起支付");
+		// 在支付之前，如果应用没有注册到微信，应该先调用IWXMsg.registerApp将应用注册到微信
+		msgApi.sendReq(req);
 	}
 
 	// 显示取消支付窗口
@@ -215,4 +219,55 @@ public class OrderSubmitActivity extends BaseActivity {
 		return mi * 1000 * 60;
 	}
 
+	private MyBroadCastReceiver netReceiver;
+
+	// 广播接收者 注册
+	private void registerReceivers() {
+		netReceiver = new MyBroadCastReceiver();
+		IntentFilter intentFilter = new IntentFilter();
+		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_WEIXINPAY_FAIL);
+		getActivity().registerReceiver(netReceiver, intentFilter);
+	}
+
+	@Override
+	public void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		getActivity().unregisterReceiver(netReceiver);
+	}
+
+	private class MyBroadCastReceiver extends BroadcastReceiver {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			if (intent.getAction().equals(
+					AppConstant.MESSAGE_BROADCAST_WEIXINPAY_FAIL)) {
+				showPayFailDialog();
+			} 
+		}
+	}
+
+	/**
+	 * 
+	 */
+	public void showPayFailDialog() {
+		AlertDialogUtils.showPayDialog(this, new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mWebView.goBack();
+			}
+		}, new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if (getIntent().getStringExtra("orderType").equals("item")) {
+					startActivity(new Intent(getActivity(),
+							MyOrderActivity.class));
+				} else {
+					onBackPressed();
+				}
+				finish();
+			}
+		});
+	}
 }

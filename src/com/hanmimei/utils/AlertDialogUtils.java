@@ -155,6 +155,15 @@ public class AlertDialogUtils {
 	 * @param context
 	 * @param l
 	 */
+	public static void showPayDialog(Context context, final OnClickListener l,final OnClickListener dl) {
+		String[] tb = { "支付失败", "", "放弃支付", "重新支付" };
+		showCustomDialog(context, tb, l , dl, null);
+	}
+	/**
+	 * 
+	 * @param context
+	 * @param l
+	 */
 	public static void showDeliveryDialog(Context context, final OnClickListener l) {
 		String[] tb = { "确定已经收到货物", "", "尚未收到", "确认收货" };
 		showCustomDialog(context, tb, l,null);
@@ -213,6 +222,13 @@ public class AlertDialogUtils {
 	public static CustomDialog showCustomDialog(Context context, String[] tb,
 			final OnClickListener l,BaseEffects baseEffects) {
 		CustomDialog c = new CustomDialog(context, tb, l).withBaseEffect(baseEffects);
+		c.show();
+		return c;
+	}
+	@SuppressLint("InflateParams")
+	public static CustomDialog showCustomDialog(Context context, String[] tb,
+			final OnClickListener l,final OnClickListener dl,BaseEffects baseEffects) {
+		CustomDialog c = new CustomDialog(context, tb, l,dl).withBaseEffect(baseEffects);
 		c.show();
 		return c;
 	}

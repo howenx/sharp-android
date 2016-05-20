@@ -15,6 +15,7 @@ public class CustomDialog extends AlertDialog {
 
 	String[] tb;
 	private android.view.View.OnClickListener l;
+	private android.view.View.OnClickListener dl;
 	private View main;
 	private BaseEffects bEffect;
 
@@ -23,6 +24,13 @@ public class CustomDialog extends AlertDialog {
 		super(context, R.style.CustomDialog);
 		this.tb = tb;
 		this.l = l;
+	}
+	public CustomDialog(Context context, String[] tb,
+			android.view.View.OnClickListener l,android.view.View.OnClickListener dl) {
+		super(context, R.style.CustomDialog);
+		this.tb = tb;
+		this.l = l;
+		this.dl = dl;
 	}
 
 	@Override
@@ -59,6 +67,8 @@ public class CustomDialog extends AlertDialog {
 
 			@Override
 			public void onClick(View v) {
+				if(dl != null)
+					dl.onClick(v);
 				dismiss();
 			}
 		});
