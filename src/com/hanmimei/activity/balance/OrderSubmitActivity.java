@@ -182,6 +182,7 @@ public class OrderSubmitActivity extends BaseActivity {
 		req.timeStamp		= timeStamp;
 		req.packageValue	= pack;
 		req.sign			= sign;
+//		ToastUtils.Toast(OrderSubmitActivity.this, "正常调起支付");
 		// 在支付之前，如果应用没有注册到微信，应该先调用IWXMsg.registerApp将应用注册到微信
 		msgApi.sendReq(req);
 	}

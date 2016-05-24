@@ -91,6 +91,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		ActionBarUtil.setActionBarStyle(this, "账号登录");
 		initView();
 		registerReceivers();
+		dialog = CommonUtils.dialog(this, "正在登录，请稍等...");
 		mShareAPI = UMShareAPI.get(this);
 	}
 
@@ -240,15 +241,16 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			}
 			break;
 		case R.id.qq:
+			dialog.show();
 			//应用宝上线或添加测试账户
 			doOtherLogin(SHARE_MEDIA.QQ);
 			break;
 		case R.id.weixin:
-			dialog = CommonUtils.dialog(this, "正在登录，请稍等...");
 			dialog.show();
 			doOtherLogin(SHARE_MEDIA.WEIXIN);
 			break;
 		case R.id.sina:
+			dialog.show();
 			doOtherLogin(SHARE_MEDIA.SINA);
 			break;
 		default:
@@ -269,7 +271,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		public void onComplete(SHARE_MEDIA platform, int action,
 				Map<String, String> data) {
 			chekWinxin(data);
-//			ToastUtils.Toast(getApplicationContext(), "登陆成功" + data.toString());	
+			ToastUtils.Toast(getApplicationContext(), "登陆成功" + data.toString());	
 		}
 
 		@Override
