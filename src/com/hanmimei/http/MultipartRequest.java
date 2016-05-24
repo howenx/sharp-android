@@ -45,12 +45,12 @@ public class MultipartRequest extends Request<JSONObject> {
 				if (httpEntity != null) {
 					httpEntity.writeTo(baos);
 				}
-				String str = new String(baos.toByteArray());
+				return baos.toByteArray();
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			
 		}
-		return baos.toByteArray();
+		return null;
 	}
 
 	@Override

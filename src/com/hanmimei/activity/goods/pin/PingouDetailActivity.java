@@ -57,7 +57,7 @@ import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtils;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.NetworkImageHolderView;
-import com.hanmimei.view.PushWindow;
+import com.hanmimei.view.GoodsPushWindow;
 import com.hanmimei.view.ShareWindow;
 
 /**
@@ -293,12 +293,12 @@ public class PingouDetailActivity extends BaseActivity implements
 
 	}
 
-	private PushWindow pushWindow;
+	private GoodsPushWindow pushWindow;
 
 	@SuppressLint("InflateParams")
 	private void showPopupwindow() {
 		if (pushWindow == null) {
-			pushWindow = new PushWindow(this, detail.getPush());
+			pushWindow = new GoodsPushWindow(this, detail.getPush());
 		}
 		pushWindow.show();
 

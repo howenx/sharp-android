@@ -73,7 +73,7 @@ public class OrderListAdapter extends BaseAdapter {
 			}
 			GlideLoaderTools.loadSquareImage(activity, sku.getInvImg(), holder.img);
 			holder.name.setText(sku.getSkuTitle());
-			holder.price.setText("¥" + CommonUtils.doubleTrans(sku.getPrice()));
+			holder.price.setText("¥" + sku.getPrice());
 			holder.nums.setText("共" + sku.getAmount() + "件商品");
 			holder.size.setText(sku.getItemColor() + "  " + sku.getItemSize());
 			return convertView;

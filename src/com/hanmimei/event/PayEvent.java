@@ -3,7 +3,7 @@
  * @author A18ccms A18ccms_gmail_com   
  * @date 2016-5-20 下午1:57:57 
 **/
-package com.hanmimei.entity;
+package com.hanmimei.event;
 
 /**
  * @author vince

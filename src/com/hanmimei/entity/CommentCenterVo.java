@@ -8,7 +8,8 @@ package com.hanmimei.entity;
 import java.util.List;
 
 /**
- * @author eric
+ * 评价中心  接口返回数据类型
+ * @author vince
  *
  */
 public class CommentCenterVo {

@@ -17,15 +17,15 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.hanmimei.R;
 import com.hanmimei.activity.goods.detail.GoodsDetailActivity;
 import com.hanmimei.activity.goods.pin.PingouDetailActivity;
-import com.hanmimei.adapter.TuijianAdapter;
+import com.hanmimei.adapter.GoodsPushAdapter;
 import com.hanmimei.entity.HGoodsVo;
 
-public class PushWindow extends AlertDialog {
+public class GoodsPushWindow extends AlertDialog {
 
 	private Activity mActivity;
 	private List<HGoodsVo> push;
 
-	public PushWindow(Context context, List<HGoodsVo> push) {
+	public GoodsPushWindow(Context context, List<HGoodsVo> push) {
 		super(context, R.style.BottomShowDialog);
 		this.mActivity = (Activity) context;
 		this.push = push;
@@ -35,12 +35,12 @@ public class PushWindow extends AlertDialog {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.tuijian_layout);
+		setContentView(R.layout.goods_push_layout);
 
 		HorizontalListView more_grid = (HorizontalListView) findViewById(R.id.more_grid);
 //		TextView titleView = (TextView) findViewById(R.id.title);
 //		titleView.setText(R.string.goods_over_notice);
-		more_grid.setAdapter(new TuijianAdapter(push, mActivity));
+		more_grid.setAdapter(new GoodsPushAdapter(push, mActivity));
 		more_grid.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override

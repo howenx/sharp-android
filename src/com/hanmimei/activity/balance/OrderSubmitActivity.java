@@ -27,7 +27,7 @@ import com.hanmimei.activity.mine.order.MyOrderActivity;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.OrderInfo;
-import com.hanmimei.entity.PayEvent;
+import com.hanmimei.event.PayEvent;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.ToastUtils;

@@ -21,7 +21,7 @@ import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.activity.goods.comment.fragment.GoodsComImgFragment;
 import com.hanmimei.activity.goods.comment.fragment.GoodsCommentFragment;
 import com.hanmimei.activity.goods.comment.fragment.GoodsCommentFragment.EvaType;
-import com.hanmimei.entity.MessageEvent;
+import com.hanmimei.event.MessageEvent;
 import com.hanmimei.utils.ActionBarUtil;
 import com.viewpagerindicator.BaseIconFragment;
 import com.ypy.eventbus.EventBus;

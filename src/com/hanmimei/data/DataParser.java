@@ -304,7 +304,7 @@ public class DataParser {
 						if (skuObject.has("amount"))
 							sku.setAmount(skuObject.getInt("amount"));
 						if (skuObject.has("price"))
-							sku.setPrice(skuObject.getInt("price"));
+							sku.setPrice_(skuObject.getDouble("price"));
 						if (skuObject.has("skuTitle"))
 							sku.setSkuTitle(decode2(skuObject
 									.getString("skuTitle")));
@@ -562,7 +562,7 @@ public class DataParser {
 						if (skuObject.has("skuId"))
 							sku.setSkuId(skuObject.getString("skuId"));
 						if (skuObject.has("price"))
-							sku.setPrice(skuObject.getInt("price"));
+							sku.setPrice_(skuObject.getDouble("price"));
 						if (skuObject.has("skuTitle"))
 							sku.setSkuTitle(skuObject.getString("skuTitle"));
 						if (skuObject.has("invUrl"))

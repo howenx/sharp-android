@@ -1,6 +1,7 @@
 package com.hanmimei.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import com.google.gson.Gson;
 
@@ -9,7 +10,7 @@ public class Sku implements Serializable{
 	private String orderId;
 	private String skuId;
 	private int amount;
-	private int price;
+	private BigDecimal price;
 	private String skuTitle;
 	private String invImg;
 	private String invUrl;
@@ -43,7 +44,7 @@ public class Sku implements Serializable{
 	public void setWhat(String what) {
 		this.what = what;
 	}
-	public Sku(String skuId, int amount, int price, String skuTitle,
+	public Sku(String skuId, int amount, BigDecimal price, String skuTitle,
 			String invImg, String invUrl, String itemColor, String itemSize) {
 		super();
 		this.skuId = skuId;
@@ -75,11 +76,14 @@ public class Sku implements Serializable{
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
-	public int getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
-	public void setPrice(int price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
+	}
+	public void setPrice_(double price) {
+		this.price = BigDecimal.valueOf(price);
 	}
 	public String getSkuTitle() {
 		return skuTitle;

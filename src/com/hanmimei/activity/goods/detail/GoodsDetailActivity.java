@@ -69,7 +69,7 @@ import com.hanmimei.utils.KeyWordUtil;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.BadgeView;
 import com.hanmimei.view.NetworkImageHolderView;
-import com.hanmimei.view.PushWindow;
+import com.hanmimei.view.GoodsPushWindow;
 import com.hanmimei.view.ShareWindow;
 import com.hanmimei.view.TagCloudView;
 import com.hanmimei.view.TagCloudView.OnTagClickListener;
@@ -700,11 +700,11 @@ public class GoodsDetailActivity extends BaseActivity implements
 				});
 	}
 
-	private PushWindow pushWindow;
+	private GoodsPushWindow pushWindow;
 
 	private void showPopupwindow() {
 		if (pushWindow == null) {
-			pushWindow = new PushWindow(this, detail.getPush());
+			pushWindow = new GoodsPushWindow(this, detail.getPush());
 		}
 		pushWindow.show();
 	}

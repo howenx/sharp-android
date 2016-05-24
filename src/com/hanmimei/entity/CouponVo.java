@@ -1,6 +1,10 @@
 package com.hanmimei.entity;
 
-
+/**
+ * 优惠券 数据结构
+ * @author vince
+ *
+ */
 public class CouponVo {
 	private String coupId;
 	private String userId;

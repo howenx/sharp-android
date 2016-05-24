@@ -40,7 +40,7 @@ import com.hanmimei.utils.GlideLoaderTools;
 import com.hanmimei.utils.KeyWordUtil;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.CircleImageView;
-import com.hanmimei.view.PushWindow;
+import com.hanmimei.view.GoodsPushWindow;
 import com.hanmimei.view.ShareWindow;
 import com.hanmimei.view.TimeDownView;
 /**
@@ -245,7 +245,7 @@ public class PingouResultActivity extends BaseActivity implements
 		}
 
 	}
-	private PushWindow pushWindow;
+	private GoodsPushWindow pushWindow;
 
 	/**
 	 * 初始化倒计时器
@@ -286,7 +286,7 @@ public class PingouResultActivity extends BaseActivity implements
 
 	private void showPopupwindow() {
 		if (pushWindow == null) {
-			pushWindow = new PushWindow(this, pinResult.getThemeList());
+			pushWindow = new GoodsPushWindow(this, pinResult.getThemeList());
 		}
 		pushWindow.show();
 	}

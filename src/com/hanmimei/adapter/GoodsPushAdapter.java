@@ -17,12 +17,12 @@ import com.hanmimei.entity.HGoodsVo;
 import com.hanmimei.utils.DateUtils;
 import com.hanmimei.utils.GlideLoaderTools;
 
-public class TuijianAdapter extends BaseAdapter {
+public class GoodsPushAdapter extends BaseAdapter {
 	private List<HGoodsVo> data;
 	private LayoutInflater inflater;
 	private Activity activity;
 
-	public TuijianAdapter(List<HGoodsVo> data, Context mContext) {
+	public GoodsPushAdapter(List<HGoodsVo> data, Context mContext) {
 		this.data = data;
 		activity = (Activity) mContext;
 		inflater = LayoutInflater.from(mContext);
@@ -49,7 +49,7 @@ public class TuijianAdapter extends BaseAdapter {
 		HGoodsVo theme = data.get(position);
 		ViewHolder holder = null;
 		if (convertView == null) {
-			convertView = inflater.inflate(R.layout.tuijian_item_layout, null);
+			convertView = inflater.inflate(R.layout.goods_push_item_layout, null);
 			holder = new ViewHolder(convertView);
 
 			convertView.setTag(holder);

@@ -219,7 +219,7 @@ public class OrderPullListAdapter extends BaseAdapter {
 			if(order.getRemark().equals("N")){
 				holder.go_comment.setVisibility(View.VISIBLE);
 			}else{
-				holder.go_comment.setVisibility(View.GONE);
+				holder.go_comment.setVisibility(View.VISIBLE);
 			}
 		} else if (order.getOrderStatus().equals("T")) {
 			holder.state.setText("已退款");

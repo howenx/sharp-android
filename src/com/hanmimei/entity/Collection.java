@@ -1,5 +1,9 @@
 package com.hanmimei.entity;
-
+/**
+ * 收藏商品数据
+ * @author vince
+ *
+ */
 public class Collection {
 	private String collectId;
 	private long createAt;

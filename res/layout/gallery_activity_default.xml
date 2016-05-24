@@ -2,16 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
-    android:background="@android:color/black"
+    android:background="@color/background"
     android:layout_width="match_parent" 
     android:layout_height="match_parent">
 
 
-    <include
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"
-        layout="@layout/gallery_customer_actionbar" />
 
     <FrameLayout
         android:id="@+id/image_grid"

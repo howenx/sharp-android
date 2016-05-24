@@ -9,7 +9,7 @@
         android:id="@+id/mylist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:divider="@color/background"
+        android:divider="@color/bg"
         android:dividerHeight="10dp"
         android:fastScrollEnabled="false"
         android:footerDividersEnabled="false"

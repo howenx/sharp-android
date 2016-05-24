@@ -21,7 +21,7 @@ public class XMLPaserTools {
 			switch (type) {
 			case XmlPullParser.START_TAG:
 				if ("void".equals(parser.getName())) {
-					if ("adminUserId".equals(parser.getAttributeValue(0))) {
+					if ("adminUserId".equals(parser.getAttributeValue(0)) ) {
 						parser.nextTag();
 						info.setAdminUserId(parser.nextText()); 
 					} else if ("downloadLink".equals(parser.getAttributeValue(0))) {

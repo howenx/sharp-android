@@ -13,7 +13,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 /**
- * @author eric
+ * 商品评价数据结构
+ * @author vince
  *
  */
 public class CommentVo implements Serializable{
