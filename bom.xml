@@ -20,11 +20,12 @@
 		<channels keyname="HMM_CHANNEL">
 			<!-- channel的数量代表最终生成的apk文件的数量 -->
 			<channel value="yingyongbao" />
+			<channel value="baidu" />
 		</channels>
 		<keystore path="/Users/vince/Documents/Keystore" passwd="hanmimei">
 			<alias name="hanmimei" passwd="hanmimei" />
 		</keystore>
-		<outpath value="/Users/vince/Downloads/多渠道包_android" />
+		<outpath value="/Users/vince/Documents/渠道包" />
 	</package>	
 </project>
 

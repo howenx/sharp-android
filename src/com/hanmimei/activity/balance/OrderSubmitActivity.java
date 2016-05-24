@@ -27,6 +27,7 @@ import com.hanmimei.activity.mine.order.MyOrderActivity;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.OrderInfo;
+import com.hanmimei.entity.PayEvent;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.ToastUtils;
@@ -34,6 +35,7 @@ import com.hanmimei.view.ProgressWebView;
 import com.tencent.mm.sdk.modelpay.PayReq;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
+import com.ypy.eventbus.EventBus;
 
 public class OrderSubmitActivity extends BaseActivity {
 
@@ -43,8 +45,6 @@ public class OrderSubmitActivity extends BaseActivity {
 
 	Map<String, String> extraHeaders;
 	
-//	private IWXAPI api;
-
 	@SuppressLint("SetJavaScriptEnabled")
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,6 +53,7 @@ public class OrderSubmitActivity extends BaseActivity {
 		setContentView(R.layout.order_submit_layout);
 		// 初始化actionbar
 		ActionBarUtil.setActionBarStyle(this, "收银台", new BackClickListener());
+		EventBus.getDefault().register(this);
 		OrderInfo orderInfo = (OrderInfo) getIntent().getSerializableExtra(
 				"orderInfo");
 
@@ -88,9 +89,6 @@ public class OrderSubmitActivity extends BaseActivity {
 		// 添加js交互
 		mWebView.addJavascriptInterface(new JavaScriptInterface(this),
 				"handler");
-		
-//		api = WXAPIFactory.createWXAPI(this, "wx578f993da4b29f97");
-		registerReceivers();
 	}
 
 	// 返回按钮点击事件
@@ -174,13 +172,9 @@ public class OrderSubmitActivity extends BaseActivity {
 	 */
 	private void wxPay(String appid, String partnerId, String prepayId,
 			String pack, String nonceStr, String timeStamp, String sign) {
-		IWXAPI msgApi = WXAPIFactory.createWXAPI(this, null);
-
-		// 将该app注册到微信
-		msgApi.registerApp("wx578f993da4b29f97");
+		IWXAPI msgApi = WXAPIFactory.createWXAPI(this, "wx578f993da4b29f97");
 		
 		PayReq req = new PayReq();
-		//req.appId = "wxf8b4f85f3a794e77";  // 测试用appId
 		req.appId			= appid;
 		req.partnerId		= partnerId;
 		req.prepayId		= prepayId;
@@ -188,7 +182,10 @@ public class OrderSubmitActivity extends BaseActivity {
 		req.timeStamp		= timeStamp;
 		req.packageValue	= pack;
 		req.sign			= sign;
+<<<<<<< HEAD
 //		ToastUtils.Toast(OrderSubmitActivity.this, "正常调起支付");
+=======
+>>>>>>> ae1858f8c745edd007ffb2d40f8eb5b1f470f468
 		// 在支付之前，如果应用没有注册到微信，应该先调用IWXMsg.registerApp将应用注册到微信
 		msgApi.sendReq(req);
 	}
@@ -219,31 +216,16 @@ public class OrderSubmitActivity extends BaseActivity {
 		return mi * 1000 * 60;
 	}
 
-	private MyBroadCastReceiver netReceiver;
-
-	// 广播接收者 注册
-	private void registerReceivers() {
-		netReceiver = new MyBroadCastReceiver();
-		IntentFilter intentFilter = new IntentFilter();
-		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_WEIXINPAY_FAIL);
-		getActivity().registerReceiver(netReceiver, intentFilter);
-	}
-
 	@Override
 	public void onDestroy() {
-		// TODO Auto-generated method stub
 		super.onDestroy();
-		getActivity().unregisterReceiver(netReceiver);
+		EventBus.getDefault().unregister(this);
 	}
 
-	private class MyBroadCastReceiver extends BroadcastReceiver {
-
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			if (intent.getAction().equals(
-					AppConstant.MESSAGE_BROADCAST_WEIXINPAY_FAIL)) {
-				showPayFailDialog();
-			} 
+	
+	public void onEvent(PayEvent event) {
+		if(event.getCode() != 0){
+			showPayFailDialog();
 		}
 	}
 
@@ -257,12 +239,10 @@ public class OrderSubmitActivity extends BaseActivity {
 				mWebView.goBack();
 			}
 		}, new OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
 				if (getIntent().getStringExtra("orderType").equals("item")) {
-					startActivity(new Intent(getActivity(),
-							MyOrderActivity.class));
+					startActivity(new Intent(getActivity(),MyOrderActivity.class));
 				} else {
 					onBackPressed();
 				}

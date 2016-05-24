@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.hanmimei.R;
 import com.hanmimei.utils.effects.BaseEffects;
-import com.hanmimei.utils.effects.Shake;
 
 public class CustomDialog extends AlertDialog {
 
