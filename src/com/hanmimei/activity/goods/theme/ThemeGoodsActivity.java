@@ -21,6 +21,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.hanmimei.R;
 import com.hanmimei.activity.base.BaseActivity;
@@ -28,17 +29,15 @@ import com.hanmimei.activity.car.ShoppingCarActivity;
 import com.hanmimei.activity.goods.detail.GoodsDetailActivity;
 import com.hanmimei.activity.goods.pin.PingouDetailActivity;
 import com.hanmimei.activity.goods.theme.adapter.ThemeAdapter;
+import com.hanmimei.activity.presenter.theme.HThemeGoodsPresenterImpl;
+import com.hanmimei.activity.view.theme.HThemeGoodsView;
 import com.hanmimei.data.AppConstant;
-import com.hanmimei.data.DataParser;
-import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.HGoodsVo;
 import com.hanmimei.entity.HGoodsVo.ImgTag;
 import com.hanmimei.entity.HThemeGoods;
 import com.hanmimei.entity.HThemeGoods.ThemeList;
 import com.hanmimei.entity.ImageVo;
-import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.http.VolleyHttp;
-import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.CommonUtils;
 import com.hanmimei.utils.GlideLoaderTools;
@@ -60,7 +59,8 @@ import com.ui.tag.TagViewRight;
  * 
  */
 @SuppressLint("NewApi")
-public class ThemeGoodsActivity extends BaseActivity implements OnClickListener {
+public class ThemeGoodsActivity extends BaseActivity implements
+		OnClickListener, HThemeGoodsView {
 
 	private String Tag = "ThemeGoodsActivity";
 
@@ -71,16 +71,15 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 	FrameLayout mframeLayout; // 主推商品容器 添加tag使用
 	private CustomScrollView mScrollView;
 	private Drawable backgroundDrawable;
+	private HThemeGoodsPresenterImpl iGoodsPresenterImpl;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.theme_layout);
-		getSupportActionBar().hide();
-
+		initView();
 		data = new ArrayList<HGoodsVo>();
 		adapter = new ThemeAdapter(data, this);
-		findView();
 		GridView gridView = (GridView) findViewById(R.id.my_grid);
 		gridView.setAdapter(adapter);
 		gridView.setFocusable(false);
@@ -100,7 +99,6 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 					intent = new Intent(getActivity(),
 							GoodsDetailActivity.class);
 				}
-				Log.i("detailUrl", data.get(arg2).getItemUrl());
 				intent.putExtra("url", data.get(arg2).getItemUrl());
 				startActivityForResult(intent, 1);
 			}
@@ -109,156 +107,71 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		registerReceivers();
 	}
 
-	// 初始化view对象
-	private void findView() {
-		View actionbarView = findViewById(R.id.actionbarView);
-		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
-			actionbarView.setPadding(0, StatusBarCompat.getStatusBarHeight(this),0, 0);
-		}
-		
-		View cartView = findViewById(R.id.setting);
-		actionbarView.setBackgroundColor(Color.parseColor("#b6d4df"));
-		backgroundDrawable = actionbarView.getBackground();
-		backgroundDrawable.setAlpha(0);
+	/**
+	 * 初始化view对象
+	 */
+	private void initView() {
+		// actionbar
+//		View actionbarView = findViewById(R.id.actionbarView);
+//		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//			actionbarView.setPadding(0,
+//					StatusBarCompat.getStatusBarHeight(this), 0, 0);
+//		}
+//		actionbarView.setBackgroundResource(R.color.theme);
+//		backgroundDrawable = actionbarView.getBackground();
+//		backgroundDrawable.setAlpha(0);
+		View view = ActionBarUtil.setActionBarStyle(this, "商品展示", R.drawable.white_shoppingcar, this);
+		// 购物车
+		View cartView = view.findViewById(R.id.setting);
 		bView = new BadgeView(this, cartView);
 		bView.setBackgroundResource(R.drawable.bg_badgeview2);
 		bView.setBadgePosition(BadgeView.POSITION_CENTER);
 		bView.setTextSize(10);
 		bView.setTextColor(Color.parseColor("#F9616A"));
+		// banner图容器
 		mframeLayout = (FrameLayout) findViewById(R.id.mframeLayout);
-		mScrollView = (CustomScrollView) findViewById(R.id.mScrollView);
+		// 滚动视图
+//		mScrollView = (CustomScrollView) findViewById(R.id.mScrollView);
+		// mScrollView.setBackgroundColor(Color.parseColor("#b6d4df"));
+//		mScrollView.setOnScrollUpListener(new OnActionbarScrollListener());
+		// 添加监听
 		findViewById(R.id.reload).setOnClickListener(this);
 		findViewById(R.id.back).setOnClickListener(this);
-		cartView.setOnClickListener(this);
-
-		mScrollView.setBackgroundColor(Color.parseColor("#b6d4df"));
-		mScrollView.setOnScrollUpListener(new OnScrollUpListener() {
-
-			@Override
-			public void onScroll(int scrollY, boolean scrollDirection) {
-				if (mframeLayout.getMeasuredHeight() > 0) {
-					if (scrollY <= 0) {
-						backgroundDrawable.setAlpha(0);
-					} else if (scrollY <= mframeLayout.getMeasuredHeight()
-							&& scrollY > 0) {
-						backgroundDrawable.setAlpha(scrollY * 255
-								/ mframeLayout.getMeasuredHeight());
-					} else if (scrollY > mframeLayout.getMeasuredHeight()) {
-						backgroundDrawable.setAlpha(255);
-					}
-				}
-			}
-		});
+		// 初始化presenter
+		iGoodsPresenterImpl = new HThemeGoodsPresenterImpl(this);
 	}
 
 	// 获取显示数据
 	private void loadUrl() {
-		getLoading().show();
-		Log.i("url", getIntent().getStringExtra("url"));
-		VolleyHttp.doGetRequestTask(getHeaders(),
-				getIntent().getStringExtra("url"), new VolleyJsonCallback() {
-
-					@Override
-					public void onSuccess(String result) {
-						findViewById(R.id.no_net).setVisibility(View.GONE);
-						HThemeGoods detail = DataParser.parserThemeItem(result);
-						if (detail.getMessage().getCode() == 200) {
-							initThemeView(detail);
-							initShopCartView(detail);
-						} else {
-							findViewById(R.id.no_net).setVisibility(
-									View.VISIBLE);
-							ToastUtils.Toast(getActivity(), detail.getMessage()
-									.getMessage());
-						}
-						getLoading().dismiss();
-					}
-
-					@Override
-					public void onError() {
-						getLoading().dismiss();
-						findViewById(R.id.no_net).setVisibility(View.VISIBLE);
-						ToastUtils.Toast(getActivity(), R.string.error);
-					}
-				}, Tag);
+		iGoodsPresenterImpl.getHThemeGoodsData(getHeaders(), getIntent()
+				.getStringExtra("url"), Tag);
 	}
 
 	/**
 	 * 获取购物车数量 并显示
 	 */
 	private void getCartNum() {
+		iGoodsPresenterImpl.getCartNumData(getHeaders(), null);
+	}
 
-		if (getUser() == null) {
-			List<ShoppingGoods> goods = getDaoSession().getShoppingGoodsDao()
-					.queryBuilder().list();
-			int num = 0;
-			for (ShoppingGoods sg : goods) {
-				num += sg.getGoodsNums();
-			}
-			if (num <= 0) {
-				bView.hide(true);
+	private void showCartNum(int cartNum) {
+		if (cartNum > 0) {
+			if (cartNum <= 99) {
+				bView.setText(cartNum + "");
 			} else {
-				bView.setText(num + "");
-				bView.show(true);
+				bView.setText("...");
 			}
+			bView.show(true);
 		} else {
-			VolleyHttp.doGetRequestTask(getHeaders(), UrlUtil.GET_CART_NUM_URL,
-					new VolleyJsonCallback() {
-
-						@Override
-						public void onSuccess(String result) {
-							HThemeGoods detail = DataParser
-									.parserThemeItem(result);
-							if (detail.getMessage().getCode() == 200) {
-								if (detail.getCartNum() != null) {
-									bView.setText(detail.getCartNum() + "");
-									bView.show();
-								} else {
-									bView.hide();
-								}
-							} else {
-								ToastUtils.Toast(getActivity(), detail
-										.getMessage().getMessage());
-							}
-						}
-
-						@Override
-						public void onError() {
-							ToastUtils.Toast(getActivity(), R.string.error);
-						}
-					});
+			bView.hide(true);
 		}
 	}
 
-	private void initShopCartView(HThemeGoods detail) {
-		if (getUser() == null) {
-			List<ShoppingGoods> goods = getDaoSession().getShoppingGoodsDao()
-					.queryBuilder().list();
-			int num = 0;
-			for (ShoppingGoods sg : goods) {
-				num += sg.getGoodsNums();
-			}
-			if (num <= 0) {
-				bView.hide(true);
-			} else {
-				bView.setText(num + "");
-				bView.show(true);
-			}
-		} else {
-			if (detail.getCartNum() != null) {
-				if (detail.getCartNum() <= 99) {
-					bView.setText(detail.getCartNum() + "");
-				} else {
-					bView.setText("...");
-				}
-				bView.show(true);
-			} else {
-				bView.hide(true);
-			}
-		}
-	}
-
-	// 初始化主推商品显示
+	/**
+	 * 初始化主推商品显示
+	 * 
+	 * @param detail
+	 */
 	private void initThemeView(HThemeGoods detail) {
 		ThemeList themeList = detail.getThemeList();
 		if (themeList == null)
@@ -267,74 +180,112 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 		int width = CommonUtils.getScreenWidth(this);
 		int height = CommonUtils.getScreenWidth(this) * themeImg.getHeight()
 				/ themeImg.getWidth();
+		mframeLayout.setLayoutParams(new LinearLayout.LayoutParams(width, height));
 		ImageView img = (ImageView) findViewById(R.id.img); // 主推商品图片
-		GlideLoaderTools.loadRectImage(this, img, themeImg.getUrl(),
-				themeImg.getWidth(), themeImg.getHeight());
 		// 初始化标签信息
 		initTagInfo(themeList, width, height);
+
+		GlideLoaderTools.loadRectImage(this, themeImg.getUrl(), img);
+
 		data.clear();
 		data.addAll(themeList.getThemeItemList());
 		adapter.notifyDataSetChanged();
 	}
 
-	private void initTagInfo(ThemeList themeList, int width, int height) {
+	/**
+	 * 初始化标签参数
+	 * 
+	 * @param themeList
+	 * @param width
+	 * @param height
+	 */
+	private void initTagInfo(ThemeList themeList, final int width,
+			final int height) {
 		// 获取标签信息
-		List<ImgTag> tags = themeList.getMasterItemTag();
+		final List<ImgTag> tags = themeList.getMasterItemTag();
 		if (tags == null || tags.size() <= 0)
 			return;
-		for (ImgTag tag : tags) {
+		submitTask(new RunContext(this, tags, width, height));
 
-			TagInfo tagInfo = new TagInfo();
-			tagInfo.bid = 2L;
-			tagInfo.bname = tag.getName();
-			tagInfo.direct = tag.getAngle() > 90 ? com.ui.tag.TagInfo.Direction.Right
-					: com.ui.tag.TagInfo.Direction.Left;
-			tagInfo.type = Type.OfficalPoint;
-			tagInfo.targetUrl = tag.getUrl();
-			tagInfo.description = tag.getType();
+	}
 
-			final TagView tagView = tagInfo.direct == com.ui.tag.TagInfo.Direction.Right ? new TagViewRight(
-					this, null) : new TagViewLeft(this, null);
-			tagView.setData(tagInfo);
-			tagView.setTagViewListener(new TagViewListener() {
+	private class RunContext implements Runnable {
 
-				@Override
-				public void onTagViewClicked(View view, TagInfo info) {
-					Intent intent = null;
-					if (info.description.equals("pin")) {
-						intent = new Intent(getActivity(),
-								PingouDetailActivity.class);
-					} else {
-						intent = new Intent(getActivity(),
-								GoodsDetailActivity.class);
-					}
-					intent.putExtra("url", info.targetUrl);
-					startActivityForResult(intent, 1);
+		private Context context;
+		private List<ImgTag> tags;
+		private int width;
+		private int height;
+
+		private RunContext(Context context, List<ImgTag> tags, int width,
+				int height) {
+			super();
+			this.context = context;
+			this.tags = tags;
+			this.width = width;
+			this.height = height;
+		}
+		@Override
+		public void run() {
+			for (ImgTag tag : tags) {
+
+				final TagInfo tagInfo = new TagInfo();
+				tagInfo.bid = 2L;
+				tagInfo.bname = tag.getName();
+				tagInfo.direct = tag.getAngle() > 90 ? com.ui.tag.TagInfo.Direction.Right
+						: com.ui.tag.TagInfo.Direction.Left;
+				tagInfo.type = Type.OfficalPoint;
+				tagInfo.targetUrl = tag.getUrl();
+				tagInfo.description = tag.getType();
+
+				if (tagInfo.direct == com.ui.tag.TagInfo.Direction.Right) {
+					tagInfo.leftMargin = 0;
+					tagInfo.topMargin = (int) (height * tag.getTop());
+					tagInfo.rightMargin = (int) (width - width * tag.getLeft() - tagInfo
+							.getTagWidth());
+					Log.i("width", tagInfo.rightMargin + "");
+					tagInfo.bottomMargin = 0;
+				} else {
+					tagInfo.leftMargin = (int) (width * tag.getLeft() - tagInfo
+							.getTagWidth()); //
+					tagInfo.topMargin = (int) (height * tag.getTop() - tagInfo
+							.getTagHeight());
+					tagInfo.rightMargin = 0;
+					tagInfo.bottomMargin = 0;
 				}
-			});
 
-			if (tagInfo.direct == com.ui.tag.TagInfo.Direction.Right) {
-				tagInfo.leftMargin = 0;
-				tagInfo.topMargin = (int) (height * tag.getTop() - tagInfo
-						.getTagHeight());
-				tagInfo.rightMargin = (int) (width - width * tag.getLeft() - tagInfo
-						.getTagWidth());
-				Log.i("width", tagInfo.rightMargin + "");
-				tagInfo.bottomMargin = 0;
-			} else {
-				tagInfo.leftMargin = (int) (width * tag.getLeft() - tagInfo
-						.getTagWidth()); //
-				tagInfo.topMargin = (int) (height * tag.getTop() - tagInfo
-						.getTagHeight());
-				tagInfo.rightMargin = 0;
-				tagInfo.bottomMargin = 0;
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						// 更新UI
+						TagView tagView = tagInfo.direct == com.ui.tag.TagInfo.Direction.Right ? new TagViewRight(
+								context) : new TagViewLeft(context);
+						tagView.setData(tagInfo);
+						tagView.setTagViewListener(new TagViewListener() {
+
+							@Override
+							public void onTagViewClicked(View view, TagInfo info) {
+								Intent intent = null;
+								if (info.description.equals("pin")) {
+									intent = new Intent(getActivity(),
+											PingouDetailActivity.class);
+								} else {
+									intent = new Intent(getActivity(),
+											GoodsDetailActivity.class);
+								}
+								intent.putExtra("url", info.targetUrl);
+								startActivityForResult(intent, 1);
+							}
+						});
+						FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
+								LayoutParams.WRAP_CONTENT,
+								LayoutParams.WRAP_CONTENT);
+
+						lp.setMargins(tagInfo.leftMargin, tagInfo.topMargin,
+								tagInfo.rightMargin, tagInfo.bottomMargin);
+						mframeLayout.addView(tagView, lp);
+					}
+				});
 			}
-			FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
-					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-
-			lp.setMargins(tagInfo.leftMargin, tagInfo.topMargin,
-					tagInfo.rightMargin, tagInfo.bottomMargin);
-			mframeLayout.addView(tagView, lp);
 		}
 	}
 
@@ -378,15 +329,93 @@ public class ThemeGoodsActivity extends BaseActivity implements OnClickListener 
 	}
 
 	@Override
-	protected void onStop() {
-		super.onStop();
-	}
-
-	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 		unregisterReceiver(netReceiver);
 		VolleyHttp.parseRequestTask(Tag);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.hanmimei.activity.goods.theme.view.HThemeGoodsView#showLoading()
+	 */
+	@Override
+	public void showLoading() {
+		// TODO Auto-generated method stub
+		getLoading().show();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.hanmimei.activity.goods.theme.view.HThemeGoodsView#hideLoading()
+	 */
+	@Override
+	public void hideLoading() {
+		// TODO Auto-generated method stub
+		getLoading().dismiss();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.hanmimei.activity.goods.theme.view.HThemeGoodsView#GetData(com.hanmimei
+	 * .entity.HThemeGoods)
+	 */
+	@Override
+	public void GetHThemeGoodsData(HThemeGoods detail) {
+		// TODO Auto-generated method stub
+		initThemeView(detail);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.hanmimei.activity.goods.theme.view.HThemeGoodsView#showLoadFaild(
+	 * java.lang.String)
+	 */
+	@Override
+	public void showLoadFaild(String str) {
+		// TODO Auto-generated method stub
+		ToastUtils.Toast(getActivity(), str);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.hanmimei.activity.view.theme.HThemeGoodsView#GetCartNumData(java.
+	 * lang.Integer)
+	 */
+	@Override
+	public void GetCartNumData(Integer cartNum) {
+		// TODO Auto-generated method stub
+		showCartNum(cartNum);
+	}
+	
+	private class OnActionbarScrollListener implements OnScrollUpListener{
+
+		/* (non-Javadoc)
+		 * @see com.hanmimei.view.CustomScrollView.OnScrollUpListener#onScroll(int, boolean)
+		 */
+		@Override
+		public void onScroll(int scrollY, boolean scrollDirection) {
+			// TODO Auto-generated method stub
+			if (mframeLayout.getMeasuredHeight() > 0) {
+				if (scrollY <= 0) {
+					backgroundDrawable.setAlpha(0);
+				} else if (scrollY <= mframeLayout.getMeasuredHeight()
+						&& scrollY > 0) {
+					backgroundDrawable.setAlpha(scrollY * 255
+							/ mframeLayout.getMeasuredHeight());
+				} else if (scrollY > mframeLayout.getMeasuredHeight()) {
+					backgroundDrawable.setAlpha(255);
+				}
+			}
+		}
+		
+	}
 }

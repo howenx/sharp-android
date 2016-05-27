@@ -39,4 +39,6 @@ public class AppConstant {
 	public static final String MESSAGE_BROADCAST_UPDATE_COMMENT = "MESSAGE_BROADCAST_UPDATE_COMMENT";
 	// 支付失败
 	public static final String MESSAGE_BROADCAST_WEIXINPAY_FAIL = "MESSAGE_BROADCAST_WEIXINPAY_FAIL";
+	
+	public static final String HTTP_ERROR = "网络出现异常";
 }

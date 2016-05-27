@@ -19,6 +19,7 @@ import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.User;
 import com.hanmimei.http.VolleyHttp;
 import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
+import com.hanmimei.manager.DataBaseManager;
 import com.hanmimei.utils.DateUtils;
 import com.hanmimei.utils.PreferenceUtil.IntroConfig;
 import com.hanmimei.utils.ToastUtils;
@@ -127,8 +128,7 @@ public class FirstShowActivity extends AppCompatActivity {
 	}
 
 	private DaoSession getDaoSession() {
-		HMMApplication application = (HMMApplication) getApplication();
-		return application.getDaoSession();
+		return DataBaseManager.getInstance().getDaoSession();
 	}
 
 	@Override

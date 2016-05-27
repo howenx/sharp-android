@@ -11,6 +11,7 @@ import com.hanmimei.dao.DaoSession;
 import com.hanmimei.entity.User;
 import com.hanmimei.entity.VersionVo;
 import com.hanmimei.http.VolleyHttp;
+import com.hanmimei.manager.DataBaseManager;
 import com.hanmimei.utils.UncaughtExceptionTools;
 import com.testin.agent.TestinAgent;
 import com.umeng.socialize.PlatformConfig;
@@ -28,6 +29,7 @@ public class HMMApplication extends Application {
 		JPushInterface.setDebugMode(true);
 		initPlatformConfig();
 		VolleyHttp.registRequestQueue(this);
+		DataBaseManager.initializeInstance(this);
 		TestinAgent.init(this);
 		JPushInterface.init(this); // 初始化 JPush
 		UncaughtExceptionTools.handler(this);
@@ -67,21 +69,21 @@ public class HMMApplication extends Application {
 		this.loginUser = null;
 	}
 
-	public DaoMaster getDaoMaster() {
-		if (daoMaster == null) {
-			DevOpenHelper helper = new DaoMaster.DevOpenHelper(this,
-					"hmmdb_greedao.db", null);
-			daoMaster = new DaoMaster(helper.getWritableDatabase());
-		}
-		return daoMaster;
-	}
-
-	public DaoSession getDaoSession() {
-		if (daoSession == null) {
-			daoSession = getDaoMaster().newSession();
-		}
-		return daoSession;
-	}
+//	public DaoMaster getDaoMaster() {
+//		if (daoMaster == null) {
+//			DevOpenHelper helper = new DaoMaster.DevOpenHelper(this,
+//					"hmmdb_greedao.db", null);
+//			daoMaster = new DaoMaster(helper.getWritableDatabase());
+//		}
+//		return daoMaster;
+//	}
+//
+//	public DaoSession getDaoSession() {
+//		if (daoSession == null) {
+//			daoSession = getDaoMaster().newSession();
+//		}
+//		return daoSession;
+//	}
 
 	public String getKouling() {
 		return kouling;

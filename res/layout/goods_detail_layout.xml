@@ -29,11 +29,16 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical" >
 
-                    <com.bigkoo.convenientbanner.ConvenientBanner
-                        android:id="@+id/slider"
+                    <com.hanmimei.view.SquareLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_gray_boarder" />
+                        android:layout_height="wrap_content" >
+
+                        <com.bigkoo.convenientbanner.ConvenientBanner
+                            android:id="@+id/slider"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/bg_gray_boarder" />
+                    </com.hanmimei.view.SquareLayout>
 
                     <TextView
                         android:id="@+id/itemTitle"
@@ -56,15 +61,17 @@
                             android:id="@+id/btn_portalFee"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/btn_theme_boader_radius_selector"
                             android:layout_alignParentLeft="true"
+                            android:background="@drawable/btn_theme_boader_radius_selector"
+                            android:clickable="true"
+                            android:onClick="showPortalFeeInfo"
+                            android:paddingBottom="1dp"
                             android:paddingLeft="5dp"
                             android:paddingRight="5dp"
                             android:paddingTop="1dp"
-                            android:paddingBottom="1dp"
                             android:text="@string/shui"
-                            android:textSize="12sp"
-                            android:textColor="@color/btn_theme_font_selector" />
+                            android:textColor="@color/btn_theme_font_selector"
+                            android:textSize="12sp" />
 
                         <TextView
                             android:id="@+id/restrictAmount"
@@ -91,11 +98,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
+                        android:paddingBottom="8dp"
                         android:paddingLeft="8dp"
-                        android:paddingRight="8dp"
-                        android:paddingBottom="8dp" >
-
-                       
+                        android:paddingRight="8dp" >
 
                         <TextView
                             android:id="@+id/itemPrice"
@@ -105,16 +110,15 @@
                             android:background="@color/white"
                             android:textColor="@color/red"
                             android:textSize="@dimen/font_big" />
-                        
-                         <TextView
-                             android:id="@+id/area"
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content"
-                             android:layout_alignBottom="@id/itemPrice"
-                             android:layout_alignParentLeft="true"
-                             android:textColor="#BBBBBB"
-                             android:textSize="12sp" />
 
+                        <TextView
+                            android:id="@+id/area"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBottom="@id/itemPrice"
+                            android:layout_alignParentLeft="true"
+                            android:textColor="#BBBBBB"
+                            android:textSize="12sp" />
                     </RelativeLayout>
 
                     <TextView
@@ -204,13 +208,18 @@
                 </android.support.v4.view.ViewPager>
             </com.cpoopc.scrollablelayoutlib.ScrollableLayout>
 
-            <include
+            <ImageView
+                android:id="@+id/back_top"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:layout_margin="15dp"
-                layout="@layout/back_to_top_layout"
+                android:alpha="0.8"
+                android:clickable="true"
+                android:contentDescription="@null"
+                android:onClick="scrollToTop"
+                android:src="@drawable/backtop"
                 android:visibility="gone" />
         </RelativeLayout>
 
@@ -237,7 +246,9 @@
                 android:id="@+id/btn_shopcart"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1" >
+                android:layout_weight="1"
+                android:clickable="true"
+                android:onClick="turnToShoppingCarActivity" >
 
                 <ImageView
                     android:id="@+id/shopcart"
@@ -264,7 +275,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
+                    android:clickable="true"
                     android:contentDescription="@null"
+                    android:onClick="collectGoods"
                     android:scaleType="center"
                     android:src="@drawable/hmm_icon_collect" />
             </FrameLayout>
@@ -275,7 +288,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:background="@drawable/btn_pin_selector"
+                android:clickable="true"
                 android:gravity="center"
+                android:onClick="addToShoppingCart"
                 android:text="加入购物车"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
@@ -286,7 +301,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:background="@drawable/btn_buy_selector"
+                android:clickable="true"
                 android:gravity="center"
+                android:onClick="clickPay"
                 android:text="立即购买"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
@@ -301,7 +318,6 @@
         android:layout_marginBottom="30dp"
         android:contentDescription="@null"
         android:visibility="invisible"
-        android:background="@color/bg"
         app:border_color="@color/huise"
         app:border_width="1px" />
 
