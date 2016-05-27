@@ -74,7 +74,7 @@ public class GoodsCommentImgPagerAdapter extends FragmentStatePagerAdapter {
 					.findViewById(R.id.mImageView);
 			final String imageUrl = getArguments().getString("imageUrl");
 //			GlideLoaderUtils.loadSquareImage(mActivity, imageUrl, image);
-			Glide.with(mActivity).load(imageUrl)
+			Glide.with(this).load(imageUrl)
 			.placeholder(R.drawable.hmm_place_holder_z).fitCenter()
 			.animate(R.anim.abc_fade_in).thumbnail(0.1f).into(image);
 			

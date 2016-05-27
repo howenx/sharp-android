@@ -118,7 +118,7 @@ public class MyCollectionActivity extends BaseActivity implements
 						no_net.setVisibility(View.GONE);
 						CollectionVo collectionInfo = DataParser
 								.parserCollect(result); 
-						if (collectionInfo.gethMessage().getCode() == 200) {
+						if (collectionInfo.getMessage().getCode() == 200) {
 							if (collectionInfo.getList().size() > 0) {
 								mListView.setVisibility(View.VISIBLE);
 								no_data.setVisibility(View.GONE);

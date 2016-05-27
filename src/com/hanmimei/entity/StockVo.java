@@ -49,7 +49,7 @@ public class StockVo implements Serializable {
 	private String shareUrl; // 分享短连接
 	private String status; // 拼购ID
 	private BigDecimal invPrice; // 商品原价
-	private int collectId;
+	private long collectId;
 
 	private String soldAmount;// 已售数量
 
@@ -65,11 +65,11 @@ public class StockVo implements Serializable {
 		this.skuType = skuType;
 	}
 
-	public int getCollectId() {
+	public long getCollectId() {
 		return collectId;
 	}
 
-	public void setCollectId(int collectId) {
+	public void setCollectId(long collectId) {
 		this.collectId = collectId;
 	}
 

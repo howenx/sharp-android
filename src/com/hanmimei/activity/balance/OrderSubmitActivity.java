@@ -44,7 +44,7 @@ public class OrderSubmitActivity extends BaseActivity {
 	private boolean isSuccess = false; // 用于标志支付是否成功
 
 	Map<String, String> extraHeaders;
-	
+
 	@SuppressLint("SetJavaScriptEnabled")
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,7 +63,7 @@ public class OrderSubmitActivity extends BaseActivity {
 
 		// 获取用户token 添加到header中
 		extraHeaders = new HashMap<String, String>();
-		if(getUser() !=null)
+		if (getUser() != null)
 			extraHeaders.put("id-token", getUser().getToken());
 
 		mWebView.setWebViewClient(new WebViewClient() {
@@ -154,13 +154,15 @@ public class OrderSubmitActivity extends BaseActivity {
 			startActivity(intent);
 			finish();
 		}
+
 		@JavascriptInterface
-		public void weixinpay(String appid,String partnerId,String prepayId,String pack,String nonceStr,String timeStamp,String sign) {
-			wxPay(appid,partnerId,prepayId,pack,nonceStr,timeStamp,sign);
+		public void weixinpay(String appid, String partnerId, String prepayId,
+				String pack, String nonceStr, String timeStamp, String sign) {
+			wxPay(appid, partnerId, prepayId, pack, nonceStr, timeStamp, sign);
 		}
 
-		
 	}
+
 	/**
 	 * @param appid
 	 * @param partnerId
@@ -173,16 +175,15 @@ public class OrderSubmitActivity extends BaseActivity {
 	private void wxPay(String appid, String partnerId, String prepayId,
 			String pack, String nonceStr, String timeStamp, String sign) {
 		IWXAPI msgApi = WXAPIFactory.createWXAPI(this, "wx578f993da4b29f97");
-		
+
 		PayReq req = new PayReq();
-		req.appId			= appid;
-		req.partnerId		= partnerId;
-		req.prepayId		= prepayId;
-		req.nonceStr		= nonceStr;
-		req.timeStamp		= timeStamp;
-		req.packageValue	= pack;
-		req.sign			= sign;
-//		ToastUtils.Toast(OrderSubmitActivity.this, "正常调起支付");
+		req.appId = appid;
+		req.partnerId = partnerId;
+		req.prepayId = prepayId;
+		req.nonceStr = nonceStr;
+		req.timeStamp = timeStamp;
+		req.packageValue = pack;
+		req.sign = sign;
 		// 在支付之前，如果应用没有注册到微信，应该先调用IWXMsg.registerApp将应用注册到微信
 		msgApi.sendReq(req);
 	}
@@ -219,9 +220,8 @@ public class OrderSubmitActivity extends BaseActivity {
 		EventBus.getDefault().unregister(this);
 	}
 
-	
 	public void onEvent(PayEvent event) {
-		if(event.getCode() != 0){
+		if (event.getCode() != 0) {
 			showPayFailDialog();
 		}
 	}
@@ -239,7 +239,8 @@ public class OrderSubmitActivity extends BaseActivity {
 			@Override
 			public void onClick(View v) {
 				if (getIntent().getStringExtra("orderType").equals("item")) {
-					startActivity(new Intent(getActivity(),MyOrderActivity.class));
+					startActivity(new Intent(getActivity(),
+							MyOrderActivity.class));
 				} else {
 					onBackPressed();
 				}

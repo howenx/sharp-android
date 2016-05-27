@@ -7,13 +7,14 @@ import java.util.List;
  *
  */
 public class CollectionVo {
-	private HMessage hMessage;
+	private HMessage message;
 	private List<Collection> list;
-	public HMessage gethMessage() {
-		return hMessage;
+	
+	public HMessage getMessage() {
+		return message;
 	}
-	public void sethMessage(HMessage hMessage) {
-		this.hMessage = hMessage;
+	public void setMessage(HMessage message) {
+		this.message = message;
 	}
 	public List<Collection> getList() {
 		return list;
@@ -24,5 +25,14 @@ public class CollectionVo {
 	public CollectionVo() {
 		super();
 	}
+	
+	private Long collectId;
+	public Long getCollectId() {
+		return collectId;
+	}
+	public void setCollectId(Long collectId) {
+		this.collectId = collectId;
+	}
+	
 	
 }

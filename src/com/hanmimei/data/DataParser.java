@@ -540,7 +540,7 @@ public class DataParser {
 					hMessage.setMessage(mObject.getString("message"));
 				if (mObject.has("code"))
 					hMessage.setCode(mObject.getInt("code"));
-				collectionInfo.sethMessage(hMessage);
+				collectionInfo.setMessage(hMessage);
 			}
 			if (object.has("collectList")) {
 				List<Collection> list = new ArrayList<Collection>();

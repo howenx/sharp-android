@@ -27,7 +27,6 @@ import com.hanmimei.activity.goods.detail.GoodsDetailActivity;
 import com.hanmimei.activity.goods.pin.PingouDetailActivity;
 import com.hanmimei.activity.goods.pin.PingouResultActivity;
 import com.hanmimei.application.HMMApplication;
-import com.hanmimei.dao.DaoMaster;
 import com.hanmimei.dao.DaoSession;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.GoodsDetail;
@@ -37,6 +36,7 @@ import com.hanmimei.entity.User;
 import com.hanmimei.entity.VersionVo;
 import com.hanmimei.http.VolleyHttp;
 import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
+import com.hanmimei.manager.DataBaseManager;
 import com.hanmimei.manager.ThreadPoolManager;
 import com.hanmimei.utils.GlideLoaderTools;
 import com.hanmimei.utils.ToastUtils;
@@ -65,12 +65,9 @@ public class BaseActivity extends ParallaxActivityBase {
 	 * 获得用于数据库管理的DaoSession
 	 */
 	public DaoSession getDaoSession() {
-		return getMyApplication().getDaoSession();
+		return DataBaseManager.getInstance().getDaoSession();
 	}
 
-	public DaoMaster getDaoMaster() {
-		return getMyApplication().getDaoMaster();
-	}
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -115,9 +112,8 @@ public class BaseActivity extends ParallaxActivityBase {
 	}
 
 	public LoadingDialog getLoading() {
-		if (loadingDialog == null) {
+		if(loadingDialog == null)
 			loadingDialog = new LoadingDialog(this);
-		}
 		return loadingDialog;
 	}
 
@@ -137,7 +133,8 @@ public class BaseActivity extends ParallaxActivityBase {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-//		VolleyHttp.parseRequestTask();
+		if(getLoading().isShowing())
+			getLoading().dismiss();
 		if (!isAppOnForeground()) {
 			setClipboard();
 		}

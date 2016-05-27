@@ -11,8 +11,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" 
-        android:background="@color/bg">
+        android:layout_weight="1"
+        android:background="@color/bg" >
 
         <com.cpoopc.scrollablelayoutlib.ScrollableLayout
             android:id="@+id/mScrollLayout"
@@ -27,10 +27,15 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
-                <com.bigkoo.convenientbanner.ConvenientBanner
-                    android:id="@+id/slider"
+                <com.hanmimei.view.SquareLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="wrap_content" >
+
+                    <com.bigkoo.convenientbanner.ConvenientBanner
+                        android:id="@+id/slider"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </com.hanmimei.view.SquareLayout>
 
                 <TextView
                     android:id="@+id/pinTitle"

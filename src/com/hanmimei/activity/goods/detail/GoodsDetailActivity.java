@@ -3,7 +3,6 @@ package com.hanmimei.activity.goods.detail;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -13,6 +12,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -20,17 +20,14 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.android.volley.Request.Method;
 import com.astuetz.PagerSlidingTabStrip;
 import com.bigkoo.convenientbanner.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.cpoopc.scrollablelayoutlib.ScrollAbleFragment;
 import com.cpoopc.scrollablelayoutlib.ScrollableLayout;
 import com.cpoopc.scrollablelayoutlib.ScrollableLayout.OnScrollListener;
-import com.google.gson.Gson;
 import com.hanmimei.R;
 import com.hanmimei.activity.HMainActivity;
 import com.hanmimei.activity.balance.GoodsBalanceActivity;
@@ -42,14 +39,13 @@ import com.hanmimei.activity.goods.detail.fragment.HotFragment;
 import com.hanmimei.activity.goods.detail.fragment.ImgFragment;
 import com.hanmimei.activity.goods.detail.fragment.ParamsFragment;
 import com.hanmimei.activity.login.LoginActivity;
-import com.hanmimei.dao.ShoppingGoodsDao.Properties;
+import com.hanmimei.activity.presenter.gdetail.GoodsDetailPresenterImpl;
+import com.hanmimei.activity.view.gdetail.GoodsDetailView;
 import com.hanmimei.data.AppConstant;
-import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.CommentVo;
 import com.hanmimei.entity.CustomsVo;
 import com.hanmimei.entity.GoodsDetail;
-import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.ImageVo;
 import com.hanmimei.entity.ShareVo;
 import com.hanmimei.entity.ShoppingCar;
@@ -57,19 +53,17 @@ import com.hanmimei.entity.ShoppingGoods;
 import com.hanmimei.entity.StockVo;
 import com.hanmimei.entity.TagVo;
 import com.hanmimei.http.VolleyHttp;
-import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.override.SimpleAnimationListener;
 import com.hanmimei.override.ViewPageChangeListener;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.AnimationTools;
-import com.hanmimei.utils.CommonUtils;
 import com.hanmimei.utils.GlideLoaderTools;
 import com.hanmimei.utils.KeyWordUtil;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.BadgeView;
-import com.hanmimei.view.NetworkImageHolderView;
 import com.hanmimei.view.GoodsPushWindow;
+import com.hanmimei.view.NetworkImageHolderView;
 import com.hanmimei.view.ShareWindow;
 import com.hanmimei.view.TagCloudView;
 import com.hanmimei.view.TagCloudView.OnTagClickListener;
@@ -84,7 +78,7 @@ import com.umeng.socialize.UMShareAPI;
  * 
  */
 public class GoodsDetailActivity extends BaseActivity implements
-		OnClickListener {
+		OnClickListener, GoodsDetailView {
 
 	private static final String Tag = "GoodsDetailActivity";
 
@@ -105,8 +99,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private ScrollableLayout mScrollLayout;
 
 	// private User user;
+	private GoodsDetail detail;
+	private GoodsDetailPresenterImpl detailPresenterImpl;
 	private int num_shopcart;
-	private HMessage msg;
 	private boolean isCollection;
 	private boolean isChange;
 
@@ -130,6 +125,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		registerReceivers();
 	}
 
+
 	/**
 	 * 初始化所有view
 	 * 
@@ -137,48 +133,22 @@ public class GoodsDetailActivity extends BaseActivity implements
 	 */
 	@SuppressWarnings("unchecked")
 	private void findView() {
+		detailPresenterImpl = new GoodsDetailPresenterImpl(this);
+		
 		slider = (ConvenientBanner<ImageVo>) findViewById(R.id.slider);
-		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-				CommonUtils.getScreenWidth(this),
-				CommonUtils.getScreenWidth(this));
-		slider.setLayoutParams(lp);
 		itemTitle = (TextView) findViewById(R.id.itemTitle);
 		itemSrcPrice = (TextView) findViewById(R.id.itemSrcPrice);
 		itemPrice = (TextView) findViewById(R.id.itemPrice);
 		more_view = (TextView) findViewById(R.id.more_view);
-
 		num_restrictAmount = (TextView) findViewById(R.id.restrictAmount);
 		area = (TextView) findViewById(R.id.area);
-		back_top = findViewById(R.id.back_top);
-
 		img_hide = (ImageView) findViewById(R.id.img_hide);
 		mScrollLayout = (ScrollableLayout) findViewById(R.id.mScrollLayout);
 		collectionImg = (ImageView) findViewById(R.id.attention);
-		findViewById(R.id.btn_attention).setOnClickListener(this);
-		findViewById(R.id.btn_pay).setOnClickListener(this);
-		findViewById(R.id.btn_shopcart).setOnClickListener(this);
-		findViewById(R.id.btn_add_shopcart).setOnClickListener(this);
-		findViewById(R.id.btn_portalFee).setOnClickListener(this);
-		findViewById(R.id.back_top).setOnClickListener(this);
-		shopcartAnimator = AnimationTools.nope(findViewById(R.id.shopcart));
-		imgAnimator = AnimationTools.initAnimatorSetValue(this, img_hide,
-				new SimpleAnimationListener() {
-
-					@Override
-					public void onAnimationStart(Animator arg0) {
-						img_hide.setVisibility(View.VISIBLE);
-					}
-
-					@Override
-					public void onAnimationEnd(Animator arg0) {
-						img_hide.setVisibility(View.GONE);
-						num_shopcart++;
-						showGoodsNums();
-						findViewById(R.id.btn_add_shopcart).setOnClickListener(
-								GoodsDetailActivity.this);
-						shopcartAnimator.start();
-					}
-				});
+		back_top = findViewById(R.id.back_top);
+		
+		findViewById(R.id.btn_comment).setOnClickListener(this);
+		
 	}
 
 	/**
@@ -193,20 +163,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 	}
 
 	private void showGoodsNums() {
-		int num = 0;
-		if (getUser() == null) {
-			List<ShoppingGoods> goods = getDaoSession().getShoppingGoodsDao()
-					.queryBuilder().list();
-			for (ShoppingGoods sg : goods) {
-				num += sg.getGoodsNums();
-			}
-		} else {
-			num = num_shopcart;
-		}
-
-		if (num > 0) {
-			if (num <= 99) {
-				goodsNumView.setText(num + "");
+		if (num_shopcart > 0) {
+			if (num_shopcart <= 99) {
+				goodsNumView.setText(num_shopcart + "");
 			} else {
 				goodsNumView.setText("...");
 			}
@@ -222,113 +181,20 @@ public class GoodsDetailActivity extends BaseActivity implements
 	/**
 	 * 加载数据
 	 */
-	private GoodsDetail detail;
 
 	private void loadDataByUrl() {
 		if (TextUtils.isEmpty(getIntent().getStringExtra("url")))
 			return;
-		getLoading().show();
-		Log.i("detailUrl", getIntent().getStringExtra("url"));
-		VolleyHttp.doGetRequestTask(getHeaders(),
-				getIntent().getStringExtra("url"), new VolleyJsonCallback() {
-
-					@Override
-					public void onSuccess(String result) {
-						try {
-							detail = new Gson().fromJson(result,
-									GoodsDetail.class);
-						} catch (Exception e) {
-							ToastUtils.Toast(getActivity(), R.string.error);
-							getLoading().dismiss();
-							return;
-						}
-						initGoodsDetail();
-						getLoading().dismiss();
-					}
-
-					@Override
-					public void onError() {
-						getLoading().dismiss();
-						ToastUtils.Toast(getActivity(), R.string.error);
-					}
-				}, Tag);
-	}
-
-	/**
-	 * 发送商品信息添加到购物车
-	 */
-	private void sendData(ShoppingGoods goods) {
-		JSONArray array = toJSONArray(goods);
-		getLoading().show();
-		VolleyHttp.doPostRequestTask2(getHeaders(), UrlUtil.GET_CAR_LIST_URL,
-				new VolleyJsonCallback() {
-
-					@Override
-					public void onSuccess(String result) {
-						getLoading().dismiss();
-						HMessage hm = DataParser.paserResultMsg(result);
-						if (hm.getCode() == 200) {
-							// 购物车添加成功，显示提示框
-							displayAnimation();
-						} else if (hm.getCode() == 3001 || hm.getCode() == 2001) {
-							// 提示添加失败原因
-							msg = hm;
-							ToastUtils.Toast(getActivity(), hm.getMessage());
-						} else {
-							ToastUtils.Toast(getActivity(), hm.getMessage());
-						}
-					}
-
-					@Override
-					public void onError() {
-						getLoading().dismiss();
-						ToastUtils.Toast(getActivity(), R.string.error);
-					}
-				}, array.toString());
+		detailPresenterImpl.getGoodsDetailData(getHeaders(), getIntent()
+				.getStringExtra("url"), Tag);
 	}
 
 	private void getGoodsNums() {
-		if (getUser() == null) {
-			showGoodsNums();
-		} else {
-			VolleyHttp.doGetRequestTask(getHeaders(), UrlUtil.GET_CART_NUM_URL,
-					new VolleyJsonCallback() {
-
-						@Override
-						public void onSuccess(String result) {
-							GoodsDetail numDetail;
-							try {
-								numDetail = new Gson().fromJson(result,
-										GoodsDetail.class);
-							} catch (Exception e) {
-								ToastUtils.Toast(getActivity(), R.string.error);
-								return;
-							}
-							if (numDetail == null)
-								return;
-							if (numDetail.getMessage().getCode() == 200) {
-								if (numDetail.getCartNum() != null) {
-									num_shopcart = numDetail.getCartNum();
-								} else {
-									num_shopcart = 0;
-								}
-								showGoodsNums();
-							} else {
-								ToastUtils.Toast(getActivity(), numDetail
-										.getMessage().getMessage());
-							}
-						}
-
-						@Override
-						public void onError() {
-							ToastUtils.Toast(getActivity(), R.string.error);
-						}
-					});
-		}
+		detailPresenterImpl.getCartNumData(getHeaders(), null);
 	}
 
 	// =========================================================================
-	// ===============================点击 事件==================================
+	// ===============================点击 事件====================================
 	// =========================================================================
 
 	@Override
@@ -338,43 +204,17 @@ public class GoodsDetailActivity extends BaseActivity implements
 			return;
 		}
 		switch (arg0.getId()) {
-		case R.id.btn_shopcart:
-			setResult(AppConstant.CAR_TO_GOODS_CODE);
-			startActivity(new Intent(this, ShoppingCarActivity.class));
-			break;
-		case R.id.btn_portalFee:
-			showPortalFeeInfo();
-			break;
-		case R.id.btn_pay:
-			clickPay();
-			break;
-		case R.id.btn_attention:
-			collectGoods();
-			break;
-		case R.id.btn_add_shopcart:
-			addToShoppingCart();
-			break;
 		case R.id.setting:
 			showShareboard();
 			break;
-		case R.id.back_top:
-			mScrollLayout.scrollToTop();
-			break;
-		case R.id.reload:
-			loadDataByUrl();
-			break;
 		case R.id.more_view:
-			showPopupwindow();
+			showPushWindow();
+			break;
+		case R.id.btn_comment:
+			turnToGoodsCommentActivity();
 			break;
 		case R.id.back:
 			exitClick();
-			break;
-		case R.id.btn_comment:
-			Intent intent = new Intent(this, GoodsCommentActivity.class);
-			intent.putExtra("skuType", detail.getCurrentStock().getSkuType());
-			intent.putExtra("skuTypeId", detail.getCurrentStock()
-					.getSkuTypeId());
-			startActivity(intent);
 			break;
 		default:
 			break;
@@ -386,11 +226,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 	 * 
 	 * @author vince
 	 */
-	private void addToShoppingCart() {
-		if (msg != null) {
-			ToastUtils.Toast(this, msg.getMessage());
+	public void addToShoppingCart(View view) {
+		if(detail == null)
 			return;
-		}
 		ShoppingGoods goods = null;
 		for (StockVo stock : detail.getStock()) {
 			if (stock.getOrMasterInv() && stock.getState().equals("Y")) {
@@ -406,75 +244,36 @@ public class GoodsDetailActivity extends BaseActivity implements
 			ToastUtils.Toast(this, "请选择商品");
 			return;
 		}
-		findViewById(R.id.btn_add_shopcart).setOnClickListener(null);
-		if (getUser() != null) {
-			// 登录状态下加入购物车
-			sendData(goods);
-		} else {
-			// 未登录状态下加入购物车
-			addShoppingCartCheck(goods);
-		}
+		findViewById(R.id.btn_add_shopcart).setClickable(false);
+		detailPresenterImpl.addToCart(getHeaders(), goods);
 		isChange = true;
 
 	}
 
-	/**
-	 * 加入购物车验证
-	 * 
-	 * @author vince
-	 */
-	ShoppingGoods goods2;
-
-	private void addShoppingCartCheck(ShoppingGoods goods) {
-		goods2 = getDaoSession()
-				.getShoppingGoodsDao()
-				.queryBuilder()
-				.where(Properties.GoodsId.eq(goods.getGoodsId()),
-						Properties.SkuType.eq(goods.getSkuType()),
-						Properties.SkuTypeId.eq(goods.getSkuTypeId())).unique();
-		if (goods2 == null || goods2.getId() == null) {
-			goods2 = new ShoppingGoods();
-			goods2.setGoodsId(goods.getGoodsId());
-			goods2.setGoodsNums(0);
-			goods2.setSkuType(goods.getSkuType());
-			goods2.setSkuTypeId(goods.getSkuTypeId());
-		}
-		getLoading().show();
-		VolleyHttp.doPostRequestTask2(UrlUtil.POST_ADD_CART,
-				new VolleyJsonCallback() {
-
-					@Override
-					public void onSuccess(String result) {
-						getLoading().dismiss();
-						HMessage hm = DataParser.paserResultMsg(result);
-						if (hm.getCode() == 200) {
-							// 购物车添加成功，显示提示框
-							// ToastUtils.Toast(GoodsDetailActivity.this,hm.getMessage());
-							displayAnimation();
-							goods2.setGoodsNums(goods2.getGoodsNums() + 1);
-							getDaoSession().getShoppingGoodsDao()
-									.insertOrReplace(goods2);
-							showGoodsNums();
-						} else if (hm.getCode() == 3001 || hm.getCode() == 2001) {
-							// 提示添加失败原因
-							msg = hm;
-							ToastUtils.Toast(getActivity(), hm.getMessage());
-						} else {
-							ToastUtils.Toast(getActivity(), hm.getMessage());
-						}
-					}
-
-					@Override
-					public void onError() {
-						getLoading().dismiss();
-						ToastUtils.Toast(getActivity(), R.string.error);
-					}
-				}, toJSONObject(goods2).toString());
-	}
 
 	private void displayAnimation() {
 		GlideLoaderTools.loadSquareImage(getActivity(), detail
 				.getCurrentStock().getInvImgForObj().getUrl(), img_hide);
+		if (shopcartAnimator == null || imgAnimator == null) {
+			shopcartAnimator = AnimationTools.nope(findViewById(R.id.shopcart));
+			imgAnimator = AnimationTools.initAnimatorSetValue(this, img_hide,
+					new SimpleAnimationListener() {
+
+						@Override
+						public void onAnimationStart(Animator arg0) {
+							img_hide.setVisibility(View.VISIBLE);
+						}
+
+						@Override
+						public void onAnimationEnd(Animator arg0) {
+							img_hide.setVisibility(View.GONE);
+							num_shopcart++;
+							showGoodsNums();
+							findViewById(R.id.btn_add_shopcart).setClickable(true);
+							shopcartAnimator.start();
+						}
+					});
+		}
 		imgAnimator.start();
 	}
 
@@ -483,7 +282,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 		if (shareWindow == null) {
 			StockVo shareStock = detail.getCurrentStock();
-			if(shareStock == null){
+			if (shareStock == null) {
 				ToastUtils.Toast(this, "等待加载数据");
 				return;
 			}
@@ -509,12 +308,14 @@ public class GoodsDetailActivity extends BaseActivity implements
 	/**
 	 * 点击立即购买按钮的响应事件
 	 */
-	private void clickPay() {
+	public void clickPay(View view) {
 		// 未登录跳到登陆页面
 		if (getUser() == null) {
 			startActivity(new Intent(this, LoginActivity.class));
 			return;
 		}
+		if(detail == null)
+			return;
 		ShoppingCar car = new ShoppingCar();
 		List<CustomsVo> list = new ArrayList<CustomsVo>();
 		CustomsVo customs = new CustomsVo();
@@ -559,150 +360,59 @@ public class GoodsDetailActivity extends BaseActivity implements
 	/**
 	 * 弹出显示税费的提醒框
 	 */
-	private void showPortalFeeInfo() {
+	public void showPortalFeeInfo(View view) {
 		// TODO 弹出显示税费的提醒框
 		AlertDialogUtils.showPostDialog(this, curItemPrice, curPostalTaxRate,
 				postalStandard);
-
 	}
-
 	/**
-	 * 登录状态下拼接商品信息
+	 * 跳转到购物车页面
+	 * @param view
 	 */
-	private JSONArray toJSONArray(ShoppingGoods goods) {
-		JSONArray array = null;
-		try {
-			array = new JSONArray();
-			JSONObject object = new JSONObject();
-			object.put("cartId", 0);
-			object.put("skuId", goods.getGoodsId());
-			object.put("amount", goods.getGoodsNums());
-			object.put("state", goods.getState());
-			object.put("skuType", goods.getSkuType());
-			object.put("skuTypeId", goods.getSkuTypeId());
-			array.put(object);
-
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		return array;
+	public void turnToShoppingCarActivity(View view){
+		startActivity(new Intent(this, ShoppingCarActivity.class));
 	}
-
 	/**
-	 * 未登录状态下拼接商品信息
+	 * 跳转到商品评价页面
+	 * @param view
 	 */
-	private JSONObject toJSONObject(ShoppingGoods goods) {
-		JSONObject object = new JSONObject();
-		try {
-			object.put("skuId", goods.getGoodsId());
-			object.put("amount", goods.getGoodsNums() + 1);
-			object.put("skuType", goods.getSkuType());
-			object.put("skuTypeId", goods.getSkuTypeId());
-		} catch (JSONException e) {
-		}
-
-		return object;
+	public void turnToGoodsCommentActivity(){
+		if(detail == null)
+			return;
+		Intent intent = new Intent(this, GoodsCommentActivity.class);
+		intent.putExtra("skuType", detail.getCurrentStock().getSkuType());
+		intent.putExtra("skuTypeId", detail.getCurrentStock()
+				.getSkuTypeId());
+		startActivity(intent);
 	}
+	/**
+	 * 返回顶部
+	 * @param view
+	 */
+	public void scrollToTop(View view){
+		mScrollLayout.scrollToTop();
+	}
+
 
 	// 收藏商品
-	private void collectGoods() {
+	public void collectGoods(View view) {
 		if (getUser() == null) {
 			startActivity(new Intent(this, LoginActivity.class));
+			return;
+		}
+		if(detail == null)
+			return;
+		findViewById(R.id.btn_attention).setClickable(false);
+		if (isCollection) {
+			detailPresenterImpl.cancelCollection(getHeaders(), detail.getCurrentStock().getCollectId());
 		} else {
-			findViewById(R.id.btn_attention).setOnClickListener(null);
-			if (isCollection) {
-				delCollection();
-			} else {
-				addCollection(getCollectedGoodsInfo());
-			}
+			detailPresenterImpl.addCollection(getHeaders(),detail.getCurrentStock());
 		}
-	}
-
-	private String getCollectedGoodsInfo() {
-		JSONObject object = new JSONObject();
-		try {
-			object.put("skuId", detail.getCurrentStock().getId());
-			object.put("skuType", detail.getCurrentStock().getSkuType());
-			object.put("skuTypeId", detail.getCurrentStock().getSkuTypeId());
-		} catch (JSONException e) {
-		}
-		return object.toString();
-	}
-
-	// 添加收藏
-	private void addCollection(String collected) {
-		getLoading().show();
-		VolleyHttp.doPostRequestTask2(getHeaders(), UrlUtil.ADD_COLLECTION,
-				new VolleyJsonCallback() {
-
-					@Override
-					public void onSuccess(String result) {
-						getLoading().dismiss();
-						findViewById(R.id.btn_attention).setOnClickListener(
-								GoodsDetailActivity.this);
-						HMessage message = DataParser.paserResultMsg(result);
-						int collectionId = DataParser.parserCollectId(result);
-						if (message.getCode() == 200) {
-							isCollection = true;
-							detail.getCurrentStock().setCollectId(collectionId);
-							collectionImg
-									.setImageResource(R.drawable.hmm_icon_collect_h);
-							sendBroadcast(new Intent(
-									AppConstant.MESSAGE_BROADCAST_COLLECTION_ACTION));
-						} else {
-							ToastUtils.Toast(GoodsDetailActivity.this, "收藏失败");
-						}
-					}
-
-					@Override
-					public void onError() {
-						getLoading().dismiss();
-						findViewById(R.id.btn_attention).setOnClickListener(
-								GoodsDetailActivity.this);
-						ToastUtils.Toast(GoodsDetailActivity.this,
-								"收藏失败，请检查您的网络");
-					}
-				}, collected);
-	}
-
-	private void delCollection() {
-		getLoading().show();
-		VolleyHttp.doGetRequestTask(getHeaders(), UrlUtil.DEL_COLLECTION
-				+ detail.getCurrentStock().getCollectId(),
-				new VolleyJsonCallback() {
-
-					@Override
-					public void onSuccess(String result) {
-						findViewById(R.id.btn_attention).setOnClickListener(
-								GoodsDetailActivity.this);
-						getLoading().dismiss();
-						HMessage message = DataParser.paserResultMsg(result);
-						if (message.getCode() == 200) {
-							isCollection = false;
-							detail.getCurrentStock().setCollectId(0);
-							collectionImg
-									.setImageResource(R.drawable.hmm_icon_collect);
-							sendBroadcast(new Intent(
-									AppConstant.MESSAGE_BROADCAST_COLLECTION_ACTION));
-						} else {
-							ToastUtils
-									.Toast(GoodsDetailActivity.this, "取消收藏失败");
-						}
-					}
-
-					@Override
-					public void onError() {
-						findViewById(R.id.btn_attention).setOnClickListener(
-								GoodsDetailActivity.this);
-						getLoading().dismiss();
-						ToastUtils.Toast(GoodsDetailActivity.this, "取消收藏失败");
-					}
-				});
 	}
 
 	private GoodsPushWindow pushWindow;
 
-	private void showPopupwindow() {
+	private void showPushWindow() {
 		if (pushWindow == null) {
 			pushWindow = new GoodsPushWindow(this, detail.getPush());
 		}
@@ -821,7 +531,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 			more_view.setOnClickListener(this);
 			findViewById(R.id.btn_pay).setEnabled(false);
 			findViewById(R.id.btn_add_shopcart).setEnabled(false);
-			showPopupwindow();
+			showPushWindow();
 		}
 		initStocks(stock);
 		initTags(tags);
@@ -939,8 +649,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private void registerReceivers() {
 		netReceiver = new CarBroadCastReceiver();
 		IntentFilter intentFilter = new IntentFilter();
-		intentFilter
-				.addAction(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR);
+		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR);
 		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION);
 		getActivity().registerReceiver(netReceiver, intentFilter);
 	}
@@ -951,7 +660,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 		public void onReceive(Context context, Intent intent) {
 			if (intent.getAction().equals(
 					AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR)) {
-				msg = null;
 				getGoodsNums();
 			} else if (intent.getAction().equals(
 					AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION)) {
@@ -965,9 +673,11 @@ public class GoodsDetailActivity extends BaseActivity implements
 	protected void onDestroy() {
 		super.onDestroy();
 		unregisterReceiver(netReceiver);
-		if (isChange)
-			sendBroadcast(new Intent(
-					AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
+		if (isChange){
+			Intent intent = new Intent(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR);
+			intent.putExtra("cartNum", num_shopcart);
+			sendBroadcast(intent);
+		}
 		VolleyHttp.parseRequestTask(Tag);
 	}
 
@@ -990,6 +700,123 @@ public class GoodsDetailActivity extends BaseActivity implements
 		} else {
 			finish();
 		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.hanmimei.activity.view.gdetail.GoodsDetailView#showLoading()
+	 */
+	@Override
+	public void showLoading() {
+		// TODO Auto-generated method stub
+		Log.i("showLoading", getLoading().isShowing()+"");
+		if(!getLoading().isShowing())
+			getLoading().show();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.hanmimei.activity.view.gdetail.GoodsDetailView#hideLoading()
+	 */
+	@Override
+	public void hideLoading() {
+		// TODO Auto-generated method stub
+		Log.i("hideLoading", getLoading().isShowing()+"");
+		if(getLoading().isShowing())
+			getLoading().dismiss();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.hanmimei.activity.view.gdetail.GoodsDetailView#GetGoodsDetailData
+	 * (com.hanmimei.entity.GoodsDetail)
+	 */
+	@Override
+	public void GetGoodsDetailData(GoodsDetail detail) {
+		// TODO Auto-generated method stub
+		this.detail = detail;
+		initGoodsDetail();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.hanmimei.activity.view.gdetail.GoodsDetailView#GetCartNumData(java
+	 * .lang.Integer)
+	 */
+	@Override
+	public void GetCartNumData(Integer cartNum) {
+		// TODO Auto-generated method stub
+		if (cartNum == null)
+			return;
+		this.num_shopcart = cartNum;
+		showGoodsNums();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.hanmimei.activity.view.gdetail.GoodsDetailView#showLoadFaild(java
+	 * .lang.String)
+	 */
+	@Override
+	public void showLoadFaild(String str) {
+		// TODO Auto-generated method stub
+		ToastUtils.Toast(this, str);
+		findViewById(R.id.btn_add_shopcart).setClickable(true);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.hanmimei.activity.view.gdetail.GoodsDetailView#addCollection(long)
+	 */
+	@Override
+	public void addCollection(long collectId) {
+		// TODO Auto-generated method stub
+		findViewById(R.id.btn_attention).setClickable(true);
+		isCollection = true;
+		detail.getCurrentStock().setCollectId(collectId);
+		collectionImg.setImageResource(R.drawable.hmm_icon_collect_h);
+		sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_COLLECTION_ACTION));
+		ToastUtils.Toast(this, "收藏成功");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.hanmimei.activity.view.gdetail.GoodsDetailView#cancelCollection()
+	 */
+	@Override
+	public void cancelCollection() {
+		// TODO Auto-generated method stub
+		findViewById(R.id.btn_attention).setClickable(true);
+		isCollection = false;
+		detail.getCurrentStock().setCollectId(0);
+		collectionImg.setImageResource(R.drawable.hmm_icon_collect);
+		sendBroadcast(new Intent(
+				AppConstant.MESSAGE_BROADCAST_COLLECTION_ACTION));
+		ToastUtils.Toast(this, "已取消收藏");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.hanmimei.activity.view.gdetail.GoodsDetailView#addToCartWithLogin()
+	 */
+	@Override
+	public void addToCartSuccess() {
+		// 购物车添加成功，显示提示框
+		displayAnimation();
 	}
 
 }
