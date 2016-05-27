@@ -269,7 +269,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 				if(getMap() != null){
 					params.add(new BasicNameValuePair("accessToken", getMap().get("access_token")));
 					params.add(new BasicNameValuePair("openId", getMap().get("openid")));
-					params.add(new BasicNameValuePair("idType", "WO"));
+					params.add(new BasicNameValuePair("idType", getMap().get("idtype")));
 					params.add(new BasicNameValuePair("unionId", getMap().get("unionid")));
 				}
 				if (isRegist) {

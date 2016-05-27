@@ -4,10 +4,10 @@ public class UrlUtil {
 	/*
 	 * 阿里云
 	 */
-	 public static final String SERVERY3 = "https://api.hanmimei.com";
-	 public static final String SERVERY1 = "https://shopping.hanmimei.com";
-	 public static final String SERVERY4 = "https://id.hanmimei.com";
-	 public static final String SERVERY5 = "https://promotion.hanmimei.com";
+//	 public static final String SERVERY3 = "https://api.hanmimei.com";
+//	 public static final String SERVERY1 = "https://shopping.hanmimei.com";
+//	 public static final String SERVERY4 = "https://id.hanmimei.com";
+//	 public static final String SERVERY5 = "https://promotion.hanmimei.com";
 	/*
 	 * http://172.28.3.78
 	 */
@@ -18,10 +18,10 @@ public class UrlUtil {
 	/*
 	 * http://172.28.3.51
 	 */
-//	public static final String SERVERY3 = "http://172.28.3.51:9001";
-//	public static final String SERVERY1 = "http://172.28.3.51:9003";
-//	public static final String SERVERY4 = "http://172.28.3.51:9004";
-//	public static final String SERVERY5 = "http://172.28.3.51:9005";
+	public static final String SERVERY3 = "http://172.28.3.51:9001";
+	public static final String SERVERY1 = "http://172.28.3.51:9003";
+	public static final String SERVERY4 = "http://172.28.3.51:9004";
+	public static final String SERVERY5 = "http://172.28.3.51:9005";
 	/*
 	 * http://172.28.3.18
 	 */
@@ -31,7 +31,10 @@ public class UrlUtil {
 //	 public static final String SERVERY5 = "http://172.28.3.18:9005";
 	//微信登录检查
 	public static final String WEIXIN_CHECK = SERVERY4 + "/api/user/open?idType=WO&unionId=";
-
+	//QQ登录校验
+	public static final String QQ_CHECK = SERVERY4 + "/api/user/open?idType=Q&openId=";
+	//新浪微博登录校验
+	public static final String SINA_CHECK = SERVERY4 + "";
 	//评价中心
 	public static final String COMMENT_CENTER = SERVERY1 + "/client/comment/center/";
 	//发表评价

@@ -39,8 +39,9 @@ public class HMMApplication extends Application {
 		PlatformConfig.setWeixin("wx578f993da4b29f97",
 				"e78a99aec4b6860370107be78a5faf9d");
 		// 新浪微博 appkey appsecret
-		PlatformConfig.setSinaWeibo("794664710",
-				"0dc274fafeabec336673331c633a115e");
+//		PlatformConfig.setSinaWeibo("794664710",
+//				"0dc274fafeabec336673331c633a115e");
+		
 		// QQ和Qzone appid appkey
 		PlatformConfig.setQQZone("1105332776", "CKevSfjxt0dXEq0y");
 		// 支付宝appid
