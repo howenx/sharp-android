@@ -24,6 +24,9 @@ import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.activity.login.LoginActivity;
 import com.hanmimei.activity.mine.config.SettingActivity;
 import com.hanmimei.activity.mine.message.MessageTypeActivity;
+import com.hanmimei.activity.presenter.hmain.HMainPresenter;
+import com.hanmimei.activity.presenter.hmain.HMainPresenterImpl;
+import com.hanmimei.activity.view.HMainView;
 import com.hanmimei.adapter.TabPagerAdapter;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.UrlUtil;
@@ -51,10 +54,11 @@ import com.viewpagerindicator.IconTabPageIndicator.OnTabReselectedListener;
 /**
  * 
  * @author vince
- *
+ * 
  */
 @SuppressLint("NewApi")
-public class HMainActivity extends BaseActivity implements OnClickListener {
+public class HMainActivity extends BaseActivity implements OnClickListener,
+		HMainView {
 
 	private VersionVo info;
 
@@ -72,10 +76,11 @@ public class HMainActivity extends BaseActivity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_layout);
-		
-		ActionBarUtil.setActionBarStyle(this, "韩秘美",R.drawable.hmm_icon_message_n, false, this);
+
+		ActionBarUtil.setActionBarStyle(this, "韩秘美",
+				R.drawable.hmm_icon_message_n, false, this);
 		ImageView view = (ImageView) findViewById(R.id.setting);
-		MessageMenager.getInstance().initMessageMenager(this,view);
+		MessageMenager.getInstance().initMessageMenager(this, view);
 		// 关闭左滑退出
 		setBackEnable(false);
 		initViewPager();
@@ -83,28 +88,29 @@ public class HMainActivity extends BaseActivity implements OnClickListener {
 		doCheckVersionTask();
 	}
 
-//	@SuppressLint("InflateParams")
-//	private void showGuangGao() {
-//		View view = LayoutInflater.from(this).inflate(R.layout.guanggao_layout, null);
-//		final Dialog dialog = new Dialog(this,R.style.CustomDialog);
-//		dialog.setContentView(view);
-//		dialog.show();
-//		view.findViewById(R.id.close).setOnClickListener(new OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View arg0) {
-//				dialog.dismiss();
-//			}
-//		});
-//		view.findViewById(R.id.gg_img).setOnClickListener(new OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View v) {
-//				dialog.dismiss();
-//				ToastUtils.Toast(HMainActivity.this, "你点击了广告！！！");
-//			}
-//		});
-//	}
+	// @SuppressLint("InflateParams")
+	// private void showGuangGao() {
+	// View view = LayoutInflater.from(this).inflate(R.layout.guanggao_layout,
+	// null);
+	// final Dialog dialog = new Dialog(this,R.style.CustomDialog);
+	// dialog.setContentView(view);
+	// dialog.show();
+	// view.findViewById(R.id.close).setOnClickListener(new OnClickListener() {
+	//
+	// @Override
+	// public void onClick(View arg0) {
+	// dialog.dismiss();
+	// }
+	// });
+	// view.findViewById(R.id.gg_img).setOnClickListener(new OnClickListener() {
+	//
+	// @Override
+	// public void onClick(View v) {
+	// dialog.dismiss();
+	// ToastUtils.Toast(HMainActivity.this, "你点击了广告！！！");
+	// }
+	// });
+	// }
 
 	private void initViewPager() {
 		mViewPager = (ViewPager) findViewById(R.id.id_viewpager);
@@ -115,13 +121,13 @@ public class HMainActivity extends BaseActivity implements OnClickListener {
 				fragments));
 		mViewPager.setOffscreenPageLimit(3);
 		mIndicator.setViewPager(mViewPager);
-		mIndicator.setOnPageChangeListener(new ViewPageChangeListener(){
+		mIndicator.setOnPageChangeListener(new ViewPageChangeListener() {
 
 			@Override
 			public void onPageSelected(int arg0) {
 				initActionBar(arg0);
 			}
-			
+
 		});
 		mIndicator.setOnTabReselectedListener(new OnTabReselectedListener() {
 
@@ -172,7 +178,8 @@ public class HMainActivity extends BaseActivity implements OnClickListener {
 				if (getUser() == null) {
 					startActivity(new Intent(getActivity(), LoginActivity.class));
 				} else {
-					startActivity(new Intent(getActivity(), MessageTypeActivity.class));
+					startActivity(new Intent(getActivity(),
+							MessageTypeActivity.class));
 				}
 			} else {
 				startActivity(new Intent(getActivity(), SettingActivity.class));
@@ -210,7 +217,7 @@ public class HMainActivity extends BaseActivity implements OnClickListener {
 				setClipboard();
 				MobclickAgent.onKillProcess(this);
 				finish();
-//				System.exit(0);
+				// System.exit(0);
 			}
 		}
 	}
@@ -222,38 +229,8 @@ public class HMainActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void doCheckVersionTask() {
-		VolleyHttp.doGetRequestTask( UrlUtil.UPDATE_HMM,
-				new VolleyJsonCallback() {
-
-					@Override
-					public void onSuccess(String result) {
-						try {
-							InputStream is = new ByteArrayInputStream(result
-									.getBytes());
-							info = XMLPaserTools.getUpdataInfo(is);
-							if (info.getReleaseNumber()>CommonUtils.getVersionCode(getActivity())) {
-								// 版本号不同,发送消息更新客户端
-								setVersionInfo(info);
-								AlertDialogUtils.showUpdate2Dialog(
-										getActivity(), new OnClickListener() {
-
-											@Override
-											public void onClick(View v) {
-												downloadApk(info.getDownloadLink());
-											}
-										});
-
-							}
-						} catch (Exception e) {
-							ToastUtils.Toast(getActivity(), "获取服务器更新信息失败");
-						}
-					}
-
-					@Override
-					public void onError() {
-						ToastUtils.Toast(getActivity(), "获取服务器更新信息失败");
-					}
-				});
+		HMainPresenter hMainPresenter = new HMainPresenterImpl(this);
+		hMainPresenter.checkVersionInfo();
 	}
 
 	// 广播接收者 注册
@@ -283,9 +260,34 @@ public class HMainActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void downloadApk(String url) {
-		HDownloadManager downloadTools = 
-				new HDownloadManager(getApplicationContext());
+		HDownloadManager downloadTools = new HDownloadManager(
+				getApplicationContext());
 		downloadTools.download(url);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.hanmimei.activity.view.HMainView#loadVersionInfo(com.hanmimei.entity
+	 * .VersionVo)
+	 */
+	@Override
+	public void loadVersionInfo(final VersionVo info) {
+		setVersionInfo(info);
+		AlertDialogUtils.showUpdate2Dialog(getActivity(),
+				new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						downloadApk(info.getDownloadLink());
+					}
+				});
+
+	}
+
+	@Override
+	public void onLoadFailed(String msg) {
+		ToastUtils.Toast(getActivity(), msg);
 	}
 
 }

@@ -22,6 +22,7 @@ import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.hanmimei.R;
 import com.hanmimei.activity.base.BaseActivity;
@@ -67,6 +68,7 @@ public class ThemeGoodsActivity extends BaseActivity implements
 	private ThemeAdapter adapter; // 商品适配器
 	private List<HGoodsVo> data;// 显示的商品数据
 	private BadgeView bView;
+	private View actionbarView;
 
 	FrameLayout mframeLayout; // 主推商品容器 添加tag使用
 	private CustomScrollView mScrollView;
@@ -120,9 +122,9 @@ public class ThemeGoodsActivity extends BaseActivity implements
 //		actionbarView.setBackgroundResource(R.color.theme);
 //		backgroundDrawable = actionbarView.getBackground();
 //		backgroundDrawable.setAlpha(0);
-		View view = ActionBarUtil.setActionBarStyle(this, "商品展示", R.drawable.white_shoppingcar, this);
+		actionbarView = ActionBarUtil.setActionBarStyle(this, "商品展示", R.drawable.white_shoppingcar, this);
 		// 购物车
-		View cartView = view.findViewById(R.id.setting);
+		View cartView = actionbarView.findViewById(R.id.setting);
 		bView = new BadgeView(this, cartView);
 		bView.setBackgroundResource(R.drawable.bg_badgeview2);
 		bView.setBadgePosition(BadgeView.POSITION_CENTER);
@@ -175,9 +177,14 @@ public class ThemeGoodsActivity extends BaseActivity implements
 	 * @param detail
 	 */
 	private void initThemeView(HThemeGoods detail) {
+		
 		ThemeList themeList = detail.getThemeList();
 		if (themeList == null)
 			return;
+		if(themeList.getTitle()!=null){
+			TextView titleView = (TextView) actionbarView.findViewById(R.id.header);
+			titleView.setText(themeList.getTitle());
+		}
 		ImageVo themeImg = themeList.getThemeImg();
 		int width = CommonUtils.getScreenWidth(this);
 		int height = CommonUtils.getScreenWidth(this) * themeImg.getHeight()
