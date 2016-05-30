@@ -1,7 +1,7 @@
 package com.hanmimei.activity.login;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,7 +26,6 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.Selection;
 import android.text.Spannable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +33,6 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import cn.jpush.android.api.JPushInterface;
 
 import com.hanmimei.R;
@@ -55,10 +53,8 @@ import com.hanmimei.utils.CommonUtils;
 import com.hanmimei.utils.DateUtils;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ToastUtils;
-import com.hanmimei.utils.weibo.AccessTokenKeeper;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.WeiboAuth;
-import com.sina.weibo.sdk.auth.WeiboAuth.AuthInfo;
 import com.sina.weibo.sdk.auth.WeiboAuthListener;
 import com.sina.weibo.sdk.auth.sso.SsoHandler;
 import com.sina.weibo.sdk.exception.WeiboException;
@@ -92,9 +88,10 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	private ImageView clear_phone;
 	private ImageView clear_pwd;
 	private ImageView show_pwd;
+	//友盟三方登陆
 	private int loginFrom = 0;
+	private UMShareAPI mShareAPI;
 	 /** 微博 Web 授权类，提供登陆等功能  */
-//    private WeiboAuth mWeiboAuth;
 	private Oauth2AccessToken mAccessToken;
 	 /** 注意：SsoHandler 仅当 SDK 支持 SSO 时有效 */
     private SsoHandler mSsoHandler;
@@ -267,9 +264,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			doOtherLogin(SHARE_MEDIA.WEIXIN);
 			break;
 		case R.id.sina:
-			loginFrom = 1;
+			loginFrom = 2;
 			dialog.show();
-//			doOtherLogin(SHARE_MEDIA.SINA);
 			doWbLogin();
 			break;
 		default:
@@ -282,13 +278,12 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	 */
 	private void doWbLogin() {// 创建微博实例
 //        mWeiboAuth = new WeiboAuth(this, AppConstant.WEIBO_APPKEY, AppConstant.WEIBO_REDIRECT_URL, AppConstant.SCOPE);
-        WeiboAuth authInfo = new WeiboAuth(this, AppConstant.WEIBO_APPKEY, AppConstant.WEIBO_REDIRECT_URL, AppConstant.SCOPE);
-        mSsoHandler = new SsoHandler(this, authInfo);
+        WeiboAuth weiboAuth = new WeiboAuth(this, AppConstant.WEIBO_APPKEY, AppConstant.WEIBO_REDIRECT_URL, AppConstant.SCOPE);
+        mSsoHandler = new SsoHandler(this, weiboAuth);
         mSsoHandler.authorize(new AuthListener());
 	}
 
-	private UMShareAPI mShareAPI;
-
+	//微信   qq登陆
 	private void doOtherLogin(SHARE_MEDIA platform) {
 		// mShareAPI = UMShareAPI.get(this);
 		if (!mShareAPI.isInstall(this, platform)) {
@@ -304,15 +299,10 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 				Map<String, String> data) {
 			if(loginFrom == 0){
 				data.put("idtype", "WO");
-				chekWXLogin(data);
 			}else if(loginFrom == 1){
 				data.put("idtype", "Q");
-				checkQQLogin(data);
-			}else{
-				data.put("idtype", "S");
-				checkSinaLogin(data);
 			}
-			ToastUtils.Toast(getApplicationContext(), "登陆成功" + data.toString());
+			checkOtherLogin(data);
 		}
 
 		@Override
@@ -327,6 +317,33 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			ToastUtils.Toast(getApplicationContext(), "登陆取消");
 		}
 	};
+	/**
+     * 微博认证授权回调类。
+     * 1. SSO 授权时，需要在 {@link #onActivityResult} 中调用 {@link SsoHandler#authorizeCallBack} 后，
+     *    该回调才会被执行。
+     * 2. 非 SSO 授权时，当授权结束后，该回调就会被执行。
+     * 当授权成功后，请保存该 access_token、expires_in、uid 等信息到 SharedPreferences 中。
+     */
+    class AuthListener implements WeiboAuthListener {
+    	 @Override
+         public void onComplete(Bundle values) {
+             // 从 Bundle 中解析 Token
+             mAccessToken = Oauth2AccessToken.parseAccessToken(values);
+             if (mAccessToken.isSessionValid()) {
+ 				checkOtherLogin(toMap(mAccessToken));
+             }
+         }
+
+         @Override
+         public void onCancel() {
+             ToastUtils.Toast(LoginActivity.this, R.string.weibosdk_demo_toast_auth_canceled);
+         }
+
+         @Override
+         public void onWeiboException(WeiboException e) {
+        	 ToastUtils.Toast(LoginActivity.this, "Auth exception : " + e.getMessage());
+         }
+     }
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -340,11 +357,26 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	}
 
 	/**
-	 * @param data
+	 * @param mAccessToken2
 	 */
-	private void checkSinaLogin(final Map<String, String> data) {
-		VolleyHttp.doGetRequestTask(UrlUtil.WEIXIN_CHECK + data.get("unionid")
-				+ "&openId=" + data.get("openid"), new VolleyJsonCallback() {
+	private Map<String, String> toMap(Oauth2AccessToken mAccessToken2) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("openid", mAccessToken2.getUid());
+		map.put("access_token", mAccessToken2.getToken());
+		map.put("idtype", "S");
+		return map;
+	}
+
+	private void checkOtherLogin(final Map<String, String> data) {
+		String url = "";
+		if(loginFrom == 0){
+			url = UrlUtil.WEIXIN_CHECK + data.get("unionid") + "&openId=" + data.get("openid");
+		}else if(loginFrom == 1){
+			url = UrlUtil.QQ_CHECK + data.get("openid");
+		}else{
+			url = UrlUtil.WEIBO_CHECK + data.get("openid");
+		}
+		VolleyHttp.doGetRequestTask(url, new VolleyJsonCallback() {
 
 			@Override
 			public void onSuccess(String result) {
@@ -366,55 +398,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			}
 		});
 	}
-
-	private void chekWXLogin(final Map<String, String> data) {
-		VolleyHttp.doGetRequestTask(UrlUtil.WEIXIN_CHECK + data.get("unionid")
-				+ "&openId=" + data.get("openid"), new VolleyJsonCallback() {
-
-			@Override
-			public void onSuccess(String result) {
-				dialog.dismiss();
-				HMessage loginInfo = DataParser.paserResultMsg(result);
-				if (loginInfo.getCode() == 4003) {
-					Intent intent = new Intent(LoginActivity.this,
-							BindPhoneActivity.class);
-					setMap(data);
-					startActivity(intent);
-				} else if (loginInfo.getCode() == 200) {
-					loginSuccess(loginInfo);
-				}
-			}
-
-			@Override
-			public void onError() {
-				ToastUtils.Toast(LoginActivity.this, "登录失败，请检查您的网络");
-			}
-		});
-	}
-
-	private void checkQQLogin(final Map<String, String> data) {
-		VolleyHttp.doGetRequestTask(UrlUtil.QQ_CHECK + data.get("openid"), new VolleyJsonCallback() {
-			@Override
-			public void onSuccess(String result) {
-				dialog.dismiss();
-				HMessage loginInfo = DataParser.paserResultMsg(result);
-				if (loginInfo.getCode() == 4003) {
-					Intent intent = new Intent(LoginActivity.this,
-							BindPhoneActivity.class);
-					setMap(data);
-					startActivity(intent);
-				} else if (loginInfo.getCode() == 200) {
-					loginSuccess(loginInfo);
-				}
-			}
-
-			@Override
-			public void onError() {
-				ToastUtils.Toast(LoginActivity.this, "登录失败，请检查您的网络");
-			}
-		});
-	}
-
 	@SuppressLint("ShowToast")
 	private void loadImg() {
 		new Thread(new Runnable() {
@@ -644,67 +627,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		super.onDestroy();
 		getActivity().unregisterReceiver(netReceiver);
 	}
-	 /**
-     * 微博认证授权回调类。
-     * 1. SSO 授权时，需要在 {@link #onActivityResult} 中调用 {@link SsoHandler#authorizeCallBack} 后，
-     *    该回调才会被执行。
-     * 2. 非 SSO 授权时，当授权结束后，该回调就会被执行。
-     * 当授权成功后，请保存该 access_token、expires_in、uid 等信息到 SharedPreferences 中。
-     */
-    class AuthListener implements WeiboAuthListener {
-    	 @Override
-         public void onComplete(Bundle values) {
-             // 从 Bundle 中解析 Token
-             mAccessToken = Oauth2AccessToken.parseAccessToken(values);
-             if (mAccessToken.isSessionValid()) {
-                 // 显示 Token
-                 updateTokenView(false);
-                 
-                 // 保存 Token 到 SharedPreferences
-                 AccessTokenKeeper.writeAccessToken(LoginActivity.this, mAccessToken);
-                 Toast.makeText(LoginActivity.this, 
-                         R.string.weibosdk_demo_toast_auth_success, Toast.LENGTH_SHORT).show();
-             } else {
-                 // 当您注册的应用程序签名不正确时，就会收到 Code，请确保签名正确
-                 String code = values.getString("code");
-                 String message = getString(R.string.weibosdk_demo_toast_auth_failed);
-                 if (!TextUtils.isEmpty(code)) {
-                     message = message + "\nObtained the code: " + code;
-                 }
-                 Toast.makeText(LoginActivity.this, message, Toast.LENGTH_LONG).show();
-             }
-         }
-
-         @Override
-         public void onCancel() {
-             Toast.makeText(LoginActivity.this, 
-                     R.string.weibosdk_demo_toast_auth_canceled, Toast.LENGTH_LONG).show();
-         }
-
-         @Override
-         public void onWeiboException(WeiboException e) {
-             Toast.makeText(LoginActivity.this, 
-                     "Auth exception : " + e.getMessage(), Toast.LENGTH_LONG).show();
-         }
-     }
-    /**
-     * 显示当前 Token 信息。
-     * 
-     * @param hasExisted 配置文件中是否已存在 token 信息并且合法
-     */
-    private void updateTokenView(boolean hasExisted) {
-        String date = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(
-                new java.util.Date(mAccessToken.getExpiresTime()));
-        String format = getString(R.string.weibosdk_demo_token_to_string_format_1);
-//        mTokenText.setText(String.format(format, mAccessToken.getToken(), date));
-        
-        String message = String.format(format, mAccessToken.getToken(), date);
-        if (hasExisted) {
-            message = getString(R.string.weibosdk_demo_token_has_existed) + "\n" + message;
-        }
-//        mTokenText.setText(message);
-        Toast.makeText(LoginActivity.this, message, Toast.LENGTH_LONG).show();
-    }
-	
+	 
 
 }

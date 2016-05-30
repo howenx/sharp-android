@@ -31,6 +31,8 @@ public class UrlUtil {
 //	 public static final String SERVERY5 = "http://172.28.3.18:9005";
 	//微信登录检查
 	public static final String WEIXIN_CHECK = SERVERY4 + "/api/user/open?idType=WO&unionId=";
+	//微博登陆校验
+	public static final String WEIBO_CHECK = SERVERY4 + "/api/user/open?idType=S&openId=";
 	//QQ登录校验
 	public static final String QQ_CHECK = SERVERY4 + "/api/user/open?idType=Q&openId=";
 	//新浪微博登录校验
