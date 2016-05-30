@@ -7,7 +7,8 @@
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="21" />
-     <permission
+
+    <permission
         android:name="com.hanmimei.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
     <!-- 添加访问网络的权限 -->
@@ -22,9 +23,9 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-     <!-- 极光 -->
+    <!-- 极光 -->
     <uses-permission android:name="com.hanmimei.permission.JPUSH_MESSAGE" />
-     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
@@ -33,7 +34,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
-    
+
     <application
         android:name="com.hanmimei.application.HMMApplication"
         android:allowBackup="false"
@@ -47,22 +48,25 @@
             android:theme="@style/SplashStyle" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-       <activity
+        <activity
             android:name="com.hanmimei.activity.DoJumpActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />  
-       			<category android:name="android.intent.category.DEFAULT" />  
-        		<category android:name="android.intent.category.BROWSABLE" /> 
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
-                    android:scheme="hmmapp"
-                    android:host="data">
+                    android:host="data"
+                    android:scheme="hmmapp" >
                 </data>
             </intent-filter>
-       </activity>
+        </activity>
         <activity
             android:name="com.hanmimei.activity.IndroductionActivity"
             android:screenOrientation="portrait"
@@ -70,8 +74,8 @@
         <activity
             android:name="com.hanmimei.activity.HMainActivity"
             android:launchMode="singleTask"
-            android:theme="@style/MainActivityTheme"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/MainActivityTheme" />
         <activity
             android:name="com.hanmimei.activity.MainActivity"
             android:launchMode="singleTask"
@@ -86,7 +90,7 @@
             android:name="com.hanmimei.activity.mine.order.MyOrderActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
-         <activity
+        <activity
             android:name="com.hanmimei.activity.mine.coupon.MyCouponActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeForOrder" />
@@ -98,8 +102,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.hanmimei.activity.goods.detail.GoodsDetailActivity"
-            android:screenOrientation="portrait"
-             />
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.hanmimei.activity.mine.order.OrderDetailActivity"
             android:screenOrientation="portrait" />
@@ -108,8 +111,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.hanmimei.activity.login.LoginActivity"
-            android:screenOrientation="portrait">
-            </activity>
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
             android:name="com.hanmimei.activity.login.RegistActivity"
             android:screenOrientation="portrait" />
@@ -187,7 +190,7 @@
         <activity
             android:name="com.hanmimei.activity.mine.message.MessageTypeActivity"
             android:screenOrientation="portrait" />
-         <activity
+        <activity
             android:name="com.hanmimei.activity.mine.message.MessageActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -205,14 +208,14 @@
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name="com.hanmimei.activity.mine.comment.CommentGoodsActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.hanmimei.activity.goods.comment.GoodsCommentActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.hanmimei.activity.goods.comment.GoodsCommentImgActivity"
             android:screenOrientation="portrait" />
-        
+
         <!-- 友盟相关 -->
         <activity
             android:name="com.umeng.socialize.editorpage.ShareActivity"
@@ -225,11 +228,11 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-            <activity
+        <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
-            android:launchMode="singleTop" /> 
-            <!-- 
+            android:launchMode="singleTop" />
+        <!--
          新浪微博 
         <activity
             android:name=".WBShareActivity"
@@ -249,12 +252,11 @@
         <service 
             android:name="com.sina.weibo.sdk.net.DownloadService"
             android:exported="false">
-        </service>
-         -->
-         <activity
-            android:configChanges="orientation|screenSize"
-            android:name="com.hanmimei.gallery.MultiImageSelectorActivity" />
-
+        </service>
+        -->
+        <activity
+            android:name="com.hanmimei.gallery.MultiImageSelectorActivity"
+            android:configChanges="orientation|screenSize" />
         <activity android:name=".GestureImageActivity" />
 
         <!-- QQ／QQ空间 -->
@@ -275,8 +277,22 @@
             android:name="com.tencent.connect.common.AssistActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        
-         <service
+
+        <!-- alipay -->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind" >
+        </activity>
+        <activity
+            android:name="com.alipay.sdk.auth.AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind" >
+        </activity>
+
+        <service
             android:name="cn.jpush.android.service.PushService"
             android:enabled="true"
             android:exported="false" >
@@ -287,25 +303,27 @@
                 <action android:name="cn.jpush.android.intent.PUSH_TIME" />
             </intent-filter>
         </service>
-         <!-- since 1.8.0 option 可选项。用于同一设备中不同应用的JPush服务相互拉起的功能。 -->
+        <!-- since 1.8.0 option 可选项。用于同一设备中不同应用的JPush服务相互拉起的功能。 -->
         <!-- 若不启用该功能可删除该组件，将不拉起其他应用也不能被其他应用拉起 -->
-         <service
-             android:name="cn.jpush.android.service.DaemonService"
-             android:enabled="true"
-             android:exported="true">
-             <intent-filter >
-                 <action android:name="cn.jpush.android.intent.DaemonService" />
-                 <category android:name="com.hanmimei"/>
-             </intent-filter>
-         </service>
-         <!-- Required -->
+        <service
+            android:name="cn.jpush.android.service.DaemonService"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.DaemonService" />
+
+                <category android:name="com.hanmimei" />
+            </intent-filter>
+        </service>
+        <!-- Required -->
         <receiver
             android:name="cn.jpush.android.service.PushReceiver"
             android:enabled="true"
             android:exported="false" >
-          <intent-filter android:priority="1000"> 
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" /> 
-                <category android:name="com.hanmimei"/> 
+            <intent-filter android:priority="1000" >
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />
+
+                <category android:name="com.hanmimei" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.USER_PRESENT" />
@@ -315,49 +333,69 @@
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
-        <!-- Required SDK核心功能-->
+        <!-- Required SDK核心功能 -->
         <activity
             android:name="cn.jpush.android.ui.PushActivity"
             android:configChanges="orientation|keyboardHidden"
             android:exported="false" >
             <intent-filter>
                 <action android:name="cn.jpush.android.ui.PushActivity" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="com.hanmimei" />
             </intent-filter>
         </activity>
-        <!-- Required SDK核心功能-->
-        <service android:name="cn.jpush.android.service.DownloadService" android:enabled="true"  android:exported="false" />
+        <!-- Required SDK核心功能 -->
+        <service
+            android:name="cn.jpush.android.service.DownloadService"
+            android:enabled="true"
+            android:exported="false" />
+
         <receiver android:name="cn.jpush.android.service.AlarmReceiver" />
 
- 		<!-- 极光推送广播接收者 ，处理推送结果-->
+        <!-- 极光推送广播接收者 ，处理推送结果 -->
         <receiver
             android:name="com.hanmimei.receiver.PushReceiver"
             android:enabled="true"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
-                <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!--Required  用户注册SDK的intent-->
-                <action android:name="cn.jpush.android.intent.UNREGISTRATION" />  
-                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!--Required  用户接收SDK消息的intent-->
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> <!--Required  用户接收SDK通知栏信息的intent-->
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!--Required  用户打开自定义通知栏的intent-->
-                <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK" /> <!--Optional 用户接受Rich Push Javascript 回调函数的intent-->
-                <action android:name="cn.jpush.android.intent.CONNECTION" /><!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <action android:name="cn.jpush.android.intent.REGISTRATION" />
+ <!-- Required  用户注册SDK的intent -->
+                <action android:name="cn.jpush.android.intent.UNREGISTRATION" />
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
+ <!-- Required  用户接收SDK消息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
+ <!-- Required  用户接收SDK通知栏信息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
+ <!-- Required  用户打开自定义通知栏的intent -->
+                <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK" />
+ <!-- Optional 用户接受Rich Push Javascript 回调函数的intent -->
+                <action android:name="cn.jpush.android.intent.CONNECTION" />
+ <!-- 接收网络变化 连接/断开 since 1.6.3 -->
                 <category android:name="com.hanmimei" />
             </intent-filter>
         </receiver>
 
-         <!-- 友盟   appkey -->
-        <meta-data android:name="UMENG_APPKEY"  android:value="567bb26867e58e3f670002fd" />  
+        <!-- 友盟   appkey -->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="567bb26867e58e3f670002fd" />
         <!-- Testin AppKey -->
-        <meta-data android:name="TESTIN_APPKEY"   android:value="058ce4b48f9c7d6ddf2f835b0d5774bf" />
+        <meta-data
+            android:name="TESTIN_APPKEY"
+            android:value="058ce4b48f9c7d6ddf2f835b0d5774bf" />
         <!-- 极光推送 AppKey -->
-        <meta-data android:name="JPUSH_APPKEY"     android:value="a81748f2ead4ab0faef89329"/> 
+        <meta-data
+            android:name="JPUSH_APPKEY"
+            android:value="a81748f2ead4ab0faef89329" />
         <!-- glide 图片处理配置 -->
-        <meta-data android:name="com.hanmimei.override.GlideConfiguration"  android:value="GlideModule"/>  
+        <meta-data
+            android:name="com.hanmimei.override.GlideConfiguration"
+            android:value="GlideModule" />
     </application>
 
 </manifest>
