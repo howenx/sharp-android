@@ -73,9 +73,9 @@ public class OrderDetailListAdapter extends BaseAdapter {
 		holder.nums.setText("数量：" + sku.getAmount());
 		holder.price.setText("¥" + sku.getPrice());
 		if(isShow){
-			holder.btn_apply_service.setVisibility(View.INVISIBLE);
+			holder.btn_apply_service.setVisibility(View.VISIBLE);
 		}else{
-			holder.btn_apply_service.setVisibility(View.INVISIBLE);
+			holder.btn_apply_service.setVisibility(View.VISIBLE);
 		}
 		holder.btn_apply_service.setOnClickListener(new OnClickListener() {
 			

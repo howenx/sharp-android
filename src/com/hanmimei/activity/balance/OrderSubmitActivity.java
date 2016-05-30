@@ -5,12 +5,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.annotation.SuppressLint;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -19,13 +20,14 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.alipay.sdk.app.PayTask;
 import com.hanmimei.R;
 import com.hanmimei.activity.MainActivity;
 import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.activity.goods.pin.PingouResultActivity;
 import com.hanmimei.activity.mine.order.MyOrderActivity;
-import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.UrlUtil;
+import com.hanmimei.entity.AlipayResult;
 import com.hanmimei.entity.OrderInfo;
 import com.hanmimei.event.PayEvent;
 import com.hanmimei.utils.ActionBarUtil;
@@ -38,6 +40,8 @@ import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.ypy.eventbus.EventBus;
 
 public class OrderSubmitActivity extends BaseActivity {
+
+	private static final int SDK_PAY_FLAG = 1;
 
 	private ProgressWebView mWebView;
 	private Date startTime; // 创建页面时间，用于标志页面过期的起始时间
@@ -161,6 +165,11 @@ public class OrderSubmitActivity extends BaseActivity {
 			wxPay(appid, partnerId, prepayId, pack, nonceStr, timeStamp, sign);
 		}
 
+		@JavascriptInterface
+		public void alipayapp(String alipayInfo) {
+			aliPay(alipayInfo);
+		}
+
 	}
 
 	/**
@@ -186,6 +195,26 @@ public class OrderSubmitActivity extends BaseActivity {
 		req.sign = sign;
 		// 在支付之前，如果应用没有注册到微信，应该先调用IWXMsg.registerApp将应用注册到微信
 		msgApi.sendReq(req);
+	}
+
+	/**
+	 * @param alipayInfo
+	 */
+	private void aliPay(final String alipayInfo) {
+		// TODO Auto-generated method stub
+		submitTask(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				PayTask payTask = new PayTask(getActivity());
+				String result = payTask.pay(alipayInfo, true);
+				Message msg = new Message();
+				msg.what = SDK_PAY_FLAG;
+				msg.obj = result;
+				mHandler.sendMessage(msg);
+			}
+		});
 	}
 
 	// 显示取消支付窗口
@@ -248,4 +277,27 @@ public class OrderSubmitActivity extends BaseActivity {
 			}
 		});
 	}
+
+	private Handler mHandler = new Handler() {
+
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			super.handleMessage(msg);
+			AlipayResult result = new AlipayResult((String) msg.obj);
+			String resultStatus = result.getResultStatus();
+			
+			if (TextUtils.equals(resultStatus, AlipayResult.PAY_SUCCESS)) {
+				// 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
+				ToastUtils.Toast(getActivity(), "支付成功");
+			} else if (TextUtils.equals(resultStatus, AlipayResult.PAY_LOADING)){
+				// 判断resultStatus 为非"9000"则代表可能支付失败
+				// "8000"代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
+				ToastUtils.Toast(getActivity(), "支付结果确认中");
+				} else {
+					// 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
+					showPayFailDialog();
+				}
+		}
+	};
 }

@@ -154,7 +154,9 @@ public class ThemeGoodsActivity extends BaseActivity implements
 		iGoodsPresenterImpl.getCartNumData(getHeaders(), null);
 	}
 
-	private void showCartNum(int cartNum) {
+	private void showCartNum(Integer cartNum) {
+		if(cartNum == null)
+			return;
 		if (cartNum > 0) {
 			if (cartNum <= 99) {
 				bView.setText(cartNum + "");
