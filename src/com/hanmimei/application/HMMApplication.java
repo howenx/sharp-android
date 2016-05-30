@@ -5,9 +5,6 @@ import java.util.Map;
 import android.app.Application;
 import cn.jpush.android.api.JPushInterface;
 
-import com.hanmimei.dao.DaoMaster;
-import com.hanmimei.dao.DaoMaster.DevOpenHelper;
-import com.hanmimei.dao.DaoSession;
 import com.hanmimei.entity.User;
 import com.hanmimei.entity.VersionVo;
 import com.hanmimei.http.VolleyHttp;
@@ -17,8 +14,6 @@ import com.testin.agent.TestinAgent;
 import com.umeng.socialize.PlatformConfig;
 
 public class HMMApplication extends Application {
-	private DaoMaster daoMaster;
-	private DaoSession daoSession;
 	private User loginUser;
 	private String kouling;
 	private VersionVo versionInfo;
