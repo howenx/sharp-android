@@ -266,6 +266,11 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		case R.id.sina:
 			loginFrom = 2;
 			dialog.show();
+			if (!mShareAPI.isInstall(this, SHARE_MEDIA.SINA)) {
+				dialog.dismiss();
+				ToastUtils.Toast(this, "请安装客户端");
+				return;
+			}
 			doWbLogin();
 			break;
 		default:
@@ -277,7 +282,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	 * 
 	 */
 	private void doWbLogin() {// 创建微博实例
-//        mWeiboAuth = new WeiboAuth(this, AppConstant.WEIBO_APPKEY, AppConstant.WEIBO_REDIRECT_URL, AppConstant.SCOPE);
         WeiboAuth weiboAuth = new WeiboAuth(this, AppConstant.WEIBO_APPKEY, AppConstant.WEIBO_REDIRECT_URL, AppConstant.SCOPE);
         mSsoHandler = new SsoHandler(this, weiboAuth);
         mSsoHandler.authorize(new AuthListener());
@@ -287,6 +291,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	private void doOtherLogin(SHARE_MEDIA platform) {
 		// mShareAPI = UMShareAPI.get(this);
 		if (!mShareAPI.isInstall(this, platform)) {
+			dialog.dismiss();
 			ToastUtils.Toast(this, "请安装客户端");
 			return;
 		}
@@ -336,12 +341,14 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 
          @Override
          public void onCancel() {
+ 			dialog.dismiss();
              ToastUtils.Toast(LoginActivity.this, R.string.weibosdk_demo_toast_auth_canceled);
          }
 
          @Override
          public void onWeiboException(WeiboException e) {
-        	 ToastUtils.Toast(LoginActivity.this, "Auth exception : " + e.getMessage());
+ 			dialog.dismiss();
+        	 ToastUtils.Toast(LoginActivity.this, R.string.weibosdk_demo_toast_auth_failed);
          }
      }
 
@@ -394,6 +401,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 
 			@Override
 			public void onError() {
+				dialog.dismiss();
 				ToastUtils.Toast(LoginActivity.this, "登录失败，请检查您的网络");
 			}
 		});
