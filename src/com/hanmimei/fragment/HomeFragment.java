@@ -140,7 +140,6 @@ public class HomeFragment extends BaseIconFragment implements
 		});
 		mListView.setOnScrollListener(this);
 		findHeaderView();
-//		doCheckVersionTask();
 		loadData();
 		addHeaderView();
 		return view;
@@ -274,17 +273,17 @@ public class HomeFragment extends BaseIconFragment implements
 			dataSliders.addAll(sliders);
 			initHeaderView();
 		}
-		if (home.getPage_count() <= pullNum) {
-			mListView.setMode(Mode.DISABLED);
-		} else {
-			mListView.setMode(Mode.PULL_FROM_END);
-		}
+//		if (home.getPage_count() <= pullNum) {
+//			mListView.setMode(Mode.DISABLED);
+//		} else {
+//			mListView.setMode(Mode.PULL_FROM_END);
+//		}
 		if (home.getHasMsg() != 0) {
 			MessageMenager.getInstance().setMsgDrawble(
 					R.drawable.hmm_icon_message_h);
 		}
 	}
-
+	private	Home home;
 	private Handler mHandler = new Handler() {
 
 		@Override
@@ -294,7 +293,7 @@ public class HomeFragment extends BaseIconFragment implements
 			case 1:
 				mActivity.getLoading().dismiss();
 				mListView.onRefreshComplete();
-				Home home = (Home) msg.obj;
+				home = (Home) msg.obj;
 				if (home.gethMessage() != null) {
 					mListView.setVisibility(View.VISIBLE);
 					no_net.setVisibility(View.GONE);
@@ -345,10 +344,15 @@ public class HomeFragment extends BaseIconFragment implements
 	}
 
 	@Override
-	public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-		isUpOrDwom = 1;
-		pageIndex++;
-		getNetData();
+	public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {	
+		if (home.getPage_count() <= pullNum) {
+			mListView.onRefreshComplete();
+			ToastUtils.Toast(getActivity(), "暂无更多数据");
+		} else {
+			isUpOrDwom = 1;
+			pageIndex++;
+			getNetData();
+		}
 	}
 
 	@SuppressLint("NewApi")

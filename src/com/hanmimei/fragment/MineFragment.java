@@ -35,6 +35,7 @@ import com.umeng.analytics.MobclickAgent;
 import com.viewpagerindicator.BaseIconFragment;
 
 /**
+ * 
  * @author eric
  *
  */
