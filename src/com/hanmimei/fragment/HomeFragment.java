@@ -346,7 +346,12 @@ public class HomeFragment extends BaseIconFragment implements
 	@Override
 	public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {	
 		if (home.getPage_count() <= pullNum) {
-			mListView.onRefreshComplete();
+			mHandler.postDelayed(new Runnable() {
+				@Override
+				public void run() {
+					mListView.onRefreshComplete();
+				}
+			}, 1000);
 			ToastUtils.Toast(getActivity(), "暂无更多数据");
 		} else {
 			isUpOrDwom = 1;
