@@ -33,25 +33,11 @@ public class ImgFragment extends ScrollAbleFragment   {
 		View view = inflater.inflate(R.layout.webview_layout, null);
 //		String data = getArguments().getString("data");
 		mWebView = (WebView) view.findViewById(R.id.mWebView);
-		mProgressBar = (ProgressBar) view.findViewById(R.id.mProgressBar);
 		
 		mWebView.getSettings().setJavaScriptEnabled(true);
 //		mWebView.getSettings().setSupportZoom(true);
 //		mWebView.getSettings().setBuiltInZoomControls(true);
 //		mWebView.getSettings().setDisplayZoomControls(false);
-		
-		mWebView.setWebChromeClient(new WebChromeClient(){
-
-			@Override
-			public void onProgressChanged(WebView view, int newProgress) {
-				super.onProgressChanged(view, newProgress);
-				if(newProgress>=40){
-					mProgressBar.setVisibility(View.INVISIBLE);
-					mWebView.setVisibility(View.VISIBLE);
-				}
-			}
-			
-		});
 		
 		return view;
 	}

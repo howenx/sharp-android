@@ -6,24 +6,12 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical" >
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/bg" >
 
-        <ProgressBar
-            android:id="@+id/mProgressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
-    </FrameLayout>
-
-    <WebView
+    <com.hanmimei.view.ProgressWebView
         android:id="@+id/mWebView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/bg"
-        android:scrollbars="@null"
-        android:visibility="gone" />
+        android:scrollbars="@null"/>
 
 </RelativeLayout>

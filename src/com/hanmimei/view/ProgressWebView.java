@@ -8,6 +8,7 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.hanmimei.R;
+import com.hanmimei.view.webview.ProgressWebChromeClient;
 
 /**
  * @Description:带进度条的WebView
@@ -29,7 +30,7 @@ public class ProgressWebView extends WebView {
 		progressbar.setProgressDrawable(draw);
 		addView(progressbar);
 		setWebViewClient(new WebViewClient());
-		setWebChromeClient(new ProgressWebChromeClient());
+		setWebChromeClient(new ProgressWebChromeClient(progressbar));
 	}
 
 	public ProgressWebView(Context context, AttributeSet attrs) {
@@ -43,22 +44,10 @@ public class ProgressWebView extends WebView {
 		progressbar.setProgressDrawable(drawable);
 		addView(progressbar);
 		setWebViewClient(new WebViewClient());
-		setWebChromeClient(new ProgressWebChromeClient());
+		setWebChromeClient(new ProgressWebChromeClient(progressbar));
 	}
 
-	public class ProgressWebChromeClient extends android.webkit.WebChromeClient {
-		@Override
-		public void onProgressChanged(WebView view, int newProgress) {
-			if (newProgress >= 100) {
-				progressbar.setVisibility(GONE);
-			} else {
-				if (progressbar.getVisibility() == GONE)
-					progressbar.setVisibility(VISIBLE);
-				progressbar.setProgress(newProgress);
-			}
-			super.onProgressChanged(view, newProgress);
-		}
-	}
+
 
 	public ProgressBar getProgressBar() {
 		return progressbar;
