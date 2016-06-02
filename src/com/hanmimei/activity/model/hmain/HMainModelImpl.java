@@ -7,6 +7,7 @@ package com.hanmimei.activity.model.hmain;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.Random;
 
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.VersionVo;
@@ -31,7 +32,7 @@ public class HMainModelImpl implements HMainModel{
 	@Override
 	public void checkVersionInfo(final OnCheckVersionListener listener) {
 		// TODO Auto-generated method stub
-		VolleyHttp.doGetRequestTask( UrlUtil.UPDATE_HMM,
+		VolleyHttp.doGetRequestTask( UrlUtil.UPDATE_HMM+new Random().nextInt(),
 				new VolleyJsonCallback() {
 
 					@Override

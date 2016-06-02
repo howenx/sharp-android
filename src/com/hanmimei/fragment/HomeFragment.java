@@ -348,6 +348,7 @@ public class HomeFragment extends BaseIconFragment implements
 	public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
 		isUpOrDwom = 1;
 		pageIndex++;
+		mListView.onRefreshComplete();
 		getNetData();
 	}
 

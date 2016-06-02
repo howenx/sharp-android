@@ -5,7 +5,6 @@
 **/
 package com.hanmimei.activity.presenter.hmain;
 
-import com.hanmimei.activity.model.hmain.HMainModelImpl.OnCheckVersionListener;
 
 /**
  * @author vince

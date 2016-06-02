@@ -25,7 +25,7 @@
 		<keystore path="/Users/vince/Documents/Keystore" passwd="hanmimei">
 			<alias name="hanmimei" passwd="hanmimei" />
 		</keystore>
-		<outpath value="/Users/vince/Documents/渠道包" />
+		<outpath value="/Users/vince/Documents/渠道包01" />
 	</package>	
 </project>
 

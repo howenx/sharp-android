@@ -1,12 +1,9 @@
 package com.hanmimei.activity;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -14,7 +11,6 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -29,15 +25,11 @@ import com.hanmimei.activity.presenter.hmain.HMainPresenterImpl;
 import com.hanmimei.activity.view.HMainView;
 import com.hanmimei.adapter.TabPagerAdapter;
 import com.hanmimei.data.AppConstant;
-import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.VersionVo;
 import com.hanmimei.fragment.HomeFragment;
 import com.hanmimei.fragment.MineFragment;
 import com.hanmimei.fragment.ShoppingCartFragment;
-import com.hanmimei.http.VolleyHttp;
-import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.manager.BadgeViewManager;
-import com.hanmimei.manager.DataCleanManager;
 import com.hanmimei.manager.HDownloadManager;
 import com.hanmimei.manager.MessageMenager;
 import com.hanmimei.override.ViewPageChangeListener;
@@ -45,7 +37,6 @@ import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.CommonUtils;
 import com.hanmimei.utils.ToastUtils;
-import com.hanmimei.utils.XMLPaserTools;
 import com.umeng.analytics.MobclickAgent;
 import com.viewpagerindicator.BaseIconFragment;
 import com.viewpagerindicator.IconTabPageIndicator;
@@ -59,8 +50,6 @@ import com.viewpagerindicator.IconTabPageIndicator.OnTabReselectedListener;
 @SuppressLint("NewApi")
 public class HMainActivity extends BaseActivity implements OnClickListener,
 		HMainView {
-
-	private VersionVo info;
 
 	private MainBroadCastReceiver netReceiver;
 	private ViewPager mViewPager;
@@ -274,6 +263,8 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 	 */
 	@Override
 	public void loadVersionInfo(final VersionVo info) {
+		if(info.getReleaseNumber() <= CommonUtils.getVersionCode(this))
+			return;
 		setVersionInfo(info);
 		AlertDialogUtils.showUpdate2Dialog(getActivity(),
 				new OnClickListener() {
