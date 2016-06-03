@@ -230,7 +230,7 @@
             android:launchMode="singleTop" />
       
        <!--  新浪微博  -->
-        <activity
+       <activity
             android:name=".WBShareActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait" >
@@ -238,17 +238,13 @@
                 <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </activity> 
-		<activity
+        </activity>
+        <activity
             android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
             android:configChanges="keyboardHidden|orientation"
             android:windowSoftInputMode="adjustResize"
             android:exported="false" >
         </activity>
-        <service 
-            android:name="com.sina.weibo.sdk.net.DownloadService"
-            android:exported="false">
-        </service>
 
         <activity
             android:name="com.hanmimei.gallery.MultiImageSelectorActivity"

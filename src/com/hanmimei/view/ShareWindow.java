@@ -15,15 +15,7 @@ import com.hanmimei.R;
 import com.hanmimei.application.HMMApplication;
 import com.hanmimei.entity.ShareVo;
 import com.hanmimei.utils.ToastUtils;
-import com.sina.weibo.sdk.api.ImageObject;
-import com.sina.weibo.sdk.api.TextObject;
-import com.sina.weibo.sdk.api.WebpageObject;
-import com.sina.weibo.sdk.api.WeiboMessage;
-import com.sina.weibo.sdk.api.WeiboMultiMessage;
 import com.sina.weibo.sdk.api.share.IWeiboShareAPI;
-import com.sina.weibo.sdk.api.share.SendMessageToWeiboRequest;
-import com.sina.weibo.sdk.api.share.SendMultiMessageToWeiboRequest;
-import com.sina.weibo.sdk.utils.Utility;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
@@ -34,19 +26,11 @@ public class ShareWindow extends AlertDialog implements OnClickListener {
 
 	private Activity mActivity;
 	private ShareVo vo;
-	/** 微博微博分享接口实例 */
-    private IWeiboShareAPI  mWeiboShareAPI;
 
 	public ShareWindow(Context context, ShareVo vo) {
 		super(context, R.style.BottomShowDialog);
 		this.mActivity = (Activity) context;
 		this.vo = vo;
-	}
-	public ShareWindow(Context context, ShareVo vo, IWeiboShareAPI mWeiboShareAPI) {
-		super(context, R.style.BottomShowDialog);
-		this.mActivity = (Activity) context;
-		this.vo = vo;
-		this.mWeiboShareAPI = mWeiboShareAPI;
 	}
 
 	@Override
@@ -92,21 +76,16 @@ public class ShareWindow extends AlertDialog implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.qq:
-			shareQQ();
+			share(SHARE_MEDIA.QQ);
 			break;
 		case R.id.weixin:
-			shareWeiXin();
+			share(SHARE_MEDIA.WEIXIN);
 			break;
 		case R.id.weixinq:
-			shareCircle();
+			share(SHARE_MEDIA.WEIXIN_CIRCLE);
 			break;
 		case R.id.sina:
-//			 mWeiboShareAPI = WeiboShareSDK.createWeiboAPI(mActivity, AppConstant.WEIBO_APPKEY);
-			 if (!mWeiboShareAPI.isWeiboAppInstalled()) {
-				 ToastUtils.Toast(mActivity, "请安装新浪微博客户端");
-			 }else{
-				shareSina();
-			 }
+			share(SHARE_MEDIA.SINA);
 			break;
 		case R.id.copy:
 			doCopy();
@@ -121,101 +100,13 @@ public class ShareWindow extends AlertDialog implements OnClickListener {
 	/**
 	 * 
 	 */
-	private void shareSina() {
-//		new ShareAction(mActivity).setPlatform(SHARE_MEDIA.SINA)
-//		.setCallback(umShareListener)
-//		.withMedia(new UMImage(mActivity, vo.getImgUrl()))
-//		.withTitle(vo.getTitle()).withText(vo.getContent())
-//		.withTargetUrl(vo.getTargetUrl()).share();
-		mWeiboShareAPI.registerApp();;
-	     if (mWeiboShareAPI.getWeiboAppSupportAPI() >= 10351 /*ApiUtils.BUILD_INT_VER_2_2*/) {
-	    	 WeiboMultiMessage weiboMessage = new WeiboMultiMessage();
-		     weiboMessage.textObject = (TextObject) getTextObj();
-		     weiboMessage.imageObject = getImageObj();
-		     weiboMessage.mediaObject = getWebpageObj();
-	    	 // 2. 初始化从第三方到微博的消息请求
-	         SendMultiMessageToWeiboRequest request = new SendMultiMessageToWeiboRequest();
-	         // 用transaction唯一标识一个请求
-	         request.transaction = String.valueOf(System.currentTimeMillis());
-	         request.multiMessage = weiboMessage;
-	         
-	         // 3. 发送请求消息到微博，唤起微博分享界面
-	         mWeiboShareAPI.sendRequest(request);
-	     }else{
-			 WeiboMessage weiboMessage = new WeiboMessage();
-		     weiboMessage.mediaObject = getTextObj();
-		     weiboMessage.mediaObject = getImageObj();
-		     weiboMessage.mediaObject = getWebpageObj();
-	    	 // 2. 初始化从第三方到微博的消息请求
-		        SendMessageToWeiboRequest request = new SendMessageToWeiboRequest();
-		        // 用transaction唯一标识一个请求
-		        request.transaction = String.valueOf(System.currentTimeMillis());
-		        request.message = weiboMessage;
-		        
-		        // 3. 发送请求消息到微博，唤起微博分享界面
-		        mWeiboShareAPI.sendRequest(request);
-	     }
+	private void share(SHARE_MEDIA media) {
+		new ShareAction(mActivity).setPlatform(media)
+		.setCallback(umShareListener)
+		.withMedia(new UMImage(mActivity, vo.getImgUrl()))
+		.withTitle(vo.getTitle()).withText(vo.getContent())
+		.withTargetUrl(vo.getTargetUrl()).share();
 		
-	}
-
-	/**
-	 * @return
-	 */
-	private WebpageObject getWebpageObj() {
-		 WebpageObject mediaObject = new WebpageObject();
-	        mediaObject.identify = Utility.generateGUID();
-	        mediaObject.title = vo.getTitle();
-	        mediaObject.description = vo.getContent();
-	        
-	        // 设置 Bitmap 类型的图片到视频对象里
-	        mediaObject.actionUrl = vo.getTargetUrl();
-	        mediaObject.defaultText = "韩国正品，就来韩秘美";
-	        return mediaObject;
-	}
-
-	/**
-	 * @return
-	 */
-	private ImageObject getImageObj() {
-		ImageObject imageObject = new ImageObject();
-        imageObject.imagePath = vo.getImgUrl();
-        return imageObject;
-	}
-
-	/**
-	 * @return
-	 */
-	private TextObject getTextObj() {
-		TextObject textObject = new TextObject();
-        textObject.text = vo.getTitle();
-        return textObject;
-	}
-
-	// 微信朋友圈分享设置
-	private void shareCircle() {
-		new ShareAction(mActivity).setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE)
-				.setCallback(umShareListener)
-				.withMedia(new UMImage(mActivity, vo.getImgUrl()))
-				.withTitle(vo.getTitle()).withText(vo.getContent())
-				.withTargetUrl(vo.getTargetUrl()).share();
-	}
-
-	// 微信分享设置
-	private void shareWeiXin() {
-		new ShareAction(mActivity).setPlatform(SHARE_MEDIA.WEIXIN)
-				.setCallback(umShareListener)
-				.withMedia(new UMImage(mActivity, vo.getImgUrl()))
-				.withTitle(vo.getTitle()).withText(vo.getContent())
-				.withTargetUrl(vo.getTargetUrl()).share();
-	}
-
-	// QQ分享设置
-	private void shareQQ() {
-		new ShareAction(mActivity).setPlatform(SHARE_MEDIA.QQ)
-				.setCallback(umShareListener)
-				.withMedia(new UMImage(mActivity, vo.getImgUrl()))
-				.withTitle(vo.getTitle()).withText(vo.getContent())
-				.withTargetUrl(vo.getTargetUrl()).share();
 	}
 	
 	private void doCopy(){
@@ -241,16 +132,19 @@ public class ShareWindow extends AlertDialog implements OnClickListener {
 		@Override
 		public void onResult(SHARE_MEDIA platform) {
 			dismiss();
+			ToastUtils.Toast(mActivity, "分享成功");
 		}
 
 		@Override
 		public void onError(SHARE_MEDIA platform, Throwable t) {
 			dismiss();
+			ToastUtils.Toast(mActivity, "分享失败");
 		}
 
 		@Override
 		public void onCancel(SHARE_MEDIA platform) {
 			dismiss();
+			ToastUtils.Toast(mActivity, "分享取消");
 		}
 	};
 
