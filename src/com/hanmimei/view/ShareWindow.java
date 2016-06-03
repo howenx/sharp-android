@@ -15,7 +15,6 @@ import com.hanmimei.R;
 import com.hanmimei.application.HMMApplication;
 import com.hanmimei.entity.ShareVo;
 import com.hanmimei.utils.ToastUtils;
-import com.sina.weibo.sdk.api.share.IWeiboShareAPI;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
@@ -38,20 +37,11 @@ public class ShareWindow extends AlertDialog implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.share_layout);
 		Config.OpenEditor = true;
-		// 添加选择窗口范围监听可以优先获取触点，即不再执行onTouchEvent()函数，点击其他地方时执行onTouchEvent()函数销毁Activity
-
-//		if (vo.getType().equals("T")) {
-//			findViewById(R.id.qq).setVisibility(View.GONE);
-//			findViewById(R.id.weixin).setVisibility(View.GONE);
-//			findViewById(R.id.weixinq).setVisibility(View.GONE);
-//		} else {
-			// 添加按钮监听
-			findViewById(R.id.qq).setOnClickListener(this);
-			findViewById(R.id.weixin).setOnClickListener(this);
-			findViewById(R.id.weixinq).setOnClickListener(this);
-			findViewById(R.id.sina).setOnClickListener(this);
-//		}
-
+		// 添加按钮监听
+		findViewById(R.id.qq).setOnClickListener(this);
+		findViewById(R.id.weixin).setOnClickListener(this);
+		findViewById(R.id.weixinq).setOnClickListener(this);
+		findViewById(R.id.sina).setOnClickListener(this);
 		findViewById(R.id.copy).setOnClickListener(this);
 
 		Window window = getWindow();
