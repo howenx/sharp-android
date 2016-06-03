@@ -53,6 +53,8 @@ import com.hanmimei.utils.CommonUtils;
 import com.hanmimei.utils.DateUtils;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ToastUtils;
+import com.sina.weibo.sdk.api.share.IWeiboShareAPI;
+import com.sina.weibo.sdk.api.share.WeiboShareSDK;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.WeiboAuth;
 import com.sina.weibo.sdk.auth.WeiboAuthListener;
@@ -266,7 +268,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		case R.id.sina:
 			loginFrom = 2;
 			dialog.show();
-			if (!mShareAPI.isInstall(this, SHARE_MEDIA.SINA)) {
+			IWeiboShareAPI mWeiboShareAPI = WeiboShareSDK.createWeiboAPI(this, AppConstant.WEIBO_APPKEY);
+			 if (!mWeiboShareAPI.isWeiboAppInstalled()) {
 				dialog.dismiss();
 				ToastUtils.Toast(this, "请安装客户端");
 				return;

@@ -12,6 +12,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.hanmimei.R;
@@ -50,12 +51,12 @@ public class MessageTypeActivity extends BaseActivity implements OnClickListener
 	private RelativeLayout wuliu_msg;
 	private RelativeLayout zichan_msg;
 	private TextView no_data;
+	private ScrollView mScrollView;
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.my_message_layout);
 		ActionBarUtil.setActionBarStyle(this, "消息盒子",this);
-//		MessageMenager.getInstance().setMsgDrawble(R.drawable.hmm_icon_message_n);
 		registerReceivers();
 		findView();
 		loadData();
@@ -78,6 +79,7 @@ public class MessageTypeActivity extends BaseActivity implements OnClickListener
 		wuliu_msg = (RelativeLayout) findViewById(R.id.wuliu_msg);
 		zichan_msg = (RelativeLayout) findViewById(R.id.zichan_msg);
 		no_data = (TextView) findViewById(R.id.no_data);
+		mScrollView = (ScrollView) findViewById(R.id.mScrollView);
 		findViewById(R.id.sys_msg).setOnClickListener(this);
 		findViewById(R.id.good_msg).setOnClickListener(this);
 		findViewById(R.id.wuliu_msg).setOnClickListener(this);
@@ -159,6 +161,7 @@ public class MessageTypeActivity extends BaseActivity implements OnClickListener
 				}
 			}
 		}else{
+			mScrollView.setVisibility(View.GONE);
 			no_data.setVisibility(View.VISIBLE);
 		}
 		

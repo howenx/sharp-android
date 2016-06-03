@@ -77,10 +77,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/MainActivityTheme" />
         <activity
-            android:name="com.hanmimei.activity.MainActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
-        <activity
             android:name="com.hanmimei.activity.goods.theme.ThemeGoodsActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -232,8 +228,8 @@
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop" />
-        <!--
-         新浪微博 
+      
+       <!--  新浪微博  -->
         <activity
             android:name=".WBShareActivity"
             android:configChanges="keyboardHidden|orientation"
@@ -254,7 +250,6 @@
             android:exported="false">
         </service>
 
-        -->
         <activity
             android:name="com.hanmimei.gallery.MultiImageSelectorActivity"
             android:configChanges="orientation|screenSize" />

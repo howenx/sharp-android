@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:state_selected="false"><bitmap android:src="@drawable/hmm_home_normal" />
+    <item android:state_selected="false"><bitmap android:src="@drawable/m" />
     </item>
-    <item android:state_selected="true"><bitmap android:src="@drawable/hmm_home_select" />
+    <item android:state_selected="true"><bitmap android:src="@drawable/m_red" />
     </item>
 
 </selector>

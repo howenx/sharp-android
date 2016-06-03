@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.bigkoo.convenientbanner.CBViewHolderCreator;
@@ -69,6 +70,11 @@ import com.hanmimei.view.TagCloudView;
 import com.hanmimei.view.TagCloudView.OnTagClickListener;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ObjectAnimator;
+import com.sina.weibo.sdk.api.share.BaseResponse;
+import com.sina.weibo.sdk.api.share.IWeiboHandler;
+import com.sina.weibo.sdk.api.share.IWeiboShareAPI;
+import com.sina.weibo.sdk.api.share.WeiboShareSDK;
+import com.sina.weibo.sdk.constant.WBConstants;
 import com.umeng.socialize.UMShareAPI;
 
 /**
@@ -78,7 +84,7 @@ import com.umeng.socialize.UMShareAPI;
  * 
  */
 public class GoodsDetailActivity extends BaseActivity implements
-		OnClickListener, GoodsDetailView {
+		OnClickListener, GoodsDetailView, IWeiboHandler.Response {
 
 	private static final String Tag = "GoodsDetailActivity";
 
@@ -112,8 +118,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private ObjectAnimator shopcartAnimator, imgAnimator;
 
 	@Override
-	protected void onCreate(Bundle arg0) {
-		super.onCreate(arg0);
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		ActionBarUtil.setActionBarStyle(this, "商品详情",
 				R.drawable.hmm_icon_share, true, this, this);
 		setContentView(R.layout.goods_detail_layout);
@@ -123,8 +129,10 @@ public class GoodsDetailActivity extends BaseActivity implements
 		getGoodsNums();
 		loadDataByUrl();
 		registerReceivers();
+		if (savedInstanceState != null) {
+            mWeiboShareAPI.handleWeiboResponse(getIntent(), this);
+        }
 	}
-
 
 	/**
 	 * 初始化所有view
@@ -134,7 +142,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	@SuppressWarnings("unchecked")
 	private void findView() {
 		detailPresenterImpl = new GoodsDetailPresenterImpl(this);
-		
+
 		slider = (ConvenientBanner<ImageVo>) findViewById(R.id.slider);
 		itemTitle = (TextView) findViewById(R.id.itemTitle);
 		itemSrcPrice = (TextView) findViewById(R.id.itemSrcPrice);
@@ -146,9 +154,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 		mScrollLayout = (ScrollableLayout) findViewById(R.id.mScrollLayout);
 		collectionImg = (ImageView) findViewById(R.id.attention);
 		back_top = findViewById(R.id.back_top);
-		
+
 		findViewById(R.id.btn_comment).setOnClickListener(this);
-		
+
 	}
 
 	/**
@@ -227,7 +235,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	 * @author vince
 	 */
 	public void addToShoppingCart(View view) {
-		if(detail == null)
+		if (detail == null)
 			return;
 		ShoppingGoods goods = null;
 		for (StockVo stock : detail.getStock()) {
@@ -250,7 +258,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 	}
 
-
 	private void displayAnimation() {
 		GlideLoaderTools.loadSquareImage(getActivity(), detail
 				.getCurrentStock().getInvImgForObj().getUrl(), img_hide);
@@ -269,7 +276,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 							img_hide.setVisibility(View.GONE);
 							num_shopcart++;
 							showGoodsNums();
-							findViewById(R.id.btn_add_shopcart).setClickable(true);
+							findViewById(R.id.btn_add_shopcart).setClickable(
+									true);
 							shopcartAnimator.start();
 						}
 					});
@@ -279,7 +287,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 	// 分享面板
 	private void showShareboard() {
-
+		mWeiboShareAPI = WeiboShareSDK.createWeiboAPI(this, AppConstant.WEIBO_APPKEY);
 		if (shareWindow == null) {
 			StockVo shareStock = detail.getCurrentStock();
 			if (shareStock == null) {
@@ -297,7 +305,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 				vo.setInfoUrl(shareStock.getInvUrl());
 			}
 			vo.setType("C");
-			shareWindow = new ShareWindow(this, vo);
+			shareWindow = new ShareWindow(this, vo, mWeiboShareAPI);
 		}
 		shareWindow.show();
 	}
@@ -314,7 +322,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 			startActivity(new Intent(this, LoginActivity.class));
 			return;
 		}
-		if(detail == null)
+		if (detail == null)
 			return;
 		ShoppingCar car = new ShoppingCar();
 		List<CustomsVo> list = new ArrayList<CustomsVo>();
@@ -365,34 +373,38 @@ public class GoodsDetailActivity extends BaseActivity implements
 		AlertDialogUtils.showPostDialog(this, curItemPrice, curPostalTaxRate,
 				postalStandard);
 	}
+
 	/**
 	 * 跳转到购物车页面
+	 * 
 	 * @param view
 	 */
-	public void turnToShoppingCarActivity(View view){
+	public void turnToShoppingCarActivity(View view) {
 		startActivity(new Intent(this, ShoppingCarActivity.class));
 	}
+
 	/**
 	 * 跳转到商品评价页面
+	 * 
 	 * @param view
 	 */
-	public void turnToGoodsCommentActivity(){
-		if(detail == null)
+	public void turnToGoodsCommentActivity() {
+		if (detail == null)
 			return;
 		Intent intent = new Intent(this, GoodsCommentActivity.class);
 		intent.putExtra("skuType", detail.getCurrentStock().getSkuType());
-		intent.putExtra("skuTypeId", detail.getCurrentStock()
-				.getSkuTypeId());
+		intent.putExtra("skuTypeId", detail.getCurrentStock().getSkuTypeId());
 		startActivity(intent);
 	}
+
 	/**
 	 * 返回顶部
+	 * 
 	 * @param view
 	 */
-	public void scrollToTop(View view){
+	public void scrollToTop(View view) {
 		mScrollLayout.scrollToTop();
 	}
-
 
 	// 收藏商品
 	public void collectGoods(View view) {
@@ -400,13 +412,15 @@ public class GoodsDetailActivity extends BaseActivity implements
 			startActivity(new Intent(this, LoginActivity.class));
 			return;
 		}
-		if(detail == null)
+		if (detail == null)
 			return;
 		findViewById(R.id.btn_attention).setClickable(false);
 		if (isCollection) {
-			detailPresenterImpl.cancelCollection(getHeaders(), detail.getCurrentStock().getCollectId());
+			detailPresenterImpl.cancelCollection(getHeaders(), detail
+					.getCurrentStock().getCollectId());
 		} else {
-			detailPresenterImpl.addCollection(getHeaders(),detail.getCurrentStock());
+			detailPresenterImpl.addCollection(getHeaders(),
+					detail.getCurrentStock());
 		}
 	}
 
@@ -649,7 +663,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private void registerReceivers() {
 		netReceiver = new CarBroadCastReceiver();
 		IntentFilter intentFilter = new IntentFilter();
-		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR);
+		intentFilter
+				.addAction(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR);
 		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION);
 		getActivity().registerReceiver(netReceiver, intentFilter);
 	}
@@ -673,8 +688,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 	protected void onDestroy() {
 		super.onDestroy();
 		unregisterReceiver(netReceiver);
-		if (isChange){
-			Intent intent = new Intent(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR);
+		if (isChange) {
+			Intent intent = new Intent(
+					AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR);
 			intent.putExtra("cartNum", num_shopcart);
 			sendBroadcast(intent);
 		}
@@ -710,8 +726,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 	@Override
 	public void showLoading() {
 		// TODO Auto-generated method stub
-		Log.i("showLoading", getLoading().isShowing()+"");
-		if(!getLoading().isShowing())
+		Log.i("showLoading", getLoading().isShowing() + "");
+		if (!getLoading().isShowing())
 			getLoading().show();
 	}
 
@@ -723,8 +739,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 	@Override
 	public void hideLoading() {
 		// TODO Auto-generated method stub
-		Log.i("hideLoading", getLoading().isShowing()+"");
-		if(getLoading().isShowing())
+		Log.i("hideLoading", getLoading().isShowing() + "");
+		if (getLoading().isShowing())
 			getLoading().dismiss();
 	}
 
@@ -785,7 +801,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 		isCollection = true;
 		detail.getCurrentStock().setCollectId(collectId);
 		collectionImg.setImageResource(R.drawable.hmm_icon_collect_h);
-		sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_COLLECTION_ACTION));
+		sendBroadcast(new Intent(
+				AppConstant.MESSAGE_BROADCAST_COLLECTION_ACTION));
 		ToastUtils.Toast(this, "收藏成功");
 	}
 
@@ -817,6 +834,37 @@ public class GoodsDetailActivity extends BaseActivity implements
 	public void addToCartSuccess() {
 		// 购物车添加成功，显示提示框
 		displayAnimation();
+	}
+
+	@Override
+	public void onResponse(BaseResponse baseResp) {
+		switch (baseResp.errCode) {
+		case WBConstants.ErrorCode.ERR_OK:
+			Toast.makeText(this, R.string.weibosdk_demo_toast_share_success,
+					Toast.LENGTH_LONG).show();
+			break;
+		case WBConstants.ErrorCode.ERR_CANCEL:
+			Toast.makeText(this, R.string.weibosdk_demo_toast_share_canceled,
+					Toast.LENGTH_LONG).show();
+			break;
+		case WBConstants.ErrorCode.ERR_FAIL:
+			Toast.makeText(
+					this,
+					getString(R.string.weibosdk_demo_toast_share_failed)
+							+ "Error Message: " + baseResp.errMsg,
+					Toast.LENGTH_LONG).show();
+			break;
+		}
+	}
+	private IWeiboShareAPI mWeiboShareAPI ;
+	@Override
+	protected void onNewIntent(Intent intent) {
+		super.onNewIntent(intent);
+
+		// 从当前应用唤起微博并进行分享后，返回到当前应用时，需要在此处调用该函数
+		// 来接收微博客户端返回的数据；执行成功，返回 true，并调用
+		// {@link IWeiboHandler.Response#onResponse}；失败返回 false，不调用上述回调
+		mWeiboShareAPI.handleWeiboResponse(intent, this);
 	}
 
 }

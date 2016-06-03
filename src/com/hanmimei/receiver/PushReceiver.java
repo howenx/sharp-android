@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import cn.jpush.android.api.JPushInterface;
 
-import com.hanmimei.activity.MainActivity;
+import com.hanmimei.activity.HMainActivity;
 import com.hanmimei.activity.goods.detail.GoodsDetailActivity;
 import com.hanmimei.activity.goods.pin.PingouDetailActivity;
 import com.hanmimei.activity.goods.pin.PingouResultActivity;
@@ -84,20 +84,20 @@ public class PushReceiver extends BroadcastReceiver {
 			if (notify.getTargetType().equals("D")) {
 				i = new Intent(context, GoodsDetailActivity.class);
 			} else if (notify.getTargetType().equals("T")) {
-				i = new Intent(context, MainActivity.class);
+				i = new Intent(context, HMainActivity.class);
 			} else if (notify.getTargetType().equals("P")) {
 				i = new Intent(context, PingouDetailActivity.class);
 			} else if (notify.getTargetType().equals("A")) {
-				i = new Intent(context, MainActivity.class);
+				i = new Intent(context, HMainActivity.class);
 			} else if (notify.getTargetType().equals("U")) {
-				i = new Intent(context, MainActivity.class);
+				i = new Intent(context, HMainActivity.class);
 			} else if (notify.getTargetType().equals("V")) {
 				i = new Intent(context, PingouResultActivity.class);
 			} else {
-				i = new Intent(context, MainActivity.class);
+				i = new Intent(context, HMainActivity.class);
 			}
 		} else {
-			i = new Intent(context, MainActivity.class);
+			i = new Intent(context, HMainActivity.class);
 		}
 		i.putExtra("url", notify.getUrl());
 		i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK

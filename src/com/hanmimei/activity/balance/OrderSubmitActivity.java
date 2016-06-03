@@ -22,7 +22,7 @@ import android.webkit.WebViewClient;
 
 import com.alipay.sdk.app.PayTask;
 import com.hanmimei.R;
-import com.hanmimei.activity.MainActivity;
+import com.hanmimei.activity.HMainActivity;
 import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.activity.goods.pin.PingouResultActivity;
 import com.hanmimei.activity.mine.order.MyOrderActivity;
@@ -140,7 +140,7 @@ public class OrderSubmitActivity extends BaseActivity {
 
 		@JavascriptInterface
 		public void openHome() {
-			Intent intent = new Intent(context, MainActivity.class);
+			Intent intent = new Intent(context, HMainActivity.class);
 			startActivity(intent);
 		}
 

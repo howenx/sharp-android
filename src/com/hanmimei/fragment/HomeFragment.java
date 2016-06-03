@@ -350,9 +350,9 @@ public class HomeFragment extends BaseIconFragment implements
 				@Override
 				public void run() {
 					mListView.onRefreshComplete();
+					ToastUtils.Toast(getActivity(), "暂无更多数据");
 				}
 			}, 1000);
-			ToastUtils.Toast(getActivity(), "暂无更多数据");
 		} else {
 			isUpOrDwom = 1;
 			pageIndex++;
