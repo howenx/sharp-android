@@ -7,6 +7,7 @@ import java.util.Map;
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningAppProcessInfo;
+import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
@@ -41,6 +42,7 @@ import com.hanmimei.manager.ThreadPoolManager;
 import com.hanmimei.utils.GlideLoaderTools;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.LoadingDialog;
+import com.ypy.eventbus.EventBus;
 
 /**
  * @Author vince.liu
@@ -120,6 +122,7 @@ public class BaseActivity extends ParallaxActivityBase {
 	@Override
 	protected void onStop() {
 		super.onStop();
+		EventBus.getDefault().unregister(this);
 		if (!isAppOnForeground()) {
 			setClipboard();
 		}
@@ -140,11 +143,11 @@ public class BaseActivity extends ParallaxActivityBase {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	protected void setClipboard() {
 		// 退出或者app进入后台将口令扔到剪切板
 		ClipboardManager cbm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-		cbm.setText(getMyApplication().getKouling());
+//		cbm.setText(getMyApplication().getKouling());
+		cbm.setPrimaryClip(ClipData.newPlainText("kouling", getMyApplication().getKouling()));
 	}
 
 	/**
@@ -177,6 +180,7 @@ public class BaseActivity extends ParallaxActivityBase {
 	public void onResume() {
 		super.onResume();
 		getClipboard();
+		EventBus.getDefault().register(this);
 	}
 
 	@SuppressWarnings("deprecation")

@@ -17,14 +17,13 @@
         android:dividerHeight="5dp"
         android:scrollbars="none" />
 
-    <TextView
+    <ImageView
         android:id="@+id/no_data"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="暂无优惠券"
-        android:textColor="@color/huise"
-        android:textSize="16sp"
+        android:contentDescription="@null"
+        android:background="@color/white"
+        android:scaleType="center"
         android:visibility="gone" />
 
     <include

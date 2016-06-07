@@ -53,7 +53,6 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 
 	private MainBroadCastReceiver netReceiver;
 	private ViewPager mViewPager;
-	// 极光推送
 	public static boolean isForeground = false;
 
 	private boolean isHome = true;

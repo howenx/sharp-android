@@ -47,7 +47,7 @@ public class MyCollectionActivity extends BaseActivity implements
 	private List<Collection> datas;
 	private MyCollectionAdapter adapter;
 	private MyBroadCastReceiver netReceiver;
-	private TextView no_data;
+	private View no_data;
 	private LinearLayout no_net;
 
 	@Override
@@ -56,7 +56,7 @@ public class MyCollectionActivity extends BaseActivity implements
 		ActionBarUtil.setActionBarStyle(this, "我的收藏");
 		setContentView(R.layout.my_collection_layout);
 		mListView = (ListView) findViewById(R.id.mListView);
-		no_data = (TextView) findViewById(R.id.no_data);
+		no_data = findViewById(R.id.no_data);
 		no_net = (LinearLayout) findViewById(R.id.no_net);
 		findViewById(R.id.reload).setOnClickListener(this);
 		datas = new ArrayList<Collection>();

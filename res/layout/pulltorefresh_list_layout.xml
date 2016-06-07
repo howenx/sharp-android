@@ -19,15 +19,12 @@
       		android:id="@+id/mylist"
       		ptr:ptrShowIndicator="false"
       		ptr:ptrDrawable="@drawable/refreshing"/>
-	<TextView 
+	<ImageView 
 	    android:id="@+id/no_order"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
-	    android:gravity="center"
-	    android:text="@string/no_order"
-	    android:textSize="16sp"
-	    android:textColor="@color/huise"
-	    android:background="@color/bg_hui"
+	    android:background="@color/white"
+	    android:scaleType="center"
 	    android:visibility="gone"/>
 	<include 
         android:id="@+id/no_net"
