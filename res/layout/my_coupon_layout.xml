@@ -24,6 +24,7 @@
         android:contentDescription="@null"
         android:background="@color/white"
         android:scaleType="center"
+        android:src="@drawable/coupon"
         android:visibility="gone" />
 
     <include

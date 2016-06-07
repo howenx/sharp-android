@@ -49,7 +49,7 @@ public class MyPinFragment extends Fragment {
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		View view = inflater.inflate(R.layout.my_pingou_list_layout, null);
-		TextView notice = (TextView) view.findViewById(R.id.notice);
+		View notice =  view.findViewById(R.id.notice);
 		mListView = (PullToRefreshListView) view.findViewById(R.id.mylist);
 		mListView.setMode(Mode.DISABLED);
 		if (data != null && data.size()>0) {

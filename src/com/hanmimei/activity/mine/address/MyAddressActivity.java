@@ -96,6 +96,7 @@ public class MyAddressActivity extends BaseActivity implements OnClickListener {
 		adapter = new AdressAdapter(this, data);
 		mListView = (ListView) findViewById(R.id.list);
 		mListView.setAdapter(adapter);
+		mListView.setEmptyView(findViewById(R.id.no_data));
 		addAddress = (TextView) findViewById(R.id.add);
 		addAddress.setOnClickListener(this);
 		mListView.setOnItemLongClickListener(new OnItemLongClickListener() {
@@ -103,7 +104,6 @@ public class MyAddressActivity extends BaseActivity implements OnClickListener {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-//				toObject(arg2);
 				showDelDialog(arg2);
 				return true;
 			}
