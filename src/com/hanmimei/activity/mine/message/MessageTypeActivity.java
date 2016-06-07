@@ -50,7 +50,7 @@ public class MessageTypeActivity extends BaseActivity implements OnClickListener
 	private RelativeLayout youhui_msg;
 	private RelativeLayout wuliu_msg;
 	private RelativeLayout zichan_msg;
-	private TextView no_data;
+	private View no_data;
 	private ScrollView mScrollView;
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,7 +78,7 @@ public class MessageTypeActivity extends BaseActivity implements OnClickListener
 		youhui_msg = (RelativeLayout) findViewById(R.id.ac_msg);
 		wuliu_msg = (RelativeLayout) findViewById(R.id.wuliu_msg);
 		zichan_msg = (RelativeLayout) findViewById(R.id.zichan_msg);
-		no_data = (TextView) findViewById(R.id.no_data);
+		no_data = (View) findViewById(R.id.no_data);
 		mScrollView = (ScrollView) findViewById(R.id.mScrollView);
 		findViewById(R.id.sys_msg).setOnClickListener(this);
 		findViewById(R.id.good_msg).setOnClickListener(this);
