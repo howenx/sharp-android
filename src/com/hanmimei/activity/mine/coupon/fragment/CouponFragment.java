@@ -44,7 +44,7 @@ public class CouponFragment extends Fragment implements OnClickListener{
 	private Category category;
 	private User user;
 	private int state;
-	private TextView no_data;
+	private View no_data;
 	private LinearLayout no_net;
 	
 	@Override
@@ -63,7 +63,7 @@ public class CouponFragment extends Fragment implements OnClickListener{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.my_coupon_layout, null);
 		mListView = (ListView) view.findViewById(R.id.mylist);
-		no_data = (TextView) view.findViewById(R.id.no_data);
+		no_data =  view.findViewById(R.id.no_data);
 		no_net = (LinearLayout) view.findViewById(R.id.no_net);
 		view.findViewById(R.id.reload).setOnClickListener(this);
 		mListView.setAdapter(adapter);
