@@ -122,7 +122,7 @@ public class BaseActivity extends ParallaxActivityBase {
 	@Override
 	protected void onStop() {
 		super.onStop();
-		EventBus.getDefault().unregister(this);
+//		EventBus.getDefault().unregister(this);
 		if (!isAppOnForeground()) {
 			setClipboard();
 		}
@@ -180,7 +180,7 @@ public class BaseActivity extends ParallaxActivityBase {
 	public void onResume() {
 		super.onResume();
 		getClipboard();
-		EventBus.getDefault().register(this);
+//		EventBus.getDefault().register(this);
 	}
 
 	@SuppressWarnings("deprecation")
