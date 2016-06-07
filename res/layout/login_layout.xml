@@ -188,7 +188,9 @@
                 android:gravity="right"
                 android:text="手机注册"
                 android:textColor="@color/theme"
-                android:textSize="14sp"
+                android:background="@drawable/bg_red_boarder"
+                android:padding="3dp"
+                android:textSize="12sp"
                 android:textStyle="italic" />
         </LinearLayout>
 
