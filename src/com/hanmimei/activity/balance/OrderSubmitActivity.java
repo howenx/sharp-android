@@ -33,7 +33,7 @@ import com.hanmimei.event.PayEvent;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.ToastUtils;
-import com.hanmimei.view.ProgressWebView;
+import com.hanmimei.view.webview.ProgressWebView;
 import com.tencent.mm.sdk.modelpay.PayReq;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;

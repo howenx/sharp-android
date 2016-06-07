@@ -1,4 +1,4 @@
-package com.hanmimei.view;
+package com.hanmimei.view.webview;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -8,7 +8,6 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.hanmimei.R;
-import com.hanmimei.view.webview.ProgressWebChromeClient;
 
 /**
  * @Description:带进度条的WebView
@@ -24,7 +23,7 @@ public class ProgressWebView extends WebView {
 		progressbar = new ProgressBar(context, null,
 				android.R.attr.progressBarStyleHorizontal);
 		progressbar.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
-				5, 0, 0));
+				8, 0, 0));
 		Drawable draw = context.getResources().getDrawable(
 				R.drawable.progress_bar_states);
 		progressbar.setProgressDrawable(draw);
@@ -38,13 +37,14 @@ public class ProgressWebView extends WebView {
 		progressbar = new ProgressBar(context, null,
 				android.R.attr.progressBarStyleHorizontal);
 		progressbar.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
-				5, 0, 0));
+				8, 0, 0));
 		Drawable drawable = context.getResources().getDrawable(
 				R.drawable.progress_bar_states);
 		progressbar.setProgressDrawable(drawable);
 		addView(progressbar);
 		setWebViewClient(new WebViewClient());
 		setWebChromeClient(new ProgressWebChromeClient(progressbar));
+		
 	}
 
 

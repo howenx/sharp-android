@@ -127,10 +127,10 @@ public class ShareWindow extends AlertDialog implements OnClickListener {
 //		.withMedia(new UMImage(mActivity, vo.getImgUrl()))
 //		.withTitle(vo.getTitle()).withText(vo.getContent())
 //		.withTargetUrl(vo.getTargetUrl()).share();
-		mWeiboShareAPI.registerApp();;
+		mWeiboShareAPI.registerApp();
 	     if (mWeiboShareAPI.getWeiboAppSupportAPI() >= 10351 /*ApiUtils.BUILD_INT_VER_2_2*/) {
 	    	 WeiboMultiMessage weiboMessage = new WeiboMultiMessage();
-		     weiboMessage.textObject = (TextObject) getTextObj();
+		     weiboMessage.textObject = getTextObj();
 		     weiboMessage.imageObject = getImageObj();
 		     weiboMessage.mediaObject = getWebpageObj();
 	    	 // 2. 初始化从第三方到微博的消息请求

@@ -18,10 +18,11 @@ public class HMMApplication extends Application {
 	private String kouling;
 	private VersionVo versionInfo;
 	private Map<String, String> map;
+
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		JPushInterface.setDebugMode(true);
+//		JPushInterface.setDebugMode(true);
 		initPlatformConfig();
 		VolleyHttp.registRequestQueue(this);
 		DataBaseManager.initializeInstance(this);
@@ -38,7 +39,7 @@ public class HMMApplication extends Application {
 		// 新浪微博 appkey appsecret
 		PlatformConfig.setSinaWeibo("794664710",
 				"0dc274fafeabec336673331c633a115e");
-		
+
 		// QQ和Qzone appid appkey
 		PlatformConfig.setQQZone("1105332776", "CKevSfjxt0dXEq0y");
 		// 支付宝appid
@@ -65,21 +66,21 @@ public class HMMApplication extends Application {
 		this.loginUser = null;
 	}
 
-//	public DaoMaster getDaoMaster() {
-//		if (daoMaster == null) {
-//			DevOpenHelper helper = new DaoMaster.DevOpenHelper(this,
-//					"hmmdb_greedao.db", null);
-//			daoMaster = new DaoMaster(helper.getWritableDatabase());
-//		}
-//		return daoMaster;
-//	}
-//
-//	public DaoSession getDaoSession() {
-//		if (daoSession == null) {
-//			daoSession = getDaoMaster().newSession();
-//		}
-//		return daoSession;
-//	}
+	// public DaoMaster getDaoMaster() {
+	// if (daoMaster == null) {
+	// DevOpenHelper helper = new DaoMaster.DevOpenHelper(this,
+	// "hmmdb_greedao.db", null);
+	// daoMaster = new DaoMaster(helper.getWritableDatabase());
+	// }
+	// return daoMaster;
+	// }
+	//
+	// public DaoSession getDaoSession() {
+	// if (daoSession == null) {
+	// daoSession = getDaoMaster().newSession();
+	// }
+	// return daoSession;
+	// }
 
 	public String getKouling() {
 		return kouling;
@@ -94,7 +95,7 @@ public class HMMApplication extends Application {
 	}
 
 	public void setVersionInfo(VersionVo versionInfo) {
-		this.versionInfo = versionInfo; 
+		this.versionInfo = versionInfo;
 	}
 
 }

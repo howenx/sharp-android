@@ -15,15 +15,12 @@
         android:dividerHeight="5dp"
         android:scrollbars="none"
         />
-	<TextView 
+	<ImageView 
 	    android:id="@+id/no_data"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
-	    android:text="暂无收藏的商品"
-	    android:textColor="@color/huise"
 	    android:background="@color/white"
-	    android:textSize="16sp"
-	    android:gravity="center"
+	    android:contentDescription="@null"
 	    android:visibility="gone"/>
 	 <include 
         android:id="@+id/no_net"

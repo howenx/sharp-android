@@ -21,7 +21,7 @@ import com.hanmimei.activity.goods.detail.GoodsDetailActivity;
 import com.hanmimei.activity.goods.pin.PingouDetailActivity;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.utils.ActionBarUtil;
-import com.hanmimei.view.ProgressWebView;
+import com.hanmimei.view.webview.ProgressWebView;
 
 /**
  * 

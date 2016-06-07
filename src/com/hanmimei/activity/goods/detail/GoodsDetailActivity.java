@@ -84,7 +84,9 @@ import com.umeng.socialize.UMShareAPI;
  * 
  */
 public class GoodsDetailActivity extends BaseActivity implements
-		OnClickListener, GoodsDetailView, IWeiboHandler.Response {
+		OnClickListener, GoodsDetailView
+//		, IWeiboHandler.Response
+		{
 
 	private static final String Tag = "GoodsDetailActivity";
 
@@ -129,9 +131,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 		getGoodsNums();
 		loadDataByUrl();
 		registerReceivers();
-		if (savedInstanceState != null) {
-            mWeiboShareAPI.handleWeiboResponse(getIntent(), this);
-        }
 	}
 
 	/**
@@ -287,7 +286,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 	// 分享面板
 	private void showShareboard() {
-		mWeiboShareAPI = WeiboShareSDK.createWeiboAPI(this, AppConstant.WEIBO_APPKEY);
+//		mWeiboShareAPI = WeiboShareSDK.createWeiboAPI(this, AppConstant.WEIBO_APPKEY);
 		if (shareWindow == null) {
 			StockVo shareStock = detail.getCurrentStock();
 			if (shareStock == null) {
@@ -305,7 +304,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 				vo.setInfoUrl(shareStock.getInvUrl());
 			}
 			vo.setType("C");
-			shareWindow = new ShareWindow(this, vo, mWeiboShareAPI);
+			shareWindow = new ShareWindow(this, vo, null);
 		}
 		shareWindow.show();
 	}
@@ -836,35 +835,36 @@ public class GoodsDetailActivity extends BaseActivity implements
 		displayAnimation();
 	}
 
-	@Override
-	public void onResponse(BaseResponse baseResp) {
-		switch (baseResp.errCode) {
-		case WBConstants.ErrorCode.ERR_OK:
-			Toast.makeText(this, R.string.weibosdk_demo_toast_share_success,
-					Toast.LENGTH_LONG).show();
-			break;
-		case WBConstants.ErrorCode.ERR_CANCEL:
-			Toast.makeText(this, R.string.weibosdk_demo_toast_share_canceled,
-					Toast.LENGTH_LONG).show();
-			break;
-		case WBConstants.ErrorCode.ERR_FAIL:
-			Toast.makeText(
-					this,
-					getString(R.string.weibosdk_demo_toast_share_failed)
-							+ "Error Message: " + baseResp.errMsg,
-					Toast.LENGTH_LONG).show();
-			break;
-		}
-	}
-	private IWeiboShareAPI mWeiboShareAPI ;
-	@Override
-	protected void onNewIntent(Intent intent) {
-		super.onNewIntent(intent);
-
-		// 从当前应用唤起微博并进行分享后，返回到当前应用时，需要在此处调用该函数
-		// 来接收微博客户端返回的数据；执行成功，返回 true，并调用
-		// {@link IWeiboHandler.Response#onResponse}；失败返回 false，不调用上述回调
-		mWeiboShareAPI.handleWeiboResponse(intent, this);
-	}
+//	@Override
+//	public void onResponse(BaseResponse baseResp) {
+//		switch (baseResp.errCode) {
+//		case WBConstants.ErrorCode.ERR_OK:
+//			Toast.makeText(this, R.string.weibosdk_demo_toast_share_success,
+//					Toast.LENGTH_LONG).show();
+//			break;
+//		case WBConstants.ErrorCode.ERR_CANCEL:
+//			Toast.makeText(this, R.string.weibosdk_demo_toast_share_canceled,
+//					Toast.LENGTH_LONG).show();
+//			break;
+//		case WBConstants.ErrorCode.ERR_FAIL:
+//			Toast.makeText(
+//					this,
+//					getString(R.string.weibosdk_demo_toast_share_failed)
+//							+ "Error Message: " + baseResp.errMsg,
+//					Toast.LENGTH_LONG).show();
+//			break;
+//		}
+//	}
+//	private IWeiboShareAPI mWeiboShareAPI ;
+	
+//	@Override
+//	protected void onNewIntent(Intent intent) {
+//		super.onNewIntent(intent);
+//
+//		// 从当前应用唤起微博并进行分享后，返回到当前应用时，需要在此处调用该函数
+//		// 来接收微博客户端返回的数据；执行成功，返回 true，并调用
+//		// {@link IWeiboHandler.Response#onResponse}；失败返回 false，不调用上述回调
+//		mWeiboShareAPI.handleWeiboResponse(intent, this);
+//	}
 
 }

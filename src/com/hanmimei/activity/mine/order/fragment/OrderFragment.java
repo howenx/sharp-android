@@ -44,7 +44,7 @@ public class OrderFragment extends Fragment implements
 		OnRefreshListener2<ListView>, OnClickListener {
 
 	private PullToRefreshListView mListView;
-	private TextView no_order;
+	private View no_order;
 	private List<Order> data;
 	private OrderPullListAdapter adapter;
 	private Category category;
@@ -68,7 +68,7 @@ public class OrderFragment extends Fragment implements
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.pulltorefresh_list_layout, null);
-		no_order = (TextView) view.findViewById(R.id.no_order);
+		no_order = view.findViewById(R.id.no_order);
 		no_net = (LinearLayout) view.findViewById(R.id.no_net);
 		reload = (TextView) view.findViewById(R.id.reload);
 		reload.setOnClickListener(this);
