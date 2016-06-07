@@ -156,9 +156,8 @@
             android:layout_marginRight="15dp"
             android:gravity="right"
             android:text="@string/forget"
-            android:textColor="@color/huise"
-            android:textSize="14sp"
-            android:textStyle="italic" />
+            android:textColor="@color/theme"
+            android:textSize="14sp"/>
 
         <LinearLayout
             android:id="@+id/no_id"
@@ -177,17 +176,19 @@
                 android:textSize="14sp"
                 android:textStyle="italic" />
 
+                <!--  
+                android:background="@drawable/bg_red_boarder"
+                android:padding="3dp"
+                -->
             <TextView
                 android:id="@+id/regist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:background="@drawable/bg_red_boarder"
                 android:gravity="right"
-                android:padding="3dp"
                 android:text="手机注册"
                 android:textColor="@color/theme"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textStyle="italic" />
         </LinearLayout>
 
