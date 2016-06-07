@@ -8,8 +8,10 @@ import cn.jpush.android.api.JPushInterface;
 
 import com.hanmimei.activity.HMainActivity;
 import com.hanmimei.activity.goods.detail.GoodsDetailActivity;
+import com.hanmimei.activity.goods.h5.Html5LoadActivity;
 import com.hanmimei.activity.goods.pin.PingouDetailActivity;
 import com.hanmimei.activity.goods.pin.PingouResultActivity;
+import com.hanmimei.activity.goods.theme.ThemeGoodsActivity;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.entity.Notify;
 import com.hanmimei.utils.ToastUtils;
@@ -84,13 +86,13 @@ public class PushReceiver extends BroadcastReceiver {
 			if (notify.getTargetType().equals("D")) {
 				i = new Intent(context, GoodsDetailActivity.class);
 			} else if (notify.getTargetType().equals("T")) {
-				i = new Intent(context, HMainActivity.class);
+				i = new Intent(context, ThemeGoodsActivity.class);
 			} else if (notify.getTargetType().equals("P")) {
 				i = new Intent(context, PingouDetailActivity.class);
 			} else if (notify.getTargetType().equals("A")) {
 				i = new Intent(context, HMainActivity.class);
 			} else if (notify.getTargetType().equals("U")) {
-				i = new Intent(context, HMainActivity.class);
+				i = new Intent(context, Html5LoadActivity.class);
 			} else if (notify.getTargetType().equals("V")) {
 				i = new Intent(context, PingouResultActivity.class);
 			} else {

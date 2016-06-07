@@ -84,9 +84,13 @@ import com.umeng.socialize.UMShareAPI;
  * 
  */
 public class GoodsDetailActivity extends BaseActivity implements
+<<<<<<< HEAD
 		OnClickListener, GoodsDetailView
 //		, IWeiboHandler.Response
 		{
+=======
+		OnClickListener, GoodsDetailView{
+>>>>>>> a0c8ec4bdd0aa2aa7e1a53ec832b15f319c21866
 
 	private static final String Tag = "GoodsDetailActivity";
 
@@ -131,6 +135,12 @@ public class GoodsDetailActivity extends BaseActivity implements
 		getGoodsNums();
 		loadDataByUrl();
 		registerReceivers();
+<<<<<<< HEAD
+=======
+//		if (savedInstanceState != null) {
+//            mWeiboShareAPI.handleWeiboResponse(getIntent(), this);
+//        }
+>>>>>>> a0c8ec4bdd0aa2aa7e1a53ec832b15f319c21866
 	}
 
 	/**
@@ -304,7 +314,11 @@ public class GoodsDetailActivity extends BaseActivity implements
 				vo.setInfoUrl(shareStock.getInvUrl());
 			}
 			vo.setType("C");
+<<<<<<< HEAD
 			shareWindow = new ShareWindow(this, vo, null);
+=======
+			shareWindow = new ShareWindow(this, vo);
+>>>>>>> a0c8ec4bdd0aa2aa7e1a53ec832b15f319c21866
 		}
 		shareWindow.show();
 	}
@@ -856,7 +870,10 @@ public class GoodsDetailActivity extends BaseActivity implements
 //		}
 //	}
 //	private IWeiboShareAPI mWeiboShareAPI ;
+<<<<<<< HEAD
 	
+=======
+>>>>>>> a0c8ec4bdd0aa2aa7e1a53ec832b15f319c21866
 //	@Override
 //	protected void onNewIntent(Intent intent) {
 //		super.onNewIntent(intent);
@@ -866,5 +883,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 //		// {@link IWeiboHandler.Response#onResponse}；失败返回 false，不调用上述回调
 //		mWeiboShareAPI.handleWeiboResponse(intent, this);
 //	}
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> a0c8ec4bdd0aa2aa7e1a53ec832b15f319c21866
 }
