@@ -12,6 +12,9 @@ import com.hanmimei.activity.goods.h5.Html5LoadActivity;
 import com.hanmimei.activity.goods.pin.PingouDetailActivity;
 import com.hanmimei.activity.goods.pin.PingouResultActivity;
 import com.hanmimei.activity.goods.theme.ThemeGoodsActivity;
+import com.hanmimei.activity.login.LoginActivity;
+import com.hanmimei.activity.mine.coupon.MyCouponActivity;
+import com.hanmimei.application.HMMApplication;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.entity.Notify;
 import com.hanmimei.utils.ToastUtils;
@@ -23,9 +26,11 @@ import com.hanmimei.utils.ToastUtils;
  */
 public class PushReceiver extends BroadcastReceiver {
 	// private static final String TAG = "JPush";
+	private HMMApplication application;
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
+		application = (HMMApplication) context.getApplicationContext();
 		Bundle bundle = intent.getExtras();
 		// Log.d(TAG, "[MyReceiver] onReceive - " + intent.getAction() +
 		// ", extras: " + printBundle(bundle));
@@ -95,7 +100,13 @@ public class PushReceiver extends BroadcastReceiver {
 				i = new Intent(context, Html5LoadActivity.class);
 			} else if (notify.getTargetType().equals("V")) {
 				i = new Intent(context, PingouResultActivity.class);
-			} else {
+			} else if(notify.getTargetType().equals("C")){
+				if(application.getLoginUser() == null){
+					i = new Intent(context,LoginActivity.class);
+				}else{
+					i = new Intent(context, MyCouponActivity.class);
+				}
+			}else{
 				i = new Intent(context, HMainActivity.class);
 			}
 		} else {
@@ -109,7 +120,7 @@ public class PushReceiver extends BroadcastReceiver {
 	}
 
 	// 打印所有的 intent extra 数据
-	// private static String printBundle(Bundle bundle) {
+//	 private static String printBundle(Bundle bundle) {
 	// StringBuilder sb = new StringBuilder();
 	// for (String key : bundle.keySet()) {
 	// if (key.equals(JPushInterface.EXTRA_NOTIFICATION_ID)) {

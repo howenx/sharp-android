@@ -114,9 +114,12 @@ public class MessageActivity extends BaseActivity implements OnClickListener {
 							MyCouponActivity.class));
 				} else if (getIntent().getStringExtra("type")
 						.equals("discount")) {
-
+					
 				} else {
-
+					if(list.get(arg2).getTargetType().equals("C")){
+						startActivity(new Intent(MessageActivity.this,MyCouponActivity.class));
+					}
+					
 				}
 			}
 		});

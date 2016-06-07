@@ -1,5 +1,6 @@
 package com.hanmimei.view;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -21,7 +22,7 @@ import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 
-public class ShareWindow extends AlertDialog implements OnClickListener {
+@SuppressLint("SdCardPath") public class ShareWindow extends AlertDialog implements OnClickListener {
 
 	private Activity mActivity;
 	private ShareVo vo;
@@ -91,13 +92,58 @@ public class ShareWindow extends AlertDialog implements OnClickListener {
 	 * 
 	 */
 	private void share(SHARE_MEDIA media) {
-		new ShareAction(mActivity).setPlatform(media)
-		.setCallback(umShareListener)
-		.withMedia(new UMImage(mActivity, vo.getImgUrl()))
-		.withTitle(vo.getTitle()).withText(vo.getContent())
-		.withTargetUrl(vo.getTargetUrl()).share();
+		if(media == SHARE_MEDIA.SINA){
+			new ShareAction(mActivity).setPlatform(media)
+			.setCallback(umShareListener)
+			.withMedia(new UMImage(mActivity, vo.getImgUrl()))
+			.withTitle(vo.getTitle())
+			.withText(vo.getContent() + vo.getTargetUrl())
+			.share();
+		}else{
+			new ShareAction(mActivity).setPlatform(media)
+			.setCallback(umShareListener)
+			.withMedia(new UMImage(mActivity, vo.getImgUrl()))
+			.withTitle(vo.getTitle())
+			.withText(vo.getContent())
+			.withTargetUrl(vo.getTargetUrl())
+			.share();
+		}
 		
 	}
+	 /**
+	 * 
+	 */
+//	private void loadImage() {
+//		new Thread(new Runnable() {
+//			
+//			@Override
+//			public void run() {
+//				Bitmap bitmap = HttpUtils.getImg(vo.getImgUrl());
+//				Message message = mHandler.obtainMessage(1);
+//				message.obj = bitmap;
+//				mHandler.sendMessage(message);
+//			}
+//		}).start();
+//	}
+//	private Handler mHandler = new Handler(){
+//
+//		@Override
+//		public void handleMessage(Message msg) {
+//			super.handleMessage(msg);
+//			UMImage umImage = new UMImage(mActivity, compressImage((Bitmap)msg.obj,"/mnt/sdcard/hanmimei/share"));
+//			new ShareAction(mActivity).setPlatform(SHARE_MEDIA.SINA)
+//			.setCallback(umShareListener)
+////			.withMedia(new UMImage(mActivity, vo.getImgUrl()))
+//			.withMedia(umImage)
+//			.withTitle(vo.getTitle())
+//			.withText(vo.getContent())
+//			.withTargetUrl(vo.getTargetUrl())
+//			.share();
+//		}
+//		
+//	};
+
+
 	
 	private void doCopy(){
 		String[] code = null;

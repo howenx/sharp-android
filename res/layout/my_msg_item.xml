@@ -65,7 +65,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/msg_title"
-        android:textSize="@dimen/font_middle"
+        android:textSize="@dimen/font_normal"
         android:text="查看详情"/>
 </RelativeLayout>
 </LinearLayout>

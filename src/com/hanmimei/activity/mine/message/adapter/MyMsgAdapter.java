@@ -77,13 +77,6 @@ public class MyMsgAdapter extends BaseAdapter {
 		if(type.equals("goods") || type.equals("discount")){
 			GlideLoaderTools.loadRectImage(mActivity, hold.img, info.getMsgImg(), 2, 1);
 		}
-		hold.go.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				
-			}
-		});
 		return convertView;
 	}
 	
