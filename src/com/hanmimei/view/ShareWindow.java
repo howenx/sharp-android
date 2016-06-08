@@ -97,7 +97,8 @@ import com.umeng.socialize.media.UMImage;
 			.setCallback(umShareListener)
 			.withMedia(new UMImage(mActivity, vo.getImgUrl()))
 			.withTitle(vo.getTitle())
-			.withText(vo.getContent() + vo.getTargetUrl())
+			.withText(vo.getTitle() + vo.getTargetUrl())
+//			.withExtra(new UMImage(mActivity, vo.getImgUrl()))
 			.share();
 		}else{
 			new ShareAction(mActivity).setPlatform(media)

@@ -34,7 +34,7 @@
             android:background="@color/bg"
             android:divider="@color/bg"
             android:dividerHeight="@dimen/driver_line"
-            android:scrollbars="none" />
+            android:scrollbars="none"/>
 
         <ImageView
             android:id="@+id/no_data"
@@ -44,7 +44,8 @@
             android:contentDescription="@null"
             android:scaleType="center"
             android:layout_above="@id/add"
-            android:src="@drawable/address" />
+            android:src="@drawable/address"
+            android:visibility="gone" />
     </RelativeLayout>
 
 </FrameLayout>

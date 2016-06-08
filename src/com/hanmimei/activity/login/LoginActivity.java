@@ -1,7 +1,9 @@
 package com.hanmimei.activity.login;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,6 +37,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import cn.jpush.android.api.JPushInterface;
 
+import com.baidu.api.Baidu;
+import com.baidu.api.BaiduDialog.BaiduDialogListener;
+import com.baidu.api.BaiduDialogError;
+import com.baidu.api.BaiduException;
 import com.hanmimei.R;
 import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.application.HMMApplication;
@@ -86,6 +92,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	//友盟三方登陆
 	private int loginFrom = 0;
 	private UMShareAPI mShareAPI;
+	//百度登陆
+	private Baidu baidu = null;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -117,6 +125,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		findViewById(R.id.qq).setOnClickListener(this);
 		findViewById(R.id.weixin).setOnClickListener(this);
 		findViewById(R.id.sina).setOnClickListener(this);
+		findViewById(R.id.baidu).setOnClickListener(this);
 		userDao = getDaoSession().getUserDao();
 		goodsDao = getDaoSession().getShoppingGoodsDao();
 		phone_edit.addTextChangedListener(phoneWatcher);
@@ -259,12 +268,64 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			dialog.show();
 			doOtherLogin(SHARE_MEDIA.SINA);
 			break;
+		case R.id.baidu:
+			loginFrom = 3;
+			doBaiDuLogin();
+			break;
 		default:
 			break;
 		}
 	}
 
+	/**
+	 * 百度登陆
+	 */
+	private void doBaiDuLogin() {
+		baidu = new Baidu(AppConstant.BAIDU_ID, this);
+		baidu.authorize(this, false, true, new BaiduDialogListener() {
+			
+			@Override
+			public void onError(BaiduDialogError arg0) {
+				ToastUtils.Toast(LoginActivity.this, "百度登陆失败");
+			}
+			
+			@Override
+			public void onComplete(Bundle arg0) {
+				dialog.show();
+				getBaiDuInfo();
+			}
 
+			@Override
+			public void onCancel() {
+				ToastUtils.Toast(LoginActivity.this, "百度登陆取消");
+			}
+			
+			@Override
+			public void onBaiduException(BaiduException arg0) {
+				ToastUtils.Toast(LoginActivity.this, "百度登陆失败" + arg0.toString());
+			}
+		});
+	}
+	//获取百度用户的信息
+	private void getBaiDuInfo() {
+		new  Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				 try {
+					String json = baidu.request(Baidu.LoggedInUser_URL, null, "GET");
+					Message msg = mHandler.obtainMessage(5);
+					msg.obj = json;
+					mHandler.sendMessage(msg);
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (BaiduException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+		
+	}
 	//微信   qq登陆
 	private void doOtherLogin(SHARE_MEDIA platform) {
 		// mShareAPI = UMShareAPI.get(this);
@@ -318,8 +379,10 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			url = UrlUtil.WEIXIN_CHECK + data.get("unionid") + "&openId=" + data.get("openid");
 		}else if(loginFrom == 1){
 			url = UrlUtil.QQ_CHECK + data.get("openid");
-		}else{
+		}else if(loginFrom == 2){
 			url = UrlUtil.WEIBO_CHECK + data.get("uid");
+		}else{
+			url = UrlUtil.BAIDU_CHECK + data.get("uid");
 		}
 		VolleyHttp.doGetRequestTask(url, new VolleyJsonCallback() {
 
@@ -389,7 +452,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 				if (getMap() != null) {
 					params.add(new BasicNameValuePair("accessToken", getMap()
 							.get("access_token")));
-					if(getMap().get("idtype").equals("S")){
+					if(getMap().get("idtype").equals("S") || getMap().get("idtype").equals("B")){
 						params.add(new BasicNameValuePair("openId", getMap().get(
 								"uid")));
 					}else{
@@ -471,6 +534,21 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			case 4:
 				Bitmap bitmap = (Bitmap) msg.obj;
 				setDialogImg(bitmap);
+				break;
+			case 5:
+				String json = (String) msg.obj;
+				try {
+		            if (json != null) {
+		            	JSONObject object = new JSONObject(json);
+			            Map<String, String> data = new HashMap<String, String>();
+			            data.put("idtype", "B");
+			            data.put("uid", object.getString("uid"));
+			            data.put("access_token", baidu.getAccessTokenManager().getAccessToken());
+			            checkOtherLogin(data);
+					}
+					} catch (JSONException e) {
+						e.printStackTrace();
+		            }
 				break;
 
 			default:

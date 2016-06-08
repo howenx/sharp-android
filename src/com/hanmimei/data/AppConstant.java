@@ -60,6 +60,9 @@ public class AppConstant {
             "email,direct_messages_read,direct_messages_write,"
             + "friendships_groups_read,friendships_groups_write,statuses_to_me_read,"
             + "follow_app_official_microblog," + "invitation_write";
-	
+    //微信
+    public static final String WEIXIN_APP = "wx578f993da4b29f97";
+	//baidu
+    public static final String BAIDU_ID = "0trswTLaGB6hN820M30Brbhx";
 	public static final String HTTP_ERROR = "网络出现异常";
 }

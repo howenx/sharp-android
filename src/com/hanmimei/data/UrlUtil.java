@@ -38,7 +38,8 @@ public class UrlUtil {
 //	 public static final String SERVERY4 = "http://172.28.3.46:9004";
 //	 public static final String SERVERY5 = "http://172.28.3.46:9005";
 	
-	
+	//baidu denglu
+	 public static final String BAIDU_CHECK = SERVERY4 + "/api/user/open?idType=B&openId=";
 	//微信登录检查
 	public static final String WEIXIN_CHECK = SERVERY4 + "/api/user/open?idType=WO&unionId=";
 	//微博登陆校验

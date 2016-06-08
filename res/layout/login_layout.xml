@@ -225,35 +225,37 @@
 
         <LinearLayout
             android:id="@+id/other_login"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal"
             android:visibility="visible" >
 
-            <com.hanmimei.view.CircleImageView
+            <ImageView
                 android:id="@+id/qq"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/qq_border"
-                android:src="@drawable/umeng_socialize_qq_on" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_qq" />
 
-            <com.hanmimei.view.CircleImageView
+            <ImageView
                 android:id="@+id/weixin"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_margin="15dp"
-                android:src="@drawable/umeng_socialize_wechat"
-                app:border_color="#5DA735"
-                app:border_width="0.2dp" />
+                android:src="@drawable/icon_weixin" />
 
-            <com.hanmimei.view.CircleImageView
+            <ImageView
                 android:id="@+id/sina"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/umeng_socialize_sina_on"
-                app:border_color="#CE625A"
-                app:border_width="0.2dp" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_weibo" />
+            <ImageView
+                android:id="@+id/baidu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/icon_baidu"/>
         </LinearLayout>
     </LinearLayout>
 
