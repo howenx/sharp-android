@@ -63,6 +63,6 @@ public class AppConstant {
     //微信
     public static final String WEIXIN_APP = "wx578f993da4b29f97";
 	//baidu
-    public static final String BAIDU_ID = "0trswTLaGB6hN820M30Brbhx";
+    public static final String BAIDU_ID = "x6opgN1tKTyIy3GuzA4camG6reNnGtiT";
 	public static final String HTTP_ERROR = "网络出现异常";
 }

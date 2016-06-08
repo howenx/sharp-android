@@ -282,6 +282,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	 */
 	private void doBaiDuLogin() {
 		baidu = new Baidu(AppConstant.BAIDU_ID, this);
+		
 		baidu.authorize(this, false, true, new BaiduDialogListener() {
 			
 			@Override
