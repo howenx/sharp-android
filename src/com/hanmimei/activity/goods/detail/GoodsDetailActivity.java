@@ -3,16 +3,12 @@ package com.hanmimei.activity.goods.detail;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -43,7 +39,6 @@ import com.hanmimei.activity.login.LoginActivity;
 import com.hanmimei.activity.presenter.gdetail.GoodsDetailPresenterImpl;
 import com.hanmimei.activity.view.gdetail.GoodsDetailView;
 import com.hanmimei.data.AppConstant;
-import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.CommentVo;
 import com.hanmimei.entity.CustomsVo;
 import com.hanmimei.entity.GoodsDetail;
@@ -72,8 +67,6 @@ import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.sina.weibo.sdk.api.share.BaseResponse;
 import com.sina.weibo.sdk.api.share.IWeiboHandler;
-import com.sina.weibo.sdk.api.share.IWeiboShareAPI;
-import com.sina.weibo.sdk.api.share.WeiboShareSDK;
 import com.sina.weibo.sdk.constant.WBConstants;
 import com.umeng.socialize.UMShareAPI;
 
@@ -131,9 +124,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 		getGoodsNums();
 		loadDataByUrl();
 		registerReceivers();
-		if (savedInstanceState != null) {
-            mWeiboShareAPI.handleWeiboResponse(getIntent(), this);
-        }
 	}
 
 	/**
@@ -289,7 +279,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 	// 分享面板
 	private void showShareboard() {
-		mWeiboShareAPI = WeiboShareSDK.createWeiboAPI(this, AppConstant.WEIBO_APPKEY);
 		if (shareWindow == null) {
 			StockVo shareStock = detail.getCurrentStock();
 			if (shareStock == null) {
@@ -857,16 +846,5 @@ public class GoodsDetailActivity extends BaseActivity implements
 					Toast.LENGTH_LONG).show();
 			break;
 		}
-	}
-	private IWeiboShareAPI mWeiboShareAPI ;
-	
-	@Override
-	protected void onNewIntent(Intent intent) {
-		super.onNewIntent(intent);
-
-		// 从当前应用唤起微博并进行分享后，返回到当前应用时，需要在此处调用该函数
-		// 来接收微博客户端返回的数据；执行成功，返回 true，并调用
-		// {@link IWeiboHandler.Response#onResponse}；失败返回 false，不调用上述回调
-		mWeiboShareAPI.handleWeiboResponse(intent, this);
 	}
 }

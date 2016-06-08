@@ -108,6 +108,7 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 		user_name.setText("登录/注册");
 		header.setImageResource(R.drawable.hmm_mine_face);
 		sex.setVisibility(View.GONE);
+		youhui_nums.setText("");
 	}
 
 	private void findView(View view) {

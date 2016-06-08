@@ -26,6 +26,7 @@ import com.hanmimei.activity.HMainActivity;
 import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.activity.goods.pin.PingouResultActivity;
 import com.hanmimei.activity.mine.order.MyOrderActivity;
+import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.AlipayResult;
 import com.hanmimei.entity.OrderInfo;
@@ -183,7 +184,7 @@ public class OrderSubmitActivity extends BaseActivity {
 	 */
 	private void wxPay(String appid, String partnerId, String prepayId,
 			String pack, String nonceStr, String timeStamp, String sign) {
-		IWXAPI msgApi = WXAPIFactory.createWXAPI(this, "wx578f993da4b29f97");
+		IWXAPI msgApi = WXAPIFactory.createWXAPI(this, AppConstant.WEIXIN_APP);
 
 		PayReq req = new PayReq();
 		req.appId = appid;

@@ -77,10 +77,6 @@ public class MyAddressActivity extends BaseActivity implements OnClickListener {
 				getLoading().dismiss();
 				List<HAddress> list = DataParser.parserAddressList(result);
 				data.clear();
-				//自我排序
-//				if (list != null && list.size() > 0) {
-//					data.addAll(sequenceData(list));
-//				}
 				data.addAll(list);
 				adapter.notifyDataSetChanged();
 			}
@@ -161,19 +157,6 @@ public class MyAddressActivity extends BaseActivity implements OnClickListener {
 			loadData();
 		}
 	}
-
-//	private List<HMMAddress> sequenceData(List<HMMAddress> list){
-//		List<HMMAddress> addresses = new ArrayList<HMMAddress>();
-//		for(int i = 0; i < list.size(); i ++){
-//			if(list.get(i).isDefault() == true){
-//				addresses.add(0, list.get(i));
-//			}else{
-//				addresses.add(list.get(i));
-//			}
-//		}
-//		return addresses;
-//		
-//	}
 
 	private class AdressAdapter extends BaseAdapter {
 
