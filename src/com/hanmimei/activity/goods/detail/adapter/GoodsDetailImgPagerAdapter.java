@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import com.diegocarloslima.byakugallery.lib.TouchImageView;
 import com.hanmimei.R;
 import com.hanmimei.utils.GlideLoaderTools;
+import com.squareup.picasso.Picasso;
 
 /**
  * 商品详情页 轮播图展示
@@ -70,7 +71,7 @@ public class GoodsDetailImgPagerAdapter extends FragmentStatePagerAdapter {
 			final TouchImageView image = (TouchImageView) v
 					.findViewById(R.id.mImageView);
 			final String imageUrl = getArguments().getString("imageUrl");
-			GlideLoaderTools.loadSquareImage(getActivity(), imageUrl, image);
+			Picasso.with(getActivity()).load(imageUrl).placeholder(R.drawable.hmm_place_holder_z).into(image);
 			image.setOnClickListener(new OnClickListener() {
 				
 				@Override

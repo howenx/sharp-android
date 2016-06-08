@@ -28,7 +28,7 @@ public class HMMApplication extends Application {
 		DataBaseManager.initializeInstance(this);
 		TestinAgent.init(this);
 		JPushInterface.init(this); // 初始化 JPush
-		UncaughtExceptionTools.handler(this);
+//		UncaughtExceptionTools.handler(this);
 	}
 
 	// 初始化PlatformConfig

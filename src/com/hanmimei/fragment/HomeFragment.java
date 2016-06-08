@@ -90,6 +90,8 @@ public class HomeFragment extends BaseIconFragment implements
 	private TextView reload;
 
 	private int pullNum = 1;
+	
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

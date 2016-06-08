@@ -46,6 +46,8 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 	private ImageView sex;
 	private BaseActivity activity;
 	private User user;
+	
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
