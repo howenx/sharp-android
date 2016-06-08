@@ -69,6 +69,8 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 	private ShoppingGoodsDao goodsDao;
 	private LinearLayout no_net;
 	private TextView reload;
+	
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

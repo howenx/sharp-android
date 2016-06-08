@@ -33,3 +33,11 @@
 -keep class com.alipay.android.app.IRemoteServiceCallback$Stub{*;}
 -keep class com.alipay.sdk.app.PayTask{ public *;}
 -keep class com.alipay.sdk.app.AuthTask{ public *;}
+
+-dontwarn com.baidu.uaq.com.google.gson.**
+-keep class com.baidu.uaq.com.google.gson.** { *;}
+-dontwarn com.google.gson.**
+-keep class com.google.gson.** { *;}
+-dontwarn com.baidu.uaq.agent.android.**
+-keep class com.baidu.uaq.agent.android.** { *;}
+-keepattributes Exceptions,InnerClasses,Signature

@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/bg"
-        android:padding="10dp">
+        android:padding="10dp" >
 
         <ListView
             android:id="@+id/mylist"
@@ -18,20 +18,18 @@
             android:background="@color/white"
             android:divider="@null"
             android:dividerHeight="0dp"
-            android:scrollbars="none" 
-            android:visibility="gone"/>
+            android:scrollbars="none"
+            android:visibility="gone" />
 
-        <TextView
+        <ImageView
             android:id="@+id/no_data"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/mylist"
             android:background="@color/white"
-            android:gravity="center"
-            android:text="@string/wuliu_noinfo"
-            android:textColor="@color/fontcolor"
-            android:textSize="14sp"
-            android:visibility="gone" />
+            android:contentDescription="@null"
+            android:scaleType="center"
+            android:src="@drawable/logistics" />
     </RelativeLayout>
 
 </FrameLayout>

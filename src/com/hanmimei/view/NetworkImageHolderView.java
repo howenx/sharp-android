@@ -14,6 +14,7 @@ import com.hanmimei.R;
 import com.hanmimei.activity.goods.detail.GoodsDetailImgActivity;
 import com.hanmimei.entity.ImageVo;
 import com.hanmimei.utils.GlideLoaderTools;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by Sai on 15/8/4.
@@ -31,7 +32,8 @@ public class NetworkImageHolderView implements CBPageAdapter.Holder<ImageVo>{
 
     @Override
     public void UpdateUI(final Context context,List<ImageVo> datas, final int position, ImageVo data) {
-        GlideLoaderTools.loadSquareImage(context,data.getUrl(),imageView);
+//        GlideLoaderTools.loadSquareImage(context,data.getUrl(),imageView);
+    	Picasso.with(context).load(data.getUrl()).placeholder(R.drawable.hmm_place_holder_z).into(imageView);
         final ArrayList<String> list = new ArrayList<String>();
         for(ImageVo info :datas){
         	list.add(info.getUrl());
