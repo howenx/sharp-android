@@ -92,7 +92,6 @@ public class FirstShowActivity extends AppCompatActivity {
 				break;
 			}
 		}
-
 	}
 
 	// 更新token

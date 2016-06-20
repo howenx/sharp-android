@@ -10,19 +10,16 @@ import com.hanmimei.utils.PreferenceUtil.IntroConfig;
 
 public class IntroMsgDialog extends AlertDialog {
 
-	
 	private Context mContext;
 	
-	
 	public IntroMsgDialog(Context context) {
-		super(context,R.style.CustomDialog);
+		super(context);
 		this.mContext = context;
 	}
 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.dialog_intro_msg);
 		setCanceledOnTouchOutside(false);
