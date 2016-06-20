@@ -105,7 +105,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		dialog = CommonUtils.dialog(this, "正在登录，请稍等...");
 		mShareAPI = UMShareAPI.get(this);
 	}
-
+	
 	private void initView() {
 		phone_edit = (EditText) findViewById(R.id.phone_num);
 		pwd_edit = (TextView) findViewById(R.id.pwd);
@@ -342,8 +342,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		@Override
 		public void onComplete(SHARE_MEDIA platform, int action,
 				Map<String, String> data) {
-
-//			ToastUtils.Toast(LoginActivity.this, data.toString());
 			if(loginFrom == 0){
 				data.put("idtype", "WO");
 			}else if(loginFrom == 1){

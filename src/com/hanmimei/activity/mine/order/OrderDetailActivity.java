@@ -77,7 +77,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 	private TextView item_order_id;
 	private TextView go_wuliu;
 	private TextView go_comment;
-	
+
 	private TextView payBackFee;
 	private TextView reason;
 	private TextView refund_state;
@@ -105,8 +105,8 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		}
 		adapter = new OrderDetailListAdapter(list, this, isShow);
 		findView();
-		//取消，退款可以删除
-		if(order.getOrderStatus().equals("C") || order.getOrderStatus().equals("T")){
+		//取消，退款可以删除 || order.getOrderStatus().equals("T")
+		if(order.getOrderStatus().equals("C")){
 			ActionBarUtil.setActionBarStyle(this, "订单详情", R.drawable.hmm_edit_delete, true, this);
 		}else{
 			ActionBarUtil.setActionBarStyle(this, "订单详情");

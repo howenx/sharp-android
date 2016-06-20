@@ -81,7 +81,7 @@ public class ViewFlow extends AdapterView<Adapter> {
 	/**
 	 * 默认滚动时间
 	 */
-	private long timeSpan = 3000;
+	private long timeSpan = 1000;
 	private Handler handler;
 	private boolean isAutoScrolling = false;
 

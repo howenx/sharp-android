@@ -377,7 +377,7 @@ public class DataParser {
 				msg.setCode(msgObject.getInt("code"));
 			if (object.has("cartList")) {
 				JSONArray array = object.getJSONArray("cartList");
-				for (int i = 0; i < array.length(); i++) {
+				for (int i = 0; i < array.length(); i++) {	
 					JSONObject obj = array.getJSONObject(i);
 					List<ShoppingGoods> list = new ArrayList<ShoppingGoods>();
 					CustomsVo custom = new CustomsVo();

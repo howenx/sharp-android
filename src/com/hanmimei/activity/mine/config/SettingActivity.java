@@ -3,6 +3,7 @@ package com.hanmimei.activity.mine.config;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,14 +28,13 @@ import com.hanmimei.utils.ToastUtils;
 
 /**
  * @author eric
- *
+ * 
  */
 @SuppressLint("NewApi")
 public class SettingActivity extends BaseActivity implements OnClickListener {
 
-	
-	private TextView exit,cur_version;
-	private TextView versionName,cacheSize;
+	private TextView exit, cur_version;
+	private TextView versionName, cacheSize;
 	private ProgressDialog pdialog;
 	private AlertDialog dialog;
 	private HMMApplication application;
@@ -50,7 +50,6 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 		initView();
 	}
 
-
 	private void initView() {
 		exit = (TextView) findViewById(R.id.exit);
 		cur_version = (TextView) findViewById(R.id.cur_version);
@@ -61,19 +60,20 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 		} else {
 			exit.setVisibility(View.VISIBLE);
 		}
-		cur_version.setText(getResources().getString(R.string.current_version, CommonUtils.getVersionName(this)));
+		cur_version.setText(getResources().getString(R.string.current_version,
+				CommonUtils.getVersionName(this)));
 		cacheSize.setText(DataCleanManager.getTotalCacheSize(this));
-		if(getVersionInfo() !=null){
+		if (getVersionInfo() != null) {
 			versionName.setVisibility(View.VISIBLE);
 		}
 		findViewById(R.id.about).setOnClickListener(this);
-		 findViewById(R.id.idea).setOnClickListener(this);
-		 findViewById(R.id.tel).setOnClickListener(this);
-		 findViewById(R.id.clear).setOnClickListener(this);
-		 findViewById(R.id.upd).setOnClickListener(this);
-		 findViewById(R.id.push).setOnClickListener(this);
+		findViewById(R.id.idea).setOnClickListener(this);
+		findViewById(R.id.tel).setOnClickListener(this);
+		findViewById(R.id.clear).setOnClickListener(this);
+		findViewById(R.id.upd).setOnClickListener(this);
+		findViewById(R.id.push).setOnClickListener(this);
 		findViewById(R.id.exit).setOnClickListener(this);
-		
+		findViewById(R.id.grade).setOnClickListener(this);
 	}
 
 	@Override
@@ -93,20 +93,26 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 			cacheSize.setText(DataCleanManager.getTotalCacheSize(this));
 			break;
 		case R.id.upd:
-			if(getVersionInfo() == null){
+			if (getVersionInfo() == null) {
 				ToastUtils.Toast(this, "已经是最新版本");
-			}else{
-				AlertDialogUtils.showUpdate2Dialog(getActivity(), new OnClickListener() {
-					
-					@Override
-					public void onClick(View v) {
-						new HDownloadManager(getActivity()).download(getVersionInfo().getDownloadLink());
-					}
-				});
+			} else {
+				AlertDialogUtils.showUpdate2Dialog(getActivity(),
+						new OnClickListener() {
+
+							@Override
+							public void onClick(View v) {
+								new HDownloadManager(getActivity())
+										.download(getVersionInfo()
+												.getDownloadLink());
+							}
+						});
 			}
 			break;
 		case R.id.exit:
 			doExit();
+			break;
+		case R.id.grade:
+			doGrade();
 			break;
 		default:
 			break;
@@ -115,14 +121,14 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 
 	private void showDialog() {
 		dialog = AlertDialogUtils.showDialog(this, new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View arg0) {
 				startActivity(new Intent(Intent.ACTION_CALL, Uri
 						.parse("tel:4006640808")));
 				dialog.dismiss();
 			}
-		},"拨打客服电话 400-664-0808","取消","拨打");
+		}, "拨打客服电话 400-664-0808", "取消", "拨打");
 	}
 
 	private void doExit() {
@@ -157,7 +163,8 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 			switch (msg.what) {
 			case 1:
 				pdialog.dismiss();
-				sendBroadcast(new Intent( AppConstant.MESSAGE_BROADCAST_QUIT_LOGIN_ACTION));
+				sendBroadcast(new Intent(
+						AppConstant.MESSAGE_BROADCAST_QUIT_LOGIN_ACTION));
 				finish();
 				break;
 
@@ -167,5 +174,19 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 		}
 
 	};
+
+	/**
+	 * 
+	 */
+	private void doGrade() {
+		try {
+			Uri uri = Uri.parse("market://details?id=" + getPackageName());
+			Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(intent);
+		} catch (ActivityNotFoundException e) {
+			ToastUtils.Toast(this, "请安装手机市场");
+		}
+	}
 
 }

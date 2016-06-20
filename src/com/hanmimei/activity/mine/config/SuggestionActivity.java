@@ -1,6 +1,8 @@
 package com.hanmimei.activity.mine.config;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,20 +18,23 @@ import com.hanmimei.utils.ToastUtils;
 
 /**
  * @author eric
- *
+ * 
  */
-public class SuggestionActivity extends BaseActivity implements OnClickListener{
+public class SuggestionActivity extends BaseActivity implements OnClickListener {
 
 	private EditText editText;
 	private String str;
 	private ProgressDialog dialog;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.idea_layout);
-		ActionBarUtil.setActionBarStyle(this, "意见反馈", R.drawable.icon_save, this);
+		ActionBarUtil.setActionBarStyle(this, "意见反馈", R.drawable.icon_save,
+				this);
 		editText = (EditText) findViewById(R.id.idea);
 	}
+
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -40,14 +45,18 @@ public class SuggestionActivity extends BaseActivity implements OnClickListener{
 			break;
 		}
 	}
+
+	
+
 	private void checkInput() {
 		str = editText.getText().toString();
-		if(!str.equals("")){
+		if (!str.equals("")) {
 			doSend();
-		}else{
+		} else {
 			ToastUtils.Toast(this, "输入不能为空");
 		}
 	}
+
 	private void doSend() {
 		dialog = CommonUtils.dialog(this, "正在提交，请稍后...");
 		dialog.show();
@@ -65,7 +74,7 @@ public class SuggestionActivity extends BaseActivity implements OnClickListener{
 		}).start();
 	}
 
-	private Handler mHandler = new Handler(){
+	private Handler mHandler = new Handler() {
 
 		@Override
 		public void handleMessage(Message msg) {
@@ -80,6 +89,6 @@ public class SuggestionActivity extends BaseActivity implements OnClickListener{
 				break;
 			}
 		}
-		
+
 	};
 }
