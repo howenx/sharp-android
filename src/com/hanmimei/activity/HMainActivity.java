@@ -37,7 +37,6 @@ import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.CommonUtils;
 import com.hanmimei.utils.ToastUtils;
-import com.umeng.analytics.MobclickAgent;
 import com.viewpagerindicator.BaseIconFragment;
 import com.viewpagerindicator.IconTabPageIndicator;
 import com.viewpagerindicator.IconTabPageIndicator.OnTabReselectedListener;
@@ -203,9 +202,8 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 
 			} else {
 				setClipboard();
-				MobclickAgent.onKillProcess(this);
 				finish();
-				// System.exit(0);
+				 System.exit(0);
 			}
 		}
 	}

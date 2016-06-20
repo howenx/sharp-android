@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -73,7 +74,8 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 		findViewById(R.id.upd).setOnClickListener(this);
 		findViewById(R.id.push).setOnClickListener(this);
 		findViewById(R.id.exit).setOnClickListener(this);
-		findViewById(R.id.grade).setOnClickListener(this);
+		findViewById(R.id.judge).setOnClickListener(this);
+
 	}
 
 	@Override
@@ -111,12 +113,21 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 		case R.id.exit:
 			doExit();
 			break;
-		case R.id.grade:
-			doGrade();
+		case R.id.judge:
+			judge("com.hanmimei");
 			break;
 		default:
 			break;
 		}
+	}
+
+	private void judge(String appPkg) {
+		if (TextUtils.isEmpty(appPkg))
+			return;
+		Uri uri = Uri.parse("market://details?id=" + appPkg);
+		Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		startActivity(intent);
 	}
 
 	private void showDialog() {
@@ -174,19 +185,5 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 		}
 
 	};
-
-	/**
-	 * 
-	 */
-	private void doGrade() {
-		try {
-			Uri uri = Uri.parse("market://details?id=" + getPackageName());
-			Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			startActivity(intent);
-		} catch (ActivityNotFoundException e) {
-			ToastUtils.Toast(this, "请安装手机市场");
-		}
-	}
 
 }

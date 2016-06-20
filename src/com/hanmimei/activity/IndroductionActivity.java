@@ -38,7 +38,24 @@ public class IndroductionActivity extends AppCompatActivity {
 		viewFlow.setAdapter(new ViewFlowAdapter());
 		viewFlow.setFlowIndicator(indicator);
 		viewFlow.setSelection(0);
+		
+		findViewById(R.id.btn_turn).setOnClickListener(new TurnListener());
 	}
+	
+	
+	private class TurnListener implements OnClickListener{
+
+		@Override
+		public void onClick(View v) {
+			IntroConfig.putIntroCfg(IndroductionActivity.this,
+					IntroConfig.INTRO_CONFIG_VALUE_NO);
+			startActivity(new Intent(IndroductionActivity.this,
+					HMainActivity.class));
+			finish();
+		}
+		
+	}
+	
 
 	class ViewFlowAdapter extends BaseAdapter {
 		private LayoutInflater inflater;
@@ -78,16 +95,7 @@ public class IndroductionActivity extends AppCompatActivity {
 			holder.img.setImageResource(images[position % images.length]);
 			if (position == images.length - 1) {
 				holder.experience.setVisibility(View.VISIBLE);
-				holder.img.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View arg0) {
-						IntroConfig.putIntroCfg(IndroductionActivity.this,
-								IntroConfig.INTRO_CONFIG_VALUE_NO);
-						startActivity(new Intent(IndroductionActivity.this,
-								HMainActivity.class));
-						finish();
-					}
-				});
+				holder.img.setOnClickListener(new TurnListener());
 			} else {
 				holder.experience.setVisibility(View.INVISIBLE);
 			}
@@ -100,5 +108,7 @@ public class IndroductionActivity extends AppCompatActivity {
 		}
 
 	}
+	
+	
 
 }

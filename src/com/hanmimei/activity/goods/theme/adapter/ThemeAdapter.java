@@ -65,6 +65,9 @@ public class ThemeAdapter extends BaseAdapter {
 			holder.pin_tip.setVisibility(View.VISIBLE);
 			holder.price.setText(activity.getResources().getString(
 					R.string.price, theme.getItemPrice()));
+			holder.discount.setText("低至"+activity.getResources().getString(
+					R.string.discount, theme.getItemDiscount()));
+			holder.old_price.setText("最低");
 			if (theme.getState().equals("P")) {
 				holder.sold_out.setVisibility(View.GONE);
 				holder.timeView.setText(DateUtils.getTimeDiffDesc(theme
