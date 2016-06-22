@@ -9,13 +9,13 @@ public class CouponVo {
 	private String coupId;
 	private String userId;
 	private String cateId;
-	private int denomination;	//面值
+	private String denomination;	//面值
 	private String startAt;
 	private String endAt;
 	private String state;						//"N"
 	private String orderId;
 	private String userAt;
-	private int limitQuota; //
+	private String limitQuota; //
 	private String cateNm;	//  购物券所属种类
 	public String getCoupId() {
 		return coupId;
@@ -35,10 +35,10 @@ public class CouponVo {
 	public void setCateId(String cateId) {
 		this.cateId = cateId;
 	}
-	public int getDenomination() {
+	public String getDenomination() {
 		return denomination;
 	}
-	public void setDenomination(int denomination) {
+	public void setDenomination(String denomination) {
 		this.denomination = denomination;
 	}
 	public String getStartAt() {
@@ -71,10 +71,10 @@ public class CouponVo {
 	public void setUserAt(String userAt) {
 		this.userAt = userAt;
 	}
-	public int getLimitQuota() {
+	public String getLimitQuota() {
 		return limitQuota;
 	}
-	public void setLimitQuota(int limitQuota) {
+	public void setLimitQuota(String limitQuota) {
 		this.limitQuota = limitQuota;
 	}
 	public String getCateNm() {

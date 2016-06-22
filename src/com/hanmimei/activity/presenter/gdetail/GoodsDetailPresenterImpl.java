@@ -148,9 +148,6 @@ public class GoodsDetailPresenterImpl implements GoodsDetailPresenter,OnGetGoods
 
 
 
-	/* (non-Javadoc)
-	 * @see com.hanmimei.activity.presenter.gdetail.GoodsDetailPresenter#addToCartWithLogin(java.util.Map, java.lang.String, java.lang.String)
-	 */
 	@Override
 	public void addToCart(Map<String, String> headers, ShoppingGoods goods) {
 		if(headers == null){
@@ -162,11 +159,6 @@ public class GoodsDetailPresenterImpl implements GoodsDetailPresenter,OnGetGoods
 	}
 
 
-
-
-	/* (non-Javadoc)
-	 * @see com.hanmimei.activity.model.gdetail.GoodsDetailModelImpl.OnGetGoodsDetailListener#addToCartWithLoginSuccess()
-	 */
 	@Override
 	public void addToCartWithLoginSuccess() {
 		// TODO Auto-generated method stub
@@ -177,9 +169,6 @@ public class GoodsDetailPresenterImpl implements GoodsDetailPresenter,OnGetGoods
 
 
 
-	/* (non-Javadoc)
-	 * @see com.hanmimei.activity.model.gdetail.GoodsDetailModelImpl.OnGetGoodsDetailListener#addToCartWithoutLoginSuccess()
-	 */
 	@Override
 	public void addToCartWithoutLoginSuccess(ShoppingGoods goods) {
 		// TODO Auto-generated method stub

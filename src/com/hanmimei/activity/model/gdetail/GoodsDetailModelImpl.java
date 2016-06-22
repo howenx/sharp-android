@@ -210,6 +210,9 @@ public class GoodsDetailModelImpl implements GoodsDetailModel {
 			object.put("state", goods.getState());
 			object.put("skuType", goods.getSkuType());
 			object.put("skuTypeId", goods.getSkuTypeId());
+			object.put("orCheck", goods.getOrCheck());
+			//购物车数据来源,1登陆后同步,2详细页面点击加入购物车,3点击购物车列表页操作(增删减)
+			object.put("cartSource", 2);
 			array.put(object);
 		} catch (JSONException e) {
 		}
@@ -253,9 +256,11 @@ public class GoodsDetailModelImpl implements GoodsDetailModel {
 						Properties.SkuTypeId.eq(goods.getSkuTypeId())).unique();
 		if (goods2 == null) {
 			goods.setGoodsNums(1);
+			goods.setOrCheck("Y");
 		}else{
 			goods.setId(goods2.getId());
 			goods.setGoodsNums(goods2.getGoodsNums()+1);
+			goods.setOrCheck("Y");
 		}
 		
 		JSONObject params = new JSONObject();
@@ -264,6 +269,8 @@ public class GoodsDetailModelImpl implements GoodsDetailModel {
 			params.put("amount", goods.getGoodsNums());
 			params.put("skuType", goods.getSkuType());
 			params.put("skuTypeId", goods.getSkuTypeId());
+			params.put("orCheck", goods.getOrCheck());
+			params.put("cartSource", 2);
 		} catch (JSONException e) {
 		}
 		VolleyHttp.doPostRequestTask2(UrlUtil.POST_ADD_CART,

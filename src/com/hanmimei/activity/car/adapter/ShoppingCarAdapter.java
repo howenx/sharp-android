@@ -304,6 +304,26 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		},object.toString());
 
 	}
+	private void updateShoppingState(ShoppingGoods goods){
+		final JSONArray array = new JSONArray();
+		JSONObject object = new JSONObject();
+		try {
+			object.put("cartId", goods.getCartId());
+			object.put("skuId", goods.getGoodsId());
+			object.put("amount", goods.getGoodsNums());
+			object.put("skuTypeId", goods.getSkuTypeId());
+			object.put("skuType", goods.getSkuType());
+			object.put("state", goods.getCartId());
+			object.put("orCheck", goods.getCartId());
+			object.put("cartSource", 1);
+			
+			array.put(object);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		activity.getLoading().show();
+		
+	}
 
 	private Handler mHandler = new Handler() {
 

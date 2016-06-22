@@ -80,6 +80,8 @@ public class UrlUtil {
 	public static final String GET_CAR_LIST = SERVERY1 + "/client/cart/list";
 	//未登录状态下请求购物车数据
 	public static final String CAR_LIST_URL = SERVERY1 + "/client/cart/get/sku/list";
+	//登陆状态下购物车的选中状态
+	public static final String UPDATA_SHOPPING_STATE = SERVERY1 + "/client/cart/check";
 	// 未登录状态加入购物车
 	@Deprecated
 	public static final String SEND_CAR_TO_SERVER_UN = SERVERY1 + "/client/cart/verify/amount/";
