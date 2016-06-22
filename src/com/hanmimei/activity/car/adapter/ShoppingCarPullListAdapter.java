@@ -256,6 +256,11 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 			
 			@Override
 			public void onError() {
+				if(selected.equals("Y")){
+					custom.setState("N");
+				}else{
+					custom.setState("G");
+				}
 				activity.getLoading().dismiss();
 				ToastUtils.Toast(activity, "操作失败！请检查您的网络");
 			}
