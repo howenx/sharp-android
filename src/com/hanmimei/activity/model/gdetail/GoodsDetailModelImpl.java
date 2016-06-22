@@ -210,7 +210,7 @@ public class GoodsDetailModelImpl implements GoodsDetailModel {
 			object.put("state", goods.getState());
 			object.put("skuType", goods.getSkuType());
 			object.put("skuTypeId", goods.getSkuTypeId());
-			object.put("orCheck", goods.getOrCheck());
+			object.put("orCheck", "Y");
 			//购物车数据来源,1登陆后同步,2详细页面点击加入购物车,3点击购物车列表页操作(增删减)
 			object.put("cartSource", 2);
 			array.put(object);

@@ -113,15 +113,15 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				if (custom.getState().equals("G")) {
+					custom.setState("N");
 					if(activity.getHeaders() != null){
-						custom.setState("N");
 						updataAllGoodsState(custom,"N");
 					}else{
 						updataAllLocalState(custom,"N");
 					}
 				} else {
+					custom.setState("G");
 					if(activity.getHeaders() != null){
-						custom.setState("G");
 						updataAllGoodsState(custom,"Y");
 					}else{
 						updataAllLocalState(custom,"Y");
@@ -269,7 +269,7 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				activity.setShoppingcarChanged(true);
-				if (user != null) {
+				if (activity.getHeaders() != null) {
 					delGoods(delGoods);
 				} else {
 					dialog.dismiss();
