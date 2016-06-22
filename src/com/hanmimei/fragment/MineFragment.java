@@ -28,6 +28,8 @@ import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.User;
+import com.hanmimei.manager.CouponMenager;
+import com.hanmimei.manager.MyCouponMenager;
 import com.hanmimei.utils.GlideLoaderTools;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.view.CircleImageView;
@@ -125,6 +127,7 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 		view.findViewById(R.id.collect).setOnClickListener(this);
 		view.findViewById(R.id.youhui_linear).setOnClickListener(this);
 		view.findViewById(R.id.pintuan).setOnClickListener(this);
+		MyCouponMenager.getInstance().initCouponMenager(youhui_nums);
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package com.hanmimei.entity;
 
+import java.math.BigDecimal;
+
 /**
  * 优惠券 数据结构
  * @author vince
@@ -9,13 +11,13 @@ public class CouponVo {
 	private String coupId;
 	private String userId;
 	private String cateId;
-	private String denomination;	//面值
+	private BigDecimal denomination;	//面值
 	private String startAt;
 	private String endAt;
 	private String state;						//"N"
 	private String orderId;
 	private String userAt;
-	private String limitQuota; //
+	private BigDecimal limitQuota; //
 	private String cateNm;	//  购物券所属种类
 	public String getCoupId() {
 		return coupId;
@@ -35,10 +37,10 @@ public class CouponVo {
 	public void setCateId(String cateId) {
 		this.cateId = cateId;
 	}
-	public String getDenomination() {
+	public BigDecimal getDenomination() {
 		return denomination;
 	}
-	public void setDenomination(String denomination) {
+	public void setDenomination(BigDecimal denomination) {
 		this.denomination = denomination;
 	}
 	public String getStartAt() {
@@ -71,10 +73,10 @@ public class CouponVo {
 	public void setUserAt(String userAt) {
 		this.userAt = userAt;
 	}
-	public String getLimitQuota() {
+	public BigDecimal getLimitQuota() {
 		return limitQuota;
 	}
-	public void setLimitQuota(String limitQuota) {
+	public void setLimitQuota(BigDecimal limitQuota) {
 		this.limitQuota = limitQuota;
 	}
 	public String getCateNm() {
