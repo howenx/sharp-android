@@ -399,6 +399,8 @@ public class DataParser {
 					for (int j = 0; j < cartsArray.length(); j++) {
 						JSONObject goodsObject = cartsArray.getJSONObject(j);
 						ShoppingGoods goods = new ShoppingGoods();
+						if(goodsObject.has("orCheck"))
+							goods.setOrCheck(goodsObject.getString("orCheck"));
 						if (goodsObject.has("cartId"))
 							goods.setCartId(goodsObject.getString("cartId"));
 						if (goodsObject.has("skuId"))
@@ -414,11 +416,11 @@ public class DataParser {
 							goods.setGoodsPrice(goodsObject
 									.getDouble("itemPrice"));
 						if (goodsObject.has("state")) {
-							if (goodsObject.getString("state").equals("G")) {
-								goods.setState("I");
-							} else {
+//							if (goodsObject.getString("state").equals("G")) {
+//								goods.setState("I");
+//							} else {
 								goods.setState(goodsObject.getString("state"));
-							}
+//							}
 						}
 						if (goodsObject.has("shipFee"))
 							goods.setShipFee(goodsObject.getString("shipFee"));

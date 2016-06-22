@@ -65,7 +65,7 @@ public class ShoppingCarMenager {
 			List<ShoppingGoods> goods = list.get(i).getList();
 //			if(list.get(i).getin)
 			for(int j = 0; j < goods.size(); j ++){
-				if(goods.get(j).getState().equals("G")){
+				if(goods.get(j).getOrCheck().equals("Y")){
 					morePrice = morePrice + goods.get(j).getGoodsPrice()* goods.get(j).getGoodsNums();
 					customHas = true;
 				}
@@ -115,7 +115,7 @@ public class ShoppingCarMenager {
 			for(int j = 0; j < goods.size(); j ++){
 				if(!goods.get(j).getState().equals("S"))
 					totalNums = totalNums + goods.get(j).getGoodsNums();
-				if(goods.get(j).getState().equals("G")){
+				if(goods.get(j).getOrCheck().equals("Y")){
 					nums_e = nums_e + goods.get(j).getGoodsNums();
 					totalPrice_e = totalPrice_e + goods.get(j).getGoodsNums() * goods.get(j).getGoodsPrice();
 				}
@@ -162,7 +162,7 @@ public class ShoppingCarMenager {
 			int custom_num = 0;
 			List<ShoppingGoods> goods = list.get(i).getList();
 			for(int j = 0; j < goods.size(); j ++){
-				if(goods.get(j).getState().equals("G")){
+				if(goods.get(j).getOrCheck().equals("Y")){
 					tax = tax + goods.get(j).getGoodsPrice() * goods.get(j).getGoodsNums() * goods.get(j).getPostalTaxRate_() * 0.01;
 					custom_checknum = custom_checknum + 1;
 				}
@@ -184,11 +184,11 @@ public class ShoppingCarMenager {
 			for(int j = 0; j < list.get(i).getList().size(); j ++){
 				if(list.get(i).getState().equals("G")){
 					if(!list.get(i).getList().get(j).getState().equals("S"))
-						list.get(i).getList().get(j).setState("G");
+						list.get(i).getList().get(j).setOrCheck("Y");
 				}
 				if(list.get(i).getState().equals("N")){
 					if(!list.get(i).getList().get(j).getState().equals("S"))
-						list.get(i).getList().get(j).setState("I");
+						list.get(i).getList().get(j).setOrCheck("null");
 				}
 			}
 		}

@@ -3,6 +3,10 @@ package com.hanmimei.activity.car.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -24,6 +28,7 @@ import com.hanmimei.activity.goods.detail.GoodsDetailActivity;
 import com.hanmimei.dao.ShoppingGoodsDao;
 import com.hanmimei.dao.ShoppingGoodsDao.Properties;
 import com.hanmimei.data.DataParser;
+import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.CustomsVo;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.ShoppingGoods;
@@ -108,12 +113,10 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 			public void onClick(View v) {
 				if (custom.getState().equals("G")) {
 					custom.setState("N");
-					notifyDataSetChanged();
-					ShoppingCarMenager.getInstance().setCustomState();
+					updataAllGoodsState(custom,"N");
 				} else {
 					custom.setState("G");
-					notifyDataSetChanged();
-					ShoppingCarMenager.getInstance().setCustomState();
+					updataAllGoodsState(custom,"Y");
 				}
 			}
 		});
@@ -166,6 +169,67 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 		adapter = new ShoppingCarAdapter(custom.getList(), activity);
 		holder.listView.setAdapter(adapter);
 		return convertView;
+	}
+
+	/**
+	 * @param custom
+	 * @param b 
+	 */
+	private void updataAllGoodsState(final CustomsVo custom, final String  selected) {
+		final JSONArray array = new JSONArray();
+		for(int i =0 ; i < custom.getList().size(); i ++){
+			ShoppingGoods goods = custom.getList().get(i);
+			JSONObject object = new JSONObject();
+			try {
+				object.put("cartId", goods.getCartId());
+				object.put("skuId", goods.getGoodsId());
+				object.put("amount", goods.getGoodsNums());
+				object.put("skuTypeId", goods.getSkuTypeId());
+				object.put("skuType", goods.getSkuType());
+				object.put("state", goods.getState());
+				object.put("orCheck", selected);
+				object.put("cartSource", 1);
+				object.put("pinTieredPriceId", null);
+				array.put(object);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		activity.getLoading().show();
+		VolleyHttp.doPostRequestTask2(activity.getHeaders(),UrlUtil.UPDATA_SHOPPING_STATE, new VolleyJsonCallback() {
+			
+			@Override
+			public void onSuccess(String result) {
+				activity.getLoading().dismiss();
+				HMessage hmm = DataParser.paserResultMsg(result);
+				if (hmm.getCode() != null) {
+					if (hmm.getCode() == 200) {
+						notifyDataSetChanged();
+						ShoppingCarMenager.getInstance().setCustomState();
+					} else {
+						if(selected.equals("Y")){
+							custom.setState("N");
+						}else{
+							custom.setState("G");
+						}
+						ToastUtils.Toast(activity, hmm.getMessage());
+					}
+				} else {
+					if(selected.equals("Y")){
+						custom.setState("N");
+					}else{
+						custom.setState("G");
+					}
+					ToastUtils.Toast(activity, "操作失败！");
+				}
+			}
+			
+			@Override
+			public void onError() {
+				activity.getLoading().dismiss();
+				ToastUtils.Toast(activity, "操作失败！请检查您的网络");
+			}
+		},array.toString());
 	}
 
 	/**

@@ -106,12 +106,24 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		//根据状态判断是否选中，s状态显示一次，未登录状态显示之后删除本地数据，登录状态直接显示后台做处理
-		if (goods.getState().equals("G")) {
+		/*
+		 * new是否选中！！！！！！
+		 */
+		if(goods.getOrCheck().equals("Y")){
 			check_nums = check_nums + 1;
 			holder.checkBox.setVisibility(View.VISIBLE);
 			holder.checkBox.setImageDrawable(check_Drawable);
-		} else if (goods.getState().equals("S")) {
+		}else{
+			holder.checkBox.setVisibility(View.VISIBLE);
+			holder.checkBox.setImageDrawable(uncheck_Drawable);
+		}
+		//根据状态判断是否选中，s状态显示一次，未登录状态显示之后删除本地数据，登录状态直接显示后台做处理
+//		if (goods.getState().equals("G")) {
+//			check_nums = check_nums + 1;
+//			holder.checkBox.setVisibility(View.VISIBLE);
+//			holder.checkBox.setImageDrawable(check_Drawable);
+//		} else 
+			if (goods.getState().equals("S")) {
 			holder.shixiao.setVisibility(View.VISIBLE);
 			holder.shopping_main.setBackgroundColor(activity.getResources().getColor(R.color.shixiao_bg));
 			holder.plus.setTextColor(activity.getResources().getColor(R.color.qianhui));
@@ -129,10 +141,11 @@ public class ShoppingCarAdapter extends BaseAdapter {
 							.build().list());
 				}
 			}
-		} else {
-			holder.checkBox.setVisibility(View.VISIBLE);
-			holder.checkBox.setImageDrawable(uncheck_Drawable);
-		}
+		} 
+//			else {
+//			holder.checkBox.setVisibility(View.VISIBLE);
+//			holder.checkBox.setImageDrawable(uncheck_Drawable);
+//		}
 		// 根据限购数量，判断是否可以继续增减
 		if(!goods.getState().equals("S")){
 				holder.plus.setTextColor(activity.getResources().getColor(R.color.fontcolor));
@@ -213,17 +226,28 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		holder.checkBox.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				if (goods.getState().equals("G")) {
-					check_nums = check_nums - 1;
-					goods.setState("I");
-					notifyDataSetChanged();
-					ShoppingCarMenager.getInstance().setBottom();
-				} else {
-					goods.setState("G");
-					check_nums = check_nums + 1;
-					notifyDataSetChanged();
-					ShoppingCarMenager.getInstance().setBottom();
+				if(goods.getOrCheck().equals("Y")){
+					goods.setOrCheck("N");
+					updateShoppingState(goods);
+				}else{
+					goods.setOrCheck("Y");
+					updateShoppingState(goods);
 				}
+//				if (goods.getState().equals("G")) {
+////					check_nums = check_nums - 1;
+////					goods.setState("I");
+////					notifyDataSetChanged();
+////					ShoppingCarMenager.getInstance().setBottom();
+//					goods.setOrCheck("N");
+//					updateShoppingState(goods);
+//				} else {
+//					goods.setOrCheck("Y");
+//					updateShoppingState(goods);
+////					goods.setState("G");
+////					check_nums = check_nums + 1;
+////					notifyDataSetChanged();
+////					ShoppingCarMenager.getInstance().setBottom();
+//				}
 			}
 		});
 		return convertView;
@@ -313,15 +337,39 @@ public class ShoppingCarAdapter extends BaseAdapter {
 			object.put("amount", goods.getGoodsNums());
 			object.put("skuTypeId", goods.getSkuTypeId());
 			object.put("skuType", goods.getSkuType());
-			object.put("state", goods.getCartId());
-			object.put("orCheck", goods.getCartId());
+			object.put("state", goods.getState());
+			object.put("orCheck", goods.getOrCheck());
 			object.put("cartSource", 1);
-			
+			object.put("pinTieredPriceId", null);
 			array.put(object);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 		activity.getLoading().show();
+		VolleyHttp.doPostRequestTask2(activity.getHeaders(),UrlUtil.UPDATA_SHOPPING_STATE, new VolleyJsonCallback() {
+			
+			@Override
+			public void onSuccess(String result) {
+				activity.getLoading().dismiss();
+				HMessage hmm = DataParser.paserResultMsg(result);
+				if (hmm.getCode() != null) {
+					if (hmm.getCode() == 200) {
+						notifyDataSetChanged();
+						ShoppingCarMenager.getInstance().setBottom();
+					} else {
+						ToastUtils.Toast(activity, hmm.getMessage());
+					}
+				} else {
+					ToastUtils.Toast(activity, "操作失败！");
+				}
+			}
+			
+			@Override
+			public void onError() {
+				activity.getLoading().dismiss();
+				ToastUtils.Toast(activity, "操作失败！请检查您的网络");
+			}
+		},array.toString());
 		
 	}
 

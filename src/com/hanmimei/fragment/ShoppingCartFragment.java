@@ -134,6 +134,9 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 				object.put("state", goods.getState());
 				object.put("skuType", goods.getSkuType());
 				object.put("skuTypeId", goods.getSkuTypeId());
+				object.put("pinTieredPriceId", null);
+				object.put("orCheck", goods.getOrCheck());
+				object.put("cartSource", 1);
 				array.put(object);
 				
 			}
