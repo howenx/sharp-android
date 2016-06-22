@@ -13,7 +13,7 @@ public class IntroMsgDialog extends AlertDialog {
 	private Context mContext;
 	
 	public IntroMsgDialog(Context context) {
-		super(context);
+		super(context,R.style.CustomDimDialog);
 		this.mContext = context;
 	}
 

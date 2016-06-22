@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_theme_topline"
-    android:paddingTop="10dp"
-    android:paddingRight="10dp" 
-    android:paddingBottom="10dp">
+    android:orientation="vertical"
+    android:background="@drawable/bg_theme_topline">
+    
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/goods_over_notice"
+        android:textSize="12sp"
+        android:textColor="@color/white"
+        android:padding="5dp"
+        android:background="@color/theme"/>
 
     <com.hanmimei.view.HorizontalListView
         android:id="@+id/more_grid"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:scrollbars="@null" />
+        android:scrollbars="@null" 
+        android:layout_margin="10dp"/>
 
-</RelativeLayout>
+</LinearLayout>
