@@ -40,7 +40,7 @@ public class ShoppingGoodsDao extends AbstractDao<ShoppingGoods, Long> {
         public final static Property InvArea = new Property(14, String.class, "invArea", false, "INV_AREA");
         public final static Property RestrictAmount = new Property(15, Integer.class, "restrictAmount", false, "RESTRICT_AMOUNT");
         public final static Property RestAmount = new Property(16, Integer.class, "restAmount", false, "REST_AMOUNT");
-        public final static Property PostalTaxRate = new Property(17, Integer.class, "postalTaxRate", false, "POSTAL_TAX_RATE");
+        public final static Property PostalTaxRate = new Property(17, String.class, "postalTaxRate", false, "POSTAL_TAX_RATE");
         public final static Property PostalStandard = new Property(18, Integer.class, "postalStandard", false, "POSTAL_STANDARD");
         public final static Property PostalLimit = new Property(19, Integer.class, "postalLimit", false, "POSTAL_LIMIT");
         public final static Property InvCustoms = new Property(20, String.class, "invCustoms", false, "INV_CUSTOMS");
@@ -49,6 +49,7 @@ public class ShoppingGoodsDao extends AbstractDao<ShoppingGoods, Long> {
         public final static Property PinTieredPriceId = new Property(23, String.class, "pinTieredPriceId", false, "PIN_TIERED_PRICE_ID");
         public final static Property InvAreaNm = new Property(24, String.class, "invAreaNm", false, "INV_AREA_NM");
         public final static Property PoastalFee = new Property(25, Double.class, "poastalFee", false, "POASTAL_FEE");
+        public final static Property OrCheck = new Property(26, String.class, "orCheck", false, "OR_CHECK");
     };
 
 
@@ -81,7 +82,7 @@ public class ShoppingGoodsDao extends AbstractDao<ShoppingGoods, Long> {
                 "\"INV_AREA\" TEXT," + // 14: invArea
                 "\"RESTRICT_AMOUNT\" INTEGER," + // 15: restrictAmount
                 "\"REST_AMOUNT\" INTEGER," + // 16: restAmount
-                "\"POSTAL_TAX_RATE\" INTEGER," + // 17: postalTaxRate
+                "\"POSTAL_TAX_RATE\" TEXT," + // 17: postalTaxRate
                 "\"POSTAL_STANDARD\" INTEGER," + // 18: postalStandard
                 "\"POSTAL_LIMIT\" INTEGER," + // 19: postalLimit
                 "\"INV_CUSTOMS\" TEXT," + // 20: invCustoms
@@ -89,7 +90,8 @@ public class ShoppingGoodsDao extends AbstractDao<ShoppingGoods, Long> {
                 "\"SKU_TYPE_ID\" TEXT," + // 22: skuTypeId
                 "\"PIN_TIERED_PRICE_ID\" TEXT," + // 23: pinTieredPriceId
                 "\"INV_AREA_NM\" TEXT," + // 24: invAreaNm
-                "\"POASTAL_FEE\" REAL);"); // 25: poastalFee
+                "\"POASTAL_FEE\" REAL," + // 25: poastalFee
+                "\"OR_CHECK\" TEXT);"); // 26: orCheck
     }
 
     /** Drops the underlying database table. */
@@ -232,6 +234,11 @@ public class ShoppingGoodsDao extends AbstractDao<ShoppingGoods, Long> {
         if (poastalFee != null) {
             stmt.bindDouble(26, poastalFee);
         }
+ 
+        String orCheck = entity.getOrCheck();
+        if (orCheck != null) {
+            stmt.bindString(27, orCheck);
+        }
     }
 
     /** @inheritdoc */
@@ -269,7 +276,8 @@ public class ShoppingGoodsDao extends AbstractDao<ShoppingGoods, Long> {
             cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22), // skuTypeId
             cursor.isNull(offset + 23) ? null : cursor.getString(offset + 23), // pinTieredPriceId
             cursor.isNull(offset + 24) ? null : cursor.getString(offset + 24), // invAreaNm
-            cursor.isNull(offset + 25) ? null : cursor.getDouble(offset + 25) // poastalFee
+            cursor.isNull(offset + 25) ? null : cursor.getDouble(offset + 25), // poastalFee
+            cursor.isNull(offset + 26) ? null : cursor.getString(offset + 26) // orCheck
         );
         return entity;
     }
@@ -303,6 +311,7 @@ public class ShoppingGoodsDao extends AbstractDao<ShoppingGoods, Long> {
         entity.setPinTieredPriceId(cursor.isNull(offset + 23) ? null : cursor.getString(offset + 23));
         entity.setInvAreaNm(cursor.isNull(offset + 24) ? null : cursor.getString(offset + 24));
         entity.setPoastalFee(cursor.isNull(offset + 25) ? null : cursor.getDouble(offset + 25));
+        entity.setOrCheck(cursor.isNull(offset + 26) ? null : cursor.getString(offset + 26));
      }
     
     /** @inheritdoc */
