@@ -197,6 +197,7 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 		DataBaseManager.getInstance().getDaoSession().getShoppingGoodsDao().updateInTx(list);
 		notifyDataSetChanged();
 		ShoppingCarMenager.getInstance().setCustomState();
+		activity.setShoppingcarChanged(true);
 	}
 
 	/**
@@ -232,6 +233,7 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 				HMessage hmm = DataParser.paserResultMsg(result);
 				if (hmm.getCode() != null) {
 					if (hmm.getCode() == 200) {
+						activity.setShoppingcarChanged(true);
 						notifyDataSetChanged();
 						ShoppingCarMenager.getInstance().setCustomState();
 					} else {

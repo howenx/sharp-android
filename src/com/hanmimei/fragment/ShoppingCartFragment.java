@@ -288,7 +288,7 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 				List<ShoppingGoods> goodsList = new ArrayList<ShoppingGoods>();
 				CustomsVo customs = new CustomsVo();
 				for (int j = 0; j < data.get(i).getList().size(); j++) {
-					if (data.get(i).getList().get(j).getState().equals("G")) {
+					if (data.get(i).getList().get(j).getOrCheck().equals("Y")) {
 						goodsList.add(data.get(i).getList().get(j));
 					}
 				}

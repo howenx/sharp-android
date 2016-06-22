@@ -364,6 +364,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 				HMessage hmm = DataParser.paserResultMsg(result);
 				if (hmm.getCode() != null) {
 					if (hmm.getCode() == 200) {
+						baseActivity.setShoppingcarChanged(true);
 						notifyDataSetChanged();
 						ShoppingCarMenager.getInstance().setBottom();
 					} else {
@@ -393,6 +394,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		goods.setOrCheck(state);
 		notifyDataSetChanged();
 		ShoppingCarMenager.getInstance().setBottom();
+		baseActivity.setShoppingcarChanged(true);
 	}
 
 	private Handler mHandler = new Handler() {
