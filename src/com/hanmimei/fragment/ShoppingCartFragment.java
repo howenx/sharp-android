@@ -267,12 +267,12 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 	
 
 	private void clearPrice() {
-		for (int i = 0; i < data.size(); i++) {
-			for (int j = 0; j < data.get(i).getList().size(); j++) {
-				if (!data.get(i).getList().get(j).getState().equals("S"))
-					data.get(i).getList().get(j).setState("I");
-			}
-		}
+//		for (int i = 0; i < data.size(); i++) {
+//			for (int j = 0; j < data.get(i).getList().size(); j++) {
+//				if (!data.get(i).getList().get(j).getState().equals("S"))
+//					data.get(i).getList().get(j).setState("I");
+//			}
+//		}
 		adapter.notifyDataSetChanged();
 		ShoppingCarMenager.getInstance().setBottom();
 	}

@@ -36,6 +36,7 @@ import com.hanmimei.entity.User;
 import com.hanmimei.http.VolleyHttp;
 import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.manager.BadgeViewManager;
+import com.hanmimei.manager.DataBaseManager;
 import com.hanmimei.manager.ShoppingCarMenager;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.KeyWordUtil;
@@ -112,11 +113,19 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				if (custom.getState().equals("G")) {
-					custom.setState("N");
-					updataAllGoodsState(custom,"N");
+					if(activity.getHeaders() != null){
+						custom.setState("N");
+						updataAllGoodsState(custom,"N");
+					}else{
+						updataAllLocalState(custom,"N");
+					}
 				} else {
-					custom.setState("G");
-					updataAllGoodsState(custom,"Y");
+					if(activity.getHeaders() != null){
+						custom.setState("G");
+						updataAllGoodsState(custom,"Y");
+					}else{
+						updataAllLocalState(custom,"Y");
+					}
 				}
 			}
 		});
@@ -169,6 +178,25 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 		adapter = new ShoppingCarAdapter(custom.getList(), activity);
 		holder.listView.setAdapter(adapter);
 		return convertView;
+	}
+
+	/**
+	 * @param custom
+	 * @param string
+	 */
+	private void updataAllLocalState(CustomsVo custom, String state) {
+		List<ShoppingGoods> list = new ArrayList<ShoppingGoods>();
+		for(int i = 0; i < custom.getList().size(); i ++){
+			//查找本地该购物车数据，修改选中状态
+			ShoppingGoods shoppingGoods = DataBaseManager.getInstance().getDaoSession().getShoppingGoodsDao().queryBuilder()
+			.where(Properties.GoodsId.eq(custom.getList().get(i).getGoodsId())).unique();
+			shoppingGoods.setOrCheck(state);
+			list.add(shoppingGoods);
+		}
+		//更新本地购物车数据
+		DataBaseManager.getInstance().getDaoSession().getShoppingGoodsDao().updateInTx(list);
+		notifyDataSetChanged();
+		ShoppingCarMenager.getInstance().setCustomState();
 	}
 
 	/**

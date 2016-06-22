@@ -32,6 +32,7 @@ import com.hanmimei.entity.User;
 import com.hanmimei.http.VolleyHttp;
 import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.manager.BadgeViewManager;
+import com.hanmimei.manager.DataBaseManager;
 import com.hanmimei.manager.ShoppingCarMenager;
 import com.hanmimei.utils.CommonUtils;
 import com.hanmimei.utils.GlideLoaderTools;
@@ -227,11 +228,19 @@ public class ShoppingCarAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View arg0) {
 				if(goods.getOrCheck().equals("Y")){
-					goods.setOrCheck("N");
-					updateShoppingState(goods);
+					if(activity.getHeaders() != null){
+						goods.setOrCheck("N");
+						updateShoppingState(goods);
+					}else{
+						updateShoppingLoacalState(goods,"N");
+					}
 				}else{
-					goods.setOrCheck("Y");
-					updateShoppingState(goods);
+					if(activity.getHeaders() != null){
+						goods.setOrCheck("Y");
+						updateShoppingState(goods);
+					}else{
+						updateShoppingLoacalState(goods,"Y");
+					}
 				}
 //				if (goods.getState().equals("G")) {
 ////					check_nums = check_nums - 1;
@@ -249,6 +258,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 ////					ShoppingCarMenager.getInstance().setBottom();
 //				}
 			}
+
 		});
 		return convertView;
 	}
@@ -371,6 +381,18 @@ public class ShoppingCarAdapter extends BaseAdapter {
 			}
 		},array.toString());
 		
+	}
+
+	private void updateShoppingLoacalState(ShoppingGoods goods, String state) {
+		//查找本地该购物车数据，修改选中状态
+		ShoppingGoods shoppingGoods = DataBaseManager.getInstance().getDaoSession().getShoppingGoodsDao().queryBuilder()
+		.where(Properties.GoodsId.eq(goods.getGoodsId())).unique();
+		shoppingGoods.setOrCheck(state);
+		//更新本地购物车数据
+		DataBaseManager.getInstance().getDaoSession().getShoppingGoodsDao().update(shoppingGoods);
+		goods.setOrCheck(state);
+		notifyDataSetChanged();
+		ShoppingCarMenager.getInstance().setBottom();
 	}
 
 	private Handler mHandler = new Handler() {
