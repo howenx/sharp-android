@@ -17,7 +17,7 @@ public class ShoppingGoods {
     private String goodsName;
     private Double goodsPrice;
     private Boolean isChecked;
-    private String state="I";
+    private String state="G";
     private Integer goodsNums;
     private String itemColor;
     private String itemSize;
@@ -35,7 +35,7 @@ public class ShoppingGoods {
     private String pinTieredPriceId;
     private String invAreaNm;
     private Double poastalFee;
-    private String orCheck;
+    private String orCheck;  //提交勾选 'Y'为提交勾选,'N'为提交取消勾选
 
     // KEEP FIELDS - put your custom fields here
     // KEEP FIELDS END

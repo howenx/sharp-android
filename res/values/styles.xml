@@ -54,9 +54,9 @@
 
     <style name="MainTabView" parent="TabView">
         <item name="android:textColor">@color/indicator_font_color_selector</item>
-        <item name="android:textSize">12sp</item>
-        <item name="iconWidth">25dp</item>
-        <item name="iconHeight">25dp</item>
+        <item name="android:textSize">10sp</item>
+        <item name="iconWidth">20dp</item>
+        <item name="iconHeight">20dp</item>
     </style>
 
     <style name="AppThemeForOrder" parent="AppTheme">

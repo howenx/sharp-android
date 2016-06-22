@@ -12,33 +12,58 @@
         android:name="com.hanmimei.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
     <!-- 添加访问网络的权限 -->
+    <!-- 允许程序获取当前或最近运行的应用 -->
     <uses-permission android:name="android.permission.GET_TASKS" />
+    <!-- 访问网络连接，可能产生GPRS流量 -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 获取当前WiFi接入的状态以及WLAN热点的信息 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 获取网络信息状态，如当前的网络连接是否有效 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 访问电话状态 -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 程序可以读取设备外部存储空间（内置SDcard和外置SDCard）的文件，如果您的App已经添加了“WRITE_EXTERNAL_STORAGE ”权限 ，则就没
+		必要添加读的权限了，写权限已经包含了读权限了。 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- 允许程序写入外部存储,如SD卡上写文件 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 允许程序从非系统拨号器里输入电话号码 -->
     <uses-permission android:name="android.permission.CALL_PHONE" />
+   <!--  改变WiFi状态 -->
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <!--  改变网络状态如是否能联网-->
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <!-- 允许读写系统设置项 -->
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <!-- 极光 -->
     <uses-permission android:name="com.hanmimei.permission.JPUSH_MESSAGE" />
+    <!--  -->
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <!--  允许程序在手机屏幕关闭后后台进程仍然运行-->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- 允许振动 -->
     <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- 挂载、反挂载外部文件系统 -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
 
     <!-- Optional. Required for location feature -->
+    <!--  通过WiFi或移动基站的方式获取用户错略的经纬度信息，定位精度大概误差在30~1500米-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!--通过GPS芯片接收卫星的定位信息，定位精度达10米以内  -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 允许程序访问额外的定位提供者指令 -->
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <!-- 读取系统底层日志 -->
     <uses-permission android:name="android.permission.READ_LOGS" />
+    <!--  ，允许程序请求验证从AccountManager-->
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <!-- 允许程序管理AccountManager中的账户列表 -->
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+   <!--  设置调试程序，一般用于开发-->
     <uses-permission android:name="android.permission.SET_DEBUG_APP" />
+    <!--  显示系统窗口-->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!-- 访问GMail账户列表 -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 
     <application
