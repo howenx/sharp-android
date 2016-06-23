@@ -110,7 +110,11 @@ public class ShoppingCar implements Serializable {
 	}
 
 	public BigDecimal getTotalPayFee(){
-		return this.totalFee.add(this.factPortalFee).add(this.factShipFee).subtract(this.denomination) ;
+		BigDecimal fee = this.totalFee.add(this.factPortalFee).add(this.factShipFee).subtract(this.denomination) ;
+		if(fee.compareTo(BigDecimal.ONE) <= 0){
+			fee = BigDecimal.ONE;
+		}
+		return fee;
 	}
 	
 	public BigDecimal getDiscountFee() {

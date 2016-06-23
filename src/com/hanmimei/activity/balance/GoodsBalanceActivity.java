@@ -61,7 +61,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 	private List<CustomsVo> customslist; // 保税区列表
 
 	private TextView all_price, all_money, youhui, all_portalfee, all_shipfee;
-	private TextView name, phone, address, idCard, coupon_num, coupon_denomi;
+	private TextView name, phone, address, idCard, coupon_num, coupon_denomi,notice;
 
 	private long selectedId = Long.valueOf("0"); // 默认地址为0
 
@@ -114,6 +114,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 		idCard = (TextView) findViewById(R.id.idCard);
 		coupon_num = (TextView) findViewById(R.id.coupon_num);
 		coupon_denomi = (TextView) findViewById(R.id.coupon_denomi);
+		notice = (TextView) findViewById(R.id.notice);
 
 		findViewById(R.id.btn_pay_type).setOnClickListener(this);
 		findViewById(R.id.btn_send_time).setOnClickListener(this);
@@ -157,8 +158,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 				} else {
 					coupon_denomi.setText("-" + btn.getTag(R.id.coupon_de)
 							+ "元");
-					car.setDenomination(new BigDecimal(btn.getTag(
-							R.id.coupon_de).toString()));
+					car.setDenomination((BigDecimal)btn.getTag(R.id.coupon_de));
 					orderSubmit.setCouponId(btn.getTag(R.id.coupon_id)
 							.toString());
 				}
@@ -166,6 +166,11 @@ public class GoodsBalanceActivity extends BaseActivity implements
 						car.getDiscountFee()));
 				all_money.setText(getResources().getString(R.string.all_money,
 						car.getTotalPayFee()));
+				if(car.getTotalPayFee().compareTo(BigDecimal.ONE) <= 0){
+					notice.setVisibility(View.VISIBLE);
+				}else{
+					notice.setVisibility(View.GONE);
+				}
 			}
 		});
 
@@ -409,7 +414,12 @@ public class GoodsBalanceActivity extends BaseActivity implements
 			}
 			for (CouponVo c : coupons) {
 				btn = getCustomRadioButton();
-				btn.setText("满" + c.getLimitQuota() + "减" + c.getDenomination());
+				if( c.getLimitQuota().compareTo(BigDecimal.ZERO)<=0){
+					btn.setText(c.getDenomination()+"元，无限制");
+				}else{
+					btn.setText(c.getDenomination()+"元，满"+c.getLimitQuota()+"元可用");
+				}
+				
 				btn.setTag(R.id.coupon_de, c.getDenomination());
 				btn.setTag(R.id.coupon_id, c.getCoupId());
 				group_coupons.addView(btn, lp);

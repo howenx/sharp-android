@@ -10,8 +10,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/bg"
         android:layout_weight="1"
+        android:background="@color/bg"
         android:scrollbars="none" >
 
         <LinearLayout
@@ -158,12 +158,11 @@
                         android:layout_height="wrap_content"
                         android:drawableLeft="@drawable/hmm_radio_select"
                         android:drawablePadding="8dp"
+                        android:drawableRight="@drawable/hmm_drop_down"
                         android:gravity="center_vertical"
                         android:text="工作日双休日与假期均可送货"
-                        android:drawableRight="@drawable/hmm_drop_down"
                         android:textColor="@color/fontcolor"
                         android:textSize="14sp" />
-
                 </RelativeLayout>
 
                 <RadioGroup
@@ -248,12 +247,11 @@
                         android:layout_height="wrap_content"
                         android:drawableLeft="@drawable/hmm_radio_select"
                         android:drawablePadding="8dp"
+                        android:drawableRight="@drawable/hmm_drop_down"
                         android:gravity="center_vertical"
                         android:text="在线支付"
-                        android:drawableRight="@drawable/hmm_drop_down"
                         android:textColor="@color/fontcolor"
                         android:textSize="14sp" />
-
                 </RelativeLayout>
 
                 <RadioGroup
@@ -262,8 +260,8 @@
                     android:layout_height="wrap_content"
                     android:background="#FAFAFA"
                     android:checkedButton="@+id/pay_jd"
-                    android:orientation="vertical" 
-                    android:visibility="gone">
+                    android:orientation="vertical"
+                    android:visibility="gone" >
 
                     <RadioButton
                         android:id="@+id/pay_jd"
@@ -295,8 +293,8 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1px"
-                        android:visibility="gone"
-                        android:background="@color/huise" />
+                        android:background="@color/huise"
+                        android:visibility="gone" />
 
                     <RadioButton
                         android:id="@+id/pay_wx"
@@ -314,8 +312,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginBottom="5dp"
+                android:layout_marginTop="10dp"
                 android:background="@color/white"
                 android:orientation="vertical" >
 
@@ -504,9 +502,20 @@
         </LinearLayout>
     </ScrollView>
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/notice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/notice"
+        android:padding="5dp"
+        android:text="海关规定：跨境商品支付金额不小于1元"
+        android:textColor="@color/btn_buy_normal"
+        android:textSize="10sp"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:weightSum="5" >
@@ -514,22 +523,21 @@
         <TextView
             android:id="@+id/all_money"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="3"
             android:background="@drawable/bg_gray_boarder"
-            android:padding="15dp"
             android:gravity="center"
+            android:text="111"
             android:textColor="@color/btn_buy_normal"
             android:textSize="16sp" />
 
         <TextView
             android:id="@+id/btn_pay"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="2"
             android:background="@drawable/btn_buy_selector"
             android:gravity="center"
-            android:padding="15dp"
             android:text="@string/submit_order"
             android:textColor="@color/white"
             android:textSize="16sp" />
