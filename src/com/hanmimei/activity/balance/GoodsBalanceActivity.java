@@ -130,7 +130,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 						// 显示选中的支付方式
 						RadioButton btn = (RadioButton) findViewById(arg1);
 						pay_type.setText(btn.getText());
-						orderSubmit.setPayMethod(btn.getTag().toString());
+//						orderSubmit.setPayMethod(btn.getTag().toString());
 					}
 				});
 		group_send_time

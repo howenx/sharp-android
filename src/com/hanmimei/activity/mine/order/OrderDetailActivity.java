@@ -243,13 +243,15 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 			item_order_id.setText("子订单号：" + order.getOrderSplitId());
 		}
 		String payMethod = "";
-		if(order.getPayMethod().equals("JD")){
-			payMethod = "京东支付";
-		}else if(order.getPayMethod().equals("APAY")){
-			payMethod = "支付宝支付";
-		}else if(order.getPayMethod().equals("WEIXIN")){
-			payMethod = "微信支付";
-		}
+			if(order.getPayMethod().equals("JD")){
+				payMethod = "京东支付";
+			}else if(order.getPayMethod().equals("APAY")){
+				payMethod = "支付宝支付";
+			}else if(order.getPayMethod().equals("WEIXIN")){
+				payMethod = "微信支付";
+			}else{
+				payMethod = "在线支付";
+			}
 		pay_from.setText("支付方式：" + payMethod);
 		order_date.setText("下单时间：" + order.getOrderCreateAt());
 		name.setText("收货人：" + addressInfo.getName());

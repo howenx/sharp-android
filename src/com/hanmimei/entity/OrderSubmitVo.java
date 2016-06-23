@@ -31,7 +31,6 @@ public class OrderSubmitVo {
 			this.clientType = 1;
 			this.shipTime = 1;
 			this.buyNow = 1;
-			this.payMethod = PAY_TYPE_JD;
 			this.addressId =  Long.parseLong("0");
 			this.clientIp = "127.0.0.1";
 		}

@@ -346,7 +346,7 @@ public class BadgeView extends TextView {
 			break;
 		case POSITION_TOP_RIGHT:
 			lp.gravity = Gravity.RIGHT | Gravity.TOP;
-			lp.setMargins(0, dipToPixels(4), dipToPixels(40), 0);
+			lp.setMargins(0, dipToPixels(2), dipToPixels(40), 0);
 			break;
 		case POSITION_BOTTOM_LEFT:
 			lp.gravity = Gravity.LEFT | Gravity.BOTTOM;
@@ -362,7 +362,7 @@ public class BadgeView extends TextView {
 			break;
 		case POSITION_CENTER_HORIZONTAL:
 			lp.gravity = Gravity.CENTER_HORIZONTAL;
-			lp.setMargins(dipToPixels(15), dipToPixels(4), 0, 0);
+			lp.setMargins(dipToPixels(10), dipToPixels(6), 0, 0);
 			break;
 			
 		default:

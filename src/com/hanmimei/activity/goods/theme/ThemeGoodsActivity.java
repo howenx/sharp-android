@@ -120,7 +120,7 @@ public class ThemeGoodsActivity extends BaseActivity implements
 //		actionbarView.setBackgroundResource(R.color.theme);
 //		backgroundDrawable = actionbarView.getBackground();
 //		backgroundDrawable.setAlpha(0);
-		actionbarView = ActionBarUtil.setActionBarStyle(this, "商品展示", R.drawable.white_shoppingcar, this);
+		actionbarView = ActionBarUtil.setActionBarStyle(this, "商品展示", R.drawable.shopping_cart_top, this);
 		// 购物车
 		View cartView = actionbarView.findViewById(R.id.setting);
 		bView = new BadgeView(this, cartView);
