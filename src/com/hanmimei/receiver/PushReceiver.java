@@ -15,6 +15,7 @@ import com.hanmimei.activity.goods.theme.ThemeGoodsActivity;
 import com.hanmimei.activity.login.LoginActivity;
 import com.hanmimei.activity.mine.coupon.MyCouponActivity;
 import com.hanmimei.application.HMMApplication;
+import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.entity.Notify;
 import com.hanmimei.utils.ToastUtils;
@@ -33,8 +34,7 @@ public class PushReceiver extends BroadcastReceiver {
 		application = (HMMApplication) context.getApplicationContext();
 		Bundle bundle = intent.getExtras();
 //		context.sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_COUNPON_ACTION));
-		// Log.d(TAG, "[MyReceiver] onReceive - " + intent.getAction() +
-		// ", extras: " + printBundle(bundle));
+		msgIsCouspon(context,bundle);
 
 		if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
 			// String regId =
@@ -82,6 +82,20 @@ public class PushReceiver extends BroadcastReceiver {
 			// Log.d(TAG, "[MyReceiver] Unhandled intent - " +
 			// intent.getAction());
 		}
+	}
+
+	/**
+	 * @param bundle
+	 */
+	private void msgIsCouspon(Context context, Bundle bundle) {
+//		MessageMenager.getInstance().setMsgDrawble(R.drawable.hmm_icon_message_h);
+		String other = bundle.getString(JPushInterface.EXTRA_EXTRA);
+		Notify notify = DataParser.parserJPush(other);
+		if (notify.getTargetType() != null) {
+			if (notify.getTargetType().equals("C")) {
+				context.sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_COUNPON_ACTION));
+			}
+		} 
 	}
 
 	private void clickJPush(Context context, Bundle bundle) {
