@@ -230,33 +230,18 @@ public class ShoppingCarAdapter extends BaseAdapter {
 				if(goods.getOrCheck().equals("Y")){
 					if(activity.getHeaders() != null){
 						goods.setOrCheck("N");
-						updateShoppingState(goods);
+						updateShoppingState(goods,"N");
 					}else{
 						updateShoppingLoacalState(goods,"N");
 					}
 				}else{
 					if(activity.getHeaders() != null){
 						goods.setOrCheck("Y");
-						updateShoppingState(goods);
+						updateShoppingState(goods,"Y");
 					}else{
 						updateShoppingLoacalState(goods,"Y");
 					}
 				}
-//				if (goods.getState().equals("G")) {
-////					check_nums = check_nums - 1;
-////					goods.setState("I");
-////					notifyDataSetChanged();
-////					ShoppingCarMenager.getInstance().setBottom();
-//					goods.setOrCheck("N");
-//					updateShoppingState(goods);
-//				} else {
-//					goods.setOrCheck("Y");
-//					updateShoppingState(goods);
-////					goods.setState("G");
-////					check_nums = check_nums + 1;
-////					notifyDataSetChanged();
-////					ShoppingCarMenager.getInstance().setBottom();
-//				}
 			}
 
 		});
@@ -338,7 +323,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		},object.toString());
 
 	}
-	private void updateShoppingState(ShoppingGoods goods){
+	private void updateShoppingState(final ShoppingGoods goods, final String  selected){
 		final JSONArray array = new JSONArray();
 		JSONObject object = new JSONObject();
 		try {
@@ -368,15 +353,30 @@ public class ShoppingCarAdapter extends BaseAdapter {
 						notifyDataSetChanged();
 						ShoppingCarMenager.getInstance().setBottom();
 					} else {
+						if(selected.equals("Y")){
+							goods.setOrCheck("null");
+						}else{
+							goods.setOrCheck("Y");
+						}
 						ToastUtils.Toast(activity, hmm.getMessage());
 					}
 				} else {
+					if(selected.equals("Y")){
+						goods.setOrCheck("null");
+					}else{
+						goods.setOrCheck("Y");
+					}
 					ToastUtils.Toast(activity, "操作失败！");
 				}
 			}
 			
 			@Override
 			public void onError() {
+				if(selected.equals("Y")){
+					goods.setOrCheck("null");
+				}else{
+					goods.setOrCheck("Y");
+				}
 				activity.getLoading().dismiss();
 				ToastUtils.Toast(activity, "操作失败！请检查您的网络");
 			}

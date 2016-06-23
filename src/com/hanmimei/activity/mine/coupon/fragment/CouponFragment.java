@@ -26,6 +26,7 @@ import com.hanmimei.entity.CouponVo;
 import com.hanmimei.entity.Ticket;
 import com.hanmimei.entity.User;
 import com.hanmimei.manager.CouponMenager;
+import com.hanmimei.manager.MyCouponMenager;
 import com.hanmimei.utils.HttpUtils;
 import com.hanmimei.utils.ToastUtils;
 import com.umeng.analytics.MobclickAgent;
@@ -123,6 +124,7 @@ public class CouponFragment extends Fragment implements OnClickListener{
 			}
 		}
 		CouponMenager.getInstance().setTitle("未使用（" + num1 + "）", "已使用（" + num2 + "）", "已过期（" + num3 + "）");
+		MyCouponMenager.getInstance().setNums(num1);
 	}
 	
 	private Handler mHandler = new Handler(){
