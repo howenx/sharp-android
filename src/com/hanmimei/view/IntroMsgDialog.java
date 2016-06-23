@@ -33,7 +33,5 @@ public class IntroMsgDialog extends AlertDialog {
 			}
 		});
 	}
-
-	
 	
 }

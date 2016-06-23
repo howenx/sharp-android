@@ -165,8 +165,7 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 				if (getUser() == null) {
 					startActivity(new Intent(getActivity(), LoginActivity.class));
 				} else {
-					startActivity(new Intent(getActivity(),
-							MessageTypeActivity.class));
+					startActivity(new Intent(getActivity(), MessageTypeActivity.class));
 				}
 			} else {
 				startActivity(new Intent(getActivity(), SettingActivity.class));

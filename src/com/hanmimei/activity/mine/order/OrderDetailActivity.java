@@ -242,7 +242,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 			item_order_id.setVisibility(View.VISIBLE);
 			item_order_id.setText("子订单号：" + order.getOrderSplitId());
 		}
-		String payMethod = "尚未支付";
+		String payMethod = "在线支付";
 		if(order.getPayMethod().equals("JD")){
 			payMethod = "京东支付";
 		}else if(order.getPayMethod().equals("APAY")){
