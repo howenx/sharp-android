@@ -74,11 +74,11 @@ public class TicketAdapter extends BaseAdapter {
 			holder.money.setTextColor(activity.getResources().getColor(R.color.fontcolor));
 			holder.bg_img.setImageDrawable(activity.getResources().getDrawable(R.drawable.hmm_bg_hui_youhuiquan));
 		}
-		holder.money.setText(coupon.getDenomination() + "");
+		holder.money.setText(coupon.getDenomination().toString());
 		if(coupon.getLimitQuota().compareTo(BigDecimal.valueOf(0)) == 0){
 			holder.more_pay.setText("无限制");
 		}else{
-			holder.more_pay.setText("满" + coupon.getLimitQuota() + "可用");
+			holder.more_pay.setText("满" + coupon.getLimitQuota().toString() + "可用");
 		}
 		holder.use_date.setText("有效期至：" + coupon.getEndAt());
 		holder.cat.setText(coupon.getCateNm());
