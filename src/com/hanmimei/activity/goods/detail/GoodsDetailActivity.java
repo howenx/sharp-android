@@ -83,10 +83,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 	private static final String Tag = "GoodsDetailActivity";
 
-	private TextView itemTitle;
-	private TextView itemSrcPrice;
-	private TextView itemPrice;
-	private TextView area;// 标题、 原价、现价、发货区
+	private TextView itemTitle, itemSrcPrice,  itemPrice, area;// 标题、 原价、现价、发货区
 
 	private TextView num_restrictAmount; // 限购数量
 	private ImageView img_hide, collectionImg;
@@ -95,9 +92,10 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private BadgeView goodsNumView;// 显示购买数量的控件
 	private ConvenientBanner<ImageVo> slider;
 
-	private ShareWindow shareWindow;
-	private View back_top;
-	private ScrollableLayout mScrollLayout;
+	private ShareWindow shareWindow;			//分享弹出窗
+	private GoodsPushWindow pushWindow;		//推荐商品弹出窗
+	private View back_top;		//返回顶部按钮
+	private ScrollableLayout mScrollLayout;	//滚动
 
 	// private User user;
 	private GoodsDetail detail;
@@ -291,8 +289,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 			if (shareStock.getInvImgForObj() != null)
 				vo.setImgUrl(shareStock.getInvImgForObj().getUrl());
 			if (shareStock.getInvUrl() != null) {
-				vo.setTargetUrl("http://style.hanmimei.com"
-						+ shareStock.getInvUrl().split("comm")[1]);
+				vo.setTargetUrl("http://style.hanmimei.com"+ shareStock.getInvUrl().split("comm")[1]);
 				vo.setInfoUrl(shareStock.getInvUrl());
 			}
 			vo.setType("C");
@@ -376,8 +373,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 	/**
 	 * 跳转到商品评价页面
-	 * 
-	 * @param view
 	 */
 	public void turnToGoodsCommentActivity() {
 		if (detail == null)
@@ -390,14 +385,15 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 	/**
 	 * 返回顶部
-	 * 
-	 * @param view
 	 */
 	public void scrollToTop(View view) {
 		mScrollLayout.scrollToTop();
 	}
 
-	// 收藏商品
+	   /**
+	    *  收藏商品
+	    * @param view
+	    */
 	public void collectGoods(View view) {
 		if (getUser() == null) {
 			startActivity(new Intent(this, LoginActivity.class));
@@ -415,8 +411,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 		}
 	}
 
-	private GoodsPushWindow pushWindow;
-
+	/**
+	 *  展示推荐商品
+	 */
 	private void showPushWindow() {
 		if (pushWindow == null) {
 			pushWindow = new GoodsPushWindow(this, detail.getPush());
