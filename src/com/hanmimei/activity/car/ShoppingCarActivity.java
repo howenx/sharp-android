@@ -52,7 +52,7 @@ import com.hanmimei.utils.ToastUtils;
  *
  */
 public class ShoppingCarActivity extends BaseActivity implements
-		OnClickListener, OnRefreshListener2<ListView> {
+		OnClickListener{
 
 	private PullToRefreshListView mListView;
 	private LinearLayout bottom;
@@ -233,8 +233,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 		attention = (TextView) findViewById(R.id.attention);
 		mListView = (PullToRefreshListView) findViewById(R.id.mylist);
 		mListView.setVisibility(View.GONE);
-		mListView.setOnRefreshListener(this);
-		mListView.setMode(Mode.PULL_FROM_END);
+		mListView.setMode(Mode.DISABLED);
 		no_data = (LinearLayout) findViewById(R.id.data_null);
 		no_net = (LinearLayout) findViewById(R.id.no_net);
 //		check_all.setOnClickListener(this);
@@ -380,17 +379,6 @@ public class ShoppingCarActivity extends BaseActivity implements
 		}
 	}
 
-	@Override
-	public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-//		clearPrice();
-		loadData();
-	}
-
-	@Override
-	public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-//		clearPrice();
-		loadData();
-	}
 	
 
 }

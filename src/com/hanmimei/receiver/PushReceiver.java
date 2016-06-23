@@ -32,6 +32,7 @@ public class PushReceiver extends BroadcastReceiver {
 	public void onReceive(Context context, Intent intent) {
 		application = (HMMApplication) context.getApplicationContext();
 		Bundle bundle = intent.getExtras();
+//		context.sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_COUNPON_ACTION));
 		// Log.d(TAG, "[MyReceiver] onReceive - " + intent.getAction() +
 		// ", extras: " + printBundle(bundle));
 
