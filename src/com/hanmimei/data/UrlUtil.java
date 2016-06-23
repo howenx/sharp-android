@@ -4,10 +4,10 @@ public class UrlUtil {
 	/*
 	 * 阿里云
 	 */
-//	 public static final String SERVERY3 = "https://api.hanmimei.com";
-//	 public static final String SERVERY1 = "https://shopping.hanmimei.com";
-//	 public static final String SERVERY4 = "https://id.hanmimei.com";
-//	 public static final String SERVERY5 = "https://promotion.hanmimei.com";
+	 public static final String SERVERY3 = "https://api.hanmimei.com";
+	 public static final String SERVERY1 = "https://shopping.hanmimei.com";
+	 public static final String SERVERY4 = "https://id.hanmimei.com";
+	 public static final String SERVERY5 = "https://promotion.hanmimei.com";
 	/*
 	 * http://172.28.3.78	孙宝娜
 	 */
@@ -25,10 +25,10 @@ public class UrlUtil {
 	/*
 	 * http://172.28.3.18	内部测试
 	 */
-	 public static final String SERVERY3 = "http://172.28.3.18:9001";
-	 public static final String SERVERY1 = "http://172.28.3.18:9003";
-	 public static final String SERVERY4 = "http://172.28.3.18:9004";
-	 public static final String SERVERY5 = "http://172.28.3.18:9005";
+//	 public static final String SERVERY3 = "http://172.28.3.18:9001";
+//	 public static final String SERVERY1 = "http://172.28.3.18:9003";
+//	 public static final String SERVERY4 = "http://172.28.3.18:9004";
+//	 public static final String SERVERY5 = "http://172.28.3.18:9005";
 
 	/*
 	 * http://172.28.3.46	武多文

@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="50"
-        android:textSize="36sp"
+        android:textSize="26sp"
         android:textColor="@color/huang"/>
     </LinearLayout>
     <View 

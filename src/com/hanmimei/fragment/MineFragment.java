@@ -32,6 +32,7 @@ import com.hanmimei.manager.CouponMenager;
 import com.hanmimei.manager.MyCouponMenager;
 import com.hanmimei.utils.GlideLoaderTools;
 import com.hanmimei.utils.HttpUtils;
+import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.CircleImageView;
 import com.umeng.analytics.MobclickAgent;
 import com.viewpagerindicator.BaseIconFragment;
@@ -63,8 +64,10 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 		View view = inflater.inflate(R.layout.wode_layout, null);
 		user = activity.getUser();
 		findView(view);
-		if (user != null)
+		if (user != null){
+			isRefresh = true;
 			getUserInfo();
+		}
 		registerReceivers();
 		return view;
 	}
@@ -107,6 +110,18 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 
 	}
 
+	/**
+	 * 
+	 */
+	protected void updateCoupon() {
+		int couponCount;
+		if (activity.getUser().getCouponCount() == null) {
+			couponCount = 0;
+		} else {
+			couponCount = activity.getUser().getCouponCount();
+		}
+		youhui_nums.setText(couponCount + " 张可用");
+	}
 	private void clearView() {
 		user = activity.getUser();
 		user_name.setText("登录/注册");
@@ -188,9 +203,14 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 					UserDao userDao = activity.getDaoSession().getUserDao();
 					userDao.deleteAll();
 					userDao.insert(user);
-					initView();
+					if(isRefresh){
+						initView();
+					}else{
+						updateCoupon();
+					}
 				} else {
-					initView();
+//					initView();
+					ToastUtils.Toast(activity, "请检查网络");
 				}
 				break;
 
@@ -211,21 +231,27 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 		getActivity().registerReceiver(netReceiver, intentFilter);
 	}
 
+
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
 		getActivity().unregisterReceiver(netReceiver);
 	}
-
+	private boolean isRefresh = true;
 	private class NetBroadCastReceiver extends BroadcastReceiver {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			if (intent.getAction().equals(
 					AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION)) {
+				isRefresh = true;
 				getUserInfo();
 			} else if (intent.getAction().equals(
 					AppConstant.MESSAGE_BROADCAST_QUIT_LOGIN_ACTION)) {
 				clearView();
+			}else if(intent.getAction().equals(
+					AppConstant.MESSAGE_BROADCAST_COUNPON_ACTION)){
+				isRefresh = false;
+				getUserInfo();
 			}
 
 		}
