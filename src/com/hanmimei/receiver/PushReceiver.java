@@ -34,7 +34,7 @@ public class PushReceiver extends BroadcastReceiver {
 		application = (HMMApplication) context.getApplicationContext();
 		Bundle bundle = intent.getExtras();
 //		context.sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_COUNPON_ACTION));
-		msgIsCouspon(context,bundle);
+//		msgIsCouspon(context,bundle);
 
 		if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
 			// String regId =

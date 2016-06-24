@@ -58,14 +58,14 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 	IconTabPageIndicator mIndicator;
 
 	private List<BaseIconFragment> fragments;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_layout);
 
-		ActionBarUtil.setActionBarStyle(this, "韩秘美",
-				R.drawable.hmm_icon_message_n, false, this);
+		ActionBarUtil.setActionBarStyle(this, "韩秘美",MessageMenager.getInstance().getMessage_icon(), false, this);
 		ImageView view = (ImageView) findViewById(R.id.setting);
 		MessageMenager.getInstance().initMessageMenager(this, view);
 		// 关闭左滑退出
@@ -136,8 +136,7 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 		/** 如果当前选项卡是home */
 		if (position == 0) {
 			isHome = true;
-			ActionBarUtil.setActionBarStyle(this, "韩秘美",
-					R.drawable.hmm_icon_message_n, false, this);
+			ActionBarUtil.setActionBarStyle(this, "韩秘美",MessageMenager.getInstance().getMessage_icon(), false, this);
 			/** 如果当前选项卡是shopping */
 		} else if (position == 1) {
 			ActionBarUtil.setActionBarStyle(this, "购物车", 0, false, this);
