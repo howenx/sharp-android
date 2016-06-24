@@ -90,12 +90,14 @@ public class PushReceiver extends BroadcastReceiver {
 	private void msgIsCouspon(Context context, Bundle bundle) {
 //		MessageMenager.getInstance().setMsgDrawble(R.drawable.hmm_icon_message_h);
 		String other = bundle.getString(JPushInterface.EXTRA_EXTRA);
+		if(!other.equals("") && other != null){
 		Notify notify = DataParser.parserJPush(other);
 		if (notify.getTargetType() != null) {
 			if (notify.getTargetType().equals("C")) {
 				context.sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_COUNPON_ACTION));
 			}
 		} 
+		}
 	}
 
 	private void clickJPush(Context context, Bundle bundle) {
@@ -134,60 +136,4 @@ public class PushReceiver extends BroadcastReceiver {
 
 	}
 
-	// 打印所有的 intent extra 数据
-//	 private static String printBundle(Bundle bundle) {
-	// StringBuilder sb = new StringBuilder();
-	// for (String key : bundle.keySet()) {
-	// if (key.equals(JPushInterface.EXTRA_NOTIFICATION_ID)) {
-	// sb.append("\nkey:" + key + ", value:" + bundle.getInt(key));
-	// }else if(key.equals(JPushInterface.EXTRA_CONNECTION_CHANGE)){
-	// sb.append("\nkey:" + key + ", value:" + bundle.getBoolean(key));
-	// } else if (key.equals(JPushInterface.EXTRA_EXTRA)) {
-	// if (bundle.getString(JPushInterface.EXTRA_EXTRA).isEmpty()) {
-	// Log.i(TAG, "This message has no Extra data");
-	// continue;
-	// }
-	//
-	// try {
-	// JSONObject json = new
-	// JSONObject(bundle.getString(JPushInterface.EXTRA_EXTRA));
-	// Iterator<String> it = json.keys();
-	//
-	// while (it.hasNext()) {
-	// String myKey = it.next().toString();
-	// sb.append("\nkey:" + key + ", value: [" +
-	// myKey + " - " +json.optString(myKey) + "]");
-	// }
-	// } catch (JSONException e) {
-	// Log.e(TAG, "Get message extra JSON error!");
-	// }
-	//
-	// } else {
-	// sb.append("\nkey:" + key + ", value:" + bundle.getString(key));
-	// }
-	// }
-	// return sb.toString();
-	// }
-
-	// send msg to MainActivity
-	// private void processCustomMessage(Context context, Bundle bundle) {
-	// if (MainActivity.isForeground) {
-	// String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
-	// String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
-	// Intent msgIntent = new Intent(MainActivity.MESSAGE_RECEIVED_ACTION);
-	// msgIntent.putExtra(MainActivity.KEY_MESSAGE, message);
-	// if (!ExampleUtil.isEmpty(extras)) {
-	// try {
-	// JSONObject extraJson = new JSONObject(extras);
-	// if (null != extraJson && extraJson.length() > 0) {
-	// msgIntent.putExtra(MainActivity.KEY_EXTRAS, extras);
-	// }
-	// } catch (JSONException e) {
-	//
-	// }
-	//
-	// }
-	// context.sendBroadcast(msgIntent);
-	// }
-	// }
 }

@@ -31,4 +31,5 @@ public class MessageMenager {
 		return message_icon;
 	}
 	
+	
 }
