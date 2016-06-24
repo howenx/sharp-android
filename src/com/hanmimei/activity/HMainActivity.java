@@ -287,8 +287,11 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 	@Override
 	public void onGetMessage(int resId) {
 		message_icon = resId;
-		ImageView view = (ImageView) findViewById(R.id.setting);
-		view.setImageResource(resId);
+		if(mViewPager.getCurrentItem() == 0){
+			ImageView view = (ImageView) findViewById(R.id.setting);
+			view.setImageResource(resId);
+		}
+		
 	}
 
 }
