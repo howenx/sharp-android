@@ -351,7 +351,6 @@
             android:exported="false" >
             <intent-filter android:priority="1000" >
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />
-
                 <category android:name="com.hanmimei" />
             </intent-filter>
             <intent-filter>

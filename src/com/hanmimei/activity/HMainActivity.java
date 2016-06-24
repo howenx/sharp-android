@@ -32,6 +32,7 @@ import com.hanmimei.fragment.ShoppingCartFragment;
 import com.hanmimei.manager.BadgeViewManager;
 import com.hanmimei.manager.HDownloadManager;
 import com.hanmimei.manager.MessageMenager;
+import com.hanmimei.override.OnGetMessageListener;
 import com.hanmimei.override.ViewPageChangeListener;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
@@ -48,7 +49,7 @@ import com.viewpagerindicator.IconTabPageIndicator.OnTabReselectedListener;
  */
 @SuppressLint("NewApi")
 public class HMainActivity extends BaseActivity implements OnClickListener,
-		HMainView {
+		HMainView,OnGetMessageListener {
 
 	private MainBroadCastReceiver netReceiver;
 	private ViewPager mViewPager;
@@ -59,15 +60,17 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 
 	private List<BaseIconFragment> fragments;
 	
+	private int message_icon = R.drawable.hmm_icon_message_n;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_layout);
 
-		ActionBarUtil.setActionBarStyle(this, "韩秘美",MessageMenager.getInstance().getMessage_icon(), false, this);
+		ActionBarUtil.setActionBarStyle(this, "韩秘美",message_icon, false, this);
 		ImageView view = (ImageView) findViewById(R.id.setting);
-		MessageMenager.getInstance().initMessageMenager(this, view);
+		MessageMenager.getInstance().setOnGetMessageListener(this);
 		// 关闭左滑退出
 		setBackEnable(false);
 		initViewPager();
@@ -136,23 +139,25 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 		/** 如果当前选项卡是home */
 		if (position == 0) {
 			isHome = true;
-			ActionBarUtil.setActionBarStyle(this, "韩秘美",MessageMenager.getInstance().getMessage_icon(), false, this);
+			ActionBarUtil.setActionBarStyle(this, "韩秘美",message_icon, false, this);
 			/** 如果当前选项卡是shopping */
 		} else if (position == 1) {
 			ActionBarUtil.setActionBarStyle(this, "购物车", 0, false, this);
 			/** 如果当前选项卡是my */
 		} else if (position == 2) {
 			isHome = false;
-			ActionBarUtil.setActionBarStyle(this, "",
-					R.drawable.hmm_icon_setting, false, this);
+			ActionBarUtil.setActionBarStyle(this, "", R.drawable.hmm_icon_setting, false, this);
 		}
 	}
 
 	private List<BaseIconFragment> initFragmentList() {
 		List<BaseIconFragment> fragments = new ArrayList<>();
-		fragments.add(new HomeFragment());
-		fragments.add(new ShoppingCartFragment());
-		fragments.add(new MineFragment());
+		HomeFragment homeFragment = new HomeFragment();
+		ShoppingCartFragment shoppingCartFragment = new ShoppingCartFragment();
+		MineFragment mineFragment = new MineFragment();
+		fragments.add(homeFragment);
+		fragments.add(shoppingCartFragment);
+		fragments.add(mineFragment);
 		return fragments;
 	}
 
@@ -274,6 +279,16 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 	@Override
 	public void onLoadFailed(String msg) {
 		ToastUtils.Toast(getActivity(), msg);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.hanmimei.override.OnGetMessageListener#onGetMessage(int)
+	 */
+	@Override
+	public void onGetMessage(int resId) {
+		message_icon = resId;
+		ImageView view = (ImageView) findViewById(R.id.setting);
+		view.setImageResource(resId);
 	}
 
 }

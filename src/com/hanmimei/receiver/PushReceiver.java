@@ -98,7 +98,7 @@ public class PushReceiver extends BroadcastReceiver {
 				Notify notify = DataParser.parserJPush(other);
 				if (notify.getTargetType() != null) {
 					if (notify.getTargetType().equals("C")) {
-						MessageMenager.getInstance().setMsgDrawble(R.drawable.hmm_icon_message_h);
+						MessageMenager.getInstance().getListener().onGetMessage(R.drawable.hmm_icon_message_h);
 						context.sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_COUNPON_ACTION));
 					}
 				} 

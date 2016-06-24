@@ -52,6 +52,7 @@ import com.hanmimei.http.VolleyHttp;
 import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.manager.HDownloadManager;
 import com.hanmimei.manager.MessageMenager;
+import com.hanmimei.override.OnGetMessageListener;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.CommonUtils;
 import com.hanmimei.utils.GlideLoaderTools;
@@ -91,7 +92,6 @@ public class HomeFragment extends BaseIconFragment implements
 
 	private int pullNum = 1;
 	
-
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -281,8 +281,7 @@ public class HomeFragment extends BaseIconFragment implements
 //			mListView.setMode(Mode.PULL_FROM_END);
 //		}
 		if (home.getHasMsg() != 0) {
-			MessageMenager.getInstance().setMsgDrawble(
-					R.drawable.hmm_icon_message_h);
+			MessageMenager.getInstance().getListener().onGetMessage(R.drawable.hmm_icon_message_h);
 		}
 	}
 	private	Home home;
