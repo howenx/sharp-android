@@ -53,7 +53,7 @@
     <string name="order_attention">注意：订单超过24小时，系统会自动取消。请尽快支付！</string>
     <string name="top">顶部</string>
     <string name="sucess_goodscar">商品已成功添加入购物车</string>
-    <string name="kouling">秘美令</string>
+    <string name="kouling">秘口令</string>
     <string name="pingou_remind">支持开团并邀请%1$s参团，人数不足自动退款，详见下方拼团玩法</string>
     <string name="today_pingou">今日拼购 GROUP PURCHASE</string>
     <string name="no_order">您还没有相关的订单</string>

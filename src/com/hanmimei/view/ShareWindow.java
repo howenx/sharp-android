@@ -97,15 +97,15 @@ import com.umeng.socialize.media.UMImage;
 			.setCallback(umShareListener)
 			.withMedia(new UMImage(mActivity, vo.getImgUrl()))
 			.withTitle(vo.getTitle())
-			.withText(vo.getTitle() + vo.getTargetUrl())
+			.withText(vo.getContent()+ vo.getTargetUrl())
 //			.withExtra(new UMImage(mActivity, vo.getImgUrl()))
 			.share();
 		}else{
 			new ShareAction(mActivity).setPlatform(media)
 			.setCallback(umShareListener)
 			.withMedia(new UMImage(mActivity, vo.getImgUrl()))
-			.withTitle(vo.getTitle())
-			.withText(vo.getContent())
+			.withTitle(vo.getContent())
+			.withText("我在韩秘美发现了一个不错的商品，赶快来看看吧。")
 			.withTargetUrl(vo.getTargetUrl())
 			.share();
 		}
@@ -181,7 +181,7 @@ import com.umeng.socialize.media.UMImage;
 		@Override
 		public void onCancel(SHARE_MEDIA platform) {
 			dismiss();
-			ToastUtils.Toast(mActivity, "分享取消");
+//			ToastUtils.Toast(mActivity, "分享取消");
 		}
 	};
 

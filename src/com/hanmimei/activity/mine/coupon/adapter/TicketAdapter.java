@@ -80,7 +80,7 @@ public class TicketAdapter extends BaseAdapter {
 		}else{
 			holder.more_pay.setText("满" + coupon.getLimitQuota().toString() + "可用");
 		}
-		holder.use_date.setText("有效期至：" + coupon.getEndAt());
+		holder.use_date.setText("有效期：" + coupon.getStartAt().substring(0, 10) + "至" + coupon.getEndAt().substring(0,10));
 		holder.cat.setText(coupon.getCateNm());
 		return convertView;
 	}

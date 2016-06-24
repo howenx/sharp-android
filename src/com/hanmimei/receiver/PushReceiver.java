@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import cn.jpush.android.api.JPushInterface;
 
+import com.hanmimei.R;
 import com.hanmimei.activity.HMainActivity;
 import com.hanmimei.activity.goods.detail.GoodsDetailActivity;
 import com.hanmimei.activity.goods.h5.Html5LoadActivity;
@@ -18,6 +19,7 @@ import com.hanmimei.application.HMMApplication;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.entity.Notify;
+import com.hanmimei.manager.MessageMenager;
 import com.hanmimei.utils.ToastUtils;
 
 /**
@@ -33,8 +35,8 @@ public class PushReceiver extends BroadcastReceiver {
 	public void onReceive(Context context, Intent intent) {
 		application = (HMMApplication) context.getApplicationContext();
 		Bundle bundle = intent.getExtras();
+		msgIsCouspon(context,bundle);
 //		context.sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_COUNPON_ACTION));
-//		msgIsCouspon(context,bundle);
 
 		if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
 			// String regId =
@@ -42,14 +44,15 @@ public class PushReceiver extends BroadcastReceiver {
 			// Log.d(TAG, "[MyReceiver] 接收Registration Id : " + regId);
 			// send the Registration Id to your server...
 
+
 		} else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent
 				.getAction())) {
 			// Log.d(TAG, "[MyReceiver] 接收到推送下来的自定义消息: " +
 			// bundle.getString(JPushInterface.EXTRA_MESSAGE));
-			ToastUtils.Toast(
-					context,
-					"[MyReceiver] 接收到推送下来的自定义消息: "
-							+ bundle.getString(JPushInterface.EXTRA_MESSAGE));
+//			ToastUtils.Toast(
+//					context,
+//					"[MyReceiver] 接收到推送下来的自定义消息: "
+//							+ bundle.getString(JPushInterface.EXTRA_MESSAGE));
 			// processCustomMessage(context, bundle);
 
 		} else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent
@@ -89,14 +92,17 @@ public class PushReceiver extends BroadcastReceiver {
 	 */
 	private void msgIsCouspon(Context context, Bundle bundle) {
 //		MessageMenager.getInstance().setMsgDrawble(R.drawable.hmm_icon_message_h);
-		String other = bundle.getString(JPushInterface.EXTRA_EXTRA);
-		if(!other.equals("") && other != null){
-		Notify notify = DataParser.parserJPush(other);
-		if (notify.getTargetType() != null) {
-			if (notify.getTargetType().equals("C")) {
-				context.sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_COUNPON_ACTION));
+		if(bundle != null){
+			String other = bundle.getString(JPushInterface.EXTRA_EXTRA);
+			if(other != null){
+				Notify notify = DataParser.parserJPush(other);
+				if (notify.getTargetType() != null) {
+					if (notify.getTargetType().equals("C")) {
+						MessageMenager.getInstance().setMsgDrawble(R.drawable.hmm_icon_message_h);
+						context.sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_COUNPON_ACTION));
+					}
+				} 
 			}
-		} 
 		}
 	}
 
