@@ -25,6 +25,7 @@ import com.hanmimei.entity.PushMessageTypeInfo;
 import com.hanmimei.http.VolleyHttp;
 import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.manager.MessageMenager;
+import com.hanmimei.override.OnGetMessageListener;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.DateUtils;
 import com.hanmimei.utils.ToastUtils;
@@ -52,6 +53,8 @@ public class MessageTypeActivity extends BaseActivity implements OnClickListener
 	private RelativeLayout zichan_msg;
 	private View no_data;
 	private ScrollView mScrollView;
+	
+	
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -213,7 +216,7 @@ public class MessageTypeActivity extends BaseActivity implements OnClickListener
 	private void exitClick() {
 		if(findViewById(R.id.hasNew1).getVisibility() == 8 && findViewById(R.id.hasNew2).getVisibility() == 8 && findViewById(R.id.hasNew3).getVisibility()
 				== 8 && findViewById(R.id.hasNew4).getVisibility() == 8 && findViewById(R.id.hasNew5).getVisibility() == 8){
-			MessageMenager.getInstance().setMsgDrawble(R.drawable.hmm_icon_message_n);
+			MessageMenager.getInstance().getListener().onGetMessage(R.drawable.hmm_icon_message_n);
 		}
 		finish();
 	}
