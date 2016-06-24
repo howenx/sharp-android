@@ -22,4 +22,5 @@ public class MessageMenager {
 			msgDrawble.setImageResource(resId);
 	}
 	
+	
 }
