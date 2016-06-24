@@ -228,6 +228,7 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 		IntentFilter intentFilter = new IntentFilter();
 		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION);
 		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_QUIT_LOGIN_ACTION);
+		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_COUNPON_ACTION);
 		getActivity().registerReceiver(netReceiver, intentFilter);
 	}
 
