@@ -35,6 +35,7 @@ import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.webview.ProgressWebView;
+import com.tencent.mm.sdk.modelbase.BaseReq;
 import com.tencent.mm.sdk.modelpay.PayReq;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
@@ -185,7 +186,7 @@ public class OrderSubmitActivity extends BaseActivity {
 	private void wxPay(String appid, String partnerId, String prepayId,
 			String pack, String nonceStr, String timeStamp, String sign) {
 		IWXAPI msgApi = WXAPIFactory.createWXAPI(this, AppConstant.WEIXIN_APP);
-
+		
 		PayReq req = new PayReq();
 		req.appId = appid;
 		req.partnerId = partnerId;

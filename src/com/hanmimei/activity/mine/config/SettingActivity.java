@@ -98,14 +98,13 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 			if (getVersionInfo() == null) {
 				ToastUtils.Toast(this, "已经是最新版本");
 			} else {
-				AlertDialogUtils.showUpdate2Dialog(getActivity(),
+				AlertDialogUtils.showUpdateDialog(getActivity(),
 						new OnClickListener() {
 
 							@Override
 							public void onClick(View v) {
 								new HDownloadManager(getActivity())
-										.download(getVersionInfo()
-												.getDownloadLink());
+										.download(getVersionInfo().getDownloadLink());
 							}
 						});
 			}

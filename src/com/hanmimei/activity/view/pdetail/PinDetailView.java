@@ -12,10 +12,31 @@ import com.hanmimei.entity.PinDetail;
  *
  */
 public interface PinDetailView {
+	/**
+	 * 显示加载动画
+	 */
 	void  showLoading();
+	/**
+	 * 隐藏加载动画
+	 */
     void  hideLoading();
+    /**
+     * 加载拼购信息
+     * @param detail
+     */
     void  loadPinDetailData(PinDetail detail);
+    /**
+     * 添加收藏成功
+     * @param collectId
+     */
     void addCollectionSuccess(long collectId);
+    /**
+     * 取消收藏成功
+     */
     void cancelCollectionSuccess();
+    /**
+     * 加载失败 返回信息
+     * @param str
+     */
     void  showLoadFaild(String str);
 }

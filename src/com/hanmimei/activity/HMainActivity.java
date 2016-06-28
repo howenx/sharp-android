@@ -69,9 +69,8 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 		setContentView(R.layout.activity_main_layout);
 
 		ActionBarUtil.setActionBarStyle(this, "韩秘美",message_icon, false, this);
-		ImageView view = (ImageView) findViewById(R.id.setting);
 		MessageMenager.getInstance().setOnGetMessageListener(this);
-		// 关闭左滑退出
+		// 关闭滑动退出
 		setBackEnable(false);
 		initViewPager();
 		registerReceivers();
@@ -266,7 +265,7 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 		if(info.getReleaseNumber() <= CommonUtils.getVersionCode(this))
 			return;
 		setVersionInfo(info);
-		AlertDialogUtils.showUpdate2Dialog(getActivity(),
+		AlertDialogUtils.showUpdateDialog(getActivity(),
 				new OnClickListener() {
 					@Override
 					public void onClick(View v) {

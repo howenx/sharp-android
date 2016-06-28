@@ -14,9 +14,23 @@ import com.hanmimei.entity.StockVo;
  * 
  */
 public interface PinDetailPresenter {
+	/**
+	 * 获取拼购信息
+	 * @param headers
+	 * @param url
+	 * @param tag
+	 */
 	void getPinDetail(Map<String, String> headers, String url, String tag);
-
+	/**
+	 * 取消收藏
+	 * @param headers
+	 * @param collectId
+	 */
 	void cancelCollection(Map<String, String> headers, long collectId);
-
+	/**
+	 * 添加收藏
+	 * @param headers
+	 * @param stock
+	 */
 	void addCollection(Map<String, String> headers, StockVo stock);
 }

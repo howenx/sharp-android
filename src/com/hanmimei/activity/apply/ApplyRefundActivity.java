@@ -60,7 +60,7 @@ public class ApplyRefundActivity extends BaseActivity implements
 		
 		payBackFee.setText(order.getPayTotal()+"");
 	}
-
+	//申请提交的状态回调
 	private OnStateListener mOnStateListener = new OnStateListener() {
 		
 		@Override
@@ -94,7 +94,9 @@ public class ApplyRefundActivity extends BaseActivity implements
 		}
 	}
 
-
+	/**
+	 * 提交申请信息
+	 */
 	private void submit() {
 		if (TextUtils.isEmpty(discription.getText())) {
 			ToastUtils.Toast(this, "请填写问题描述");
@@ -107,7 +109,9 @@ public class ApplyRefundActivity extends BaseActivity implements
 		}
 		submitData();
 	}
-
+	/**
+	 * 提交数据
+	 */
 	private void submitData() {
 		getLoading().show();
 		VolleyHttp.doPostRequestTask3( getHeaders(),
@@ -136,18 +140,18 @@ public class ApplyRefundActivity extends BaseActivity implements
 					}
 				}, getParams());
 	}
-
+	/**
+	 * 提交的数据结构
+	 * @return
+	 */
 	private MultipartRequestParams getParams() {
 		MultipartRequestParams params = new MultipartRequestParams();
 
 		if (order != null) {
 			params.put("orderId", order.getOrderId());
 			params.put("splitOrderId", order.getOrderSplitId());
-
 			params.put("refundType", refundType);
-
 			params.put("payBackFee", order.getPayTotal() + "");
-
 			params.put("reason", discription.getText().toString());
 			if (TextUtils.isEmpty(nameView.getText()))
 				params.put("contactName", nameView.getText().toString().trim());

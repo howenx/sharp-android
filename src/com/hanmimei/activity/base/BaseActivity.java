@@ -42,7 +42,6 @@ import com.hanmimei.manager.ThreadPoolManager;
 import com.hanmimei.utils.GlideLoaderTools;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.LoadingDialog;
-import com.ypy.eventbus.EventBus;
 
 /**
  * @Author vince.liu

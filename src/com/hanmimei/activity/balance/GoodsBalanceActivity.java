@@ -6,7 +6,6 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -53,10 +52,10 @@ import com.hanmimei.utils.ToastUtils;
 public class GoodsBalanceActivity extends BaseActivity implements
 		OnClickListener {
 
-	private RadioGroup group_pay_type, group_send_time, group_coupons; // 支付类型
+	private RadioGroup  group_send_time, group_coupons; // 支付类型
 																		// /发送时间/
 																		// 优惠券
-	private TextView send_time, pay_type; // 选中的发送时间 /支付类型
+	private TextView send_time; // 选中的发送时间 /支付类型
 	private ListView mListView;//
 	private List<CustomsVo> customslist; // 保税区列表
 
@@ -74,6 +73,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
+		//取消滑动退出功能
 		setBackEnable(false);
 		ActionBarUtil.setActionBarStyle(this, "支付结算", this);
 		setContentView(R.layout.goods_balance_layout);
@@ -95,12 +95,10 @@ public class GoodsBalanceActivity extends BaseActivity implements
 	 * 初始化所有view对象
 	 */
 	private void findView() {
-		group_pay_type = (RadioGroup) findViewById(R.id.group_pay_type);
 		group_send_time = (RadioGroup) findViewById(R.id.group_send_time);
 		mListView = (ListView) findViewById(R.id.mListView);
 		group_coupons = (RadioGroup) findViewById(R.id.group_coupons);
 
-		pay_type = (TextView) findViewById(R.id.pay_type);
 		send_time = (TextView) findViewById(R.id.send_time);
 
 		all_price = (TextView) findViewById(R.id.all_price);
@@ -116,23 +114,11 @@ public class GoodsBalanceActivity extends BaseActivity implements
 		coupon_denomi = (TextView) findViewById(R.id.coupon_denomi);
 		notice = (TextView) findViewById(R.id.notice);
 
-		findViewById(R.id.btn_pay_type).setOnClickListener(this);
 		findViewById(R.id.btn_send_time).setOnClickListener(this);
 		findViewById(R.id.newAddress).setOnClickListener(this);
 		findViewById(R.id.btn_mCoupon).setOnClickListener(this);
 		findViewById(R.id.selectAddress).setOnClickListener(this);
 
-		group_pay_type
-				.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-					@Override
-					public void onCheckedChanged(RadioGroup arg0, int arg1) {
-						// 显示选中的支付方式
-						RadioButton btn = (RadioButton) findViewById(arg1);
-						pay_type.setText(btn.getText());
-//						orderSubmit.setPayMethod(btn.getTag().toString());
-					}
-				});
 		group_send_time
 				.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
@@ -179,9 +165,6 @@ public class GoodsBalanceActivity extends BaseActivity implements
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.btn_pay_type:
-			group_pay_type.startAnimation(new ViewExpandAnimation(group_pay_type));
-			break;
 		case R.id.btn_send_time:
 			group_send_time.startAnimation(new ViewExpandAnimation(group_send_time));
 			break;
@@ -203,8 +186,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 			startActivityForResult(intnt, 1);
 			break;
 		case R.id.btn_pay:
-//			startActivity(new Intent(this,WeixinPayActivity.class));
-			sendData(orderSubmit);
+			sendData(orderSubmit);         
 			break;
 		case R.id.back:
 			showBackDialog();
@@ -224,18 +206,19 @@ public class GoodsBalanceActivity extends BaseActivity implements
 	private void loadData(Long addressId) {
 
 		getLoading().show();
+		//初始化订单提交所需信息
 		JSONArray array = JSONPaserTool.ClientSettlePaser(car);
 		orderSubmit.setSettleDtos(array);
 		orderSubmit.setAddressId(addressId);
 		final JSONObject json = JSONPaserTool.OrderSubmitPaser(orderSubmit);
+		//提交订单信息，获取支付数据
 		VolleyHttp.doPostRequestTask2(getHeaders(), UrlUtil.POST_CLIENT_SETTLE,
 				new VolleyJsonCallback() {
 
 					@Override
 					public void onSuccess(String result) {
 						getLoading().dismiss();
-						goodsBalance = new Gson().fromJson(result,
-								GoodsBalanceVo.class);
+						goodsBalance = new Gson().fromJson(result,GoodsBalanceVo.class);
 						initViewData();
 					}
 
@@ -297,6 +280,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 			return;
 		if (goodsBalance.getMessage().getCode() == 200) {
 			Settle settle = goodsBalance.getSettle();
+			//初始化商品信息
 			initGoodsInfo(settle);
 			// 如果有默认地址 则显示地址信息
 			initAddressInfo(settle);
@@ -320,10 +304,12 @@ public class GoodsBalanceActivity extends BaseActivity implements
 	 */
 	private void initAddressInfo(Settle settle) {
 		if (settle.getAddress() != null && !settle.getAddress().isEmpty()) {
+			//存在地址信息
 			findViewById(R.id.selectAddress).setVisibility(View.VISIBLE);
 			findViewById(R.id.newAddress).setVisibility(View.GONE);
 
 			selectedId = settle.getAddress().getAddId();
+			//设置订单提交所需数据
 			orderSubmit.setAddressId(selectedId);
 			address.setText(getResources().getString(
 					R.string.address,
@@ -427,7 +413,9 @@ public class GoodsBalanceActivity extends BaseActivity implements
 			group_coupons.check(R.id.btn_unuse);
 		}
 	}
-
+	/**
+	 * 支付信息
+	 */
 	private void initBalanceInfo() {
 		all_shipfee.setText(getResources().getString(R.string.price,
 				car.getFactShipFee()));
@@ -440,17 +428,19 @@ public class GoodsBalanceActivity extends BaseActivity implements
 		all_money.setText(getResources().getString(R.string.all_money,
 				car.getTotalPayFee()));
 	}
-
-	@SuppressLint("InflateParams")
+	/**
+	 * 获取自定义单选按钮
+	 * @return
+	 */
 	private RadioButton getCustomRadioButton() {
-		return (RadioButton) getLayoutInflater().inflate(
-				R.layout.panel_radiobutton, null);
+		return (RadioButton) getLayoutInflater().inflate(R.layout.panel_radiobutton, null);
 	}
 
 	@Override
 	protected void onActivityResult(int arg0, int arg1, Intent arg2) {
 		super.onActivityResult(arg0, arg1, arg2);
 		if (arg1 == 1) {
+			//地址选择返回结果
 			HAddress adress = (HAddress) arg2.getSerializableExtra("address");
 			selectedId = adress.getAdress_id();
 			if (selectedId != 0) {

@@ -6,6 +6,7 @@ import java.io.File;
 import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -96,6 +97,7 @@ public class HDownloadManager {
         contentView.setTextViewText(R.id.title, "安装包正在下载...");
         contentView.setViewVisibility(R.id.tv_progress, View.VISIBLE);
 		contentView.setViewVisibility(R.id.progress, View.VISIBLE);
+		
         notification.contentView = contentView;
         
         notification.flags = Notification.FLAG_AUTO_CANCEL;
@@ -114,8 +116,16 @@ public class HDownloadManager {
 			contentView.setTextViewText(R.id.title, "下载已完成");
 			contentView.setViewVisibility(R.id.tv_progress, View.GONE);
 			contentView.setViewVisibility(R.id.progress, View.GONE);
+			Intent intent = new Intent();
+			intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+			intent.setAction(Intent.ACTION_VIEW);
+			intent.setDataAndType(Uri.fromFile(new File(filePath)),
+					"application/vnd.android.package-archive");
+	        PendingIntent pendingIntent =  PendingIntent.getActivity(mContext, 0, intent, 0);
+			contentView.setOnClickPendingIntent(R.id.main, pendingIntent);
 	        notification.contentView = contentView;
 	        notificationManager.notify(R.layout.notification_for_update, notification);
+	        
 		}
 	}
 
