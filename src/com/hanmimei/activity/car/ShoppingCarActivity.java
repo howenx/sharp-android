@@ -49,6 +49,7 @@ import com.hanmimei.utils.ToastUtils;
  */
 /**
  * @author eric
+ * 购物车的activity
  *
  */
 public class ShoppingCarActivity extends BaseActivity implements
@@ -86,7 +87,9 @@ public class ShoppingCarActivity extends BaseActivity implements
 		loadData();
 		
 	}
-
+	/**
+	 * 加载购物车数据，根据登陆状态的不同，操作不同
+	 */
 	private void loadData() {
 		attention.setVisibility(View.INVISIBLE);
 		mListView.setVisibility(View.GONE);
@@ -97,17 +100,13 @@ public class ShoppingCarActivity extends BaseActivity implements
 			getLocalData();
 		}
 	}
-
+	//为登陆状态下，加载本地购物车数据
 	private void getLocalData() {
 		List<ShoppingGoods> list = goodsDao.queryBuilder().build().list();
 		if (list != null && list.size() > 0) {
-//			attention.setVisibility(View.VISIBLE);
-//			mListView.setVisibility(View.VISIBLE);
-//			no_data.setVisibility(View.GONE);
-//			bottom.setVisibility(View.VISIBLE);
 			toJsonArray(list);
 			getData();
-		} else {
+		} else {//购物车本地数据暂无
 			bottom.setVisibility(View.GONE);
 			no_data.setVisibility(View.VISIBLE);
 			mListView.setVisibility(View.GONE);
@@ -115,14 +114,14 @@ public class ShoppingCarActivity extends BaseActivity implements
 	}
 
 	private JSONArray array;
-
+	//将购物车的list列表数据转化成jsonarray，用与提交数据至后台服务器
 	private void toJsonArray(List<ShoppingGoods> list) {
 		try {
 			array = new JSONArray();
 			for (int i = 0; i < list.size(); i++) {
 				ShoppingGoods goods = list.get(i);
 				JSONObject object = new JSONObject();
-				object.put("cartId", 0);
+				object.put("cartId", 0);	//未登录状态，cartid默认是0
 				object.put("skuId", goods.getGoodsId());
 				object.put("amount", goods.getGoodsNums());
 				object.put("state", goods.getState());
@@ -139,8 +138,9 @@ public class ShoppingCarActivity extends BaseActivity implements
 		}
 
 	}
-
+	//未登陆状态下，将本地购物车数据提交服务器进行校验
 	private void getData() {
+		//loading图show
 		getLoading().show();
 		VolleyHttp.doPostRequestTask2(null,UrlUtil.CAR_LIST_URL,new VolleyJsonCallback() {
 			
@@ -160,7 +160,11 @@ public class ShoppingCarActivity extends BaseActivity implements
 			}
 		},array.toString());
 	}
-
+	/**
+	 * @param car
+	 * 请求数据完成时候的操作
+	 * 
+	 */
 	private void afterLoadData(ShoppingCar car){
 		if(isBack)
 			return;
@@ -175,7 +179,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 				mListView.setVisibility(View.VISIBLE);
 				attention.setVisibility(View.VISIBLE);
 				data.addAll(car.getList());
-				//
+				//初始化购物车管理类
 				ShoppingCarMenager.getInstance()
 						.initShoppingCarMenager(ShoppingCarActivity.this, adapter,
 								data, attention, 
@@ -201,6 +205,9 @@ public class ShoppingCarActivity extends BaseActivity implements
 		}
 		adapter.notifyDataSetChanged();
 	}
+	/**
+	 * 登陆状态下，向服务器请求购物车数据
+	 */
 	private void getNetData() {
 		getLoading().show();
 		VolleyHttp.doGetRequestTask( getHeaders(),UrlUtil.GET_CAR_LIST,new VolleyJsonCallback() {
@@ -222,7 +229,9 @@ public class ShoppingCarActivity extends BaseActivity implements
 			}
 		});
 	}
-
+	/**
+	 * 初始化页面的控件
+	 */
 	private void findView() {
 		bottom = (LinearLayout) findViewById(R.id.bottom);
 		total_price = (TextView) findViewById(R.id.total_price);
@@ -247,6 +256,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.pay:
+			//组织结算界面需要的数据，用于结算的跳转传递参数
 			List<CustomsVo> customsList = new ArrayList<CustomsVo>();
 			for (int i = 0; i < data.size(); i++) {
 				List<ShoppingGoods> goodsList = new ArrayList<ShoppingGoods>();
@@ -288,7 +298,10 @@ public class ShoppingCarActivity extends BaseActivity implements
 			break;
 		}
 	}
-
+	/**
+	 * 点击去结算
+	 * @param shoppingCar
+	 */
 	private void doPay(ShoppingCar shoppingCar) {
 		Intent intent = new Intent(getActivity(), GoodsBalanceActivity.class);
 		intent.putExtra("car", shoppingCar);
@@ -296,19 +309,19 @@ public class ShoppingCarActivity extends BaseActivity implements
 		getActivity().startActivity(intent);
 	}
 	
-	@SuppressWarnings("unused")
-	@Deprecated
-	private void doPrice() {
-		for (int i = 0; i < data.size(); i++) {
-			for (int j = 0; j < data.get(i).getList().size(); j++) {
-				if (!data.get(i).getList().get(j).getState().equals("S"))
-					data.get(i).getList().get(j).setState("G");
-			}
-		}
-		adapter.notifyDataSetChanged();
-		ShoppingCarMenager.getInstance().setBottom();
-	}
-
+//	@SuppressWarnings("unused")
+//	@Deprecated
+//	private void doPrice() {
+//		for (int i = 0; i < data.size(); i++) {
+//			for (int j = 0; j < data.get(i).getList().size(); j++) {
+//				if (!data.get(i).getList().get(j).getState().equals("S"))
+//					data.get(i).getList().get(j).setState("G");
+//			}
+//		}
+//		adapter.notifyDataSetChanged();
+//		ShoppingCarMenager.getInstance().setBottom();
+//	}
+	
 	private void clearPrice() {
 		for (int i = 0; i < data.size(); i++) {
 			for (int j = 0; j < data.get(i).getList().size(); j++) {
@@ -326,22 +339,11 @@ public class ShoppingCarActivity extends BaseActivity implements
 		loadData();
 	}
 
-	// 主界面返回之后在后台运行
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			// 发广播 通知shoppingfragment数据发生改变
-//			sendBroadcast(new Intent(
-//					AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
-			finish();
-			return false;
-		}
-		return super.onKeyDown(keyCode, event);
-	}
+
 
 	private CarBroadCastReceiver netReceiver;
 
-	// 广播接收者 注册
+	// 广播接收者的注册
 	private void registerReceivers() {
 		netReceiver = new CarBroadCastReceiver();
 		IntentFilter intentFilter = new IntentFilter();
@@ -357,6 +359,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 		super.onDestroy();
 		unregisterReceiver(netReceiver);
 		isBack = true;
+		//如果购车车发生改变，发送广播通知首页的购物车数据发生改变
 		if(isShoppingcarChanged()){
 			sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
 		}

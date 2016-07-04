@@ -42,7 +42,6 @@ import com.hanmimei.manager.ThreadPoolManager;
 import com.hanmimei.utils.GlideLoaderTools;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.LoadingDialog;
-import com.ypy.eventbus.EventBus;
 
 /**
  * @Author vince.liu
@@ -150,7 +149,7 @@ public class BaseActivity extends ParallaxActivityBase {
 	}
 
 	/**
-	 * 程序是否在前台运行
+	 * 判断程序是否在前台运行
 	 * 
 	 */
 	public boolean isAppOnForeground() {
@@ -180,11 +179,14 @@ public class BaseActivity extends ParallaxActivityBase {
 		super.onResume();
 		getClipboard();
 	}
-
+	/**
+	 * 获取剪切版内容，秘口令需要
+	 */
 	@SuppressWarnings("deprecation")
 	private void getClipboard() {
 		ClipboardManager cbm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
 		if (!TextUtils.isEmpty(cbm.getText())) {
+			//根据剪切版内容，拼接跳转链接
 			if (cbm.getText().toString().trim().contains("KAKAO-HMM")) {
 				if (cbm.getText().toString().trim().contains("】,")) {
 					String[] url = cbm.getText().toString().trim().split("】,");
@@ -218,7 +220,7 @@ public class BaseActivity extends ParallaxActivityBase {
 	private int what;
 	private PinResult pinResult;
 	private PinDetail pinDetail;
-
+	//加载秘口令，弹窗显示内容的请求
 	private void loadData(String url) {
 		VolleyHttp.doGetRequestTask(url, new VolleyJsonCallback() {
 
@@ -266,7 +268,7 @@ public class BaseActivity extends ParallaxActivityBase {
 			}
 		});
 	}
-
+	//给口令弹窗赋值
 	@SuppressLint("InflateParams")
 	private void setKouDialog(String ti, String pri, String imgurl) {
 		LayoutInflater inflater = LayoutInflater.from(this);

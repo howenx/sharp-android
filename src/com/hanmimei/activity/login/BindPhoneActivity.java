@@ -38,6 +38,7 @@ import com.hanmimei.utils.CommonUtils;
 import com.hanmimei.utils.HttpUtils;
 
 /**
+ * 绑定手机号
  * @author eric
  *
  */
@@ -58,7 +59,7 @@ public class BindPhoneActivity extends BaseActivity implements OnClickListener{
 		registerReceivers();
 	}
 	/**
-	 * 
+	 * 初始化控件
 	 */
 	private void findView() {
 		next = (TextView) findViewById(R.id.next);
@@ -98,6 +99,7 @@ public class BindPhoneActivity extends BaseActivity implements OnClickListener{
 	};
 	/* (non-Javadoc)
 	 * @see android.view.View.OnClickListener#onClick(android.view.View)
+	 * 点击事件
 	 */
 	@Override
 	public void onClick(View v) {
@@ -123,7 +125,7 @@ public class BindPhoneActivity extends BaseActivity implements OnClickListener{
 	}
 	/**
 	 * @param phoneNums 
-	 * 
+	 * 将手机号提交至服务器进行校验是否注册
 	 */
 	private void checkPhone() {
 		new Thread(new Runnable() {
@@ -172,6 +174,9 @@ public class BindPhoneActivity extends BaseActivity implements OnClickListener{
 		}
 	};
 	private MyBroadCastReceiver netReceiver;
+	/*
+	 * 广播注册
+	 */
 	private void registerReceivers() {
 		netReceiver = new MyBroadCastReceiver();
 		IntentFilter intentFilter = new IntentFilter();

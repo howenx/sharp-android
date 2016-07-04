@@ -108,7 +108,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		/*
-		 * new是否选中！！！！！！
+		 * 是否选中！！！！！！
 		 */
 		if(goods.getOrCheck().equals("Y")){
 			check_nums = check_nums + 1;
@@ -118,12 +118,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 			holder.checkBox.setVisibility(View.VISIBLE);
 			holder.checkBox.setImageDrawable(uncheck_Drawable);
 		}
-		//根据状态判断是否选中，s状态显示一次，未登录状态显示之后删除本地数据，登录状态直接显示后台做处理
-//		if (goods.getState().equals("G")) {
-//			check_nums = check_nums + 1;
-//			holder.checkBox.setVisibility(View.VISIBLE);
-//			holder.checkBox.setImageDrawable(check_Drawable);
-//		} else 
+		//失效商品的处理
 			if (goods.getState().equals("S")) {
 			holder.shixiao.setVisibility(View.VISIBLE);
 			holder.shopping_main.setBackgroundColor(activity.getResources().getColor(R.color.shixiao_bg));
@@ -143,10 +138,6 @@ public class ShoppingCarAdapter extends BaseAdapter {
 				}
 			}
 		} 
-//			else {
-//			holder.checkBox.setVisibility(View.VISIBLE);
-//			holder.checkBox.setImageDrawable(uncheck_Drawable);
-//		}
 		// 根据限购数量，判断是否可以继续增减
 		if(!goods.getState().equals("S")){
 				holder.plus.setTextColor(activity.getResources().getColor(R.color.fontcolor));
@@ -248,7 +239,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		return convertView;
 	}
 
-	// 更新购物车 商品状态
+	// 登陆状态下更新购物车 商品数量
 	private void upGoods(final ShoppingGoods goods) {
 		final JSONArray array = new JSONArray();
 		JSONObject object = new JSONObject();
@@ -256,7 +247,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 			object.put("cartId", goods.getCartId());
 			object.put("skuId", goods.getGoodsId());
 			object.put("amount", goods.getGoodsNums());
-			object.put("state", "I");
+			object.put("state", goods.getState());
 			object.put("skuTypeId", goods.getSkuTypeId());
 			object.put("skuType", goods.getSkuType());
 			array.put(object);
@@ -276,7 +267,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 			}
 		}).start();
 	}
-
+	//为登陆状态下，更新购物车商品数量
 	private void upGoodsN(final ShoppingGoods goods) {
 		final JSONArray array = new JSONArray();
 		JSONObject object = new JSONObject();
@@ -297,11 +288,12 @@ public class ShoppingCarAdapter extends BaseAdapter {
 				activity.getLoading().dismiss();
 				HMessage hmm = DataParser.paserResultMsg(result);
 				if (hmm.getCode() != null) {
-					if (hmm.getCode() == 200) {
+					if (hmm.getCode() == 200) {	//如果成功，将本地数据该商品也更新，同时更新界面显示
 						notifyDataSetChanged();
 						ShoppingCarMenager.getInstance().setBottom();
 						goodsDao.deleteAll();
 						goodsDao.insertInTx(data);
+						//设置购物车数量 图标
 						if(isAdd){
 							BadgeViewManager.getInstance().addShoppingCarNum(1);
 						}else{
@@ -323,7 +315,9 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		},object.toString());
 
 	}
+	//登陆状态下，更改商品的选中状态
 	private void updateShoppingState(final ShoppingGoods goods, final String  selected){
+		//请求需要的参数array 转化
 		final JSONArray array = new JSONArray();
 		JSONObject object = new JSONObject();
 		try {
@@ -348,11 +342,11 @@ public class ShoppingCarAdapter extends BaseAdapter {
 				activity.getLoading().dismiss();
 				HMessage hmm = DataParser.paserResultMsg(result);
 				if (hmm.getCode() != null) {
-					if (hmm.getCode() == 200) {
+					if (hmm.getCode() == 200) {//请求成功，更新界面数据
 						baseActivity.setShoppingcarChanged(true);
 						notifyDataSetChanged();
 						ShoppingCarMenager.getInstance().setBottom();
-					} else {
+					} else {//失败，数据回归
 						if(selected.equals("Y")){
 							goods.setOrCheck("null");
 						}else{
@@ -360,7 +354,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 						}
 						ToastUtils.Toast(activity, hmm.getMessage());
 					}
-				} else {
+				} else {//失败，数据回归
 					if(selected.equals("Y")){
 						goods.setOrCheck("null");
 					}else{
@@ -372,6 +366,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 			
 			@Override
 			public void onError() {
+				//发生错误，数据回归
 				if(selected.equals("Y")){
 					goods.setOrCheck("null");
 				}else{
@@ -383,7 +378,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		},array.toString());
 		
 	}
-
+	//未登录状态下，改变购物车商品的选中状态
 	private void updateShoppingLoacalState(ShoppingGoods goods, String state) {
 		//查找本地该购物车数据，修改选中状态
 		ShoppingGoods shoppingGoods = DataBaseManager.getInstance().getDaoSession().getShoppingGoodsDao().queryBuilder()
@@ -392,6 +387,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		//更新本地购物车数据
 		DataBaseManager.getInstance().getDaoSession().getShoppingGoodsDao().update(shoppingGoods);
 		goods.setOrCheck(state);
+		//更新界面信息
 		notifyDataSetChanged();
 		ShoppingCarMenager.getInstance().setBottom();
 		baseActivity.setShoppingcarChanged(true);
@@ -408,7 +404,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 				ShoppingCar car = (ShoppingCar) msg.obj;
 				HMessage m = car.getMessage();
 				if (m != null) {
-					if (m.getCode() == 200) {
+					if (m.getCode() == 200) {//请求成功，更新页面显示信息
 						notifyDataSetChanged();
 						ShoppingCarMenager.getInstance().setBottom();
 						if(isAdd){

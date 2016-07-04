@@ -61,7 +61,9 @@ public class CheckPhoneActivity extends BaseActivity implements OnClickListener 
 		findView();
 		registerReceivers();
 	}
-
+	/*
+	 * 初始化页面控件
+	 */
 	private void findView() {
 		next = (TextView) findViewById(R.id.next);
 		phone = (EditText) findViewById(R.id.phone);
@@ -94,6 +96,10 @@ public class CheckPhoneActivity extends BaseActivity implements OnClickListener 
 		}
 	};
 
+	/*
+	 * 点击事件(non-Javadoc)
+	 * @see android.view.View.OnClickListener#onClick(android.view.View)
+	 */
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -120,7 +126,9 @@ public class CheckPhoneActivity extends BaseActivity implements OnClickListener 
 			break;
 		}
 	}
-
+	/*
+	 * 校验手机号是否注册
+	 */
 	private void checkPhone() {
 		dialog = CommonUtils.dialog(this, "请稍后...");
 		dialog.show();
@@ -169,7 +177,9 @@ public class CheckPhoneActivity extends BaseActivity implements OnClickListener 
 			}
 		}
 	};
-
+	/*
+	 * 弹窗提示
+	 */
 	private void showDialog() {
 		alertDialog = AlertDialogUtils.showDialog(this, new OnClickListener() {
 			
@@ -185,6 +195,9 @@ public class CheckPhoneActivity extends BaseActivity implements OnClickListener 
 		}, "该手机号已经注册", "取消", "找回密码");
 	}
 	private MyBroadCastReceiver netReceiver;
+	/*
+	 * 广播注册
+	 */
 	private void registerReceivers() {
 		netReceiver = new MyBroadCastReceiver();
 		IntentFilter intentFilter = new IntentFilter();

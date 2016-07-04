@@ -65,7 +65,7 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 
 /**
  * @author eric
- * 
+ * 登陆界面
  */
 public class LoginActivity extends BaseActivity implements OnClickListener {
 
@@ -105,7 +105,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		dialog = CommonUtils.dialog(this, "正在登录，请稍等...");
 		mShareAPI = UMShareAPI.get(this);
 	}
-	
+	/*
+	 * 初始化控件
+	 */
 	private void initView() {
 		phone_edit = (EditText) findViewById(R.id.phone_num);
 		pwd_edit = (TextView) findViewById(R.id.pwd);
@@ -255,7 +257,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		case R.id.qq:
 			loginFrom = 1;
 			dialog.show();
-			// 应用宝上线或添加测试账户
 			doOtherLogin(SHARE_MEDIA.QQ);
 			break;
 		case R.id.weixin:
@@ -282,7 +283,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	 */
 	private void doBaiDuLogin() {
 		baidu = new Baidu(AppConstant.BAIDU_ID, this);
-		
+		//授权回调
 		baidu.authorize(this, false, true, new BaiduDialogListener() {
 			
 			@Override
@@ -327,7 +328,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		}).start();
 		
 	}
-	//微信   qq登陆
+	//微信   qq登陆 新浪微博登陆
 	private void doOtherLogin(SHARE_MEDIA platform) {
 		// mShareAPI = UMShareAPI.get(this);
 		if (!mShareAPI.isInstall(this, platform)) {
@@ -337,7 +338,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		}
 		mShareAPI.doOauthVerify(this, platform, umAuthListener);
 	}
-
+	//友盟三方登陆回调监听
 	private UMAuthListener umAuthListener = new UMAuthListener() {
 		@Override
 		public void onComplete(SHARE_MEDIA platform, int action,
@@ -371,7 +372,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		mShareAPI.onActivityResult(requestCode, resultCode, data);
 	}
 
-
+	//校验三方登陆是否登陆过
 	private void checkOtherLogin(final Map<String, String> data) {
 		String url = "";
 		if(loginFrom == 0){
@@ -406,6 +407,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			}
 		});
 	}
+	//服务器请求验证码
 	@SuppressLint("ShowToast")
 	private void loadImg() {
 		new Thread(new Runnable() {
@@ -420,7 +422,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			}
 		}).start();
 	}
-
+	//校验输入
 	private void checkInput() {
 		phone = phone_edit.getText().toString();
 		pwd = pwd_edit.getText().toString();
@@ -437,7 +439,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			doLogin();
 		}
 	}
-
+	//请求服务器，进行登陆操作
 	private void doLogin() {
 		dialog = CommonUtils.dialog(this, "正在登录，请稍等...");
 		dialog.show();
@@ -471,7 +473,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			}
 		});
 	}
-
+	//登陆成功之后的操作
 	private void loginSuccess(HMessage result) {
 		User user = new User();
 		user.setPhone(phone);
@@ -482,6 +484,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		user.setLast_login(DateUtils.getCurrentDate());
 		HMMApplication application = (HMMApplication) getApplication();
 		application.setLoginUser(user);
+		//极光推送   设置设备别名
 		JPushInterface.setAlias(LoginActivity.this, result.getUserId(), null);
 		// 登录用户存储到本地sql
 		userDao.deleteAll();
@@ -528,7 +531,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 				}
 				sendBroadcast(new Intent(
 						AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION));
-				// finish();
 				break;
 			case 4:
 				Bitmap bitmap = (Bitmap) msg.obj;
@@ -558,7 +560,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	};
 
 	private List<ShoppingGoods> list;
-
+	//本地购物车数据 提交至服务器
 	private void sendShoppingCar() {
 		user = getUser();
 		list = goodsDao.queryBuilder().list();
@@ -579,7 +581,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private JSONArray array;
-
+	//数据格式转化
 	private void toObject() {
 		try {
 			array = new JSONArray();
@@ -608,6 +610,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	private EditText codeEditText;
 	private TextView code_attention;
 
+	/*
+	 * 初始化安全校验的弹窗
+	 */
 	@SuppressLint("InflateParams")
 	private void showDialog() {
 		isDialogShow = true;
@@ -625,13 +630,13 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		view.findViewById(R.id.besure).setOnClickListener(this);
 		view.findViewById(R.id.refresh).setOnClickListener(this);
 	}
-
+	//设置校验图片
 	private void setDialogImg(Bitmap bitmap) {
 		jiaoyanImg.setImageBitmap(bitmap);
 	}
 
 	private MyBroadCastReceiver netReceiver;
-
+	//广播注册
 	private void registerReceivers() {
 		netReceiver = new MyBroadCastReceiver();
 		IntentFilter intentFilter = new IntentFilter();

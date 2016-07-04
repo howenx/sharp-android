@@ -39,7 +39,7 @@ import com.hanmimei.utils.HttpUtils;
 
 /**
  * @author eric
- *
+ *忘记密码
  */
 @SuppressLint("NewApi")
 public class ForgetPwdActivity extends BaseActivity implements
@@ -66,7 +66,9 @@ public class ForgetPwdActivity extends BaseActivity implements
 		findView();
 		registerReceivers();
 	}
-
+	/*
+	 * 初始化控件
+	 */
 	private void findView() {
 		next = (TextView) findViewById(R.id.next);
 		phone = (EditText) findViewById(R.id.phone);
@@ -102,7 +104,10 @@ public class ForgetPwdActivity extends BaseActivity implements
 			}
 		}
 	};
-
+	/*
+	 * 点击事件(non-Javadoc)
+	 * @see android.view.View.OnClickListener#onClick(android.view.View)
+	 */
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.go_login:
@@ -112,6 +117,7 @@ public class ForgetPwdActivity extends BaseActivity implements
 			//关闭键盘
 			CommonUtils.closeBoardIfShow(this);
 			phone_num = phone.getText().toString();
+			//判断输入手机号的正确性
 			if (!CommonUtils.isPhoneNum(phone_num)) {
 				CommonUtils.setAttention(attention,"请填写正确的手机号");
 				return;
@@ -232,7 +238,9 @@ public class ForgetPwdActivity extends BaseActivity implements
 
 	private String code;
 	private TextView code_attention;
-
+	/*
+	 * 验证码弹出框
+	 */
 	private void showCodeDialog() {
 		View view = LayoutInflater.from(this).inflate(R.layout.img_save_layout,
 				null);
@@ -244,6 +252,7 @@ public class ForgetPwdActivity extends BaseActivity implements
 		codeEditText = (EditText) view.findViewById(R.id.code);
 		code_attention = (TextView) view.findViewById(R.id.attention);
 		title.setText("安全校验");
+		//取消操作
 		view.findViewById(R.id.cancle).setOnClickListener(
 				new OnClickListener() {
 
@@ -252,6 +261,7 @@ public class ForgetPwdActivity extends BaseActivity implements
 						imgDialog.dismiss();
 					}
 				});
+		//确认验证码
 		view.findViewById(R.id.besure).setOnClickListener(
 				new OnClickListener() {
 
@@ -270,6 +280,7 @@ public class ForgetPwdActivity extends BaseActivity implements
 						}
 					}
 				});
+		//刷新验证码
 		view.findViewById(R.id.refresh).setOnClickListener(
 				new OnClickListener() {
 

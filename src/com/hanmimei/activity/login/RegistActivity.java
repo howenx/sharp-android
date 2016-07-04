@@ -48,7 +48,7 @@ import com.hanmimei.view.YanZhengCodeTextView;
 
 /**
  * @author eric
- *
+ *注册页面
  */
 @SuppressLint("NewApi")
 public class RegistActivity extends BaseActivity implements OnClickListener,
@@ -87,7 +87,9 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 		}
 		initView();
 	}
-
+	/*
+	 * 初始化控件
+	 */
 	private void initView() {
 		phone = getIntent().getStringExtra("phone");
 		phone_TextView = (TextView) findViewById(R.id.phone);

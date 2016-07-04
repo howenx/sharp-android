@@ -32,7 +32,6 @@ import com.hanmimei.data.UrlUtil;
 import com.hanmimei.entity.CustomsVo;
 import com.hanmimei.entity.HMessage;
 import com.hanmimei.entity.ShoppingGoods;
-import com.hanmimei.entity.User;
 import com.hanmimei.http.VolleyHttp;
 import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.manager.BadgeViewManager;
@@ -45,6 +44,7 @@ import com.hanmimei.view.CustomListView;
 
 /**
  * @author eric
+ * 购物车外层 仓库的adapter
  * 
  */
 public class ShoppingCarPullListAdapter extends BaseAdapter {
@@ -57,7 +57,6 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 	private Drawable uncheck_Drawable;
 	private AlertDialog dialog;
 	private ShoppingGoodsDao goodsDao;
-	private User user;
 	private List<ShoppingGoods> goodsList;
 	private ShoppingGoods delGoods;
 
@@ -70,7 +69,6 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 		uncheck_Drawable = activity.getResources().getDrawable(
 				R.drawable.hmm_radio_normal);
 		goodsDao = activity.getDaoSession().getShoppingGoodsDao();
-		user = activity.getUser();
 		goodsList = new ArrayList<ShoppingGoods>();
 		delGoods = new ShoppingGoods();
 		
@@ -129,6 +127,7 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 				}
 			}
 		});
+		//根据仓库状态  显示是否选中
 		if (custom.getState().equals("G")) {
 			holder.check.setImageDrawable(check_Drawable);
 		} else {
@@ -137,7 +136,7 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 		if(custom.getInvAreaNm() != null)
 			holder.area.setText(custom.getInvAreaNm());
 		String tax = "";
-
+		//行邮税的显示方式
 		if (Double.valueOf(custom.getTax()) != 0) {
 			holder.tax.setVisibility(View.VISIBLE);
 			if (Double.valueOf(custom.getTax()) - custom.getPostalStandard() > 0) {
@@ -153,6 +152,7 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 		} else {
 			holder.tax.setVisibility(View.GONE);
 		}
+		//长按删除商品
 		holder.listView
 				.setOnItemLongClickListener(new OnItemLongClickListener() {
 
@@ -183,6 +183,7 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 	/**
 	 * @param custom
 	 * @param string
+	 * 未登陆状态下更新整个仓库的商品选中状态
 	 */
 	private void updataAllLocalState(CustomsVo custom, String state) {
 		List<ShoppingGoods> list = new ArrayList<ShoppingGoods>();
@@ -195,6 +196,7 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 		}
 		//更新本地购物车数据
 		DataBaseManager.getInstance().getDaoSession().getShoppingGoodsDao().updateInTx(list);
+		//界面显示信息的更新
 		notifyDataSetChanged();
 		ShoppingCarMenager.getInstance().setCustomState();
 		activity.setShoppingcarChanged(true);
@@ -203,6 +205,7 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 	/**
 	 * @param custom
 	 * @param b 
+	 * 登陆状态下更新整个仓库的商品选中状态
 	 */
 	private void updataAllGoodsState(final CustomsVo custom, final String  selected) {
 		final JSONArray array = new JSONArray();
@@ -243,7 +246,7 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 							custom.setState("G");
 						}
 						ToastUtils.Toast(activity, hmm.getMessage());
-					}
+					}			
 				} else {
 					if(selected.equals("Y")){
 						custom.setState("N");
@@ -276,9 +279,10 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				activity.setShoppingcarChanged(true);
+				//根据是否登陆，来执行删除操作
 				if (activity.getHeaders() != null) {
 					delGoods(delGoods);
-				} else {
+				} else {//未登陆状态下，删除本地数据库相应数据，并更新界面
 					dialog.dismiss();
 					if (!delGoods.getState().equals("S")) {
 						goodsDao.delete(goodsDao
