@@ -408,11 +408,11 @@ public class HomeFragment extends BaseIconFragment implements
 	@Override
 	public void onScrollStateChanged(AbsListView view, int scrollState) {
 		
-		 if (scrollState == SCROLL_STATE_FLING) {
-             GlideLoaderTools.pauseRequests(getActivity());
-         } else {
-        	 GlideLoaderTools.resumeRequests(getActivity());
-         }
+//		 if (scrollState == SCROLL_STATE_FLING) {
+//             GlideLoaderTools.pauseRequests(getActivity());
+//         } else {
+//        	 GlideLoaderTools.resumeRequests(getActivity());
+//         }
 	}
 
 	private MyBroadCastReceiver myReceiver;

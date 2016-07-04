@@ -116,7 +116,6 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 			public void onPageSelected(int arg0) {
 				initActionBar(arg0);
 			}
-
 		});
 		mIndicator.setOnTabReselectedListener(new OnTabReselectedListener() {
 
@@ -129,8 +128,7 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 			}
 		});
 
-		BadgeViewManager.getInstance().initBadgeViewManager(this,
-				mIndicator.getTabViews().get(1));
+		BadgeViewManager.getInstance().initBadgeViewManager(this, mIndicator.getTabViews().get(1));
 
 	}
 
