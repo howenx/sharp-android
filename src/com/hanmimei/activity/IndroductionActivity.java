@@ -42,7 +42,6 @@ public class IndroductionActivity extends AppCompatActivity {
 		findViewById(R.id.btn_turn).setOnClickListener(new TurnListener());
 	}
 	
-	
 	private class TurnListener implements OnClickListener{
 
 		@Override
@@ -83,8 +82,7 @@ public class IndroductionActivity extends AppCompatActivity {
 		public View getView(int position, View convertView, ViewGroup arg2) {
 			ViewHolder holder = null;
 			if (convertView == null) {
-				convertView = inflater.inflate(R.layout.viewpager_panel_item,
-						null);
+				convertView = inflater.inflate(R.layout.viewpager_panel_item, null);
 				holder = new ViewHolder();
 				holder.img = (ImageView) convertView.findViewById(R.id.img);
 				holder.experience = convertView.findViewById(R.id.experience);
@@ -108,7 +106,5 @@ public class IndroductionActivity extends AppCompatActivity {
 		}
 
 	}
-	
-	
 
 }

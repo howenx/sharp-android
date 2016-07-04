@@ -37,22 +37,21 @@ public class GoodsCommentFragment extends BaseIconFragment implements
 		IWaterDropListViewListener {
 
 	private WaterDropListView mListView;
-	private View noSmsData;
+	private View noSmsData;	//空列表视图
 
 	private List<RemarkVo> datas;
-	private String loadUrl;
+	private String loadUrl; //请求api地址
 	private EvaType type;
-	private GoodsCommentVo vo;
-	private boolean isFirstLoad = true;
+	private GoodsCommentVo vo; 
+	private boolean isFirstLoad = true; //标志 是否第一次加载
 
 	private int index = 1;
 
 	private GoodsCommentAdapter mAdapter;
-
 	public enum EvaType {
 		all("全部", 0), good("好评", 1), bad("差评", 2);
-		private String name;
-		private int position;
+		private String name; //标签名称
+		private int position;	//标签位置
 
 		public int getPosition() {
 			return position;
@@ -83,6 +82,7 @@ public class GoodsCommentFragment extends BaseIconFragment implements
 	public GoodsCommentFragment(EvaType type, String skuType, String skuTypeId) {
 		super();
 		this.type = type;
+		//初始化评价商品接口地址
 		if (type == EvaType.good) {
 			loadUrl = UrlUtil.GOODS_REMARK_GOOD + skuType + "/" + skuTypeId
 					+ "/";
@@ -112,7 +112,10 @@ public class GoodsCommentFragment extends BaseIconFragment implements
 		loadGoodsEvaluteData(index);
 		return view;
 	}
-
+	/**
+	 * 请求数据
+	 * @param index
+	 */
 	private void loadGoodsEvaluteData(int index) {
 		VolleyHttp.doGetRequestTask(loadUrl + index, new VolleyJsonCallback() {
 

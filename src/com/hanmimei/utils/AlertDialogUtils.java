@@ -194,10 +194,9 @@ public class AlertDialogUtils {
 	 * @param context
 	 * @param l
 	 */
-	public static void showUpdateDialog(Context context, VersionVo info,
+	public static void showUpdateDialog(Context context, 
 			final OnClickListener l) {
-		String[] tb = { info.getReleaseDesc(), "暂不更新", "马上下载" };
-		UpdateDialog c = new UpdateDialog(context, tb, l);
+		UpdateDialog c = new UpdateDialog(context, l);
 		c.show();
 	}
 	/**

@@ -101,14 +101,18 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private GoodsDetail detail;
 	private GoodsDetailPresenterImpl detailPresenterImpl;
 	private int num_shopcart;
-	private boolean isCollection;
-	private boolean isChange;
+	private boolean isCollection;	// 标志商品是否被收藏
+	private boolean isChange;   //判断是否进行过加入购物车操作
 
 	private ScrollAbleFragment imgFragment;
 	private ScrollAbleFragment parFragment;
 	private ScrollAbleFragment gridViewFragment;
 
 	private ObjectAnimator shopcartAnimator, imgAnimator;
+	
+	private double curPostalTaxRate; // 当前商品税率
+	private double curItemPrice; // 当前商品价格
+	private int postalStandard;// 关税收费标准
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -116,11 +120,17 @@ public class GoodsDetailActivity extends BaseActivity implements
 		ActionBarUtil.setActionBarStyle(this, "商品详情",
 				R.drawable.hmm_icon_share, true, this, this);
 		setContentView(R.layout.goods_detail_layout);
+		//
 		findView();
+		//购物车数量view 初始化
 		initGoodsNumView();
+		//初始化商品详情布局
 		initFragmentPager();
+		//获取购物车数量
 		getGoodsNums();
+		//加载数据
 		loadDataByUrl();
+		//注册广播接受者
 		registerReceivers();
 	}
 
@@ -179,12 +189,10 @@ public class GoodsDetailActivity extends BaseActivity implements
 	/**
 	 * 加载数据
 	 */
-
 	private void loadDataByUrl() {
 		if (TextUtils.isEmpty(getIntent().getStringExtra("url")))
 			return;
-		detailPresenterImpl.getGoodsDetailData(getHeaders(), getIntent()
-				.getStringExtra("url"), Tag);
+		detailPresenterImpl.getGoodsDetailData(getHeaders(), getIntent().getStringExtra("url"), Tag);
 	}
 
 	private void getGoodsNums() {
@@ -228,6 +236,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		if (detail == null)
 			return;
 		ShoppingGoods goods = null;
+		//获取被选中的商品
 		for (StockVo stock : detail.getStock()) {
 			if (stock.getOrMasterInv() && stock.getState().equals("Y")) {
 				goods = new ShoppingGoods();
@@ -243,14 +252,17 @@ public class GoodsDetailActivity extends BaseActivity implements
 			return;
 		}
 		findViewById(R.id.btn_add_shopcart).setClickable(false);
+		//加入购物车
 		detailPresenterImpl.addToCart(getHeaders(), goods);
 		isChange = true;
 
 	}
-
+	/**
+	 * 播放加入购物车动画 
+	 */
 	private void displayAnimation() {
-		GlideLoaderTools.loadSquareImage(getActivity(), detail
-				.getCurrentStock().getInvImgForObj().getUrl(), img_hide);
+		//加载商品图片
+		GlideLoaderTools.loadSquareImage(getActivity(), detail.getCurrentStock().getInvImgForObj().getUrl(), img_hide);
 		if (shopcartAnimator == null || imgAnimator == null) {
 			shopcartAnimator = AnimationTools.nope(findViewById(R.id.shopcart));
 			imgAnimator = AnimationTools.initAnimatorSetValue(this, img_hide,
@@ -317,6 +329,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		CustomsVo customs = new CustomsVo();
 
 		ShoppingGoods sgoods = null;
+		//获取被选中的商品 ,整理成购物车数据格式
 		for (StockVo s : detail.getStock()) {
 			if (s.getOrMasterInv()) {
 				if (s.getState().equals("Y")) {
@@ -347,9 +360,10 @@ public class GoodsDetailActivity extends BaseActivity implements
 		customs.setInvCustoms(sgoods.getInvCustoms());
 		list.add(customs);
 		car.setList(list);
+		//跳转到立即支付页面
 		Intent intent = new Intent(this, GoodsBalanceActivity.class);
-		intent.putExtra("car", car);
-		intent.putExtra("orderType", "item");
+		intent.putExtra("car", car);		//购物车数据格式
+		intent.putExtra("orderType", "item");	//订单类型 item 普通订单 pin 拼购订单
 		startActivity(intent);
 	}
 
@@ -358,8 +372,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	 */
 	public void showPortalFeeInfo(View view) {
 		// TODO 弹出显示税费的提醒框
-		AlertDialogUtils.showPostDialog(this, curItemPrice, curPostalTaxRate,
-				postalStandard);
+		AlertDialogUtils.showPostDialog(this, curItemPrice, curPostalTaxRate,postalStandard);
 	}
 
 	/**
@@ -396,16 +409,20 @@ public class GoodsDetailActivity extends BaseActivity implements
 	    */
 	public void collectGoods(View view) {
 		if (getUser() == null) {
+			//未登录情况下，先去登录
 			startActivity(new Intent(this, LoginActivity.class));
 			return;
 		}
+		//商品尚未加载完成，return 操作 避免空指针
 		if (detail == null)
 			return;
 		findViewById(R.id.btn_attention).setClickable(false);
 		if (isCollection) {
+			//已经被收藏，取消收藏
 			detailPresenterImpl.cancelCollection(getHeaders(), detail
 					.getCurrentStock().getCollectId());
 		} else {
+			//尚未被收藏  添加收藏
 			detailPresenterImpl.addCollection(getHeaders(),
 					detail.getCurrentStock());
 		}
@@ -431,22 +448,24 @@ public class GoodsDetailActivity extends BaseActivity implements
 	 *            商品总详情数据
 	 */
 	private void initGoodsDetail() {
+		//商品尚未加载完成，return 操作 避免空指针
 		if (detail == null)
 			return;
+		//商品加载失败
 		if (detail.getMessage().getCode() != 200) {
 			ToastUtils.Toast(this, detail.getMessage().getMessage());
 			return;
 		}
-
 		// 子商品信息
 		TextView publicity = (TextView) findViewById(R.id.publicity); // 优惠信息
-																		// /购物车数量
 		if (detail.getMain() != null) {
 			publicity.setText(detail.getMain().getPublicity());
 		}
 		// 主详情
 		initGoodsInfo();
+		// 加载商品详情数据
 		loadFragmentData();
+		// 数据加载完成，允许滚动
 		mScrollLayout.canScroll();
 	}
 
@@ -467,9 +486,10 @@ public class GoodsDetailActivity extends BaseActivity implements
 		PagerSlidingTabStrip pagerSlidingTabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
 		viewPager.setAdapter(adapter);
 		viewPager.setOffscreenPageLimit(3);
-		mScrollLayout.getHelper().setCurrentScrollableContainer(
-				fragments.get(0));
+		//注册滚动帮助，避免滚动冲突
+		mScrollLayout.getHelper().setCurrentScrollableContainer(fragments.get(0));
 		pagerSlidingTabStrip.setViewPager(viewPager);
+		//滚动监听，判断
 		mScrollLayout.setOnScrollListener(new OnScrollListener() {
 
 			@Override
@@ -483,15 +503,12 @@ public class GoodsDetailActivity extends BaseActivity implements
 				// setScrollDown(currentY);
 			}
 		});
-		pagerSlidingTabStrip
-				.setOnPageChangeListener(new ViewPageChangeListener() {
+		pagerSlidingTabStrip.setOnPageChangeListener(new ViewPageChangeListener() {
 
 					@Override
 					public void onPageSelected(int i) {
 						/** 标注当前页面 **/
-						mScrollLayout
-								.getHelper()
-								.setCurrentScrollableContainer(fragments.get(i));
+						mScrollLayout.getHelper().setCurrentScrollableContainer(fragments.get(i));
 						viewPager.setCurrentItem(i);
 					}
 				});
@@ -503,22 +520,22 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private void loadFragmentData() {
 		if (detail.getMain() == null)
 			return;
+		//初始化显示数据
 		imgFragment.showData(detail.getMain().getItemDetailImgs());
 		parFragment.showData(detail.getMain().getItemFeaturess());
 		gridViewFragment.showData(detail.getPush());
 
 	}
-
-	private double curPostalTaxRate; // 当前商品税率
-	private double curItemPrice; // 当前商品价格
-	private int postalStandard;// 关税收费标准
-
+	/**
+	 * 初始化商品详情
+	 */
 	private void initGoodsInfo() {
 		if (detail.getStock() == null)
 			return;
 		StockVo stock = null;
 		List<TagVo> tags = new ArrayList<TagVo>();
 		boolean outDate = true;
+		//获取主显示商品信息，并判断是否正常销售
 		for (StockVo s : detail.getStock()) {
 			tags.add(new TagVo(s.getItemColor() + " " + s.getItemSize(), s
 					.getState(), s.getOrMasterInv()));
@@ -529,23 +546,32 @@ public class GoodsDetailActivity extends BaseActivity implements
 				outDate = false;
 		}
 		if (outDate) {
+			//确定所有商品未能正常销售
 			more_view.setVisibility(View.VISIBLE);
 			more_view.setOnClickListener(this);
 			findViewById(R.id.btn_pay).setEnabled(false);
 			findViewById(R.id.btn_add_shopcart).setEnabled(false);
 			showPushWindow();
 		}
+		//初始化主显示商品信息
 		initStocks(stock);
+		//初始化各个商品标签
 		initTags(tags);
+		//出事化商品评价
 		initGoodsComment(detail.getCommentVo());
 	}
-
+	/**
+	 * 初始化商品评价
+	 * @param comm 评价信息
+	 */
 	private void initGoodsComment(CommentVo comm) {
 		TextView remarkRate = (TextView) findViewById(R.id.remarkRate);
 		TextView remarkCount = (TextView) findViewById(R.id.remarkCount);
 		if (comm.getRemarkCount() <= 0) {
+			//尚未有评价信息，隐藏评价按钮你
 			findViewById(R.id.btn_comment).setVisibility(View.GONE);
 		} else {
+			//初始化评价信息
 			findViewById(R.id.btn_comment).setOnClickListener(this);
 			remarkCount.setText(getResources().getString(R.string.comment,
 					comm.getRemarkCount()));
@@ -565,6 +591,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		tagCloudView.setOnTagClickListener(new OnTagClickListener() {
 			@Override
 			public void onTagClick(int oldPostion, int position, TagVo tag) {
+				//
 				detail.getStock().get(oldPostion).setOrMasterInv(false);
 				detail.getStock().get(position).setOrMasterInv(true);
 				initStocks(detail.getStock().get(position));
@@ -587,34 +614,46 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private void initStocks(StockVo s) {
 		if (s == null)
 			return;
+		//初始化轮播图
 		initSliderImage(s);
 		String zhe = "";
 		if (s.getItemDiscount().floatValue() > 0) {
+			//标题折扣的获取
 			zhe += "[" + s.getItemDiscount() + "折]";
+			//存在折扣 显示原价
 			itemSrcPrice.setText(getResources().getString(R.string.price,
 					s.getItemSrcPrice()));
 			itemSrcPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 		}
+		//显示商品标题
 		KeyWordUtil.setDifferentFontColor(this, itemTitle,
 				zhe + s.getInvTitle(), 0, zhe.length());
 		itemPrice.setText(getResources().getString(R.string.price,
 				s.getItemPrice()));
 		if (s.getRestrictAmount() != null && s.getRestrictAmount() > 0) {
+			//存在限购数量
 			num_restrictAmount.setVisibility(View.VISIBLE);
 			num_restrictAmount.setText(getResources().getString(
 					R.string.restrictAmount, s.getRestrictAmount()));
 		} else {
 			num_restrictAmount.setVisibility(View.GONE);
 		}
+		//税率
 		if (s.getPostalTaxRate() != null)
 			curPostalTaxRate = s.getPostalTaxRate_();
+		//销售价格
 		curItemPrice = s.getItemPrice().doubleValue();
+		//减免标准
 		postalStandard = s.getPostalStandard();
+		//邮寄方式
 		area.setText("邮寄方式：" + s.getInvAreaNm());
+		//初始化收藏按钮
 		if (s.getCollectId() != 0) {
+			//已收藏
 			collectionImg.setImageResource(R.drawable.hmm_icon_collect_h);
 			isCollection = true;
 		} else {
+			//尚未收藏
 			collectionImg.setImageResource(R.drawable.hmm_icon_collect);
 			isCollection = false;
 		}
@@ -651,8 +690,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private void registerReceivers() {
 		netReceiver = new CarBroadCastReceiver();
 		IntentFilter intentFilter = new IntentFilter();
-		intentFilter
-				.addAction(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR);
+		//注册接受 1.购物车数量发生变化  2.用户登录成功
+		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR);
 		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION);
 		getActivity().registerReceiver(netReceiver, intentFilter);
 	}
@@ -661,11 +700,11 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			if (intent.getAction().equals(
-					AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR)) {
+			if (intent.getAction().equals(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR)) {
+				//购物车数量发生变化重新获取购物车数量
 				getGoodsNums();
-			} else if (intent.getAction().equals(
-					AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION)) {
+			} else if (intent.getAction().equals(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION)) {
+				//用户登录成功 重新获取商品信息及购物车数量
 				loadDataByUrl();
 				getGoodsNums();
 			}
@@ -677,8 +716,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 		super.onDestroy();
 		unregisterReceiver(netReceiver);
 		if (isChange) {
-			Intent intent = new Intent(
-					AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR);
+			//发成过加入购物车操作，通知重新获取购物车数量
+			Intent intent = new Intent(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR);
 			intent.putExtra("cartNum", num_shopcart);
 			sendBroadcast(intent);
 		}

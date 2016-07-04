@@ -105,6 +105,7 @@ public class GlideLoaderTools {
 		int screenWidth = CommonUtils.getScreenWidth(mContext);
 		int height = screenWidth * h / w;
 		int width = screenWidth;
+//		imgView.setLayoutParams(new LayoutParams(width, height));
 		Glide.with(mContext).load(url).placeholder(R.drawable.hmm_place_holder_j).override(width, height).into(imgView);
 	}
 

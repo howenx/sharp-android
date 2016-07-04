@@ -22,7 +22,7 @@ public class GoodsDetail {
 		this.comment = comment;
 	}
 
-
+	// 获取当前选中商品
 	public StockVo getCurrentStock(){
 		StockVo sto = null;
 		for (int i = 0; i < stock.size(); i++) {

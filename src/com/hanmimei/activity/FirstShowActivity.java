@@ -50,15 +50,20 @@ public class FirstShowActivity extends AppCompatActivity {
 	// 判断用户token信息
 	private void loginUser() {
 		user = getDaoSession().getUserDao().queryBuilder().build().unique();
+		//用户登录过并且token未过期
 		if (user != null && user.getExpired() != null) {
+			//token 存在
 			if (user.getToken() != null) {
 				int difDay = DateUtils.getDate(user.getExpired());
+				//token 查24小时过期 更新token
 				if (difDay < 24 && difDay >= 0) {
 					getNewToken();
 				} else if (difDay < 0) {
+					//token已过期
 					getDaoSession().getUserDao().deleteAll();
 					mHandler.postDelayed(new FirstRun(1), 1500);
 				} else {
+					//token尚未过期 设置用户登录
 					application.setLoginUser(user);
 					mHandler.postDelayed(new FirstRun(1), 1500);
 				}
@@ -94,7 +99,9 @@ public class FirstShowActivity extends AppCompatActivity {
 		}
 	}
 
-	// 更新token
+	/**
+	 * 更新token
+	 */
 	private void getNewToken() {
 		Map<String, String> headers = new HashMap<String, String>();
 		headers.put("id-token", user.getToken());

@@ -63,11 +63,11 @@ public class PingouDetailActivity extends BaseActivity implements
 
 	private static final String Tag = "PingouDetailActivity";
 
-	private ScrollableLayout mScrollLayout;
-	private ConvenientBanner<ImageVo> slider;
-	private View back_top;
-	private ImageView collectionImg;
-	private TextView more_view;
+	private ScrollableLayout mScrollLayout;  //滚动
+	private ConvenientBanner<ImageVo> slider; //轮播
+	private View back_top;	//返回顶部按钮
+	private ImageView collectionImg; //收藏按钮
+	private TextView more_view; //查看更多
 	private ShareWindow shareWindow;
 
 	private ScrollAbleFragment imgFragment;
@@ -76,14 +76,13 @@ public class PingouDetailActivity extends BaseActivity implements
 
 	private PinDetailPresenter mPinDetailPresenter;
 
-	private boolean isCollection = false;
-	private PinDetail detail;
+	private boolean isCollection = false; //是否收藏
+	private PinDetail detail; //拼购详情信息
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		ActionBarUtil.setActionBarStyle(this, "商品详情",
-				R.drawable.hmm_icon_share, true, this, this);
+		ActionBarUtil.setActionBarStyle(this, "商品详情",R.drawable.hmm_icon_share, true, this, this);
 		setContentView(R.layout.pingou_detail_layout);
 		initView();
 		initFragmentPager();
@@ -100,8 +99,8 @@ public class PingouDetailActivity extends BaseActivity implements
 	private void loadUrl() {
 		if (TextUtils.isEmpty(getIntent().getStringExtra("url")))
 			return;
-		mPinDetailPresenter.getPinDetail(getHeaders(), getIntent()
-				.getStringExtra("url"), Tag);
+		//获取拼购信息
+		mPinDetailPresenter.getPinDetail(getHeaders(), getIntent().getStringExtra("url"), Tag);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -129,13 +128,15 @@ public class PingouDetailActivity extends BaseActivity implements
 	private void initGoodsDetail(StockVo stock) {
 		if (stock == null)
 			return;
+		//初始化 轮播图
 		initSliderImage(stock.getItemPreviewImgsForList());
+		//
 		TextView pinTitle = (TextView) findViewById(R.id.pinTitle);
 		TextView soldAmount = (TextView) findViewById(R.id.soldAmount);
 		TextView pin_per_num = (TextView) findViewById(R.id.pin_per_num);
 		TextView item_src_price = (TextView) findViewById(R.id.item_src_price);
 		TextView pin_price = (TextView) findViewById(R.id.pin_price);
-
+		//初始化商品基础信息
 		pinTitle.setText(stock.getPinTitle());
 		soldAmount.setText("已售：" + stock.getSoldAmount() + "件");
 		if (stock.getInvPrice() != null) {
@@ -148,20 +149,22 @@ public class PingouDetailActivity extends BaseActivity implements
 					+ "人团");
 		} else {
 			pin_price.setText(stock.getFloorPrice().get("price") + "元/件");
-			pin_per_num
-					.setText(stock.getFloorPrice().get("person_num") + "人拼团");
+			pin_per_num.setText(stock.getFloorPrice().get("person_num") + "人拼团");
 		}
 
 		if (stock.getCollectId() != 0) {
+			//收藏
 			collectionImg.setImageResource(R.drawable.hmm_icon_collect_h);
 			isCollection = true;
 		} else {
+			//尚未收藏
 			collectionImg.setImageResource(R.drawable.hmm_icon_collect);
 			isCollection = false;
 		}
 		if (stock.getStatus().equals("Y")) {
 
 		} else {
+			//商品未能正常销售
 			more_view.setVisibility(View.VISIBLE);
 			more_view.setOnClickListener(this);
 			findViewById(R.id.btn_buy_01).setEnabled(false);
@@ -189,7 +192,7 @@ public class PingouDetailActivity extends BaseActivity implements
 				new int[] { R.drawable.page_indicator,
 						R.drawable.page_indicator_fcoused });
 	}
-
+	//
 	private void initGoodsComment(CommentVo comm) {
 		if (comm.getRemarkCount() <= 0) {
 			findViewById(R.id.btn_comment).setVisibility(View.GONE);
@@ -276,8 +279,9 @@ public class PingouDetailActivity extends BaseActivity implements
 	}
 
 	private GoodsPushWindow pushWindow;
-
-	@SuppressLint("InflateParams")
+	/**
+	 * 推荐商品弹出窗
+	 */
 	private void showPopupwindow() {
 		if (pushWindow == null) {
 			pushWindow = new GoodsPushWindow(this, detail.getPush());
@@ -285,16 +289,18 @@ public class PingouDetailActivity extends BaseActivity implements
 		pushWindow.show();
 
 	}
-
+	/**
+	 * 收藏商品操作
+	 */
 	private void collectGoods() {
 		if (getUser() == null) {
+			//未登录 先去登录
 			startActivity(new Intent(this, LoginActivity.class));
 			return;
 		}
 		findViewById(R.id.btn_attention).setOnClickListener(null);
 		if (isCollection) {
-			mPinDetailPresenter.cancelCollection(getHeaders(), detail
-					.getStock().getCollectId());
+			mPinDetailPresenter.cancelCollection(getHeaders(), detail.getStock().getCollectId());
 		} else {
 			mPinDetailPresenter.addCollection(getHeaders(), detail.getStock());
 		}
@@ -327,10 +333,11 @@ public class PingouDetailActivity extends BaseActivity implements
 		ShoppingCar car = new ShoppingCar();
 		List<CustomsVo> list = new ArrayList<CustomsVo>();
 		CustomsVo customs = new CustomsVo();
-
+		//判断商品是否能正常销售,组装购物车数据结构
 		ShoppingGoods sgoods = null;
 		StockVo s = detail.getStock();
 		if (s.getStatus().equals("Y")) {
+			//商品正常 获取商品信息
 			sgoods = new ShoppingGoods();
 			sgoods.setGoodsId(s.getId() + "");
 			sgoods.setGoodsImg(s.getInvImgForObj().getUrl());
@@ -356,7 +363,10 @@ public class PingouDetailActivity extends BaseActivity implements
 		intent.putExtra("orderType", "item");
 		startActivity(intent);
 	}
-
+	/**
+	 * 跳转拼购选择页
+	 * @param stock
+	 */
 	private void turnToPingouDetailSelActivity(StockVo stock) {
 		if (!detail.getStock().getStatus().equals("Y")) {
 			return;
