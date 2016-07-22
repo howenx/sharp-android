@@ -152,7 +152,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 	};
 	private void initView() {
 		order_code.setText("订单号：" + order.getOrderId());
-//		I:初始化即未支付状态，S:成功，C：取消， F:失败，R:已收货，D:已经发货，J:拒收， T已退款
+//		I:初始化即未支付状态，S:成功，C：取消， F:失败，R:已收货，D:已经发货，J:拒收， T已退款 ，F支付失败
 		if(order.getOrderStatus().equals("S")){
 			if(order.getRefund() != null){
 				findViewById(R.id.bottom).setVisibility(View.GONE);
@@ -245,7 +245,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		String payMethod = "在线支付";
 		if(order.getPayMethod().equals("JD")){
 			payMethod = "京东支付";
-		}else if(order.getPayMethod().equals("APAY")){
+		}else if(order.getPayMethod().equals("ALIPAY")){
 			payMethod = "支付宝支付";
 		}else if(order.getPayMethod().equals("WEIXIN")){
 			payMethod = "微信支付";

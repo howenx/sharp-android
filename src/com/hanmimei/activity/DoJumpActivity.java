@@ -1,6 +1,8 @@
 package com.hanmimei.activity;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.pdf.PdfDocument.Page;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
@@ -43,7 +45,7 @@ public class DoJumpActivity extends BaseActivity {
 			startActivity(new Intent(intent));
 		}
 		finish();
-
+		
 	}
 
 }

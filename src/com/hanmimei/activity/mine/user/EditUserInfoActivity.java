@@ -85,7 +85,7 @@ public class EditUserInfoActivity extends BaseActivity implements
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.user_info_layout);
-		ActionBarUtil.setActionBarStyle(this, "修改信息");
+		ActionBarUtil.setActionBarStyle(this, "基本信息");
 		oldUser = getUser();
 		findView();
 		initView();
@@ -116,8 +116,7 @@ public class EditUserInfoActivity extends BaseActivity implements
 		} else {
 			sex.setText("女");
 		}
-		phone.setText(oldUser.getPhone().substring(0, 3) + "****"
-				+ oldUser.getPhone().substring(7, oldUser.getPhone().length()));
+		phone.setText(CommonUtils.phoneNumPaser(oldUser.getPhone()));
 	}
 
 	@Override

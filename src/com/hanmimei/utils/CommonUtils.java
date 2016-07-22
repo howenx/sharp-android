@@ -592,6 +592,24 @@ public class CommonUtils {
 	public static String DecimalFormat(Double format) {
 		return new DecimalFormat("##0.00").format(format);
 	}
+	
+	public static String phoneNumPaser(String phoneNum){
+		StringBuilder paser = new StringBuilder();
+		paser.append(phoneNum.substring(0, 3)).append("****").append(phoneNum.substring(7));
+		return paser.toString();
+	}
+	
+	public static String IDCardPaser(String idCard){
+		StringBuilder paser = new StringBuilder();
+		if(idCard.length() == 18){
+			paser.append(idCard.substring(0, 10)).append("****").append(idCard.substring(14));
+		}else if(idCard.length() == 15){
+			paser.append(idCard.substring(0, 8)).append("****").append(idCard.substring(12));
+		}else{
+			paser.append("身份证号码无效");
+		}
+		return paser.toString();
+	}
 
 	// 身份证校验
 	@SuppressWarnings("rawtypes")

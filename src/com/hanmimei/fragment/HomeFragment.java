@@ -479,41 +479,5 @@ public class HomeFragment extends BaseIconFragment implements
 		GlideLoaderTools.loadRectImage(context,url, imageView);
 		return imageView;
 	}
-	 
-	 private void doCheckVersionTask() {
-			VolleyHttp.doGetRequestTask( UrlUtil.UPDATE_HMM,
-					new VolleyJsonCallback() {
-
-						@Override
-						public void onSuccess(String result) {
-							try {
-								InputStream is = new ByteArrayInputStream(result
-										.getBytes());
-								final VersionVo info = XMLPaserTools.getUpdataInfo(is);
-								if (info.getReleaseNumber()>CommonUtils.getVersionCode(getActivity())) {
-									// 版本号不同,发送消息更新客户端
-									mActivity.setVersionInfo(info);
-									AlertDialogUtils.showUpdate2Dialog(
-											getActivity(), new OnClickListener() {
-
-												@Override
-												public void onClick(View v) {
-													HDownloadManager downloadTools = new HDownloadManager(getActivity());
-													downloadTools.download(info.getDownloadLink());
-												}
-											});
-
-								}
-							} catch (Exception e) {
-								ToastUtils.Toast(getActivity(), "获取服务器更新信息失败");
-							}
-						}
-
-						@Override
-						public void onError() {
-							ToastUtils.Toast(getActivity(), "获取服务器更新信息失败");
-						}
-					});
-		}
 
 }

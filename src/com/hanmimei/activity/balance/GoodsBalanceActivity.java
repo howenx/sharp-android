@@ -42,6 +42,7 @@ import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.override.ViewExpandAnimation;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
+import com.hanmimei.utils.CommonUtils;
 import com.hanmimei.utils.ToastUtils;
 
 /**
@@ -317,18 +318,9 @@ public class GoodsBalanceActivity extends BaseActivity implements
 							+ settle.getAddress().getDeliveryDetail()));
 			name.setText(getResources().getString(R.string.name,
 					settle.getAddress().getName()));
-			phone.setText(getResources().getString(R.string.phone,
-					settle.getAddress().getTel()));
+			phone.setText(getResources().getString(R.string.phone,CommonUtils.phoneNumPaser(settle.getAddress().getTel())));
 			idCard.setText(getResources().getString(
-					R.string.idcard,
-					settle.getAddress().getIdCardNum().substring(0, 5)
-							+ "********"
-							+ settle.getAddress()
-									.getIdCardNum()
-									.substring(
-											14,
-											settle.getAddress().getIdCardNum()
-													.length())));
+					R.string.idcard,CommonUtils.IDCardPaser(settle.getAddress().getIdCardNum())));
 			findViewById(R.id.btn_pay).setBackgroundResource(
 					R.drawable.btn_buy_selector);
 			findViewById(R.id.btn_pay).setOnClickListener(this);

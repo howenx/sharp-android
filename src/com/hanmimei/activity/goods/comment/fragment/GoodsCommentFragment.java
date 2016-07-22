@@ -13,6 +13,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.google.gson.Gson;
 import com.hanmimei.R;
@@ -23,7 +24,8 @@ import com.hanmimei.entity.RemarkVo;
 import com.hanmimei.event.MessageEvent;
 import com.hanmimei.http.VolleyHttp;
 import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
-import com.view.waterdrop.WaterDropListView;
+import com.hanmimei.view.ListBottomView;
+import com.hanmimei.view.ListBottomView.OnScrollToBottomListener;
 import com.view.waterdrop.WaterDropListView.IWaterDropListViewListener;
 import com.viewpagerindicator.BaseIconFragment;
 import com.ypy.eventbus.EventBus;
@@ -33,10 +35,9 @@ import com.ypy.eventbus.EventBus;
  * @param <Remark>
  * 
  */
-public class GoodsCommentFragment extends BaseIconFragment implements
-		IWaterDropListViewListener {
+public class GoodsCommentFragment extends BaseIconFragment  implements OnScrollToBottomListener{
 
-	private WaterDropListView mListView;
+	private ListBottomView mListView;
 	private View noSmsData;	//空列表视图
 
 	private List<RemarkVo> datas;
@@ -101,14 +102,13 @@ public class GoodsCommentFragment extends BaseIconFragment implements
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		View view = inflater.inflate(R.layout.goods_comment_pager_layout, null);
-		mListView = (WaterDropListView) view.findViewById(R.id.mListView);
+		mListView = (ListBottomView) view.findViewById(R.id.mListView);
 		noSmsData = view.findViewById(R.id.noSmsData);
 		datas = new ArrayList<>();
 		mAdapter = new GoodsCommentAdapter(datas, getActivity());
 		mListView.setAdapter(mAdapter);
-		mListView.setPullRefreshEnable(false);
-		mListView.setWaterDropListViewListener(this);
 		mListView.setEmptyView(noSmsData);
+		mListView.setOnScrollToBottomLintener(this);
 		loadGoodsEvaluteData(index);
 		return view;
 	}
@@ -126,13 +126,11 @@ public class GoodsCommentFragment extends BaseIconFragment implements
 					showGoodsComment(vo.getRemarkList());
 					notifyTabTitleChange();
 				}
-				mListView.stopLoadMore();
 
 			}
 
 			@Override
 			public void onError() {
-				mListView.stopLoadMore();
 			}
 		});
 	}
@@ -157,36 +155,7 @@ public class GoodsCommentFragment extends BaseIconFragment implements
 		mAdapter.notifyDataSetChanged();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.view.waterdrop.WaterDropListView.IWaterDropListViewListener#onRefresh
-	 * ()
-	 */
-	@Override
-	public void onRefresh() {
-		// index = 1;
-		// loadGoodsEvaluteData(index);
-		mListView.stopRefresh();
-	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.view.waterdrop.WaterDropListView.IWaterDropListViewListener#onLoadMore
-	 * ()
-	 */
-	@Override
-	public void onLoadMore() {
-		if (index >= vo.getPage_count()) {
-			mListView.stopLoadMore();
-			return;
-		}
-		index++;
-		loadGoodsEvaluteData(index);
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -209,6 +178,19 @@ public class GoodsCommentFragment extends BaseIconFragment implements
 	public int getIconId() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.hanmimei.view.ListBottomView.OnScrollToBottomListener#onScrollBottomListener()
+	 */
+	@Override
+	public void onScrollBottomListener() {
+		// TODO Auto-generated method stub
+		if (index >= vo.getPage_count()) {
+			return;
+		}
+		index++;
+		loadGoodsEvaluteData(index);
 	}
 
 }

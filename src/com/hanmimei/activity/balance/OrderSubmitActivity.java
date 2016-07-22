@@ -35,7 +35,6 @@ import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
 import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.view.webview.ProgressWebView;
-import com.tencent.mm.sdk.modelbase.BaseReq;
 import com.tencent.mm.sdk.modelpay.PayReq;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
@@ -72,7 +71,7 @@ public class OrderSubmitActivity extends BaseActivity {
 		if (getUser() != null)
 			extraHeaders.put("id-token", getUser().getToken());
 
-		mWebView.setWebViewClient(new WebViewClient() {
+		mWebView.setWebViewClient(new WebViewClient() { 
 
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -154,8 +153,7 @@ public class OrderSubmitActivity extends BaseActivity {
 
 		@JavascriptInterface
 		public void pin(String url) {
-			Intent intent = new Intent(getActivity(),
-					PingouResultActivity.class);
+			Intent intent = new Intent(getActivity(),PingouResultActivity.class);
 			intent.putExtra("url", url);
 			startActivity(intent);
 			finish();
