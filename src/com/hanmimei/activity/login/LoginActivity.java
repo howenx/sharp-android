@@ -93,7 +93,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	private int loginFrom = 0;
 	private UMShareAPI mShareAPI;
 	//百度登陆
-	private Baidu baidu = null;
+//	private Baidu baidu = null;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -189,7 +189,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 				clear_pwd.setVisibility(View.INVISIBLE);
 			}
 		}
-
 	};
 
 	@Override
@@ -269,10 +268,10 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			dialog.show();
 			doOtherLogin(SHARE_MEDIA.SINA);
 			break;
-		case R.id.baidu:
-			loginFrom = 3;
-			doBaiDuLogin();
-			break;
+//		case R.id.baidu:
+//			loginFrom = 3;
+//			doBaiDuLogin();
+//			break;
 		default:
 			break;
 		}
@@ -281,6 +280,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	/**
 	 * 百度登陆
 	 */
+	/*
 	private void doBaiDuLogin() {
 		baidu = new Baidu(AppConstant.BAIDU_ID, this);
 		//授权回调
@@ -308,6 +308,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			}
 		});
 	}
+	
 	//获取百度用户的信息
 	private void getBaiDuInfo() {
 		new  Thread(new Runnable() {
@@ -328,6 +329,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		}).start();
 		
 	}
+	
+	 * 
+	 */
 	//微信   qq登陆 新浪微博登陆
 	private void doOtherLogin(SHARE_MEDIA platform) {
 		// mShareAPI = UMShareAPI.get(this);
@@ -536,21 +540,21 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 				Bitmap bitmap = (Bitmap) msg.obj;
 				setDialogImg(bitmap);
 				break;
-			case 5:
-				String json = (String) msg.obj;
-				try {
-		            if (json != null) {
-		            	JSONObject object = new JSONObject(json);
-			            Map<String, String> data = new HashMap<String, String>();
-			            data.put("idtype", "B");
-			            data.put("uid", object.getString("uid"));
-			            data.put("access_token", baidu.getAccessTokenManager().getAccessToken());
-			            checkOtherLogin(data);
-					}
-					} catch (JSONException e) {
-						e.printStackTrace();
-		            }
-				break;
+//			case 5:
+//				String json = (String) msg.obj;
+//				try {
+//		            if (json != null) {
+//		            	JSONObject object = new JSONObject(json);
+//			            Map<String, String> data = new HashMap<String, String>();
+//			            data.put("idtype", "B");
+//			            data.put("uid", object.getString("uid"));
+//			            data.put("access_token", baidu.getAccessTokenManager().getAccessToken());
+//			            checkOtherLogin(data);
+//					}
+//					} catch (JSONException e) {
+//						e.printStackTrace();
+//		            }
+//				break;
 
 			default:
 				break;

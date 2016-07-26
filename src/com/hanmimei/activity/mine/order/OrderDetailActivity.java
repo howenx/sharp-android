@@ -106,7 +106,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		adapter = new OrderDetailListAdapter(list, this, isShow);
 		findView();
 		//取消，退款可以删除 || order.getOrderStatus().equals("T")
-		if(order.getOrderStatus().equals("C")){
+		if(order.getOrderStatus().equals("C") || order.getOrderStatus().equals("F")){
 			ActionBarUtil.setActionBarStyle(this, "订单详情", R.drawable.hmm_edit_delete, true, this);
 		}else{
 			ActionBarUtil.setActionBarStyle(this, "订单详情");
@@ -231,12 +231,16 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 			findViewById(R.id.bottom).setVisibility(View.VISIBLE);
 			go_wuliu.setVisibility(View.VISIBLE);
 //			if(order.getRemark().equals("N")){
-				go_comment.setVisibility(View.VISIBLE);
+			go_comment.setVisibility(View.VISIBLE);
 //			}else{
 //				go_comment.setVisibility(View.GONE);
 //			}
 			
 			order_state.setText("订单状态：已完成");
+		}else if(order.getOrderStatus().equals("F")){
+			findViewById(R.id.bottom).setVisibility(View.GONE);
+			findViewById(R.id.linear_att).setVisibility(View.VISIBLE);
+			order_state.setText("订单状态：交易失败");
 		}
 		if(!order.getOrderSplitId().equals("null") && !order.getOrderSplitId().equals("")){
 			item_order_id.setVisibility(View.VISIBLE);

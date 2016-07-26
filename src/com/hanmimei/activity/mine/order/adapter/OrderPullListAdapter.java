@@ -227,6 +227,13 @@ public class OrderPullListAdapter extends BaseAdapter {
 			holder.state.setTextColor(activity.getResources().getColor(
 					R.color.fontcolor));
 			holder.bootom.setVisibility(View.GONE);
+		}else if(order.getOrderStatus().equals("F")){
+			holder.state.setText("交易失败");
+			// 颜色
+			holder.state.setTextColor(activity.getResources().getColor(
+					R.color.fontcolor));
+			holder.bootom.setVisibility(View.GONE);
+			holder.apply_customer.setVisibility(View.GONE);
 		}
 		holder.date.setText(order.getOrderCreateAt());
 		adapter = new OrderListAdapter(order.getList(), activity);
