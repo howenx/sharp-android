@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.hanmimei"
+    package="com.kakao.kakaogift"
     android:versionCode="34"
     android:versionName="v0.3.4" >
 
@@ -9,7 +9,7 @@
         android:targetSdkVersion="21" />
 
     <permission
-        android:name="com.hanmimei.permission.JPUSH_MESSAGE"
+        android:name="com.kakao.kakaogift.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
     <!-- 添加访问网络的权限 -->
     <!-- 允许程序获取当前或最近运行的应用 -->
@@ -36,7 +36,7 @@
     <!-- 允许读写系统设置项 -->
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <!-- 极光 -->
-    <uses-permission android:name="com.hanmimei.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="com.kakao.kakaogift.permission.JPUSH_MESSAGE" />
     <!--  -->
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <!--  允许程序在手机屏幕关闭后后台进程仍然运行-->
@@ -67,14 +67,14 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 
     <application
-        android:name="com.hanmimei.application.HMMApplication"
+        android:name="com.kakao.kakaogift.application.HMMApplication"
         android:allowBackup="false"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/hmm_app_name"
+        android:label="@string/gift_app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.hanmimei.activity.FirstShowActivity"
-            android:label="@string/hmm_app_name"
+            android:name="com.kakao.kakaogift.activity.FirstShowActivity"
+            android:label="@string/gift_app_name"
             android:screenOrientation="portrait" 
             android:theme="@style/SplashStyle" >
             <intent-filter>
@@ -84,7 +84,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.hanmimei.activity.DoJumpActivity"
+            android:name="com.kakao.kakaogift.activity.DoJumpActivity"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -99,148 +99,148 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.hanmimei.activity.IndroductionActivity"
+            android:name="com.kakao.kakaogift.activity.IndroductionActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashStyle" />
         <activity
-            android:name="com.hanmimei.activity.HMainActivity"
+            android:name="com.kakao.kakaogift.activity.HMainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/MainActivityTheme" />
         <activity
-            android:name="com.hanmimei.activity.goods.theme.ThemeGoodsActivity"
+            android:name="com.kakao.kakaogift.activity.goods.theme.ThemeGoodsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.WeixinPayActivity"
+            android:name="com.kakao.kakaogift.activity.WeixinPayActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.mine.order.MyOrderActivity"
+            android:name="com.kakao.kakaogift.activity.mine.order.MyOrderActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.mine.coupon.MyCouponActivity"
+            android:name="com.kakao.kakaogift.activity.mine.coupon.MyCouponActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeForOrder" />
         <activity
-            android:name="com.hanmimei.activity.mine.address.MyAddressActivity"
+            android:name="com.kakao.kakaogift.activity.mine.address.MyAddressActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.mine.address.EditAdressActivity"
+            android:name="com.kakao.kakaogift.activity.mine.address.EditAdressActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.goods.detail.GoodsDetailActivity"
+            android:name="com.kakao.kakaogift.activity.goods.detail.GoodsDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.mine.order.OrderDetailActivity"
+            android:name="com.kakao.kakaogift.activity.mine.order.OrderDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.mine.config.SettingActivity"
+            android:name="com.kakao.kakaogift.activity.mine.config.SettingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.login.LoginActivity"
+            android:name="com.kakao.kakaogift.activity.login.LoginActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.hanmimei.activity.login.RegistActivity"
+            android:name="com.kakao.kakaogift.activity.login.RegistActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.login.CheckPhoneActivity"
+            android:name="com.kakao.kakaogift.activity.login.CheckPhoneActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.login.BindPhoneActivity"
+            android:name="com.kakao.kakaogift.activity.login.BindPhoneActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.login.ForgetPwdActivity"
+            android:name="com.kakao.kakaogift.activity.login.ForgetPwdActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.balance.GoodsBalanceActivity"
+            android:name="com.kakao.kakaogift.activity.balance.GoodsBalanceActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.car.ShoppingCarActivity"
+            android:name="com.kakao.kakaogift.activity.car.ShoppingCarActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.mine.user.EditUserInfoActivity"
+            android:name="com.kakao.kakaogift.activity.mine.user.EditUserInfoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.mine.user.EditUserNameActivity"
+            android:name="com.kakao.kakaogift.activity.mine.user.EditUserNameActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.goods.detail.GoodsDetailImgActivity"
+            android:name="com.kakao.kakaogift.activity.goods.detail.GoodsDetailImgActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.balance.OrderSubmitActivity"
+            android:name="com.kakao.kakaogift.activity.balance.OrderSubmitActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.mine.collect.MyCollectionActivity"
+            android:name="com.kakao.kakaogift.activity.mine.collect.MyCollectionActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.apply.CustomerServiceActivity"
+            android:name="com.kakao.kakaogift.activity.apply.CustomerServiceActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.hanmimei.upload.ImageGridActivity"
+            android:name="com.kakao.kakaogift.upload.ImageGridActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.upload.PhotoActivity"
+            android:name="com.kakao.kakaogift.upload.PhotoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.upload.AlbumActivity"
+            android:name="com.kakao.kakaogift.upload.AlbumActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.goods.pin.PingouDetailActivity"
+            android:name="com.kakao.kakaogift.activity.goods.pin.PingouDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.goods.pin.PingouResultActivity"
+            android:name="com.kakao.kakaogift.activity.goods.pin.PingouResultActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.goods.pin.PingouLiuChengActivity"
+            android:name="com.kakao.kakaogift.activity.goods.pin.PingouLiuChengActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.mine.order.LogisticsActivity"
+            android:name="com.kakao.kakaogift.activity.mine.order.LogisticsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.mine.config.AboutWeActivity"
+            android:name="com.kakao.kakaogift.activity.mine.config.AboutWeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.mine.config.SuggestionActivity"
+            android:name="com.kakao.kakaogift.activity.mine.config.SuggestionActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.mine.config.HmmServiceActivity"
+            android:name="com.kakao.kakaogift.activity.mine.config.HmmServiceActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.mine.pin.MyPingouActivity"
+            android:name="com.kakao.kakaogift.activity.mine.pin.MyPingouActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.goods.pin.PingouDetailSelActivity"
+            android:name="com.kakao.kakaogift.activity.goods.pin.PingouDetailSelActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.mine.message.MessageTypeActivity"
+            android:name="com.kakao.kakaogift.activity.mine.message.MessageTypeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.mine.message.MessageActivity"
+            android:name="com.kakao.kakaogift.activity.mine.message.MessageActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.mine.pin.MyPingouDetailActivity"
+            android:name="com.kakao.kakaogift.activity.mine.pin.MyPingouDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.goods.h5.Html5LoadActivity"
+            android:name="com.kakao.kakaogift.activity.goods.h5.Html5LoadActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.apply.ApplyRefundActivity"
+            android:name="com.kakao.kakaogift.activity.apply.ApplyRefundActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.mine.comment.PubCommentActivity"
+            android:name="com.kakao.kakaogift.activity.mine.comment.PubCommentActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name="com.hanmimei.activity.mine.comment.CommentGoodsActivity"
+            android:name="com.kakao.kakaogift.activity.mine.comment.CommentGoodsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.goods.comment.GoodsCommentActivity"
+            android:name="com.kakao.kakaogift.activity.goods.comment.GoodsCommentActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hanmimei.activity.goods.comment.GoodsCommentImgActivity"
+            android:name="com.kakao.kakaogift.activity.goods.comment.GoodsCommentImgActivity"
             android:screenOrientation="portrait" />
 
         <!-- 友盟相关 -->
@@ -284,7 +284,7 @@
         </service>
 
         <activity
-            android:name="com.hanmimei.gallery.MultiImageSelectorActivity"
+            android:name="com.kakao.kakaogift.gallery.MultiImageSelectorActivity"
             android:configChanges="orientation|screenSize" />
         <activity android:name=".GestureImageActivity" />
 
@@ -341,7 +341,7 @@
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.DaemonService" />
 
-                <category android:name="com.hanmimei" />
+                <category android:name="com.kakao.kakaogift" />
             </intent-filter>
         </service>
         <!-- Required -->
@@ -351,7 +351,7 @@
             android:exported="false" >
             <intent-filter android:priority="1000" >
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />
-                <category android:name="com.hanmimei" />
+                <category android:name="com.kakao.kakaogift" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.USER_PRESENT" />
@@ -374,7 +374,7 @@
                 <action android:name="cn.jpush.android.ui.PushActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="com.hanmimei" />
+                <category android:name="com.kakao.kakaogift" />
             </intent-filter>
         </activity>
         <!-- Required SDK核心功能 -->
@@ -387,7 +387,7 @@
 
         <!-- 极光推送广播接收者 ，处理推送结果 -->
         <receiver
-            android:name="com.hanmimei.receiver.PushReceiver"
+            android:name="com.kakao.kakaogift.receiver.PushReceiver"
             android:enabled="true"
             android:exported="true" >
             <intent-filter>
@@ -404,7 +404,7 @@
                 <!-- Optional 用户接受Rich Push Javascript 回调函数的intent -->
                 <action android:name="cn.jpush.android.intent.CONNECTION" />
                 <!-- 接收网络变化 连接/断开 since 1.6.3 -->
-                <category android:name="com.hanmimei" />
+                <category android:name="com.kakao.kakaogift" />
             </intent-filter>
         </receiver>
 
@@ -415,7 +415,7 @@
         <!-- 极光推送 AppKey -->
         <meta-data            android:name="JPUSH_APPKEY"            android:value="a81748f2ead4ab0faef89329" />
         <!-- glide 图片处理配置 -->
-        <meta-data            android:name="com.hanmimei.override.GlideConfiguration"            android:value="GlideModule" />
+        <meta-data            android:name="com.kakao.kakaogift.override.GlideConfiguration"            android:value="GlideModule" />
         <!-- 百度开发者平台 -->
         <meta-data            android:name="BDAPPID"            android:value="8228990" />
         <meta-data            android:name="BDAPPKEY"            android:value="x6opgN1tKTyIy3GuzA4camG6reNnGtiT" />

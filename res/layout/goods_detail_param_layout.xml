@@ -6,7 +6,7 @@
     android:orientation="vertical" >
     
     
-    <com.hanmimei.view.CustomListView
+    <com.kakao.kakaogift.view.CustomListView
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:layout_margin="10dp"

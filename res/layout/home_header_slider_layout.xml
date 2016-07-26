@@ -9,7 +9,7 @@
         android:layout_height="wrap_content">
     <fragment
         android:id="@+id/fragment_cycle_viewpager_content"
-        android:name="com.hanmimei.view.CycleViewPager"
+        android:name="com.kakao.kakaogift.view.CycleViewPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     </FrameLayout>

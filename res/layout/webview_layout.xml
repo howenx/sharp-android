@@ -7,7 +7,7 @@
     android:orientation="vertical" >
 
 
-    <com.hanmimei.view.webview.ProgressWebView
+    <com.kakao.kakaogift.view.webview.ProgressWebView
         android:id="@+id/mWebView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

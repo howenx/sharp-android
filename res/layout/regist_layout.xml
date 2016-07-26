@@ -93,7 +93,7 @@
                 android:layout_height="match_parent"
                 android:background="@color/qianhui" />
 
-            <com.hanmimei.view.YanZhengCodeTextView
+            <com.kakao.kakaogift.view.YanZhengCodeTextView
                 android:id="@+id/get_yanzheng"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
