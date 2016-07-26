@@ -68,7 +68,7 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_layout);
 
-		ActionBarUtil.setActionBarStyle(this, "韩秘美",message_icon, false, this);
+		ActionBarUtil.setActionBarStyle(this, getResources().getString(R.string.app_name),message_icon, false, this);
 		MessageMenager.getInstance().setOnGetMessageListener(this);
 		// 关闭滑动退出
 		setBackEnable(false);

@@ -25,6 +25,7 @@ import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -38,12 +39,14 @@ import com.hanmimei.R;
 import com.hanmimei.activity.base.BaseActivity;
 import com.hanmimei.activity.goods.h5.Html5LoadActivity;
 import com.hanmimei.activity.goods.theme.ThemeGoodsActivity;
+import com.hanmimei.adapter.CategoryAdapter;
 import com.hanmimei.adapter.HomeAdapter;
 import com.hanmimei.dao.SliderDao;
 import com.hanmimei.dao.ThemeDao;
 import com.hanmimei.data.AppConstant;
 import com.hanmimei.data.DataParser;
 import com.hanmimei.data.UrlUtil;
+import com.hanmimei.entity.Category;
 import com.hanmimei.entity.Home;
 import com.hanmimei.entity.Slider;
 import com.hanmimei.entity.Theme;
@@ -62,6 +65,7 @@ import com.hanmimei.utils.ToastUtils;
 import com.hanmimei.utils.XMLPaserTools;
 import com.hanmimei.view.CycleViewPager;
 import com.hanmimei.view.IntroMsgDialog;
+import com.hanmimei.view.MyGridView;
 import com.umeng.analytics.MobclickAgent;
 import com.viewpagerindicator.BaseIconFragment;
 
@@ -91,6 +95,8 @@ public class HomeFragment extends BaseIconFragment implements
 	private TextView reload;
 
 	private int pullNum = 1;
+	//
+	private List<Category> catData;
 	
 
 	@Override
@@ -102,6 +108,8 @@ public class HomeFragment extends BaseIconFragment implements
 		dataSliders = new ArrayList<Slider>();
 		data = new ArrayList<Theme>();
 		adapter = new HomeAdapter(data, mContext);
+		catData = new ArrayList<Category>();
+		categoryAdapter = new CategoryAdapter(catData, mContext);
 		themeDao = mActivity.getDaoSession().getThemeDao();
 		sliderDao = mActivity.getDaoSession().getSliderDao();
 		registerReceivers();
@@ -142,6 +150,7 @@ public class HomeFragment extends BaseIconFragment implements
 		});
 		mListView.setOnScrollListener(this);
 		findHeaderView();
+		findCategory();
 		loadData();
 		addHeaderView();
 		return view;
@@ -153,8 +162,20 @@ public class HomeFragment extends BaseIconFragment implements
 			dialog.show();
 		}
 	}
-	
-
+	private View catView;
+	private CategoryAdapter categoryAdapter;
+	private void findCategory(){
+		catView = inflater.inflate(R.layout.home_category_layout, null);
+		MyGridView mGridView = (MyGridView) catView.findViewById(R.id.mygrid);
+		mGridView.setAdapter(categoryAdapter);
+	}
+	private void initCategoryView(){
+		catData.clear();
+		for(int i = 0; i < 8; i ++){
+			catData.add(new Category("1", "meizhuang"));
+		}
+		categoryAdapter.notifyDataSetChanged();
+	}
 	private void findHeaderView() {
 		headerView = inflater.inflate(R.layout.home_header_slider_layout, null);
 		headerView.setVisibility(View.GONE);
@@ -176,7 +197,9 @@ public class HomeFragment extends BaseIconFragment implements
 
 	private void addHeaderView() {
 		ListView v = mListView.getRefreshableView();
+//		View view = LayoutInflater.from(mActivity).inflate(R.layout.home_category_layout, null);
 		v.addHeaderView(headerView);
+		v.addHeaderView(catView);
 	}
 
 	private void initHeaderView() {
@@ -274,6 +297,7 @@ public class HomeFragment extends BaseIconFragment implements
 			dataSliders.clear();
 			dataSliders.addAll(sliders);
 			initHeaderView();
+			initCategoryView();
 		}
 //		if (home.getPage_count() <= pullNum) {
 //			mListView.setMode(Mode.DISABLED);
