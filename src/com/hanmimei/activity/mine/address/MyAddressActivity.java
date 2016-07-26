@@ -34,6 +34,7 @@ import com.hanmimei.http.VolleyHttp;
 import com.hanmimei.http.VolleyHttp.VolleyJsonCallback;
 import com.hanmimei.utils.ActionBarUtil;
 import com.hanmimei.utils.AlertDialogUtils;
+import com.hanmimei.utils.CommonUtils;
 import com.hanmimei.utils.ToastUtils;
 
 /**
@@ -204,8 +205,8 @@ public class MyAddressActivity extends BaseActivity implements OnClickListener {
 				holder = (ViewHolder) convertView.getTag();
 			}
 			holder.name.setText("姓名：" + adress.getName());
-			holder.phone.setText("联系电话：" + adress.getPhone().substring(0, 3) + "****" + adress.getPhone().substring(7, adress.getPhone().length()));
-			holder.id_card.setText("身份证号：" + adress.getIdCard().substring(0, 5) + "********" + adress.getIdCard().substring(14, adress.getIdCard().length()));
+			holder.phone.setText("联系电话：" + CommonUtils.phoneNumPaser(adress.getPhone()));
+			holder.id_card.setText("身份证号：" +CommonUtils.IDCardPaser(adress.getIdCard()));
 			holder.adress.setText("收货地址：" + adress.getCity() + "  "
 					+ adress.getAdress());
 			holder.btn_xiugai.setOnClickListener(new OnClickListener() {

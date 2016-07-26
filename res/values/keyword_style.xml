@@ -2,7 +2,7 @@
 <resources>
      <style name="tax01">
         <item name="android:textSize">12sp</item>
-        <item name="android:textColor">@color/huise</item>
+        <item name="android:textColor">@color/fontcolor</item>
     </style>
 
     <style name="tax02">

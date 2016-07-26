@@ -62,15 +62,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
-                            android:background="@drawable/btn_theme_boader_radius_selector"
-                            android:clickable="true"
-                            android:onClick="showPortalFeeInfo"
-                            android:paddingBottom="1dp"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
-                            android:paddingTop="1dp"
-                            android:text="@string/shui"
-                            android:textColor="@color/btn_theme_font_selector"
+                            android:textColor="@color/fontcolor"
                             android:textSize="12sp" />
 
                         <TextView
@@ -181,7 +173,6 @@
                             android:drawablePadding="@dimen/driver_padding_small"
                             android:drawableRight="@drawable/hmm_next_page_gray"
                             android:text="@string/comment"
-                            android:textColor="@color/fontcolor"
                             android:textSize="12sp" />
                     </RelativeLayout>
                 </LinearLayout>

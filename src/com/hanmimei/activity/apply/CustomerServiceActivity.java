@@ -119,9 +119,7 @@ public class CustomerServiceActivity extends BaseActivity implements
 		super.onActivityResult(requestCode, resultCode, data);
 		if (requestCode == REQUEST_IMAGE && resultCode == RESULT_OK) {
 			mSelectPath.clear();
-			mSelectPath
-					.addAll(data
-							.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT));
+			mSelectPath.addAll(data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT));
 			adapter.notifyDataSetChanged();
 		}
 	}

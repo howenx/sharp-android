@@ -215,16 +215,10 @@ public class EditAdressActivity extends BaseActivity implements
 	private void initView() {
 		add_adre.setText("保存修改");
 		name_edit.setText(old_Adress.getName());
-		phone_edit.setText(old_Adress.getPhone().substring(0, 3)
-				+ "****"
-				+ old_Adress.getPhone().substring(7,
-						old_Adress.getPhone().length()));
+		phone_edit.setText(CommonUtils.phoneNumPaser(old_Adress.getPhone()));
 		city_edit.setText(old_Adress.getCity());
 		adress_edit.setText(old_Adress.getAdress());
-		idCard_edit.setText(old_Adress.getIdCard().substring(0, 5)
-				+ "********"
-				+ old_Adress.getIdCard().substring(14,
-						old_Adress.getIdCard().length()));
+		idCard_edit.setText(CommonUtils.IDCardPaser(old_Adress.getIdCard()));
 		if (old_Adress.isDefault()) {
 			isDefaut = 1;
 			check_box.setToggleOn();

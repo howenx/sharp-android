@@ -33,6 +33,7 @@ import com.umeng.socialize.media.UMImage;
 		this.vo = vo;
 	}
 
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -111,9 +112,7 @@ import com.umeng.socialize.media.UMImage;
 		}
 		
 	}
-	 /**
-	 * 
-	 */
+	
 //	private void loadImage() {
 //		new Thread(new Runnable() {
 //			
@@ -144,8 +143,6 @@ import com.umeng.socialize.media.UMImage;
 //		
 //	};
 
-
-	
 	private void doCopy(){
 		String[] code = null;
 		String url = "";

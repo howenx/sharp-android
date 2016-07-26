@@ -83,7 +83,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 	private static final String Tag = "GoodsDetailActivity";
 
-	private TextView itemTitle, itemSrcPrice,  itemPrice, area;// 标题、 原价、现价、发货区
+	private TextView itemTitle, itemSrcPrice,  itemPrice, area,btn_portalFee;// 标题、 原价、现价、发货区,税率
 
 	private TextView num_restrictAmount; // 限购数量
 	private ImageView img_hide, collectionImg;
@@ -110,9 +110,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 	private ObjectAnimator shopcartAnimator, imgAnimator;
 	
-	private double curPostalTaxRate; // 当前商品税率
-	private double curItemPrice; // 当前商品价格
-	private int postalStandard;// 关税收费标准
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -148,6 +145,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		itemSrcPrice = (TextView) findViewById(R.id.itemSrcPrice);
 		itemPrice = (TextView) findViewById(R.id.itemPrice);
 		more_view = (TextView) findViewById(R.id.more_view);
+		btn_portalFee = (TextView) findViewById(R.id.btn_portalFee);
 		num_restrictAmount = (TextView) findViewById(R.id.restrictAmount);
 		area = (TextView) findViewById(R.id.area);
 		img_hide = (ImageView) findViewById(R.id.img_hide);
@@ -367,13 +365,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 		startActivity(intent);
 	}
 
-	/**
-	 * 弹出显示税费的提醒框
-	 */
-	public void showPortalFeeInfo(View view) {
-		// TODO 弹出显示税费的提醒框
-		AlertDialogUtils.showPostDialog(this, curItemPrice, curPostalTaxRate,postalStandard);
-	}
 
 	/**
 	 * 跳转到购物车页面
@@ -575,8 +566,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 			findViewById(R.id.btn_comment).setOnClickListener(this);
 			remarkCount.setText(getResources().getString(R.string.comment,
 					comm.getRemarkCount()));
-			remarkRate.setText(getResources().getString(R.string.comment_good,
-					comm.getRemarkRate()));
+			String str = getResources().getString(R.string.comment_good,
+					comm.getRemarkRate());
+			KeyWordUtil.setDifrentFontColor(this, remarkRate, str, 2, str.length());
 		}
 	}
 
@@ -640,11 +632,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		}
 		//税率
 		if (s.getPostalTaxRate() != null)
-			curPostalTaxRate = s.getPostalTaxRate_();
-		//销售价格
-		curItemPrice = s.getItemPrice().doubleValue();
-		//减免标准
-		postalStandard = s.getPostalStandard();
+			btn_portalFee.setText(getResources().getString(R.string.shui, s.getPostalTaxRate_()));
 		//邮寄方式
 		area.setText("邮寄方式：" + s.getInvAreaNm());
 		//初始化收藏按钮

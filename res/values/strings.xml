@@ -26,7 +26,7 @@
     <string name="price">¥%1$s</string>
     <string name="price01">¥%1$s起售</string>
     <string name="discount">%1$s折</string>
-    <string name="shui">行邮税</string>
+    <string name="shui">税率:%1$s％</string>
     <string name="error">网络连接异常</string>
     <string name="restrictAmount">每单限购%1$s件</string>
     <string name="shipFee">运费:¥%1$s</string>
@@ -78,7 +78,7 @@
 
     <string name="current_version">当前版本：%1$s</string>
     <string name="comment">商品评价(%1$s)</string>
-    <string name="comment_good">好评率(%1$s)</string>
+    <string name="comment_good">好评率%1$s</string>
     
     <string name="tab_one">首页</string>
     <string name="tab_two">购物车</string>
