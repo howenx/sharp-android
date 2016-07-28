@@ -1,0 +1,38 @@
+package com.kakao.kakaogift.override;
+
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.Animator.AnimatorListener;
+/**
+ * 
+ * @author vince
+ *
+ */
+public class SimpleAnimationListener implements AnimatorListener {
+
+	@Override
+	public void onAnimationCancel(Animator arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onAnimationEnd(Animator arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onAnimationRepeat(Animator arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onAnimationStart(Animator arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+
+}

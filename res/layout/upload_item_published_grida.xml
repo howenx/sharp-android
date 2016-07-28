@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.hanmimei.view.SquareLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.kakao.kakaogift.view.SquareLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" 
@@ -22,4 +22,4 @@
         android:visibility="gone"
         android:src="@drawable/hmm_image_del" />
 
-</com.hanmimei.view.SquareLayout>
+</com.kakao.kakaogift.view.SquareLayout>

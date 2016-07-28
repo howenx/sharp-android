@@ -29,7 +29,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical" >
 
-                    <com.hanmimei.view.SquareLayout
+                    <com.kakao.kakaogift.view.SquareLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" >
 
@@ -38,7 +38,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@drawable/bg_gray_boarder" />
-                    </com.hanmimei.view.SquareLayout>
+                    </com.kakao.kakaogift.view.SquareLayout>
 
                     <TextView
                         android:id="@+id/itemTitle"
@@ -123,7 +123,7 @@
                         android:textColor="#000000"
                         android:textSize="14sp" />
 
-                    <com.hanmimei.view.TagCloudView
+                    <com.kakao.kakaogift.view.TagCloudView
                         android:id="@+id/tagCloudView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -301,7 +301,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <com.hanmimei.view.CircleImageView
+    <com.kakao.kakaogift.view.CircleImageView
         android:id="@+id/img_hide"
         android:layout_width="50dp"
         android:layout_height="50dp"

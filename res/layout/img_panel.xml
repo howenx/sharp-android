@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <com.hanmimei.view.RoundImageView
+    <com.kakao.kakaogift.view.RoundImageView
         android:id="@+id/my_image_view"
         android:layout_width="100dp"
         android:layout_height="100dp"

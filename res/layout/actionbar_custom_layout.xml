@@ -20,7 +20,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="@dimen/actionbar_size"
-            android:text="@string/hmm_app_name"
+            android:text="@string/gift_app_name"
             android:gravity="center"
             android:textColor="@color/white"
             android:singleLine="true"

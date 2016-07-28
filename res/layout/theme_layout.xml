@@ -6,7 +6,7 @@
     android:fitsSystemWindows="true"
     android:background="@color/background">
 
-    <com.hanmimei.view.CustomScrollView
+    <com.kakao.kakaogift.view.CustomScrollView
         android:id="@+id/mScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -31,7 +31,7 @@
                     android:contentDescription="@null" />
             </FrameLayout>
 
-            <com.hanmimei.view.CustomGridView
+            <com.kakao.kakaogift.view.CustomGridView
                 android:id="@+id/my_grid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
                 android:stretchMode="columnWidth"
                 android:verticalSpacing="10dp" />
         </LinearLayout>
-    </com.hanmimei.view.CustomScrollView>
+    </com.kakao.kakaogift.view.CustomScrollView>
 
     <include
         android:id="@+id/no_net"

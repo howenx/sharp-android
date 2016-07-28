@@ -5,7 +5,7 @@
     android:background="@color/white"
     android:fitsSystemWindows="true" >
 
-    <com.hanmimei.fragment.FragmentTabHost
+    <com.kakao.kakaogift.fragment.FragmentTabHost
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@android:id/tabhost"
         android:layout_width="fill_parent"
@@ -43,7 +43,7 @@
                 android:background="@color/white"
                 android:orientation="horizontal" />
         </LinearLayout>
-    </com.hanmimei.fragment.FragmentTabHost>
+    </com.kakao.kakaogift.fragment.FragmentTabHost>
 	<LinearLayout 
         android:id="@+id/guanggao"
         android:layout_width="match_parent"

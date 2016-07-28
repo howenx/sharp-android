@@ -4,7 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <com.hanmimei.view.CircleImageView
+    <com.kakao.kakaogift.view.CircleImageView
         android:id="@+id/faceView"
         android:layout_width="50dp"
         android:layout_height="50dp"

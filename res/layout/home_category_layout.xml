@@ -3,11 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    <com.hanmimei.view.MyGridView 
-        android:paddingTop="10dp"
+    <com.kakao.kakaogift.view.MyGridView 
+        android:layout_marginTop="10dp"
+        android:horizontalSpacing="0.5dp"
+        android:verticalSpacing="0.5dp"
         android:id="@+id/mygrid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:numColumns="4"/>
+        android:numColumns="4"
+        android:background="#18000000"/>
 
 </LinearLayout>

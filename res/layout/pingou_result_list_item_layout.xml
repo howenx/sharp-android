@@ -20,7 +20,7 @@
         android:orientation="horizontal"
         android:padding="8dp" >
 
-        <com.hanmimei.view.CircleImageView
+        <com.kakao.kakaogift.view.CircleImageView
             android:id="@+id/faceView"
             android:layout_width="30dp"
             android:layout_height="30dp"/>

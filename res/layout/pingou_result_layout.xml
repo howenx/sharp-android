@@ -85,15 +85,14 @@
                         android:contentDescription="@null" />
                 </RelativeLayout>
 
-                <com.hanmimei.view.CustomGridView
+                <com.kakao.kakaogift.view.CustomGridView
                     android:id="@+id/gridlayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:horizontalSpacing="5dp"
                     android:numColumns="5"
                     android:padding="8dp"
-                    android:verticalSpacing="5dp" >
-                </com.hanmimei.view.CustomGridView>
+                    android:verticalSpacing="5dp" />
 
                 <TextView
                     android:id="@+id/about"
@@ -126,7 +125,7 @@
                         android:textColor="@color/fontcolor"
                         android:textSize="14sp" />
 
-                    <com.hanmimei.view.TimeDownView
+                    <com.kakao.kakaogift.view.TimeDownView
                         android:id="@+id/timer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -165,7 +164,7 @@
                     android:orientation="horizontal"
                     android:padding="8dp" >
 
-                    <com.hanmimei.view.CircleImageView
+                    <com.kakao.kakaogift.view.CircleImageView
                         android:id="@+id/master_face"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
@@ -192,7 +191,7 @@
                         android:textSize="12sp" />
                 </LinearLayout>
 
-                <com.hanmimei.view.CustomListView
+                <com.kakao.kakaogift.view.CustomListView
                     android:id="@+id/mListView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />

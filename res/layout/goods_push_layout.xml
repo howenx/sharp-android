@@ -14,7 +14,7 @@
         android:padding="5dp"
         android:background="@color/theme"/>
 
-    <com.hanmimei.view.HorizontalListView
+    <com.kakao.kakaogift.view.HorizontalListView
         android:id="@+id/more_grid"
         android:layout_width="match_parent"
         android:layout_height="250dp"

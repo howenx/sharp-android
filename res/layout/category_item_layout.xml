@@ -3,18 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" 
-    android:gravity="center_horizontal">
+    android:gravity="center"
+    android:background="#ffffff"
+    android:padding="5dp"
+    android:id="@+id/layout">
     <ImageView 
         android:id="@+id/img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher"
-        />
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:scaleType="fitXY"
+        android:src="@null"
+        android:contentDescription="@null"/>
     <TextView 
         android:id="@+id/name"
+        android:layout_marginTop="2dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="123"
+        android:text="@null"
         android:textSize="12sp"
         android:textColor="@color/fontcolor"/>
 

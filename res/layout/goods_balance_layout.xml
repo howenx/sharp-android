@@ -117,7 +117,7 @@
                     android:textSize="16sp" />
             </FrameLayout>
 
-            <com.hanmimei.view.CustomListView
+            <com.kakao.kakaogift.view.CustomListView
                 android:id="@+id/mListView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

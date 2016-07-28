@@ -15,7 +15,7 @@
             android:background="@drawable/bg_gray_boarder"
             android:orientation="vertical" >
 
-            <com.hanmimei.view.SquareLayout
+            <com.kakao.kakaogift.view.SquareLayout
                 android:id="@+id/mframeLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
                     android:textColor="@color/white"
                     android:gravity="center"
                     android:visibility="gone" />
-            </com.hanmimei.view.SquareLayout>
+            </com.kakao.kakaogift.view.SquareLayout>
 
             <View
                 android:layout_width="match_parent"

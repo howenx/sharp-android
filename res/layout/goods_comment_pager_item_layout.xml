@@ -12,7 +12,7 @@
         android:background="@drawable/bg_underline_normal"
         android:padding="8dp" >
 
-        <com.hanmimei.view.CircleImageView
+        <com.kakao.kakaogift.view.CircleImageView
             android:id="@+id/header"
             android:layout_width="20dp"
             android:layout_height="20dp"
@@ -67,7 +67,7 @@
             android:textColor="@color/fontcolor"
             android:textSize="14sp" />
 
-        <com.hanmimei.view.CustomGridView
+        <com.kakao.kakaogift.view.CustomGridView
             android:id="@+id/mGridView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
