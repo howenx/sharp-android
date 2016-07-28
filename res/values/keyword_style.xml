@@ -7,7 +7,7 @@
 
     <style name="tax02">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/theme</item>
+        <item name="android:textColor">@color/red</item>
     </style>
 
     <style name="tax03">

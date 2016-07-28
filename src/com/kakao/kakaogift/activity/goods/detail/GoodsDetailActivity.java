@@ -630,7 +630,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 //			num_restrictAmount.setVisibility(View.GONE);
 //		}
 		//邮寄方式
-		area.setText("邮寄方式：" + s.getInvAreaNm());
+		area.setText( s.getInvAreaNm());
 		//初始化收藏按钮
 		if (s.getCollectId() != 0) {
 			//已收藏

@@ -316,9 +316,9 @@ public class TagCloudView extends ViewGroup{
     public static final int state_background = R.drawable.bg_tag_item_state;
     public static final int selected_background = R.drawable.bg_tag_item_pressed;
     
-    public static final int default_color = Color.parseColor("#9F9F9F");
+    public static final int default_color = Color.parseColor("#000000");
     public static final int state_color = Color.parseColor("#ECECEC");
-    public static final int theme_color = Color.parseColor("#F9616A");
+    public static final int theme_color = Color.parseColor("#000000");
     
     List<TextView> tagViewList = new ArrayList<TextView>();
     private int selectedPos = 0;

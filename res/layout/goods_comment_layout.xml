@@ -14,7 +14,7 @@
         android:background="@color/white"
         android:textColor="@color/indicator_font_color_selector"
         app:pstsDividerColor="@android:color/transparent"
-        app:pstsIndicatorColor="@color/theme"
+        app:pstsIndicatorColor="@color/yellow"
         app:pstsIndicatorHeight="2dp"
         app:pstsShouldExpand="true"
         app:pstsTabBackground="@android:color/transparent"

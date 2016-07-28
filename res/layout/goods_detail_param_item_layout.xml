@@ -19,6 +19,6 @@
         android:layout_height="wrap_content"
         android:textSize="12sp"
         android:layout_marginLeft="80dp"
-       	android:textColor="@color/theme"
+       	android:textColor="@color/black_01"
        	/>
 </RelativeLayout>
