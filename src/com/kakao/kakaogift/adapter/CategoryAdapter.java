@@ -53,8 +53,6 @@ public class CategoryAdapter extends BaseAdapter {
 			holder = new ViewHolder();
 			holder.img = (ImageView) convertView.findViewById(R.id.img);
 			holder.name = (TextView) convertView.findViewById(R.id.name);
-			LinearLayout.LayoutParams params = (android.widget.LinearLayout.LayoutParams) holder.img.getLayoutParams();
-			params.height = params.width = CommonUtils.getScreenWidth(activity)/4 - 40;
 			convertView.setTag(holder);
 		}else{
 			holder = (ViewHolder) convertView.getTag();

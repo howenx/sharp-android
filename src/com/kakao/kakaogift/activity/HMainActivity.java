@@ -68,7 +68,7 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_layout);
 
-		ActionBarUtil.setActionBarStyle(this, getResources().getString(R.string.gift_app_name), message_icon, false, this);
+		ActionBarUtil.setMainActionBarStyle(this, getResources().getString(R.string.gift_app_name), message_icon, false, this);
 		MessageMenager.getInstance().setOnGetMessageListener(this);
 		// 关闭滑动退出
 		setBackEnable(false);
@@ -136,7 +136,7 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 		/** 如果当前选项卡是home */
 		if (position == 0) {
 			isHome = true;
-			ActionBarUtil.setActionBarStyle(this, getResources().getString(R.string.gift_app_name), message_icon, false, this);
+			ActionBarUtil.setMainActionBarStyle(this, getResources().getString(R.string.gift_app_name), message_icon, false, this);
 			/** 如果当前选项卡是shopping */
 		} else if (position == 1) {
 			ActionBarUtil.setActionBarStyle(this, "购物车", 0, false, this);

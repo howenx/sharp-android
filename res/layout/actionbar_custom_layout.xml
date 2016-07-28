@@ -14,11 +14,14 @@
         android:visibility="invisible" />
 
 
-        
-        <TextView
-            android:id="@+id/header"
+        <FrameLayout 
             android:layout_width="0dp"
             android:layout_weight="1"
+            android:layout_height="@dimen/actionbar_size"
+            >
+        <TextView
+            android:id="@+id/header"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/actionbar_size"
             android:text="@string/gift_app_name"
             android:gravity="center"
@@ -26,8 +29,13 @@
             android:singleLine="true"
             android:ellipsize="middle"
             android:textSize="16sp" />
-        
-        
+        <ImageView 
+            android:id="@+id/logo"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/kakaogift_logo"/>
+        </FrameLayout>
 
     <ImageView
         android:id="@+id/setting"
