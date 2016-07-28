@@ -46,7 +46,6 @@ import com.kakao.kakaogift.dao.ThemeDao;
 import com.kakao.kakaogift.data.AppConstant;
 import com.kakao.kakaogift.data.DataParser;
 import com.kakao.kakaogift.data.UrlUtil;
-import com.kakao.kakaogift.entity.Category;
 import com.kakao.kakaogift.entity.Entry;
 import com.kakao.kakaogift.entity.Home;
 import com.kakao.kakaogift.entity.Slider;
@@ -64,7 +63,7 @@ import com.viewpagerindicator.BaseIconFragment;
 
 /**
  * @author eric
- *
+ * 
  */
 public class HomeFragment extends BaseIconFragment implements
 		OnRefreshListener2<ListView>, OnClickListener, OnScrollListener {
@@ -91,7 +90,6 @@ public class HomeFragment extends BaseIconFragment implements
 	private int pullNum = 1;
 	//
 	private List<Entry> catData;
-	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -129,18 +127,18 @@ public class HomeFragment extends BaseIconFragment implements
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View view,
 					int position, long arg3) {
-				if(position <3)
+				if (position < 3)
 					return;
-				if(data.get(position-3).getType()== null)
+				if (data.get(position - 3).getType() == null)
 					return;
 				Intent intent = null;
 				if (data.get(position - 3).getType().equals("ordinary")) {
 					intent = new Intent(mContext, ThemeGoodsActivity.class);
-				} else if(data.get(position - 3).getType().equals("h5")){
+				} else if (data.get(position - 3).getType().equals("h5")) {
 					intent = new Intent(mContext, Html5LoadActivity.class);
-				}else if(data.get(position - 3).getType().equals("pin")){
+				} else if (data.get(position - 3).getType().equals("pin")) {
 					intent = new Intent(mContext, PingouDetailActivity.class);
-				}else if(data.get(position - 3).getType().equals("detail")){
+				} else if (data.get(position - 3).getType().equals("detail")) {
 					intent = new Intent(mContext, GoodsDetailActivity.class);
 				}
 				intent.putExtra("url", data.get(position - 3).getThemeUrl());
@@ -154,21 +152,44 @@ public class HomeFragment extends BaseIconFragment implements
 		addHeaderView();
 		return view;
 	}
-	
-	private void IntroMsg(){
-		if(IntroConfig.getIntroMsgCfg(getActivity()).equals(IntroConfig.INTRO_CONFIG_VALUE_IS)){
-			IntroMsgDialog dialog= new IntroMsgDialog(getActivity());
+
+	private void IntroMsg() {
+		if (IntroConfig.getIntroMsgCfg(getActivity()).equals(
+				IntroConfig.INTRO_CONFIG_VALUE_IS)) {
+			IntroMsgDialog dialog = new IntroMsgDialog(getActivity());
 			dialog.show();
 		}
 	}
+
 	private View catView;
 	private CategoryAdapter categoryAdapter;
-	private void findCategory(){
+
+	private void findCategory() {
 		catView = inflater.inflate(R.layout.home_category_layout, null);
 		MyGridView mGridView = (MyGridView) catView.findViewById(R.id.mygrid);
+		mGridView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Intent intent = null;
+				if (catData.get(position).getTargetType().equals("D")) {
+					intent = new Intent(getActivity(), GoodsDetailActivity.class);
+				} else if (catData.get(position).getTargetType().equals("T")) {
+					intent = new Intent(getActivity(), ThemeGoodsActivity.class);
+				} else if (catData.get(position).getTargetType().equals("P")) {
+					intent = new Intent(getActivity(), PingouDetailActivity.class);
+				} else if(catData.get(position).getTargetType().equals("U")){
+					intent = new Intent(getActivity(), Html5LoadActivity.class);
+				}
+				intent.putExtra("url", catData.get(position).getItemTarget());
+				getActivity().startActivity(intent);
+
+			}
+		});
 		mGridView.setAdapter(categoryAdapter);
 	}
-		
+
 	private void findHeaderView() {
 		headerView = inflater.inflate(R.layout.home_header_slider_layout, null);
 		headerView.setVisibility(View.GONE);
@@ -190,7 +211,9 @@ public class HomeFragment extends BaseIconFragment implements
 
 	private void addHeaderView() {
 		ListView v = mListView.getRefreshableView();
-//		View view = LayoutInflater.from(mActivity).inflate(R.layout.home_category_layout, null);
+		// View view =
+		// LayoutInflater.from(mActivity).inflate(R.layout.home_category_layout,
+		// null);
 		v.addHeaderView(headerView);
 		v.addHeaderView(catView);
 	}
@@ -199,15 +222,13 @@ public class HomeFragment extends BaseIconFragment implements
 		headerView.setVisibility(View.VISIBLE);
 		views.clear();
 		// 将最后一个ImageView添加进来
-		views.add(getImageView(mContext,
-				dataSliders.get(dataSliders.size() - 1).getImgUrl()));
+		views.add(getImageView(mContext, dataSliders
+				.get(dataSliders.size() - 1).getImgUrl()));
 		for (int i = 0; i < dataSliders.size(); i++) {
-			views.add(getImageView(mContext, dataSliders.get(i)
-					.getImgUrl()));
+			views.add(getImageView(mContext, dataSliders.get(i).getImgUrl()));
 		}
 		// 将第一个ImageView添加进来
-		views.add(getImageView(mContext, dataSliders.get(0)
-				.getImgUrl()));
+		views.add(getImageView(mContext, dataSliders.get(0).getImgUrl()));
 
 		// 设置循环，在调用setData方法前调用
 		cycleViewPager.setCycle(true);
@@ -238,7 +259,7 @@ public class HomeFragment extends BaseIconFragment implements
 			dataSliders.addAll(list2);
 			initHeaderView();
 		}
-		if(list3 != null && list3.size() > 0){
+		if (list3 != null && list3.size() > 0) {
 			catData.clear();
 			catData.addAll(list3);
 			categoryAdapter.notifyDataSetChanged();
@@ -298,7 +319,7 @@ public class HomeFragment extends BaseIconFragment implements
 			dataSliders.addAll(sliders);
 			initHeaderView();
 		}
-		if(entries != null && entries.size() > 0){
+		if (entries != null && entries.size() > 0) {
 			entryDao.deleteAll();
 			entryDao.insertInTx(entries);
 			catData.clear();
@@ -306,10 +327,12 @@ public class HomeFragment extends BaseIconFragment implements
 			categoryAdapter.notifyDataSetChanged();
 		}
 		if (home.getHasMsg() != 0) {
-			MessageMenager.getInstance().getListener().onGetMessage(R.drawable.hmm_icon_message_h);
+			MessageMenager.getInstance().getListener()
+					.onGetMessage(R.drawable.hmm_icon_message_h);
 		}
 	}
-	private	Home home;
+
+	private Home home;
 	private Handler mHandler = new Handler() {
 
 		@Override
@@ -370,7 +393,7 @@ public class HomeFragment extends BaseIconFragment implements
 	}
 
 	@Override
-	public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {	
+	public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
 		if (home.getPage_count() <= pullNum) {
 			mHandler.postDelayed(new Runnable() {
 				@Override
@@ -420,24 +443,24 @@ public class HomeFragment extends BaseIconFragment implements
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem,
 			int visibleItemCount, int totalItemCount) {
-		
+
 		if (mListView.getRefreshableView().getFirstVisiblePosition() <= 4) {
-			if(back_top.getVisibility() == View.VISIBLE)
+			if (back_top.getVisibility() == View.VISIBLE)
 				back_top.setVisibility(View.GONE);
 		} else {
-			if(back_top.getVisibility() == View.GONE)
+			if (back_top.getVisibility() == View.GONE)
 				back_top.setVisibility(View.VISIBLE);
 		}
 	}
 
 	@Override
 	public void onScrollStateChanged(AbsListView view, int scrollState) {
-		
-//		 if (scrollState == SCROLL_STATE_FLING) {
-//             GlideLoaderTools.pauseRequests(getActivity());
-//         } else {
-//        	 GlideLoaderTools.resumeRequests(getActivity());
-//         }
+
+		// if (scrollState == SCROLL_STATE_FLING) {
+		// GlideLoaderTools.pauseRequests(getActivity());
+		// } else {
+		// GlideLoaderTools.resumeRequests(getActivity());
+		// }
 	}
 
 	private MyBroadCastReceiver myReceiver;
@@ -497,11 +520,11 @@ public class HomeFragment extends BaseIconFragment implements
 	public int getIconId() {
 		return R.drawable.tab_home;
 	}
-	
-	 private ImageView getImageView(Context context, String url) {
-		ImageView imageView = (ImageView)LayoutInflater.from(context).inflate(
+
+	private ImageView getImageView(Context context, String url) {
+		ImageView imageView = (ImageView) LayoutInflater.from(context).inflate(
 				R.layout.view_banner, null);
-		GlideLoaderTools.loadRectImage(context,url, imageView);
+		GlideLoaderTools.loadRectImage(context, url, imageView);
 		return imageView;
 	}
 
