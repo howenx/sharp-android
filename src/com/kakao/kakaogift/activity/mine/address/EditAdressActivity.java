@@ -63,7 +63,6 @@ public class EditAdressActivity extends BaseActivity implements
 
 	private EditText name_edit;
 	private EditText phone_edit;
-	private EditText idCard_edit;
 	private TextView city_edit;
 	private EditText adress_edit;
 	private TextView add_adre;
@@ -72,7 +71,6 @@ public class EditAdressActivity extends BaseActivity implements
 	private String phone;
 	private String city;
 	private String address;
-	private String idCard;
 	private int isDefaut = 0;
 	private HAddress old_Adress;
 	private int isWhat;
@@ -219,7 +217,6 @@ public class EditAdressActivity extends BaseActivity implements
 		phone_edit.setText(CommonUtils.phoneNumPaser(old_Adress.getPhone()));
 		city_edit.setText(old_Adress.getCity());
 		adress_edit.setText(old_Adress.getAdress());
-		idCard_edit.setText(CommonUtils.IDCardPaser(old_Adress.getIdCard()));
 		if (old_Adress.isDefault()) {
 			isDefaut = 1;
 			check_box.setToggleOn();
@@ -252,30 +249,6 @@ public class EditAdressActivity extends BaseActivity implements
 				}
 			}
 		});
-		idCard_edit.addTextChangedListener(new TextWatcher() {
-			int startLength ;
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before,
-					int count) {
-				idcard_up = true;
-			}
-
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
-				startLength = s.length();
-			}
-
-			@Override
-			public void afterTextChanged(Editable s) {
-				if(cardFirstDel){
-					if(s.length() < startLength){
-						idCard_edit.setText("");
-						cardFirstDel = false;
-					}
-				}
-			}
-		});
 
 	}
 
@@ -286,7 +259,6 @@ public class EditAdressActivity extends BaseActivity implements
 		phone_edit = (EditText) findViewById(R.id.phone);
 		city_edit = (TextView) findViewById(R.id.city);
 		adress_edit = (EditText) findViewById(R.id.address);
-		idCard_edit = (EditText) findViewById(R.id.card);
 		check_box = (ToggleButton) findViewById(R.id.btn_dufault);
 		check_box.setOnToggleChanged(new OnToggleChanged() {
 
@@ -372,11 +344,6 @@ public class EditAdressActivity extends BaseActivity implements
 		} else {
 			phone = old_Adress.getPhone();
 		}
-		if (idcard_up) {
-			idCard = idCard_edit.getText().toString();
-		} else {
-			idCard = old_Adress.getIdCard();
-		}
 		city = city_edit.getText().toString();
 		address = adress_edit.getText().toString();
 
@@ -388,9 +355,6 @@ public class EditAdressActivity extends BaseActivity implements
 			return;
 		}  else if (!CommonUtils.isPhoneNum(phone)) {
 			ToastUtils.Toast(this, "请输入正确的手机号");
-			return;
-		} else if (!CommonUtils.IDCardValidate(idCard.toLowerCase()).equals("")) {
-			ToastUtils.Toast(this, CommonUtils.IDCardValidate(idCard.toLowerCase()));
 			return;
 		} else if (city.equals("")) {
 			ToastUtils.Toast(this, "请选择省市区");
@@ -425,7 +389,6 @@ public class EditAdressActivity extends BaseActivity implements
 			object.put("name", name);
 			object.put("deliveryDetail", address);
 			object.put("orDefault", isDefaut);
-			object.put("idCardNum", idCard.toLowerCase());
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -469,7 +432,6 @@ public class EditAdressActivity extends BaseActivity implements
 					new_Adress.setCity(city);
 					new_Adress.setAdress(address);
 					new_Adress.setPhone(phone);
-					new_Adress.setIdCard(idCard);
 					Bundle bundle = new Bundle();
 					bundle.putSerializable("address", new_Adress);
 					Intent intent = new Intent();

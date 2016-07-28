@@ -62,7 +62,7 @@ public class HomeAdapter extends BaseAdapter {
 		}
 
 		int screenWidth = CommonUtils.getScreenWidth(activity);
-		GlideLoaderTools.loadRectImage(activity, holder.img, theme.getThemeImg(), screenWidth - 60, (screenWidth - 60) * theme.getHeight() / theme.getWidth());
+		GlideLoaderTools.loadRectImage(activity, holder.img, theme.getThemeImg(), screenWidth, screenWidth * theme.getHeight() / theme.getWidth());
 		holder.title.setText(theme.getTitle());
 		holder.content.setText(theme.getThemeConfigInfo());
 		return convertView;

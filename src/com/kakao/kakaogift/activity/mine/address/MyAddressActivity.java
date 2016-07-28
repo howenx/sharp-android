@@ -194,8 +194,6 @@ public class MyAddressActivity extends BaseActivity implements OnClickListener {
 				holder.phone = (TextView) convertView.findViewById(R.id.phone);
 				holder.adress = (TextView) convertView
 						.findViewById(R.id.adress);
-				holder.id_card = (TextView) convertView
-						.findViewById(R.id.idCard);
 				holder.isDefault = (TextView) convertView
 						.findViewById(R.id.isDefault);
 				holder.isSelected = (ImageView) convertView
@@ -207,7 +205,6 @@ public class MyAddressActivity extends BaseActivity implements OnClickListener {
 			}
 			holder.name.setText("姓名：" + adress.getName());
 			holder.phone.setText("联系电话：" + CommonUtils.phoneNumPaser(adress.getPhone()));
-			holder.id_card.setText("身份证号：" +CommonUtils.IDCardPaser(adress.getIdCard()));
 			holder.adress.setText("收货地址：" + adress.getCity() + "  "
 					+ adress.getAdress());
 			holder.btn_xiugai.setOnClickListener(new OnClickListener() {
@@ -243,7 +240,6 @@ public class MyAddressActivity extends BaseActivity implements OnClickListener {
 			private TextView name;
 			private TextView phone;
 			private TextView adress;
-			private TextView id_card;
 			private TextView isDefault;
 			private ImageView isSelected;
 			private View btn_xiugai;
