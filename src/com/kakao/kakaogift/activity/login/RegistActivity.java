@@ -30,7 +30,7 @@ import com.kakao.kakaogift.R
 ;
 import com.kakao.kakaogift.activity.base.BaseActivity;
 import com.kakao.kakaogift.activity.mine.config.HmmServiceActivity;
-import com.kakao.kakaogift.application.HMMApplication;
+import com.kakao.kakaogift.application.KKApplication;
 import com.kakao.kakaogift.dao.ShoppingGoodsDao;
 import com.kakao.kakaogift.dao.UserDao;
 import com.kakao.kakaogift.data.AppConstant;
@@ -382,7 +382,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 		user.setIsBind(false);
 		user.setExpired(DateUtils.turnToDate(hMessage.getTime()));
 		user.setLast_login(DateUtils.getCurrentDate());
-		HMMApplication application = (HMMApplication) getApplication();
+		KKApplication application = (KKApplication) getApplication();
 		application.setLoginUser(user);
 		// 登录用户存储到本地sql
 		userDao.deleteAll();

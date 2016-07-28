@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.kakao.kakaogift"
-    android:versionCode="34"
-    android:versionName="v0.3.4" >
+    android:versionCode="1"
+    android:versionName="v1.0.0" >
 
     <uses-sdk
         android:minSdkVersion="11"
@@ -67,7 +67,7 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 
     <application
-        android:name="com.kakao.kakaogift.application.HMMApplication"
+        android:name="com.kakao.kakaogift.application.KKApplication"
         android:allowBackup="false"
         android:icon="@drawable/ic_launcher"
         android:label="@string/gift_app_name"
@@ -409,7 +409,7 @@
         </receiver>
 
         <!-- 友盟   appkey -->
-        <meta-data            android:name="UMENG_APPKEY"            android:value="567bb26867e58e3f670002fd" />
+        <meta-data            android:name="UMENG_APPKEY"            android:value="57971d05e0f55a855c002128" />
         <!-- Testin AppKey -->
         <meta-data            android:name="TESTIN_APPKEY"            android:value="058ce4b48f9c7d6ddf2f835b0d5774bf" />
         <!-- 极光推送 AppKey -->

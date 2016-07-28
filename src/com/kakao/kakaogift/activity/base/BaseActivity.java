@@ -28,7 +28,7 @@ import com.kakao.kakaogift.R
 import com.kakao.kakaogift.activity.goods.detail.GoodsDetailActivity;
 import com.kakao.kakaogift.activity.goods.pin.PingouDetailActivity;
 import com.kakao.kakaogift.activity.goods.pin.PingouResultActivity;
-import com.kakao.kakaogift.application.HMMApplication;
+import com.kakao.kakaogift.application.KKApplication;
 import com.kakao.kakaogift.dao.DaoSession;
 import com.kakao.kakaogift.data.UrlUtil;
 import com.kakao.kakaogift.entity.GoodsDetail;
@@ -99,8 +99,8 @@ public class BaseActivity extends ParallaxActivityBase {
 		return getMyApplication().getLoginUser();
 	}
 
-	public HMMApplication getMyApplication() {
-		return (HMMApplication) this.getApplication();
+	public KKApplication getMyApplication() {
+		return (KKApplication) this.getApplication();
 	}
 
 	// 获取token

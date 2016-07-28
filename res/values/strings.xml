@@ -43,6 +43,7 @@
     <string name="upload">您最多上传3张 每张不超过5M,支持JPG,BMP,PNG</string>
     <string name="num">数量:%1$s</string>
     <string name="portalfee_biaozhun">本商品适用税率为%1$s％，若该保税仓总税额≤%2$s则免征(税额＝单价 x 数量 x 税率)。</string>
+    <string name="portalfee_free">包邮保税</string>
     <string name="pay_type_jd">JD</string>
     <string name="pay_type_ali">APAY</string>
     <string name="pay_type_wx">WEIXIN</string>

@@ -54,42 +54,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
-                        android:paddingLeft="8dp"
-                        android:paddingRight="8dp" >
-
-                        <TextView
-                            android:id="@+id/btn_portalFee"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:textColor="@color/fontcolor"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/restrictAmount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBottom="@id/btn_portalFee"
-                            android:layout_centerHorizontal="true"
-                            android:textColor="#BBBBBB"
-                            android:textSize="@dimen/font_small" />
-
-                        <TextView
-                            android:id="@+id/itemSrcPrice"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBottom="@id/btn_portalFee"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginLeft="3dp"
-                            android:background="@color/white"
-                            android:textColor="#BBBBBB"
-                            android:textSize="@dimen/font_small" />
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
                         android:paddingBottom="8dp"
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp" >
@@ -98,20 +62,53 @@
                             android:id="@+id/itemPrice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
+                            android:layout_alignParentLeft="true"
                             android:background="@color/white"
                             android:textColor="@color/red"
-                            android:textSize="@dimen/font_big" />
+                            android:textSize="20dp" />
 
                         <TextView
-                            android:id="@+id/area"
+                            android:id="@+id/itemSrcPrice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignBottom="@id/itemPrice"
-                            android:layout_alignParentLeft="true"
+                            android:layout_marginLeft="3dp"
+                            android:layout_toRightOf="@id/itemPrice"
+                            android:background="@color/white"
                             android:textColor="#BBBBBB"
+                            android:textSize="@dimen/font_small" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBottom="@id/itemPrice"
+                            android:layout_alignParentRight="true"
+                            android:text="@string/portalfee_free"
+                             android:textColor="#BBBBBB"
                             android:textSize="12sp" />
                     </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/publicity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:background="@color/white"
+                        android:text="asdklahlkjsdfkl"
+                        android:padding="8dp"
+                        android:textColor="#FF7F01"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/area"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:background="@color/white"
+                        android:padding="8dp"
+                        android:text="asdkjasdhjk"
+                        android:textColor="#BBBBBB"
+                        android:textSize="12sp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -134,17 +131,6 @@
                         app:tcvItemBorderVertical="6dp"
                         app:tcvSingleLine="false"
                         app:tcvTextColor="@color/black" />
-
-                    <TextView
-                        android:id="@+id/publicity"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@color/white"
-                        android:padding="10dp"
-                        android:textColor="#FF7F01"
-                        android:textSize="14sp" />
 
                     <RelativeLayout
                         android:id="@+id/btn_comment"

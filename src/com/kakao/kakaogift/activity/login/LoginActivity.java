@@ -44,7 +44,7 @@ import com.baidu.api.BaiduException;
 import com.kakao.kakaogift.R
 ;
 import com.kakao.kakaogift.activity.base.BaseActivity;
-import com.kakao.kakaogift.application.HMMApplication;
+import com.kakao.kakaogift.application.KKApplication;
 import com.kakao.kakaogift.dao.ShoppingGoodsDao;
 import com.kakao.kakaogift.dao.UserDao;
 import com.kakao.kakaogift.data.AppConstant;
@@ -487,7 +487,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		user.setIsBind(false);
 		user.setExpired(DateUtils.turnToDate(result.getTime()));
 		user.setLast_login(DateUtils.getCurrentDate());
-		HMMApplication application = (HMMApplication) getApplication();
+		KKApplication application = (KKApplication) getApplication();
 		application.setLoginUser(user);
 		//极光推送   设置设备别名
 		JPushInterface.setAlias(LoginActivity.this, result.getUserId(), null);

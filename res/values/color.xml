@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="theme">#ff5359</color>
+    <color name="theme">#FFFFFF</color>
+    <color name="yellow">#fdd000</color>
     <color name="bg_hui">#F0F0F0</color>
     <color name="bg">#F0F0F0</color>
     <color name="background">#ff5359</color>

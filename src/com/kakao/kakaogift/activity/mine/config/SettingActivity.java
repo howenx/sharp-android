@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.kakao.kakaogift.R
 ;
 import com.kakao.kakaogift.activity.base.BaseActivity;
-import com.kakao.kakaogift.application.HMMApplication;
+import com.kakao.kakaogift.application.KKApplication;
 import com.kakao.kakaogift.dao.UserDao;
 import com.kakao.kakaogift.data.AppConstant;
 import com.kakao.kakaogift.entity.User;
@@ -39,7 +39,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 	private TextView versionName, cacheSize;
 	private ProgressDialog pdialog;
 	private AlertDialog dialog;
-	private HMMApplication application;
+	private KKApplication application;
 	private UserDao userDao;
 
 	@Override
@@ -47,7 +47,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 		super.onCreate(arg0);
 		setContentView(R.layout.setting_layout);
 		ActionBarUtil.setActionBarStyle(this, "设置");
-		application = (HMMApplication) getApplication();
+		application = (KKApplication) getApplication();
 		userDao = getDaoSession().getUserDao();
 		initView();
 	}
