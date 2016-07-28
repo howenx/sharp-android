@@ -9,10 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.kakao.kakaogift.R
 ;
 import com.kakao.kakaogift.entity.Theme;
+import com.kakao.kakaogift.utils.CommonUtils;
 import com.kakao.kakaogift.utils.GlideLoaderTools;
 
 /**
@@ -52,16 +54,23 @@ public class HomeAdapter extends BaseAdapter {
 			convertView = inflater.inflate(R.layout.home_list_item, null);
 			holder = new ViewHolder();
 			holder.img = (ImageView) convertView.findViewById(R.id.img);
+			holder.title = (TextView) convertView.findViewById(R.id.title);
+			holder.content = (TextView) convertView.findViewById(R.id.content);
 			convertView.setTag(holder);
 		}else{
 			holder = (ViewHolder) convertView.getTag();
 		}
-		
-		GlideLoaderTools.loadRectImage(activity, holder.img, theme.getThemeImg(), theme.getWidth(), theme.getHeight());
+
+		int screenWidth = CommonUtils.getScreenWidth(activity);
+		GlideLoaderTools.loadRectImage(activity, holder.img, theme.getThemeImg(), screenWidth - 60, (screenWidth - 60) * theme.getHeight() / theme.getWidth());
+		holder.title.setText(theme.getTitle());
+		holder.content.setText(theme.getThemeConfigInfo());
 		return convertView;
 	}
 	private class ViewHolder{
 		private ImageView img;
+		private TextView title;
+		private TextView content;
 	}
 
 }

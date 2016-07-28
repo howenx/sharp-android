@@ -2,9 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:background="@color/bg">
     <com.kakao.kakaogift.view.MyGridView 
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="6.7dp"
         android:horizontalSpacing="0.5dp"
         android:verticalSpacing="0.5dp"
         android:id="@+id/mygrid"
