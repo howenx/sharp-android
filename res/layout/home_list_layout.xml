@@ -16,7 +16,6 @@
         android:footerDividersEnabled="false"
         android:headerDividersEnabled="false"
         android:scrollbars="none"
-        android:smoothScrollbar="false"
         ptr:ptrDrawable="@drawable/refreshing"
         ptr:ptrShowIndicator="false" />
 

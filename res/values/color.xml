@@ -4,7 +4,7 @@
     <color name="theme">#FFFFFF</color>
     <color name="yellow">#fdd000</color>
     <color name="bg_hui">#F0F0F0</color>
-    <color name="bg">#F0F0F0</color>
+    <color name="bg">#ececec</color>
     <color name="background">#ff5359</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#FF000000</color>
@@ -39,4 +39,5 @@
     <color name="ring_color">#14b9d6</color>
     
     <color name="btn_selected">#DCDCDC</color>
+    <color name="content_color">#adadad</color>
 </resources>

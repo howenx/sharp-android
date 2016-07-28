@@ -108,10 +108,10 @@ public class GlideLoaderTools {
 	public static void loadRectImage(Context mContext, ImageView imgView,
 			String url, int w, int h) {
 		int screenWidth = CommonUtils.getScreenWidth(mContext);
-		int height = screenWidth * h / w;
-		int width = screenWidth;
+//		int height = (screenWidth - 60) * h / w;
+//		int width = screenWidth - 60;
 //		imgView.setLayoutParams(new LayoutParams(width, height));
-		Glide.with(mContext).load(url).placeholder(R.drawable.hmm_place_holder_j).override(width, height).into(imgView);
+		Glide.with(mContext).load(url).placeholder(R.drawable.hmm_place_holder_j).override(w, h).into(imgView);
 	}
 
 	public static void pauseRequests(Context context) {

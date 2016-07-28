@@ -64,6 +64,10 @@ public class DataParser {
 					theme.setThemeUrl(obj.getString("themeUrl"));
 				if (obj.has("type"))
 					theme.setType(obj.getString("type"));
+				if(obj.has("title"))
+					theme.setTitle(obj.getString("title"));
+				if(obj.has("themeConfigInfo"))
+					theme.setThemeConfigInfo(obj.getString("themeConfigInfo"));
 				list.add(theme);
 
 			}
