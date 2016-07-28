@@ -185,15 +185,17 @@ public class ThemeGoodsActivity extends BaseActivity implements
 			titleView.setText(themeList.getTitle());
 		}
 		ImageVo themeImg = themeList.getThemeImg();
-		int width = CommonUtils.getScreenWidth(this);
-		int height = CommonUtils.getScreenWidth(this) * themeImg.getHeight()
-				/ themeImg.getWidth();
-		mframeLayout.setLayoutParams(new LinearLayout.LayoutParams(width, height));
-		ImageView img = (ImageView) findViewById(R.id.img); // 主推商品图片
-		// 初始化标签信息
-		initTagInfo(themeList, width, height);
+		if(themeImg !=null){
+			int width = CommonUtils.getScreenWidth(this);
+			int height = CommonUtils.getScreenWidth(this) * themeImg.getHeight()
+					/ themeImg.getWidth();
+			mframeLayout.setLayoutParams(new LinearLayout.LayoutParams(width, height));
+			ImageView img = (ImageView) findViewById(R.id.img); // 主推商品图片
+			// 初始化标签信息
+			initTagInfo(themeList, width, height);
 
-		GlideLoaderTools.loadRectImage(this, themeImg.getUrl(), img);
+			GlideLoaderTools.loadRectImage(this, themeImg.getUrl(), img);
+		}
 
 		data.clear();
 		data.addAll(themeList.getThemeItemList());

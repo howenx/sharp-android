@@ -479,6 +479,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		//注册滚动帮助，避免滚动冲突
 		mScrollLayout.getHelper().setCurrentScrollableContainer(fragments.get(0));
 		pagerSlidingTabStrip.setViewPager(viewPager);
+		pagerSlidingTabStrip.setTextColor(getResources().getColor(R.color.indicator_font_color_selector));
 		//滚动监听，判断
 		mScrollLayout.setOnScrollListener(new OnScrollListener() {
 

@@ -149,8 +149,8 @@
                         android:id="@+id/btn_comment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
                         android:background="@color/white"
                         android:padding="8dp" >
 
@@ -182,8 +182,8 @@
                     android:id="@+id/tabs"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/actionbar_size"
-                    android:background="@color/white"
                     android:layout_marginTop="10dp"
+                    android:background="@color/white"
                     android:textColor="@color/indicator_font_color_selector"
                     app:pstsDividerColor="@android:color/transparent"
                     app:pstsIndicatorColor="@color/yellow"
@@ -235,10 +235,35 @@
             android:orientation="horizontal" >
 
             <FrameLayout
+                android:id="@+id/btn_attention"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#F8F9FA" >
+
+                <ImageView
+                    android:id="@+id/attention"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:clickable="true"
+                    android:contentDescription="@null"
+                    android:onClick="collectGoods"
+                    android:scaleType="center"
+                    android:src="@drawable/hmm_icon_collect" />
+            </FrameLayout>
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:background="@color/qianhui" />
+
+            <FrameLayout
                 android:id="@+id/btn_shopcart"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="#F8F9FA"
                 android:clickable="true"
                 android:onClick="turnToShoppingCarActivity" >
 
@@ -256,24 +281,6 @@
                 android:layout_height="match_parent"
                 android:background="@color/qianhui" />
 
-            <FrameLayout
-                android:id="@+id/btn_attention"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" >
-
-                <ImageView
-                    android:id="@+id/attention"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:clickable="true"
-                    android:contentDescription="@null"
-                    android:onClick="collectGoods"
-                    android:scaleType="center"
-                    android:src="@drawable/hmm_icon_collect" />
-            </FrameLayout>
-
             <TextView
                 android:id="@+id/btn_add_shopcart"
                 android:layout_width="0dp"
@@ -284,7 +291,7 @@
                 android:gravity="center"
                 android:onClick="addToShoppingCart"
                 android:text="加入购物车"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="14sp" />
 
             <TextView
@@ -297,7 +304,7 @@
                 android:gravity="center"
                 android:onClick="clickPay"
                 android:text="立即购买"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="14sp" />
         </LinearLayout>
     </LinearLayout>

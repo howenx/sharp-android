@@ -72,6 +72,8 @@ public class HThemeGoods {
 		}
 
 		public ImageVo getThemeImg() {
+			if(themeImg == null)
+				return null;
 			return new Gson().fromJson(themeImg, ImageVo.class);
 		}
 
