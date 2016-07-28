@@ -99,6 +99,7 @@ public class HDownloadManager {
         contentView.setViewVisibility(R.id.tv_progress, View.VISIBLE);
 		contentView.setViewVisibility(R.id.progress, View.VISIBLE);
 		
+		
         notification.contentView = contentView;
         
         notification.flags = Notification.FLAG_AUTO_CANCEL;

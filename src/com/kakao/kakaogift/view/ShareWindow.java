@@ -14,7 +14,7 @@ import android.view.WindowManager;
 
 import com.kakao.kakaogift.R
 ;
-import com.kakao.kakaogift.application.HMMApplication;
+import com.kakao.kakaogift.application.KKApplication;
 import com.kakao.kakaogift.entity.ShareVo;
 import com.kakao.kakaogift.utils.ToastUtils;
 import com.umeng.socialize.Config;
@@ -154,7 +154,7 @@ import com.umeng.socialize.media.UMImage;
 			code = vo.getInfoUrl().split("activity");
 			url =  "https://style.hanmimei.com/pin/activity" + code[1];
 		}
-		HMMApplication application = (HMMApplication) mActivity
+		KKApplication application = (KKApplication) mActivity
 				.getApplication();
 		application.setKouling("KAKAO-HMM 复制这条信息,打开👉韩秘美👈即可看到<"+vo.getType()+">【"
 				+ vo.getTitle() + "】," + url + "－🔑 M令 🔑");

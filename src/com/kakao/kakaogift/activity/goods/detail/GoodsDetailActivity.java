@@ -84,9 +84,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 	private static final String Tag = "GoodsDetailActivity";
 
-	private TextView itemTitle, itemSrcPrice,  itemPrice, area,btn_portalFee;// 标题、 原价、现价、发货区,税率
+	private TextView itemTitle, itemSrcPrice,  itemPrice, area;// 标题、 原价、现价、发货区,税率
 
-	private TextView num_restrictAmount; // 限购数量
+//	private TextView num_restrictAmount; // 限购数量
 	private ImageView img_hide, collectionImg;
 	private TextView more_view;
 
@@ -146,8 +146,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 		itemSrcPrice = (TextView) findViewById(R.id.itemSrcPrice);
 		itemPrice = (TextView) findViewById(R.id.itemPrice);
 		more_view = (TextView) findViewById(R.id.more_view);
-		btn_portalFee = (TextView) findViewById(R.id.btn_portalFee);
-		num_restrictAmount = (TextView) findViewById(R.id.restrictAmount);
 		area = (TextView) findViewById(R.id.area);
 		img_hide = (ImageView) findViewById(R.id.img_hide);
 		mScrollLayout = (ScrollableLayout) findViewById(R.id.mScrollLayout);
@@ -623,17 +621,14 @@ public class GoodsDetailActivity extends BaseActivity implements
 				zhe + s.getInvTitle(), 0, zhe.length());
 		itemPrice.setText(getResources().getString(R.string.price,
 				s.getItemPrice()));
-		if (s.getRestrictAmount() != null && s.getRestrictAmount() > 0) {
-			//存在限购数量
-			num_restrictAmount.setVisibility(View.VISIBLE);
-			num_restrictAmount.setText(getResources().getString(
-					R.string.restrictAmount, s.getRestrictAmount()));
-		} else {
-			num_restrictAmount.setVisibility(View.GONE);
-		}
-		//税率
-		if (s.getPostalTaxRate() != null)
-			btn_portalFee.setText(getResources().getString(R.string.shui, s.getPostalTaxRate_()));
+//		if (s.getRestrictAmount() != null && s.getRestrictAmount() > 0) {
+//			//存在限购数量
+//			num_restrictAmount.setVisibility(View.VISIBLE);
+//			num_restrictAmount.setText(getResources().getString(
+//					R.string.restrictAmount, s.getRestrictAmount()));
+//		} else {
+//			num_restrictAmount.setVisibility(View.GONE);
+//		}
 		//邮寄方式
 		area.setText("邮寄方式：" + s.getInvAreaNm());
 		//初始化收藏按钮

@@ -16,7 +16,7 @@ import com.kakao.kakaogift.activity.goods.pin.PingouResultActivity;
 import com.kakao.kakaogift.activity.goods.theme.ThemeGoodsActivity;
 import com.kakao.kakaogift.activity.login.LoginActivity;
 import com.kakao.kakaogift.activity.mine.coupon.MyCouponActivity;
-import com.kakao.kakaogift.application.HMMApplication;
+import com.kakao.kakaogift.application.KKApplication;
 import com.kakao.kakaogift.data.AppConstant;
 import com.kakao.kakaogift.data.DataParser;
 import com.kakao.kakaogift.entity.Notify;
@@ -30,11 +30,11 @@ import com.kakao.kakaogift.utils.ToastUtils;
  */
 public class PushReceiver extends BroadcastReceiver {
 	// private static final String TAG = "JPush";
-	private HMMApplication application;
+	private KKApplication application;
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		application = (HMMApplication) context.getApplicationContext();
+		application = (KKApplication) context.getApplicationContext();
 		Bundle bundle = intent.getExtras();
 		msgIsCouspon(context,bundle);
 //		context.sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_COUNPON_ACTION));

@@ -13,7 +13,7 @@ import com.kakao.kakaogift.utils.UncaughtExceptionTools;
 import com.testin.agent.TestinAgent;
 import com.umeng.socialize.PlatformConfig;
 
-public class HMMApplication extends Application {
+public class KKApplication extends Application {
 	private User loginUser;
 	private String kouling;
 	private VersionVo versionInfo;
@@ -22,7 +22,6 @@ public class HMMApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-//		JPushInterface.setDebugMode(true);
 		initPlatformConfig();
 		VolleyHttp.registRequestQueue(this);
 		DataBaseManager.initializeInstance(this);
@@ -39,11 +38,8 @@ public class HMMApplication extends Application {
 		// 新浪微博 appkey appsecret
 		PlatformConfig.setSinaWeibo("794664710",
 				"0dc274fafeabec336673331c633a115e");
-
 		// QQ和Qzone appid appkey
 		PlatformConfig.setQQZone("1105332776", "CKevSfjxt0dXEq0y");
-		// 支付宝appid
-		PlatformConfig.setAlipay("2015111700822536");
 	}
 
 	public Map<String, String> getMap() {

@@ -12,7 +12,7 @@ import cn.jpush.android.api.JPushInterface;
 
 import com.kakao.kakaogift.R
 ;
-import com.kakao.kakaogift.application.HMMApplication;
+import com.kakao.kakaogift.application.KKApplication;
 import com.kakao.kakaogift.dao.DaoSession;
 import com.kakao.kakaogift.data.DataParser;
 import com.kakao.kakaogift.data.UrlUtil;
@@ -28,7 +28,7 @@ import com.kakao.kakaogift.utils.PreferenceUtil.IntroConfig;
 @SuppressLint("NewApi")
 public class FirstShowActivity extends AppCompatActivity {
 
-	private HMMApplication application;
+	private KKApplication application;
 	private User user;
 
 	private Handler mHandler = new Handler();
@@ -38,7 +38,7 @@ public class FirstShowActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.first_show_layout);
 		getSupportActionBar().hide();
-		application = (HMMApplication) getApplication();
+		application = (KKApplication) getApplication();
 		// 判断是否是第一次进入app
 		if (IntroConfig.getIntroCfg(this).equals(
 				IntroConfig.INTRO_CONFIG_VALUE_IS)) {
