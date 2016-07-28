@@ -128,7 +128,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:background="@color/white"
-                        android:padding="10dp"
+                        android:paddingTop="8dp"
+                        android:paddingLeft="8dp"
                         android:text="规格"
                         android:textColor="#000000"
                         android:textSize="14sp" />
@@ -138,6 +139,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
+                        android:layout_marginBottom="10dp"
                         app:tcvBorder="5dp"
                         app:tcvCanTagClick="false"
                         app:tcvItemBorderHorizontal="8dp"
@@ -150,7 +152,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:layout_marginTop="10dp"
                         android:background="@color/white"
                         android:padding="8dp" >
 
@@ -182,7 +183,6 @@
                     android:id="@+id/tabs"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/actionbar_size"
-                    android:layout_marginTop="10dp"
                     android:background="@color/white"
                     android:textColor="@color/indicator_font_color_selector"
                     app:pstsDividerColor="@android:color/transparent"
@@ -273,7 +273,7 @@
                     android:layout_height="match_parent"
                     android:contentDescription="@null"
                     android:scaleType="center"
-                    android:src="@drawable/hmm_shoppingcar_select" />
+                    android:src="@drawable/hmm_shoppingcar_normal" />
             </FrameLayout>
 
             <View

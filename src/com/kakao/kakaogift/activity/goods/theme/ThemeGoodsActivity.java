@@ -121,7 +121,7 @@ public class ThemeGoodsActivity extends BaseActivity implements
 //		actionbarView.setBackgroundResource(R.color.theme);
 //		backgroundDrawable = actionbarView.getBackground();
 //		backgroundDrawable.setAlpha(0);
-		actionbarView = ActionBarUtil.setActionBarStyle(this, "商品展示", R.drawable.shopping_cart_top, this);
+		actionbarView = ActionBarUtil.setActionBarStyle(this, "商品展示", R.drawable.hmm_shoppingcar_normal, this);
 		// 购物车
 		View cartView = actionbarView.findViewById(R.id.setting);
 		bView = new BadgeView(this, cartView);
@@ -196,10 +196,11 @@ public class ThemeGoodsActivity extends BaseActivity implements
 
 			GlideLoaderTools.loadRectImage(this, themeImg.getUrl(), img);
 		}
-
-		data.clear();
-		data.addAll(themeList.getThemeItemList());
-		adapter.notifyDataSetChanged();
+		if(themeList.getThemeItemList() !=null){
+			data.clear();
+			data.addAll(themeList.getThemeItemList());
+			adapter.notifyDataSetChanged();
+		}
 	}
 
 	/**
