@@ -61,23 +61,12 @@
                         android:textColor="@color/fontcolor"
                         android:textSize="14sp" />
 
-                    <TextView
-                        android:id="@+id/idCard"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/phone"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_toRightOf="@id/icon"
-                        android:text="@null"
-                        android:textColor="@color/fontcolor"
-                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/idCard"
+                        android:layout_below="@id/name"
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="5dp"
                         android:layout_toRightOf="@id/icon"

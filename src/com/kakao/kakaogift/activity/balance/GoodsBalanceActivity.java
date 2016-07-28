@@ -62,7 +62,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 	private List<CustomsVo> customslist; // 保税区列表
 
 	private TextView all_price, all_money, youhui, all_portalfee, all_shipfee;
-	private TextView name, phone, address, idCard, coupon_num, coupon_denomi,notice;
+	private TextView name, phone, address, coupon_num, coupon_denomi,notice;
 
 	private long selectedId = Long.valueOf("0"); // 默认地址为0
 
@@ -111,7 +111,6 @@ public class GoodsBalanceActivity extends BaseActivity implements
 		name = (TextView) findViewById(R.id.name);
 		phone = (TextView) findViewById(R.id.phone);
 		address = (TextView) findViewById(R.id.address);
-		idCard = (TextView) findViewById(R.id.idCard);
 		coupon_num = (TextView) findViewById(R.id.coupon_num);
 		coupon_denomi = (TextView) findViewById(R.id.coupon_denomi);
 		notice = (TextView) findViewById(R.id.notice);
@@ -320,8 +319,6 @@ public class GoodsBalanceActivity extends BaseActivity implements
 			name.setText(getResources().getString(R.string.name,
 					settle.getAddress().getName()));
 			phone.setText(getResources().getString(R.string.phone,CommonUtils.phoneNumPaser(settle.getAddress().getTel())));
-			idCard.setText(getResources().getString(
-					R.string.idcard,CommonUtils.IDCardPaser(settle.getAddress().getIdCardNum())));
 			findViewById(R.id.btn_pay).setBackgroundResource(
 					R.drawable.btn_buy_selector);
 			findViewById(R.id.btn_pay).setOnClickListener(this);
@@ -445,8 +442,6 @@ public class GoodsBalanceActivity extends BaseActivity implements
 						adress.getName()));
 				phone.setText(getResources().getString(R.string.phone,
 						adress.getPhone()));
-				idCard.setText(getResources().getString(R.string.idcard,
-						adress.getIdCardd()));
 
 				if (adress.isDefault()) {
 					findViewById(R.id.isDefault).setVisibility(View.VISIBLE);
