@@ -34,7 +34,9 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.base.BaseActivity;
+import com.kakao.kakaogift.activity.goods.detail.GoodsDetailActivity;
 import com.kakao.kakaogift.activity.goods.h5.Html5LoadActivity;
+import com.kakao.kakaogift.activity.goods.pin.PingouDetailActivity;
 import com.kakao.kakaogift.activity.goods.theme.ThemeGoodsActivity;
 import com.kakao.kakaogift.adapter.CategoryAdapter;
 import com.kakao.kakaogift.adapter.HomeAdapter;
@@ -134,8 +136,12 @@ public class HomeFragment extends BaseIconFragment implements
 				Intent intent = null;
 				if (data.get(position - 3).getType().equals("ordinary")) {
 					intent = new Intent(mContext, ThemeGoodsActivity.class);
-				} else {
+				} else if(data.get(position - 3).getType().equals("h5")){
 					intent = new Intent(mContext, Html5LoadActivity.class);
+				}else if(data.get(position - 3).getType().equals("pin")){
+					intent = new Intent(mContext, PingouDetailActivity.class);
+				}else if(data.get(position - 3).getType().equals("detail")){
+					intent = new Intent(mContext, GoodsDetailActivity.class);
 				}
 				intent.putExtra("url", data.get(position - 3).getThemeUrl());
 				mContext.startActivity(intent);

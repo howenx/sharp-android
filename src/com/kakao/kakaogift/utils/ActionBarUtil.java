@@ -20,7 +20,7 @@ public class ActionBarUtil {
 	 *            标题
 	 */
 	public static void setActionBarStyle(Context context, String title) {
-		setActionBarStyle(context, title, 0, true, null, null, 0);
+		setActionBarStyle(context, title, 0, true, null, null, 0, false);
 	}
 
 	/**
@@ -33,7 +33,7 @@ public class ActionBarUtil {
 	 */
 	public static void setActionBarStyle(Context context, String title,
 			OnClickListener bl) {
-		setActionBarStyle(context, title, 0, true, bl, null, 0);
+		setActionBarStyle(context, title, 0, true, bl, null, 0, false);
 	}
 
 	/**
@@ -51,7 +51,11 @@ public class ActionBarUtil {
 	 */
 	public static View setActionBarStyle(Context context, String title,
 			int img, Boolean isBack, OnClickListener l) {
-		return setActionBarStyle(context, title, img, isBack, null, l, 0);
+		return setActionBarStyle(context, title, img, isBack, null, l, 0, false);
+	}
+	public static View setMainActionBarStyle(Context context, String title,
+			int img, Boolean isBack, OnClickListener l) {
+		return setActionBarStyle(context, title, img, isBack, null, l, 0, true);
 	}
 	public static View setActionBarStyle(Context context, String title,
 			int img, Boolean isBack, OnClickListener l,int color) {
@@ -60,11 +64,11 @@ public class ActionBarUtil {
 
 	public static View setActionBarStyle(Context context, String title,
 			int img, OnClickListener l) {
-		return setActionBarStyle(context, title, img, true, null, l, 0);
+		return setActionBarStyle(context, title, img, true, null, l, 0,false);
 	}
 	public static View setActionBarStyle(Context context, String title,
 			int img, OnClickListener l,int colorRes) {
-		return setActionBarStyle(context, title, img, true, null, l, colorRes);
+		return setActionBarStyle(context, title, img, true, null, l, colorRes,false);
 	}
 
 	/**
@@ -84,7 +88,7 @@ public class ActionBarUtil {
 	 */
 	public static View setActionBarStyle(Context context, String title,
 			int img, Boolean isBack, OnClickListener bl, OnClickListener l) {
-		return setActionBarStyle(context, title, img, isBack, bl, l, 0);
+		return setActionBarStyle(context, title, img, isBack, bl, l, 0,false);
 	}
 
 	/**
@@ -106,7 +110,7 @@ public class ActionBarUtil {
 	 */
 	public static View setActionBarStyle(Context context, String title,
 			int img, Boolean isBack, OnClickListener bl, OnClickListener l,
-			int colorRes) {
+			int colorRes, boolean isMain) {
 		final AppCompatActivity activity = (AppCompatActivity) context;
 		ActionBar actionbar = activity.getSupportActionBar();
 		actionbar.show();
@@ -135,6 +139,13 @@ public class ActionBarUtil {
 			}
 		}
 		titleView.setText(title);
+		if(isMain){
+			view.findViewById(R.id.logo).setVisibility(View.VISIBLE);
+			view.findViewById(R.id.header).setVisibility(View.GONE);
+		}else{
+			view.findViewById(R.id.logo).setVisibility(View.GONE);
+			view.findViewById(R.id.header).setVisibility(View.VISIBLE);
+		}
 		if (img != 0) {
 			btn_setting.setVisibility(View.VISIBLE);
 			btn_setting.setImageResource(img);
