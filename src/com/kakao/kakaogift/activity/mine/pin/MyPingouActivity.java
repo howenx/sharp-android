@@ -19,6 +19,8 @@ import com.kakao.kakaogift.data.UrlUtil;
 import com.kakao.kakaogift.entity.PinList;
 import com.kakao.kakaogift.http.VolleyHttp;
 import com.kakao.kakaogift.http.VolleyHttp.VolleyJsonCallback;
+import com.kakao.kakaogift.manager.BadgeViewManager;
+import com.kakao.kakaogift.manager.MyOrderNumsManager;
 import com.kakao.kakaogift.utils.ActionBarUtil;
 import com.kakao.kakaogift.utils.ToastUtils;
 /**
@@ -40,6 +42,7 @@ public class MyPingouActivity extends BaseActivity {
 		viewPager = (ViewPager) findViewById(R.id.view_pager);
 		pagerSlidingTabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
 		loadData();
+
 	}
 
 	private void loadData() {
@@ -85,6 +88,9 @@ public class MyPingouActivity extends BaseActivity {
 			
 			viewPager.setAdapter(adapter);
 			pagerSlidingTabStrip.setViewPager(viewPager);
+			MyOrderNumsManager.getInstance().initBadgeViewManager(this, pagerSlidingTabStrip.getTabs().get(1));
+//			MyOrderNumsManager.getInstance().setShopCartGoodsNum(3);
+			ToastUtils.Toast(this, pagerSlidingTabStrip.getTabs().get(1).getText().toString());
 			if(list.getActivityListForMaster().size()<=0 && list.getActivityListForMember().size()>0){
 				viewPager.setCurrentItem(1);
 			}
