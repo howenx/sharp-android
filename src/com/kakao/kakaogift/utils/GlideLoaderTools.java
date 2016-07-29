@@ -107,7 +107,7 @@ public class GlideLoaderTools {
 	 */
 	public static void loadRectImage(Context mContext, ImageView imgView,
 			String url, int w, int h) {
-		int screenWidth = CommonUtils.getScreenWidth(mContext);
+//		int screenWidth = CommonUtils.getScreenWidth(mContext);
 //		int height = (screenWidth - 60) * h / w;
 //		int width = screenWidth - 60;
 //		imgView.setLayoutParams(new LayoutParams(width, height));

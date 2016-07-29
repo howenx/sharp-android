@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
      <style name="tax01">
         <item name="android:textSize">12sp</item>
-        <item name="android:textColor">@color/fontcolor</item>
+        <item name="android:textColor">@color/gray</item>
     </style>
 
     <style name="tax02">
@@ -22,5 +22,11 @@
     <style name="tax05">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/fontcolor</item>
+    </style>
+    
+        <style name="tax06">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@color/red</item>
     </style>
 </resources>

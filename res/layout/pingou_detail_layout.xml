@@ -171,7 +171,7 @@
                 android:background="@color/white"
                 android:textColor="@color/indicator_font_color_selector"
                 app:pstsDividerColor="@android:color/transparent"
-                app:pstsIndicatorColor="@color/theme"
+                app:pstsIndicatorColor="@color/yellow"
                 app:pstsIndicatorHeight="2dp"
                 app:pstsShouldExpand="true"
                 app:pstsTabBackground="@android:color/transparent"
@@ -218,6 +218,7 @@
             android:id="@+id/btn_attention"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:background="@color/btn_pin_normal"
             android:layout_weight="1" >
 
             <ImageView
@@ -230,6 +231,10 @@
                 android:src="@drawable/hmm_icon_collect" />
         </FrameLayout>
 
+        <View 
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="@color/gray"/>
         <TextView
             android:id="@+id/btn_pin_02"
             android:layout_width="0dp"
@@ -238,7 +243,7 @@
             android:background="@drawable/btn_pin_selector"
             android:gravity="center"
             android:text="立即开团"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="14sp" />
 
         <TextView
@@ -249,7 +254,7 @@
             android:background="@drawable/btn_buy_selector"
             android:gravity="center"
             android:text="单独购买"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="14sp" />
     </LinearLayout>
 

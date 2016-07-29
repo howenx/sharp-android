@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.kakao.kakaogift.R
 ;
 import com.kakao.kakaogift.entity.Theme;
@@ -62,7 +63,9 @@ public class HomeAdapter extends BaseAdapter {
 		}
 
 		int screenWidth = CommonUtils.getScreenWidth(activity);
-		GlideLoaderTools.loadRectImage(activity, holder.img, theme.getThemeImg(), screenWidth, screenWidth * theme.getHeight() / theme.getWidth());
+		int w = screenWidth - CommonUtils.dip2px(15);
+		int h  = w * theme.getHeight() / theme.getWidth();
+		Glide.with(activity).load(theme.getThemeImg()).placeholder(R.drawable.hmm_place_holder_j).override(w, h).into( holder.img);
 		holder.title.setText(theme.getTitle());
 		holder.content.setText(theme.getThemeConfigInfo());
 		return convertView;
