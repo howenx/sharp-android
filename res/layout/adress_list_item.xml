@@ -42,22 +42,10 @@
         android:textSize="14sp" />
 
     <TextView
-        android:id="@+id/idCard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/phone"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_toRightOf="@id/isSelected"
-        android:text="身份证"
-        android:textColor="@color/fontcolor"
-        android:textSize="14sp" />
-
-    <TextView
         android:id="@+id/adress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/idCard"
+        android:layout_below="@id/phone"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@id/isSelected"
@@ -83,8 +71,8 @@
         android:id="@+id/btn_xiugai"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_alignRight="@+id/idCard"
-        android:layout_alignTop="@+id/name"
+        android:layout_alignParentRight="true"
+        android:layout_alignRight="@+id/name"
         android:contentDescription="@null"
         android:src="@drawable/hmm_address_xiugai" />
 

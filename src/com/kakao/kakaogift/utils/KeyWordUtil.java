@@ -4,14 +4,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.TextAppearanceSpan;
 import android.widget.TextView;
 
-import com.kakao.kakaogift.R
-;
+import com.kakao.kakaogift.R;
 
 public class KeyWordUtil {
 	
@@ -131,6 +132,25 @@ public class KeyWordUtil {
 		public static void setDifferentFontColor18(Context mContext, TextView textView, String font, int start, int end){
 			SpannableString styledText = new SpannableString(font);  
 			styledText.setSpan(new TextAppearanceSpan(mContext, R.style.tax03), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);  
+			textView.setText(styledText, TextView.BufferType.SPANNABLE);
+		}
+		
+		/**
+		 * 设置详情页的标题文字显示
+		 * 正常文字： 原设定文字属性
+		 * 高亮文字：14sp 主题色
+		 * 
+		 * @param mContext
+		 * @param textView
+		 * @param font
+		 * @param mid
+		 * @param end
+		 */
+		public static void setDifferentFontForDetailTitle(Context mContext, TextView textView, String font, int start, int end){
+			SpannableString styledText = new SpannableString(font);  
+			styledText.setSpan(new TextAppearanceSpan(mContext, R.style.tax06), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);  
+			 BackgroundColorSpan span = new BackgroundColorSpan(Color.RED);  
+			styledText.setSpan(span, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 			textView.setText(styledText, TextView.BufferType.SPANNABLE);
 		}
 }

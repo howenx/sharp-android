@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="12sp"
-       	android:textColor="#CCCCCC"
+       	android:textColor="@color/gray"
        	/>
 
     
@@ -19,6 +19,6 @@
         android:layout_height="wrap_content"
         android:textSize="12sp"
         android:layout_marginLeft="80dp"
-       	android:textColor="@color/black_01"
+       	android:textColor="@color/black"
        	/>
 </RelativeLayout>

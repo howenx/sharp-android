@@ -5,7 +5,7 @@
     android:orientation="vertical" 
     android:background="@color/bg">
     <com.kakao.kakaogift.view.MyGridView 
-        android:layout_marginTop="6.7dp"
+        android:layout_marginTop="10dp"
         android:horizontalSpacing="0.5dp"
         android:verticalSpacing="0.5dp"
         android:id="@+id/mygrid"

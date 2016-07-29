@@ -7,7 +7,7 @@
     <color name="bg">#ececec</color>
     <color name="background">#FFFFFF</color>
     <color name="white">#FFFFFF</color>
-    <color name="black">#FF000000</color>
+    <color name="black">#242424</color>
     <color name="btn_buy_pressed">#fdd000</color>
     <color name="btn_buy_normal">#fdd000</color>
     <color name="btn_pin_pressed">#F8F9FA</color>
@@ -15,9 +15,9 @@
     <color name="huang">#ffa800</color>
     <color name="black_01_pressed">#CC000000</color>
     <color name="black_01">#AA000000</color>
-    <color name="gray">#ECECEC</color>
+    <color name="gray">#999999</color>
     <color name="huise">#969696</color>
-    <color name="red">#EF2528</color>
+    <color name="red">#f73939</color>
     <color name="fontcolor">#646566</color>
     <color name="msg_title">#333333</color>
     <color name="msg_content">#999999</color>

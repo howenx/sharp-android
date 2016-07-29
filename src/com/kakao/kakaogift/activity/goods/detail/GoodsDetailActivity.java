@@ -80,7 +80,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 	private static final String Tag = "GoodsDetailActivity";
 
-	private TextView itemTitle, itemSrcPrice, itemPrice, area;// 标题、
+	private TextView itemTitle, itemSrcPrice, itemPrice, area,restrictAmount;// 标题、
 																// 原价、现价、发货区,税率
 
 	// private TextView num_restrictAmount; // 限购数量
@@ -142,6 +142,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		itemSrcPrice = (TextView) findViewById(R.id.itemSrcPrice);
 		itemPrice = (TextView) findViewById(R.id.itemPrice);
 		more_view = (TextView) findViewById(R.id.more_view);
+		restrictAmount = (TextView) findViewById(R.id.restrictAmount);
 		area = (TextView) findViewById(R.id.area);
 		img_hide = (ImageView) findViewById(R.id.img_hide);
 		mScrollLayout = (ScrollableLayout) findViewById(R.id.mScrollLayout);
@@ -621,25 +622,25 @@ public class GoodsDetailActivity extends BaseActivity implements
 		String zhe = "";
 		if (s.getItemDiscount().floatValue() > 0) {
 			// 标题折扣的获取
-			zhe += "[" + s.getItemDiscount() + "折]";
+			zhe += " " + s.getItemDiscount() + "折 ";
 			// 存在折扣 显示原价
 			itemSrcPrice.setText(getResources().getString(R.string.price,
 					s.getItemSrcPrice()));
 			itemSrcPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 		}
 		// 显示商品标题
-		KeyWordUtil.setDifferentFontColor(this, itemTitle,
+		KeyWordUtil.setDifferentFontForDetailTitle(this, itemTitle,
 				zhe + s.getInvTitle(), 0, zhe.length());
 		itemPrice.setText(getResources().getString(R.string.price,
 				s.getItemPrice()));
-		// if (s.getRestrictAmount() != null && s.getRestrictAmount() > 0) {
-		// //存在限购数量
-		// num_restrictAmount.setVisibility(View.VISIBLE);
-		// num_restrictAmount.setText(getResources().getString(
-		// R.string.restrictAmount, s.getRestrictAmount()));
-		// } else {
-		// num_restrictAmount.setVisibility(View.GONE);
-		// }
+		 if (s.getRestrictAmount() != null && s.getRestrictAmount() > 0) {
+		 //存在限购数量
+			 restrictAmount.setVisibility(View.VISIBLE);
+			 restrictAmount.setText(getResources().getString(
+		 R.string.restrictAmount, s.getRestrictAmount()));
+		 } else {
+			 restrictAmount.setVisibility(View.GONE);
+		 }
 		// 邮寄方式
 		area.setText(s.getInvAreaNm());
 		// 初始化收藏按钮

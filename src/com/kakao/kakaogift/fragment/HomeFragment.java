@@ -50,6 +50,8 @@ import com.kakao.kakaogift.entity.Entry;
 import com.kakao.kakaogift.entity.Home;
 import com.kakao.kakaogift.entity.Slider;
 import com.kakao.kakaogift.entity.Theme;
+import com.kakao.kakaogift.http.VolleyHttp;
+import com.kakao.kakaogift.http.VolleyHttp.VolleyJsonCallback;
 import com.kakao.kakaogift.manager.MessageMenager;
 import com.kakao.kakaogift.utils.GlideLoaderTools;
 import com.kakao.kakaogift.utils.HttpUtils;
@@ -90,10 +92,12 @@ public class HomeFragment extends BaseIconFragment implements
 	private int pullNum = 1;
 	//
 	private List<Entry> catData;
+	private BaseActivity baseActivity;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		baseActivity = (BaseActivity) getActivity();
 		mContext = getActivity();
 		inflater = LayoutInflater.from(mContext);
 		mActivity = (BaseActivity) getActivity();
@@ -271,28 +275,85 @@ public class HomeFragment extends BaseIconFragment implements
 	private void getNetData() {
 		if (isUpOrDwom == 0)
 			mActivity.getLoading().show();
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				String result = "";
 				if (mActivity.getHeaders() == null) {
-					result = HttpUtils.get(UrlUtil.HOME_LIST_URL + pageIndex);
+					VolleyHttp.doGetRequestTask(UrlUtil.HOME_LIST_URL + pageIndex, new VolleyJsonCallback() {
+						
+						@Override
+						public void onSuccess(String result) {
+							home = DataParser.parserHomeData(result);
+							if (isUpOrDwom == 0) {
+								upData(home);
+							} else {
+								dwomData(home);
+							}
+						}
+						
+						@Override
+						public void onError() {
+							mActivity.getLoading().dismiss();
+							mListView.setVisibility(View.GONE);
+							no_net.setVisibility(View.VISIBLE);
+						}
+					});
 				} else {
-					result = HttpUtils.get(UrlUtil.HOME_LIST_URL + pageIndex,
-							mActivity.getHeaders().get("id-token"));
+					VolleyHttp.doGetRequestTask(baseActivity.getHeaders(), UrlUtil.HOME_LIST_URL + pageIndex, new VolleyJsonCallback() {
+						
+						@Override
+						public void onSuccess(String result) {
+							home = DataParser.parserHomeData(result);
+							if (isUpOrDwom == 0) {
+								upData(home);
+							} else {
+								dwomData(home);
+							}
+							
+						}
+						
+						@Override
+						public void onError() {
+							mListView.setVisibility(View.GONE);
+							no_net.setVisibility(View.VISIBLE);
+						}
+					});
 				}
-				Home home = DataParser.parserHomeData(result);
-				Message msg;
-				if (isUpOrDwom == 0) {
-					msg = mHandler.obtainMessage(1);
-				} else {
-					msg = mHandler.obtainMessage(2);
-				}
-				msg.obj = home;
-				mHandler.sendMessage(msg);
-			}
-		}).start();
 	}
+	private void upData(Home home){
+		mActivity.getLoading().dismiss();
+		mListView.onRefreshComplete();
+		if (home.gethMessage() != null) {
+			mListView.setVisibility(View.VISIBLE);
+			no_net.setVisibility(View.GONE);
+			if (home.gethMessage().getCode() == 200) {
+				afterLoadData(home, true);
+			} else {
+				ToastUtils.Toast(mActivity, home.gethMessage()
+						.getMessage());
+			}
+		} else {
+			mListView.setVisibility(View.GONE);
+			no_net.setVisibility(View.VISIBLE);
+		}
+		IntroMsg();
+	}
+	private void dwomData(Home home){
+		mListView.onRefreshComplete();
+		if (home.gethMessage() != null) {
+			mListView.setVisibility(View.VISIBLE);
+			no_net.setVisibility(View.GONE);
+			if (home.gethMessage().getCode() == 200) {
+				pullNum = pullNum + 1;
+				afterLoadData(home, false);
+				ToastUtils.Toast(mActivity, "小美为您加载了 "
+						+ home.getThemes().size() + " 条新数据");
+			} else {
+				ToastUtils.Toast(mActivity, home.gethMessage()
+						.getMessage());
+			}
+		} else {
+			mListView.setVisibility(View.GONE);
+			no_net.setVisibility(View.VISIBLE);
+		}
+	};
 
 	private void afterLoadData(Home home, boolean isNew) {
 		List<Theme> list = home.getThemes();
@@ -333,57 +394,7 @@ public class HomeFragment extends BaseIconFragment implements
 	}
 
 	private Home home;
-	private Handler mHandler = new Handler() {
-
-		@Override
-		public void handleMessage(Message msg) {
-			super.handleMessage(msg);
-			switch (msg.what) {
-			case 1:
-				mActivity.getLoading().dismiss();
-				mListView.onRefreshComplete();
-				home = (Home) msg.obj;
-				if (home.gethMessage() != null) {
-					mListView.setVisibility(View.VISIBLE);
-					no_net.setVisibility(View.GONE);
-					if (home.gethMessage().getCode() == 200) {
-						afterLoadData(home, true);
-					} else {
-						ToastUtils.Toast(mActivity, home.gethMessage()
-								.getMessage());
-					}
-				} else {
-					mListView.setVisibility(View.GONE);
-					no_net.setVisibility(View.VISIBLE);
-				}
-				IntroMsg();
-				break;
-			case 2:
-				mListView.onRefreshComplete();
-				Home home2 = (Home) msg.obj;
-				if (home2.gethMessage() != null) {
-					mListView.setVisibility(View.VISIBLE);
-					no_net.setVisibility(View.GONE);
-					if (home2.gethMessage().getCode() == 200) {
-						pullNum = pullNum + 1;
-						afterLoadData(home2, false);
-						ToastUtils.Toast(mActivity, "小美为您加载了 "
-								+ home2.getThemes().size() + " 条新数据");
-					} else {
-						ToastUtils.Toast(mActivity, home2.gethMessage()
-								.getMessage());
-					}
-				} else {
-					mListView.setVisibility(View.GONE);
-					no_net.setVisibility(View.VISIBLE);
-				}
-				break;
-
-			default:
-				break;
-			}
-		}
-	};
+	private Handler mHandler = new Handler();
 
 	@Override
 	public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {

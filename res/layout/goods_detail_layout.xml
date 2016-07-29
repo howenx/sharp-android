@@ -47,7 +47,7 @@
                         android:layout_marginTop="10dp"
                         android:background="@color/white"
                         android:padding="8dp"
-                        android:textColor="#AA000000"
+                        android:textColor="@color/black"
                         android:textSize="14sp" />
 
                     <RelativeLayout
@@ -63,7 +63,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
-                            android:background="@color/white"
                             android:textColor="@color/red"
                             android:textSize="20dp" />
 
@@ -72,10 +71,18 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignBottom="@id/itemPrice"
-                            android:layout_marginLeft="3dp"
+                            android:layout_marginLeft="4dp"
                             android:layout_toRightOf="@id/itemPrice"
-                            android:background="@color/white"
-                            android:textColor="#BBBBBB"
+                            android:textColor="@color/gray"
+                            android:textSize="@dimen/font_small" />
+                        <TextView
+                            android:id="@+id/restrictAmount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBottom="@id/itemPrice"
+                            android:layout_marginLeft="4dp"
+                            android:layout_toRightOf="@id/itemSrcPrice"
+                            android:textColor="@color/red"
                             android:textSize="@dimen/font_small" />
 
                         <TextView
@@ -84,7 +91,7 @@
                             android:layout_alignBottom="@id/itemPrice"
                             android:layout_alignParentRight="true"
                             android:text="@string/portalfee_free"
-                            android:textColor="#BBBBBB"
+                            android:textColor="@color/gray"
                             android:textSize="12sp" />
                     </RelativeLayout>
 
@@ -110,7 +117,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="邮寄方式："
-                            android:textColor="@color/black"
+                            android:textColor="@color/gray"
                             android:textSize="12sp" />
 
                         <TextView
@@ -118,8 +125,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_toRightOf="@id/area_type"
-                            android:text="asdkjasdhjk"
-                            android:textColor="@color/huise"
+                            android:textColor="@color/black"
                             android:textSize="12sp" />
                     </RelativeLayout>
 
@@ -131,7 +137,7 @@
                         android:paddingTop="8dp"
                         android:paddingLeft="8dp"
                         android:text="规格"
-                        android:textColor="#000000"
+                        android:textColor="@color/gray"
                         android:textSize="14sp" />
 
                     <com.kakao.kakaogift.view.TagCloudView
@@ -162,7 +168,7 @@
                             android:layout_alignParentLeft="true"
                             android:layout_centerVertical="true"
                             android:text="@string/comment"
-                            android:textColor="@color/fontcolor"
+                            android:textColor="@color/gray"
                             android:textSize="14sp" />
 
                         <TextView
@@ -184,10 +190,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/actionbar_size"
                     android:background="@color/white"
-                    android:textColor="@color/indicator_font_color_selector"
                     app:pstsDividerColor="@android:color/transparent"
                     app:pstsIndicatorColor="@color/yellow"
                     app:pstsIndicatorHeight="2dp"
+                    app:zmsTabTextSize="14sp"
+                    app:zmsTabTextColor="@color/gray"
+                    app:zmsSelectedTabTextSize="14sp"
+                    app:zmsSelectedTabTextColor="@color/yellow"
                     app:pstsShouldExpand="true"
                     app:pstsTabBackground="@android:color/transparent"
                     app:pstsUnderlineHeight="1px" />
