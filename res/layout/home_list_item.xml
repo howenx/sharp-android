@@ -15,17 +15,21 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textColor="@color/msg_title"
-        android:text="@null"/>
+        android:text="@null"
+        android:maxLines="1"
+        android:ellipsize="end"/>
     <TextView 
         android:id="@+id/content"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
+        android:textSize="12sp"
         android:textColor="@color/content_color"
+        android:maxLines="2"
+        android:ellipsize="end"
         android:text="@null"/>
     <ImageView 
         android:id="@+id/img"
@@ -35,6 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:contentDescription="@null"/>
+        android:contentDescription="@null"
+        android:scaleType="fitXY"/>
 
 </LinearLayout>

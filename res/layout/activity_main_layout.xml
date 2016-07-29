@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical" 
     android:fitsSystemWindows="true"
-    android:background="@color/background">
+    android:background="@color/background"
+    android:id="@+id/main_linear">
 
 
         <android.support.v4.view.ViewPager

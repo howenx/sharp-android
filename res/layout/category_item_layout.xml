@@ -21,6 +21,6 @@
         android:layout_height="wrap_content"
         android:text="@null"
         android:textSize="12sp"
-        android:textColor="@color/fontcolor"/>
+        android:textColor="@color/msg_title"/>
 
 </LinearLayout>

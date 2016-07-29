@@ -204,7 +204,7 @@ public class HomeFragment extends BaseIconFragment implements
 		getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
 		int screenWidth = dm.widthPixels;
 		int width = screenWidth;
-		int height = width * 2 / 5;
+		int height = width * 1 / 3;
 		AbsListView.LayoutParams lp = new AbsListView.LayoutParams(width,
 				height);
 		header_linear.setLayoutParams(lp);
@@ -389,7 +389,7 @@ public class HomeFragment extends BaseIconFragment implements
 		}
 		if (home.getHasMsg() != 0) {
 			MessageMenager.getInstance().getListener()
-					.onGetMessage(R.drawable.hmm_icon_message_h);
+					.onGetMessage(R.drawable.hmm_icon_message);
 		}
 	}
 

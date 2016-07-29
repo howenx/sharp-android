@@ -170,7 +170,7 @@
                     android:id="@+id/btn_dufault"
                     android:layout_width="40dp"
                     android:layout_height="20dp" 
-                    app:onColor="@color/theme"/>
+                    app:onColor="@color/yellow"/>
             </LinearLayout>
 
             <View

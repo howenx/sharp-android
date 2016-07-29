@@ -171,7 +171,7 @@ public class MyOrderActivity extends BaseActivity implements OnClickListener,
 	}
 
 	private void setTopSelected(TextView textView, TextView cusor) {
-		textView.setTextColor(getResources().getColor(R.color.theme));
+		textView.setTextColor(getResources().getColor(R.color.yellow));
 		cusor.setVisibility(View.VISIBLE);
 	}
 

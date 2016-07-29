@@ -30,7 +30,7 @@
                 android:layout_centerHorizontal="true"
                 android:text="全部"
                 android:textSize="14sp" 
-                android:textColor="@color/theme"/>
+                android:textColor="@color/yellow"/>
 
             <TextView
         		android:id="@+id/cursor1"
@@ -39,7 +39,7 @@
                 android:layout_centerHorizontal="true"
         		android:layout_width="match_parent"
         		android:layout_height="2dp"
-        		android:background="@color/theme" />
+        		android:background="@color/yellow" />
             
         </RelativeLayout>
 
@@ -81,7 +81,7 @@
                 android:layout_centerHorizontal="true"
         		android:layout_width="match_parent"
         		android:layout_height="2dp"
-        		android:background="@color/theme" 
+        		android:background="@color/yellow" 
         		android:visibility="invisible"/>
             
         </RelativeLayout>
@@ -123,7 +123,7 @@
                 android:layout_centerHorizontal="true"
         		android:layout_width="match_parent"
         		android:layout_height="2dp"
-        		android:background="@color/theme" 
+        		android:background="@color/yellow" 
         		android:visibility="invisible"/>
             
         </RelativeLayout>
@@ -166,7 +166,7 @@
                 android:layout_centerHorizontal="true"
         		android:layout_width="match_parent"
         		android:layout_height="2dp"
-        		android:background="@color/theme" 
+        		android:background="@color/yellow" 
         		android:visibility="invisible"/>
             
         </RelativeLayout>
