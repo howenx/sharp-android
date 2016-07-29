@@ -187,7 +187,7 @@ public class OrderFragment extends Fragment implements
 				}
 			}
 		}
-		OrderNumsMenager.getInstance().numsChanged(nums_1, nums_2, nums_3);
+//		OrderNumsMenager.getInstance().numsChanged(nums_1, nums_2, nums_3);
 	}
 
 

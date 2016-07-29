@@ -21,6 +21,7 @@ import com.kakao.kakaogift.activity.login.LoginActivity;
 import com.kakao.kakaogift.activity.mine.address.MyAddressActivity;
 import com.kakao.kakaogift.activity.mine.collect.MyCollectionActivity;
 import com.kakao.kakaogift.activity.mine.coupon.MyCouponActivity;
+import com.kakao.kakaogift.activity.mine.order.CopyOfMyOrderActivity;
 import com.kakao.kakaogift.activity.mine.order.MyOrderActivity;
 import com.kakao.kakaogift.activity.mine.pin.MyPingouActivity;
 import com.kakao.kakaogift.activity.mine.user.EditUserInfoActivity;
@@ -153,7 +154,7 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 			doJump(EditUserInfoActivity.class);
 			break;
 		case R.id.order:
-			doJump(MyOrderActivity.class);
+			doJump(CopyOfMyOrderActivity.class);
 //			doJump(PubCommentActivity.class);
 			break;
 		case R.id.address:
