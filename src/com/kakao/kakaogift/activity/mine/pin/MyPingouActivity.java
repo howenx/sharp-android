@@ -89,10 +89,6 @@ public class MyPingouActivity extends BaseActivity {
 			
 			viewPager.setAdapter(adapter);
 			pagerSlidingTabStrip.setViewPager(viewPager);
-<<<<<<< HEAD
-			
-=======
->>>>>>> b295e2c9749c16bed7767eda858b40b935aef2fa
 			if(list.getActivityListForMaster().size()<=0 && list.getActivityListForMember().size()>0){
 				viewPager.setCurrentItem(1);
 			}
