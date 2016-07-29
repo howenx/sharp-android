@@ -88,9 +88,6 @@ public class MyPingouActivity extends BaseActivity {
 			
 			viewPager.setAdapter(adapter);
 			pagerSlidingTabStrip.setViewPager(viewPager);
-			MyOrderNumsManager.getInstance().initBadgeViewManager(this, pagerSlidingTabStrip.getTabs().get(1));
-//			MyOrderNumsManager.getInstance().setShopCartGoodsNum(3);
-			ToastUtils.Toast(this, pagerSlidingTabStrip.getTabs().get(1).getText().toString());
 			if(list.getActivityListForMaster().size()<=0 && list.getActivityListForMember().size()>0){
 				viewPager.setCurrentItem(1);
 			}

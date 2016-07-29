@@ -14,14 +14,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.kakao.kakaogift.R
-;
+import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.base.BaseActivity;
 import com.kakao.kakaogift.activity.login.LoginActivity;
 import com.kakao.kakaogift.activity.mine.address.MyAddressActivity;
 import com.kakao.kakaogift.activity.mine.collect.MyCollectionActivity;
 import com.kakao.kakaogift.activity.mine.coupon.MyCouponActivity;
-import com.kakao.kakaogift.activity.mine.order.CopyOfMyOrderActivity;
 import com.kakao.kakaogift.activity.mine.order.MyOrderActivity;
 import com.kakao.kakaogift.activity.mine.pin.MyPingouActivity;
 import com.kakao.kakaogift.activity.mine.user.EditUserInfoActivity;
@@ -30,7 +28,6 @@ import com.kakao.kakaogift.data.AppConstant;
 import com.kakao.kakaogift.data.DataParser;
 import com.kakao.kakaogift.data.UrlUtil;
 import com.kakao.kakaogift.entity.User;
-import com.kakao.kakaogift.manager.CouponMenager;
 import com.kakao.kakaogift.manager.MyCouponMenager;
 import com.kakao.kakaogift.utils.GlideLoaderTools;
 import com.kakao.kakaogift.utils.HttpUtils;
@@ -154,7 +151,7 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 			doJump(EditUserInfoActivity.class);
 			break;
 		case R.id.order:
-			doJump(CopyOfMyOrderActivity.class);
+			doJump(MyOrderActivity.class);
 //			doJump(PubCommentActivity.class);
 			break;
 		case R.id.address:

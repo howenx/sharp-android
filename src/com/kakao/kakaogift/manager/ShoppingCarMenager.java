@@ -74,7 +74,7 @@ public class ShoppingCarMenager {
 			if(customHas){
 				selectCustoms.add(list.get(i));	
 			}
-			if(!list.get(i).getInvArea().equals("K")){
+			if(!list.get(i).getInvArea().equals("K") && !list.get(i).getInvArea().equals("NK")){
 			if(morePrice > list.get(i).getPostalLimit()){
 				customName = list.get(i).getInvAreaNm();
 				bottommorePrice = list.get(i).getPostalLimit();

@@ -1,9 +1,7 @@
 package com.kakao.kakaogift.activity.login;
 
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,12 +35,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import cn.jpush.android.api.JPushInterface;
 
-import com.baidu.api.Baidu;
-import com.baidu.api.BaiduDialog.BaiduDialogListener;
-import com.baidu.api.BaiduDialogError;
-import com.baidu.api.BaiduException;
-import com.kakao.kakaogift.R
-;
+import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.base.BaseActivity;
 import com.kakao.kakaogift.application.KKApplication;
 import com.kakao.kakaogift.dao.ShoppingGoodsDao;
@@ -128,7 +121,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		findViewById(R.id.qq).setOnClickListener(this);
 		findViewById(R.id.weixin).setOnClickListener(this);
 		findViewById(R.id.sina).setOnClickListener(this);
-		findViewById(R.id.baidu).setOnClickListener(this);
 		userDao = getDaoSession().getUserDao();
 		goodsDao = getDaoSession().getShoppingGoodsDao();
 		phone_edit.addTextChangedListener(phoneWatcher);
@@ -142,7 +134,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		if (getIntent().getStringExtra("phone") != null) {
 			ActionBarUtil.setActionBarStyle(this, "绑定手机号");
 			phone_edit.setText(getIntent().getStringExtra("phone"));
-			findViewById(R.id.no_id).setVisibility(View.GONE);
 			findViewById(R.id.other).setVisibility(View.GONE);
 			findViewById(R.id.other_login).setVisibility(View.GONE);
 		}
@@ -269,70 +260,12 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			dialog.show();
 			doOtherLogin(SHARE_MEDIA.SINA);
 			break;
-//		case R.id.baidu:
-//			loginFrom = 3;
-//			doBaiDuLogin();
-//			break;
 		default:
 			break;
 		}
 	}
 
-	/**
-	 * 百度登陆
-	 */
-	/*
-	private void doBaiDuLogin() {
-		baidu = new Baidu(AppConstant.BAIDU_ID, this);
-		//授权回调
-		baidu.authorize(this, false, true, new BaiduDialogListener() {
-			
-			@Override
-			public void onError(BaiduDialogError arg0) {
-				ToastUtils.Toast(LoginActivity.this, "百度登陆失败");
-			}
-			
-			@Override
-			public void onComplete(Bundle arg0) {
-				dialog.show();
-				getBaiDuInfo();
-			}
-
-			@Override
-			public void onCancel() {
-				ToastUtils.Toast(LoginActivity.this, "百度登陆取消");
-			}
-			
-			@Override
-			public void onBaiduException(BaiduException arg0) {
-				ToastUtils.Toast(LoginActivity.this, "百度登陆失败" + arg0.toString());
-			}
-		});
-	}
 	
-	//获取百度用户的信息
-	private void getBaiDuInfo() {
-		new  Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				 try {
-					String json = baidu.request(Baidu.LoggedInUser_URL, null, "GET");
-					Message msg = mHandler.obtainMessage(5);
-					msg.obj = json;
-					mHandler.sendMessage(msg);
-				} catch (IOException e) {
-					e.printStackTrace();
-				} catch (BaiduException e) {
-					e.printStackTrace();
-				}
-			}
-		}).start();
-		
-	}
-	
-	 * 
-	 */
 	//微信   qq登陆 新浪微博登陆
 	private void doOtherLogin(SHARE_MEDIA platform) {
 		// mShareAPI = UMShareAPI.get(this);

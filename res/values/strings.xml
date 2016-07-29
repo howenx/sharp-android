@@ -3,11 +3,12 @@
 
     <string name="gift_app_name">KakaoGift</string>
     <string name="idcard_info">请您协助提供正确的第二代居民身份证件信息，如因身份证信息有误导致我们无法发货和报关造成的损失，将由您自己承担。</string>
-    <string name="forget"><u>忘记密码？</u></string>
-    <string name="phone_regist"><u>手机注册</u></string>
+    <string name="forget">找回密码</string>
+    <string name="phone_regist">手机注册</string>
     <string name="go_login"><u>去登录</u></string>
     <string name="phone_num">手机号</string>
-    <string name="pwd">密&#12288;码</string>
+    <string name="zhanghao">账号</string>
+    <string name="pwd">密码</string>
     <string name="set_pwd">设置密码</string>
     <string name="besure_pwd">确认密码</string>
     <string name="login">登录</string>
