@@ -7,7 +7,7 @@
     <View 
         android:layout_height="1dp"
         android:layout_width="match_parent"
-        android:background="@color/theme"/>
+        android:background="@color/yellow"/>
     <TextView 
         android:id="@+id/play_photo"
         android:padding="10dp"

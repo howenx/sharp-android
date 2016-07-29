@@ -61,7 +61,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 	private ListView mListView;//
 	private List<CustomsVo> customslist; // 保税区列表
 
-	private TextView all_price, all_money, youhui, all_portalfee, all_shipfee;
+	private TextView all_price, all_money, youhui;
 	private TextView name, phone, address, coupon_num, coupon_denomi,notice;
 
 	private long selectedId = Long.valueOf("0"); // 默认地址为0
@@ -106,8 +106,6 @@ public class GoodsBalanceActivity extends BaseActivity implements
 		all_price = (TextView) findViewById(R.id.all_price);
 		all_money = (TextView) findViewById(R.id.all_money);
 		youhui = (TextView) findViewById(R.id.youhui);
-		all_portalfee = (TextView) findViewById(R.id.all_portalfee);
-		all_shipfee = (TextView) findViewById(R.id.all_shipfee);
 		name = (TextView) findViewById(R.id.name);
 		phone = (TextView) findViewById(R.id.phone);
 		address = (TextView) findViewById(R.id.address);
@@ -407,12 +405,8 @@ public class GoodsBalanceActivity extends BaseActivity implements
 	 * 支付信息
 	 */
 	private void initBalanceInfo() {
-		all_shipfee.setText(getResources().getString(R.string.price,
-				car.getFactShipFee()));
 		all_price.setText(getResources().getString(R.string.price,
 				car.getTotalFee()));
-		all_portalfee.setText(getResources().getString(R.string.price,
-				car.getFactPortalFee()));
 		youhui.setText(getResources().getString(R.string.price,
 				car.getDiscountFee()));
 		all_money.setText(getResources().getString(R.string.all_money,

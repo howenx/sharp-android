@@ -12,11 +12,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.kakao.kakaogift.R
-;
+import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.entity.Theme;
 import com.kakao.kakaogift.utils.CommonUtils;
-import com.kakao.kakaogift.utils.GlideLoaderTools;
+import com.squareup.picasso.Picasso;
 
 /**
  * @author eric
@@ -63,9 +62,12 @@ public class HomeAdapter extends BaseAdapter {
 		}
 
 		int screenWidth = CommonUtils.getScreenWidth(activity);
-		int w = screenWidth - CommonUtils.dip2px(15);
+		int w = screenWidth - CommonUtils.dip2px(30);
 		int h  = w * theme.getHeight() / theme.getWidth();
-		Glide.with(activity).load(theme.getThemeImg()).placeholder(R.drawable.hmm_place_holder_j).override(w, h).into( holder.img);
+		Picasso.with(activity) 
+	    .load(theme.getThemeImg())  
+	    .resize(w, h).placeholder(R.drawable.hmm_place_holder_j)
+	    .into( holder.img);  
 		holder.title.setText(theme.getTitle());
 		holder.content.setText(theme.getThemeConfigInfo());
 		return convertView;

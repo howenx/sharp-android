@@ -23,13 +23,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:minHeight="120dp"
+                android:minHeight="100dp"
                 android:padding="10dp" >
 
                 <RelativeLayout
                     android:id="@+id/selectAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:visibility="gone" >
 
                     <ImageView
@@ -61,12 +62,11 @@
                         android:textColor="@color/fontcolor"
                         android:textSize="14sp" />
 
-
                     <TextView
                         android:id="@+id/address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/name"
+                        android:layout_below="@id/phone"
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="5dp"
                         android:layout_toRightOf="@id/icon"
@@ -78,7 +78,7 @@
                         android:id="@+id/isSelected"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignRight="@+id/idCard"
+                        android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:src="@drawable/hmm_next_page_red" />
 
@@ -203,8 +203,6 @@
                         android:textColor="@color/fontcolor"
                         android:textSize="12sp" />
                 </RadioGroup>
-
-
             </LinearLayout>
 
             <LinearLayout
@@ -303,7 +301,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:text="¥0.0"
-                        android:textColor="@color/theme"
+                        android:textColor="@color/red"
                         android:textSize="14sp" />
                 </RelativeLayout>
 
@@ -333,67 +331,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:text="¥0.0"
-                        android:textColor="@color/theme"
-                        android:textSize="14sp" />
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="#cccccc" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:padding="10dp" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:text="行邮税"
-                        android:textColor="@color/fontcolor"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/all_portalfee"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:text="¥0.0"
-                        android:textColor="@color/theme"
-                        android:textSize="14sp" />
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="#cccccc" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:padding="10dp" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:text="运费"
-                        android:textColor="#AA000000"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/all_shipfee"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:text="¥0.0"
-                        android:textColor="@color/theme"
+                        android:textColor="@color/red"
                         android:textSize="14sp" />
                 </RelativeLayout>
             </LinearLayout>

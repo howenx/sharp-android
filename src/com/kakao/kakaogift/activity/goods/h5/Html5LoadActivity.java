@@ -126,19 +126,19 @@ public class Html5LoadActivity extends BaseActivity implements HThemeGoodsView {
 	private void initActionBar(String title) {
 		if (title == null) {
 			ActionBarUtil.setActionBarStyle(this, "韩秘美",
-					R.drawable.shopping_cart_top, true, null);
+					R.drawable.che, true, null);
 			return;
 		}
 		View actionbarView = ActionBarUtil.setActionBarStyle(this, title,
-				R.drawable.shopping_cart_top, true, new OnBackClickListener(),
+				R.drawable.che, true, new OnBackClickListener(),
 				new OnCartClickListener());
 		// 购物车
 		View cartView = actionbarView.findViewById(R.id.setting);
 		bView = new BadgeView(this, cartView);
-		bView.setBackgroundResource(R.drawable.bg_badgeview2);
+		bView.setBackgroundResource(R.drawable.bg_badgeview);
 		bView.setBadgePosition(BadgeView.POSITION_CENTER);
 		bView.setTextSize(10);
-		bView.setTextColor(Color.parseColor("#F9616A"));
+		bView.setTextColor(Color.parseColor("#FFFFFF"));
 		iGoodsPresenterImpl = new HThemeGoodsPresenterImpl(this);
 		iGoodsPresenterImpl.getCartNumData(getHeaders(), null);
 	}

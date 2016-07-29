@@ -75,6 +75,7 @@
                             android:layout_toRightOf="@id/itemPrice"
                             android:textColor="@color/gray"
                             android:textSize="@dimen/font_small" />
+
                         <TextView
                             android:id="@+id/restrictAmount"
                             android:layout_width="wrap_content"
@@ -134,8 +135,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:background="@color/white"
-                        android:paddingTop="8dp"
                         android:paddingLeft="8dp"
+                        android:paddingTop="8dp"
                         android:text="规格"
                         android:textColor="@color/gray"
                         android:textSize="14sp" />
@@ -144,8 +145,8 @@
                         android:id="@+id/tagCloudView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/white"
                         android:layout_marginBottom="10dp"
+                        android:background="@color/white"
                         app:tcvBorder="5dp"
                         app:tcvCanTagClick="false"
                         app:tcvItemBorderHorizontal="8dp"
@@ -193,13 +194,13 @@
                     app:pstsDividerColor="@android:color/transparent"
                     app:pstsIndicatorColor="@color/yellow"
                     app:pstsIndicatorHeight="2dp"
-                    app:zmsTabTextSize="14sp"
-                    app:zmsTabTextColor="@color/gray"
-                    app:zmsSelectedTabTextSize="14sp"
-                    app:zmsSelectedTabTextColor="@color/yellow"
                     app:pstsShouldExpand="true"
                     app:pstsTabBackground="@android:color/transparent"
-                    app:pstsUnderlineHeight="1px" />
+                    app:pstsUnderlineHeight="1px"
+                    app:zmsSelectedTabTextColor="@color/yellow"
+                    app:zmsSelectedTabTextSize="14sp"
+                    app:zmsTabTextColor="@color/gray"
+                    app:zmsTabTextSize="14sp" />
 
                 <android.support.v4.view.ViewPager
                     android:id="@+id/view_pager"
@@ -240,8 +241,32 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/navigationbar_size"
             android:layout_gravity="bottom"
+            android:weightSum="6"
             android:background="@drawable/bg_gray_boarder"
             android:orientation="horizontal" >
+
+            <FrameLayout
+                android:id="@+id/btn_shopcart"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#F8F9FA"
+                android:clickable="true"
+                android:onClick="turnToShoppingCarActivity" >
+
+                <ImageView
+                    android:id="@+id/shopcart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@null"
+                    android:scaleType="center"
+                    android:src="@drawable/che" />
+            </FrameLayout>
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:background="@color/qianhui" />
 
             <FrameLayout
                 android:id="@+id/btn_attention"
@@ -260,29 +285,6 @@
                     android:onClick="collectGoods"
                     android:scaleType="center"
                     android:src="@drawable/hmm_icon_collect" />
-            </FrameLayout>
-
-            <View
-                android:layout_width="1px"
-                android:layout_height="match_parent"
-                android:background="@color/qianhui" />
-
-            <FrameLayout
-                android:id="@+id/btn_shopcart"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="#F8F9FA"
-                android:clickable="true"
-                android:onClick="turnToShoppingCarActivity" >
-
-                <ImageView
-                    android:id="@+id/shopcart"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:contentDescription="@null"
-                    android:scaleType="center"
-                    android:src="@drawable/hmm_shoppingcar_normal" />
             </FrameLayout>
 
             <View

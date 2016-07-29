@@ -18,9 +18,9 @@
   <!-- All customizations that are NOT specific to a particular API-level can go here. -->
         <item name="actionBarSize">@dimen/actionbar_size</item>
         <item name="actionBarStyle"> @style/MyActionBarStyle</item>
-        <item name="colorPrimary">@color/theme</item>
-        <item name="colorPrimaryDark">@color/btn_pin_pressed</item>
-        <item name="colorAccent">@color/theme</item>
+        <item name="colorPrimary">@color/yellow</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="colorAccent">@color/yellow</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowAnimationStyle">@style/Animation_Right</item>
     </style>

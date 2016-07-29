@@ -260,7 +260,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		// 加载商品图片
 		GlideLoaderTools.loadSquareImage(getActivity(), detail
 				.getCurrentStock().getInvImgForObj().getUrl(), img_hide);
-		if (shopcartAnimator == null || imgAnimator == null) {
+		if (shopcartAnimator == null && imgAnimator == null) {
 			shopcartAnimator = AnimationTools.nope(findViewById(R.id.shopcart));
 			imgAnimator = AnimationTools.initAnimatorSetValue(this, img_hide,
 					new SimpleAnimationListener() {

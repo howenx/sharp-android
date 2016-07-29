@@ -121,14 +121,14 @@ public class ThemeGoodsActivity extends BaseActivity implements
 //		actionbarView.setBackgroundResource(R.color.theme);
 //		backgroundDrawable = actionbarView.getBackground();
 //		backgroundDrawable.setAlpha(0);
-		actionbarView = ActionBarUtil.setActionBarStyle(this, "商品展示", R.drawable.hmm_shoppingcar_normal, this);
+		actionbarView = ActionBarUtil.setActionBarStyle(this, "商品展示", R.drawable.che, this);
 		// 购物车
 		View cartView = actionbarView.findViewById(R.id.setting);
 		bView = new BadgeView(this, cartView);
-		bView.setBackgroundResource(R.drawable.bg_badgeview2);
+		bView.setBackgroundResource(R.drawable.bg_badgeview);
 		bView.setBadgePosition(BadgeView.POSITION_CENTER);
 		bView.setTextSize(10);
-		bView.setTextColor(Color.parseColor("#F9616A"));
+		bView.setTextColor(Color.parseColor("#FFFFFF"));
 		// banner图容器
 		mframeLayout = (FrameLayout) findViewById(R.id.mframeLayout);
 		// 滚动视图
