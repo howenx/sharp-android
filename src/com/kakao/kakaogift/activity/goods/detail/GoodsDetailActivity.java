@@ -200,10 +200,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 	@Override
 	public void onClick(View arg0) {
-		if (detail == null) {
-			ToastUtils.Toast(this, "正在加载数据");
-			return;
-		}
 		switch (arg0.getId()) {
 		case R.id.setting:
 			showShareboard();
@@ -619,18 +615,23 @@ public class GoodsDetailActivity extends BaseActivity implements
 			return;
 		// 初始化轮播图
 		initSliderImage(s);
-		String zhe = "";
-		if (s.getItemDiscount().floatValue() > 0) {
+		String zhe = null ;
+		if (s.getItemDiscount().floatValue() > 0 && 
+				s.getItemDiscount().floatValue() <10) {
 			// 标题折扣的获取
-			zhe += " " + s.getItemDiscount() + "折 ";
+			zhe = " " + s.getItemDiscount() + "折 ";
 			// 存在折扣 显示原价
 			itemSrcPrice.setText(getResources().getString(R.string.price,
 					s.getItemSrcPrice()));
 			itemSrcPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 		}
 		// 显示商品标题
-		KeyWordUtil.setDifferentFontForDetailTitle(this, itemTitle,
-				zhe + s.getInvTitle(), 0, zhe.length());
+		if(zhe !=null){
+			KeyWordUtil.setDifferentFontForDetailTitle(this, itemTitle,
+					zhe + "  "+s.getInvTitle(), 0, zhe.length());
+		}else{
+			itemTitle.setText(s.getInvTitle());
+		}
 		itemPrice.setText(getResources().getString(R.string.price,
 				s.getItemPrice()));
 		 if (s.getRestrictAmount() != null && s.getRestrictAmount() > 0) {

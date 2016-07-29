@@ -24,7 +24,7 @@ public class AboutWeActivity extends BaseActivity {
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.about_we_layout);
-		ActionBarUtil.setActionBarStyle(this, "关于韩秘美");
+		ActionBarUtil.setActionBarStyle(this,"关于Kakao Gift");
 		getLoading().show();
 		webView = (WebView) findViewById(R.id.web);
 		webView.loadUrl(UrlUtil.ABOUT_WE);

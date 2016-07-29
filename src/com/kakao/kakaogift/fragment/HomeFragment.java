@@ -524,7 +524,7 @@ public class HomeFragment extends BaseIconFragment implements
 
 	@Override
 	public String getTitle() {
-		return "韩秘美";
+		return "首页";
 	}
 
 	@Override

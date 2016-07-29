@@ -100,10 +100,10 @@
                         android:id="@+id/publicity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
+                        android:layout_marginTop="1px"
                         android:background="@color/white"
                         android:padding="8dp"
-                        android:textColor="@color/black_01"
+                        android:textColor="@color/black"
                         android:textSize="14sp" />
 
                     <RelativeLayout

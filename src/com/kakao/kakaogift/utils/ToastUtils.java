@@ -25,7 +25,6 @@ public class ToastUtils {
 		if (toast == null) {
 			toast = new SuperToast(context);
 			toast.setDuration(duration);
-			toast.setBackground(SuperToast.Background.RED);
 			oldMsg = s;
 			toast.setText(s);
 			toast.show();

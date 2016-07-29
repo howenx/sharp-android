@@ -7,11 +7,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.google.gson.Gson;
-import com.kakao.kakaogift.R
-;
+import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.base.BaseActivity;
 import com.kakao.kakaogift.activity.mine.pin.adapter.PinPagerAdapter;
 import com.kakao.kakaogift.activity.mine.pin.fragment.MyPinFragment;
@@ -19,10 +19,9 @@ import com.kakao.kakaogift.data.UrlUtil;
 import com.kakao.kakaogift.entity.PinList;
 import com.kakao.kakaogift.http.VolleyHttp;
 import com.kakao.kakaogift.http.VolleyHttp.VolleyJsonCallback;
-import com.kakao.kakaogift.manager.BadgeViewManager;
-import com.kakao.kakaogift.manager.MyOrderNumsManager;
 import com.kakao.kakaogift.utils.ActionBarUtil;
 import com.kakao.kakaogift.utils.ToastUtils;
+import com.kakao.kakaogift.view.BadgeView;
 /**
  * 
  * @author vince
@@ -32,6 +31,7 @@ public class MyPingouActivity extends BaseActivity {
 
 	private ViewPager viewPager;
 	private PagerSlidingTabStrip pagerSlidingTabStrip;
+	
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,6 +44,7 @@ public class MyPingouActivity extends BaseActivity {
 		loadData();
 
 	}
+	
 
 	private void loadData() {
 		getLoading().show();
@@ -88,9 +89,7 @@ public class MyPingouActivity extends BaseActivity {
 			
 			viewPager.setAdapter(adapter);
 			pagerSlidingTabStrip.setViewPager(viewPager);
-			MyOrderNumsManager.getInstance().initBadgeViewManager(this, pagerSlidingTabStrip.getTabs().get(1));
-//			MyOrderNumsManager.getInstance().setShopCartGoodsNum(3);
-			ToastUtils.Toast(this, pagerSlidingTabStrip.getTabs().get(1).getText().toString());
+			
 			if(list.getActivityListForMaster().size()<=0 && list.getActivityListForMember().size()>0){
 				viewPager.setCurrentItem(1);
 			}

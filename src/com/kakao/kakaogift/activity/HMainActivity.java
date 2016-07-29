@@ -38,6 +38,7 @@ import com.kakao.kakaogift.utils.ActionBarUtil;
 import com.kakao.kakaogift.utils.AlertDialogUtils;
 import com.kakao.kakaogift.utils.CommonUtils;
 import com.kakao.kakaogift.utils.ToastUtils;
+import com.kakao.kakaogift.view.SlidingViewPager;
 import com.viewpagerindicator.BaseIconFragment;
 import com.viewpagerindicator.IconTabPageIndicator;
 import com.viewpagerindicator.IconTabPageIndicator.OnTabReselectedListener;
@@ -52,7 +53,7 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 		HMainView,OnGetMessageListener {
 
 	private MainBroadCastReceiver netReceiver;
-	private ViewPager mViewPager;
+	private SlidingViewPager mViewPager;
 	public static boolean isForeground = false;
 
 	private boolean isHome = true;
@@ -102,7 +103,8 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 	// }
 
 	private void initViewPager() {
-		mViewPager = (ViewPager) findViewById(R.id.id_viewpager);
+		mViewPager = (SlidingViewPager) findViewById(R.id.id_viewpager);
+		mViewPager.setNoScroll(true);
 		fragments = initFragmentList();
 		mIndicator = (IconTabPageIndicator) findViewById(R.id.indicator);
 

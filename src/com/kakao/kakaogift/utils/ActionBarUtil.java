@@ -22,6 +22,15 @@ public class ActionBarUtil {
 	public static void setActionBarStyle(Context context, String title) {
 		setActionBarStyle(context, title, 0, true, null, null, 0, false);
 	}
+	/**
+	 * 
+	 * @param context
+	 * @param img
+	 *            标题
+	 */
+	public static void setActionBarStyle(Context context, int img) {
+		setActionBarStyle(context, null, img, true, null, null, 0, false);
+	}
 
 	/**
 	 * 

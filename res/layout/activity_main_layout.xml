@@ -8,12 +8,12 @@
     android:id="@+id/main_linear">
 
 
-        <android.support.v4.view.ViewPager
+        <com.kakao.kakaogift.view.SlidingViewPager
             android:id="@+id/id_viewpager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" >
-        </android.support.v4.view.ViewPager>
+        </com.kakao.kakaogift.view.SlidingViewPager>
 
         <View
             android:id="@+id/divider"
