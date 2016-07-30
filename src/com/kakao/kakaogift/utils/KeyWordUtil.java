@@ -149,7 +149,7 @@ public class KeyWordUtil {
 		public static void setDifferentFontForDetailTitle(Context mContext, TextView textView, String font, int start, int end){
 			SpannableString styledText = new SpannableString(font);  
 			styledText.setSpan(new TextAppearanceSpan(mContext, R.style.tax06), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);  
-			 BackgroundColorSpan span = new BackgroundColorSpan(Color.RED);  
+			 BackgroundColorSpan span = new BackgroundColorSpan(mContext.getResources().getColor(R.color.red));  
 			styledText.setSpan(span, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 			textView.setText(styledText, TextView.BufferType.SPANNABLE);
 		}

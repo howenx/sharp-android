@@ -94,15 +94,17 @@
                             android:text="@string/portalfee_free"
                             android:textColor="@color/gray"
                             android:textSize="12sp" />
+                       
                     </RelativeLayout>
+                    
 
                     <TextView
                         android:id="@+id/publicity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="1px"
                         android:background="@color/white"
                         android:padding="8dp"
+                        android:layout_marginTop="0.2dp"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
 

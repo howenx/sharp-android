@@ -19,7 +19,7 @@
             android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/bg" />
+            android:background="@color/gray" />
 
         <com.viewpagerindicator.IconTabPageIndicator
             android:id="@+id/indicator"
