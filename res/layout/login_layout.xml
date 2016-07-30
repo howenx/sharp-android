@@ -40,7 +40,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="45dp"
             android:background="@color/white"
             android:paddingBottom="5dp"
             android:paddingTop="5dp" >
@@ -50,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_margin="20dp"
+                android:layout_margin="15dp"
                 android:gravity="center"
                 android:text="@string/zhanghao"
                 android:textColor="@color/fontcolor"
@@ -102,7 +102,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_margin="20dp"
+                android:layout_margin="15dp"
                 android:gravity="center"
                 android:text="@string/pwd"
                 android:textColor="@color/fontcolor"
