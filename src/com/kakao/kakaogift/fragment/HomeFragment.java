@@ -343,7 +343,7 @@ public class HomeFragment extends BaseIconFragment implements
 			if (home.gethMessage().getCode() == 200) {
 				pullNum = pullNum + 1;
 				afterLoadData(home, false);
-				ToastUtils.Toast(mActivity, "小美为您加载了 "
+				ToastUtils.Toast(mActivity, "加载了 "
 						+ home.getThemes().size() + " 条新数据");
 			} else {
 				ToastUtils.Toast(mActivity, home.gethMessage()

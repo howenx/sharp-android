@@ -22,7 +22,7 @@
     <color name="msg_title">#333333</color>
     <color name="msg_content">#999999</color>
     <color name="qianhui">#EEEEEE</color>
-    <color name="shixiao_bg">#e7e7e7</color>
+    <color name="shixiao_bg">#e7e7e7</color> 
     <color name="xian">#dcdcdc</color>
     <color name="province_line_border">#C7C7C7</color>
     <color name="green">#16bb5c</color>
