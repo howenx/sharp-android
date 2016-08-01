@@ -9,7 +9,7 @@ public class OrderSubmitVo {
 	public static final String PAY_TYPE_WX = "WEIXIN";
 	
 	private JSONArray settleDtos;
-	 private Long addressId;         //用户收获地址ID
+	 private Long addressId =Long.valueOf(0);         //用户收获地址ID
 	    private String couponId;        //优惠券ID
 	    private String clientIp ;        //客户端IP
 	    private Integer clientType;     //1.android,2.ios,3.web

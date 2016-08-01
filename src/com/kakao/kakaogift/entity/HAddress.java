@@ -12,7 +12,7 @@ import java.io.Serializable;
 public class HAddress implements Serializable{
 
     private Long id;
-    private Integer adress_id;
+    private Long adress_id;
     private Integer user_id;
     private String name;
     private String city;
@@ -39,7 +39,7 @@ public class HAddress implements Serializable{
     }
 
 
-    public HAddress(Long id, Integer adress_id, Integer user_id, String name,
+    public HAddress(Long id, Long adress_id, Integer user_id, String name,
 			String city, String phone, String adress, String other,
 			String idCard, boolean isDefault) {
 		super();
@@ -82,11 +82,11 @@ public class HAddress implements Serializable{
         this.id = id;
     }
 
-    public Integer getAdress_id() {
+    public Long getAdress_id() {
         return adress_id;
     }
 
-    public void setAdress_id(Integer adress_id) {
+    public void setAdress_id(Long adress_id) {
         this.adress_id = adress_id;
     }
 

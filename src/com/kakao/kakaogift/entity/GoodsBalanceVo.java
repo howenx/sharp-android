@@ -130,7 +130,7 @@ public class GoodsBalanceVo {
 	
 	
 	public class Address{
-		private Integer addId;
+		private Long addId;
 		private String tel;
 		private String name;
 		private String deliveryCity;
@@ -147,10 +147,10 @@ public class GoodsBalanceVo {
 		public void setIdCardNum(String idCardNum) {
 			this.idCardNum = idCardNum;
 		}
-		public Integer getAddId() {
+		public Long getAddId() {
 			return addId;
 		}
-		public void setAddId(Integer addId) {
+		public void setAddId(Long addId) {
 			this.addId = addId;
 		}
 		public String getTel() {

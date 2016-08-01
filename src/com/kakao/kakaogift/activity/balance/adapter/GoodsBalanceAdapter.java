@@ -10,8 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.kakao.kakaogift.R
-;
+import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.entity.ShoppingGoods;
 import com.kakao.kakaogift.utils.GlideLoaderTools;
 /**
@@ -64,7 +63,7 @@ public class GoodsBalanceAdapter extends BaseAdapter {
 		holder.pro_name.setText(sg.getGoodsName());
 		holder.pro_num.setText(context.getResources().getString(R.string.buyNum, sg.getGoodsNums()));
 		holder.pro_price.setText(context.getResources().getString(R.string.price, sg.getGoodsPrice().toString()));
-		GlideLoaderTools.loadCirlceImage(context,sg.getGoodsImg(), holder.pro_img);
+		GlideLoaderTools.loadSquareImage(context,sg.getGoodsImg(), holder.pro_img);
 		return arg1;
 	}
 	
