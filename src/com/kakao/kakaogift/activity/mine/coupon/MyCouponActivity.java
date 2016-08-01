@@ -208,7 +208,7 @@ public class MyCouponActivity extends BaseActivity implements OnClickListener, O
 	}
 	}
 	private void setTopSelected(TextView textView, TextView cusor) {
-		textView.setTextColor(getResources().getColor(R.color.theme));
+		textView.setTextColor(getResources().getColor(R.color.yellow));
 		cusor.setVisibility(View.VISIBLE);
 	}
 

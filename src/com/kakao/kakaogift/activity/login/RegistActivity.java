@@ -115,7 +115,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 			regist.setText("重置");
 		} else {
 			agree_us.setText(KeyWordUtil.matcherSearchTitle(getResources()
-					.getColor(R.color.theme),
+					.getColor(R.color.yellow),
 					getResources().getString(R.string.regist_agree_us),
 					getResources().getString(R.string.regist_agree_us_key)));
 			agree_us.setOnClickListener(this);
