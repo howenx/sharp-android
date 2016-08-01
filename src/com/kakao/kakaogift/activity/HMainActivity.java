@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -139,16 +138,16 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 	private void initActionBar(int position) {
 		/** 如果当前选项卡是home */
 		if (position == 0) {
-			findViewById(R.id.main_linear).setBackgroundColor(getResources().getColor(R.color.theme));
+			findViewById(R.id.statu_bg).setBackgroundColor(getResources().getColor(R.color.theme));
 			isHome = true;
 			ActionBarUtil.setMainActionBarStyle(this, getResources().getString(R.string.gift_app_name), message_icon, false, this);
 			/** 如果当前选项卡是shopping */
 		} else if (position == 1) {
-			findViewById(R.id.main_linear).setBackgroundColor(getResources().getColor(R.color.theme));
+			findViewById(R.id.statu_bg).setBackgroundColor(getResources().getColor(R.color.theme));
 			ActionBarUtil.setActionBarStyle(this, "购物车", 0, false, this);
 			/** 如果当前选项卡是my */
 		} else if (position == 2) {
-			findViewById(R.id.main_linear).setBackgroundColor(getResources().getColor(R.color.yellow));
+			findViewById(R.id.statu_bg).setBackgroundColor(getResources().getColor(R.color.yellow));
 			isHome = false;
 			ActionBarUtil.setActionBarStyle(this, "", R.drawable.hmm_icon_setting, false, this, R.color.yellow);
 		}

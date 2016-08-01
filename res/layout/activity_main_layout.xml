@@ -4,8 +4,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical" 
     android:fitsSystemWindows="true"
-    android:background="@color/background"
     android:id="@+id/main_linear">
+    <View 
+        android:id="@+id/statu_bg"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/background"/>
 
 
         <com.kakao.kakaogift.view.SlidingViewPager
@@ -19,7 +23,7 @@
             android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/gray" />
+            android:background="@color/xian_color" />
 
         <com.viewpagerindicator.IconTabPageIndicator
             android:id="@+id/indicator"

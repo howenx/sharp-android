@@ -22,8 +22,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.kakao.kakaogift.R
-;
+import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.base.BaseActivity;
 import com.kakao.kakaogift.activity.goods.detail.GoodsDetailActivity;
 import com.kakao.kakaogift.dao.ShoppingGoodsDao;
@@ -39,7 +38,6 @@ import com.kakao.kakaogift.manager.BadgeViewManager;
 import com.kakao.kakaogift.manager.DataBaseManager;
 import com.kakao.kakaogift.manager.ShoppingCarMenager;
 import com.kakao.kakaogift.utils.AlertDialogUtils;
-import com.kakao.kakaogift.utils.KeyWordUtil;
 import com.kakao.kakaogift.utils.ToastUtils;
 import com.kakao.kakaogift.view.CustomListView;
 

@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Result implements Serializable{
 
 	private int code;
-	private int result_id;
+	private long result_id;
 	private String tag;
 	private String message;
 	private boolean isSuccess;
@@ -17,10 +17,10 @@ public class Result implements Serializable{
 	public void setCode(int code) {
 		this.code = code;
 	}
-	public int getResult_id() {
+	public long getResult_id() {
 		return result_id;
 	}
-	public void setResult_id(int result_id) {
+	public void setResult_id(long result_id) {
 		this.result_id = result_id;
 	}
 	public String getTag() {

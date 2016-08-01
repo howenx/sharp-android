@@ -18,6 +18,7 @@
     <color name="gray">#999999</color>
     <color name="huise">#969696</color>
     <color name="red">#f73939</color>
+    <color name="attention_color">#424242</color>
     <color name="fontcolor">#646566</color>
     <color name="msg_title">#333333</color>
     <color name="msg_content">#999999</color>
@@ -30,7 +31,7 @@
     <color name="unClick">#CCCCCC</color>
     <color name="transparent">#00000000</color>
     
-    <color name="notice">#ffeedd</color>
+    <color name="notice">#dddddd</color>
 	<color name="activity_bg">#00000000</color>
 	
 	<color name="theme_shadow">#77000000</color>
@@ -40,4 +41,5 @@
     
     <color name="btn_selected">#DCDCDC</color>
     <color name="content_color">#adadad</color>
+    <color name="xian_color">#26000000</color>
 </resources>

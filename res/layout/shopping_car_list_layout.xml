@@ -3,13 +3,13 @@
     xmlns:ptr="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@color/bg"
     android:fitsSystemWindows="true" >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white" >
+        android:background="@color/bg" >
 
         <TextView
             android:id="@+id/attention"
@@ -20,9 +20,11 @@
             android:paddingLeft="15dp"
             android:paddingTop="3dp"
             android:text="@null"
-            android:textColor="@color/theme"
+            android:textColor="@color/attention_color"
             android:textSize="12sp"
-            android:visibility="invisible" />
+            android:visibility="invisible" 
+            android:drawableLeft="@drawable/hmm_attention"
+            android:drawablePadding="5dp"/>
 
         <include
             android:id="@+id/bottom"
@@ -39,12 +41,11 @@
             android:layout_above="@+id/bottom"
             android:layout_below="@id/attention"
             android:cacheColorHint="#00000000"
-            android:divider="@color/qianhui"
-            android:dividerHeight="0.1dp"
-            android:fadingEdge="none"
+            android:divider="@color/bg"
+            android:dividerHeight="10dp"
             android:fastScrollEnabled="false"
-            android:footerDividersEnabled="false"
-            android:headerDividersEnabled="false"
+            android:footerDividersEnabled="true"
+            android:headerDividersEnabled="true"
             android:scrollbars="none"
             android:smoothScrollbar="true"
             ptr:ptrDrawable="@drawable/refreshing"

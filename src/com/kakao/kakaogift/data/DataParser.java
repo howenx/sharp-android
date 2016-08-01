@@ -149,7 +149,7 @@ public class DataParser {
 				JSONObject obj = array.getJSONObject(i);
 				HAddress adress = new HAddress();
 				if (obj.has("addId"))
-					adress.setAdress_id(obj.getInt("addId"));
+					adress.setAdress_id(obj.getLong("addId"));
 				// if(obj.has("userId"))
 				// adress.setUser_id(obj.getInt("userId"));
 				if (obj.has("tel"))
