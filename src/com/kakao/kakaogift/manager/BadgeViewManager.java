@@ -34,8 +34,8 @@ public class BadgeViewManager {
 	 */
 	public void initBadgeViewManager(Context mContext,View target) {
 		this.view = new BadgeView(mContext, target);
-		view.setTextColor(mContext.getResources().getColor(R.color.yellow));
-		view.setBackgroundResource(R.drawable.bg_badgeview2);
+		view.setTextColor(mContext.getResources().getColor(R.color.white));
+		view.setBackgroundResource(R.drawable.bg_badgeview);
 		view.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
 		view.setTextSize(10);
 		view.setText("0");

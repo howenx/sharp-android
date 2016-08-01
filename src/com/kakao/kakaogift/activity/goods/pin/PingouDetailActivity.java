@@ -83,7 +83,7 @@ public class PingouDetailActivity extends BaseActivity implements
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		ActionBarUtil.setActionBarStyle(this, "商品详情",R.drawable.hmm_icon_share, true, this, this);
+		ActionBarUtil.setActionBarStyle(this, "商品详情",R.drawable.hmm_icon_share, true, new BackListener(), this);
 		setContentView(R.layout.pingou_detail_layout);
 		initView();
 		initFragmentPager();
@@ -412,6 +412,16 @@ public class PingouDetailActivity extends BaseActivity implements
 		}
 		return super.onKeyDown(keyCode, event);
 	}
+	
+	private class BackListener implements OnClickListener{
+
+		@Override
+		public void onClick(View v) {
+			exitClick();
+			
+		}
+		
+	}
 
 	/**
 	 * 退出函数
@@ -452,9 +462,6 @@ public class PingouDetailActivity extends BaseActivity implements
 			break;
 		case R.id.setting:
 			showShareboard();
-			break;
-		case R.id.back:
-			exitClick();
 			break;
 		default:
 			break;

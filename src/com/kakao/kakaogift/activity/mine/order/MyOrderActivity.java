@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.kakao.kakaogift.R
 ;
 import com.kakao.kakaogift.activity.base.BaseActivity;
@@ -51,7 +52,7 @@ public class MyOrderActivity extends BaseActivity implements OnClickListener,
 	private TextView t2_nums;
 	private TextView t3_nums;
 	private TextView t4_nums;
-
+	
 	@Override
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
@@ -65,6 +66,7 @@ public class MyOrderActivity extends BaseActivity implements OnClickListener,
 		initFragment();
 		OrderNumsMenager.getInstance().initOrderMenager(this, t2_nums, t3_nums,
 				t4_nums);
+		
 	}
 
 	private void initTopListner() {

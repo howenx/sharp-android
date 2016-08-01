@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:text="@string/goods_over_notice"
         android:textSize="12sp"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:padding="5dp"
         android:background="@color/yellow"/>
 

@@ -9,13 +9,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 
-import com.kakao.kakaogift.DimenTool;
 import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.base.BaseActivity;
 import com.kakao.kakaogift.activity.login.LoginActivity;
@@ -77,7 +75,6 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 		initViewPager();
 		registerReceivers();
 		doCheckVersionTask();
-		DimenTool.gen();
 	}
 
 	// @SuppressLint("InflateParams")

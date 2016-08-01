@@ -241,14 +241,6 @@
                         android:textColor="@color/red"
                         android:textSize="14sp" />
 
-                    <TextView
-                        android:id="@+id/pro_shipfee"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBottom="@+id/pro_img"
-                        android:layout_alignParentRight="true"
-                        android:textColor="@color/fontcolor"
-                        android:textSize="12sp" />
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>

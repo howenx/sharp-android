@@ -231,11 +231,11 @@
             android:id="@+id/more_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/notice"
+            android:background="@color/yellow"
             android:gravity="center"
             android:padding="8dp"
             android:text="@string/goods_over_notice"
-            android:textColor="@color/theme"
+            android:textColor="@color/black"
             android:textSize="12sp"
             android:visibility="gone" />
 

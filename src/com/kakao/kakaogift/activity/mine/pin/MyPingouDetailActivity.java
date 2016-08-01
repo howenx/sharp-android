@@ -36,7 +36,7 @@ public class MyPingouDetailActivity extends BaseActivity {
 
 	private TextView order_state, order_price, order_addr, order_person,
 			pro_title, pro_guige;
-	private TextView order_no, order_time, btn_left, btn_right, pro_shipfee;
+	private TextView order_no, order_time, btn_left, btn_right;
 	private ImageView order_img, pro_img;
 
 	@Override
@@ -149,7 +149,6 @@ public class MyPingouDetailActivity extends BaseActivity {
 			order_person.setText(o.getAdress().getName() + "    "
 					+ o.getAdress().getPhone());
 			order_time.setText(o.getOrderCreateAt());
-			pro_shipfee.setText("配送费：" + o.getShipFee());
 
 			GlideLoaderTools.loadSquareImage(getActivity(), o.getList().get(0)
 					.getInvImg(), pro_img);
@@ -171,7 +170,6 @@ public class MyPingouDetailActivity extends BaseActivity {
 		order_time = (TextView) findViewById(R.id.order_time);
 		btn_left = (TextView) findViewById(R.id.btn_left);
 		btn_right = (TextView) findViewById(R.id.btn_right);
-		pro_shipfee = (TextView) findViewById(R.id.pro_shipfee);
 		order_img = (ImageView) findViewById(R.id.order_img);
 		pro_img = (ImageView) findViewById(R.id.pro_img);
 	}

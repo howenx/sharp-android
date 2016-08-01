@@ -41,6 +41,7 @@ import com.kakao.kakaogift.http.VolleyHttp.VolleyJsonCallback;
 import com.kakao.kakaogift.manager.DataBaseManager;
 import com.kakao.kakaogift.manager.ThreadPoolManager;
 import com.kakao.kakaogift.utils.GlideLoaderTools;
+import com.kakao.kakaogift.utils.StatusBarCompat;
 import com.kakao.kakaogift.utils.ToastUtils;
 import com.kakao.kakaogift.view.LoadingDialog;
 
@@ -77,6 +78,7 @@ public class BaseActivity extends ParallaxActivityBase {
 		super.onCreate(savedInstanceState);
 		// 沉浸式状态栏的设置
 		getSupportActionBar().setElevation(0);
+		StatusBarCompat.compat(this,StatusBarCompat.COLOR_DEFAULT);
 		getClipboard();
 	}
 	

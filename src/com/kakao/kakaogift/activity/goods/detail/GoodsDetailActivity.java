@@ -80,8 +80,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 	private static final String Tag = "GoodsDetailActivity";
 
-	private TextView itemTitle, itemSrcPrice, itemPrice, area,restrictAmount;// 标题、
-																// 原价、现价、发货区,税率
+	private TextView itemTitle, itemSrcPrice, itemPrice, area, restrictAmount;// 标题、
+	// 原价、现价、发货区,税率
 
 	// private TextView num_restrictAmount; // 限购数量
 	private ImageView img_hide, collectionImg;
@@ -112,7 +112,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		ActionBarUtil.setActionBarStyle(this, "商品详情",
-				R.drawable.hmm_icon_share, true, this, this);
+				R.drawable.hmm_icon_share, true, new BackListener(), this);
 		setContentView(R.layout.goods_detail_layout);
 		//
 		findView();
@@ -200,6 +200,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 
 	@Override
 	public void onClick(View arg0) {
+		if(detail == null)
+			return;
 		switch (arg0.getId()) {
 		case R.id.setting:
 			showShareboard();
@@ -209,9 +211,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 			break;
 		case R.id.btn_comment:
 			turnToGoodsCommentActivity();
-			break;
-		case R.id.back:
-			exitClick();
 			break;
 		default:
 			break;
@@ -318,6 +317,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		}
 		if (detail == null)
 			return;
+		getLoading().show();
 		ShoppingCar car = new ShoppingCar();
 		List<CustomsVo> list = new ArrayList<CustomsVo>();
 		CustomsVo customs = new CustomsVo();
@@ -355,6 +355,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		list.add(customs);
 		car.setList(list);
 		// 跳转到立即支付页面
+		getLoading().dismiss();
 		Intent intent = new Intent(this, GoodsBalanceActivity.class);
 		intent.putExtra("car", car); // 购物车数据格式
 		intent.putExtra("orderType", "item"); // 订单类型 item 普通订单 pin 拼购订单
@@ -615,9 +616,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 			return;
 		// 初始化轮播图
 		initSliderImage(s);
-		String zhe = null ;
-		if (s.getItemDiscount().floatValue() > 0 && 
-				s.getItemDiscount().floatValue() <10) {
+		String zhe = null;
+		if (s.getItemDiscount().floatValue() > 0
+				&& s.getItemDiscount().floatValue() < 10) {
 			// 标题折扣的获取
 			zhe = " " + s.getItemDiscount() + "折 ";
 			// 存在折扣 显示原价
@@ -626,22 +627,22 @@ public class GoodsDetailActivity extends BaseActivity implements
 			itemSrcPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 		}
 		// 显示商品标题
-		if(zhe !=null){
-			KeyWordUtil.setDifferentFontForDetailTitle(this, itemTitle,
-					zhe + "  "+s.getInvTitle(), 0, zhe.length());
-		}else{
+		if (zhe != null) {
+			KeyWordUtil.setDifferentFontForDetailTitle(this, itemTitle, zhe
+					+ "  " + s.getInvTitle(), 0, zhe.length());
+		} else {
 			itemTitle.setText(s.getInvTitle());
 		}
 		itemPrice.setText(getResources().getString(R.string.price,
 				s.getItemPrice()));
-		 if (s.getRestrictAmount() != null && s.getRestrictAmount() > 0) {
-		 //存在限购数量
-			 restrictAmount.setVisibility(View.VISIBLE);
-			 restrictAmount.setText(getResources().getString(
-		 R.string.restrictAmount, s.getRestrictAmount()));
-		 } else {
-			 restrictAmount.setVisibility(View.GONE);
-		 }
+		if (s.getRestrictAmount() != null && s.getRestrictAmount() > 0) {
+			// 存在限购数量
+			restrictAmount.setVisibility(View.VISIBLE);
+			restrictAmount.setText(getResources().getString(
+					R.string.restrictAmount, s.getRestrictAmount()));
+		} else {
+			restrictAmount.setVisibility(View.GONE);
+		}
 		// 邮寄方式
 		area.setText(s.getInvAreaNm());
 		// 初始化收藏按钮
@@ -732,6 +733,16 @@ public class GoodsDetailActivity extends BaseActivity implements
 			exitClick();
 		}
 		return super.onKeyDown(keyCode, event);
+	}
+
+	private class BackListener implements OnClickListener {
+
+		@Override
+		public void onClick(View v) {
+			exitClick();
+
+		}
+
 	}
 
 	/**

@@ -115,7 +115,7 @@
                     android:drawableRight="@drawable/hmm_mine_pagedown"
                     android:gravity="right|center_vertical"
                     android:text="@null"
-                    android:textColor="@color/theme"
+                    android:textColor="@color/red"
                     android:textSize="12sp" />
             </LinearLayout>
 
