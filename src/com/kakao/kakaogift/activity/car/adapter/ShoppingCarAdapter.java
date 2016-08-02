@@ -38,6 +38,7 @@ import com.kakao.kakaogift.manager.ShoppingCarMenager;
 import com.kakao.kakaogift.utils.CommonUtils;
 import com.kakao.kakaogift.utils.GlideLoaderTools;
 import com.kakao.kakaogift.utils.HttpUtils;
+import com.kakao.kakaogift.utils.KeyWordUtil;
 import com.kakao.kakaogift.utils.ToastUtils;
 
 /**
@@ -157,8 +158,9 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		}
 		GlideLoaderTools.loadSquareImage(activity,goods.getGoodsImg(), holder.img);
 		holder.name.setText(goods.getGoodsName());
-		holder.size.setText(goods.getItemColor() + "  " + goods.getItemSize());
-		holder.price.setText("¥" + CommonUtils.doubleTrans(goods.getGoodsPrice()));
+		holder.size.setText("规格：" + goods.getItemColor() + "  " + goods.getItemSize());
+//		holder.price.setText("¥" + CommonUtils.doubleTrans(goods.getGoodsPrice()));
+		KeyWordUtil.setDifferentFontColor12(activity, holder.price, "¥ " + CommonUtils.doubleTrans(goods.getGoodsPrice()));
 		holder.nums.setText(goods.getGoodsNums() + "");
 		holder.jian.setOnClickListener(new OnClickListener() {
 			@Override
