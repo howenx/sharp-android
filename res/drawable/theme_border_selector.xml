@@ -4,18 +4,18 @@
     <item android:state_pressed="true"><shape>
             <corners android:radius="2dp" />
 
-            <stroke android:width="0.2dp" android:color="@color/theme" />
+            <stroke android:width="0.2dp" android:color="@color/yellow" />
 
-            <solid android:color="@color/theme" />
+            <solid android:color="@color/yellow" />
         </shape></item>
 <item >
     
     <shape>
         <corners android:radius="2dp" />
 
-        <solid android:color="@color/white" />
+        <solid android:color="@color/yellow" />
 
-        <stroke android:width="0.2dp" android:color="@color/theme" />
+        <stroke android:width="0.2dp" android:color="@color/yellow" />
     </shape>
 
 </item>

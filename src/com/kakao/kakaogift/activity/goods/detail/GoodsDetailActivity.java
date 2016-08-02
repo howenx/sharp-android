@@ -387,7 +387,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	 * 返回顶部
 	 */
 	public void scrollToTop(View view) {
-		mScrollLayout.scrollToTop();
+		mScrollLayout.smoothScrollToTop();
 	}
 
 	/**
@@ -546,6 +546,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 			more_view.setOnClickListener(this);
 			findViewById(R.id.btn_pay).setEnabled(false);
 			findViewById(R.id.btn_add_shopcart).setEnabled(false);
+			findViewById(R.id.sold_out).setVisibility(View.VISIBLE);
 			showPushWindow();
 		}
 		// 初始化主显示商品信息
@@ -595,7 +596,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 				detail.getStock().get(oldPostion).setOrMasterInv(false);
 				detail.getStock().get(position).setOrMasterInv(true);
 				initStocks(detail.getStock().get(position));
-				mScrollLayout.scrollToTop();
+				mScrollLayout.smoothScrollToTop();
 				if (more_view.getVisibility() == View.VISIBLE) {
 					more_view.setVisibility(View.GONE);
 					more_view.setOnClickListener(null);

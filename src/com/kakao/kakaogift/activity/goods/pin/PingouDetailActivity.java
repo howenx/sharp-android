@@ -444,7 +444,7 @@ public class PingouDetailActivity extends BaseActivity implements
 			startActivity(new Intent(this, PingouLiuChengActivity.class));
 			break;
 		case R.id.back_top:
-			mScrollLayout.scrollToTop();
+			mScrollLayout.smoothScrollToTop();
 			break;
 		case R.id.btn_buy_01:
 		case R.id.btn_buy_02:

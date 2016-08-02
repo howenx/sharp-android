@@ -48,10 +48,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/theme"
+                android:background="@color/yellow"
                 android:padding="10dp"
                 android:text="请选择拼购类型"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="16sp" />
 
             <ListView

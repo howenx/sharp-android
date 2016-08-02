@@ -10,9 +10,9 @@
         android:layout_height="wrap_content"
         android:text="@string/goods_over_notice"
         android:textSize="12sp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:padding="5dp"
-        android:background="@color/yellow"/>
+        android:background="@color/notice_good"/>
 
     <com.kakao.kakaogift.view.HorizontalListView
         android:id="@+id/more_grid"

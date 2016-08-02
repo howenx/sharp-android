@@ -8,10 +8,10 @@
             <solid android:color="@color/btn_pin_normal" />
         </shape></item>
     <item android:state_pressed="false" android:state_enabled="false"><shape>
-            <solid android:color="@color/huise" />
+            <solid android:color="@color/btn_pin_normal" />
         </shape></item>
     <item android:state_pressed="true" android:state_enabled="false"><shape>
-            <solid android:color="@color/huise" />
+            <solid android:color="@color/btn_pin_pressed" />
         </shape></item>
 
 </selector>

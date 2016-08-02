@@ -72,7 +72,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 	private TextView order_price;
 	private TextView cancle;
 	private TextView go_pay;
-	private TextView idcard;
+//	private TextView idcard;
 	private TextView tax;
 	private TimerTextView attention;
 	private TextView item_order_id;
@@ -259,7 +259,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		order_date.setText("下单时间：" + order.getOrderCreateAt());
 		name.setText("收货人：" + addressInfo.getName());
 		phone.setText("手机号码：" + addressInfo.getPhone().substring(0, 3) + "****" + addressInfo.getPhone().substring(7, addressInfo.getPhone().length()));
-		idcard.setText("身份证：" + addressInfo.getIdCard().substring(0, 5) + "********" + addressInfo.getIdCard().substring(14, addressInfo.getIdCard().length()));
+//		idcard.setText("身份证：" + addressInfo.getIdCard().substring(0, 5) + "********" + addressInfo.getIdCard().substring(14, addressInfo.getIdCard().length()));
 		address.setText("收货地址：" + addressInfo.getCity() + addressInfo.getAdress());
 		nums.setText("订单总件数：" + list.size());
 		total_price.setText("商品总费用：" + CommonUtils.doubleTrans(order.getTotalFee()));
@@ -286,7 +286,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		order_price = (TextView) findViewById(R.id.order_price);
 		cancle = (TextView) findViewById(R.id.send);
 		go_pay = (TextView) findViewById(R.id.go_pay);
-		idcard = (TextView) findViewById(R.id.idcard);
+//		idcard = (TextView) findViewById(R.id.idcard);
 		tax = (TextView) findViewById(R.id.tax);
 		attention = (TimerTextView) findViewById(R.id.attention);
 		attention.setTimeEndListner(this);

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 
 import com.astuetz.PagerSlidingTabStrip;
@@ -22,16 +23,16 @@ import com.kakao.kakaogift.http.VolleyHttp.VolleyJsonCallback;
 import com.kakao.kakaogift.utils.ActionBarUtil;
 import com.kakao.kakaogift.utils.ToastUtils;
 import com.kakao.kakaogift.view.BadgeView;
+
 /**
  * 
  * @author vince
- *
+ * 
  */
 public class MyPingouActivity extends BaseActivity {
 
 	private ViewPager viewPager;
 	private PagerSlidingTabStrip pagerSlidingTabStrip;
-	
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,16 +45,17 @@ public class MyPingouActivity extends BaseActivity {
 		loadData();
 
 	}
-	
 
 	private void loadData() {
 		getLoading().show();
-		VolleyHttp.doGetRequestTask( getHeaders(), UrlUtil.GET_MY_PINTUAN,
+		VolleyHttp.doGetRequestTask(getHeaders(), UrlUtil.GET_MY_PINTUAN,
 				new VolleyJsonCallback() {
 
 					@Override
 					public void onSuccess(String result) {
-						PinList list = new Gson().fromJson(result, PinList.class);
+						Log.e("pin:pintuan", result);
+						PinList list = new Gson().fromJson(result,
+								PinList.class);
 						try {
 							initData(list);
 						} catch (Exception e) {
@@ -64,6 +66,7 @@ public class MyPingouActivity extends BaseActivity {
 
 					@Override
 					public void onError() {
+						Log.e("pin:pintuan", "1111111111111");
 						ToastUtils.Toast(getActivity(), R.string.error);
 						getLoading().dismiss();
 					}
@@ -86,10 +89,11 @@ public class MyPingouActivity extends BaseActivity {
 
 			PinPagerAdapter adapter = new PinPagerAdapter(
 					this.getSupportFragmentManager(), fragments, titles);
-			
+
 			viewPager.setAdapter(adapter);
 			pagerSlidingTabStrip.setViewPager(viewPager);
-			if(list.getActivityListForMaster().size()<=0 && list.getActivityListForMember().size()>0){
+			if (list.getActivityListForMaster().size() <= 0
+					&& list.getActivityListForMember().size() > 0) {
 				viewPager.setCurrentItem(1);
 			}
 		} else {

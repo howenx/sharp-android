@@ -12,7 +12,7 @@
 	    
     <ImageView 
         android:id="@+id/check"
-        android:padding="2dp"
+        android:padding="5dp"
         android:scaleType="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
         android:layout_gravity="center_vertical"
         android:text="@null"
         android:textSize="14sp"
-        android:textColor="@color/fontcolor"/>
+        android:textColor="@color/black"/>
     <TextView 
         android:id="@+id/attention"
         android:layout_marginRight="15dp"
@@ -40,17 +40,13 @@
     </LinearLayout>
     
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.1dp"
-        android:background="@color/qianhui" />
 
     <com.kakao.kakaogift.view.CustomListView
         android:id="@+id/my_listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:divider="@color/qianhui"
-        android:dividerHeight="0.1dp"/>
+        android:divider="@null"
+        android:dividerHeight="0dp"/>
 
 
 </LinearLayout>

@@ -76,7 +76,7 @@
                             android:id="@+id/pin_price"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@color/theme"
+                            android:background="@color/yellow"
                             android:gravity="center"
                             android:padding="10dp"
                             android:textColor="@color/white"
@@ -169,13 +169,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/actionbar_size"
                 android:background="@color/white"
-                android:textColor="@color/indicator_font_color_selector"
                 app:pstsDividerColor="@android:color/transparent"
                 app:pstsIndicatorColor="@color/yellow"
                 app:pstsIndicatorHeight="2dp"
                 app:pstsShouldExpand="true"
                 app:pstsTabBackground="@android:color/transparent"
-                app:pstsUnderlineHeight="1px" />
+                app:pstsUnderlineHeight="1px"
+                app:zmsSelectedTabTextColor="@color/yellow"
+                app:zmsSelectedTabTextSize="14sp"
+                app:zmsTabTextColor="@color/gray"
+                app:zmsTabTextSize="14sp" />
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/view_pager"
@@ -199,11 +202,11 @@
         android:id="@+id/more_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/notice"
+        android:background="@color/notice_good"
         android:gravity="center"
         android:padding="8dp"
         android:text="@string/pingou_over_notice"
-        android:textColor="@color/theme"
+        android:textColor="@color/white"
         android:textSize="12sp"
         android:visibility="gone" />
 
@@ -218,8 +221,8 @@
             android:id="@+id/btn_attention"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@color/btn_pin_normal"
-            android:layout_weight="1" >
+            android:layout_weight="1"
+            android:background="@color/btn_pin_normal" >
 
             <ImageView
                 android:id="@+id/attention"
@@ -231,10 +234,11 @@
                 android:src="@drawable/hmm_icon_collect" />
         </FrameLayout>
 
-        <View 
+        <View
             android:layout_width="1px"
             android:layout_height="match_parent"
-            android:background="@color/gray"/>
+            android:background="@color/gray" />
+
         <TextView
             android:id="@+id/btn_pin_02"
             android:layout_width="0dp"

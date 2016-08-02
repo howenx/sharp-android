@@ -38,6 +38,19 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@drawable/bg_gray_boarder" />
+
+                        <TextView
+                            android:id="@+id/sold_out"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/bg_oval_shadow"
+                            android:contentDescription="@null"
+                            android:gravity="center"
+                            android:text="已抢光"
+                            android:visibility="gone"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"/>
                     </com.kakao.kakaogift.view.SquareLayout>
 
                     <TextView
@@ -94,17 +107,15 @@
                             android:text="@string/portalfee_free"
                             android:textColor="@color/gray"
                             android:textSize="12sp" />
-                       
                     </RelativeLayout>
-                    
 
                     <TextView
                         android:id="@+id/publicity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="0.2dp"
                         android:background="@color/white"
                         android:padding="8dp"
-                        android:layout_marginTop="0.2dp"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
 
@@ -223,7 +234,7 @@
                 android:clickable="true"
                 android:contentDescription="@null"
                 android:onClick="scrollToTop"
-                android:src="@drawable/backtop"
+                android:src="@drawable/zhiding"
                 android:visibility="gone" />
         </RelativeLayout>
 
@@ -231,11 +242,11 @@
             android:id="@+id/more_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/yellow"
+            android:background="@color/notice_good"
             android:gravity="center"
             android:padding="8dp"
             android:text="@string/goods_over_notice"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="12sp"
             android:visibility="gone" />
 
@@ -243,9 +254,9 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/navigationbar_size"
             android:layout_gravity="bottom"
-            android:weightSum="6"
             android:background="@drawable/bg_gray_boarder"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:weightSum="6" >
 
             <FrameLayout
                 android:id="@+id/btn_shopcart"
@@ -304,7 +315,7 @@
                 android:gravity="center"
                 android:onClick="addToShoppingCart"
                 android:text="加入购物车"
-                android:textColor="@color/black"
+                android:textColor="@color/text_enable_selector"
                 android:textSize="14sp" />
 
             <TextView
@@ -317,7 +328,7 @@
                 android:gravity="center"
                 android:onClick="clickPay"
                 android:text="立即购买"
-                android:textColor="@color/black"
+                android:textColor="@color/text_enable_selector"
                 android:textSize="14sp" />
         </LinearLayout>
     </LinearLayout>

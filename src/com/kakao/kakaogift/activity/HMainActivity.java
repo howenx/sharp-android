@@ -36,6 +36,7 @@ import com.kakao.kakaogift.override.ViewPageChangeListener;
 import com.kakao.kakaogift.utils.ActionBarUtil;
 import com.kakao.kakaogift.utils.AlertDialogUtils;
 import com.kakao.kakaogift.utils.CommonUtils;
+import com.kakao.kakaogift.utils.StatusBarCompat;
 import com.kakao.kakaogift.utils.ToastUtils;
 import com.kakao.kakaogift.view.SlidingViewPager;
 import com.viewpagerindicator.BaseIconFragment;
@@ -67,7 +68,7 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_layout);
-
+		
 		ActionBarUtil.setMainActionBarStyle(this, getResources().getString(R.string.gift_app_name), message_icon, false, this);
 		MessageMenager.getInstance().setOnGetMessageListener(this);
 		// 关闭滑动退出
@@ -136,16 +137,16 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 	private void initActionBar(int position) {
 		/** 如果当前选项卡是home */
 		if (position == 0) {
-			findViewById(R.id.main_linear).setBackgroundColor(getResources().getColor(R.color.theme));
+			findViewById(R.id.statu_bg).setBackgroundColor(getResources().getColor(R.color.theme));
 			isHome = true;
 			ActionBarUtil.setMainActionBarStyle(this, getResources().getString(R.string.gift_app_name), message_icon, false, this);
 			/** 如果当前选项卡是shopping */
 		} else if (position == 1) {
-			findViewById(R.id.main_linear).setBackgroundColor(getResources().getColor(R.color.theme));
+			findViewById(R.id.statu_bg).setBackgroundColor(getResources().getColor(R.color.theme));
 			ActionBarUtil.setActionBarStyle(this, "购物车", 0, false, this);
 			/** 如果当前选项卡是my */
 		} else if (position == 2) {
-			findViewById(R.id.main_linear).setBackgroundColor(getResources().getColor(R.color.yellow));
+			findViewById(R.id.statu_bg).setBackgroundColor(getResources().getColor(R.color.yellow));
 			isHome = false;
 			ActionBarUtil.setActionBarStyle(this, "", R.drawable.hmm_icon_setting, false, this, R.color.yellow);
 		}

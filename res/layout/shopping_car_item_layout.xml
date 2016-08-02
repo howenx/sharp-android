@@ -3,8 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/list_not_onlick"
-    android:paddingTop="5dp"
     android:id="@+id/shopping_main">
+    <View 
+        android:layout_marginLeft="35dp"
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="@color/xian_color"/>
     <ImageView 
         android:id="@+id/check"
         android:padding="10dp"
@@ -13,29 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/check_box"/>
-    <ImageView 
-        android:id="@+id/img"
-        android:layout_toRightOf="@id/check"
-        android:padding="0.1dp"
-        android:layout_marginTop="5dp"
-        android:layout_height="65dp"
-        android:layout_width="65dp"
-        android:src="@null"
-        android:scaleType="fitXY"
-        android:contentDescription="@null"
-        android:background="@drawable/bg_gray_boarder"/>
     
-         <TextView 
-            android:id="@+id/price"
-            android:layout_marginTop="2dp"
-            android:layout_below="@id/img"
-            android:layout_toRightOf="@id/check"
-            android:layout_width="65dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@null"
-            android:textSize="16sp"
-            android:textColor="@color/red"/>
     
         <ImageView 
             android:id="@+id/shixiao"
@@ -49,7 +31,7 @@
     <RelativeLayout 
         android:id="@+id/name_re"
         android:layout_toRightOf="@id/img"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_height="wrap_content"
@@ -59,6 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="2"
+            android:lines="2"
             android:ellipsize="end"
             android:text="@null"
             android:textColor="@color/fontcolor"
@@ -74,16 +57,33 @@
             android:textColor="@color/huise"/>
        
     </RelativeLayout>
+    <RelativeLayout 
+        android:id="@+id/bottom_linear"
+            android:layout_marginTop="5dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+            android:layout_below="@id/name_re"
+            android:layout_toRightOf="@id/img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+    <TextView 
+            android:id="@+id/price"
+            android:layout_marginTop="2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="133"
+            android:textSize="16sp"
+            android:textColor="@color/red"/>
     <LinearLayout 
        		android:id="@+id/linear"
-            android:layout_below="@id/name_re"
-            android:layout_toRightOf="@id/price"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
             android:padding="0.1dp"
             android:layout_height="28dp"
             android:layout_width="100dp"
             android:orientation="horizontal"
+            android:layout_alignParentRight="true"
             android:background="@drawable/huise_radio_two_border">
   		<TextView
                 android:id="@+id/jian"
@@ -98,7 +98,7 @@
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="@null"
+                android:text="2"
                 android:textColor="@color/fontcolor"
                 android:textSize="14sp" 
                 android:background="@drawable/left_right_hui_border"/>
@@ -112,9 +112,22 @@
                 android:textColor="@color/fontcolor"
                 android:textSize="20sp" />
         </LinearLayout>
+        </RelativeLayout>
         <View 
-            android:layout_below="@id/linear"
+            android:layout_below="@id/bottom_linear"
             android:layout_width="wrap_content"
             android:layout_height="10dp"/>
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_alignTop="@+id/name_re"
+            android:layout_toRightOf="@+id/check"
+            android:background="@drawable/bg_gray_boarder"
+            android:contentDescription="@null"
+            android:padding="0.1dp"
+            android:scaleType="fitXY"
+            android:src="@null" />
 
 </RelativeLayout>

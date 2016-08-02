@@ -13,7 +13,7 @@ import android.view.ViewGroup;
  */
 public class StatusBarCompat {
 	private static final int INVALID_VAL = -1;
-	public static final int COLOR_DEFAULT = Color.parseColor("#000000");
+	public static final int COLOR_DEFAULT = Color.parseColor("#23000000");
 
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
 	public static void compat(Activity activity, int statusColor) {

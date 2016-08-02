@@ -142,8 +142,8 @@ public class PingouDetailSelActivity extends BaseActivity {
 						goToGoodsBalance(stock);
 					}
 				});
-				holder.pin.setTextColor(getResources().getColor(R.color.theme));
-				holder.price.setTextColor(getResources().getColor(R.color.theme));
+				holder.pin.setTextColor(getResources().getColor(R.color.yellow));
+				holder.price.setTextColor(getResources().getColor(R.color.yellow));
 				holder.contentView.setBackgroundResource(R.drawable.bg_pingou_selected);
 			} else {
 				holder.manjianView.setVisibility(View.GONE);

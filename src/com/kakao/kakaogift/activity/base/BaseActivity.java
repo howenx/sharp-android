@@ -23,8 +23,7 @@ import android.widget.TextView;
 
 import com.github.anzewei.parallaxbacklayout.ParallaxActivityBase;
 import com.google.gson.Gson;
-import com.kakao.kakaogift.R
-;
+import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.goods.detail.GoodsDetailActivity;
 import com.kakao.kakaogift.activity.goods.pin.PingouDetailActivity;
 import com.kakao.kakaogift.activity.goods.pin.PingouResultActivity;
@@ -55,14 +54,13 @@ public class BaseActivity extends ParallaxActivityBase {
 	private LoadingDialog loadingDialog;
 	private boolean shoppingcarChanged = false;
 
-	
 	public Map<String, String> getMap() {
 		return getMyApplication().getMap();
 	}
+
 	public void setMap(Map<String, String> map) {
 		getMyApplication().setMap(map);
 	}
-
 
 	/*
 	 * 获得用于数据库管理的DaoSession
@@ -71,19 +69,20 @@ public class BaseActivity extends ParallaxActivityBase {
 		return DataBaseManager.getInstance().getDaoSession();
 	}
 
-
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		// 沉浸式状态栏的设置
 		getSupportActionBar().setElevation(0);
-		StatusBarCompat.compat(this,StatusBarCompat.COLOR_DEFAULT);
 		getClipboard();
 	}
-	
-	
 
+	@Override
+	protected void onPostCreate(Bundle savedInstanceState) {
+		super.onPostCreate(savedInstanceState);
+		StatusBarCompat.compat(this, StatusBarCompat.COLOR_DEFAULT);
+	}
 
 	public boolean isShoppingcarChanged() {
 		return shoppingcarChanged;
@@ -116,7 +115,7 @@ public class BaseActivity extends ParallaxActivityBase {
 	}
 
 	public LoadingDialog getLoading() {
-		if(loadingDialog == null)
+		if (loadingDialog == null)
 			loadingDialog = new LoadingDialog(this);
 		return loadingDialog;
 	}
@@ -137,7 +136,7 @@ public class BaseActivity extends ParallaxActivityBase {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		if(getLoading().isShowing())
+		if (getLoading().isShowing())
 			getLoading().dismiss();
 		if (!isAppOnForeground()) {
 			setClipboard();
@@ -147,8 +146,9 @@ public class BaseActivity extends ParallaxActivityBase {
 	protected void setClipboard() {
 		// 退出或者app进入后台将口令扔到剪切板
 		ClipboardManager cbm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-//		cbm.setText(getMyApplication().getKouling());
-		cbm.setPrimaryClip(ClipData.newPlainText("kouling", getMyApplication().getKouling()));
+		// cbm.setText(getMyApplication().getKouling());
+		cbm.setPrimaryClip(ClipData.newPlainText("kouling", getMyApplication()
+				.getKouling()));
 	}
 
 	/**
@@ -182,6 +182,7 @@ public class BaseActivity extends ParallaxActivityBase {
 		super.onResume();
 		getClipboard();
 	}
+
 	/**
 	 * 获取剪切版内容，秘口令需要
 	 */
@@ -189,7 +190,7 @@ public class BaseActivity extends ParallaxActivityBase {
 	private void getClipboard() {
 		ClipboardManager cbm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
 		if (!TextUtils.isEmpty(cbm.getText())) {
-			//根据剪切版内容，拼接跳转链接
+			// 根据剪切版内容，拼接跳转链接
 			if (cbm.getText().toString().trim().contains("KAKAO-HMM")) {
 				if (cbm.getText().toString().trim().contains("】,")) {
 					String[] url = cbm.getText().toString().trim().split("】,");
@@ -223,7 +224,8 @@ public class BaseActivity extends ParallaxActivityBase {
 	private int what;
 	private PinResult pinResult;
 	private PinDetail pinDetail;
-	//加载秘口令，弹窗显示内容的请求
+
+	// 加载秘口令，弹窗显示内容的请求
 	private void loadData(String url) {
 		VolleyHttp.doGetRequestTask(url, new VolleyJsonCallback() {
 
@@ -271,7 +273,8 @@ public class BaseActivity extends ParallaxActivityBase {
 			}
 		});
 	}
-	//给口令弹窗赋值
+
+	// 给口令弹窗赋值
 	@SuppressLint("InflateParams")
 	private void setKouDialog(String ti, String pri, String imgurl) {
 		LayoutInflater inflater = LayoutInflater.from(this);

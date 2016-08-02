@@ -439,7 +439,7 @@ public class HomeFragment extends BaseIconFragment implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.back_top:
-			mListView.getRefreshableView().setSelection(0);
+			mListView.getRefreshableView().smoothScrollToPosition(0);
 			back_top.setVisibility(View.GONE);
 			break;
 		case R.id.reload:
