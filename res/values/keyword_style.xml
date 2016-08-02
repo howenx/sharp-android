@@ -29,4 +29,7 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:background">@color/red</item>
     </style>
+    <style name="tax07">
+        <item name="android:textSize">12sp</item>
+    </style>
 </resources>

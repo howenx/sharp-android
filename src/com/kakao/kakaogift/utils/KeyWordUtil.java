@@ -135,6 +135,12 @@ public class KeyWordUtil {
 			textView.setText(styledText, TextView.BufferType.SPANNABLE);
 		}
 		
+		public static void setDifferentFontColor12(Context mContext, TextView textView, String font){
+			SpannableString styledText = new SpannableString(font);  
+			styledText.setSpan(new TextAppearanceSpan(mContext, R.style.tax07), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);  
+			textView.setText(styledText, TextView.BufferType.SPANNABLE);
+		}
+		
 		/**
 		 * 设置详情页的标题文字显示
 		 * 正常文字： 原设定文字属性
