@@ -78,7 +78,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0.2dp"
                     android:layout_below="@id/frame1"
-                    android:background="@color/xian" />
+                    android:background="@color/xian_color" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -132,7 +132,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0.2dp"
                     android:layout_below="@id/frame2"
-                    android:background="@color/xian" />
+                    android:background="@color/xian_color" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -186,7 +186,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0.2dp"
                     android:layout_below="@id/frame5"
-                    android:background="@color/xian" />
+                    android:background="@color/xian_color" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -240,7 +240,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0.2dp"
                     android:layout_below="@id/frame3"
-                    android:background="@color/xian" />
+                    android:background="@color/xian_color" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -294,7 +294,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0.2dp"
                     android:layout_below="@id/frame4"
-                    android:background="@color/xian" />
+                    android:background="@color/xian_color" />
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>

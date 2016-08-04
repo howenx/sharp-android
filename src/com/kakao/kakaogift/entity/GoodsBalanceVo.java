@@ -26,10 +26,6 @@ public class GoodsBalanceVo {
 	public class Settle {
 		private Address address;
 		private List<CouponVo> coupons;
-		private BigDecimal shipFee;			//理论邮费
-		private BigDecimal portalFee;		//理论行邮税
-		private BigDecimal factPortalFee;	//实际行邮税
-		private BigDecimal factShipFee; //实际邮费
 		
 		private List<SingleCustoms> singleCustoms;
 		private int postalStandard;
@@ -70,21 +66,6 @@ public class GoodsBalanceVo {
 			this.postalStandard = postalStandard;
 		}
 
-		public BigDecimal getFactPortalFee() {
-			return factPortalFee;
-		}
-
-		public void setFactPortalFee(BigDecimal factPortalFee) {
-			this.factPortalFee = factPortalFee;
-		}
-
-		public BigDecimal getFactShipFee() {
-			return factShipFee;
-		}
-
-		public void setFactShipFee(BigDecimal factShipFee) {
-			this.factShipFee = factShipFee;
-		}
 
 		public List<SingleCustoms> getSingleCustoms() {
 			return singleCustoms;
@@ -110,21 +91,6 @@ public class GoodsBalanceVo {
 			this.coupons = coupons;
 		}
 
-		public BigDecimal getShipFee() {
-			return shipFee;
-		}
-
-		public void setShipFee(BigDecimal shipFee) {
-			this.shipFee = shipFee;
-		}
-
-		public BigDecimal getPortalFee() {
-			return portalFee;
-		}
-
-		public void setPortalFee(BigDecimal portalFee) {
-			this.portalFee = portalFee;
-		}
 	}
 	
 	
@@ -181,11 +147,7 @@ public class GoodsBalanceVo {
 	
 	public class SingleCustoms{
 		private String invCustoms;						//发货仓库
-		private BigDecimal portalSingleCustomsFee;		//该保税区行邮税
 		private Integer singleCustomsSumAmount;	//保税区商品数量
-		private BigDecimal shipSingleCustomsFee;			//报税区邮费
-		private BigDecimal factPortalFeeSingleCustoms;	//报税区实际行邮税
-		private BigDecimal factSingleCustomsShipFee; //保税区实际邮费
 		private BigDecimal singleCustomsSumFee;		//商品总价格
 		private String invArea;								//邮递fangshi
 		private String invAreaNm;								//邮递fangshi
@@ -210,30 +172,6 @@ public class GoodsBalanceVo {
 			this.singleCustomsSumAmount = singleCustomsSumAmount;
 		}
 		
-		public BigDecimal getPortalSingleCustomsFee() {
-			return portalSingleCustomsFee;
-		}
-		public void setPortalSingleCustomsFee(BigDecimal portalSingleCustomsFee) {
-			this.portalSingleCustomsFee = portalSingleCustomsFee;
-		}
-		public BigDecimal getShipSingleCustomsFee() {
-			return shipSingleCustomsFee;
-		}
-		public void setShipSingleCustomsFee(BigDecimal shipSingleCustomsFee) {
-			this.shipSingleCustomsFee = shipSingleCustomsFee;
-		}
-		public BigDecimal getFactPortalFeeSingleCustoms() {
-			return factPortalFeeSingleCustoms;
-		}
-		public void setFactPortalFeeSingleCustoms(BigDecimal factPortalFeeSingleCustoms) {
-			this.factPortalFeeSingleCustoms = factPortalFeeSingleCustoms;
-		}
-		public BigDecimal getFactSingleCustomsShipFee() {
-			return factSingleCustomsShipFee;
-		}
-		public void setFactSingleCustomsShipFee(BigDecimal factSingleCustomsShipFee) {
-			this.factSingleCustomsShipFee = factSingleCustomsShipFee;
-		}
 		public BigDecimal getSingleCustomsSumFee() {
 			return singleCustomsSumFee;
 		}

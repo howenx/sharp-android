@@ -4,5 +4,5 @@
     android:layout_height="wrap_content"
     style="@style/btn_radio_style"
     android:orientation="vertical"
-    android:textColor="#AA000000"
+    android:textColor="#4F4F4F"
     android:textSize="12sp" />

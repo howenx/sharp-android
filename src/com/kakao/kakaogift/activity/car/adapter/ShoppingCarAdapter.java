@@ -123,7 +123,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		//失效商品的处理
 			if (goods.getState().equals("S")) {
 			holder.shixiao.setVisibility(View.VISIBLE);
-			holder.shopping_main.setBackgroundColor(activity.getResources().getColor(R.color.shixiao_bg));
+			holder.shopping_main.setBackgroundColor(activity.getResources().getColor(R.color.xian_color));
 			holder.plus.setTextColor(activity.getResources().getColor(R.color.qianhui));
 			holder.jian.setTextColor(activity.getResources().getColor(R.color.qianhui));
 			holder.checkBox.setVisibility(View.INVISIBLE);

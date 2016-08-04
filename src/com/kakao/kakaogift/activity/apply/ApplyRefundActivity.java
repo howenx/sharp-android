@@ -35,7 +35,7 @@ public class ApplyRefundActivity extends BaseActivity implements
 	private String refundType = "deliver";// 退款类型，pin：拼购自动退款，receive：收货后申请退款，deliver：发货前退款
 
 	private Order order;
-	private ProcessButton btn_submit;
+	private View btn_submit;
 	private TextView nameView, phoneView,payBackFee;
 
 	@Override
@@ -52,37 +52,14 @@ public class ApplyRefundActivity extends BaseActivity implements
 	 */
 	private void findView() {
 		discription = (EditText) findViewById(R.id.discription);
-		btn_submit = (ProcessButton) findViewById(R.id.btn_submit);
+		btn_submit =  findViewById(R.id.btn_submit);
 		nameView = (TextView) findViewById(R.id.contact_name);
 		phoneView = (TextView) findViewById(R.id.contact_phone);
 		payBackFee = (TextView) findViewById(R.id.payBackFee);
 		btn_submit.setOnClickListener(this);
-		btn_submit.setOnStateListener(mOnStateListener);
 		
 		payBackFee.setText(order.getPayTotal()+"");
 	}
-	//申请提交的状态回调
-	private OnStateListener mOnStateListener = new OnStateListener() {
-		
-		@Override
-		public void onProgress() {
-			discription.setEnabled(false);
-			nameView.setEnabled(false);
-			phoneView.setEnabled(false);
-		}
-		
-		@Override
-		public void onError() {
-			discription.setEnabled(true);
-			nameView.setEnabled(true);
-			phoneView.setEnabled(true);
-		}
-		
-		@Override
-		public void onComplete() {
-			finish();
-		}
-	};
 	
 	@Override
 	public void onClick(View v) {
@@ -125,10 +102,9 @@ public class ApplyRefundActivity extends BaseActivity implements
 								GoodsBalanceVo.class);
 						HMessage msg = b.getMessage();
 						if (msg.getCode() == 200) {
-							btn_submit.setProgress(100);
+							finish();
 						} else {
 							ToastUtils.Toast(getActivity(), msg.getMessage());
-							btn_submit.setProgress(-1);
 							CommonUtils.closeBoardIfShow(getActivity());
 						}
 					}
@@ -137,7 +113,6 @@ public class ApplyRefundActivity extends BaseActivity implements
 					public void onError() {
 						getLoading().dismiss();
 						ToastUtils.Toast(getActivity(), R.string.error);
-						btn_submit.setProgress(-1);
 					}
 				}, getParams());
 	}

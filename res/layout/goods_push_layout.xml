@@ -14,11 +14,10 @@
         android:padding="5dp"
         android:background="@color/notice_good"/>
 
-    <com.kakao.kakaogift.view.HorizontalListView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/more_grid"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:scrollbars="@null" 
-        android:layout_margin="10dp"/>
+        android:layout_height="wrap_content"
+        android:scrollbars="horizontal" />
 
 </LinearLayout>

@@ -23,8 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:minHeight="100dp"
-                android:padding="10dp" >
+                android:minHeight="87dp" >
 
                 <RelativeLayout
                     android:id="@+id/selectAddress"
@@ -33,46 +32,69 @@
                     android:layout_gravity="center_vertical"
                     android:visibility="gone" >
 
+                    <LinearLayout
+                        android:id="@+id/top_linear"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/dingwei" />
+
+                        <TextView
+                            android:id="@+id/name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@null"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:id="@+id/isDefault"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:src="@drawable/moren" />
+                    </LinearLayout>
+
                     <ImageView
                         android:id="@+id/icon"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/icon_ad" />
-
-                    <TextView
-                        android:id="@+id/name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_toRightOf="@id/icon"
-                        android:text="@null"
-                        android:textColor="@color/fontcolor"
-                        android:textSize="14sp" />
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/dingwei"
+                        android:visibility="invisible" />
 
                     <TextView
                         android:id="@+id/phone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/name"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="5dp"
+                        android:layout_below="@id/top_linear"
+                        android:layout_marginTop="14dp"
                         android:layout_toRightOf="@id/icon"
                         android:gravity="center"
                         android:text="@null"
-                        android:textColor="@color/fontcolor"
-                        android:textSize="14sp" />
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/phone"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="14dp"
+                        android:layout_marginTop="7dp"
                         android:layout_toRightOf="@id/icon"
                         android:text="@null"
-                        android:textColor="@color/fontcolor"
-                        android:textSize="14sp" />
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
 
                     <ImageView
                         android:id="@+id/isSelected"
@@ -80,18 +102,8 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/hmm_next_page_red" />
-
-                    <TextView
-                        android:id="@+id/isDefault"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="2dp"
-                        android:layout_toRightOf="@id/name"
-                        android:text="默认"
-                        android:textColor="@color/red"
-                        android:textSize="12sp" />
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/down" />
                 </RelativeLayout>
 
                 <TextView
@@ -102,9 +114,16 @@
                     android:layout_gravity="center"
                     android:background="@drawable/btn_theme_radius_selector"
                     android:text="添加收货地址"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
             </FrameLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:contentDescription="@null"
+                android:src="@drawable/dizhi" />
 
             <com.kakao.kakaogift.view.CustomListView
                 android:id="@+id/mListView"
@@ -112,8 +131,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@color/white" />
-
-           
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -126,18 +143,18 @@
                 <LinearLayout
                     android:id="@+id/btn_mCoupon"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="45dp"
                     android:background="@color/white"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="10dp" >
+                    android:orientation="horizontal" >
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
                         android:gravity="center_vertical"
                         android:text="可使用优惠券"
-                        android:textColor="@color/fontcolor"
+                        android:textColor="@color/black"
                         android:textSize="14sp" />
 
                     <TextView
@@ -145,7 +162,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:textColor="#CCCCCC"
+                        android:textColor="@color/gray"
                         android:textSize="12sp" />
 
                     <View
@@ -154,31 +171,35 @@
                         android:layout_weight="1" />
 
                     <TextView
-                        android:id="@+id/coupon_denomi"
+                        android:id="@+id/coupon_selected"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="未选择"
-                        android:textColor="@color/huise"
+                        android:layout_marginRight="10dp"
+                        android:text="无可用"
+                        android:textColor="@color/gray"
                         android:textSize="12sp" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
                         android:contentDescription="@null"
-                        android:src="@drawable/hmm_drop_down" />
+                        android:src="@drawable/down" />
                 </LinearLayout>
 
                 <View
+                    android:id="@+id/xian_coupon"
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:background="#cccccc" />
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/xian_color"
+                    android:visibility="gone" />
 
                 <RadioGroup
                     android:id="@+id/group_coupons"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#FAFAFA"
-                    android:visibility="gone" >
+                    android:background="@color/theme" >
 
                     <RadioButton
                         android:id="@+id/btn_unuse"
@@ -186,22 +207,22 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="不使用优惠券"
-                        android:textColor="#AA000000"
+                        android:textColor="#4F4F4F"
                         android:textSize="12sp" />
                 </RadioGroup>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:padding="10dp" >
+                    android:layout_height="45dp"
+                    android:background="@color/white" >
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
                         android:text="商品总价"
-                        android:textColor="@color/fontcolor"
+                        android:textColor="@color/black"
                         android:textSize="14sp" />
 
                     <TextView
@@ -210,28 +231,31 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:text="¥0.0"
+                        android:layout_marginRight="10dp"
+                        android:text="¥ 0.0"
                         android:textColor="@color/red"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
                 </RelativeLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:background="#cccccc" />
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/xian_color" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:padding="10dp" >
+                    android:layout_height="45dp"
+                    android:background="@color/white" >
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
                         android:gravity="center_vertical"
                         android:text="优惠金额"
-                        android:textColor="@color/fontcolor"
+                        android:textColor="@color/black"
                         android:textSize="14sp" />
 
                     <TextView
@@ -240,9 +264,10 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:text="¥0.0"
+                        android:layout_marginRight="10dp"
+                        android:text="¥ 0.0"
                         android:textColor="@color/red"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
@@ -255,9 +280,8 @@
         android:background="@color/notice"
         android:padding="5dp"
         android:text="海关规定：跨境商品支付金额不小于1元"
-        android:textColor="@color/btn_buy_normal"
-        android:textSize="10sp"
-        android:visibility="gone" />
+        android:textColor="@color/black"
+        android:textSize="10sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -272,9 +296,10 @@
             android:layout_height="match_parent"
             android:layout_weight="3"
             android:background="@drawable/bg_gray_boarder"
-            android:gravity="center"
-            android:text="111"
-            android:textColor="@color/btn_buy_normal"
+            android:gravity="right|center_vertical"
+            android:paddingRight="20dp"
+            android:text="总金额:¥ 0.0"
+            android:textColor="@color/red"
             android:textSize="16sp" />
 
         <TextView
@@ -285,8 +310,8 @@
             android:background="@drawable/btn_buy_selector"
             android:gravity="center"
             android:text="@string/submit_order"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:textColor="@color/black"
+            android:textSize="18sp" />
     </LinearLayout>
 
 </LinearLayout>

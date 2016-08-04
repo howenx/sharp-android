@@ -194,7 +194,7 @@ public class MyAddressActivity extends BaseActivity implements OnClickListener {
 				holder.phone = (TextView) convertView.findViewById(R.id.phone);
 				holder.adress = (TextView) convertView
 						.findViewById(R.id.adress);
-				holder.isDefault = (TextView) convertView
+				holder.isDefault =  convertView
 						.findViewById(R.id.isDefault);
 				holder.isSelected = (ImageView) convertView
 						.findViewById(R.id.isSelected);
@@ -240,7 +240,7 @@ public class MyAddressActivity extends BaseActivity implements OnClickListener {
 			private TextView name;
 			private TextView phone;
 			private TextView adress;
-			private TextView isDefault;
+			private View isDefault;
 			private ImageView isSelected;
 			private View btn_xiugai;
 		}

@@ -15,6 +15,7 @@ import com.kakao.kakaogift.override.SimpleAnimationListener;
 import com.nineoldandroids.animation.Keyframe;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.animation.PropertyValuesHolder;
+import com.nineoldandroids.animation.ValueAnimator;
 
 /**
  * @author vince
@@ -94,6 +95,7 @@ public class AnimationTools {
 	
 	
 	public static ObjectAnimator initAnimatorSetValue(Context context,View view,SimpleAnimationListener l) {
+		
 		
 		int translationX = CommonUtils.getScreenWidth(context) * 4 / 11;
 

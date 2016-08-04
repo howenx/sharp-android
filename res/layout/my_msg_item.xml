@@ -14,7 +14,7 @@
         android:gravity="center_horizontal"
         android:textColor="@color/msg_content"
         android:textSize="@dimen/font_normal"
-        android:background="@color/bg_hui"/>
+        android:background="@color/bg"/>
 	<RelativeLayout   
     	android:layout_width="match_parent"
     	android:layout_height="match_parent"
@@ -56,7 +56,7 @@
         android:layout_below="@id/content"
         android:layout_width="match_parent"
         android:layout_height="0.1dp"
-        android:background="@color/xian"/>
+        android:background="@color/xian_color"/>
     <TextView 
         android:id="@+id/go"
         android:drawableRight="@drawable/icon_more_hui"

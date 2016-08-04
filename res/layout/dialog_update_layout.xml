@@ -44,7 +44,7 @@
         android:layout_height="@dimen/driver_line"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:background="@color/xian" />
+        android:background="@color/xian_color" />
 
     <ImageView
         android:id="@+id/btn_cancel"

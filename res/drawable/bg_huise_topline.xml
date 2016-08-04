@@ -3,7 +3,7 @@
 
     <item>
         <shape>
-            <solid android:color="@color/xian" />
+            <solid android:color="@color/xian_color" />
         </shape>
     </item>
     <item android:top="1dp">

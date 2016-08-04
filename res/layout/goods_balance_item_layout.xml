@@ -4,13 +4,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:orientation="horizontal"
         android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:padding="10dp" >
 
         <ImageView
@@ -24,32 +23,29 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="7dp"
             android:orientation="vertical" >
 
             <TextView
                 android:id="@+id/pro_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="7dp"
-                android:layout_marginStart="7dp"
                 android:layout_marginTop="3dp"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:textColor="@color/fontcolor"
+                android:textColor="@color/black"
                 android:textSize="@dimen/font_normal" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                 android:layout_marginLeft="7dp"
-                android:layout_marginStart="7dp"
                 android:layout_marginTop="10dp" >
 
                 <TextView
                     android:id="@+id/pro_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/theme"
+                    android:textColor="@color/red"
                     android:textSize="@dimen/font_normal" />
 
                 <TextView
@@ -57,7 +53,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:textSize="@dimen/font_normal"/>
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/font_normal" />
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>

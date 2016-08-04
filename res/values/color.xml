@@ -3,43 +3,36 @@
 
     <color name="theme">#f9f9f9</color>
     <color name="yellow">#fdd000</color>
-    <color name="bg_hui">#F0F0F0</color>
-    <color name="bg">#f4fbf8</color>
+    <color name="bg">#f4f4f4</color>
     <color name="background">#f9f9f9</color>
     <color name="white">#FFFFFF</color>
+    <!-- 字体的颜色 -->
     <color name="black">#242424</color>
+    <color name="black_01">#4F4F4F</color>
     <color name="btn_buy_pressed">#fdd000</color>
     <color name="btn_buy_normal">#fdd000</color>
     <color name="btn_pin_pressed">#F8F9FA</color>
     <color name="btn_pin_normal">#F8F9FA</color>
-    <color name="huang">#ffa800</color>
-    <color name="black_01_pressed">#CC000000</color>
-    <color name="black_01">#AA000000</color>
+    <color name="orange">#ffa800</color>
     <color name="gray">#999999</color>
     <color name="huise">#969696</color>
     <color name="red">#f73939</color>
     <color name="attention_color">#424242</color>
-    <color name="fontcolor">#646566</color>
+    <color name="fontcolor">#242424</color>
     <color name="msg_title">#333333</color>
     <color name="msg_content">#999999</color>
     <color name="qianhui">#EEEEEE</color>
-    <color name="shixiao_bg">#e7e7e7</color> 
-    <color name="xian">#dcdcdc</color>
-    <color name="province_line_border">#C7C7C7</color>
+    <color name="province_select_line">#C7C7C7</color>
     <color name="green">#16bb5c</color>
-    <color name="rippelColor">#FFFFFF</color>
-    <color name="unClick">#CCCCCC</color>
+    <color name="unClicked">#B0B0B0</color>
     <color name="transparent">#00000000</color>
     
     <color name="notice">#dddddd</color>
     <color name="notice_good">#49576e</color>
-	<color name="activity_bg">#00000000</color>
 	
 	<color name="theme_shadow">#77000000</color>
-	
-	<color name="circle_color">#323a45</color>
-    <color name="ring_color">#14b9d6</color>
     
+	
     <color name="btn_selected">#DCDCDC</color>
     <color name="content_color">#adadad</color>
     <color name="xian_color">#ECECEC</color>

@@ -31,7 +31,7 @@
         android:layout_height="0.1dp"
         android:layout_below="@id/img"
         android:layout_marginTop="10dp"
-        android:background="@color/xian" />
+        android:background="@color/xian_color" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -56,30 +56,18 @@
 
         <TextView
             android:id="@+id/see_tuan"
+              style="@style/submit_mid_huise"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/btn_theme_boader_radius_selector"
-            android:paddingBottom="5dp"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:paddingTop="5dp"
-            android:text="@string/see_tuan"
-            android:textColor="@color/btn_theme_font_selector"
-            android:textSize="14sp" />
+            android:text="@string/see_tuan"/>
 
         <TextView
             android:id="@+id/see_order"
+              style="@style/submit_mid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:background="@drawable/btn_theme_radius_selector"
-            android:paddingBottom="5dp"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:paddingTop="5dp"
-            android:text="@string/see_order"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:text="@string/see_order" />
     </LinearLayout>
 
     <TextView

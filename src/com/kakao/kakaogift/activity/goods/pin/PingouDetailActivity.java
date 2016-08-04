@@ -8,6 +8,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 import com.astuetz.PagerSlidingTabStrip;
 import com.bigkoo.convenientbanner.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.ConvenientBanner;
+import com.bumptech.glide.Glide;
 import com.cpoopc.scrollablelayoutlib.ScrollAbleFragment;
 import com.cpoopc.scrollablelayoutlib.ScrollableLayout;
 import com.cpoopc.scrollablelayoutlib.ScrollableLayout.OnScrollListener;
@@ -49,6 +51,7 @@ import com.kakao.kakaogift.entity.StockVo;
 import com.kakao.kakaogift.http.VolleyHttp;
 import com.kakao.kakaogift.override.ViewPageChangeListener;
 import com.kakao.kakaogift.utils.ActionBarUtil;
+import com.kakao.kakaogift.utils.CommonUtils;
 import com.kakao.kakaogift.utils.ToastUtils;
 import com.kakao.kakaogift.view.GoodsPushWindow;
 import com.kakao.kakaogift.view.NetworkImageHolderView;
@@ -68,6 +71,7 @@ public class PingouDetailActivity extends BaseActivity implements
 	private ConvenientBanner<ImageVo> slider; //轮播
 	private View back_top;	//返回顶部按钮
 	private ImageView collectionImg; //收藏按钮
+	private ImageView wanfaView; //
 	private TextView more_view; //查看更多
 	private ShareWindow shareWindow;
 
@@ -115,6 +119,14 @@ public class PingouDetailActivity extends BaseActivity implements
 		more_view = (TextView) findViewById(R.id.more_view);
 
 		collectionImg = (ImageView) findViewById(R.id.attention);
+		wanfaView = (ImageView) findViewById(R.id.wanfaView);
+		
+		Drawable able = getResources().getDrawable(R.drawable.pingou_wanfa);
+		int height = able.getIntrinsicHeight();
+		int width = able.getIntrinsicWidth();
+		int faceWidth = CommonUtils.getScreenWidth(getActivity());
+		int factHeight = faceWidth*height/width;
+		Glide.with(getActivity()).load(R.drawable.pingou_wanfa).override(faceWidth, factHeight).into(wanfaView);
 
 		findViewById(R.id.wanfaView).setOnClickListener(this);
 		findViewById(R.id.back_top).setOnClickListener(this);

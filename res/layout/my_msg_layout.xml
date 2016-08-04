@@ -11,8 +11,8 @@
         android:paddingRight="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@color/bg_hui"
-        android:background="@color/bg_hui"
+        android:divider="@color/bg"
+        android:background="@color/bg"
         android:id="@+id/mListView"
         android:scrollbars="none"/>
     <TextView 

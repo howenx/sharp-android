@@ -33,7 +33,6 @@ import com.kakao.kakaogift.entity.FromVo;
 import com.kakao.kakaogift.entity.GoodsBalanceVo;
 import com.kakao.kakaogift.entity.GoodsBalanceVo.Address;
 import com.kakao.kakaogift.entity.GoodsBalanceVo.Settle;
-import com.kakao.kakaogift.entity.GoodsBalanceVo.SingleCustoms;
 import com.kakao.kakaogift.entity.HAddress;
 import com.kakao.kakaogift.entity.OrderInfo;
 import com.kakao.kakaogift.entity.OrderSubmitVo;
@@ -55,12 +54,11 @@ public class GoodsBalanceActivity extends BaseActivity implements
 		OnClickListener {
 
 	private RadioGroup group_coupons; // 优惠券
-	private TextView send_time; // 选中的发送时间 /支付类型
 	private ListView mListView;//
 	private List<CustomsVo> customslist; // 保税区列表
 
 	private TextView all_price, all_money, youhui;
-	private TextView name, phone, address, coupon_num, coupon_denomi, notice;
+	private TextView name, phone, address, coupon_num, coupon_selected,notice;
 
 	private GoodsBalanceCustomAdapter adapter;
 
@@ -103,8 +101,8 @@ public class GoodsBalanceActivity extends BaseActivity implements
 		phone = (TextView) findViewById(R.id.phone);
 		address = (TextView) findViewById(R.id.address);
 		coupon_num = (TextView) findViewById(R.id.coupon_num);
-		coupon_denomi = (TextView) findViewById(R.id.coupon_denomi);
 		notice = (TextView) findViewById(R.id.notice);
+		coupon_selected = (TextView) findViewById(R.id.coupon_selected);
 
 		findViewById(R.id.newAddress).setOnClickListener(this);
 		findViewById(R.id.btn_mCoupon).setOnClickListener(this);
@@ -117,14 +115,13 @@ public class GoodsBalanceActivity extends BaseActivity implements
 				// 优惠券响应时间
 				RadioButton btn = (RadioButton) findViewById(checkedId);
 				if (checkedId == R.id.btn_unuse) {
-					coupon_denomi.setText(btn.getText());
 					car.setDenomination(new BigDecimal(0));
+					coupon_selected.setText(btn.getText());
 				} else {
-					coupon_denomi.setText("-" + btn.getTag(R.id.coupon_de)
-							+ "元");
 					car.setDenomination((BigDecimal) btn.getTag(R.id.coupon_de));
 					orderSubmit.setCouponId(btn.getTag(R.id.coupon_id)
 							.toString());
+					coupon_selected.setText("-"+btn.getTag(R.id.coupon_de)+"元");
 				}
 				youhui.setText(getResources().getString(R.string.price,
 						car.getDiscountFee()));
@@ -144,8 +141,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btn_mCoupon:
-			group_coupons
-					.startAnimation(new ViewExpandAnimation(group_coupons));
+			group_coupons.startAnimation(new ViewExpandAnimation(group_coupons,findViewById(R.id.xian_coupon)));
 			break;
 
 		case R.id.newAddress:
@@ -265,7 +261,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 
 		} else {
 			ToastUtils.Toast(this, goodsBalance.getMessage().getMessage());
-			findViewById(R.id.btn_pay).setBackgroundResource(R.color.unClick);
+			findViewById(R.id.btn_pay).setBackgroundResource(R.color.unClicked);
 			findViewById(R.id.selectAddress).setVisibility(View.GONE);
 			findViewById(R.id.newAddress).setVisibility(View.VISIBLE);
 		}
@@ -321,30 +317,9 @@ public class GoodsBalanceActivity extends BaseActivity implements
 	 */
 	private void initGoodsInfo(Settle settle) {
 		// 添加商品 行邮税 运费等信息
-		car.setFactPortalFee(settle.getFactPortalFee());
-		car.setFactShipFee(settle.getFactShipFee());
-		car.setPortalFee(settle.getPortalFee());
-		car.setShipFee(settle.getShipFee());
 		car.setTotalFee(settle.getTotalFee());
 		car.setDiscountFee(settle.getDiscountFee());
 
-		for (CustomsVo cs : car.getList()) {
-			for (SingleCustoms scs : settle.getSingleCustoms()) {
-				if (cs.getInvCustoms().equals(scs.getInvCustoms())) {
-					cs.setFactPortalFeeSingleCustoms(scs
-							.getFactPortalFeeSingleCustoms());
-					cs.setFactSingleCustomsShipFee(scs
-							.getFactSingleCustomsShipFee());
-					cs.setPortalSingleCustomsFee(scs
-							.getPortalSingleCustomsFee());
-					cs.setShipSingleCustomsFee(scs.getShipSingleCustomsFee());
-					cs.setPostalStandard(settle.getPostalStandard());
-					break;
-				}
-			}
-		}
-		// 通知显示
-		adapter.notifyDataSetChanged();
 	}
 
 	/**

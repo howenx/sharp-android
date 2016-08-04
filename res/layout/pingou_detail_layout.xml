@@ -29,7 +29,7 @@
 
                 <com.kakao.kakaogift.view.SquareLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_height="wrap_content">
 
                     <com.bigkoo.convenientbanner.ConvenientBanner
                         android:id="@+id/slider"
@@ -44,7 +44,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@color/white"
                     android:padding="8dp"
-                    android:textColor="@color/fontcolor"
+                    android:textColor="@color/black"
                     android:textSize="14sp" />
 
                 <TextView
@@ -55,7 +55,7 @@
                     android:gravity="right"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
-                    android:textColor="@color/huise"
+                    android:textColor="@color/gray"
                     android:textSize="12sp" />
 
                 <LinearLayout
@@ -87,7 +87,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/pin_price"
-                            android:background="@color/black_01"
+                            android:background="#616161"
                             android:gravity="center"
                             android:padding="3dp"
                             android:textColor="@color/white"
@@ -106,17 +106,17 @@
                             android:id="@+id/item_src_price"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@color/gray"
+                            android:background="#e0e0e0"
                             android:gravity="center"
                             android:padding="10dp"
-                            android:textColor="@color/fontcolor"
+                            android:textColor="@color/black"
                             android:textSize="16sp" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/item_src_price"
-                            android:background="@color/black_01"
+                            android:background="#616161"
                             android:gravity="center"
                             android:padding="3dp"
                             android:text="立即购买"
@@ -127,10 +127,9 @@
 
                 <ImageView
                     android:id="@+id/wanfaView"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@null"
-                    android:src="@drawable/pingou_wanfa" />
+                    android:contentDescription="@null"/>
 
                 <RelativeLayout
                     android:id="@+id/btn_comment"
@@ -237,7 +236,7 @@
         <View
             android:layout_width="1px"
             android:layout_height="match_parent"
-            android:background="@color/gray" />
+            android:background="@color/xian_color" />
 
         <TextView
             android:id="@+id/btn_pin_02"

@@ -147,7 +147,7 @@ public class ShoppingCarMenager {
 			attention.setText("提示：" + customName+"商品总额超过 ¥" + bottommorePrice);
 		}
 		pay.setClickable(false);
-		pay.setBackgroundResource(R.color.unClick);
+		pay.setBackgroundResource(R.color.unClicked);
 	}
 	public void setPayClick(){
 		attention.setText("友情提示：同一保税区商品总额有限制");

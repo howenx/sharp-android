@@ -9,7 +9,7 @@
         android:layout_height="25dp"
         android:layout_marginLeft="22dp"
         android:id="@+id/xian"
-        android:background="@color/xian" />
+        android:background="@color/xian_color" />
 
     <LinearLayout
         android:id="@+id/contentView"

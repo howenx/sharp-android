@@ -34,7 +34,7 @@
                     android:focusableInTouchMode="true"
                     android:gravity="center_vertical"
                     android:text="退款说明："
-                    android:textColor="@color/fontcolor"
+                    android:textColor="@color/black"
                     android:textSize="15sp" />
 
                 <EditText
@@ -70,7 +70,7 @@
                     android:drawablePadding="@dimen/driver_padding_small"
                     android:gravity="center_vertical"
                     android:text="退款金额：¥"
-                    android:textColor="@color/fontcolor"
+                    android:textColor="@color/black"
                     android:textSize="15sp" />
 
                 <TextView
@@ -79,8 +79,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="2dp"
                     android:gravity="center_vertical"
-                    android:text="666"
-                    android:textColor="@color/theme"
+                    android:textColor="@color/red"
                     android:textSize="18sp" />
             </LinearLayout>
 
@@ -105,7 +104,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:text="选填写："
-                        android:textColor="@color/fontcolor"
+                        android:textColor="@color/black"
                         android:textSize="15sp" />
 
                     <TextView
@@ -114,7 +113,7 @@
                         android:layout_alignBottom="@id/text1"
                         android:layout_toRightOf="@id/text1"
                         android:text="(非必填)"
-                        android:textColor="@color/fontcolor"
+                        android:textColor="@color/black"
                         android:textSize="12sp" />
                 </RelativeLayout>
 
@@ -136,7 +135,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="联系人&#12288;："
-                            android:textColor="#999999"
+                            android:textColor="@color/gray"
                             android:textSize="14sp" />
 
                         <EditText
@@ -147,8 +146,9 @@
                             android:hint="请填写联系人姓名"
                             android:padding="8dp"
                             android:singleLine="true"
-                            android:textColor="@color/fontcolor"
-                            android:textColorHint="#999999"
+                            android:inputType="text"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/gray"
                             android:textSize="13sp" />
                     </LinearLayout>
 
@@ -163,7 +163,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="联系电话："
-                            android:textColor="#999999"
+                            android:textColor="@color/gray"
                             android:textSize="14sp" />
 
                         <EditText
@@ -174,29 +174,21 @@
                             android:hint="请填写正确的电话"
                             android:padding="8dp"
                             android:singleLine="true"
-                            android:textColor="@color/fontcolor"
-                            android:textColorHint="#999999"
+                            android:inputType="phone"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/gray"
                             android:textSize="13sp" />
                     </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>
 
-            <com.dd.processbutton.iml.ActionProcessButton
+            <TextView
+                style="@style/submit"
                 android:id="@+id/btn_submit"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_alignParentBottom="true"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="提交"
-                android:textColor="@android:color/white"
-                android:textSize="14sp"
-                custom:pb_colorComplete="@color/btn_pin_pressed"
-                custom:pb_colorNormal="@color/theme"
-                custom:pb_colorPressed="@color/theme"
-                custom:pb_colorProgress="@color/btn_pin_pressed"
-                custom:pb_textComplete="@string/submit_success"
-                custom:pb_textError="@string/submit_error"
-                custom:pb_textProgress="@string/submit_loading" />
+                android:text="提交"/>
         </LinearLayout>
     </ScrollView>
 
