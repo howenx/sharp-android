@@ -75,7 +75,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_below="@+id/bottom_linear"
                     android:layout_marginTop="10dp"
-                    android:background="@color/xian" />
+                    android:background="@color/xian_color" />
 
                 <EditText
                     android:id="@+id/content"

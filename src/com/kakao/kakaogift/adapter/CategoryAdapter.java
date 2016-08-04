@@ -57,7 +57,7 @@ public class CategoryAdapter extends BaseAdapter {
 		}else{
 			holder = (ViewHolder) convertView.getTag();
 		}
-		GlideLoaderTools.loadRectImage(activity, entry.getImgUrl(), holder.img);
+		GlideLoaderTools.loadSquareImage(activity, entry.getImgUrl(), holder.img);
 		holder.name.setText(entry.getNavText());
 		return convertView;
 	}

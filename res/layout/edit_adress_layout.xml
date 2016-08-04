@@ -47,7 +47,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.05dp"
-                android:background="@color/xian" />
+                android:background="@color/xian_color" />
 
             <LinearLayout
                 android:id="@+id/two"
@@ -80,13 +80,13 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.05dp"
-                android:background="@color/xian" />
+                android:background="@color/xian_color" />
 
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.05dp"
-                android:background="@color/xian" />
+                android:background="@color/xian_color" />
 
             <LinearLayout
                 android:id="@+id/show"
@@ -116,7 +116,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.05dp"
-                android:background="@color/xian" />
+                android:background="@color/xian_color" />
 
             <LinearLayout
                 android:id="@+id/five"
@@ -147,7 +147,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.05dp"
-                android:background="@color/xian" />
+                android:background="@color/xian_color" />
 
             <LinearLayout
                 android:id="@+id/six"
@@ -176,7 +176,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.05dp"
-                android:background="@color/xian" />
+                android:background="@color/xian_color" />
         </LinearLayout>
 
         <TextView
@@ -201,7 +201,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
-            android:background="@drawable/theme_button_bg"
+            android:background="@drawable/yellow_button_bg"
             android:gravity="center"
             android:paddingBottom="7dp"
             android:paddingTop="7dp"

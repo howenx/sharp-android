@@ -4,10 +4,10 @@ public class UrlUtil {
 	/*
 	 * 阿里云
 	 */
-//	 public static final String SERVERY3 = "https://api.hanmimei.com";
-//	 public static final String SERVERY1 = "https://shopping.hanmimei.com";
-//	 public static final String SERVERY4 = "https://id.hanmimei.com";
-//	 public static final String SERVERY5 = "https://promotion.hanmimei.com";
+//	 public static final String SERVERY3 = "https://api.kakaogift.cn";
+//	 public static final String SERVERY1 = "https://shopping.kakaogift.cn";
+//	 public static final String SERVERY4 = "https://id.kakaogift.cn";
+//	 public static final String SERVERY5 = "https://promotion.kakaogift.cn";
 	/*
 	 * http://172.28.3.78	孙宝娜
 	 */

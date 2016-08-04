@@ -1,72 +1,76 @@
+/**
+ * @Description: TODO(用一句话描述该文件做什么) 
+ * @author A18ccms A18ccms_gmail_com   
+ * @date 2016-8-4 上午10:45:53 
+ **/
 package com.kakao.kakaogift.adapter;
 
 import java.util.List;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Paint;
+import android.support.v7.widget.RecyclerView.Adapter;
+import android.support.v7.widget.RecyclerView.ViewHolder;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.kakao.kakaogift.R
-;
+import com.kakao.kakaogift.R;
+import com.kakao.kakaogift.adapter.GoodsPushAdapter.PushHolder;
 import com.kakao.kakaogift.entity.HGoodsVo;
 import com.kakao.kakaogift.utils.DateUtils;
 import com.kakao.kakaogift.utils.GlideLoaderTools;
 
-public class GoodsPushAdapter extends BaseAdapter {
+/**
+ * @author vince
+ * 
+ */
+public class GoodsPushAdapter extends Adapter<PushHolder> {
+
 	private List<HGoodsVo> data;
-	private LayoutInflater inflater;
 	private Activity activity;
 
-	public GoodsPushAdapter(List<HGoodsVo> data, Context mContext) {
+	public GoodsPushAdapter(Activity activity, List<HGoodsVo> data) {
+		super();
 		this.data = data;
-		activity = (Activity) mContext;
-		inflater = LayoutInflater.from(mContext);
-		// 图片的比例适配
+		this.activity = activity;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.support.v7.widget.RecyclerView.Adapter#getItemCount()
+	 */
 	@Override
-	public int getCount() {
-		return data != null ? data.size() : 0;
+	public int getItemCount() {
+		// TODO Auto-generated method stub
+		return data.size();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * android.support.v7.widget.RecyclerView.Adapter#onBindViewHolder(android
+	 * .support.v7.widget.RecyclerView.ViewHolder, int)
+	 */
 	@Override
-	public Object getItem(int arg0) {
-		return data.get(arg0);
-	}
-
-	@Override
-	public long getItemId(int arg0) {
-		return arg0;
-	}
-
-	@Override
-	public View getView(int position, View convertView, ViewGroup arg2) {
+	public void onBindViewHolder(PushHolder holder, int position) {
+		// TODO Auto-generated method stub
 		HGoodsVo theme = data.get(position);
-		ViewHolder holder = null;
-		if (convertView == null) {
-			convertView = inflater.inflate(R.layout.goods_push_item_layout, null);
-			holder = new ViewHolder(convertView);
-
-			convertView.setTag(holder);
-		} else {
-			holder = (ViewHolder) convertView.getTag();
-		}
-
 		GlideLoaderTools.loadSquareImage(activity, theme.getItemImgForImgInfo()
 				.getUrl(), holder.img);
 		holder.title.setText(theme.getItemTitle());
-
+		holder.position = position;
 		if (theme.getItemType().equals("pin")) {
 			holder.sold_ready.setVisibility(View.GONE);
 			holder.pin_tip.setVisibility(View.VISIBLE);
-			holder.price.setText(activity.getResources().getString(
-					R.string.price, theme.getItemPrice()));
+			holder.price.setText(theme.getItemPrice());
 			if (theme.getState().equals("P")) {
 				holder.sold_out.setVisibility(View.GONE);
 				holder.timeView.setText(DateUtils.getTimeDiffDesc(theme
@@ -80,8 +84,7 @@ public class GoodsPushAdapter extends BaseAdapter {
 				holder.sold_out.setVisibility(View.VISIBLE);
 			}
 		} else {
-			holder.price.setText(activity.getResources().getString(
-					R.string.price, theme.getItemPrice()));
+			holder.price.setText(theme.getItemPrice());
 			if (theme.getItemDiscount() > 0) {
 				holder.discount.setText(activity.getResources().getString(
 						R.string.discount, theme.getItemDiscount()));
@@ -102,21 +105,43 @@ public class GoodsPushAdapter extends BaseAdapter {
 				holder.sold_out.setVisibility(View.VISIBLE);
 			}
 		}
-		return convertView;
+		Log.i("push_price", theme.getItemPrice());
 	}
 
-	private class ViewHolder {
-		private ImageView img, sold_out;
-		private View sold_ready;
-		private TextView title;
-		private TextView price;
-		private TextView old_price;
-		private TextView discount;
-		private TextView timeView;
-		private View pin_tip;
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * android.support.v7.widget.RecyclerView.Adapter#onCreateViewHolder(android
+	 * .view.ViewGroup, int)
+	 */
+	@Override
+	public PushHolder onCreateViewHolder(ViewGroup arg0, int arg1) {
+		// TODO Auto-generated method stub
+		View convertView = LayoutInflater.from(arg0.getContext()).inflate(
+				R.layout.goods_push_item_layout, null);
+		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+		convertView.setLayoutParams(lp);
+		return new PushHolder(convertView);
+	}
 
-		public ViewHolder(View convertView) {
-			super();
+	class PushHolder extends ViewHolder implements OnClickListener {
+
+		public ImageView img, sold_out;
+		public View sold_ready;
+		public TextView title;
+		public TextView price;
+		public TextView old_price;
+		public TextView discount;
+		public TextView timeView;
+		public View pin_tip;
+		public int position;
+
+		/**
+		 * @param arg0
+		 */
+		public PushHolder(View convertView) {
+			super(convertView);
 			this.img = (ImageView) convertView.findViewById(R.id.img);
 			this.title = (TextView) convertView.findViewById(R.id.title);
 			this.price = (TextView) convertView.findViewById(R.id.price);
@@ -127,8 +152,24 @@ public class GoodsPushAdapter extends BaseAdapter {
 			this.sold_ready = convertView.findViewById(R.id.sold_ready);
 			this.timeView = (TextView) convertView.findViewById(R.id.timeView);
 			this.pin_tip = convertView.findViewById(R.id.pin_tip);
+			convertView.setOnClickListener(this);
+		}
+
+		@Override
+		public void onClick(View v) {
+			onRecyclerItemClickListener.onItemClick(position);
 		}
 
 	}
 
+	public static interface OnRecyclerItemClickListener {
+		void onItemClick(int position);
+	}
+
+	private OnRecyclerItemClickListener onRecyclerItemClickListener;
+
+	public void setOnRecyclerItemClickListener(
+			OnRecyclerItemClickListener onRecyclerItemClickListener) {
+		this.onRecyclerItemClickListener = onRecyclerItemClickListener;
+	}
 }

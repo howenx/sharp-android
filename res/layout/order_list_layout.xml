@@ -13,19 +13,19 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.2dp"
-        android:background="@color/xian" />
+        android:background="@color/xian_color" />
 
     <com.kakao.kakaogift.view.HorizontalListView
         android:id="@+id/my_listview"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:divider="@color/xian"
+        android:divider="@color/xian_color"
         android:dividerHeight="0.2dp" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0.2dp"
-        android:background="@color/xian" />
+        android:background="@color/xian_color" />
 
     <include
         android:id="@+id/bottom"

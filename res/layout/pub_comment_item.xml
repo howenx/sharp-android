@@ -69,7 +69,7 @@
         android:layout_height="0.2dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/img_linear"
-        android:background="@color/xian" />
+        android:background="@color/xian_color" />
     <LinearLayout 
         android:layout_below="@id/xian"
         android:orientation="horizontal"

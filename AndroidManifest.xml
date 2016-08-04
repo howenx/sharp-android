@@ -416,9 +416,6 @@
         <meta-data            android:name="JPUSH_APPKEY"            android:value="a81748f2ead4ab0faef89329" />
         <!-- glide 图片处理配置 -->
         <meta-data            android:name="com.kakao.kakaogift.override.GlideConfiguration"            android:value="GlideModule" />
-        <!-- 百度开发者平台 -->
-        <meta-data            android:name="BDAPPID"            android:value="8228990" />
-        <meta-data            android:name="BDAPPKEY"            android:value="x6opgN1tKTyIy3GuzA4camG6reNnGtiT" />
     </application>
 
 </manifest>

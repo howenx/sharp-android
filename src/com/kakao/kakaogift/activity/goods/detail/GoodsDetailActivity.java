@@ -58,6 +58,7 @@ import com.kakao.kakaogift.utils.KeyWordUtil;
 import com.kakao.kakaogift.utils.ToastUtils;
 import com.kakao.kakaogift.view.BadgeView;
 import com.kakao.kakaogift.view.GoodsPushWindow;
+import com.kakao.kakaogift.view.GoodsPushWindow;
 import com.kakao.kakaogift.view.NetworkImageHolderView;
 import com.kakao.kakaogift.view.ShareWindow;
 import com.kakao.kakaogift.view.TagCloudView;
@@ -422,6 +423,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	private void showPushWindow() {
 		if (pushWindow == null) {
 			pushWindow = new GoodsPushWindow(this, detail.getPush());
+//			pushWindow = new GoodsPushWindow(this, detail.getPush());
 		}
 		pushWindow.show();
 	}
@@ -546,7 +548,15 @@ public class GoodsDetailActivity extends BaseActivity implements
 			more_view.setOnClickListener(this);
 			findViewById(R.id.btn_pay).setEnabled(false);
 			findViewById(R.id.btn_add_shopcart).setEnabled(false);
-			findViewById(R.id.sold_out).setVisibility(View.VISIBLE);
+			TextView view = (TextView) findViewById(R.id.sold_out);
+			if(stock.getState().equals("K")){
+				view.setText("已抢光");
+			}else if(stock.getState().equals("D")){
+				view.setText("已下架");
+			}else if(stock.getState().equals("P")){
+				view.setText("未开售");
+			}
+			view.setVisibility(View.VISIBLE);
 			showPushWindow();
 		}
 		// 初始化主显示商品信息
@@ -623,7 +633,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 			// 标题折扣的获取
 			zhe = " " + s.getItemDiscount() + "折 ";
 			// 存在折扣 显示原价
-			itemSrcPrice.setText(getResources().getString(R.string.price,
+			itemSrcPrice.setText(getResources().getString(R.string.price_src,
 					s.getItemSrcPrice()));
 			itemSrcPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 		}
@@ -634,8 +644,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		} else {
 			itemTitle.setText(s.getInvTitle());
 		}
-		itemPrice.setText(getResources().getString(R.string.price,
-				s.getItemPrice()));
+		itemPrice.setText(s.getItemPrice()+"");
 		if (s.getRestrictAmount() != null && s.getRestrictAmount() > 0) {
 			// 存在限购数量
 			restrictAmount.setVisibility(View.VISIBLE);

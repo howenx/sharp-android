@@ -20,9 +20,15 @@ public class ViewExpandAnimation extends Animation {
     private LayoutParams mViewLayoutParams = null;
     private int mStart = 0;
     private int mEnd = 0;
+    
+    private View hideView;
 
     public ViewExpandAnimation(View view){
         animationSettings(view, 280);
+    }
+    public ViewExpandAnimation(View view,View hideView){
+    	animationSettings(view, 280);
+    	this.hideView = hideView;
     }
 
     public ViewExpandAnimation(View view, int duration){
@@ -51,6 +57,13 @@ public class ViewExpandAnimation extends Animation {
             mAnimationView.requestLayout();
             if(mEnd != 0){
                 mAnimationView.setVisibility(View.INVISIBLE);
+                if(hideView !=null){
+                	hideView.setVisibility(View.VISIBLE);
+                }
+            }else{
+            	if(hideView !=null){
+                	hideView.setVisibility(View.INVISIBLE);
+                }
             }
         }
     }

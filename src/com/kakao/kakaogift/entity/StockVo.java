@@ -21,7 +21,7 @@ public class StockVo implements Serializable {
 	private BigDecimal itemPrice;
 	private BigDecimal itemDiscount;
 	private Boolean orMasterInv;
-	private String state;
+	private String state; // 状态  'Y'--正常,'D'--下架,'N'--删除,'K'--售空，'P'--预售
 	private BigDecimal shipFee;
 	private String invArea;
 	private String invAreaNm;
@@ -45,9 +45,9 @@ public class StockVo implements Serializable {
 	private String invWeight;// 商品重量单位g
 	private String browseCount;// 浏览次数
 	private String collectCount;// 收藏数
-	private String pinId;
+	private String pinId; // 拼购ID
 	private String shareUrl; // 分享短连接
-	private String status; // 拼购ID
+	private String status;// 状态  'Y'--正常,'D'--下架,'N'--删除,'K'--售空，'P'--预售
 	private BigDecimal invPrice; // 商品原价
 	private long collectId;
 
@@ -213,6 +213,21 @@ public class StockVo implements Serializable {
 	public String getStatus() {
 		return status;
 	}
+	public String getStatus_values() {
+		String values = null;
+		if(status.equals("Y")){
+			values = "销售中";
+		}else if(status.equals("D")){
+			values = "已下架";
+		}else if(status.equals("N")){
+			values = "已删除";
+		}else if(status.equals("K")){
+			values = "已抢光";
+		}else if(status.equals("P")){
+			values = "未开售";
+		}
+		return values;
+	}
 
 	public void setStatus(String status) {
 		this.status = status;
@@ -294,6 +309,21 @@ public class StockVo implements Serializable {
 
 	public String getState() {
 		return state;
+	}
+	public String getState_values() {
+		String values = null;
+		if(state.equals("Y")){
+			values = "销售中";
+		}else if(state.equals("D")){
+			values = "已下架";
+		}else if(state.equals("N")){
+			values = "已删除";
+		}else if(state.equals("K")){
+			values = "已抢光";
+		}else if(state.equals("P")){
+			values = "未开售";
+		}
+		return values;
 	}
 
 	public void setState(String state) {

@@ -32,8 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@id/iconView"
-                android:text="alksdfhjklasdfklasdlkjhfhjkasd"
-                android:textColor="@color/fontcolor"
+                android:textColor="@color/black"
                 android:textSize="14sp" />
         </RelativeLayout>
 
@@ -58,7 +57,6 @@
                 android:id="@+id/mListView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
                 android:divider="@null" />
         </LinearLayout>
 
@@ -71,7 +69,7 @@
             android:gravity="center"
             android:padding="10dp"
             android:text="立即开团"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="12sp" />
     </LinearLayout>
 

@@ -63,8 +63,8 @@ public class TicketAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		if(coupon.getState().equals("N")){
-			holder.money.setTextColor(activity.getResources().getColor(R.color.huang));
-			holder.biaoshi.setTextColor(activity.getResources().getColor(R.color.huang));
+			holder.money.setTextColor(activity.getResources().getColor(R.color.orange));
+			holder.biaoshi.setTextColor(activity.getResources().getColor(R.color.orange));
 			holder.bg_img.setImageDrawable(activity.getResources().getDrawable(R.drawable.hmm_bg_youhuiquan));
 		}else if(coupon.getState().equals("Y")){
 			holder.biaoshi.setTextColor(activity.getResources().getColor(R.color.fontcolor));

@@ -64,8 +64,7 @@ public class ThemeAdapter extends BaseAdapter {
 		if (theme.getItemType().equals("pin")) {
 			holder.sold_ready.setVisibility(View.GONE);
 			holder.pin_tip.setVisibility(View.VISIBLE);
-			holder.price.setText(activity.getResources().getString(
-					R.string.price, theme.getItemPrice()));
+			holder.price.setText(theme.getItemPrice());
 			holder.discount.setText("低至"+activity.getResources().getString(
 					R.string.discount, theme.getItemDiscount()));
 			holder.old_price.setText("最低");
@@ -83,13 +82,12 @@ public class ThemeAdapter extends BaseAdapter {
 				holder.sold_out.setText("已结束");
 			}
 		} else {
-			holder.price.setText(activity.getResources().getString(
-					R.string.price, theme.getItemPrice()));
+			holder.price.setText(theme.getItemPrice());
 			if (theme.getItemDiscount() > 0) {
 				holder.discount.setText(activity.getResources().getString(
 						R.string.discount, theme.getItemDiscount()));
 				holder.old_price.setText(activity.getResources().getString(
-						R.string.price, theme.getItemSrcPrice()));
+						R.string.price_src, theme.getItemSrcPrice()));
 				holder.old_price.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 			}
 			holder.pin_tip.setVisibility(View.GONE);

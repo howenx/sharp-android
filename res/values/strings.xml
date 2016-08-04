@@ -24,7 +24,8 @@
     <string name="about_id_card">    ·我在韩秘美购物为什么需要客户提交身份证信息？\n\n    您好，因为您购买的是国外商品，商品送到您手中需要经过海关报关流程，根据国家法规规定国外商品进入中国是需要您提供身份证信息来完成报关的。请您放心，我们会妥善处理与保管您的身份证信息，仅用于商品清关时使用。 若您有疑惑可以查看相应的国家法律条款信息： 详情点击查看：http://www.customs.gov.cn/publish/portal0/tab517/info265077.htm。
 \n\n    ·我填写的收货人信息是错误的，怎么上传身份证信息？\n\n   建议您可以拨打韩秘美400免费热线：400-843-2288 周一到周日 09：00-18：00，我们会帮助您协商处理。</string>
     <string name="tishi">1.海关需要对海外购物查验身份信息，错误信息可能导致无法通关。\n2.身份信息将加密报关，韩秘美将保证您的信息安全。</string>
-    <string name="price">¥%1$s</string>
+    <string name="price">¥ %1$s</string>
+    <string name="price_src">¥%1$s</string>
     <string name="price01">¥%1$s起售</string>
     <string name="discount">%1$s折</string>
     <string name="shui">税率:%1$s％</string>
@@ -32,8 +33,8 @@
     <string name="restrictAmount">限购%1$s件</string>
     <string name="shipFee">运费:¥%1$s</string>
     <string name="postalFee">行邮税:¥%1$s</string>
-    <string name="buyNum">购买数量:%1$s</string>
-    <string name="all_money">总金额:¥%1$s</string>
+    <string name="buyNum">购买数量:%1$s件</string>
+    <string name="all_money">总金额:¥ %1$s</string>
     <string name="submit_order">提交订单</string>
     <string name="name">姓名：%1$s</string>
     <string name="phone">联系电话：%1$s</string>

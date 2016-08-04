@@ -11,6 +11,7 @@
     <dimen name="tab_host_size">45dp</dimen>
     
     <dimen name="border_width">1dp</dimen>
+    <dimen name="font_most">20sp</dimen>
     <dimen name="font_big">18sp</dimen>
     <dimen name="font_middle">16sp</dimen>
     <dimen name="font_small">12sp</dimen>
@@ -67,4 +68,6 @@
 	<dimen name="spacing_medium">2dp</dimen>    
     
 
+	<dimen name="button_length">80dp</dimen>
+	
 </resources>

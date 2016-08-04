@@ -124,8 +124,7 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 			@Override
 			public void onTabReselected(int position) {
 				if (position == 0) {
-					sendBroadcast(new Intent(
-							AppConstant.MESSAGE_BROADCAST_UP_HOME_ACTION));
+					sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UP_HOME_ACTION));
 				}
 			}
 		});

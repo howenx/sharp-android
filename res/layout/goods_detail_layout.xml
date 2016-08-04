@@ -48,91 +48,117 @@
                             android:contentDescription="@null"
                             android:gravity="center"
                             android:text="已抢光"
-                            android:visibility="gone"
                             android:textColor="@color/white"
-                            android:textSize="16sp"/>
+                            android:textSize="16sp"
+                            android:visibility="gone" />
                     </com.kakao.kakaogift.view.SquareLayout>
 
-                    <TextView
-                        android:id="@+id/itemTitle"
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/xian_color" />
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="vertical"
+                        android:paddingLeft="15dp"
+                        android:paddingTop="17dp" >
+
+                        <TextView
+                            android:id="@+id/itemTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="17dp"
+                            android:background="@color/white"
+                            android:textColor="@color/black"
+                            android:textSize="15sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="17dp"
+                            android:layout_marginTop="15dp"
+                            android:background="@color/white"
+                            android:gravity="bottom"
+                            android:orientation="horizontal" >
+
+                            <TextView
+                                android:id="@+id/text1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="¥"
+                                android:textColor="@color/red"
+                                android:textSize="@dimen/font_middle" />
+
+                            <TextView
+                                android:id="@+id/itemPrice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/red"
+                                android:textSize="@dimen/font_most" />
+
+                            <TextView
+                                android:id="@+id/itemSrcPrice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:textColor="@color/gray"
+                                android:textSize="@dimen/font_small" />
+
+                            <TextView
+                                android:id="@+id/restrictAmount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="4dp"
+                                android:textColor="@color/red"
+                                android:textSize="@dimen/font_small" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="1px"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/portalfee_free"
+                                android:textColor="@color/gray"
+                                android:textSize="@dimen/font_small" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:layout_marginTop="17dp"
+                            android:background="@color/xian_color" />
+
+                        <TextView
+                            android:id="@+id/publicity"
+                            android:layout_width="match_parent"
+                            android:layout_height="38dp"
+                            android:background="@color/white"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="38dp"
                         android:layout_marginTop="10dp"
                         android:background="@color/white"
-                        android:padding="8dp"
-                        android:textColor="@color/black"
-                        android:textSize="14sp" />
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:paddingBottom="8dp"
-                        android:paddingLeft="8dp"
-                        android:paddingRight="8dp" >
-
-                        <TextView
-                            android:id="@+id/itemPrice"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:textColor="@color/red"
-                            android:textSize="20dp" />
-
-                        <TextView
-                            android:id="@+id/itemSrcPrice"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBottom="@id/itemPrice"
-                            android:layout_marginLeft="4dp"
-                            android:layout_toRightOf="@id/itemPrice"
-                            android:textColor="@color/gray"
-                            android:textSize="@dimen/font_small" />
-
-                        <TextView
-                            android:id="@+id/restrictAmount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBottom="@id/itemPrice"
-                            android:layout_marginLeft="4dp"
-                            android:layout_toRightOf="@id/itemSrcPrice"
-                            android:textColor="@color/red"
-                            android:textSize="@dimen/font_small" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBottom="@id/itemPrice"
-                            android:layout_alignParentRight="true"
-                            android:text="@string/portalfee_free"
-                            android:textColor="@color/gray"
-                            android:textSize="12sp" />
-                    </RelativeLayout>
-
-                    <TextView
-                        android:id="@+id/publicity"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="0.2dp"
-                        android:background="@color/white"
-                        android:padding="8dp"
-                        android:textColor="@color/black"
-                        android:textSize="14sp" />
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:background="@color/white"
-                        android:padding="8dp" >
+                        android:gravity="center_vertical" >
 
                         <TextView
                             android:id="@+id/area_type"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
                             android:text="邮寄方式："
                             android:textColor="@color/gray"
-                            android:textSize="12sp" />
+                            android:textSize="14sp" />
 
                         <TextView
                             android:id="@+id/area"
@@ -140,7 +166,7 @@
                             android:layout_height="wrap_content"
                             android:layout_toRightOf="@id/area_type"
                             android:textColor="@color/black"
-                            android:textSize="12sp" />
+                            android:textSize="14sp" />
                     </RelativeLayout>
 
                     <TextView
@@ -148,8 +174,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:background="@color/white"
-                        android:paddingLeft="8dp"
-                        android:paddingTop="8dp"
+                        android:paddingLeft="15dp"
+                        android:paddingTop="13dp"
                         android:text="规格"
                         android:textColor="@color/gray"
                         android:textSize="14sp" />
@@ -160,20 +186,19 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
                         android:background="@color/white"
-                        app:tcvBorder="5dp"
+                        app:tcvBorder="15dp"
                         app:tcvCanTagClick="false"
-                        app:tcvItemBorderHorizontal="8dp"
-                        app:tcvItemBorderVertical="6dp"
+                        app:tcvItemBorderHorizontal="0dp"
+                        app:tcvItemBorderVertical="13dp"
                         app:tcvSingleLine="false"
                         app:tcvTextColor="@color/black" />
 
                     <RelativeLayout
                         android:id="@+id/btn_comment"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="38dp"
                         android:layout_marginBottom="10dp"
-                        android:background="@color/white"
-                        android:padding="8dp" >
+                        android:background="@color/white" >
 
                         <TextView
                             android:id="@+id/remarkCount"
@@ -181,6 +206,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:layout_centerVertical="true"
+                            android:layout_marginLeft="15dp"
                             android:text="@string/comment"
                             android:textColor="@color/gray"
                             android:textSize="14sp" />
@@ -191,10 +217,11 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
+                            android:layout_marginRight="15dp"
                             android:drawablePadding="@dimen/driver_padding_small"
                             android:drawableRight="@drawable/hmm_next_page_gray"
                             android:text="@string/comment"
-                            android:textSize="12sp" />
+                            android:textSize="14sp" />
                     </RelativeLayout>
                 </LinearLayout>
                 <!-- content view -->
@@ -279,7 +306,9 @@
             <View
                 android:layout_width="1px"
                 android:layout_height="match_parent"
-                android:background="@color/qianhui" />
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/xian_color" />
 
             <FrameLayout
                 android:id="@+id/btn_attention"

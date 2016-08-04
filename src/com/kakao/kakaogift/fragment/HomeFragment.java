@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -178,12 +179,14 @@ public class HomeFragment extends BaseIconFragment implements
 					int position, long id) {
 				Intent intent = null;
 				if (catData.get(position).getTargetType().equals("D")) {
-					intent = new Intent(getActivity(), GoodsDetailActivity.class);
+					intent = new Intent(getActivity(),
+							GoodsDetailActivity.class);
 				} else if (catData.get(position).getTargetType().equals("T")) {
 					intent = new Intent(getActivity(), ThemeGoodsActivity.class);
 				} else if (catData.get(position).getTargetType().equals("P")) {
-					intent = new Intent(getActivity(), PingouDetailActivity.class);
-				} else if(catData.get(position).getTargetType().equals("U")){
+					intent = new Intent(getActivity(),
+							PingouDetailActivity.class);
+				} else if (catData.get(position).getTargetType().equals("U")) {
 					intent = new Intent(getActivity(), Html5LoadActivity.class);
 				}
 				intent.putExtra("url", catData.get(position).getItemTarget());
@@ -215,9 +218,6 @@ public class HomeFragment extends BaseIconFragment implements
 
 	private void addHeaderView() {
 		ListView v = mListView.getRefreshableView();
-		// View view =
-		// LayoutInflater.from(mActivity).inflate(R.layout.home_category_layout,
-		// null);
 		v.addHeaderView(headerView);
 		v.addHeaderView(catView);
 	}
@@ -275,11 +275,13 @@ public class HomeFragment extends BaseIconFragment implements
 	private void getNetData() {
 		if (isUpOrDwom == 0)
 			mActivity.getLoading().show();
-				if (mActivity.getHeaders() == null) {
-					VolleyHttp.doGetRequestTask(UrlUtil.HOME_LIST_URL + pageIndex, new VolleyJsonCallback() {
-						
+		if (mActivity.getHeaders() == null) {
+			VolleyHttp.doGetRequestTask(UrlUtil.HOME_LIST_URL + pageIndex,
+					new VolleyJsonCallback() {
+
 						@Override
 						public void onSuccess(String result) {
+							Log.i("result", result);
 							home = DataParser.parserHomeData(result);
 							if (isUpOrDwom == 0) {
 								upData(home);
@@ -287,17 +289,20 @@ public class HomeFragment extends BaseIconFragment implements
 								dwomData(home);
 							}
 						}
-						
+
 						@Override
 						public void onError() {
+							Log.i("result", "error");
 							mActivity.getLoading().dismiss();
 							mListView.setVisibility(View.GONE);
 							no_net.setVisibility(View.VISIBLE);
 						}
 					});
-				} else {
-					VolleyHttp.doGetRequestTask(baseActivity.getHeaders(), UrlUtil.HOME_LIST_URL + pageIndex, new VolleyJsonCallback() {
-						
+		} else {
+			VolleyHttp.doGetRequestTask(baseActivity.getHeaders(),
+					UrlUtil.HOME_LIST_URL + pageIndex,
+					new VolleyJsonCallback() {
+
 						@Override
 						public void onSuccess(String result) {
 							home = DataParser.parserHomeData(result);
@@ -306,18 +311,19 @@ public class HomeFragment extends BaseIconFragment implements
 							} else {
 								dwomData(home);
 							}
-							
+
 						}
-						
+
 						@Override
 						public void onError() {
 							mListView.setVisibility(View.GONE);
 							no_net.setVisibility(View.VISIBLE);
 						}
 					});
-				}
+		}
 	}
-	private void upData(Home home){
+
+	private void upData(Home home) {
 		mActivity.getLoading().dismiss();
 		mListView.onRefreshComplete();
 		if (home.gethMessage() != null) {
@@ -326,8 +332,7 @@ public class HomeFragment extends BaseIconFragment implements
 			if (home.gethMessage().getCode() == 200) {
 				afterLoadData(home, true);
 			} else {
-				ToastUtils.Toast(mActivity, home.gethMessage()
-						.getMessage());
+				ToastUtils.Toast(mActivity, home.gethMessage().getMessage());
 			}
 		} else {
 			mListView.setVisibility(View.GONE);
@@ -335,7 +340,8 @@ public class HomeFragment extends BaseIconFragment implements
 		}
 		IntroMsg();
 	}
-	private void dwomData(Home home){
+
+	private void dwomData(Home home) {
 		mListView.onRefreshComplete();
 		if (home.gethMessage() != null) {
 			mListView.setVisibility(View.VISIBLE);
@@ -343,11 +349,10 @@ public class HomeFragment extends BaseIconFragment implements
 			if (home.gethMessage().getCode() == 200) {
 				pullNum = pullNum + 1;
 				afterLoadData(home, false);
-				ToastUtils.Toast(mActivity, "加载了 "
-						+ home.getThemes().size() + " 条新数据");
+				ToastUtils.Toast(mActivity, "加载了 " + home.getThemes().size()
+						+ " 条新数据");
 			} else {
-				ToastUtils.Toast(mActivity, home.gethMessage()
-						.getMessage());
+				ToastUtils.Toast(mActivity, home.gethMessage().getMessage());
 			}
 		} else {
 			mListView.setVisibility(View.GONE);

@@ -29,7 +29,7 @@
         		android:text="¥"
         		android:layout_gravity="top"
         		android:textSize="18sp"
-        		android:textColor="@color/huang"/>
+        		android:textColor="@color/orange"/>
     <TextView 
         android:id="@+id/denomination"
         android:layout_width="wrap_content"
@@ -37,14 +37,14 @@
         android:gravity="center"
         android:text="50"
         android:textSize="26sp"
-        android:textColor="@color/huang"/>
+        android:textColor="@color/orange"/>
     </LinearLayout>
     <View 
         android:layout_toRightOf="@id/linear"
         android:layout_centerVertical="true"
         android:layout_height="50dp"
         android:layout_width="0.1dp"
-        android:background="@color/xian"/>
+        android:background="@color/xian_color"/>
     <RelativeLayout 
         android:layout_marginLeft="15dp"
         android:layout_toRightOf="@id/linear"

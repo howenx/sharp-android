@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import cn.jpush.android.api.JPushInterface;
 
@@ -46,6 +47,7 @@ public class FirstShowActivity extends AppCompatActivity {
 		} else {
 			loginUser();
 		}
+		
 	}
 
 	// 判断用户token信息

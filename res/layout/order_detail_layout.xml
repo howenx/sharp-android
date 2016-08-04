@@ -36,7 +36,7 @@
             <TextView
                 android:id="@+id/go_money"
                 style="@style/submit_mid"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/button_length"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="申请退款"
@@ -45,7 +45,7 @@
             <TextView
                 android:id="@+id/send"
                 style="@style/submit_mid_huise"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/button_length"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:gravity="center"
@@ -55,7 +55,7 @@
             <TextView
                 android:id="@+id/go_pay"
                 style="@style/submit_mid"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/button_length"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:gravity="center"
@@ -65,7 +65,7 @@
             <TextView
                 android:id="@+id/go_wuliu"
                 style="@style/submit_mid_huise"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/button_length"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:gravity="center"
@@ -75,7 +75,7 @@
             <TextView
                 android:id="@+id/go_comment"
                 style="@style/submit_mid"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/button_length"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:gravity="center"

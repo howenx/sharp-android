@@ -165,7 +165,7 @@ public class OrderPullListAdapter extends BaseAdapter {
 			holder.state.setText("待支付");
 			// 颜色
 			holder.state.setTextColor(activity.getResources().getColor(
-					R.color.theme));
+					R.color.red));
 			holder.goods_post.setVisibility(View.GONE);
 			holder.go_pay.setVisibility(View.VISIBLE);
 			holder.go_pay.setText("去支付");
@@ -177,7 +177,7 @@ public class OrderPullListAdapter extends BaseAdapter {
 			holder.bootom.setVisibility(View.GONE);
 			// 颜色
 			holder.state.setTextColor(activity.getResources().getColor(
-					R.color.theme));
+					R.color.red));
 			if (order.getRefund() != null
 					&& !order.getRefund().getState().equals("R")) {
 				// String state = "待发货(已锁定)";
@@ -193,7 +193,7 @@ public class OrderPullListAdapter extends BaseAdapter {
 			holder.state.setText("待收货");
 			// 颜色
 			holder.state.setTextColor(activity.getResources().getColor(
-					R.color.theme));
+					R.color.red));
 			holder.do_shou.setVisibility(View.VISIBLE);
 			holder.go_pay.setVisibility(View.GONE);
 			holder.goods_post.setVisibility(View.VISIBLE);

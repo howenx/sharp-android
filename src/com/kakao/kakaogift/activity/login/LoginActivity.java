@@ -86,8 +86,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	//友盟三方登陆
 	private int loginFrom = 0;
 	private UMShareAPI mShareAPI;
-	//百度登陆
-//	private Baidu baidu = null;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -319,8 +317,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			url = UrlUtil.QQ_CHECK + data.get("openid");
 		}else if(loginFrom == 2){
 			url = UrlUtil.WEIBO_CHECK + data.get("uid");
-		}else{
-			url = UrlUtil.BAIDU_CHECK + data.get("uid");
 		}
 		VolleyHttp.doGetRequestTask(url, new VolleyJsonCallback() {
 

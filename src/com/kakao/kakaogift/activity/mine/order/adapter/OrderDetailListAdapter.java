@@ -63,7 +63,6 @@ public class OrderDetailListAdapter extends BaseAdapter {
 			holder.img = (ImageView) convertView.findViewById(R.id.img);
 			holder.nums = (TextView) convertView.findViewById(R.id.order_nums);
 			holder.price = (TextView) convertView.findViewById(R.id.price);
-			holder.btn_apply_service = (TextView) convertView.findViewById(R.id.btn_apply_service);
 			convertView.setTag(holder);
 			
 		}else{
@@ -73,22 +72,6 @@ public class OrderDetailListAdapter extends BaseAdapter {
 		holder.title.setText(position + 1 + "." + sku.getSkuTitle());
 		holder.nums.setText("数量：" + sku.getAmount());
 		holder.price.setText("¥" + sku.getPrice());
-		if(isShow){
-			holder.btn_apply_service.setVisibility(View.INVISIBLE);
-		}else{
-			holder.btn_apply_service.setVisibility(View.INVISIBLE);
-		}
-		holder.btn_apply_service.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				Intent intent = new Intent(activity, CustomerServiceActivity.class);
-				intent.putExtra("sku", sku);
-				intent.putExtra("orderId", orderId);
-				intent.putExtra("splitOrderId", childId);
-				activity.startActivity(intent);
-			}
-		});
 		return convertView;
 	}
 	private class ViewHolder{
@@ -96,7 +79,6 @@ public class OrderDetailListAdapter extends BaseAdapter {
 		private TextView title;
 		private TextView nums;
 		private TextView price;
-		private TextView btn_apply_service;
 	}
 	public void setOrderId(String orderId,String childId){
 		this.orderId = orderId;
