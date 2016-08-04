@@ -32,9 +32,9 @@
         android:layout_height="wrap_content"
         android:text="评价晒单"
         android:textSize="13sp"
-        android:textColor="@color/theme"
+        android:textColor="@color/black"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:background="@drawable/theme_border"/>
+        android:background="@drawable/yellow_border_selector"/>
 
 </RelativeLayout>

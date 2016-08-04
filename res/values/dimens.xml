@@ -68,4 +68,6 @@
 	<dimen name="spacing_medium">2dp</dimen>    
     
 
+	<dimen name="button_length">80dp</dimen>
+	
 </resources>

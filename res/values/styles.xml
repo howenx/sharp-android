@@ -10,12 +10,13 @@
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
         -->
-      
+
     </style>
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
-  <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
         <item name="actionBarSize">@dimen/actionbar_size</item>
         <item name="actionBarStyle"> @style/MyActionBarStyle</item>
         <item name="colorPrimary">@color/yellow</item>
@@ -42,6 +43,7 @@
     </style>
 
     <style name="SplashStyle" parent="AppBaseTheme">
+
         <!-- 填充屏幕 -->
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowFullscreen">true</item>
@@ -139,20 +141,18 @@
         <item name="android:background">@drawable/yellow_border_selector</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/btn_theme_font_selector</item>
-        <item name="android:paddingBottom">5dp</item>
+        <item name="android:gravity">center</item>
         <item name="android:paddingTop">5dp</item>
-        <item name="android:paddingRight">15dp</item>
-        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingBottom">5dp</item>
     </style>
 
     <style name="submit_mid_huise">
         <item name="android:background">@drawable/gray_border_selector</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/black</item>
-        <item name="android:paddingBottom">5dp</item>
+        <item name="android:gravity">center</item>
         <item name="android:paddingTop">5dp</item>
-        <item name="android:paddingRight">15dp</item>
-        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingBottom">5dp</item>
     </style>
 
     <style name="customButton">
@@ -205,13 +205,12 @@
         <item name="android:windowBackground">@android:color/transparent</item> <!-- 自己想要的背景 -->
         <item name="android:backgroundDimEnabled">true</item> <!-- 模糊 -->
     </style>
-    
+
     <style name="customDialogAnimationStyle" parent="@android:style/Animation.Dialog">
         <item name="android:windowEnterAnimation">@anim/modal_in</item>
         <item name="android:windowExitAnimation">@anim/modal_out</item>
     </style>
-    
-    
+
     <!-- 设置dialog 样式 -->
     <style name="CustomDimDialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item> <!-- 边框 -->
@@ -221,7 +220,6 @@
         <item name="android:windowBackground">@android:color/transparent</item> <!-- 自己想要的背景 -->
         <item name="android:backgroundDimEnabled">false</item> <!-- 模糊 -->
     </style>
-    
 
     <!-- 设置sharewindow 样式 -->
     <style name="BottomShowDialog" parent="@style/CustomDialog">
@@ -232,7 +230,6 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
-    
     <!-- 友盟 -->
     <style name="Theme.UMDefault" parent="android:style/Theme.NoTitleBar"></style>
 
@@ -291,8 +288,8 @@
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:layout_centerVertical">true</item>
     </style>
-    
-     <!-- ratingbar style -->
+
+    <!-- ratingbar style -->
     <style name="hmm_evaluate_ratingBar" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/hmm_ratingbar</item>
         <item name="android:minHeight">22dp</item>
