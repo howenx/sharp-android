@@ -31,15 +31,15 @@ public class SuggestionActivity extends BaseActivity implements OnClickListener 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.idea_layout);
-		ActionBarUtil.setActionBarStyle(this, "意见反馈", R.drawable.icon_save,
-				this);
+		ActionBarUtil.setActionBarStyle(this, "意见反馈");
 		editText = (EditText) findViewById(R.id.idea);
+		findViewById(R.id.send).setOnClickListener(this);
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.setting:
+		case R.id.send:
 			checkInput();
 			break;
 		default:

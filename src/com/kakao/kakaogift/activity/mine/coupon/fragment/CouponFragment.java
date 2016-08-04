@@ -14,11 +14,9 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.kakao.kakaogift.R
-;
+import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.base.BaseActivity;
 import com.kakao.kakaogift.activity.mine.coupon.adapter.TicketAdapter;
 import com.kakao.kakaogift.data.UrlUtil;
@@ -26,6 +24,8 @@ import com.kakao.kakaogift.entity.Category;
 import com.kakao.kakaogift.entity.CouponVo;
 import com.kakao.kakaogift.entity.Ticket;
 import com.kakao.kakaogift.entity.User;
+import com.kakao.kakaogift.http.VolleyHttp;
+import com.kakao.kakaogift.http.VolleyHttp.VolleyJsonCallback;
 import com.kakao.kakaogift.manager.CouponMenager;
 import com.kakao.kakaogift.manager.MyCouponMenager;
 import com.kakao.kakaogift.utils.HttpUtils;
@@ -44,7 +44,6 @@ public class CouponFragment extends Fragment implements OnClickListener{
 	private List<CouponVo> data;
 	private BaseActivity activity;
 	private Category category;
-	private User user;
 	private int state;
 	private View no_data;
 	private LinearLayout no_net;
@@ -53,7 +52,6 @@ public class CouponFragment extends Fragment implements OnClickListener{
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		activity = (BaseActivity) getActivity();
-		user = activity.getUser();
 		data = new ArrayList<CouponVo>();
 		adapter = new TicketAdapter(data, activity);
 		Bundle bundle = getArguments();
@@ -82,16 +80,40 @@ public class CouponFragment extends Fragment implements OnClickListener{
 
 	private void loadData() {
 		activity.getLoading().show();
-		new Thread(new Runnable() {
+		VolleyHttp.doGetRequestTask(activity.getHeaders(), UrlUtil.GET_COUPON_LIST_URL, new VolleyJsonCallback() {
+			
 			@Override
-			public void run() {
-				String result = HttpUtils.get(UrlUtil.GET_COUPON_LIST_URL, user.getToken());
+			public void onSuccess(String result) {
+				activity.getLoading().dismiss();
 				Ticket ticket = new Gson().fromJson(result, Ticket.class);
-				Message msg = mHandler.obtainMessage(1);
-				msg.obj = ticket;
-				mHandler.sendMessage(msg);
+				if(ticket != null){
+					no_net.setVisibility(View.GONE);
+					data.clear();
+					getNums(ticket.getCoupons());
+					mCoupno(ticket.getCoupons());
+					if(ticket.getMessage().getCode() == 200){
+						if(data.size() > 0){
+							mListView.setVisibility(View.VISIBLE);
+							no_data.setVisibility(View.GONE);
+						}else{
+							mListView.setVisibility(View.GONE);
+							no_data.setVisibility(View.VISIBLE);
+						}
+					}
+				}else{
+					no_net.setVisibility(View.VISIBLE);
+					ToastUtils.Toast(activity, "请求失败，请检查您的网络！");
+				}
 			}
-		}).start();
+			
+			@Override
+			public void onError() {
+				activity.getLoading().dismiss();
+				no_net.setVisibility(View.VISIBLE);
+				ToastUtils.Toast(activity, "请求失败，请检查您的网络！");
+				
+			}
+		});
 	}
 	
 	private void mCoupno(List<CouponVo> list){
@@ -128,39 +150,6 @@ public class CouponFragment extends Fragment implements OnClickListener{
 		MyCouponMenager.getInstance().setNums(num1);
 	}
 	
-	private Handler mHandler = new Handler(){
-
-		@Override
-		public void handleMessage(Message msg) {
-			super.handleMessage(msg);
-			switch (msg.what) {
-			case 1:
-				activity.getLoading().dismiss();
-				Ticket ticket = (Ticket) msg.obj;
-				if(ticket != null){
-					no_net.setVisibility(View.GONE);
-					data.clear();
-					getNums(ticket.getCoupons());
-					mCoupno(ticket.getCoupons());
-					if(ticket.getMessage().getCode() == 200){
-						if(data.size() > 0){
-							mListView.setVisibility(View.VISIBLE);
-							no_data.setVisibility(View.GONE);
-						}else{
-							mListView.setVisibility(View.GONE);
-							no_data.setVisibility(View.VISIBLE);
-						}
-					}
-				}else{
-					no_net.setVisibility(View.VISIBLE);
-					ToastUtils.Toast(activity, "请求失败，请检查您的网络！");
-				}
-				break;
-			default:
-				break;
-			}
-		}
-	};
 	
 	public void onResume() {
 	    super.onResume();

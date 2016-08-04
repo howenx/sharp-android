@@ -63,7 +63,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 	private TextView attention;
 	private LinearLayout no_data;
 	private LinearLayout no_net;
-	private ImageView go_home;
+	private TextView go_home;
 	private List<CustomsVo> data;
 	private ShoppingCarPullListAdapter adapter;
 	private User user;
@@ -237,7 +237,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 		bottom = (LinearLayout) findViewById(R.id.bottom);
 		total_price = (TextView) findViewById(R.id.total_price);
 		pay = (TextView) findViewById(R.id.pay);
-		go_home = (ImageView)findViewById(R.id.go_home);
+		go_home = (TextView)findViewById(R.id.go_home);
 		go_home.setOnClickListener(this);
 		pay.setOnClickListener(this);
 		attention = (TextView) findViewById(R.id.attention);

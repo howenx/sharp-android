@@ -22,8 +22,16 @@ public class CustomsVo implements Serializable{
 	private BigDecimal factSingleCustomsShipFee = BigDecimal.ZERO;
 	private BigDecimal shipSingleCustomsFee=  BigDecimal.ZERO;
 	private BigDecimal factPortalFeeSingleCustoms=  BigDecimal.ZERO;
+	private Integer buyNow = 1;
 	
 	
+	
+	public Integer getBuyNow() {
+		return buyNow;
+	}
+	public void setBuyNow(Integer buyNow) {
+		this.buyNow = buyNow;
+	}
 	public String getInvAreaNm() {
 		return invAreaNm;
 	}

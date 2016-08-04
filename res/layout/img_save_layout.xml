@@ -25,9 +25,9 @@
         android:layout_height="wrap_content"
         android:text="@null"
         android:textSize="12sp"
-        android:textColor="@color/theme"
+        android:textColor="@color/attention_color"
         android:visibility="invisible"
-        android:background="#ffeedd"/>
+        android:background="@color/notice"/>
     <LinearLayout 
         android:id="@+id/linear"
         android:layout_marginLeft="10dp"

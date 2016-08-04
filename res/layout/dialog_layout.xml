@@ -22,12 +22,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:background="#ffeedd"
+        android:background="@color/notice"
         android:paddingBottom="2dp"
         android:paddingLeft="15dp"
         android:paddingTop="2dp"
         android:text="@null"
-        android:textColor="@color/theme"
+        android:textColor="@color/attention_color"
         android:textSize="12sp"
         android:visibility="gone" />
 
@@ -49,7 +49,7 @@
             android:gravity="center"
             android:padding="6dp"
             android:text="取消"
-            android:textColor="@color/theme"
+            android:textColor="@color/yellow"
             android:textSize="14sp" />
 
         <TextView
@@ -61,7 +61,7 @@
             android:gravity="center"
             android:padding="6dp"
             android:text="确定"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="14sp" />
     </LinearLayout>
 

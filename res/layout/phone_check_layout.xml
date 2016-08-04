@@ -15,14 +15,16 @@
             android:id="@+id/attention"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#ffeedd"
+            android:background="@color/notice"
             android:paddingBottom="3dp"
             android:paddingLeft="15dp"
             android:paddingTop="3dp"
             android:text="@null"
-            android:textColor="@color/theme"
+            android:textColor="@color/attention_color"
             android:textSize="12sp"
-            android:visibility="invisible" />
+            android:visibility="invisible" 
+            android:drawableLeft="@drawable/hmm_attention"
+            android:drawablePadding="5dp"/>
 
         <TextView
             android:id="@+id/send_to"
@@ -97,7 +99,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="5dp"
                 android:text="@string/go_login"
-                android:textColor="@color/theme"
+                android:textColor="@color/yellow"
                 android:textSize="13sp" />
 
             <TextView

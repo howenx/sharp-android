@@ -21,7 +21,7 @@ public class ShoppingCar implements Serializable {
 	private BigDecimal discountFee = BigDecimal.ZERO;	//商品活动优惠额度
 	private BigDecimal totalFee = BigDecimal.ZERO;
 	
-	 private Integer buyNow = 1;         //1.立即支付,2.购物车结算
+	private Integer buyNow = 1;         //1.立即支付,2.购物车结算
 
 	public void setDiscountFee(BigDecimal discountFee) {
 		if(discountFee !=null)

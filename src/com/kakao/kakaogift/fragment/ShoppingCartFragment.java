@@ -59,7 +59,7 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 	private TextView pay;
 	private TextView attention;
 	private LinearLayout no_data;
-	private ImageView go_home;
+	private TextView go_home;
 	private List<CustomsVo> data;
 	private ShoppingCarPullListAdapter adapter;
 	private BaseActivity activity;
@@ -251,7 +251,7 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 		pay = (TextView) view.findViewById(R.id.pay);
 		attention = (TextView) view.findViewById(R.id.attention);
 		mListView = (PullToRefreshListView) view.findViewById(R.id.mylist);
-		go_home = (ImageView) view.findViewById(R.id.go_home);
+		go_home = (TextView) view.findViewById(R.id.go_home);
 		mListView.setOnRefreshListener(this);
 		mListView.setMode(Mode.PULL_DOWN_TO_REFRESH);
 		no_data = (LinearLayout) view.findViewById(R.id.data_null);
