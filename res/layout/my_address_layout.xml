@@ -18,12 +18,8 @@
             android:layout_marginBottom="20dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:background="@drawable/btn_theme_radius_selector"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="新增收货地址+"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
+            style="@style/textview_button_style"
+            android:text="新增收货地址+" />
 
         <ListView
             android:id="@+id/list"
