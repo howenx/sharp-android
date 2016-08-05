@@ -19,7 +19,7 @@
         app:pstsTabBackground="@android:color/transparent"
         app:pstsUnderlineHeight="1px"
         app:zmsSelectedTabTextSize="14sp"
-        app:zmsTabTextColor="@color/gray"
+        app:zmsTabTextColor="@color/black"
         app:zmsTabTextSize="14sp"
         app:zmsSelectedTabTextColor="@color/yellow" />
 
