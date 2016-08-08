@@ -273,6 +273,9 @@ public class HomeFragment extends BaseIconFragment implements
 
 	// 加载网络数据
 	private void getNetData() {
+		data.clear();
+		dataSliders.clear();
+		catData.clear();
 		if (isUpOrDwom == 0)
 			mActivity.getLoading().show();
 		if (mActivity.getHeaders() == null) {
@@ -316,6 +319,7 @@ public class HomeFragment extends BaseIconFragment implements
 
 						@Override
 						public void onError() {
+							mActivity.getLoading().dismiss();
 							mListView.setVisibility(View.GONE);
 							no_net.setVisibility(View.VISIBLE);
 						}
@@ -366,7 +370,7 @@ public class HomeFragment extends BaseIconFragment implements
 		List<Entry> entries = home.getEntries();
 		if ((list != null && list.size() > 0)) {
 			if (isNew) {
-				data.clear();
+//				data.clear();
 				data.addAll(list);
 				themeDao.deleteAll();
 				themeDao.insertInTx(data);
@@ -381,14 +385,14 @@ public class HomeFragment extends BaseIconFragment implements
 		if (sliders != null && sliders.size() > 0) {
 			sliderDao.deleteAll();
 			sliderDao.insertInTx(sliders);
-			dataSliders.clear();
+//			dataSliders.clear();
 			dataSliders.addAll(sliders);
 			initHeaderView();
 		}
 		if (entries != null && entries.size() > 0) {
 			entryDao.deleteAll();
 			entryDao.insertInTx(entries);
-			catData.clear();
+//			catData.clear();
 			catData.addAll(entries);
 			categoryAdapter.notifyDataSetChanged();
 		}

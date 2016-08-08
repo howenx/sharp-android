@@ -110,7 +110,7 @@
 
             <TextView
                 android:id="@+id/exit"
-                style="@style/submit_mid_m"
+                style="@style/textview_button_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
