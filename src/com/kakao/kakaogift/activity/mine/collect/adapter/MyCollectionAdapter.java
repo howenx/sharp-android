@@ -71,7 +71,7 @@ public class MyCollectionAdapter extends BaseAdapter {
 			GlideLoaderTools.loadSquareImage(mContext,collection.getSku().getInvImg(), holder.img);
 			holder.name.setText(collection.getSku().getSkuTitle());
 			holder.price.setText("¥" + collection.getSku().getPrice());
-			holder.size.setText(collection.getSku().getItemColor() + "  " + collection.getSku().getItemSize());
+			holder.size.setText("规格： " + collection.getSku().getItemColor() + "  " + collection.getSku().getItemSize());
 			if(collection.getSkuType().equals("pin")){
 				holder.priceName.setText("最低至：");
 				holder.pinImg.setVisibility(View.VISIBLE);

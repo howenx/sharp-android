@@ -37,11 +37,10 @@
 
         <TextView
             android:id="@+id/send"
-            style="@style/submit_mid_m"
+            style="@style/textview_button_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:gravity="center"
             android:text="@string/save" />
     </LinearLayout>
 

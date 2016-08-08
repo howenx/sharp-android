@@ -17,6 +17,11 @@ public class UrlUtil {
 	 public static final String SERVERY2 = "http://cash.hanmimei.com";
 	 public static final String SERVERY4 = "http://id.hanmimei.com";
 	 public static final String SERVERY5 = "http://promotion.hanmimei.com";
+	 
+//	 public static final String SERVERY3 = "http://api.kakaogift.cn";
+//	 public static final String SERVERY1 = "http://shopping.kakaogift.cn";
+//	 public static final String SERVERY4 = "http://id.kakaogift.cn";
+//	 public static final String SERVERY5 = "http://promotion.kakaogift.cn";
 	/*
 	 * http://172.28.3.78	孙宝娜
 	 */

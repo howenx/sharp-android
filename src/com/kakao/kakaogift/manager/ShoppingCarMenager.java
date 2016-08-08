@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -34,6 +35,7 @@ public class ShoppingCarMenager {
 	private String customName;
 	private int bottommorePrice;
 	private List<CustomsVo> list = new ArrayList<CustomsVo>();
+	private Activity mActivity;
 
 	private static class ShopCartManagerHolder {
 		public static final ShoppingCarMenager instance = new ShoppingCarMenager();
@@ -43,6 +45,7 @@ public class ShoppingCarMenager {
 		return ShopCartManagerHolder.instance;
 	}
 	public void initShoppingCarMenager(Context mContext, ShoppingCarPullListAdapter adapter, List<CustomsVo> list, TextView attention, TextView totalPrice, TextView pay, LinearLayout no_data, LinearLayout bottom,PullToRefreshListView mListView){
+		mActivity = (Activity) mContext;
 		this.adapter = adapter;
 		this.list.clear();
 		this.list.addAll(list);
@@ -148,11 +151,13 @@ public class ShoppingCarMenager {
 		}
 		pay.setClickable(false);
 		pay.setBackgroundResource(R.color.unClicked);
+		pay.setTextColor(mActivity.getResources().getColor(R.color.white));
 	}
 	public void setPayClick(){
 		attention.setText("友情提示：同一保税区商品总额有限制");
 		pay.setClickable(true);
 		pay.setBackgroundResource(R.drawable.btn_buy_selector);
+		pay.setTextColor(mActivity.getResources().getColor(R.color.black));
 	}
 	private ShoppingCarPullListAdapter adapter;
 	
