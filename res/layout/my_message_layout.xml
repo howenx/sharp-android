@@ -23,16 +23,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp" >
+            android:orientation="vertical" >
 
             <RelativeLayout
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:id="@+id/sys_msg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
-                android:visibility="gone" >
+                android:visibility="gone" 
+                android:background="@color/white">
 
                 <FrameLayout
                     android:id="@+id/frame1"
@@ -82,11 +83,14 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:id="@+id/good_msg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
-                android:visibility="gone" >
+                android:visibility="gone" 
+                android:background="@color/white">
 
                 <FrameLayout
                     android:id="@+id/frame2"
@@ -136,11 +140,14 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:id="@+id/ac_msg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
-                android:visibility="gone" >
+                android:visibility="gone" 
+                android:background="@color/white">
 
                 <FrameLayout
                     android:id="@+id/frame5"
@@ -190,11 +197,14 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:id="@+id/wuliu_msg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
-                android:visibility="gone" >
+                android:visibility="gone"
+                android:background="@color/white">
 
                 <FrameLayout
                     android:id="@+id/frame3"
@@ -244,11 +254,14 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:id="@+id/zichan_msg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
-                android:visibility="gone" >
+                android:visibility="gone" 
+                android:background="@color/white">
 
                 <FrameLayout
                     android:id="@+id/frame4"

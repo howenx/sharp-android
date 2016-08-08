@@ -43,7 +43,7 @@ public class FirstShowActivity extends AppCompatActivity {
 		// 判断是否是第一次进入app
 		if (IntroConfig.getIntroCfg(this).equals(
 				IntroConfig.INTRO_CONFIG_VALUE_IS)) {
-			mHandler.postDelayed(new FirstRun(0), 2000);
+			mHandler.postDelayed(new FirstRun(1), 2000);
 		} else {
 			loginUser();
 		}

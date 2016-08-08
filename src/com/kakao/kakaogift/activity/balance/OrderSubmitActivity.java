@@ -204,16 +204,14 @@ public class OrderSubmitActivity extends BaseActivity {
 	private void aliPay(final String alipayInfo) {
 		// TODO Auto-generated method stub
 		submitTask(new Runnable() {
-
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
 				PayTask payTask = new PayTask(getActivity());
 				String result = payTask.pay(alipayInfo, true);
-				Message msg = new Message();
-				msg.what = SDK_PAY_FLAG;
-				msg.obj = result;
+				Message msg = mHandler.obtainMessage(SDK_PAY_FLAG, result);
 				mHandler.sendMessage(msg);
+				
 			}
 		});
 	}
@@ -279,6 +277,7 @@ public class OrderSubmitActivity extends BaseActivity {
 		});
 	}
 
+	@SuppressLint("HandlerLeak")
 	private Handler mHandler = new Handler() {
 
 		@Override

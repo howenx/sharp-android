@@ -158,13 +158,13 @@ public class HomeFragment extends BaseIconFragment implements
 		return view;
 	}
 
-	private void IntroMsg() {
-		if (IntroConfig.getIntroMsgCfg(getActivity()).equals(
-				IntroConfig.INTRO_CONFIG_VALUE_IS)) {
-			IntroMsgDialog dialog = new IntroMsgDialog(getActivity());
-			dialog.show();
-		}
-	}
+//	private void IntroMsg() {
+//		if (IntroConfig.getIntroMsgCfg(getActivity()).equals(
+//				IntroConfig.INTRO_CONFIG_VALUE_IS)) {
+//			IntroMsgDialog dialog = new IntroMsgDialog(getActivity());
+//			dialog.show();
+//		}
+//	}
 
 	private View catView;
 	private CategoryAdapter categoryAdapter;
@@ -338,7 +338,6 @@ public class HomeFragment extends BaseIconFragment implements
 			mListView.setVisibility(View.GONE);
 			no_net.setVisibility(View.VISIBLE);
 		}
-		IntroMsg();
 	}
 
 	private void dwomData(Home home) {

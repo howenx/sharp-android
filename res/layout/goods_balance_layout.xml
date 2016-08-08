@@ -199,7 +199,8 @@
                     android:id="@+id/group_coupons"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/theme" >
+                    android:background="@color/bg" 
+                    android:visibility="gone">
 
                     <RadioButton
                         android:id="@+id/btn_unuse"
@@ -281,6 +282,7 @@
         android:padding="5dp"
         android:text="海关规定：跨境商品支付金额不小于1元"
         android:textColor="@color/black"
+        android:visibility="gone"
         android:textSize="10sp" />
 
     <LinearLayout

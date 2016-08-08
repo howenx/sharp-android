@@ -201,13 +201,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
-            android:background="@drawable/yellow_button_bg"
-            android:gravity="center"
-            android:paddingBottom="7dp"
-            android:paddingTop="7dp"
-            android:text="添加"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:text="添加" 
+            style="@style/textview_button_style"/>
     </LinearLayout>
 
 </FrameLayout>
