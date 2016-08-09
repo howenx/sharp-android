@@ -1,5 +1,6 @@
 package com.kakao.kakaogift.activity;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 
+import com.bumptech.glide.disklrucache.DiskLruCache;
+import com.bumptech.glide.load.engine.cache.DiskLruCacheFactory;
 import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.base.BaseActivity;
 import com.kakao.kakaogift.activity.login.LoginActivity;
@@ -59,7 +62,8 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 	private boolean isHome = true;
 	IconTabPageIndicator mIndicator;
 
-	private List<BaseIconFragment> fragments;
+	
+	private List<BaseIconFragment> fragments; 
 	
 	private int message_icon = R.drawable.hmm_icon_message_n;
 	
@@ -76,6 +80,7 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 		initViewPager();
 		registerReceivers();
 		doCheckVersionTask();
+		
 	}
 
 	// @SuppressLint("InflateParams")

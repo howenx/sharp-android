@@ -17,6 +17,7 @@ public class UrlUtil {
 	 public static final String SERVERY2 = "http://cash.hanmimei.com";
 	 public static final String SERVERY4 = "http://id.hanmimei.com";
 	 public static final String SERVERY5 = "http://promotion.hanmimei.com";
+	 public static final String SERVERY7 = "http://img.hanmimei.com";
 	 
 //	 public static final String SERVERY3 = "http://api.kakaogift.cn";
 //	 public static final String SERVERY1 = "http://shopping.kakaogift.cn";
@@ -144,7 +145,7 @@ public class UrlUtil {
 	// 隐私协议
 	public static final String AGREEMENT = SERVERY3 + "/comm/views/privacy";
 	// 检测更新
-	public static final String UPDATE_HMM = "http://img.hanmimei.com/android/hmm.xml?";
+	public static final String UPDATE_HMM = SERVERY7 + "/android/hmm.xml?";
 	// 添加收藏
 	public static final String ADD_COLLECTION = SERVERY1
 			+ "/client/collect/submit";

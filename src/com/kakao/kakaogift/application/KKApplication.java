@@ -9,7 +9,6 @@ import com.kakao.kakaogift.entity.User;
 import com.kakao.kakaogift.entity.VersionVo;
 import com.kakao.kakaogift.http.VolleyHttp;
 import com.kakao.kakaogift.manager.DataBaseManager;
-import com.kakao.kakaogift.utils.UncaughtExceptionTools;
 import com.testin.agent.TestinAgent;
 import com.umeng.socialize.PlatformConfig;
 
@@ -26,6 +25,7 @@ public class KKApplication extends Application {
 		VolleyHttp.registRequestQueue(this);
 		DataBaseManager.initializeInstance(this);
 		TestinAgent.init(this);
+		JPushInterface.setDebugMode(true);
 		JPushInterface.init(this); // 初始化 JPush
 //		UncaughtExceptionTools.handler(this);
 	}
@@ -36,8 +36,8 @@ public class KKApplication extends Application {
 		PlatformConfig.setWeixin("wx578f993da4b29f97",
 				"e78a99aec4b6860370107be78a5faf9d");
 		// 新浪微博 appkey appsecret
-		PlatformConfig.setSinaWeibo("794664710",
-				"0dc274fafeabec336673331c633a115e");
+		PlatformConfig.setSinaWeibo("2077801979",
+				"934587e123fe9520f577708a601649a9");
 		// QQ和Qzone appid appkey
 		PlatformConfig.setQQZone("1105332776", "CKevSfjxt0dXEq0y");
 	}
@@ -84,6 +84,7 @@ public class KKApplication extends Application {
 
 	public void setKouling(String kouling) {
 		this.kouling = kouling;
+		
 	}
 
 	public VersionVo getVersionInfo() {
@@ -93,5 +94,5 @@ public class KKApplication extends Application {
 	public void setVersionInfo(VersionVo versionInfo) {
 		this.versionInfo = versionInfo;
 	}
-
+	
 }
