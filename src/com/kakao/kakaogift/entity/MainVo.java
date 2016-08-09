@@ -141,6 +141,8 @@ public class MainVo {
 	}
 
 	public String getPublicity() {
+		if(publicity == null)
+			return null;
 		List<String> result = new Gson().fromJson(publicity,
 				new TypeToken<List<String>>() {
 				}.getType());

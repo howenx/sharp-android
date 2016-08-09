@@ -171,11 +171,11 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="@color/huise"
+                        android:background="@color/bg"
                         android:gravity="center"
                         android:padding="8dp"
-                        android:textColor="@color/white"
-                        android:visibility="gone" />
+                        android:visibility="gone"
+                        android:textColor="@color/black"/>
 
                     <TextView
                         android:id="@+id/btn_right"
@@ -183,11 +183,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="1"
-                        android:background="@color/theme"
+                        android:background="@color/yellow"
                         android:gravity="center"
                         android:padding="8dp"
-                        android:textColor="@color/white"
-                        android:visibility="gone" />
+                        android:textColor="@color/black"
+                        android:visibility="gone"/>
                 </LinearLayout>
             </LinearLayout>
 

@@ -28,7 +28,7 @@
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/header"
             android:text="会飞的猪"
-            android:textColor="@color/fontcolor"
+            android:textColor="@color/black"
             android:textSize="12sp" />
 
         <TextView
@@ -39,7 +39,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
             android:text="sdfsdf"
-            android:textColor="@color/huise"
+            android:textColor="@color/gray"
             android:textSize="12sp" />
     </RelativeLayout>
 

@@ -83,7 +83,8 @@ public class ThemeAdapter extends BaseAdapter {
 			}
 		} else {
 			holder.price.setText(theme.getItemPrice());
-			if (theme.getItemDiscount() > 0) {
+			if (theme.getItemDiscount() > 0 
+					&& theme.getItemDiscount() <10) {
 				holder.discount.setText(activity.getResources().getString(
 						R.string.discount, theme.getItemDiscount()));
 				holder.old_price.setText(activity.getResources().getString(

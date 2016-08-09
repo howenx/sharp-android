@@ -448,7 +448,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 		}
 		// 子商品信息
 		TextView publicity = (TextView) findViewById(R.id.publicity); // 优惠信息
-		if (detail.getMain() != null) {
+		if (detail.getMain() != null &&
+				detail.getMain().getPublicity() !=null) {
+			publicity.setVisibility(View.INVISIBLE);
 			publicity.setText(detail.getMain().getPublicity());
 		}
 		// 主详情

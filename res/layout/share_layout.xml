@@ -82,7 +82,7 @@
             android:drawablePadding="@dimen/driver_padding_normal"
             android:drawableTop="@drawable/hmm_icon_copy"
             android:gravity="center"
-            android:text="@string/kouling"
+            android:text="@string/kouling" 
             android:textColor="@color/fontcolor" />
 
         <View

@@ -141,6 +141,7 @@
                             android:background="@color/white"
                             android:gravity="center_vertical"
                             android:textColor="@color/black"
+                            android:visibility="gone"
                             android:textSize="14sp" />
                     </LinearLayout>
 
