@@ -39,7 +39,7 @@ public class KKApplication extends Application {
 		PlatformConfig.setSinaWeibo("2077801979",
 				"934587e123fe9520f577708a601649a9");
 		// QQ和Qzone appid appkey
-		PlatformConfig.setQQZone("1105332776", "CKevSfjxt0dXEq0y");
+		PlatformConfig.setQQZone("1105527443", "lXkPvxWXufYAIzHT");
 	}
 
 	public Map<String, String> getMap() {

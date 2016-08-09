@@ -18,11 +18,8 @@ public class UrlUtil {
 	 public static final String SERVERY4 = "http://id.hanmimei.com";
 	 public static final String SERVERY5 = "http://promotion.hanmimei.com";
 	 public static final String SERVERY7 = "http://img.hanmimei.com";
+	 public static final String SERVERY6 = "http://style.hanmimei.com";
 	 
-//	 public static final String SERVERY3 = "http://api.kakaogift.cn";
-//	 public static final String SERVERY1 = "http://shopping.kakaogift.cn";
-//	 public static final String SERVERY4 = "http://id.kakaogift.cn";
-//	 public static final String SERVERY5 = "http://promotion.kakaogift.cn";
 	/*
 	 * http://172.28.3.78	孙宝娜
 	 */
@@ -53,6 +50,8 @@ public class UrlUtil {
 //	 public static final String SERVERY1 = "http://172.28.3.46:9003";
 //	 public static final String SERVERY4 = "http://172.28.3.46:9004";
 //	 public static final String SERVERY5 = "http://172.28.3.46:9005";
+	 
+	 
 	
 	//baidu denglu
 	 public static final String BAIDU_CHECK = SERVERY4 + "/api/user/open?idType=B&openId=";

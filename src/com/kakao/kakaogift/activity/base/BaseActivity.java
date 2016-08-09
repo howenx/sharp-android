@@ -191,11 +191,11 @@ public class BaseActivity extends ParallaxActivityBase {
 		ClipboardManager cbm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
 		if (!TextUtils.isEmpty(cbm.getText())) {
 			// 根据剪切版内容，拼接跳转链接
-			if (cbm.getText().toString().trim().contains("KAKAO-HMM")) {
-				if (cbm.getText().toString().trim().contains("】,")) {
-					String[] url = cbm.getText().toString().trim().split("】,");
-					if (url[1].contains("－🔑")) {
-						String cutUrl = url[1].split("－🔑")[0];
+			if (cbm.getText().toString().trim().contains("KakaoGift")) {
+				if (cbm.getText().toString().trim().contains("】")) {
+					String[] url = cbm.getText().toString().trim().split("】");
+//					if (url[1].contains("－🔑")) {
+						String cutUrl = url[1];
 						if (cbm.getText().toString().trim().contains("<C>")) {
 							what = 0;
 							loadData(UrlUtil.SERVERY3 + "/comm/detail"
@@ -217,7 +217,7 @@ public class BaseActivity extends ParallaxActivityBase {
 					}
 				}
 			}
-		}
+//		}
 	}
 
 	private GoodsDetail detail;

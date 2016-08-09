@@ -410,7 +410,7 @@
         <!-- 友盟   appkey -->
         <meta-data            android:name="UMENG_APPKEY"            android:value="57971d05e0f55a855c002128" />
         <!-- Testin AppKey -->
-        <meta-data            android:name="TESTIN_APPKEY"            android:value="058ce4b48f9c7d6ddf2f835b0d5774bf" />
+        <meta-data            android:name="TESTIN_APPKEY"            android:value="c4e5c7ddfd0f2b36ac91f27ef98e9adf" />
         <!-- 极光推送 AppKey -->
         <meta-data            android:name="JPUSH_APPKEY"            android:value="717d910672e7557fd5ddf6f3" />
         <!-- glide 图片处理配置 -->

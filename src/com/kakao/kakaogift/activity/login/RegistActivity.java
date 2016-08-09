@@ -406,7 +406,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 		// 倒计时结束，获取验证码可以点击
 		get_yanzheng.setClickable(true);
 		get_yanzheng.setText("获取验证码");
-		get_yanzheng.setTextColor(getResources().getColor(R.color.theme));
+		get_yanzheng.setTextColor(getResources().getColor(R.color.yellow));
 	}
 
 	private List<ShoppingGoods> list;

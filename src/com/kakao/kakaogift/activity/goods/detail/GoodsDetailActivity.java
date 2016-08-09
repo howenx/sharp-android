@@ -290,7 +290,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 			}
 			ShareVo vo = new ShareVo();
 			vo.setContent(shareStock.getInvTitle());
-			vo.setTitle("韩秘美，只卖韩国正品");
+			vo.setTitle("我在KakaoGift发现了一个不错的礼物，赶快来看看吧");
 			if (shareStock.getInvImgForObj() != null)
 				vo.setImgUrl(shareStock.getInvImgForObj().getUrl());
 			if (shareStock.getInvUrl() != null) {
