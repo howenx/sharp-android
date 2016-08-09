@@ -303,6 +303,11 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 				List<NameValuePair> params = new ArrayList<NameValuePair>();
 				params.add(new BasicNameValuePair("phone", phone));
 				params.add(new BasicNameValuePair("msg", msg));
+				if(isRegist){
+					params.add(new BasicNameValuePair("smsType", "register"));
+				}else{
+					params.add(new BasicNameValuePair("smsType", "reset"));
+				}
 				String result = HttpUtils.postCommon(UrlUtil.GET_CODE_URL,
 						params);
 				HMessage issucess = DataParser.paserResultMsg(result);
