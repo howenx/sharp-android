@@ -9,7 +9,6 @@ import com.kakao.kakaogift.entity.User;
 import com.kakao.kakaogift.entity.VersionVo;
 import com.kakao.kakaogift.http.VolleyHttp;
 import com.kakao.kakaogift.manager.DataBaseManager;
-import com.kakao.kakaogift.utils.UncaughtExceptionTools;
 import com.testin.agent.TestinAgent;
 import com.umeng.socialize.PlatformConfig;
 
@@ -39,7 +38,7 @@ public class KKApplication extends Application {
 		PlatformConfig.setSinaWeibo("794664710",
 				"0dc274fafeabec336673331c633a115e");
 		// QQ和Qzone appid appkey
-		PlatformConfig.setQQZone("1105332776", "CKevSfjxt0dXEq0y");
+		PlatformConfig.setQQZone("1105527443", "lXkPvxWXufYAIzHT");
 	}
 
 	public Map<String, String> getMap() {

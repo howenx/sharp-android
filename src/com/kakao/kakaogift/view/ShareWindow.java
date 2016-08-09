@@ -15,6 +15,7 @@ import android.view.WindowManager;
 import com.kakao.kakaogift.R
 ;
 import com.kakao.kakaogift.application.KKApplication;
+import com.kakao.kakaogift.data.UrlUtil;
 import com.kakao.kakaogift.entity.ShareVo;
 import com.kakao.kakaogift.utils.ToastUtils;
 import com.umeng.socialize.Config;
@@ -107,7 +108,7 @@ import com.umeng.socialize.media.UMImage;
 			.setCallback(umShareListener)
 			.withMedia(new UMImage(mActivity, vo.getImgUrl()))
 			.withTitle(vo.getContent())
-			.withText("我在韩秘美发现了一个不错的商品，赶快来看看吧。")
+			.withText("我在KakaoGift发现了一个不错的礼物，赶快来看看吧")
 			.withTargetUrl(vo.getTargetUrl())
 			.share();
 		}
@@ -149,15 +150,15 @@ import com.umeng.socialize.media.UMImage;
 		String url = "";
 		if(vo.getType().equals("C")||vo.getType().equals("P")){
 			code = vo.getInfoUrl().split("detail");
-			url = "https://style.hanmimei.com/detail" + code[1];
+			url = UrlUtil.SERVERY6 + "/detail" + code[1];
 		}else if(vo.getType().equals("T")){
 			code = vo.getInfoUrl().split("activity");
-			url =  "https://style.hanmimei.com/pin/activity" + code[1];
+			url = UrlUtil.SERVERY6 + "/pin/activity" + code[1];
 		}
 		KKApplication application = (KKApplication) mActivity
 				.getApplication();
-		application.setKouling("KAKAO-HMM 复制这条信息,打开👉韩秘美👈即可看到<"+vo.getType()+">【"
-				+ vo.getTitle() + "】," + url + "－🔑 M令 🔑");
+		application.setKouling("复制这条信息，打开👉KakaoGift👈立即购买<"+vo.getType()+">【"
+				+ vo.getContent()+ "】" + url);
 		ToastUtils.Toast(mActivity, "复制成功，快去粘贴吧");
 	}
 	
