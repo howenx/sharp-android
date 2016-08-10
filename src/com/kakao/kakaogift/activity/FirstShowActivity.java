@@ -7,12 +7,10 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import cn.jpush.android.api.JPushInterface;
 
-import com.kakao.kakaogift.R
-;
+import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.application.KKApplication;
 import com.kakao.kakaogift.dao.DaoSession;
 import com.kakao.kakaogift.data.DataParser;
@@ -23,8 +21,8 @@ import com.kakao.kakaogift.http.VolleyHttp;
 import com.kakao.kakaogift.http.VolleyHttp.VolleyJsonCallback;
 import com.kakao.kakaogift.manager.DataBaseManager;
 import com.kakao.kakaogift.utils.DateUtils;
-import com.kakao.kakaogift.utils.ToastUtils;
 import com.kakao.kakaogift.utils.PreferenceUtil.IntroConfig;
+import com.kakao.kakaogift.utils.ToastUtils;
 
 @SuppressLint("NewApi")
 public class FirstShowActivity extends AppCompatActivity {
