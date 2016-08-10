@@ -178,6 +178,7 @@ public class RegistActivity extends BaseActivity implements OnClickListener,
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.get_yanzheng:
+			get_yanzheng.stopRun();
 			getYanZheng();
 			break;
 		case R.id.regist:

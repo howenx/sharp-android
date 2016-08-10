@@ -226,12 +226,8 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="30dp"
-            android:background="@drawable/btn_theme_radius_selector"
-            android:gravity="center"
-            android:padding="8dp"
-            android:text="@string/regist"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
+            style="@style/submit"
+            android:text="@string/regist"/>
 
         <LinearLayout
             android:layout_width="match_parent"
