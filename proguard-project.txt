@@ -34,10 +34,16 @@
 -keep class com.alipay.sdk.app.PayTask{ public *;}
 -keep class com.alipay.sdk.app.AuthTask{ public *;}
 
--dontwarn com.baidu.uaq.com.google.gson.**
--keep class com.baidu.uaq.com.google.gson.** { *;}
--dontwarn com.google.gson.**
--keep class com.google.gson.** { *;}
--dontwarn com.baidu.uaq.agent.android.**
--keep class com.baidu.uaq.agent.android.** { *;}
--keepattributes Exceptions,InnerClasses,Signature
+-dontoptimize
+-dontpreverify
+
+-dontwarn cn.jpush.**
+-keep class cn.jpush.** { *; }
+#==================gson==========================
+-dontwarn com.google.**
+-keep class com.google.gson.** {*;}
+
+#==================protobuf======================
+-dontwarn com.google.**
+-keep class com.google.protobuf.** {*;}
+

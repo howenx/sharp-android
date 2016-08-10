@@ -13,11 +13,9 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.google.gson.Gson;
-import com.kakao.kakaogift.R
-;
+import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.goods.comment.adapter.GoodsCommentAdapter;
 import com.kakao.kakaogift.data.UrlUtil;
 import com.kakao.kakaogift.entity.GoodsCommentVo;
@@ -27,7 +25,6 @@ import com.kakao.kakaogift.http.VolleyHttp;
 import com.kakao.kakaogift.http.VolleyHttp.VolleyJsonCallback;
 import com.kakao.kakaogift.view.ListBottomView;
 import com.kakao.kakaogift.view.ListBottomView.OnScrollToBottomListener;
-import com.view.waterdrop.WaterDropListView.IWaterDropListViewListener;
 import com.viewpagerindicator.BaseIconFragment;
 import com.ypy.eventbus.EventBus;
 

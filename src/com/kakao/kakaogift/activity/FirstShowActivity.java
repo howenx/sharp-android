@@ -41,12 +41,12 @@ public class FirstShowActivity extends AppCompatActivity {
 		getSupportActionBar().hide();
 		application = (KKApplication) getApplication();
 		// 判断是否是第一次进入app
-		if (IntroConfig.getIntroCfg(this).equals(
-				IntroConfig.INTRO_CONFIG_VALUE_IS)) {
-			mHandler.postDelayed(new FirstRun(1), 2000);
-		} else {
+//		if (IntroConfig.getIntroCfg(this).equals(
+//				IntroConfig.INTRO_CONFIG_VALUE_IS)) {
+//			mHandler.postDelayed(new FirstRun(1), 2000);
+//		} else {
 			loginUser();
-		}
+//		}
 		
 	}
 

@@ -36,6 +36,8 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.Point;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.ExifInterface;
 import android.os.Environment;
 import android.os.Handler;
@@ -45,6 +47,7 @@ import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
@@ -163,33 +166,36 @@ public class CommonUtils {
 			return -1;
 		}
 	}
+
 	/**
-     * 图片质量压缩
-     * @param image
-     * @param srcPath 要保存的路径
-     * @return
-     */
-    public static Bitmap compressImage(Bitmap image, String srcPath) {
+	 * 图片质量压缩
+	 * 
+	 * @param image
+	 * @param srcPath
+	 *            要保存的路径
+	 * @return
+	 */
+	public static Bitmap compressImage(Bitmap image, String srcPath) {
 
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        image.compress(Bitmap.CompressFormat.JPEG, 100, baos);// 质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
-        int options = 100;
-        while (baos.toByteArray().length / 1024 > 30) {    // 循环判断如果压缩后图片是否大于100kb,大于继续压缩
-            baos.reset();// 重置baos即清空baos
-            options -= 10;// 每次都减少10
-            image.compress(Bitmap.CompressFormat.JPEG, options, baos);// 这里压缩options%，把压缩后的数据存放到baos中
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		image.compress(Bitmap.CompressFormat.JPEG, 100, baos);// 质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
+		int options = 100;
+		while (baos.toByteArray().length / 1024 > 30) { // 循环判断如果压缩后图片是否大于100kb,大于继续压缩
+			baos.reset();// 重置baos即清空baos
+			options -= 10;// 每次都减少10
+			image.compress(Bitmap.CompressFormat.JPEG, options, baos);// 这里压缩options%，把压缩后的数据存放到baos中
 
-        }
-        ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());// 把压缩后的数据baos存放到ByteArrayInputStream中
-        Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);// 把ByteArrayInputStream数据生成图片
-        try {
-            FileOutputStream out = new FileOutputStream(srcPath);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return bitmap;
-    }
+		}
+		ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());// 把压缩后的数据baos存放到ByteArrayInputStream中
+		Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);// 把ByteArrayInputStream数据生成图片
+		try {
+			FileOutputStream out = new FileOutputStream(srcPath);
+			bitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return bitmap;
+	}
 
 	/*
 	 * 根据不同的屏幕生成对应的面板高度
@@ -496,7 +502,7 @@ public class CommonUtils {
 		Intent intent = new Intent(mcContext, clazz);
 		mcContext.startActivity(intent);
 	}
-	
+
 	/**
 	 * 获取当前系统版本名
 	 * 
@@ -506,24 +512,25 @@ public class CommonUtils {
 	public static String getVersionName(Context context) {
 		// getPackageName()是你当前类的包名，0代表是获取版本信息
 		PackageManager packageManager = context.getPackageManager();
-		PackageInfo packInfo= null;
+		PackageInfo packInfo = null;
 		try {
-		packInfo = packageManager.getPackageInfo(context.getPackageName(),
-				0);
+			packInfo = packageManager.getPackageInfo(context.getPackageName(),
+					0);
 		} catch (NameNotFoundException e) {
 		}
 		return packInfo.versionName;
 	}
+
 	/**
 	 * 获取当前系统版本号
 	 * 
 	 * @return
 	 * @throws Exception
 	 */
-	public static Integer getVersionCode(Context context)  {
+	public static Integer getVersionCode(Context context) {
 		// getPackageName()是你当前类的包名，0代表是获取版本信息
 		PackageManager packageManager = context.getPackageManager();
-		PackageInfo packInfo= null;
+		PackageInfo packInfo = null;
 		try {
 			packInfo = packageManager.getPackageInfo(context.getPackageName(),
 					0);
@@ -592,20 +599,23 @@ public class CommonUtils {
 	public static String DecimalFormat(Double format) {
 		return new DecimalFormat("##0.00").format(format);
 	}
-	
-	public static String phoneNumPaser(String phoneNum){
+
+	public static String phoneNumPaser(String phoneNum) {
 		StringBuilder paser = new StringBuilder();
-		paser.append(phoneNum.substring(0, 3)).append("****").append(phoneNum.substring(7));
+		paser.append(phoneNum.substring(0, 3)).append("****")
+				.append(phoneNum.substring(7));
 		return paser.toString();
 	}
-	
-	public static String IDCardPaser(String idCard){
+
+	public static String IDCardPaser(String idCard) {
 		StringBuilder paser = new StringBuilder();
-		if(idCard.length() == 18){
-			paser.append(idCard.substring(0, 10)).append("****").append(idCard.substring(14));
-		}else if(idCard.length() == 15){
-			paser.append(idCard.substring(0, 8)).append("****").append(idCard.substring(12));
-		}else{
+		if (idCard.length() == 18) {
+			paser.append(idCard.substring(0, 10)).append("****")
+					.append(idCard.substring(14));
+		} else if (idCard.length() == 15) {
+			paser.append(idCard.substring(0, 8)).append("****")
+					.append(idCard.substring(12));
+		} else {
 			paser.append("身份证号码无效");
 		}
 		return paser.toString();
@@ -613,7 +623,7 @@ public class CommonUtils {
 
 	// 身份证校验
 	@SuppressWarnings("rawtypes")
-	@SuppressLint("SimpleDateFormat") 
+	@SuppressLint("SimpleDateFormat")
 	public static String IDCardValidate(String IDStr) {
 		String errorInfo = "";// 记录错误信息
 		String[] ValCodeArr = { "1", "0", "x", "9", "8", "7", "6", "5", "4",
@@ -797,8 +807,9 @@ public class CommonUtils {
 		hashtable.put("91", "国外");
 		return hashtable;
 	}
-	//是将转换
-	public static long[] getTimer(int time){
+
+	// 是将转换
+	public static long[] getTimer(int time) {
 		int minute = 0;
 		int second = 0;
 		int hour = 0;
@@ -814,8 +825,8 @@ public class CommonUtils {
 		return timer;
 	}
 
-	//校验用户名
-	public static String inputIsName(String name, int min, int max){
+	// 校验用户名
+	public static String inputIsName(String name, int min, int max) {
 		String result = "";
 		if (name.equals("")) {
 			result = "不能为空";
@@ -840,8 +851,9 @@ public class CommonUtils {
 		}
 
 	}
-	//生成随机数
-	public static int getRandom(){
+
+	// 生成随机数
+	public static int getRandom() {
 		Random random = new Random();
 		return random.nextInt();
 	}
@@ -853,8 +865,8 @@ public class CommonUtils {
 		return String.valueOf(num);
 	}
 
-	//设置提示内容显示内容以及方式
-	public static void setAttention(final TextView attention,String str){
+	// 设置提示内容显示内容以及方式
+	public static void setAttention(final TextView attention, String str) {
 		attention.setText(str);
 		attention.setVisibility(View.VISIBLE);
 		final Handler mHandler = new Handler() {
@@ -910,13 +922,13 @@ public class CommonUtils {
 		return new String(Base64.encode(b, Base64.NO_WRAP));
 	}
 
-	public static  int measureViewWidth(View view) {
-		int w = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
-		int h = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
+	public static int measureViewWidth(View view) {
+		int w = View.MeasureSpec.makeMeasureSpec(0,
+				View.MeasureSpec.UNSPECIFIED);
+		int h = View.MeasureSpec.makeMeasureSpec(0,
+				View.MeasureSpec.UNSPECIFIED);
 		view.measure(w, h);
 		return view.getMeasuredWidth();
 	}
-	
-	
 
 }

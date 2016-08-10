@@ -6,8 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import cn.jpush.android.api.JPushInterface;
 
-import com.kakao.kakaogift.R
-;
+import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.HMainActivity;
 import com.kakao.kakaogift.activity.goods.detail.GoodsDetailActivity;
 import com.kakao.kakaogift.activity.goods.h5.Html5LoadActivity;
@@ -21,7 +20,6 @@ import com.kakao.kakaogift.data.AppConstant;
 import com.kakao.kakaogift.data.DataParser;
 import com.kakao.kakaogift.entity.Notify;
 import com.kakao.kakaogift.manager.MessageMenager;
-import com.kakao.kakaogift.utils.ToastUtils;
 
 /**
  * 自定义接收器
