@@ -14,6 +14,8 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 import cn.jpush.android.api.JPushInterface;
 
+import cn.jpush.android.api.JPushInterface;
+
 import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.base.BaseActivity;
 import com.kakao.kakaogift.application.KKApplication;
