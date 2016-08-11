@@ -98,7 +98,9 @@ public class PushReceiver extends BroadcastReceiver {
 				if (notify.getTargetType() != null) {
 					if (notify.getTargetType().equals("C")) {
 						MessageMenager.getInstance().getListener().onGetMessage(R.drawable.hmm_icon_message);
-						context.sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_COUNPON_ACTION));
+						if(application.getLoginUser() != null){
+							context.sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_COUNPON_ACTION));
+						}
 					}
 				} 
 			}

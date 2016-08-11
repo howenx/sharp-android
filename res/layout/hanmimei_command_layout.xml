@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/kouling"
+        android:text="宝贝展示"
         android:textSize="16sp"
         android:textColor="@color/yellow"/>
         <ImageView 

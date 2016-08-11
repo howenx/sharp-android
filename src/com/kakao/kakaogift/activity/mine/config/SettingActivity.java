@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
+import cn.jpush.android.api.JPushInterface;
 
 import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.base.BaseActivity;
@@ -154,6 +155,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 					application.clearLoginUser();
 					userDao.deleteAll();
 					userDao.insert(user);
+					JPushInterface.setAlias(SettingActivity.this, "", null);
 					Thread.sleep(1500);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
