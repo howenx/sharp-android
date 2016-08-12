@@ -269,7 +269,7 @@ public class BaseActivity extends ParallaxActivityBase {
 
 			@Override
 			public void onError() {
-				ToastUtils.Toast(getActivity(), "错误的M令！");
+				ToastUtils.Toast(getActivity(), "错误的口令！");
 			}
 		});
 	}
@@ -285,17 +285,20 @@ public class BaseActivity extends ParallaxActivityBase {
 		GlideLoaderTools.loadSquareImage(getActivity(), imgurl, img);
 		TextView title = (TextView) view.findViewById(R.id.title);
 		TextView price = (TextView) view.findViewById(R.id.price);
+		TextView header = (TextView) view.findViewById(R.id.fi);
 		title.setText(ti);
+		price.setText("单价：¥" + pri);
 		if (what == 0) {
-			price.setText("单价：¥" + pri);
+			header.setText("查看商品");
 		} else if (what == 1) {
-			price.setText("拼购价：¥" + pri);
+			header.setText("查看拼购");
+//			price.setText("拼购价：¥" + pri);
 		} else if (what == 2) {
-			price.setText("折扣率：" + pri + "折");
+			header.setText("查看拼购");
+//			price.setText("折扣率：" + pri + "折");
 		}
 		view.findViewById(R.id.cancle).setOnClickListener(
 				new OnClickListener() {
-
 					@Override
 					public void onClick(View arg0) {
 						dialog.dismiss();
