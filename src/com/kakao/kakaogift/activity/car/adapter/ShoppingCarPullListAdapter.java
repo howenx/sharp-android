@@ -7,7 +7,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -22,6 +21,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.flyco.dialog.widget.NormalDialog;
 import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.base.BaseActivity;
 import com.kakao.kakaogift.activity.goods.detail.GoodsDetailActivity;
@@ -54,7 +54,7 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 	private BaseActivity activity;
 	private Drawable check_Drawable;
 	private Drawable uncheck_Drawable;
-	private AlertDialog dialog;
+	private NormalDialog dialog;
 	private ShoppingGoodsDao goodsDao;
 	private List<ShoppingGoods> goodsList;
 	private ShoppingGoods delGoods;

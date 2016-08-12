@@ -3,7 +3,6 @@ package com.kakao.kakaogift.activity.mine.collect;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -18,8 +17,8 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
-import com.kakao.kakaogift.R
-;
+import com.flyco.dialog.widget.NormalDialog;
+import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.base.BaseActivity;
 import com.kakao.kakaogift.activity.goods.detail.GoodsDetailActivity;
 import com.kakao.kakaogift.activity.goods.pin.PingouDetailActivity;
@@ -93,7 +92,7 @@ public class MyCollectionActivity extends BaseActivity implements
 	}
 
 
-	private AlertDialog dialog;
+	private NormalDialog dialog;
 	/**
 	 * @param arg2
 	 */

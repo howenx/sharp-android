@@ -7,7 +7,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,8 +19,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.kakao.kakaogift.R
-;
+import com.flyco.dialog.widget.NormalDialog;
+import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.apply.ApplyRefundActivity;
 import com.kakao.kakaogift.activity.balance.OrderSubmitActivity;
 import com.kakao.kakaogift.activity.base.BaseActivity;
@@ -89,7 +88,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 	private List<Sku> list;
 	private CustomListView listView;
 	private OrderDetailListAdapter adapter;
-	private AlertDialog dialog;
+	private NormalDialog dialog;
 	private JSONObject object;
 	private ProgressDialog progressDialog;
 	private boolean isShow = false;
@@ -368,7 +367,6 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		});
 	}
 	private void delOrder() {
-		dialog.dismiss();
 		progressDialog = new ProgressDialog(this);
 		progressDialog.setMessage("正在删除...");
 		progressDialog.show();

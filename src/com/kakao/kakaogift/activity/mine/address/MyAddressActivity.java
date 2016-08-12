@@ -7,7 +7,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,8 +21,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.kakao.kakaogift.R
-;
+import com.flyco.dialog.widget.NormalDialog;
+import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.base.BaseActivity;
 import com.kakao.kakaogift.data.AppConstant;
 import com.kakao.kakaogift.data.DataParser;
@@ -52,7 +51,7 @@ public class MyAddressActivity extends BaseActivity implements OnClickListener {
 	private JSONObject object;
 	private long selectedId = 0;
 	private int fromm = FromVo.AboutMyFragment;
-	private AlertDialog dialog;
+	private NormalDialog dialog;
 
 	@Override
 	protected void onCreate(Bundle bundle) {

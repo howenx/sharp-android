@@ -1,7 +1,6 @@
 package com.kakao.kakaogift.activity.mine.config;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -14,8 +13,7 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 import cn.jpush.android.api.JPushInterface;
 
-import cn.jpush.android.api.JPushInterface;
-
+import com.flyco.dialog.widget.NormalDialog;
 import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.base.BaseActivity;
 import com.kakao.kakaogift.application.KKApplication;
@@ -39,7 +37,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 	private TextView exit, cur_version;
 	private TextView versionName, cacheSize;
 	private ProgressDialog pdialog;
-	private AlertDialog dialog;
+	private NormalDialog dialog;
 	private KKApplication application;
 	private UserDao userDao;
 
