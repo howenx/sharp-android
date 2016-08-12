@@ -7,7 +7,6 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -18,15 +17,14 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.kakao.kakaogift.R
-;
+import com.flyco.dialog.widget.NormalDialog;
+import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.base.BaseActivity;
 import com.kakao.kakaogift.data.AppConstant;
 import com.kakao.kakaogift.data.DataParser;
@@ -51,7 +49,7 @@ public class CheckPhoneActivity extends BaseActivity implements OnClickListener 
 	private String phone_num;
 	private TextView attention;
 
-	private AlertDialog alertDialog;
+	private NormalDialog alertDialog;
 	private ImageView clear_phone;
 
 	@Override

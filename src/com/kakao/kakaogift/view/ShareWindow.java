@@ -1,64 +1,44 @@
 package com.kakao.kakaogift.view;
 
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 
-import com.kakao.kakaogift.R
-;
+import com.flyco.animation.BaseAnimatorSet;
+import com.flyco.dialog.widget.base.BottomBaseDialog;
+import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.application.KKApplication;
 import com.kakao.kakaogift.data.UrlUtil;
 import com.kakao.kakaogift.entity.ShareVo;
 import com.kakao.kakaogift.utils.ToastUtils;
-import com.umeng.socialize.Config;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 
-@SuppressLint("SdCardPath") public class ShareWindow extends AlertDialog implements OnClickListener {
+@SuppressLint("SdCardPath") 
+public class ShareWindow extends BottomBaseDialog<ShareWindow> implements OnClickListener {
 
 	private Activity mActivity;
 	private ShareVo vo;
+	
+	private View qq,weixin,weixinq,sina,copy;
 
+	public ShareWindow(Context context) {
+		super(context);
+		this.mActivity = (Activity) context;
+	}
+	
 	public ShareWindow(Context context, ShareVo vo) {
-		super(context, R.style.BottomShowDialog);
+		super(context,((Activity)context).getWindow().getDecorView().findViewById(android.R.id.content));
 		this.mActivity = (Activity) context;
 		this.vo = vo;
 	}
 
-	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.share_layout);
-		Config.OpenEditor = true;
-		// 添加按钮监听
-		findViewById(R.id.qq).setOnClickListener(this);
-		findViewById(R.id.weixin).setOnClickListener(this);
-		findViewById(R.id.weixinq).setOnClickListener(this);
-		findViewById(R.id.sina).setOnClickListener(this);
-		findViewById(R.id.copy).setOnClickListener(this);
-
-		Window window = getWindow();
-		// 可以在此设置显示动画
-		WindowManager.LayoutParams wl = window.getAttributes();
-		wl.x = 0;
-		wl.y = mActivity.getWindowManager().getDefaultDisplay().getHeight();
-		// 以下这两句是为了保证按钮可以水平满屏
-		wl.width = ViewGroup.LayoutParams.MATCH_PARENT;
-		wl.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-		// 设置显示位置
-		onWindowAttributesChanged(wl);
-	}
 
 	// 实现onTouchEvent触屏函数但点击屏幕时销毁本Activity
 	@Override
@@ -184,4 +164,82 @@ import com.umeng.socialize.media.UMImage;
 		}
 	};
 
+	/* (non-Javadoc)
+	 * @see com.flyco.dialog.widget.base.BaseDialog#onCreateView()
+	 */
+	@Override
+	public View onCreateView() {
+		// TODO Auto-generated method stub
+		View inflate = View.inflate(mContext, R.layout.share_layout, null);
+		qq = inflate.findViewById(R.id.qq);
+		weixin = inflate.findViewById(R.id.weixin);
+		weixinq= inflate.findViewById(R.id.weixinq);
+		sina= inflate.findViewById(R.id.sina);
+		copy = inflate.findViewById(R.id.copy);
+		return inflate;
+	}
+	/* (non-Javadoc)
+	 * @see com.flyco.dialog.widget.base.BaseDialog#setUiBeforShow()
+	 */
+	@Override
+	public void setUiBeforShow() {
+		// TODO Auto-generated method stub
+		qq.setOnClickListener(this);
+		weixin.setOnClickListener(this);
+		weixinq.setOnClickListener(this);
+		sina.setOnClickListener(this);
+		copy.setOnClickListener(this);
+	}
+
+	private BaseAnimatorSet mWindowInAs;
+    private BaseAnimatorSet mWindowOutAs;
+
+    @Override
+    protected BaseAnimatorSet getWindowInAs() {
+        if (mWindowInAs == null) {
+            mWindowInAs = new WindowsInAs();
+        }
+        return mWindowInAs;
+    }
+
+    @Override
+    protected BaseAnimatorSet getWindowOutAs() {
+        if (mWindowOutAs == null) {
+            mWindowOutAs = new WindowsOutAs();
+        }
+        return mWindowOutAs;
+    }
+
+    class WindowsInAs extends BaseAnimatorSet {
+        @Override
+        public void setAnimation(View view) {
+            ObjectAnimator rotationX = ObjectAnimator.ofFloat(view, "rotationX", 10, 0f).setDuration(150);
+            rotationX.setStartDelay(200);
+            animatorSet.playTogether(
+                    ObjectAnimator.ofFloat(view, "scaleX", 1.0f, 0.8f).setDuration(350),
+                    ObjectAnimator.ofFloat(view, "scaleY", 1.0f, 0.8f).setDuration(350),
+//                    ObjectAnimator.ofFloat(view, "alpha", 1.0f, 0.5f).setDuration(350),
+                    ObjectAnimator.ofFloat(view, "rotationX", 0f, 10).setDuration(200),
+                    rotationX,
+                    ObjectAnimator.ofFloat(view, "translationY", 0, -0.1f * mDisplayMetrics.heightPixels).setDuration(350)
+            );
+        }
+    }
+
+    class WindowsOutAs extends BaseAnimatorSet {
+        @Override
+        public void setAnimation(View view) {
+            ObjectAnimator rotationX = ObjectAnimator.ofFloat(view, "rotationX", 10, 0f).setDuration(150);
+            rotationX.setStartDelay(200);
+            animatorSet.playTogether(
+                    ObjectAnimator.ofFloat(view, "scaleX", 0.8f, 1.0f).setDuration(350),
+                    ObjectAnimator.ofFloat(view, "scaleY", 0.8f, 1.0f).setDuration(350),
+//                    ObjectAnimator.ofFloat(view, "alpha", 1.0f, 0.5f).setDuration(350),
+                    ObjectAnimator.ofFloat(view, "rotationX", 0f, 10).setDuration(200),
+                    rotationX,
+                    ObjectAnimator.ofFloat(view, "translationY", -0.1f * mDisplayMetrics.heightPixels, 0).setDuration(350)
+            );
+        }
+    }
+	
 }

@@ -3,7 +3,6 @@ package com.kakao.kakaogift.activity.mine.message;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,8 +15,8 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.kakao.kakaogift.R
-;
+import com.flyco.dialog.widget.NormalDialog;
+import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.base.BaseActivity;
 import com.kakao.kakaogift.activity.goods.detail.GoodsDetailActivity;
 import com.kakao.kakaogift.activity.goods.pin.PingouDetailActivity;
@@ -201,27 +200,25 @@ public class MessageActivity extends BaseActivity implements OnClickListener {
 		}
 	}
 
-	private AlertDialog dialog;
+	private NormalDialog dialog;
 
 	private void showDelDialog() {
 		dialog = AlertDialogUtils.showDialog(this, new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				dialog.dismiss();
 				delAll();
 			}
 		});
 	}
 
-	private AlertDialog delDialog;
+	private NormalDialog delDialog;
 
 	private void showDelLog(final PushMessageVo messageInfo) {
 		delDialog = AlertDialogUtils.showDialog(this, new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
-				delDialog.dismiss();
 				delMsg(messageInfo);
 			}
 		});
