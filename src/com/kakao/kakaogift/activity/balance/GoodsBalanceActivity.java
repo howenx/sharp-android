@@ -425,7 +425,6 @@ public class GoodsBalanceActivity extends BaseActivity implements
 		AlertDialogUtils.showBackDialog(getActivity(), new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				onBackPressed();
 				finish();
 			}
 		});

@@ -4,7 +4,7 @@
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
-    <style name="AppBaseTheme" parent="Theme.AppCompat.Light">
+    <style name="AppBaseTheme" parent="Theme.AppCompat">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
@@ -22,6 +22,7 @@
         <item name="colorPrimary">@color/yellow</item>
         <item name="colorPrimaryDark">@color/white</item>
         <item name="colorAccent">@color/yellow</item>
+        <item name="android:textAppearance">@style/TextAppearance.StatusBar.EventContent.Title</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowAnimationStyle">@style/Animation_Right</item>
     </style>

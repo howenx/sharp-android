@@ -6,8 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import com.flyco.animation.BounceEnter.BounceTopEnter;
-import com.flyco.animation.SlideExit.SlideBottomExit;
+import com.flyco.animation.Attention.Swing;
+import com.flyco.animation.FadeExit.FadeExit;
+import com.flyco.animation.ZoomEnter.ZoomInEnter;
+import com.flyco.animation.ZoomExit.ZoomInExit;
+import com.flyco.animation.ZoomExit.ZoomOutExit;
 import com.flyco.dialog.listener.OnBtnClickL;
 import com.flyco.dialog.widget.NormalDialog;
 import com.kakao.kakaogift.R;
@@ -130,7 +133,7 @@ public class AlertDialogUtils {
 	}
 	
 	public static NormalDialog showDialog(Context mContext,final OnClickListener l,String content, String left, String right) {
-		return showDialog(mContext, l, content, left, right);
+		return showDialog(mContext, l, null, content, left, right);
 	}
 	
 	/**
@@ -151,14 +154,14 @@ public class AlertDialogUtils {
 		if(title == null){
 			dialog.isTitleShow(false);
 		}else{
-			dialog.title(title).titleTextColor(mContext.getResources().getColor(R.color.yellow)).titleTextSize(16);
+			dialog.title(title).titleTextSize(16);
 		}
 		if(content !=null){
 			dialog.content(content).contentTextSize(14);
 		}
         dialog.style(NormalDialog.STYLE_TWO).btnText(btns).btnTextColor(btnsColor).btnTextSize(btnsSize)
-        .showAnim(new BounceTopEnter()).
-        dismissAnim(new SlideBottomExit()).show();
+        .showAnim(new ZoomInEnter()).
+        dismissAnim(new ZoomOutExit()).show();
         
         dialog.setOnBtnClickL(new OnBtnClickL() {
 			

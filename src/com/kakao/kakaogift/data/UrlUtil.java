@@ -12,13 +12,13 @@ public class UrlUtil {
 	 /*
 	  * 阿里云
 	  */
-	 public static final String SERVERY3 = "http://api.hanmimei.com";
-	 public static final String SERVERY1 = "http://shopping.hanmimei.com";
-	 public static final String SERVERY2 = "http://cash.hanmimei.com";
-	 public static final String SERVERY4 = "http://id.hanmimei.com";
-	 public static final String SERVERY5 = "http://promotion.hanmimei.com";
-	 public static final String SERVERY7 = "http://img.hanmimei.com";
-	 public static final String SERVERY6 = "http://style.hanmimei.com";
+	 public static final String SERVERY3 = "https://api.kakaogift.cn";
+	 public static final String SERVERY1 = "https://shopping.kakaogift.cn";
+	 public static final String SERVERY2 = "https://cash.kakaogift.cn";
+	 public static final String SERVERY4 = "https://id.kakaogift.cn";
+	 public static final String SERVERY5 = "https://promotion.kakaogift.cn";
+	 public static final String SERVERY7 = "https://img.kakaogift.cn";
+	 public static final String SERVERY6 = "https://style.kakaogift.cn";
 	 
 	/*
 	 * http://172.28.3.78	孙宝娜

@@ -213,32 +213,32 @@ public class ShareWindow extends BottomBaseDialog<ShareWindow> implements OnClic
     class WindowsInAs extends BaseAnimatorSet {
         @Override
         public void setAnimation(View view) {
-            ObjectAnimator rotationX = ObjectAnimator.ofFloat(view, "rotationX", 10, 0f).setDuration(150);
-            rotationX.setStartDelay(200);
-            animatorSet.playTogether(
-                    ObjectAnimator.ofFloat(view, "scaleX", 1.0f, 0.8f).setDuration(350),
-                    ObjectAnimator.ofFloat(view, "scaleY", 1.0f, 0.8f).setDuration(350),
-//                    ObjectAnimator.ofFloat(view, "alpha", 1.0f, 0.5f).setDuration(350),
-                    ObjectAnimator.ofFloat(view, "rotationX", 0f, 10).setDuration(200),
-                    rotationX,
-                    ObjectAnimator.ofFloat(view, "translationY", 0, -0.1f * mDisplayMetrics.heightPixels).setDuration(350)
-            );
+//            ObjectAnimator rotationX = ObjectAnimator.ofFloat(view, "rotationX", 10, 0f).setDuration(150);
+//            rotationX.setStartDelay(200);
+//            animatorSet.playTogether(
+//                    ObjectAnimator.ofFloat(view, "scaleX", 1.0f, 0.8f).setDuration(350),
+//                    ObjectAnimator.ofFloat(view, "scaleY", 1.0f, 0.8f).setDuration(350),
+////                    ObjectAnimator.ofFloat(view, "alpha", 1.0f, 0.5f).setDuration(350),
+//                    ObjectAnimator.ofFloat(view, "rotationX", 0f, 10).setDuration(200),
+//                    rotationX,
+//                    ObjectAnimator.ofFloat(view, "translationY", 0, -0.1f * mDisplayMetrics.heightPixels).setDuration(350)
+//            );
         }
     }
 
     class WindowsOutAs extends BaseAnimatorSet {
         @Override
         public void setAnimation(View view) {
-            ObjectAnimator rotationX = ObjectAnimator.ofFloat(view, "rotationX", 10, 0f).setDuration(150);
-            rotationX.setStartDelay(200);
-            animatorSet.playTogether(
-                    ObjectAnimator.ofFloat(view, "scaleX", 0.8f, 1.0f).setDuration(350),
-                    ObjectAnimator.ofFloat(view, "scaleY", 0.8f, 1.0f).setDuration(350),
-//                    ObjectAnimator.ofFloat(view, "alpha", 1.0f, 0.5f).setDuration(350),
-                    ObjectAnimator.ofFloat(view, "rotationX", 0f, 10).setDuration(200),
-                    rotationX,
-                    ObjectAnimator.ofFloat(view, "translationY", -0.1f * mDisplayMetrics.heightPixels, 0).setDuration(350)
-            );
+//            ObjectAnimator rotationX = ObjectAnimator.ofFloat(view, "rotationX", 10, 0f).setDuration(150);
+//            rotationX.setStartDelay(200);
+//            animatorSet.playTogether(
+//                    ObjectAnimator.ofFloat(view, "scaleX", 0.8f, 1.0f).setDuration(350),
+//                    ObjectAnimator.ofFloat(view, "scaleY", 0.8f, 1.0f).setDuration(350),
+////                    ObjectAnimator.ofFloat(view, "alpha", 1.0f, 0.5f).setDuration(350),
+//                    ObjectAnimator.ofFloat(view, "rotationX", 0f, 10).setDuration(200),
+//                    rotationX,
+//                    ObjectAnimator.ofFloat(view, "translationY", -0.1f * mDisplayMetrics.heightPixels, 0).setDuration(350)
+//            );
         }
     }
 	
