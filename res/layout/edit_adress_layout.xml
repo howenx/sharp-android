@@ -196,6 +196,7 @@
             android:textColor="@color/black"
             android:textSize="12sp" />
 
+             -->
         <TextView
             android:id="@+id/add"
             android:layout_width="match_parent"
@@ -203,7 +204,6 @@
             android:layout_marginTop="25dp"
             android:text="添加" 
             style="@style/textview_button_style"/>
-             -->
     </LinearLayout>
 
 </FrameLayout>
