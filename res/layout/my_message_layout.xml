@@ -73,7 +73,8 @@
                     android:layout_below="@id/title1"
                     android:layout_toLeftOf="@id/time1"
                     android:layout_toRightOf="@id/frame1"
-                    android:text="dgedjedjejdedd" />
+                    android:text="dgedjedjejdedd" 
+                    android:ellipsize="end"/>
 
                 <View
                     android:layout_width="match_parent"
@@ -130,7 +131,8 @@
                     android:layout_below="@id/title2"
                     android:layout_toLeftOf="@id/time2"
                     android:layout_toRightOf="@id/frame2"
-                    android:text="@null" />
+                    android:text="@null" 
+                    android:ellipsize="end"/>
 
                 <View
                     android:layout_width="match_parent"
@@ -187,7 +189,8 @@
                     android:layout_below="@id/title5"
                     android:layout_toLeftOf="@id/time5"
                     android:layout_toRightOf="@id/frame5"
-                    android:text="@null" />
+                    android:text="@null" 
+                    android:ellipsize="end"/>
 
                 <View
                     android:layout_width="match_parent"
@@ -244,7 +247,8 @@
                     android:layout_below="@id/title3"
                     android:layout_toLeftOf="@id/time3"
                     android:layout_toRightOf="@id/frame3"
-                    android:text="@null" />
+                    android:text="@null" 
+                    android:ellipsize="end"/>
 
                 <View
                     android:layout_width="match_parent"
@@ -301,7 +305,8 @@
                     android:layout_below="@id/title4"
                     android:layout_toLeftOf="@id/time4"
                     android:layout_toRightOf="@id/frame4"
-                    android:text="@null" />
+                    android:text="@null" 
+                    android:ellipsize="end"/>
 
                 <View
                     android:layout_width="match_parent"

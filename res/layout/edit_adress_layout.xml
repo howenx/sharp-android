@@ -41,7 +41,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:background="@null"
-                    android:textSize="14sp" />
+                    android:textSize="14sp" 
+                    android:textColor="@color/gray"/>
             </LinearLayout>
 
             <View
@@ -74,7 +75,8 @@
                     android:layout_weight="2"
                     android:background="@null"
                     android:phoneNumber="true"
-                    android:textSize="14sp" />
+                    android:textSize="14sp" 
+                    android:textColor="@color/gray"/>
             </LinearLayout>
 
             <View
@@ -141,7 +143,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:background="@null"
-                    android:textSize="14sp" />
+                    android:textSize="14sp" 
+                    android:textColor="@color/gray"/>
             </LinearLayout>
 
             <View

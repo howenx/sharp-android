@@ -52,7 +52,8 @@ public class UrlUtil {
 //	 public static final String SERVERY5 = "http://172.28.3.46:9005";
 	 
 	 
-	
+	//提交意见
+	public static final String SUGGESTION_URL = SERVERY1 + "/client/feedback";
 	//baidu denglu
 	 public static final String BAIDU_CHECK = SERVERY4 + "/api/user/open?idType=B&openId=";
 	//微信登录检查

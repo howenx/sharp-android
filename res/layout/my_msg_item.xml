@@ -24,10 +24,12 @@
         android:id="@+id/img"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:scaleType="fitXY"
         android:background="@drawable/bg_gray_boarder"
         android:contentDescription="@null"
         android:padding="0.1dp"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/ic_launcher" 
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/msg"
@@ -37,7 +39,7 @@
         android:layout_below="@id/img"
         android:text="标题"
         android:textColor="@color/msg_title"
-        android:textSize="@dimen/font_middle" />
+        android:textSize="@dimen/font_normal" />
 
     <TextView
         android:id="@+id/content"
