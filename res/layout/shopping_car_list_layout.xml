@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ptr="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg"
-    android:fitsSystemWindows="true" >
+    android:fitsSystemWindows="true"
+    android:orientation="vertical" >
+
+    <include layout="@layout/actionbar_custom_layout" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:background="@color/bg" >
 
         <TextView
@@ -16,15 +20,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/notice"
+            android:drawableLeft="@drawable/hmm_attention"
+            android:drawablePadding="5dp"
             android:paddingBottom="3dp"
             android:paddingLeft="15dp"
             android:paddingTop="3dp"
             android:text="@null"
             android:textColor="@color/attention_color"
             android:textSize="12sp"
-            android:visibility="invisible" 
-            android:drawableLeft="@drawable/hmm_attention"
-            android:drawablePadding="5dp"/>
+            android:visibility="invisible" />
 
         <include
             android:id="@+id/bottom"
@@ -63,23 +67,23 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/cart" 
+                android:contentDescription="@null"
                 android:scaleType="center"
-                android:contentDescription="@null"/>
+                android:src="@drawable/cart_null" />
 
             <TextView
                 android:id="@+id/go_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/theme_border"
+                android:paddingBottom="5dp"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="随便逛逛"
                 android:textColor="@color/yellow"
-                android:textSize="16sp"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/theme_border"/>
+                android:textSize="16sp" />
         </LinearLayout>
 
         <include
@@ -90,4 +94,4 @@
             android:visibility="gone" />
     </RelativeLayout>
 
-</FrameLayout>
+</LinearLayout>

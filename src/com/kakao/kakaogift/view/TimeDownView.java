@@ -20,11 +20,11 @@ import com.kakao.kakaogift.override.TimeEndListner;
  */
 public class TimeDownView extends RelativeLayout implements Runnable {
 
-	private TextView timedown_day, timedown_hour, timedown_min,
+	private TextView  timedown_hour, timedown_min,
 			timedown_second;
 	private Paint mPaint; // 画笔,包含了画几何图形、文本等的样式和颜色信息
 	private int[] times;
-	private long mday, mhour, mmin, msecond;// 天，小时，分钟，秒
+	private long  mhour, mmin, msecond;// 天，小时，分钟，秒
 	private boolean run = true; // 是否启动了
 
 	public TimeDownView(Context context, AttributeSet attrs, int defStyle) {
@@ -44,7 +44,6 @@ public class TimeDownView extends RelativeLayout implements Runnable {
 
 	private void initView(Context context) {
 		View.inflate(context, R.layout.timedown_layout, TimeDownView.this);
-		timedown_day = (TextView) this.findViewById(R.id.timedown_day);
 		timedown_hour = (TextView) this.findViewById(R.id.timedown_hour);
 		timedown_min = (TextView) this.findViewById(R.id.timedown_min);
 		timedown_second = (TextView) this.findViewById(R.id.timedown_second);
@@ -58,10 +57,9 @@ public class TimeDownView extends RelativeLayout implements Runnable {
 
 	public void setTimes(int[] times) {
 		this.times = times;
-		mday = times[0];
-		mhour = times[1];
-		mmin = times[2];
-		msecond = times[3];
+		mhour = times[0];
+		mmin = times[1];
+		msecond = times[2];
 	}
 
 	/**
@@ -75,11 +73,6 @@ public class TimeDownView extends RelativeLayout implements Runnable {
 			if (mmin < 0) {
 				mmin = 59;
 				mhour--;
-				if (mhour < 0) {
-					// 倒计时结束
-					mhour = 23;
-					mday--;
-				}
 			}
 		}
 	}
@@ -101,11 +94,10 @@ public class TimeDownView extends RelativeLayout implements Runnable {
 		// 标示已经启动
 		if (run) {
 			ComputeTime();
-			timedown_day.setText(mday + "");
 			timedown_hour.setText(mhour + "");
 			timedown_min.setText(mmin + "");
 			timedown_second.setText(msecond + "");
-			if (mday <= 0 && mhour <= 0 && mmin <= 0 && msecond <= 0) {
+			if ( mhour <= 0 && mmin <= 0 && msecond <= 0) {
 				if(timeEndListner !=  null)
 					timeEndListner.isTimeEnd();
 				run = false;

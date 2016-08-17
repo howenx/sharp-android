@@ -35,6 +35,7 @@ public class PushReceiver extends BroadcastReceiver {
 		application = (KKApplication) context.getApplicationContext();
 		Bundle bundle = intent.getExtras();
 		msgIsCouspon(context,bundle);
+		MessageMenager.getInstance().getListener().onGetMessage(R.drawable.hmm_icon_message);
 //		context.sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_COUNPON_ACTION));
 
 		if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
@@ -97,7 +98,6 @@ public class PushReceiver extends BroadcastReceiver {
 				Notify notify = DataParser.parserJPush(other);
 				if (notify.getTargetType() != null) {
 					if (notify.getTargetType().equals("C")) {
-						MessageMenager.getInstance().getListener().onGetMessage(R.drawable.hmm_icon_message);
 						if(application.getLoginUser() != null){
 							context.sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_COUNPON_ACTION));
 						}

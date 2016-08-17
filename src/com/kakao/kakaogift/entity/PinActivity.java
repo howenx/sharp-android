@@ -231,19 +231,15 @@ public class PinActivity implements Serializable{
 	Integer ss = 1000;  
     Integer mi = ss * 60;  
     Integer hh = mi * 60;  
-    Integer dd = hh * 24;  
     
-	public int getEndCountDownForDay(){
-		return (int) (endCountDown/dd);
-	}
 	public int getEndCountDownForHour(){
-		return (int) ((endCountDown-getEndCountDownForDay()*dd)/hh);
+		return (int) (endCountDown/hh);
 	}
 	public int getEndCountDownForMinute(){
-		return (int) ((endCountDown-getEndCountDownForDay()*dd-getEndCountDownForHour()*hh)/mi);
+		return (int) ((endCountDown-getEndCountDownForHour()*hh)/mi);
 	}
 	public int getEndCountDownForSecond(){
-		return  (int) ((endCountDown - getEndCountDownForDay() * dd - getEndCountDownForHour() * hh - getEndCountDownForMinute() * mi) / ss);
+		return  (int) ((endCountDown  - getEndCountDownForHour() * hh - getEndCountDownForMinute() * mi) / ss);
 	}
 
 	public void setEndCountDown(Long endCountDown) {

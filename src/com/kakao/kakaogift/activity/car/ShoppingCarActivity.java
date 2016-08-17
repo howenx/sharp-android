@@ -80,6 +80,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 		super.onCreate(arg0);
 		setContentView(R.layout.shopping_car_list_layout);
 		ActionBarUtil.setActionBarStyle(this, "购物车");
+		findViewById(R.id.actionbarView).setVisibility(View.GONE);
 		registerReceivers();
 		goodsDao = getDaoSession().getShoppingGoodsDao();
 		shoppingCar = new ShoppingCar();

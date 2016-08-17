@@ -53,6 +53,8 @@ import com.kakao.kakaogift.entity.Theme;
 import com.kakao.kakaogift.http.VolleyHttp;
 import com.kakao.kakaogift.http.VolleyHttp.VolleyJsonCallback;
 import com.kakao.kakaogift.manager.MessageMenager;
+import com.kakao.kakaogift.override.OnGetMessageListener;
+import com.kakao.kakaogift.utils.ActionBarUtil;
 import com.kakao.kakaogift.utils.GlideLoaderTools;
 import com.kakao.kakaogift.utils.ToastUtils;
 import com.kakao.kakaogift.view.CycleViewPager;
@@ -65,7 +67,8 @@ import com.viewpagerindicator.BaseIconFragment;
  * 
  */
 public class HomeFragment extends BaseIconFragment implements
-		OnRefreshListener2<ListView>, OnClickListener, OnScrollListener {
+		OnRefreshListener2<ListView>, OnClickListener, OnScrollListener,
+		OnGetMessageListener {
 	private LayoutInflater inflater;
 	private PullToRefreshListView mListView;
 	private HomeAdapter adapter;
@@ -85,6 +88,8 @@ public class HomeFragment extends BaseIconFragment implements
 	private View back_top;
 	private LinearLayout no_net;
 	private TextView reload;
+
+	private ImageView settingView;
 
 	private int pullNum = 1;
 	//
@@ -113,6 +118,10 @@ public class HomeFragment extends BaseIconFragment implements
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.home_list_layout, null);
+
+		settingView = ActionBarUtil.initMainActionBarStyle(baseActivity,view, 0);
+		MessageMenager.getInstance().setOnGetMessageListener(this);
+
 		mListView = (PullToRefreshListView) view.findViewById(R.id.mylist);
 		mListView.getRefreshableView().setCacheColorHint(Color.TRANSPARENT);
 		back_top = view.findViewById(R.id.back_top);
@@ -153,14 +162,6 @@ public class HomeFragment extends BaseIconFragment implements
 		addHeaderView();
 		return view;
 	}
-
-//	private void IntroMsg() {
-//		if (IntroConfig.getIntroMsgCfg(getActivity()).equals(
-//				IntroConfig.INTRO_CONFIG_VALUE_IS)) {
-//			IntroMsgDialog dialog = new IntroMsgDialog(getActivity());
-//			dialog.show();
-//		}
-//	}
 
 	private View catView;
 	private CategoryAdapter categoryAdapter;
@@ -365,7 +366,7 @@ public class HomeFragment extends BaseIconFragment implements
 		List<Entry> entries = home.getEntries();
 		if ((list != null && list.size() > 0)) {
 			if (isNew) {
-//				data.clear();
+				// data.clear();
 				data.addAll(list);
 				themeDao.deleteAll();
 				themeDao.insertInTx(data);
@@ -380,14 +381,14 @@ public class HomeFragment extends BaseIconFragment implements
 		if (sliders != null && sliders.size() > 0) {
 			sliderDao.deleteAll();
 			sliderDao.insertInTx(sliders);
-//			dataSliders.clear();
+			// dataSliders.clear();
 			dataSliders.addAll(sliders);
 			initHeaderView();
 		}
 		if (entries != null && entries.size() > 0) {
 			entryDao.deleteAll();
 			entryDao.insertInTx(entries);
-//			catData.clear();
+			// catData.clear();
 			catData.addAll(entries);
 			categoryAdapter.notifyDataSetChanged();
 		}
@@ -541,6 +542,16 @@ public class HomeFragment extends BaseIconFragment implements
 				R.layout.view_banner, null);
 		GlideLoaderTools.loadRectImage(context, url, imageView);
 		return imageView;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.kakao.kakaogift.override.OnGetMessageListener#onGetMessage(int)
+	 */
+	@Override
+	public void onGetMessage(int resId) {
+		settingView.setImageResource(resId);
 	}
 
 }

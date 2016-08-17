@@ -73,15 +73,13 @@ public class BaseActivity extends ParallaxActivityBase {
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		// 沉浸式状态栏的设置
-		getSupportActionBar().setElevation(0);
 		getClipboard();
 	}
 
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
-		StatusBarCompat.compat(this, StatusBarCompat.COLOR_DEFAULT);
+		StatusBarCompat.compat(this);
 	}
 
 	public boolean isShoppingcarChanged() {

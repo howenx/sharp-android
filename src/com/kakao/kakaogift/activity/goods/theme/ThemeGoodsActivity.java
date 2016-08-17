@@ -71,6 +71,7 @@ public class ThemeGoodsActivity extends BaseActivity implements
 
 	FrameLayout mframeLayout; // 主推商品容器 添加tag使用
 	private CustomScrollView mScrollView;
+	private GridView gridView;
 	private Drawable backgroundDrawable;
 	private HThemeGoodsPresenterImpl iGoodsPresenterImpl;
 
@@ -81,7 +82,7 @@ public class ThemeGoodsActivity extends BaseActivity implements
 		initView();
 		data = new ArrayList<HGoodsVo>();
 		adapter = new ThemeAdapter(data, this);
-		GridView gridView = (GridView) findViewById(R.id.my_grid);
+		 gridView = (GridView) findViewById(R.id.my_grid);
 		gridView.setAdapter(adapter);
 		gridView.setFocusable(false);
 		// 获取数据
@@ -196,10 +197,13 @@ public class ThemeGoodsActivity extends BaseActivity implements
 
 			GlideLoaderTools.loadRectImage(this, themeImg.getUrl(), img);
 		}
-		if(themeList.getThemeItemList() !=null){
+		if(themeList.getThemeItemList() !=null 
+				&& themeList.getThemeItemList().size()>0){
 			data.clear();
 			data.addAll(themeList.getThemeItemList());
 			adapter.notifyDataSetChanged();
+		}else{
+			gridView.setVisibility(View.GONE);
 		}
 	}
 

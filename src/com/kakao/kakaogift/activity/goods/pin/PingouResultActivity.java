@@ -253,7 +253,7 @@ public class PingouResultActivity extends BaseActivity implements
 	 */
 	private void initTimer() {
 		if (pinActivity.getEndCountDown() > 0) {
-			int[] time = { pinActivity.getEndCountDownForDay(),
+			int[] time = {
 					pinActivity.getEndCountDownForHour(),
 					pinActivity.getEndCountDownForMinute(),
 					pinActivity.getEndCountDownForSecond() };

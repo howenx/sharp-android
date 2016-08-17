@@ -35,6 +35,7 @@ public class ImgFragment extends ScrollAbleFragment   {
 //		String data = getArguments().getString("data");
 		mWebView = (WebView) view.findViewById(R.id.mWebView);
 		
+		mWebView.getSettings().setBlockNetworkImage(false); 
 		mWebView.getSettings().setJavaScriptEnabled(true);
 //		mWebView.getSettings().setSupportZoom(true);
 //		mWebView.getSettings().setBuiltInZoomControls(true);

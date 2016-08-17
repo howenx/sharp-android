@@ -1,13 +1,17 @@
 package com.kakao.kakaogift.utils;
 
+import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.flyco.animation.BaseAnimatorSet;
 import com.flyco.animation.Attention.Swing;
 import com.flyco.animation.FadeExit.FadeExit;
+import com.flyco.animation.SlideEnter.SlideBottomEnter;
+import com.flyco.animation.SlideExit.SlideBottomExit;
 import com.flyco.animation.ZoomEnter.ZoomInEnter;
 import com.flyco.animation.ZoomExit.ZoomInExit;
 import com.flyco.animation.ZoomExit.ZoomOutExit;
@@ -154,14 +158,16 @@ public class AlertDialogUtils {
 		if(title == null){
 			dialog.isTitleShow(false);
 		}else{
-			dialog.title(title).titleTextSize(16);
+			dialog.title(title).titleTextColor(mContext.getResources().getColor(R.color.black)).titleTextSize(16);
 		}
 		if(content !=null){
-			dialog.content(content).contentTextSize(14);
+			dialog.content(content).contentTextColor(mContext.getResources().getColor(R.color.black)).contentTextSize(15);
+		}else{
+			dialog.isContentShow(false);
 		}
         dialog.style(NormalDialog.STYLE_TWO).btnText(btns).btnTextColor(btnsColor).btnTextSize(btnsSize)
-        .showAnim(new ZoomInEnter()).
-        dismissAnim(new ZoomOutExit()).show();
+        .widthScale(0.7f)
+        .showAnim(new ZoomEnter()).show();
         
         dialog.setOnBtnClickL(new OnBtnClickL() {
 			
@@ -195,4 +201,13 @@ public class AlertDialogUtils {
 		c.show();
 	}
 
+	public static class ZoomEnter extends BaseAnimatorSet {
+		@Override
+		public void setAnimation(View view) {
+			animatorSet.playTogether(//
+					ObjectAnimator.ofFloat(view, "scaleX", 1.25f, 1),//
+					ObjectAnimator.ofFloat(view, "scaleY", 1.25f, 1),//
+					ObjectAnimator.ofFloat(view, "alpha", 0.2f, 1));//
+		}
+	}
 }

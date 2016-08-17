@@ -54,7 +54,7 @@ import com.viewpagerindicator.IconTabPageIndicator.OnTabReselectedListener;
  */
 @SuppressLint("NewApi")
 public class HMainActivity extends BaseActivity implements OnClickListener,
-		HMainView,OnGetMessageListener {
+		HMainView {
 
 	private MainBroadCastReceiver netReceiver;
 	private SlidingViewPager mViewPager;
@@ -65,17 +65,13 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 
 	
 	private List<BaseIconFragment> fragments; 
-	
-	private int message_icon = R.drawable.hmm_icon_message_n;
-	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_layout);
 		
-		ActionBarUtil.setMainActionBarStyle(this, getResources().getString(R.string.gift_app_name), message_icon, false, this);
-		MessageMenager.getInstance().setOnGetMessageListener(this);
+		
 		// 关闭滑动退出
 		setBackEnable(false);
 		initViewPager();
@@ -84,29 +80,6 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 		
 	}
 
-	// @SuppressLint("InflateParams")
-	// private void showGuangGao() {
-	// View view = LayoutInflater.from(this).inflate(R.layout.guanggao_layout,
-	// null);
-	// final Dialog dialog = new Dialog(this,R.style.CustomDialog);
-	// dialog.setContentView(view);
-	// dialog.show();
-	// view.findViewById(R.id.close).setOnClickListener(new OnClickListener() {
-	//
-	// @Override
-	// public void onClick(View arg0) {
-	// dialog.dismiss();
-	// }
-	// });
-	// view.findViewById(R.id.gg_img).setOnClickListener(new OnClickListener() {
-	//
-	// @Override
-	// public void onClick(View v) {
-	// dialog.dismiss();
-	// ToastUtils.Toast(HMainActivity.this, "你点击了广告！！！");
-	// }
-	// });
-	// }
 
 	private void initViewPager() {
 		mViewPager = (SlidingViewPager) findViewById(R.id.id_viewpager);
@@ -118,13 +91,6 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 				fragments));
 		mViewPager.setOffscreenPageLimit(3);
 		mIndicator.setViewPager(mViewPager);
-		mIndicator.setOnPageChangeListener(new ViewPageChangeListener() {
-
-			@Override
-			public void onPageSelected(int arg0) {
-				initActionBar(arg0);
-			}
-		});
 		mIndicator.setOnTabReselectedListener(new OnTabReselectedListener() {
 
 			@Override
@@ -139,23 +105,6 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 
 	}
 
-	private void initActionBar(int position) {
-		/** 如果当前选项卡是home */
-		if (position == 0) {
-			findViewById(R.id.statu_bg).setBackgroundColor(getResources().getColor(R.color.theme));
-			isHome = true;
-			ActionBarUtil.setMainActionBarStyle(this, getResources().getString(R.string.gift_app_name), message_icon, false, this);
-			/** 如果当前选项卡是shopping */
-		} else if (position == 1) {
-			findViewById(R.id.statu_bg).setBackgroundColor(getResources().getColor(R.color.theme));
-			ActionBarUtil.setActionBarStyle(this, "购物车", 0, false, this);
-			/** 如果当前选项卡是my */
-		} else if (position == 2) {
-			findViewById(R.id.statu_bg).setBackgroundColor(getResources().getColor(R.color.yellow));
-			isHome = false;
-			ActionBarUtil.setActionBarStyle(this, "", R.drawable.hmm_icon_setting, false, this, R.color.yellow);
-		}
-	}
 
 	private List<BaseIconFragment> initFragmentList() {
 		List<BaseIconFragment> fragments = new ArrayList<>();
@@ -288,19 +237,6 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 	@Override
 	public void onLoadFailed(String msg) {
 		ToastUtils.Toast(getActivity(), msg);
-	}
-
-	/* (non-Javadoc)
-	 * @see com.kakao.kakaogift.override.OnGetMessageListener#onGetMessage(int)
-	 */
-	@Override
-	public void onGetMessage(int resId) {
-		message_icon = resId;
-		if(mViewPager.getCurrentItem() == 0){
-			ImageView view = (ImageView) findViewById(R.id.setting);
-			view.setImageResource(resId);
-		}
-		
 	}
 
 }

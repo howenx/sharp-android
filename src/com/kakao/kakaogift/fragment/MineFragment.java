@@ -29,6 +29,7 @@ import com.kakao.kakaogift.data.DataParser;
 import com.kakao.kakaogift.data.UrlUtil;
 import com.kakao.kakaogift.entity.User;
 import com.kakao.kakaogift.manager.MyCouponMenager;
+import com.kakao.kakaogift.utils.ActionBarUtil;
 import com.kakao.kakaogift.utils.GlideLoaderTools;
 import com.kakao.kakaogift.utils.HttpUtils;
 import com.kakao.kakaogift.utils.ToastUtils;
@@ -42,7 +43,7 @@ import com.viewpagerindicator.BaseIconFragment;
  *
  */
 public class MineFragment extends BaseIconFragment implements OnClickListener {
-	private CircleImageView header;
+	private CircleImageView faceView;
 	private TextView user_name;
 	private TextView youhui_nums;
 	private ImageView sex;
@@ -61,6 +62,7 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.wode_layout, null);
+		 ActionBarUtil.initMainActionBarStyle(activity,view, 2);
 		user = activity.getUser();
 		findView(view);
 		if (user != null){
@@ -89,7 +91,7 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 
 	public void initView() {
 		user = activity.getUser();
-		GlideLoaderTools.loadCirlceImage(activity,user.getUserImg(), header);
+		GlideLoaderTools.loadCirlceImage(activity,user.getUserImg(), faceView);
 		user_name.setText(user.getUserName());
 		sex.setVisibility(View.VISIBLE);
 		if (user.getSex().equals("F")) {
@@ -124,17 +126,17 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 	private void clearView() {
 		user = activity.getUser();
 		user_name.setText("登录/注册");
-		header.setImageResource(R.drawable.hmm_mine_face);
+		faceView.setImageResource(R.drawable.hmm_mine_face);
 		sex.setVisibility(View.GONE);
 		youhui_nums.setText("");
 	}
 
 	private void findView(View view) {
-		header = (CircleImageView) view.findViewById(R.id.header);
+		faceView = (CircleImageView) view.findViewById(R.id.faceView);
 		user_name = (TextView) view.findViewById(R.id.user_name);
 		sex = (ImageView) view.findViewById(R.id.sex);
 		youhui_nums = (TextView) view.findViewById(R.id.youhui_nums);
-		header.setOnClickListener(this);
+		faceView.setOnClickListener(this);
 		view.findViewById(R.id.order).setOnClickListener(this);
 		view.findViewById(R.id.address).setOnClickListener(this);
 		user_name.setOnClickListener(this);

@@ -22,7 +22,7 @@ public class PinTieredPrice implements Serializable{
 	private BigDecimal price; // 价格
 	private BigDecimal masterMinPrice; // 团长减价
 	private BigDecimal memberMinPrice; // 团员减价
-	private String masterCoupon; // 团长返券额度
+	private BigDecimal masterCoupon; // 团长返券额度
 	
 	private boolean isSelected;
 
@@ -162,11 +162,11 @@ public class PinTieredPrice implements Serializable{
 		this.memberMinPrice = memberMinPrice;
 	}
 
-	public String getMasterCoupon() {
+	public BigDecimal getMasterCoupon() {
 		return masterCoupon;
 	}
 
-	public void setMasterCoupon(String masterCoupon) {
+	public void setMasterCoupon(BigDecimal masterCoupon) {
 		this.masterCoupon = masterCoupon;
 	}
 

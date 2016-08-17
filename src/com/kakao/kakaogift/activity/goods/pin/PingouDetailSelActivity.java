@@ -128,7 +128,7 @@ public class PingouDetailSelActivity extends BaseActivity {
 					holder.manjianView.setVisibility(View.GONE);
 				}
 				
-				if(ppr.getMasterCoupon() != null){
+				if(ppr.getMasterCoupon() != null && ppr.getMasterCoupon().compareTo(BigDecimal.ZERO) == 1){
 					holder.zengView.setVisibility(View.VISIBLE);
 					holder.img.setVisibility(View.VISIBLE);
 				}else{

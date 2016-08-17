@@ -57,16 +57,16 @@
         <TextView
             android:id="@+id/see_tuan"
               style="@style/submit_mid_huise"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/button_length"
             android:layout_height="wrap_content"
             android:text="@string/see_tuan"/>
 
         <TextView
             android:id="@+id/see_order"
               style="@style/submit_mid"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/button_length"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="5dp" 
             android:text="@string/see_order" />
     </LinearLayout>
 

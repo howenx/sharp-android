@@ -2,57 +2,58 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" 
-        android:orientation="vertical"
-        android:background="@color/bg">
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:orientation="vertical" >
 
+    <include layout="@layout/actionbar_custom_layout" />
+
+    <LinearLayout
+        android:id="@+id/mHeaderView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/yellow"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <com.kakao.kakaogift.view.CircleImageView
+            android:id="@+id/faceView"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/hmm_mine_face_bg"
+            android:src="@drawable/hmm_mine_face"
+            app:border_color="@color/white"
+            app:border_width="1dp" />
 
         <LinearLayout
-            android:id="@+id/mHeaderView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/yellow"
-            android:gravity="center_horizontal"
-            android:orientation="vertical" >
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
 
-            <com.kakao.kakaogift.view.CircleImageView
-                android:id="@+id/header"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="10dp"
-                app:border_color="@color/white"
-                app:border_width="1dp"
-                android:background="@drawable/hmm_mine_face_bg"
-                android:src="@drawable/hmm_mine_face" />
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp"
-                android:layout_marginTop="10dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal" >
+                android:text="登录/注册"
+                android:textColor="@color/white"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:visibility="visible" />
 
-                <TextView
-                    android:id="@+id/user_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="登录/注册"
-                    android:textColor="@color/white"
-                    android:textSize="17sp"
-                    android:textStyle="bold"
-                    android:visibility="visible" />
-
-                <ImageView
-                    android:id="@+id/sex"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_marginLeft="5dp"
-                    android:contentDescription="@null"
-                    android:src="@drawable/icon_nan"
-                    android:visibility="gone" />
-            </LinearLayout>
+            <ImageView
+                android:id="@+id/sex"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginLeft="5dp"
+                android:contentDescription="@null"
+                android:src="@drawable/icon_nan"
+                android:visibility="gone" />
         </LinearLayout>
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -126,10 +127,7 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/hmm_mine_address"
                 android:text="管理收货地址" />
-
         </LinearLayout>
     </ScrollView>
 
-
-    </LinearLayout>
-
+</LinearLayout>

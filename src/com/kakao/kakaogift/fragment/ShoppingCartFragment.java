@@ -41,6 +41,7 @@ import com.kakao.kakaogift.http.VolleyHttp;
 import com.kakao.kakaogift.http.VolleyHttp.VolleyJsonCallback;
 import com.kakao.kakaogift.manager.BadgeViewManager;
 import com.kakao.kakaogift.manager.ShoppingCarMenager;
+import com.kakao.kakaogift.utils.ActionBarUtil;
 import com.kakao.kakaogift.utils.ToastUtils;
 import com.umeng.analytics.MobclickAgent;
 import com.viewpagerindicator.BaseIconFragment;
@@ -82,6 +83,7 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.shopping_car_list_layout, null);
+		 ActionBarUtil.initMainActionBarStyle(activity,view, 1);
 		findView(view);
 		registerReceivers();
 		adapter = new ShoppingCarPullListAdapter(data, getActivity());

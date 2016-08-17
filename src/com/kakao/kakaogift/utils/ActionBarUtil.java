@@ -1,6 +1,7 @@
 package com.kakao.kakaogift.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -8,11 +9,14 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.kakao.kakaogift.R
-;
+import com.kakao.kakaogift.R;
+import com.kakao.kakaogift.activity.base.BaseActivity;
+import com.kakao.kakaogift.activity.login.LoginActivity;
+import com.kakao.kakaogift.activity.mine.config.SettingActivity;
+import com.kakao.kakaogift.activity.mine.message.MessageTypeActivity;
 
 public class ActionBarUtil {
-	
+
 	/**
 	 * 
 	 * @param context
@@ -22,6 +26,7 @@ public class ActionBarUtil {
 	public static void setActionBarStyle(Context context, String title) {
 		setActionBarStyle(context, title, 0, true, null, null, 0, false);
 	}
+
 	/**
 	 * 
 	 * @param context
@@ -62,23 +67,22 @@ public class ActionBarUtil {
 			int img, Boolean isBack, OnClickListener l) {
 		return setActionBarStyle(context, title, img, isBack, null, l, 0, false);
 	}
-	public static View setMainActionBarStyle(Context context, String title,
-			int img, Boolean isBack, OnClickListener l) {
-		return setActionBarStyle(context, title, img, isBack, null, l, 0, true);
-	}
+
 	public static View setActionBarStyle(Context context, String title,
-			int img, Boolean isBack, OnClickListener l,int color) {
-//		return setActionBarStyle(context, title, img, isBack, null, l );
-			return	setActionBarStyle(context, title, img, isBack, null, l, color,false);
+			int img, Boolean isBack, OnClickListener l, int color) {
+		return setActionBarStyle(context, title, img, isBack, null, l, color,
+				false);
 	}
 
 	public static View setActionBarStyle(Context context, String title,
 			int img, OnClickListener l) {
-		return setActionBarStyle(context, title, img, true, null, l, 0,false);
+		return setActionBarStyle(context, title, img, true, null, l, 0, false);
 	}
+
 	public static View setActionBarStyle(Context context, String title,
-			int img, OnClickListener l,int colorRes) {
-		return setActionBarStyle(context, title, img, true, null, l, colorRes,false);
+			int img, OnClickListener l, int colorRes) {
+		return setActionBarStyle(context, title, img, true, null, l, colorRes,
+				false);
 	}
 
 	/**
@@ -98,7 +102,7 @@ public class ActionBarUtil {
 	 */
 	public static View setActionBarStyle(Context context, String title,
 			int img, Boolean isBack, OnClickListener bl, OnClickListener l) {
-		return setActionBarStyle(context, title, img, isBack, bl, l, 0,false);
+		return setActionBarStyle(context, title, img, isBack, bl, l, 0, false);
 	}
 
 	/**
@@ -115,7 +119,7 @@ public class ActionBarUtil {
 	 * @param l
 	 *            右侧按钮的响应事件
 	 * @param colorRes
-	 * 			  背景颜色
+	 *            背景颜色
 	 * @return
 	 */
 	public static View setActionBarStyle(Context context, String title,
@@ -149,10 +153,10 @@ public class ActionBarUtil {
 			}
 		}
 		titleView.setText(title);
-		if(isMain){
+		if (isMain) {
 			view.findViewById(R.id.logo).setVisibility(View.VISIBLE);
 			view.findViewById(R.id.header).setVisibility(View.GONE);
-		}else{
+		} else {
 			view.findViewById(R.id.logo).setVisibility(View.GONE);
 			view.findViewById(R.id.header).setVisibility(View.VISIBLE);
 		}
@@ -163,6 +167,55 @@ public class ActionBarUtil {
 		if (l != null)
 			btn_setting.setOnClickListener(l);
 		return view;
+	}
+
+	public static ImageView initMainActionBarStyle(final BaseActivity context,
+			View view, final int position) {
+		View actionbarView = view.findViewById(R.id.actionbarView);
+		actionbarView.setVisibility(View.VISIBLE);
+		actionbarView.setBackgroundResource(R.color.yellow);
+		ImageView setting = (ImageView) view.findViewById(R.id.setting);
+		setting.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				if (position == 0) {
+					if (context.getUser() == null) {
+						context.startActivity(new Intent(context,
+								LoginActivity.class));
+					} else {
+						context.startActivity(new Intent(context,
+								MessageTypeActivity.class));
+					}
+				} else if (position == 2) {
+					context.startActivity(new Intent(context,
+							SettingActivity.class));
+				}
+			}
+		});
+		if (position == 0) {
+			view.findViewById(R.id.header).setVisibility(View.INVISIBLE);
+			view.findViewById(R.id.logo).setVisibility(View.VISIBLE);
+
+			setting.setVisibility(View.VISIBLE);
+			setting.setImageResource(R.drawable.hmm_icon_message_n);
+
+		} else if (position == 1) {
+			view.findViewById(R.id.header).setVisibility(View.VISIBLE);
+			view.findViewById(R.id.logo).setVisibility(View.INVISIBLE);
+			TextView header = (TextView) view.findViewById(R.id.header);
+			header.setText("购物车");
+			setting.setVisibility(View.INVISIBLE);
+		} else if (position == 2) {
+			view.findViewById(R.id.header).setVisibility(View.INVISIBLE);
+			view.findViewById(R.id.logo).setVisibility(View.INVISIBLE);
+
+			setting.setVisibility(View.VISIBLE);
+			setting.setImageResource(R.drawable.hmm_icon_setting);
+
+		}
+
+		return setting;
 	}
 
 }
