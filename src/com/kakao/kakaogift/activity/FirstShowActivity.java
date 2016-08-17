@@ -21,7 +21,6 @@ import com.kakao.kakaogift.http.VolleyHttp;
 import com.kakao.kakaogift.http.VolleyHttp.VolleyJsonCallback;
 import com.kakao.kakaogift.manager.DataBaseManager;
 import com.kakao.kakaogift.utils.DateUtils;
-import com.kakao.kakaogift.utils.PreferenceUtil.IntroConfig;
 import com.kakao.kakaogift.utils.ToastUtils;
 
 @SuppressLint("NewApi")

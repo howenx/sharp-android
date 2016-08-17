@@ -318,7 +318,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 		}
 		if (detail == null)
 			return;
-		getLoading().show();
 		ShoppingCar car = new ShoppingCar();
 		List<CustomsVo> list = new ArrayList<CustomsVo>();
 		CustomsVo customs = new CustomsVo();
@@ -330,7 +329,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 				if (s.getState().equals("Y")) {
 					sgoods = new ShoppingGoods();
 					sgoods.setGoodsId(s.getId());
-					sgoods.setGoodsImg(s.getInvImgForObj().getUrl());
+					sgoods.setGoodsImg(s.getInvImgForObj().getUrl());	
 					sgoods.setGoodsName(s.getInvTitle());
 					sgoods.setGoodsNums(1);
 					sgoods.setGoodsPrice(s.getItemPrice().doubleValue());
@@ -356,7 +355,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 		list.add(customs);
 		car.setList(list);
 		// 跳转到立即支付页面
-		getLoading().dismiss();
 		Intent intent = new Intent(this, GoodsBalanceActivity.class);
 		intent.putExtra("car", car); // 购物车数据格式
 		intent.putExtra("orderType", "item"); // 订单类型 item 普通订单 pin 拼购订单

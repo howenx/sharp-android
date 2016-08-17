@@ -28,7 +28,8 @@
                     android:id="@+id/img"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:contentDescription="@null" />
+                    android:contentDescription="@null"
+                    android:scaleType="fitXY" />
             </FrameLayout>
 
             <com.kakao.kakaogift.view.CustomGridView
