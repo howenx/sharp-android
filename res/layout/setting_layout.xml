@@ -106,7 +106,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/hmm_setting_mark"
-                android:text="评价我们" />
+                android:text="评价我们" 
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/exit"

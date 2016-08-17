@@ -432,6 +432,12 @@ public class VolleyHttp {
 			final VolleyJsonCallback callback, String params) {
 		doRequestTask2(Method.POST, null, url, callback, params, TAG);
 	}
+	
+	
+	public static void doPostRequest(Map<String, String> headers, String url,
+			final VolleyJsonCallback callback, String params) {
+		doRequestTask2(Method.POST, headers, url, callback, params, TAG);
+	}
 
 	/**
 	 * 简单的网络请求 传参主要为 字符串string <br>

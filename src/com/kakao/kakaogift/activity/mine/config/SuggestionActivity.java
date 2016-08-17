@@ -1,8 +1,12 @@
 package com.kakao.kakaogift.activity.mine.config;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.ProgressDialog;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -10,9 +14,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 
-import com.kakao.kakaogift.R
-;
+import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.base.BaseActivity;
+import com.kakao.kakaogift.data.UrlUtil;
+import com.kakao.kakaogift.http.VolleyHttp;
+import com.kakao.kakaogift.http.VolleyHttp.VolleyJsonCallback;
 import com.kakao.kakaogift.utils.ActionBarUtil;
 import com.kakao.kakaogift.utils.CommonUtils;
 import com.kakao.kakaogift.utils.ToastUtils;
@@ -61,35 +67,27 @@ public class SuggestionActivity extends BaseActivity implements OnClickListener 
 	private void doSend() {
 		dialog = CommonUtils.dialog(this, "正在提交，请稍后...");
 		dialog.show();
-		new Thread(new Runnable() {
+//		Map<String, String> map = new HashMap<String, String>();
+		JSONObject object = new JSONObject();
+		try {
+			object.put("content", str);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		VolleyHttp.doPostRequestTask(getHeaders(), UrlUtil.SUGGESTION_URL, new VolleyJsonCallback() {
+			
 			@Override
-			public void run() {
-				try {
-					Thread.sleep(1000);
-					Message msg = mHandler.obtainMessage(1);
-					mHandler.sendMessage(msg);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		}).start();
-	}
-
-	private Handler mHandler = new Handler() {
-
-		@Override
-		public void handleMessage(Message msg) {
-			super.handleMessage(msg);
-			switch (msg.what) {
-			case 1:
+			public void onSuccess(String result) {
 				dialog.dismiss();
 				finish();
-				break;
-
-			default:
-				break;
 			}
-		}
-
-	};
+			
+			@Override
+			public void onError() {
+				dialog.dismiss();
+				ToastUtils.Toast(SuggestionActivity.this, "提交失败，请检查您的网络");
+			}
+		}, object.toString());
+		
+	}
 }

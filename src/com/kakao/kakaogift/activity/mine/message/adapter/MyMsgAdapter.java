@@ -63,11 +63,11 @@ public class MyMsgAdapter extends BaseAdapter {
 			hold.content = (TextView) convertView.findViewById(R.id.content);
 			hold.img = (ImageView) convertView.findViewById(R.id.img);
 			hold.go = (TextView) convertView.findViewById(R.id.go);
-			if(type.equals("goods") || type.equals("discount")){
-				convertView.findViewById(R.id.img).setVisibility(View.VISIBLE);
-			}else{
-				convertView.findViewById(R.id.img).setVisibility(View.GONE);
-			}
+//			if(type.equals("goods") || type.equals("discount")){
+//				convertView.findViewById(R.id.img).setVisibility(View.VISIBLE);
+//			}else{
+//				convertView.findViewById(R.id.img).setVisibility(View.GONE);
+//			}
 			convertView.setTag(hold);
 		} else{
 			hold = (ViewHold) convertView.getTag();
@@ -76,7 +76,8 @@ public class MyMsgAdapter extends BaseAdapter {
 		hold.msg.setText(info.getMsgTitle());
 		hold.content.setText(info.getMsgContent());
 		if(type.equals("goods") || type.equals("discount")){
-			GlideLoaderTools.loadRectImage(mActivity, hold.img, info.getMsgImg(), 2, 1);
+			hold.img.setVisibility(View.VISIBLE);
+			GlideLoaderTools.loadRectImage(mActivity, info.getMsgImg(), hold.img);
 		}
 		return convertView;
 	}

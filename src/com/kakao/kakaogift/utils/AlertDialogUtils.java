@@ -6,10 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import com.flyco.animation.Attention.Swing;
-import com.flyco.animation.FadeExit.FadeExit;
 import com.flyco.animation.ZoomEnter.ZoomInEnter;
-import com.flyco.animation.ZoomExit.ZoomInExit;
 import com.flyco.animation.ZoomExit.ZoomOutExit;
 import com.flyco.dialog.listener.OnBtnClickL;
 import com.flyco.dialog.widget.NormalDialog;

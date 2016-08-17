@@ -9,9 +9,9 @@
     android:id="@+id/layout">
     <ImageView 
         android:id="@+id/img"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="fitXY"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:scaleType="center"
         android:src="@null"
         android:contentDescription="@null"/>
     <TextView 
