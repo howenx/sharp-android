@@ -7,16 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-<<<<<<< HEAD
 import com.flyco.animation.BaseAnimatorSet;
-import com.flyco.animation.Attention.Swing;
-import com.flyco.animation.FadeExit.FadeExit;
-import com.flyco.animation.SlideEnter.SlideBottomEnter;
-import com.flyco.animation.SlideExit.SlideBottomExit;
-=======
->>>>>>> baa69e06571aec8fa85d1bc9d45aa81620a6e591
-import com.flyco.animation.ZoomEnter.ZoomInEnter;
-import com.flyco.animation.ZoomExit.ZoomOutExit;
 import com.flyco.dialog.listener.OnBtnClickL;
 import com.flyco.dialog.widget.NormalDialog;
 import com.kakao.kakaogift.R;

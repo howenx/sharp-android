@@ -1,11 +1,9 @@
 package com.kakao.kakaogift.activity;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -14,10 +12,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ImageView;
 
-import com.bumptech.glide.disklrucache.DiskLruCache;
-import com.bumptech.glide.load.engine.cache.DiskLruCacheFactory;
 import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.base.BaseActivity;
 import com.kakao.kakaogift.activity.login.LoginActivity;
@@ -34,13 +29,8 @@ import com.kakao.kakaogift.fragment.MineFragment;
 import com.kakao.kakaogift.fragment.ShoppingCartFragment;
 import com.kakao.kakaogift.manager.BadgeViewManager;
 import com.kakao.kakaogift.manager.HDownloadManager;
-import com.kakao.kakaogift.manager.MessageMenager;
-import com.kakao.kakaogift.override.OnGetMessageListener;
-import com.kakao.kakaogift.override.ViewPageChangeListener;
-import com.kakao.kakaogift.utils.ActionBarUtil;
 import com.kakao.kakaogift.utils.AlertDialogUtils;
 import com.kakao.kakaogift.utils.CommonUtils;
-import com.kakao.kakaogift.utils.StatusBarCompat;
 import com.kakao.kakaogift.utils.ToastUtils;
 import com.kakao.kakaogift.view.SlidingViewPager;
 import com.viewpagerindicator.BaseIconFragment;
