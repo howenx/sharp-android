@@ -23,8 +23,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.kakao.kakaogift.R
-;
+import com.bumptech.glide.Glide;
+import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.base.BaseActivity;
 import com.kakao.kakaogift.activity.car.ShoppingCarActivity;
 import com.kakao.kakaogift.activity.goods.detail.GoodsDetailActivity;
@@ -42,6 +42,7 @@ import com.kakao.kakaogift.http.VolleyHttp;
 import com.kakao.kakaogift.utils.ActionBarUtil;
 import com.kakao.kakaogift.utils.CommonUtils;
 import com.kakao.kakaogift.utils.GlideLoaderTools;
+import com.kakao.kakaogift.utils.ImageResizer;
 import com.kakao.kakaogift.utils.ToastUtils;
 import com.kakao.kakaogift.view.BadgeView;
 import com.kakao.kakaogift.view.CustomScrollView;
@@ -70,7 +71,6 @@ public class ThemeGoodsActivity extends BaseActivity implements
 	private View actionbarView;
 
 	FrameLayout mframeLayout; // 主推商品容器 添加tag使用
-	private CustomScrollView mScrollView;
 	private GridView gridView;
 	private Drawable backgroundDrawable;
 	private HThemeGoodsPresenterImpl iGoodsPresenterImpl;
@@ -82,7 +82,7 @@ public class ThemeGoodsActivity extends BaseActivity implements
 		initView();
 		data = new ArrayList<HGoodsVo>();
 		adapter = new ThemeAdapter(data, this);
-		 gridView = (GridView) findViewById(R.id.my_grid);
+		gridView = (GridView) findViewById(R.id.my_grid);
 		gridView.setAdapter(adapter);
 		gridView.setFocusable(false);
 		// 获取数据
@@ -113,16 +113,8 @@ public class ThemeGoodsActivity extends BaseActivity implements
 	 * 初始化view对象
 	 */
 	private void initView() {
-		// actionbar
-//		View actionbarView = findViewById(R.id.actionbarView);
-//		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//			actionbarView.setPadding(0,
-//					StatusBarCompat.getStatusBarHeight(this), 0, 0);
-//		}
-//		actionbarView.setBackgroundResource(R.color.theme);
-//		backgroundDrawable = actionbarView.getBackground();
-//		backgroundDrawable.setAlpha(0);
-		actionbarView = ActionBarUtil.setActionBarStyle(this, "商品展示", R.drawable.che, this);
+		actionbarView = ActionBarUtil.setActionBarStyle(this, "商品展示",
+				R.drawable.che, this);
 		// 购物车
 		View cartView = actionbarView.findViewById(R.id.setting);
 		bView = new BadgeView(this, cartView);
@@ -132,10 +124,6 @@ public class ThemeGoodsActivity extends BaseActivity implements
 		bView.setTextColor(Color.parseColor("#FFFFFF"));
 		// banner图容器
 		mframeLayout = (FrameLayout) findViewById(R.id.mframeLayout);
-		// 滚动视图
-//		mScrollView = (CustomScrollView) findViewById(R.id.mScrollView);
-		// mScrollView.setBackgroundColor(Color.parseColor("#b6d4df"));
-//		mScrollView.setOnScrollUpListener(new OnActionbarScrollListener());
 		// 添加监听
 		findViewById(R.id.reload).setOnClickListener(this);
 		findViewById(R.id.back).setOnClickListener(this);
@@ -157,7 +145,7 @@ public class ThemeGoodsActivity extends BaseActivity implements
 	}
 
 	private void showCartNum(Integer cartNum) {
-		if(cartNum == null)
+		if (cartNum == null)
 			return;
 		if (cartNum > 0) {
 			if (cartNum <= 99) {
@@ -177,32 +165,36 @@ public class ThemeGoodsActivity extends BaseActivity implements
 	 * @param detail
 	 */
 	private void initThemeView(HThemeGoods detail) {
-		
+
 		ThemeList themeList = detail.getThemeList();
 		if (themeList == null)
 			return;
-		if(themeList.getTitle()!=null){
-			TextView titleView = (TextView) actionbarView.findViewById(R.id.header);
+		if (themeList.getTitle() != null) {
+			TextView titleView = (TextView) actionbarView
+					.findViewById(R.id.header);
 			titleView.setText(themeList.getTitle());
 		}
 		ImageVo themeImg = themeList.getThemeImg();
-		if(themeImg !=null){
+		if (themeImg != null) {
 			int width = CommonUtils.getScreenWidth(this);
-			int height = CommonUtils.getScreenWidth(this) * themeImg.getHeight()
-					/ themeImg.getWidth();
-			mframeLayout.setLayoutParams(new LinearLayout.LayoutParams(width, height));
+			int height = CommonUtils.getScreenWidth(this)
+					* themeImg.getHeight() / themeImg.getWidth();
+			mframeLayout.setLayoutParams(new LinearLayout.LayoutParams(width,
+					height));
 			ImageView img = (ImageView) findViewById(R.id.img); // 主推商品图片
 			// 初始化标签信息
+			Log.i("imginfo", themeImg.getWidth()+", "+ themeImg.getHeight()+"");
 			initTagInfo(themeList, width, height);
-
-			GlideLoaderTools.loadRectImage(this, themeImg.getUrl(), img);
+			int inSampleSize  = ImageResizer.calculateInSampleSize(themeImg.getWidth(), themeImg.getHeight());
+			Glide.with(this).load(themeImg.getUrl()).animate(R.anim.abc_fade_in)
+						.override(width / inSampleSize, height / inSampleSize).into(img);
 		}
-		if(themeList.getThemeItemList() !=null 
-				&& themeList.getThemeItemList().size()>0){
+		if (themeList.getThemeItemList() != null
+				&& themeList.getThemeItemList().size() > 0) {
 			data.clear();
 			data.addAll(themeList.getThemeItemList());
 			adapter.notifyDataSetChanged();
-		}else{
+		} else {
 			gridView.setVisibility(View.GONE);
 		}
 	}
@@ -239,6 +231,7 @@ public class ThemeGoodsActivity extends BaseActivity implements
 			this.width = width;
 			this.height = height;
 		}
+
 		@Override
 		public void run() {
 			for (ImgTag tag : tags) {
@@ -353,7 +346,9 @@ public class ThemeGoodsActivity extends BaseActivity implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.kakao.kakaogift.activity.goods.theme.view.HThemeGoodsView#showLoading()
+	 * @see
+	 * com.kakao.kakaogift.activity.goods.theme.view.HThemeGoodsView#showLoading
+	 * ()
 	 */
 	@Override
 	public void showLoading() {
@@ -364,7 +359,9 @@ public class ThemeGoodsActivity extends BaseActivity implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.kakao.kakaogift.activity.goods.theme.view.HThemeGoodsView#hideLoading()
+	 * @see
+	 * com.kakao.kakaogift.activity.goods.theme.view.HThemeGoodsView#hideLoading
+	 * ()
 	 */
 	@Override
 	public void hideLoading() {
@@ -376,8 +373,8 @@ public class ThemeGoodsActivity extends BaseActivity implements
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.kakao.kakaogift.activity.goods.theme.view.HThemeGoodsView#GetData(com.kakao.kakaogift
-	 * .entity.HThemeGoods)
+	 * com.kakao.kakaogift.activity.goods.theme.view.HThemeGoodsView#GetData
+	 * (com.kakao.kakaogift .entity.HThemeGoods)
 	 */
 	@Override
 	public void GetHThemeGoodsData(HThemeGoods detail) {
@@ -389,8 +386,8 @@ public class ThemeGoodsActivity extends BaseActivity implements
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.kakao.kakaogift.activity.goods.theme.view.HThemeGoodsView#showLoadFaild(
-	 * java.lang.String)
+	 * com.kakao.kakaogift.activity.goods.theme.view.HThemeGoodsView#showLoadFaild
+	 * ( java.lang.String)
 	 */
 	@Override
 	public void showLoadFaild(String str) {
@@ -402,19 +399,23 @@ public class ThemeGoodsActivity extends BaseActivity implements
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.kakao.kakaogift.activity.view.theme.HThemeGoodsView#GetCartNumData(java.
-	 * lang.Integer)
+	 * com.kakao.kakaogift.activity.view.theme.HThemeGoodsView#GetCartNumData
+	 * (java. lang.Integer)
 	 */
 	@Override
 	public void GetCartNumData(Integer cartNum) {
 		// TODO Auto-generated method stub
 		showCartNum(cartNum);
 	}
-	
-	private class OnActionbarScrollListener implements OnScrollUpListener{
 
-		/* (non-Javadoc)
-		 * @see com.kakao.kakaogift.view.CustomScrollView.OnScrollUpListener#onScroll(int, boolean)
+	private class OnActionbarScrollListener implements OnScrollUpListener {
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see
+		 * com.kakao.kakaogift.view.CustomScrollView.OnScrollUpListener#onScroll
+		 * (int, boolean)
 		 */
 		@Override
 		public void onScroll(int scrollY, boolean scrollDirection) {
@@ -431,6 +432,6 @@ public class ThemeGoodsActivity extends BaseActivity implements
 				}
 			}
 		}
-		
+
 	}
 }

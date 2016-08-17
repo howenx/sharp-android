@@ -35,7 +35,7 @@ public class GlideLoaderTools {
 	 */
 	public static void loadSquareImage(Context context, String url,
 			ImageView imgView) {
-		Glide.with(context).load(url)
+		Glide.with(context).load(url) 
 				.placeholder(R.drawable.hmm_place_holder_z).fitCenter()
 				.animate(R.anim.abc_fade_in).into(imgView);
 	}
@@ -105,12 +105,8 @@ public class GlideLoaderTools {
 	 * @param url
 	 * @param imgView
 	 */
-	public static void loadRectImage(Context mContext, ImageView imgView,
+	public static void loadCustomImage(Context mContext, ImageView imgView,
 			String url, int w, int h) {
-//		int screenWidth = CommonUtils.getScreenWidth(mContext);
-//		int height = (screenWidth - 60) * h / w;
-//		int width = screenWidth - 60;
-//		imgView.setLayoutParams(new LayoutParams(width, height));
 		Glide.with(mContext).load(url).placeholder(R.drawable.hmm_place_holder_j).override(w, h).into(imgView);
 	}
 

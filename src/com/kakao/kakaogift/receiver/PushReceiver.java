@@ -35,7 +35,8 @@ public class PushReceiver extends BroadcastReceiver {
 		application = (KKApplication) context.getApplicationContext();
 		Bundle bundle = intent.getExtras();
 		msgIsCouspon(context,bundle);
-		MessageMenager.getInstance().getListener().onGetMessage(R.drawable.hmm_icon_message);
+		if(MessageMenager.getInstance().getListener() !=null)
+			MessageMenager.getInstance().getListener().onGetMessage(R.drawable.hmm_icon_message);
 //		context.sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_COUNPON_ACTION));
 
 		if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {

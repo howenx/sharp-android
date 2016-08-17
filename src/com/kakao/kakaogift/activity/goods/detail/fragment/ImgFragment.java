@@ -1,18 +1,19 @@
 package com.kakao.kakaogift.activity.goods.detail.fragment;
 
 import android.annotation.SuppressLint;
+import android.net.http.SslError;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebChromeClient;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.cpoopc.scrollablelayoutlib.ScrollAbleFragment;
-import com.kakao.kakaogift.R
-;
+import com.kakao.kakaogift.R;
 /**
  * 
  * @author vince
@@ -32,15 +33,16 @@ public class ImgFragment extends ScrollAbleFragment   {
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		View view = inflater.inflate(R.layout.webview_layout, null);
-//		String data = getArguments().getString("data");
 		mWebView = (WebView) view.findViewById(R.id.mWebView);
 		
 		mWebView.getSettings().setBlockNetworkImage(false); 
 		mWebView.getSettings().setJavaScriptEnabled(true);
-//		mWebView.getSettings().setSupportZoom(true);
-//		mWebView.getSettings().setBuiltInZoomControls(true);
-//		mWebView.getSettings().setDisplayZoomControls(false);
-		
+		mWebView.setWebViewClient(new WebViewClient() {
+		    @Override
+		    public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+		        handler.proceed();//接受证书
+		    }
+		});
 		return view;
 	}
 
