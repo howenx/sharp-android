@@ -17,7 +17,7 @@ public class UrlUtil {
 	 public static final String SERVERY2 = "https://cash.kakaogift.cn";
 	 public static final String SERVERY4 = "https://id.kakaogift.cn";
 	 public static final String SERVERY5 = "https://promotion.kakaogift.cn";
-	 public static final String SERVERY7 = "https://img.kakaogift.cn";
+	 public static final String SERVERY7 = "http://dl.kakaogift.cn";
 	 public static final String SERVERY6 = "https://m.kakaogift.cn";
 	 
 	/*
