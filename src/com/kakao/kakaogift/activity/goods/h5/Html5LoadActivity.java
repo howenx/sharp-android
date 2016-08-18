@@ -82,9 +82,11 @@ public class Html5LoadActivity extends BaseActivity implements HThemeGoodsView {
 								+ "/comm/detail" + u[1]);
 					}
 					startActivity(intent);
-					return true;
+					
+				}else{
+					view.loadUrl(url, getHeaders());
 				}
-				return super.shouldOverrideUrlLoading(view, url);
+				return true;
 			}
 
 			@Override
