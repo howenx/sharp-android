@@ -76,10 +76,8 @@ public class Html5LoadActivity extends BaseActivity implements HThemeGoodsView {
 						intent.putExtra("url", UrlUtil.SERVERY3
 								+ "/comm/detail" + u[1]);
 					} else {
-						intent = new Intent(getActivity(),
-								GoodsDetailActivity.class);
-						intent.putExtra("url", UrlUtil.SERVERY3
-								+ "/comm/detail" + u[1]);
+						intent = new Intent(getActivity(),GoodsDetailActivity.class);
+						intent.putExtra("url", UrlUtil.SERVERY3+ "/comm/detail" + u[1]);
 					}
 					startActivity(intent);
 					
