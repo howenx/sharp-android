@@ -19,12 +19,16 @@
 #   public *;
 #}
 
+  
+
+
 #EventBus
  -keepclassmembers class ** {
     public void onEvent*(**);
     void onEvent*(**);
  }
  
+ #==支付宝
  -libraryjars libs/alipaySDK-20150602.jar
  
 -keep class com.alipay.android.app.IAlixPay{*;}

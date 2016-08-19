@@ -82,7 +82,7 @@ public class GlideLoaderTools {
 	public static void loadRectImage(Context context, String url,
 			ImageView imgView) {
 		Glide.with(context).load(url)
-				.placeholder(R.drawable.hmm_place_holder_j).centerCrop()
+				.placeholder(R.drawable.hmm_place_holder_j)
 				.animate(R.anim.abc_fade_in).into(imgView);
 	}
 	/**

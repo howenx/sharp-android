@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.entity.Theme;
 import com.kakao.kakaogift.utils.CommonUtils;
+import com.kakao.kakaogift.view.ResizeImageView;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -63,11 +65,15 @@ public class HomeAdapter extends BaseAdapter {
 
 		int screenWidth = CommonUtils.getScreenWidth(activity);
 		int w = screenWidth - CommonUtils.dip2px(30);
-		int h  = w * theme.getHeight() / theme.getWidth();
-		Picasso.with(activity) 
-	    .load(theme.getThemeImg())  
-	    .resize(w, h).placeholder(R.drawable.hmm_place_holder_j)
-	    .into(holder.img);  
+		ViewGroup.LayoutParams lp = holder.img.getLayoutParams();
+		lp.width = w;
+		lp.height =ViewGroup.LayoutParams.WRAP_CONTENT;
+		holder.img.setLayoutParams(lp);
+		holder.img.setMaxWidth(w);
+		holder.img.setMaxHeight(w); 
+		Picasso.with(activity)
+	    .load(theme.getThemeImg()).placeholder(R.drawable.hmm_place_holder_j)
+	    .into( holder.img);  
 		holder.title.setText(theme.getTitle());
 		holder.content.setText(theme.getThemeConfigInfo());
 		return convertView;
