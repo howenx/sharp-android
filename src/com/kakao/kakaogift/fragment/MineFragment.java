@@ -76,7 +76,7 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 	private void getUserInfo() {
 		activity.getLoading().show();
 		user = activity.getUser();
-		new Thread(new Runnable() {
+		activity.submitTask(new Runnable() {
 			@Override
 			public void run() {
 				String result = HttpUtils.get(UrlUtil.GET_USERINFO_URL,
@@ -86,10 +86,10 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 				msg.obj = userInfo;
 				mHandler.sendMessage(msg);
 			}
-		}).start();
+		});
 	}
 
-	public void initView() {
+	public void initView() { 
 		user = activity.getUser();
 		GlideLoaderTools.loadCirlceImage(activity,user.getUserImg(), faceView);
 		user_name.setText(user.getUserName());

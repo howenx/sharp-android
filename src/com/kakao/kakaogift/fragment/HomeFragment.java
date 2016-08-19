@@ -270,11 +270,12 @@ public class HomeFragment extends BaseIconFragment implements
 
 	// 加载网络数据
 	private void getNetData() {
-		data.clear();
-		dataSliders.clear();
-		catData.clear();
-		if (isUpOrDwom == 0)
+		if (isUpOrDwom == 0){
+			data.clear();
+			dataSliders.clear();
+			catData.clear();
 			mActivity.getLoading().show();
+		}
 		if (mActivity.getHeaders() == null) {
 			VolleyHttp.doGetRequestTask(UrlUtil.HOME_LIST_URL + pageIndex,
 					new VolleyJsonCallback() {

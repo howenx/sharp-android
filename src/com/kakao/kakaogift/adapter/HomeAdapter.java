@@ -67,7 +67,7 @@ public class HomeAdapter extends BaseAdapter {
 		Picasso.with(activity) 
 	    .load(theme.getThemeImg())  
 	    .resize(w, h).placeholder(R.drawable.hmm_place_holder_j)
-	    .into( holder.img);  
+	    .into(holder.img);  
 		holder.title.setText(theme.getTitle());
 		holder.content.setText(theme.getThemeConfigInfo());
 		return convertView;
