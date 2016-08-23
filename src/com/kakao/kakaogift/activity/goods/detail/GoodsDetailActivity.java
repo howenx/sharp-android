@@ -403,7 +403,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		// 商品尚未加载完成，return 操作 避免空指针
 		if (detail == null)
 			return;
-		findViewById(R.id.btn_attention).setClickable(false);
+		findViewById(R.id.btn_attention).setEnabled(false);
 		if (isCollection) {
 			// 已经被收藏，取消收藏
 			detailPresenterImpl.cancelCollection(getHeaders(), detail
@@ -586,7 +586,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 					comm.getRemarkCount()));
 			String str = getResources().getString(R.string.comment_good,
 					comm.getRemarkRate());
-			KeyWordUtil.setDifrentFontColor(this, remarkRate, str, 2,
+			KeyWordUtil.setDifrentFontColor(this, remarkRate, str, 3,
 					str.length());
 		}
 	}
@@ -849,7 +849,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	@Override
 	public void addCollection(long collectId) {
 		// TODO Auto-generated method stub
-		findViewById(R.id.btn_attention).setClickable(true);
+		findViewById(R.id.btn_attention).setEnabled(true);
 		isCollection = true;
 		detail.getCurrentStock().setCollectId(collectId);
 		collectionImg.setImageResource(R.drawable.hmm_icon_collect_h);
@@ -868,7 +868,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	@Override
 	public void cancelCollection() {
 		// TODO Auto-generated method stub
-		findViewById(R.id.btn_attention).setClickable(true);
+		findViewById(R.id.btn_attention).setEnabled(true);
 		isCollection = false;
 		detail.getCurrentStock().setCollectId(0);
 		collectionImg.setImageResource(R.drawable.hmm_icon_collect);

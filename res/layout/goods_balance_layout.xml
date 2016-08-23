@@ -118,12 +118,6 @@
                     android:textSize="16sp" />
             </FrameLayout>
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:contentDescription="@null"
-                android:src="@drawable/dizhi" />
 
             <com.kakao.kakaogift.view.CustomListView
                 android:id="@+id/mListView"
@@ -192,8 +186,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:layout_marginLeft="10dp"
-                    android:background="@color/xian_color"
-                    android:visibility="gone" />
+                    android:background="@color/xian_color"/>
 
                 <RadioGroup
                     android:id="@+id/group_coupons"

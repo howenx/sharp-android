@@ -5,10 +5,9 @@
     android:orientation="vertical"
     android:background="@drawable/background"
     android:fitsSystemWindows="true" >
-    <WebView 
+    <com.kakao.kakaogift.view.webview.ProgressWebView
         android:id="@+id/web"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/bg"/>
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

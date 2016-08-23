@@ -69,8 +69,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
-		// 取消滑动退出功能
-		setBackEnable(false);
+		
 		ActionBarUtil.setActionBarStyle(this, "支付结算", this);
 		setContentView(R.layout.goods_balance_layout);
 		// 获取要购买的数据
@@ -161,7 +160,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 			sendData(orderSubmit);
 			break;
 		case R.id.back:
-			showBackDialog();
+			finish();
 			break;
 
 		default:
@@ -408,26 +407,6 @@ public class GoodsBalanceActivity extends BaseActivity implements
 				findViewById(R.id.btn_pay).setOnClickListener(this);
 			}
 		}
-	}
-
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			// 菜单返回按钮点击事件
-			showBackDialog();
-			return true;
-		}
-		return super.onKeyDown(keyCode, event);
-	}
-
-	// 显示取消支付窗口
-	private void showBackDialog() {
-		AlertDialogUtils.showBackDialog(getActivity(), new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				finish();
-			}
-		});
 	}
 
 }
