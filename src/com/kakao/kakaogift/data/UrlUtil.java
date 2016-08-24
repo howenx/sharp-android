@@ -52,9 +52,9 @@ public class UrlUtil {
 //	 public static final String SERVERY5 = "http://172.28.3.46:9005";
 	 
 	 //拼购
-	 public static final String PINGOU_URL = SERVERY3 + "/comm/theme/1/";
+	 public static final String PINGOU_URL = SERVERY3 + "/comm/theme/2/";
 	 //礼品
-	 public static final String LIPIN_URL = SERVERY3 + "/comm/theme/2/";
+	 public static final String LIPIN_URL = SERVERY3 + "/comm/theme/3/";
 	//提交意见
 	public static final String SUGGESTION_URL = SERVERY1 + "/client/feedback";
 	//baidu denglu
