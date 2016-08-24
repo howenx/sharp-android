@@ -5,46 +5,19 @@
     android:background="@color/white"
     android:orientation="vertical" >
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="@color/bg" />
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="15dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:text="@null"
-        android:textColor="@color/msg_title"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:ellipsize="end"
-        android:maxLines="2"
-        android:text="@null"
-        android:textColor="@color/content_color"
-        android:textSize="12sp" />
-
     <ImageView
         android:id="@+id/img"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:contentDescription="@null"
-        android:layout_marginLeft="15dp"
         android:adjustViewBounds="true"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="5dp"
         android:scaleType="fitXY" />
+    
+    <View
+        android:id="@+id/diver"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/bg" />
 
 </LinearLayout>

@@ -200,19 +200,32 @@ public class ActionBarUtil {
 			setting.setVisibility(View.VISIBLE);
 			setting.setImageResource(R.drawable.hmm_icon_message_n);
 
-		} else if (position == 1) {
+		} else if (position == 3) {
 			view.findViewById(R.id.header).setVisibility(View.VISIBLE);
 			view.findViewById(R.id.logo).setVisibility(View.INVISIBLE);
 			TextView header = (TextView) view.findViewById(R.id.header);
 			header.setText("购物车");
 			setting.setVisibility(View.INVISIBLE);
-		} else if (position == 2) {
+		} else if (position == 4) {
 			view.findViewById(R.id.header).setVisibility(View.INVISIBLE);
 			view.findViewById(R.id.logo).setVisibility(View.INVISIBLE);
 
 			setting.setVisibility(View.VISIBLE);
 			setting.setImageResource(R.drawable.hmm_icon_setting);
 
+		}else if (position == 1) {
+			view.findViewById(R.id.header).setVisibility(View.VISIBLE);
+			view.findViewById(R.id.logo).setVisibility(View.INVISIBLE);
+			TextView header = (TextView) view.findViewById(R.id.header);
+			header.setText("拼购");
+			setting.setVisibility(View.INVISIBLE);
+
+		}else if (position ==2) {
+			view.findViewById(R.id.header).setVisibility(View.VISIBLE);
+			view.findViewById(R.id.logo).setVisibility(View.INVISIBLE);
+			TextView header = (TextView) view.findViewById(R.id.header);
+			header.setText("礼物");
+			setting.setVisibility(View.INVISIBLE);
 		}
 
 		return setting;

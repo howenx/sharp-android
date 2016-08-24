@@ -39,6 +39,7 @@ import com.kakao.kakaogift.entity.User;
  * 
  */
 public class DataParser {
+	
 	public static Home parserHomeData(String result) {
 		Home home = new Home();
 		List<Theme> list = new ArrayList<Theme>();

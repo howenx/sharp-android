@@ -83,7 +83,7 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.shopping_car_list_layout, null);
-		 ActionBarUtil.initMainActionBarStyle(activity,view, 1);
+		ActionBarUtil.initMainActionBarStyle(activity,view, 3);
 		findView(view);
 		registerReceivers();
 		adapter = new ShoppingCarPullListAdapter(data, getActivity());

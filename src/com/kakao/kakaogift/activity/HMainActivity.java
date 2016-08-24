@@ -24,7 +24,9 @@ import com.kakao.kakaogift.activity.view.HMainView;
 import com.kakao.kakaogift.adapter.TabPagerAdapter;
 import com.kakao.kakaogift.data.AppConstant;
 import com.kakao.kakaogift.entity.VersionVo;
+import com.kakao.kakaogift.fragment.GiftFragment;
 import com.kakao.kakaogift.fragment.HomeFragment;
+import com.kakao.kakaogift.fragment.MainPinFragment;
 import com.kakao.kakaogift.fragment.MineFragment;
 import com.kakao.kakaogift.fragment.ShoppingCartFragment;
 import com.kakao.kakaogift.manager.BadgeViewManager;
@@ -60,8 +62,6 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_layout);
-		
-		
 		// 关闭滑动退出
 		setBackEnable(false);
 		initViewPager();
@@ -79,19 +79,19 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 
 		mViewPager.setAdapter(new TabPagerAdapter(getSupportFragmentManager(),
 				fragments));
-		mViewPager.setOffscreenPageLimit(3);
+		mViewPager.setOffscreenPageLimit(5);
 		mIndicator.setViewPager(mViewPager);
-		mIndicator.setOnTabReselectedListener(new OnTabReselectedListener() {
+//		mIndicator.setOnTabReselectedListener(new OnTabReselectedListener() {
+//
+//			@Override
+//			public void onTabReselected(int position) {
+//				if (position == 0) {
+//					sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UP_HOME_ACTION));
+//				}
+//			}
+//		});
 
-			@Override
-			public void onTabReselected(int position) {
-				if (position == 0) {
-					sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UP_HOME_ACTION));
-				}
-			}
-		});
-
-		BadgeViewManager.getInstance().initBadgeViewManager(this, mIndicator.getTabViews().get(1));
+		BadgeViewManager.getInstance().initBadgeViewManager(this, mIndicator.getTabViews().get(3));
 
 	}
 
@@ -101,7 +101,11 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 		HomeFragment homeFragment = new HomeFragment();
 		ShoppingCartFragment shoppingCartFragment = new ShoppingCartFragment();
 		MineFragment mineFragment = new MineFragment();
+		MainPinFragment mainPinFragment = new MainPinFragment();
+		GiftFragment giftFragment = new GiftFragment();
 		fragments.add(homeFragment);
+		fragments.add(mainPinFragment);
+		fragments.add(giftFragment);
 		fragments.add(shoppingCartFragment);
 		fragments.add(mineFragment);
 		return fragments;

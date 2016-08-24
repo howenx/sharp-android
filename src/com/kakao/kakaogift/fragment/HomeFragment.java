@@ -40,9 +40,6 @@ import com.kakao.kakaogift.activity.goods.pin.PingouDetailActivity;
 import com.kakao.kakaogift.activity.goods.theme.ThemeGoodsActivity;
 import com.kakao.kakaogift.adapter.CategoryAdapter;
 import com.kakao.kakaogift.adapter.HomeAdapter;
-import com.kakao.kakaogift.dao.EntryDao;
-import com.kakao.kakaogift.dao.SliderDao;
-import com.kakao.kakaogift.dao.ThemeDao;
 import com.kakao.kakaogift.data.AppConstant;
 import com.kakao.kakaogift.data.DataParser;
 import com.kakao.kakaogift.data.UrlUtil;
@@ -77,9 +74,9 @@ public class HomeFragment extends BaseIconFragment implements
 	private Context mContext;
 	private int pageIndex = 1;
 	private int isUpOrDwom = 0;
-	private ThemeDao themeDao;
-	private SliderDao sliderDao;
-	private EntryDao entryDao;
+//	private ThemeDao themeDao;
+//	private SliderDao sliderDao;
+//	private EntryDao entryDao;
 	private BaseActivity mActivity;
 	//
 	private View headerView;
@@ -108,9 +105,9 @@ public class HomeFragment extends BaseIconFragment implements
 		adapter = new HomeAdapter(data, mContext);
 		catData = new ArrayList<Entry>();
 		categoryAdapter = new CategoryAdapter(catData, mContext);
-		themeDao = mActivity.getDaoSession().getThemeDao();
-		sliderDao = mActivity.getDaoSession().getSliderDao();
-		entryDao = mActivity.getDaoSession().getEntryDao();
+//		themeDao = mActivity.getDaoSession().getThemeDao();
+//		sliderDao = mActivity.getDaoSession().getSliderDao();
+//		entryDao = mActivity.getDaoSession().getEntryDao();
 		registerReceivers();
 	}
 
@@ -130,7 +127,7 @@ public class HomeFragment extends BaseIconFragment implements
 		reload.setOnClickListener(this);
 		back_top.setOnClickListener(this);
 		mListView.setAdapter(adapter);
-		mListView.setMode(Mode.PULL_FROM_END);
+		mListView.setMode(Mode.BOTH);
 		mListView.setOnRefreshListener(this);
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -247,24 +244,24 @@ public class HomeFragment extends BaseIconFragment implements
 
 	// 加载本地数据
 	private void loadData() {
-		List<Theme> list = themeDao.queryBuilder().build().list();
-		List<Slider> list2 = sliderDao.queryBuilder().build().list();
-		List<Entry> list3 = entryDao.queryBuilder().build().list();
-		if (list != null && list.size() > 0) {
-			data.clear();
-			data.addAll(themeDao.queryBuilder().build().list());
-			adapter.notifyDataSetChanged();
-		}
-		if (list2 != null && list2.size() > 0) {
-			dataSliders.clear();
-			dataSliders.addAll(list2);
-			initHeaderView();
-		}
-		if (list3 != null && list3.size() > 0) {
-			catData.clear();
-			catData.addAll(list3);
-			categoryAdapter.notifyDataSetChanged();
-		}
+//		List<Theme> list = themeDao.queryBuilder().build().list();
+//		List<Slider> list2 = sliderDao.queryBuilder().build().list();
+//		List<Entry> list3 = entryDao.queryBuilder().build().list();
+//		if (list != null && list.size() > 0) {
+//			data.clear();
+//			data.addAll(themeDao.queryBuilder().build().list());
+//			adapter.notifyDataSetChanged();
+//		}
+//		if (list2 != null && list2.size() > 0) {
+//			dataSliders.clear();
+//			dataSliders.addAll(list2);
+//			initHeaderView();
+//		}
+//		if (list3 != null && list3.size() > 0) {
+//			catData.clear();
+//			catData.addAll(list3);
+//			categoryAdapter.notifyDataSetChanged();
+//		}
 		getNetData();
 	}
 
@@ -367,12 +364,11 @@ public class HomeFragment extends BaseIconFragment implements
 		List<Entry> entries = home.getEntries();
 		if ((list != null && list.size() > 0)) {
 			if (isNew) {
-				// data.clear();
 				data.addAll(list);
-				themeDao.deleteAll();
-				themeDao.insertInTx(data);
+//				themeDao.deleteAll();
+//				themeDao.insertInTx(data);
 			} else {
-				themeDao.insertInTx(list);
+//				themeDao.insertInTx(list);
 				data.addAll(list);
 			}
 			adapter.notifyDataSetChanged();
@@ -380,16 +376,14 @@ public class HomeFragment extends BaseIconFragment implements
 				mListView.getRefreshableView().setSelection(0);
 		}
 		if (sliders != null && sliders.size() > 0) {
-			sliderDao.deleteAll();
-			sliderDao.insertInTx(sliders);
-			// dataSliders.clear();
+//			sliderDao.deleteAll();
+//			sliderDao.insertInTx(sliders);
 			dataSliders.addAll(sliders);
 			initHeaderView();
 		}
 		if (entries != null && entries.size() > 0) {
-			entryDao.deleteAll();
-			entryDao.insertInTx(entries);
-			// catData.clear();
+//			entryDao.deleteAll();
+//			entryDao.insertInTx(entries);
 			catData.addAll(entries);
 			categoryAdapter.notifyDataSetChanged();
 		}
@@ -404,7 +398,9 @@ public class HomeFragment extends BaseIconFragment implements
 
 	@Override
 	public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+		pageIndex = 1;
 		isUpOrDwom = 0;
+		pullNum = 1;
 		getNetData();
 
 	}
@@ -495,13 +491,14 @@ public class HomeFragment extends BaseIconFragment implements
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			if (intent.getAction().equals(
-					AppConstant.MESSAGE_BROADCAST_UP_HOME_ACTION)) {
-				pageIndex = 1;
-				isUpOrDwom = 0;
-				pullNum = 1;
-				loadData();
-			} else if (intent.getAction().equals(
+//			if (intent.getAction().equals(
+//					AppConstant.MESSAGE_BROADCAST_UP_HOME_ACTION)) {
+//				pageIndex = 1;
+//				isUpOrDwom = 0;
+//				pullNum = 1;
+//				loadData();
+//			} else 
+				if (intent.getAction().equals(
 					AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION)) {
 				pageIndex = 1;
 				isUpOrDwom = 0;

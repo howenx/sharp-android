@@ -62,7 +62,7 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.wode_layout, null);
-		 ActionBarUtil.initMainActionBarStyle(activity,view, 2);
+		 ActionBarUtil.initMainActionBarStyle(activity,view, 4);
 		user = activity.getUser();
 		findView(view);
 		if (user != null){
