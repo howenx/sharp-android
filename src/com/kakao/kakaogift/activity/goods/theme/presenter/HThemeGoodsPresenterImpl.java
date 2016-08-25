@@ -9,7 +9,6 @@ import java.util.Map;
 
 import com.kakao.kakaogift.activity.goods.theme.HThemeGoodsView;
 import com.kakao.kakaogift.activity.goods.theme.model.HThemeGoodsModelImpl;
-import com.kakao.kakaogift.activity.goods.theme.model.HThemeGoodsModelImpl.OnCartNumListener;
 import com.kakao.kakaogift.activity.goods.theme.model.HThemeGoodsModelImpl.OnHThemeGoodsLoadListenter;
 import com.kakao.kakaogift.entity.HThemeGoods;
 
@@ -18,7 +17,7 @@ import com.kakao.kakaogift.entity.HThemeGoods;
  * @author vince
  *
  */
-public class HThemeGoodsPresenterImpl implements HThemeGoodsPresenter ,OnHThemeGoodsLoadListenter,OnCartNumListener{
+public class HThemeGoodsPresenterImpl implements HThemeGoodsPresenter ,OnHThemeGoodsLoadListenter{
 
 	private HThemeGoodsView mHThemeGoodsView;
 	private HThemeGoodsModelImpl mHThemeGoodsModelImpl;
@@ -38,16 +37,6 @@ public class HThemeGoodsPresenterImpl implements HThemeGoodsPresenter ,OnHThemeG
 		mHThemeGoodsView.showLoading();
 		mHThemeGoodsModelImpl.getThemeGoods(headers, url, tag, this);
 	}
-	
-	/* (non-Javadoc)
-	 * @see com.kakao.kakaogift.activity.presenter.theme.HThemeGoodsPresenter#getCartNumData(java.util.Map, java.lang.String)
-	 */
-	@Override
-	public void getCartNumData(Map<String, String> headers, String tag) {
-		// TODO Auto-generated method stub
-		mHThemeGoodsModelImpl.getCartNum(headers, this);
-		
-	}
 
 	/* (non-Javadoc)
 	 * @see com.kakao.kakaogift.activity.goods.theme.model.HThemeGoodsModelImpl.OnHThemeGoodsLoadListenter#onSuccess(com.kakao.kakaogift.entity.HThemeGoods)
@@ -56,7 +45,6 @@ public class HThemeGoodsPresenterImpl implements HThemeGoodsPresenter ,OnHThemeG
 	public void onSuccess(HThemeGoods detail) {
 		// TODO Auto-generated method stub
 		mHThemeGoodsView.GetHThemeGoodsData(detail);
-		mHThemeGoodsView.GetCartNumData(detail.getCartNum());
 		mHThemeGoodsView.hideLoading();
 	}
 
@@ -70,13 +58,6 @@ public class HThemeGoodsPresenterImpl implements HThemeGoodsPresenter ,OnHThemeG
 		mHThemeGoodsView.showLoadFaild(msg);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.kakao.kakaogift.activity.model.theme.HThemeGoodsModelImpl.OnCartNumListener#onSuccess(java.lang.Integer)
-	 */
-	@Override
-	public void onSuccess(Integer cartNum) {
-		mHThemeGoodsView.GetCartNumData(cartNum);
-	}
 
 	
 }

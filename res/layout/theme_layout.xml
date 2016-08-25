@@ -3,15 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:background="@color/background">
+    android:background="@color/background"
+    android:fitsSystemWindows="true" >
 
-    <com.kakao.kakaogift.view.CustomScrollView
+    <com.handmark.pulltorefresh.library.PullToRefreshScrollView
         android:id="@+id/mScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/bg"
-        android:scrollbars="@null" >
+        android:scrollbars="@null"
+        app:ptrDrawable="@drawable/refreshing"
+        app:ptrShowIndicator="false" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,58 +40,11 @@
                 android:layout_height="wrap_content"
                 android:background="@color/transparent"
                 android:columnWidth="90dp"
-                android:horizontalSpacing="5dp"
-                android:numColumns="2"
-                android:paddingBottom="10dp"
-                android:paddingRight="5dp"
-                android:paddingTop="10dp"
                 android:listSelector="@color/transparent"
+                android:numColumns="2"
                 android:scrollbars="@null"
-                android:stretchMode="columnWidth"
-                android:verticalSpacing="10dp" />
+                android:stretchMode="columnWidth" />
         </LinearLayout>
-    </com.kakao.kakaogift.view.CustomScrollView>
-
-    <include
-        android:id="@+id/no_net"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        layout="@layout/offline_wuxinhao_layout"
-        android:visibility="gone" />
-
-    <RelativeLayout
-        android:id="@+id/actionbarView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/theme" 
-        android:visibility="gone">
-
-        <ImageView
-            android:id="@+id/back"
-            android:layout_width="@dimen/actionbar_size"
-            android:layout_height="@dimen/actionbar_size"
-            android:layout_alignParentLeft="true"
-            android:contentDescription="@null"
-            android:scaleType="center"
-            android:src="@drawable/hmm_through_page" />
-
-        <TextView
-            android:id="@+id/header"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/actionbar_size"
-            android:gravity="center"
-            android:text="商品展示"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
-
-        <ImageView
-            android:id="@+id/setting"
-            android:layout_width="@dimen/actionbar_size"
-            android:layout_height="@dimen/actionbar_size"
-            android:layout_alignParentRight="true"
-            android:contentDescription="@null"
-            android:scaleType="center"
-            android:src="@drawable/white_shoppingcar"/>
-    </RelativeLayout>
+    </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
 
 </FrameLayout>

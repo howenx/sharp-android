@@ -242,6 +242,9 @@
         <activity
             android:name="com.kakao.kakaogift.activity.goods.comment.GoodsCommentImgActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.kakao.kakaogift.activity.goods.category.CategoryGoodsActivity"
+            android:screenOrientation="portrait" />
 
         <!-- 友盟相关 -->
         <activity

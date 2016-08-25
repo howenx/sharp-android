@@ -25,10 +25,6 @@ public interface HThemeGoodsView {
 		 */
 	    void  GetHThemeGoodsData(HThemeGoods detail);
 	    /**
-		 * <a> 获取购物车数量参数
-		 */
-	    void GetCartNumData(Integer cartNum);
-	    /**
 		 * <a> 加载失败
 		 */
 	    void  showLoadFaild(String str);

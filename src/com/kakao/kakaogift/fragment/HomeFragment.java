@@ -34,6 +34,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.base.BaseActivity;
+import com.kakao.kakaogift.activity.goods.category.CategoryGoodsActivity;
 import com.kakao.kakaogift.activity.goods.detail.GoodsDetailActivity;
 import com.kakao.kakaogift.activity.goods.h5.Html5LoadActivity;
 import com.kakao.kakaogift.activity.goods.pin.PingouDetailActivity;
@@ -184,6 +185,7 @@ public class HomeFragment extends BaseIconFragment implements
 					intent = new Intent(getActivity(), Html5LoadActivity.class);
 				}else if (catData.get(position).getTargetType().equals("M")) {
 					//////////////////
+					intent = new Intent(getActivity(), CategoryGoodsActivity.class);
 				}
 				intent.putExtra("url", catData.get(position).getItemTarget());
 				getActivity().startActivity(intent);

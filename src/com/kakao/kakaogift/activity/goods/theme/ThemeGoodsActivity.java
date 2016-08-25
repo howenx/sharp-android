@@ -4,16 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -21,31 +16,29 @@ import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.ScrollView;
 
 import com.bumptech.glide.Glide;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
+import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.base.BaseActivity;
-import com.kakao.kakaogift.activity.car.ShoppingCarActivity;
 import com.kakao.kakaogift.activity.goods.detail.GoodsDetailActivity;
 import com.kakao.kakaogift.activity.goods.pin.PingouDetailActivity;
 import com.kakao.kakaogift.activity.goods.theme.adapter.ThemeAdapter;
 import com.kakao.kakaogift.activity.goods.theme.presenter.HThemeGoodsPresenterImpl;
-import com.kakao.kakaogift.data.AppConstant;
 import com.kakao.kakaogift.entity.HGoodsVo;
-import com.kakao.kakaogift.entity.HThemeGoods;
-import com.kakao.kakaogift.entity.ImageVo;
 import com.kakao.kakaogift.entity.HGoodsVo.ImgTag;
+import com.kakao.kakaogift.entity.HThemeGoods;
 import com.kakao.kakaogift.entity.HThemeGoods.ThemeList;
+import com.kakao.kakaogift.entity.ImageVo;
 import com.kakao.kakaogift.http.VolleyHttp;
 import com.kakao.kakaogift.utils.ActionBarUtil;
 import com.kakao.kakaogift.utils.CommonUtils;
-import com.kakao.kakaogift.utils.GlideLoaderTools;
 import com.kakao.kakaogift.utils.ImageResizer;
 import com.kakao.kakaogift.utils.ToastUtils;
-import com.kakao.kakaogift.view.BadgeView;
-import com.kakao.kakaogift.view.CustomScrollView;
-import com.kakao.kakaogift.view.CustomScrollView.OnScrollUpListener;
 import com.ui.tag.TagInfo;
 import com.ui.tag.TagInfo.Type;
 import com.ui.tag.TagView;
@@ -59,104 +52,67 @@ import com.ui.tag.TagViewRight;
  * 
  */
 @SuppressLint("NewApi")
-public class ThemeGoodsActivity extends BaseActivity implements
-		OnClickListener, HThemeGoodsView {
+public class ThemeGoodsActivity extends BaseActivity implements HThemeGoodsView {
 
 	private String Tag = "ThemeGoodsActivity";
 
 	private ThemeAdapter adapter; // 商品适配器
 	private List<HGoodsVo> data;// 显示的商品数据
-	private BadgeView bView;
-	private View actionbarView;
 
 	FrameLayout mframeLayout; // 主推商品容器 添加tag使用
+	private PullToRefreshScrollView mScrollView;
 	private GridView gridView;
-	private Drawable backgroundDrawable;
 	private HThemeGoodsPresenterImpl iGoodsPresenterImpl;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.theme_layout);
-		initView();
-		data = new ArrayList<HGoodsVo>();
-		adapter = new ThemeAdapter(data, this);
-		gridView = (GridView) findViewById(R.id.my_grid);
-		gridView.setAdapter(adapter);
-		gridView.setFocusable(false);
-		// 获取数据
-		loadUrl();
+		ActionBarUtil.setActionBarStyle(this, "商品展示");
 
-		gridView.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				Intent intent = null;
-				if (data.get(arg2).getItemType().equals("pin")) {
-					intent = new Intent(getActivity(),
-							PingouDetailActivity.class);
-				} else {
-					intent = new Intent(getActivity(),
-							GoodsDetailActivity.class);
-				}
-				intent.putExtra("url", data.get(arg2).getItemUrl());
-				startActivityForResult(intent, 1);
-			}
-		});
-
-		registerReceivers();
-	}
-
-	/**
-	 * 初始化view对象
-	 */
-	private void initView() {
-		actionbarView = ActionBarUtil.setActionBarStyle(this, "商品展示",
-				R.drawable.che, this);
-		// 购物车
-		View cartView = actionbarView.findViewById(R.id.setting);
-		bView = new BadgeView(this, cartView);
-		bView.setBackgroundResource(R.drawable.bg_badgeview);
-		bView.setBadgePosition(BadgeView.POSITION_CENTER);
-		bView.setTextSize(10);
-		bView.setTextColor(Color.parseColor("#FFFFFF"));
 		// banner图容器
 		mframeLayout = (FrameLayout) findViewById(R.id.mframeLayout);
-		// 添加监听
-		findViewById(R.id.reload).setOnClickListener(this);
-		findViewById(R.id.back).setOnClickListener(this);
-		// 初始化presenter
-		iGoodsPresenterImpl = new HThemeGoodsPresenterImpl(this);
-	}
+		mScrollView = (PullToRefreshScrollView) findViewById(R.id.mScrollView);
+		gridView = (GridView) findViewById(R.id.my_grid);
 
-	// 获取显示数据
-	private void loadUrl() {
+		data = new ArrayList<HGoodsVo>();
+		adapter = new ThemeAdapter(data, this);
+		gridView.setAdapter(adapter);
+		gridView.setFocusable(false);
+		gridView.setOnItemClickListener(turnListener);
+
+		mScrollView.setMode(Mode.PULL_FROM_START);
+		mScrollView.setOnRefreshListener(scrollListener);
+
+		// 获取数据
+		iGoodsPresenterImpl = new HThemeGoodsPresenterImpl(this);
 		iGoodsPresenterImpl.getHThemeGoodsData(getHeaders(), getIntent()
 				.getStringExtra("url"), Tag);
 	}
 
-	/**
-	 * 获取购物车数量 并显示
-	 */
-	private void getCartNum() {
-		iGoodsPresenterImpl.getCartNumData(getHeaders(), null);
-	}
+	private OnItemClickListener turnListener = new  OnItemClickListener() {
 
-	private void showCartNum(Integer cartNum) {
-		if (cartNum == null)
-			return;
-		if (cartNum > 0) {
-			if (cartNum <= 99) {
-				bView.setText(cartNum + "");
+		@Override
+		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+				long arg3) {
+			Intent intent = null;
+			if (data.get(arg2).getItemType().equals("pin")) {
+				intent = new Intent(getActivity(), PingouDetailActivity.class);
 			} else {
-				bView.setText("...");
+				intent = new Intent(getActivity(), GoodsDetailActivity.class);
 			}
-			bView.show(true);
-		} else {
-			bView.hide(true);
+			intent.putExtra("url", data.get(arg2).getItemUrl());
+			startActivityForResult(intent, 1);
 		}
-	}
+	};
+
+	private OnRefreshListener<ScrollView> scrollListener = new OnRefreshListener<ScrollView>() {
+
+		@Override
+		public void onRefresh(PullToRefreshBase<ScrollView> refreshView) {
+			iGoodsPresenterImpl.getHThemeGoodsData(getHeaders(), getIntent().getStringExtra("url"), Tag);
+		}
+	};
 
 	/**
 	 * 初始化主推商品显示
@@ -169,9 +125,7 @@ public class ThemeGoodsActivity extends BaseActivity implements
 		if (themeList == null)
 			return;
 		if (themeList.getTitle() != null) {
-			TextView titleView = (TextView) actionbarView
-					.findViewById(R.id.header);
-			titleView.setText(themeList.getTitle());
+			ActionBarUtil.setActionBarStyle(this, themeList.getTitle());
 		}
 		ImageVo themeImg = themeList.getThemeImg();
 		if (themeImg != null) {
@@ -182,11 +136,15 @@ public class ThemeGoodsActivity extends BaseActivity implements
 					height));
 			ImageView img = (ImageView) findViewById(R.id.img); // 主推商品图片
 			// 初始化标签信息
-			Log.i("imginfo", themeImg.getWidth()+", "+ themeImg.getHeight()+"");
+			Log.i("imginfo", themeImg.getWidth() + ", " + themeImg.getHeight()
+					+ "");
 			initTagInfo(themeList, width, height);
-			int inSampleSize  = ImageResizer.calculateInSampleSize(themeImg.getWidth(), themeImg.getHeight());
-			Glide.with(this).load(themeImg.getUrl()).animate(R.anim.abc_fade_in)
-						.override(width / inSampleSize, height / inSampleSize).into(img);
+			int inSampleSize = ImageResizer.calculateInSampleSize(
+					themeImg.getWidth(), themeImg.getHeight());
+			Glide.with(this).load(themeImg.getUrl())
+					.animate(R.anim.abc_fade_in)
+					.override(width / inSampleSize, height / inSampleSize)
+					.into(img);
 		}
 		if (themeList.getThemeItemList() != null
 				&& themeList.getThemeItemList().size() > 0) {
@@ -297,140 +255,32 @@ public class ThemeGoodsActivity extends BaseActivity implements
 	}
 
 	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.setting:
-			startActivity(new Intent(this, ShoppingCarActivity.class));
-			break;
-		case R.id.reload:
-			loadUrl();
-			break;
-		case R.id.back:
-			finish();
-			break;
-		default:
-			break;
-		}
-	}
-
-	private CarBroadCastReceiver netReceiver;
-
-	// 广播接收者 注册
-	private void registerReceivers() {
-		netReceiver = new CarBroadCastReceiver();
-		IntentFilter intentFilter = new IntentFilter();
-		intentFilter
-				.addAction(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR);
-		getActivity().registerReceiver(netReceiver, intentFilter);
-	}
-
-	private class CarBroadCastReceiver extends BroadcastReceiver {
-
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			if (intent.getAction().equals(
-					AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR)) {
-				getCartNum();
-			}
-		}
-	}
-
-	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		unregisterReceiver(netReceiver);
 		VolleyHttp.parseRequestTask(Tag);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.kakao.kakaogift.activity.goods.theme.view.HThemeGoodsView#showLoading
-	 * ()
-	 */
 	@Override
 	public void showLoading() {
-		// TODO Auto-generated method stub
 		getLoading().show();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.kakao.kakaogift.activity.goods.theme.view.HThemeGoodsView#hideLoading
-	 * ()
-	 */
 	@Override
 	public void hideLoading() {
-		// TODO Auto-generated method stub
 		getLoading().dismiss();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.kakao.kakaogift.activity.goods.theme.view.HThemeGoodsView#GetData
-	 * (com.kakao.kakaogift .entity.HThemeGoods)
-	 */
 	@Override
 	public void GetHThemeGoodsData(HThemeGoods detail) {
-		// TODO Auto-generated method stub
+		if(mScrollView.isRefreshing()){
+			mScrollView.onRefreshComplete();
+		}
 		initThemeView(detail);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.kakao.kakaogift.activity.goods.theme.view.HThemeGoodsView#showLoadFaild
-	 * ( java.lang.String)
-	 */
 	@Override
 	public void showLoadFaild(String str) {
-		// TODO Auto-generated method stub
 		ToastUtils.Toast(getActivity(), str);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.kakao.kakaogift.activity.view.theme.HThemeGoodsView#GetCartNumData
-	 * (java. lang.Integer)
-	 */
-	@Override
-	public void GetCartNumData(Integer cartNum) {
-		// TODO Auto-generated method stub
-		showCartNum(cartNum);
-	}
-
-	private class OnActionbarScrollListener implements OnScrollUpListener {
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * com.kakao.kakaogift.view.CustomScrollView.OnScrollUpListener#onScroll
-		 * (int, boolean)
-		 */
-		@Override
-		public void onScroll(int scrollY, boolean scrollDirection) {
-			// TODO Auto-generated method stub
-			if (mframeLayout.getMeasuredHeight() > 0) {
-				if (scrollY <= 0) {
-					backgroundDrawable.setAlpha(0);
-				} else if (scrollY <= mframeLayout.getMeasuredHeight()
-						&& scrollY > 0) {
-					backgroundDrawable.setAlpha(scrollY * 255
-							/ mframeLayout.getMeasuredHeight());
-				} else if (scrollY > mframeLayout.getMeasuredHeight()) {
-					backgroundDrawable.setAlpha(255);
-				}
-			}
-		}
-
-	}
 }

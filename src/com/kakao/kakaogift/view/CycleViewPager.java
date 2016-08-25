@@ -21,6 +21,7 @@ import android.widget.RelativeLayout;
 
 import com.kakao.kakaogift.R
 ;
+import com.kakao.kakaogift.activity.goods.category.CategoryGoodsActivity;
 import com.kakao.kakaogift.activity.goods.detail.GoodsDetailActivity;
 import com.kakao.kakaogift.activity.goods.h5.Html5LoadActivity;
 import com.kakao.kakaogift.activity.goods.pin.PingouDetailActivity;
@@ -321,9 +322,9 @@ public class CycleViewPager extends Fragment implements OnPageChangeListener{
 							}
 						}else if(infos.get(currentPosition - 1).getType().equals("M")){
 							if(!infos.get(currentPosition - 1).getUrl().equals("")){
-//								Intent intent = new Intent(getActivity(), Html5LoadActivity.class);
-//								intent.putExtra("url", infos.get(currentPosition - 1).getUrl());
-//								getActivity().startActivity(intent);
+								Intent intent = new Intent(getActivity(), CategoryGoodsActivity.class);
+								intent.putExtra("url", infos.get(currentPosition - 1).getUrl());
+								getActivity().startActivity(intent);
 							}
 						}
 					}

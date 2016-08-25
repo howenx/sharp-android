@@ -19,7 +19,7 @@ import com.kakao.kakaogift.entity.HGoodsVo;
 public class CategoryGoodsPresenterImpl implements CategoryGoodsPresenter {
 	
 	public interface CallBack{
-		void onSuccess(List<HGoodsVo> data);
+		void onSuccess(List<HGoodsVo> data,String title);
 		void onFailed(String msg);
 	}
 	
@@ -42,8 +42,11 @@ public class CategoryGoodsPresenterImpl implements CategoryGoodsPresenter {
 		model.loadCategoryGoodsList( url , pageNo, new CallBack() {
 			
 			@Override
-			public void onSuccess(List<HGoodsVo> data) {
+			public void onSuccess(List<HGoodsVo> data,String title) {
 				view.CategoryGoodsData(data);
+				if(title !=null){
+					view.title(title);
+				}
 				view.hideLoading();
 			}
 			

@@ -18,6 +18,7 @@ import com.kakao.kakaogift.entity.HMessageVo;
 public class CategoryGoods {
 	private HMessage message;
 	private int page_count;
+	private String title;
 	private List<HGoodsVo> themeItemList;
 	public HMessage getMessage() {
 		return message;
@@ -37,7 +38,11 @@ public class CategoryGoods {
 	public void setThemeItemList(List<HGoodsVo> themeItemList) {
 		this.themeItemList = themeItemList;
 	}
-	
-	
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
 	
 }

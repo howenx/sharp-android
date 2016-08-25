@@ -7,7 +7,6 @@ package com.kakao.kakaogift.activity.goods.theme.model;
 
 import java.util.Map;
 
-import com.kakao.kakaogift.activity.goods.theme.model.HThemeGoodsModelImpl.OnCartNumListener;
 import com.kakao.kakaogift.activity.goods.theme.model.HThemeGoodsModelImpl.OnHThemeGoodsLoadListenter;
 
 /**
@@ -17,5 +16,4 @@ import com.kakao.kakaogift.activity.goods.theme.model.HThemeGoodsModelImpl.OnHTh
 public interface HThemeGoodsModel {
 	void getThemeGoods(Map<String, String> headers, String url, String tag,
 			OnHThemeGoodsLoadListenter listenter);
-	void getCartNum(Map<String, String> headers,OnCartNumListener listenter);
 }

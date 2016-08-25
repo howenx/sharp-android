@@ -13,5 +13,4 @@ import java.util.Map;
  */
 public interface HThemeGoodsPresenter {
 	void getHThemeGoodsData(Map<String, String> headers, String url, String tag);
-	void getCartNumData(Map<String, String> headers, String tag);
 }

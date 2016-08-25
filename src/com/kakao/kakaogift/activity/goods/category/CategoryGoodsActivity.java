@@ -51,8 +51,8 @@ public class CategoryGoodsActivity extends BaseActivity implements
 
 		data = new ArrayList<HGoodsVo>();
 		adapter = new ThemeAdapter(data, this);
-		mGridView.setMode(Mode.BOTH);
 		mGridView.setAdapter(adapter);
+		mGridView.setMode(Mode.BOTH);
 		mGridView.setOnRefreshListener(this);
 		presenter = new CategoryGoodsPresenterImpl(this);
 		presenter.getCategoryGoodsList(url, pageNo);
@@ -103,6 +103,11 @@ public class CategoryGoodsActivity extends BaseActivity implements
 			mGridView.onRefreshComplete();
 		}
 		ToastUtils.Toast(this, str);
+	}
+
+	@Override
+	public void title(String title) {
+		ActionBarUtil.setActionBarStyle(this, title);
 	}
 
 }

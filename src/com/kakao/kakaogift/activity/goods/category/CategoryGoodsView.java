@@ -29,6 +29,8 @@ public interface CategoryGoodsView {
      */
     void  CategoryGoodsData(List<HGoodsVo> data);
     
+    void title(String title);
+    
     /**
      * 加载失败 返回信息
      * @param str

@@ -65,47 +65,6 @@ public class HThemeGoodsModelImpl implements HThemeGoodsModel {
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.kakao.kakaogift.activity.model.theme.HThemeGoodsModel#getCartNum(java.util
-	 * .Map, java.lang.String, java.lang.String,
-	 * com.kakao.kakaogift.activity.model.theme
-	 * .HThemeGoodsModelImpl.OnHThemeGoodsLoadListenter)
-	 */
-	@Override
-	public void getCartNum(Map<String, String> headers,
-			final OnCartNumListener listenter) {
-		// TODO Auto-generated method stub
-		if (headers == null) {
-			List<ShoppingGoods> goods = DataBaseManager.getInstance()
-					.getDaoSession().getShoppingGoodsDao().queryBuilder()
-					.list();
-			int num = 0;
-			for (ShoppingGoods sg : goods) {
-				num += sg.getGoodsNums();
-			}
-			listenter.onSuccess(num);
-			return;
-		}
-		VolleyHttp.doGetRequestTask(headers, UrlUtil.GET_CART_NUM_URL,
-				new VolleyJsonCallback() {
-
-					@Override
-					public void onSuccess(String result) {
-						CartNumVo vo = new Gson().fromJson(result,
-								CartNumVo.class);
-						if (vo.getMessage().getCode() == 200) {
-							listenter.onSuccess(vo.getCartNum());
-						}
-					}
-
-					@Override
-					public void onError() {
-					}
-				});
-	}
 
 	public interface OnHThemeGoodsLoadListenter {
 		void onSuccess(HThemeGoods detail);
@@ -113,8 +72,5 @@ public class HThemeGoodsModelImpl implements HThemeGoodsModel {
 		void onFailed(String msg);
 	}
 
-	public interface OnCartNumListener {
-		void onSuccess(Integer cartNum);
-	}
 
 }
