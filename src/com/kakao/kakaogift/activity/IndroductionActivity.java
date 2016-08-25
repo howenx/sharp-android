@@ -13,6 +13,7 @@ import android.widget.ImageView;
 
 import com.kakao.kakaogift.R
 ;
+import com.kakao.kakaogift.activity.main.HMainActivity;
 import com.kakao.kakaogift.utils.PreferenceUtil.IntroConfig;
 import com.kakao.kakaogift.view.viewflow.CircleFlowIndicator;
 import com.kakao.kakaogift.view.viewflow.ViewFlow;

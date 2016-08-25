@@ -11,7 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.kakao.kakaogift.activity.FirstShowActivity;
-import com.kakao.kakaogift.activity.HMainActivity;
+import com.kakao.kakaogift.activity.main.HMainActivity;
 
 /**
  * @author vince

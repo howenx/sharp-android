@@ -99,7 +99,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/SplashStyle" />
         <activity
-            android:name="com.kakao.kakaogift.activity.HMainActivity"
+            android:name="com.kakao.kakaogift.activity.main.HMainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/MainActivityTheme" />

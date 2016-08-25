@@ -26,11 +26,11 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.kakao.kakaogift.R
 ;
-import com.kakao.kakaogift.activity.HMainActivity;
 import com.kakao.kakaogift.activity.balance.GoodsBalanceActivity;
 import com.kakao.kakaogift.activity.base.BaseActivity;
 import com.kakao.kakaogift.activity.car.adapter.ShoppingCarPullListAdapter;
 import com.kakao.kakaogift.activity.login.LoginActivity;
+import com.kakao.kakaogift.activity.main.HMainActivity;
 import com.kakao.kakaogift.dao.ShoppingGoodsDao;
 import com.kakao.kakaogift.data.AppConstant;
 import com.kakao.kakaogift.data.DataParser;

@@ -23,9 +23,9 @@ import android.webkit.WebViewClient;
 import com.alipay.sdk.app.PayTask;
 import com.kakao.kakaogift.R
 ;
-import com.kakao.kakaogift.activity.HMainActivity;
 import com.kakao.kakaogift.activity.base.BaseActivity;
 import com.kakao.kakaogift.activity.goods.pin.PingouResultActivity;
+import com.kakao.kakaogift.activity.main.HMainActivity;
 import com.kakao.kakaogift.activity.mine.order.MyOrderActivity;
 import com.kakao.kakaogift.data.AppConstant;
 import com.kakao.kakaogift.data.UrlUtil;

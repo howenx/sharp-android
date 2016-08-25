@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import cn.jpush.android.api.JPushInterface;
 
 import com.kakao.kakaogift.R;
+import com.kakao.kakaogift.activity.main.HMainActivity;
 import com.kakao.kakaogift.application.KKApplication;
 import com.kakao.kakaogift.dao.DaoSession;
 import com.kakao.kakaogift.data.DataParser;

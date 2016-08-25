@@ -7,13 +7,13 @@ import android.os.Bundle;
 import cn.jpush.android.api.JPushInterface;
 
 import com.kakao.kakaogift.R;
-import com.kakao.kakaogift.activity.HMainActivity;
 import com.kakao.kakaogift.activity.goods.detail.GoodsDetailActivity;
 import com.kakao.kakaogift.activity.goods.h5.Html5LoadActivity;
 import com.kakao.kakaogift.activity.goods.pin.PingouDetailActivity;
 import com.kakao.kakaogift.activity.goods.pin.PingouResultActivity;
 import com.kakao.kakaogift.activity.goods.theme.ThemeGoodsActivity;
 import com.kakao.kakaogift.activity.login.LoginActivity;
+import com.kakao.kakaogift.activity.main.HMainActivity;
 import com.kakao.kakaogift.activity.mine.coupon.MyCouponActivity;
 import com.kakao.kakaogift.application.KKApplication;
 import com.kakao.kakaogift.data.AppConstant;
