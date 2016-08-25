@@ -187,7 +187,7 @@ public class ActionBarUtil {
 						context.startActivity(new Intent(context,
 								MessageTypeActivity.class));
 					}
-				} else if (position == 2) {
+				} else if (position == 4) {
 					context.startActivity(new Intent(context,
 							SettingActivity.class));
 				}

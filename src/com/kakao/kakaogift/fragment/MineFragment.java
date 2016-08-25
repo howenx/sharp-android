@@ -149,7 +149,7 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.header:
+		case R.id.faceView:
 			doJump(EditUserInfoActivity.class);
 			break;
 		case R.id.order:

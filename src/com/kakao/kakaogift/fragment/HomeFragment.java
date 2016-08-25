@@ -182,6 +182,8 @@ public class HomeFragment extends BaseIconFragment implements
 							PingouDetailActivity.class);
 				} else if (catData.get(position).getTargetType().equals("U")) {
 					intent = new Intent(getActivity(), Html5LoadActivity.class);
+				}else if (catData.get(position).getTargetType().equals("M")) {
+					//////////////////
 				}
 				intent.putExtra("url", catData.get(position).getItemTarget());
 				getActivity().startActivity(intent);

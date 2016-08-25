@@ -79,7 +79,7 @@ OnRefreshListener2<ListView>, OnClickListener, OnScrollListener{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.home_list_layout, null);
-		ActionBarUtil.initMainActionBarStyle(baseActivity,view, 1);
+		ActionBarUtil.initMainActionBarStyle(baseActivity,view, 2);
 		back_top = view.findViewById(R.id.back_top);
 		no_net = (LinearLayout) view.findViewById(R.id.no_net);
 		reload = (TextView) view.findViewById(R.id.reload);
