@@ -26,6 +26,7 @@ import com.kakao.kakaogift.activity.balance.GoodsBalanceActivity;
 import com.kakao.kakaogift.activity.base.BaseActivity;
 import com.kakao.kakaogift.activity.login.LoginActivity;
 import com.kakao.kakaogift.data.AppConstant;
+import com.kakao.kakaogift.data.UrlUtil;
 import com.kakao.kakaogift.entity.CustomsVo;
 import com.kakao.kakaogift.entity.PinActivity;
 import com.kakao.kakaogift.entity.PinResult;
@@ -272,7 +273,7 @@ public class PingouResultActivity extends BaseActivity implements
 			vo.setTitle("我在KakaoGift发现了一个不错的礼物，赶快来看看吧");
 			vo.setInfoUrl(pinActivity.getPinUrl());
 			vo.setImgUrl(pinActivity.getPinImg().getUrl());
-			vo.setTargetUrl("http://style.hanmimei.com/pin" + pinActivity.getPinUrl().split("promotion/pin")[1]);
+			vo.setTargetUrl(pinActivity.getPinUrl().split("promotion/pin")[1]);
 			vo.setType("T");
 			shareWindow = new ShareWindow(this, vo);
 		}

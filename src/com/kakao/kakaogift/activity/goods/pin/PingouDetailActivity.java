@@ -39,6 +39,7 @@ import com.kakao.kakaogift.activity.goods.pin.presenter.PinDetailPresenterImpl;
 import com.kakao.kakaogift.activity.login.LoginActivity;
 import com.kakao.kakaogift.activity.main.HMainActivity;
 import com.kakao.kakaogift.data.AppConstant;
+import com.kakao.kakaogift.data.UrlUtil;
 import com.kakao.kakaogift.entity.CommentVo;
 import com.kakao.kakaogift.entity.CustomsVo;
 import com.kakao.kakaogift.entity.ImageVo;
@@ -280,8 +281,7 @@ public class PingouDetailActivity extends BaseActivity implements
 				return;
 			}
 			vo.setImgUrl(detail.getStock().getInvImgForObj().getUrl());
-			vo.setTargetUrl("http://style.hanmimei.com"
-					+ detail.getStock().getPinRedirectUrl().split("comm")[1]);
+			vo.setTargetUrl(detail.getStock().getPinRedirectUrl().split("comm")[1]);
 			vo.setInfoUrl(detail.getStock().getPinRedirectUrl());
 			vo.setType("P");
 			shareWindow = new ShareWindow(this, vo);

@@ -1,6 +1,5 @@
 package com.kakao.kakaogift.view;
 
-import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -80,7 +79,7 @@ public class ShareWindow extends BottomBaseDialog<ShareWindow> implements OnClic
 			.setCallback(umShareListener)
 			.withMedia(new UMImage(mActivity, vo.getImgUrl()))
 			.withTitle(vo.getTitle())
-			.withText(vo.getContent()+ vo.getTargetUrl())
+			.withText(vo.getContent()+ UrlUtil.SERVERY6 + vo.getTargetUrl())
 //			.withExtra(new UMImage(mActivity, vo.getImgUrl()))
 			.share();
 		}else{
@@ -89,7 +88,7 @@ public class ShareWindow extends BottomBaseDialog<ShareWindow> implements OnClic
 			.withMedia(new UMImage(mActivity, vo.getImgUrl()))
 			.withTitle(vo.getContent())
 			.withText("我在KakaoGift发现了一个不错的礼物，赶快来看看吧")
-			.withTargetUrl(vo.getTargetUrl())
+			.withTargetUrl(UrlUtil.SERVERY6 + vo.getTargetUrl())
 			.share();
 		}
 		
