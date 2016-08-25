@@ -38,6 +38,7 @@ import com.kakao.kakaogift.activity.goods.detail.presenter.GoodsDetailPresenterI
 import com.kakao.kakaogift.activity.login.LoginActivity;
 import com.kakao.kakaogift.activity.main.HMainActivity;
 import com.kakao.kakaogift.data.AppConstant;
+import com.kakao.kakaogift.data.UrlUtil;
 import com.kakao.kakaogift.entity.CommentVo;
 import com.kakao.kakaogift.entity.CustomsVo;
 import com.kakao.kakaogift.entity.GoodsDetail;
@@ -292,8 +293,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 			if (shareStock.getInvImgForObj() != null)
 				vo.setImgUrl(shareStock.getInvImgForObj().getUrl());
 			if (shareStock.getInvUrl() != null) {
-				vo.setTargetUrl("http://style.hanmimei.com"
-						+ shareStock.getInvUrl().split("comm")[1]);
+				vo.setTargetUrl(shareStock.getInvUrl().split("comm")[1]);
 				vo.setInfoUrl(shareStock.getInvUrl());
 			}
 			vo.setType("C");
