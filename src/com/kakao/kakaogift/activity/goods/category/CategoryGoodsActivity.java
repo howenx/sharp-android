@@ -8,8 +8,12 @@ package com.kakao.kakaogift.activity.goods.category;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -20,6 +24,8 @@ import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.base.BaseActivity;
 import com.kakao.kakaogift.activity.goods.category.presenter.CategoryGoodsPresenter;
 import com.kakao.kakaogift.activity.goods.category.presenter.CategoryGoodsPresenterImpl;
+import com.kakao.kakaogift.activity.goods.detail.GoodsDetailActivity;
+import com.kakao.kakaogift.activity.goods.pin.PingouDetailActivity;
 import com.kakao.kakaogift.activity.goods.theme.adapter.ThemeAdapter;
 import com.kakao.kakaogift.entity.HGoodsVo;
 import com.kakao.kakaogift.utils.ActionBarUtil;
@@ -55,8 +61,26 @@ public class CategoryGoodsActivity extends BaseActivity implements
 		mGridView.setMode(Mode.BOTH);
 		mGridView.setOnRefreshListener(this);
 		presenter = new CategoryGoodsPresenterImpl(this);
+		mGridView.setOnItemClickListener(clickListener);
 		presenter.getCategoryGoodsList(url, pageNo);
 	}
+	
+	
+	private OnItemClickListener clickListener = new OnItemClickListener() {
+
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position,
+				long id) {
+			Intent intent = null; 
+			if (data.get(position).getItemType().equals("pin")) {
+				intent = new Intent(getActivity(), PingouDetailActivity.class);
+			} else {
+				intent = new Intent(getActivity(), GoodsDetailActivity.class);
+			}
+			intent.putExtra("url", data.get(position).getItemUrl());
+			startActivityForResult(intent, 1);
+		}
+	};
 	
 	private void notifyDataUpdate(List<HGoodsVo> list,int page_count){
 		if(pageNo==1){
