@@ -1,5 +1,6 @@
 package com.kakao.kakaogift.fragment;
 
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -13,23 +14,25 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import cn.jpush.android.api.JPushInterface;
 
 import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.base.BaseActivity;
 import com.kakao.kakaogift.activity.login.LoginActivity;
 import com.kakao.kakaogift.activity.mine.address.MyAddressActivity;
 import com.kakao.kakaogift.activity.mine.collect.MyCollectionActivity;
+import com.kakao.kakaogift.activity.mine.config.SettingActivity;
 import com.kakao.kakaogift.activity.mine.coupon.MyCouponActivity;
 import com.kakao.kakaogift.activity.mine.order.MyOrderActivity;
 import com.kakao.kakaogift.activity.mine.pin.MyPingouActivity;
 import com.kakao.kakaogift.activity.mine.user.EditUserInfoActivity;
+import com.kakao.kakaogift.application.KKApplication;
 import com.kakao.kakaogift.dao.UserDao;
 import com.kakao.kakaogift.data.AppConstant;
 import com.kakao.kakaogift.data.DataParser;
 import com.kakao.kakaogift.data.UrlUtil;
 import com.kakao.kakaogift.entity.User;
 import com.kakao.kakaogift.manager.MyCouponMenager;
-import com.kakao.kakaogift.utils.ActionBarUtil;
 import com.kakao.kakaogift.utils.GlideLoaderTools;
 import com.kakao.kakaogift.utils.HttpUtils;
 import com.kakao.kakaogift.utils.ToastUtils;
@@ -49,6 +52,7 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 	private ImageView sex;
 	private BaseActivity activity;
 	private User user;
+	private TextView exit;
 	
 	
 
@@ -62,7 +66,7 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.wode_layout, null);
-		 ActionBarUtil.initMainActionBarStyle(activity,view, 4);
+//		 ActionBarUtil.initMainActionBarStyle(activity,view, 4);
 		user = activity.getUser();
 		findView(view);
 		if (user != null){
@@ -108,6 +112,11 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 			couponCount = user.getCouponCount();
 		}
 		youhui_nums.setText(couponCount + " 张可用");
+		if(user != null){
+			exit.setVisibility(View.VISIBLE);
+		}else{
+			exit.setVisibility(View.GONE);
+		}
 
 	}
 
@@ -129,6 +138,7 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 		faceView.setImageResource(R.drawable.hmm_mine_face);
 		sex.setVisibility(View.GONE);
 		youhui_nums.setText("");
+		exit.setVisibility(View.GONE);
 	}
 
 	private void findView(View view) {
@@ -143,7 +153,15 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 		view.findViewById(R.id.collect).setOnClickListener(this);
 		view.findViewById(R.id.youhui_linear).setOnClickListener(this);
 		view.findViewById(R.id.pintuan).setOnClickListener(this);
+		view.findViewById(R.id.settings).setOnClickListener(this);
+		exit = (TextView) view.findViewById(R.id.exit);
+		exit.setOnClickListener(this);
 		MyCouponMenager.getInstance().initCouponMenager(youhui_nums);
+		if(user != null){
+			exit.setVisibility(View.VISIBLE);
+		}else{
+			exit.setVisibility(View.GONE);
+		}
 	}
 
 	@Override
@@ -171,9 +189,42 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 		case R.id.pintuan:
 			doJump(MyPingouActivity.class);
 			break;
+		case R.id.settings:
+			startActivity(new Intent(getActivity(),SettingActivity.class));
+			break;
+		case R.id.exit:
+			doExit();
+			break;
 		default:
 			break;
 		}
+	}
+
+	/**
+	 * 
+	 */
+	private ProgressDialog pdialog;
+	private void doExit() {
+		pdialog = new ProgressDialog(getActivity());
+		pdialog.setMessage("正在退出...");
+		pdialog.show();
+		mHandler.postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				User user = new User();
+				user.setPhone(activity.getUser().getPhone());
+				KKApplication application = activity.getMyApplication();
+				UserDao userDao = activity.getDaoSession().getUserDao();
+				application.clearLoginUser();
+				userDao.deleteAll();
+				userDao.insert(user);
+				JPushInterface.setAlias(getActivity(), "", null);
+				getActivity().sendBroadcast(new Intent(
+						AppConstant.MESSAGE_BROADCAST_QUIT_LOGIN_ACTION));
+				clearView();
+				pdialog.dismiss();	
+			}
+		}, 1000);
 	}
 
 	private void doJump(Class clazz) {
@@ -228,7 +279,7 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 		netReceiver = new NetBroadCastReceiver();
 		IntentFilter intentFilter = new IntentFilter();
 		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION);
-		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_QUIT_LOGIN_ACTION);
+//		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_QUIT_LOGIN_ACTION);
 		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_COUNPON_ACTION);
 		getActivity().registerReceiver(netReceiver, intentFilter);
 	}
@@ -247,10 +298,12 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 					AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION)) {
 				isRefresh = true;
 				getUserInfo();
-			} else if (intent.getAction().equals(
-					AppConstant.MESSAGE_BROADCAST_QUIT_LOGIN_ACTION)) {
-				clearView();
-			}else if(intent.getAction().equals(
+			} 
+//			else if (intent.getAction().equals(
+//					AppConstant.MESSAGE_BROADCAST_QUIT_LOGIN_ACTION)) {
+//				clearView();
+//			}
+			else if(intent.getAction().equals(
 					AppConstant.MESSAGE_BROADCAST_COUNPON_ACTION)){
 				isRefresh = false;
 				getUserInfo();

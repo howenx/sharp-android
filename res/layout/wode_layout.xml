@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg"
     android:orientation="vertical" >
-
+<!-- 
     <include layout="@layout/actionbar_custom_layout" />
-
+ -->
+ <LinearLayout 
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:orientation="vertical">
     <LinearLayout
         android:id="@+id/mHeaderView"
         android:layout_width="match_parent"
@@ -20,7 +24,7 @@
             android:id="@+id/faceView"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="50dp"
             android:background="@drawable/hmm_mine_face_bg"
             android:src="@drawable/hmm_mine_face"
             app:border_color="@color/white"
@@ -55,9 +59,6 @@
         </LinearLayout>
     </LinearLayout>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -104,7 +105,7 @@
                     android:drawableLeft="@drawable/hmm_mine_coupon"
                     android:drawablePadding="20dp"
                     android:gravity="center_vertical"
-                    android:text="优惠券"
+                    android:text="我的优惠券"
                     android:textColor="@color/fontcolor"
                     android:textSize="16sp" />
 
@@ -127,7 +128,22 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/hmm_mine_address"
                 android:text="管理收货地址" />
+            <TextView
+                android:id="@+id/settings"
+                style="@style/wode_font_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/hmm_mine_address"
+                android:text="设置" />
+            <TextView
+                android:id="@+id/exit"
+                style="@style/textview_button_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="30dp"
+                android:text="退出登录" 
+                android:visibility="gone"/>
+        </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
-</LinearLayout>
