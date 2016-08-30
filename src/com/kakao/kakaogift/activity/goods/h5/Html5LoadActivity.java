@@ -187,7 +187,7 @@ public class Html5LoadActivity extends BaseActivity {
 
 	private void initActionBar(String title) {
 		if (title == null) {
-			ActionBarUtil.setActionBarStyle(this, "韩秘美");
+			ActionBarUtil.setActionBarStyle(this, "KakaoGift");
 			return;
 		}
 		ActionBarUtil.setActionBarStyle(this, title,new OnBackClickListener());
