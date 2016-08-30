@@ -12,6 +12,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
+import android.content.Intent;
+
 import com.google.gson.Gson;
 import com.kakao.kakaogift.dao.ShoppingGoodsDao.Properties;
 import com.kakao.kakaogift.data.AppConstant;

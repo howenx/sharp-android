@@ -3,7 +3,8 @@
     xmlns:ptr="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg">
+    android:background="@color/bg"
+    android:id="@+id/order_main">
     <com.handmark.pulltorefresh.library.PullToRefreshListView
       		android:layout_width="fill_parent"
       		android:layout_height="match_parent"
@@ -19,14 +20,6 @@
       		android:id="@+id/mylist"
       		ptr:ptrShowIndicator="false"
       		ptr:ptrDrawable="@drawable/refreshing"/>
-	<ImageView 
-	    android:id="@+id/no_order"
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-	    android:background="@color/white"
-	    android:scaleType="centerInside"
-	    android:src="@drawable/order"
-	    android:visibility="gone"/>
 	<include 
         android:id="@+id/no_net"
         android:layout_height="match_parent"

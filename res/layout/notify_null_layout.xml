@@ -16,9 +16,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="250dp"
             android:gravity="center"
-            android:padding="50dp"
             android:background="@color/white"
             android:orientation="vertical" >
 
@@ -29,19 +28,36 @@
                 android:contentDescription="@null" />
 
             <TextView
+         		android:layout_marginTop="15dp"
                 android:id="@+id/mTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="" />
-        </LinearLayout>
-
+                android:text="" 
+                android:textSize="17sp"
+                android:textColor="@color/none_color"/>
         <TextView
+                android:id="@+id/go_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/theme_border"
+                android:paddingBottom="5dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="5dp"
+                android:text="去逛逛"
+                android:textColor="@color/yellow"
+                android:textSize="16sp"
+                android:visibility="gone" />
+        </LinearLayout>
+        <ImageView
+        	android:layout_marginTop="5dp"
+       		android:layout_marginLeft="15dp"
+        	android:layout_marginRight="15dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="5dp"
-            android:text="每日推荐" />
-
+            android:layout_height="36dp"
+            android:scaleType="center"
+            android:src="@drawable/icon_tuijian"/>
         <com.kakao.kakaogift.view.CustomGridView
             android:id="@+id/mGridView"
             android:layout_width="match_parent"

@@ -7,6 +7,8 @@ package com.kakao.kakaogift.activity.goods.detail.presenter;
 
 import java.util.Map;
 
+import android.content.Context;
+
 import com.kakao.kakaogift.activity.goods.detail.GoodsDetailView;
 import com.kakao.kakaogift.activity.goods.detail.model.GoodsDetailModelImpl;
 import com.kakao.kakaogift.activity.goods.detail.model.GoodsDetailModelImpl.OnGetGoodsDetailListener;

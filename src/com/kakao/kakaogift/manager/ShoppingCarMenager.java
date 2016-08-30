@@ -8,15 +8,18 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.kakao.kakaogift.R
 ;
 import com.kakao.kakaogift.activity.car.adapter.ShoppingCarPullListAdapter;
 import com.kakao.kakaogift.entity.CustomsVo;
 import com.kakao.kakaogift.entity.ShoppingGoods;
 import com.kakao.kakaogift.utils.CommonUtils;
+import com.kakao.kakaogift.view.DataNoneLayout;
 
 /**
  * @author eric
@@ -25,7 +28,6 @@ import com.kakao.kakaogift.utils.CommonUtils;
 public class ShoppingCarMenager {
 	private TextView totalPrice_t;
 	private TextView pay;
-	private LinearLayout no_data;
 	private LinearLayout bottom;
 	private TextView attention;
 	private PullToRefreshListView mListView;
@@ -36,6 +38,7 @@ public class ShoppingCarMenager {
 	private int bottommorePrice;
 	private List<CustomsVo> list = new ArrayList<CustomsVo>();
 	private Activity mActivity;
+	private DataNoneLayout dataLayout;
 
 	private static class ShopCartManagerHolder {
 		public static final ShoppingCarMenager instance = new ShoppingCarMenager();
@@ -44,7 +47,7 @@ public class ShoppingCarMenager {
 	public static ShoppingCarMenager getInstance() {
 		return ShopCartManagerHolder.instance;
 	}
-	public void initShoppingCarMenager(Context mContext, ShoppingCarPullListAdapter adapter, List<CustomsVo> list, TextView attention, TextView totalPrice, TextView pay, LinearLayout no_data, LinearLayout bottom,PullToRefreshListView mListView){
+	public void initShoppingCarMenager(Context mContext, ShoppingCarPullListAdapter adapter, List<CustomsVo> list, TextView attention, TextView totalPrice, TextView pay, LinearLayout bottom,PullToRefreshListView mListView, DataNoneLayout dataLayout){
 		mActivity = (Activity) mContext;
 		this.adapter = adapter;
 		this.list.clear();
@@ -52,9 +55,9 @@ public class ShoppingCarMenager {
 		this.attention = attention;
 		this.totalPrice_t = totalPrice;
 		this.pay = pay;
-		this.no_data = no_data;
 		this.bottom = bottom;
 		this.mListView = mListView;
+		this.dataLayout = dataLayout;
 	}
 	public List<CustomsVo> getData(){
 		return list;
@@ -134,14 +137,17 @@ public class ShoppingCarMenager {
 		if(list.size() <= 0 || list == null){
 			mListView.setVisibility(View.GONE);
 			attention.setVisibility(View.INVISIBLE);
-			no_data.setVisibility(View.VISIBLE);
+			setDataNone();
 			bottom.setVisibility(View.GONE);
 		}else{
 			mListView.setVisibility(View.VISIBLE);
 			attention.setVisibility(View.VISIBLE);
-			no_data.setVisibility(View.GONE);
 			bottom.setVisibility(View.VISIBLE);
 		}
+	}
+	private void setDataNone() {
+		dataLayout.loadData(1);
+		dataLayout.setVisible();
 	}
 	public void setPayNoClick(int i){
 		if(i == 0){

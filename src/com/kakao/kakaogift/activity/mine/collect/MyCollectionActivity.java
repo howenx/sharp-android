@@ -11,15 +11,15 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
-import com.bigkoo.convenientbanner.salvage.RecycleBin;
 import com.flyco.dialog.widget.NormalDialog;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.base.BaseActivity;
 import com.kakao.kakaogift.activity.goods.detail.GoodsDetailActivity;
@@ -35,7 +35,6 @@ import com.kakao.kakaogift.http.VolleyHttp;
 import com.kakao.kakaogift.http.VolleyHttp.VolleyJsonCallback;
 import com.kakao.kakaogift.utils.ActionBarUtil;
 import com.kakao.kakaogift.utils.AlertDialogUtils;
-import com.kakao.kakaogift.utils.RecycleBitmap;
 import com.kakao.kakaogift.utils.ToastUtils;
 import com.kakao.kakaogift.view.DataNoneLayout;
 
@@ -50,8 +49,8 @@ public class MyCollectionActivity extends BaseActivity implements
 	private List<Collection> datas;
 	private MyCollectionAdapter adapter;
 	private MyBroadCastReceiver netReceiver;
-	private View no_data;
 	private LinearLayout no_net;
+	private RelativeLayout collection_main;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,8 +58,8 @@ public class MyCollectionActivity extends BaseActivity implements
 		ActionBarUtil.setActionBarStyle(this, "我的收藏");
 		setContentView(R.layout.my_collection_layout);
 		mListView = (ListView) findViewById(R.id.mListView);
-		no_data = findViewById(R.id.no_data);
 		no_net = (LinearLayout) findViewById(R.id.no_net);
+		collection_main = (RelativeLayout) findViewById(R.id.collection_main);
 		findViewById(R.id.reload).setOnClickListener(this);
 		datas = new ArrayList<Collection>();
 		adapter = new MyCollectionAdapter(datas, this);
@@ -124,16 +123,17 @@ public class MyCollectionActivity extends BaseActivity implements
 								.parserCollect(result); 
 						if (collectionInfo.getMessage().getCode() == 200) {
 							if (collectionInfo.getList().size() > 0) {
-								mListView.setVisibility(View.VISIBLE);
-								no_data.setVisibility(View.GONE);
 								datas.clear();
 								datas.addAll(collectionInfo.getList());
 								adapter.notifyDataSetChanged();
+								if(dataNoneLayout != null)
+									dataNoneLayout.setNoVisible();
 							} else {
-								mListView.setVisibility(View.GONE);
-								no_data.setVisibility(View.VISIBLE);
+								setDataNone();
 							}
 						} else {
+							if(dataNoneLayout != null)
+								dataNoneLayout.setNoVisible();
 							no_net.setVisibility(View.VISIBLE);
 							ToastUtils.Toast(MyCollectionActivity.this, "请求失败");
 						}
@@ -142,13 +142,31 @@ public class MyCollectionActivity extends BaseActivity implements
 					@Override
 					public void onError() {
 						getActivity().getLoading().dismiss();
+						if(dataNoneLayout != null)
+							dataNoneLayout.setNoVisible();
 						no_net.setVisibility(View.VISIBLE);
 						ToastUtils.Toast(MyCollectionActivity.this,
 								"请求失败，请检查您的网络");
 					}
 				});
 	}
-//, final SwipeMenuView index
+	/**
+	 * 
+	 */
+	private DataNoneLayout dataNoneLayout;
+	private void setDataNone() {
+		if(dataNoneLayout == null){
+			dataNoneLayout = new DataNoneLayout(MyCollectionActivity.this, collection_main);
+			dataNoneLayout.setNullImage(R.drawable.icon_shoucang_none);
+			dataNoneLayout.setText("您的收藏夹是空的");
+			dataNoneLayout.setMode(Mode.DISABLED);
+			dataNoneLayout.loadData(3);
+		}else{
+			dataNoneLayout.setVisible();
+		}
+	}
+
+	//final SwipeMenuView index
 	private void delCollect(final int position) {
 		String collectId = datas.get(position).getCollectId();
 		VolleyHttp.doGetRequestTask( getHeaders(), UrlUtil.DEL_COLLECTION
@@ -162,8 +180,7 @@ public class MyCollectionActivity extends BaseActivity implements
 					datas.remove(position);
 					adapter.notifyDataSetChanged();
 					if (datas.size() <= 0) {
-						no_data.setVisibility(View.VISIBLE);
-						mListView.setVisibility(View.GONE);
+						setDataNone();
 					}
 				} else {
 					ToastUtils.Toast(MyCollectionActivity.this, "取消收藏失败");
