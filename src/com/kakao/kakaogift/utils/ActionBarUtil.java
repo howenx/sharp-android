@@ -196,9 +196,6 @@ public class ActionBarUtil {
 						context.startActivity(new Intent(context,
 								MessageTypeActivity.class));
 					}
-				} else if (position == 4) {
-					context.startActivity(new Intent(context,
-							SettingActivity.class));
 				}
 			}
 		});
@@ -218,9 +215,8 @@ public class ActionBarUtil {
 		} else if (position == 4) {
 			view.findViewById(R.id.header).setVisibility(View.INVISIBLE);
 			view.findViewById(R.id.logo).setVisibility(View.INVISIBLE);
-
-			setting.setVisibility(View.VISIBLE);
-			setting.setImageResource(R.drawable.hmm_icon_setting);
+			setting.setVisibility(View.GONE);
+//			setting.setImageResource(R.drawable.hmm_icon_setting);
 
 		} else if (position == 1) {
 			view.findViewById(R.id.header).setVisibility(View.VISIBLE);

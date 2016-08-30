@@ -48,7 +48,6 @@ import com.viewpagerindicator.BaseIconFragment;
  */
 public class GiftFragment extends BaseIconFragment implements
 OnRefreshListener2<ListView>, OnClickListener, OnScrollListener{
-	private LayoutInflater inflater;
 	private Context mContext;
 	private BaseActivity baseActivity;
 	private PullToRefreshListView mListView;
@@ -70,7 +69,6 @@ OnRefreshListener2<ListView>, OnClickListener, OnScrollListener{
 		mActivity = (BaseActivity) getActivity();
 		baseActivity = (BaseActivity) getActivity();
 		mContext = getActivity();
-		inflater = LayoutInflater.from(mContext);
 		data = new ArrayList<Theme>();
 		adapter = new HomeAdapter(data, mContext);
 	}
