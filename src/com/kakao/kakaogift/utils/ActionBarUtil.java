@@ -123,8 +123,8 @@ public class ActionBarUtil {
 	 * @return
 	 */
 	public static View setActionBarStyle(Context context, String title,
-			int img, Boolean isBack, OnClickListener bl, OnClickListener l,
-			int colorRes, boolean isMain) {
+			int imgRes, Boolean isBack, OnClickListener bl, OnClickListener sl,
+			int colorRes, boolean isShowLogo) {
 		final AppCompatActivity activity = (AppCompatActivity) context;
 		ActionBar actionbar = activity.getSupportActionBar();
 		actionbar.show();
@@ -135,6 +135,7 @@ public class ActionBarUtil {
 		View view = actionbar.getCustomView();
 		TextView titleView = (TextView) view.findViewById(R.id.header);
 		ImageView btn_back = (ImageView) view.findViewById(R.id.back);
+		ImageView logoView = (ImageView) view.findViewById(R.id.logo);
 		ImageView btn_setting = (ImageView) view.findViewById(R.id.setting);
 		if (colorRes != 0) {
 			view.setBackgroundResource(colorRes);
@@ -153,22 +154,30 @@ public class ActionBarUtil {
 			}
 		}
 		titleView.setText(title);
-		if (isMain) {
-			view.findViewById(R.id.logo).setVisibility(View.VISIBLE);
-			view.findViewById(R.id.header).setVisibility(View.GONE);
+		if (isShowLogo) {
+			logoView.setVisibility(View.VISIBLE);
+			titleView.setVisibility(View.GONE);
 		} else {
 			view.findViewById(R.id.logo).setVisibility(View.GONE);
 			view.findViewById(R.id.header).setVisibility(View.VISIBLE);
 		}
-		if (img != 0) {
+		if (imgRes != 0) {
 			btn_setting.setVisibility(View.VISIBLE);
-			btn_setting.setImageResource(img);
+			btn_setting.setImageResource(imgRes);
 		}
-		if (l != null)
-			btn_setting.setOnClickListener(l);
+		if (sl != null)
+			btn_setting.setOnClickListener(sl);
 		return view;
 	}
 
+	/**
+	 * 对首页actionbar初始化使用
+	 * 
+	 * @param context
+	 * @param view
+	 * @param position
+	 * @return
+	 */
 	public static ImageView initMainActionBarStyle(final BaseActivity context,
 			View view, final int position) {
 		View actionbarView = view.findViewById(R.id.actionbarView);
@@ -213,18 +222,18 @@ public class ActionBarUtil {
 			setting.setVisibility(View.VISIBLE);
 			setting.setImageResource(R.drawable.hmm_icon_setting);
 
-		}else if (position == 1) {
+		} else if (position == 1) {
 			view.findViewById(R.id.header).setVisibility(View.VISIBLE);
 			view.findViewById(R.id.logo).setVisibility(View.INVISIBLE);
 			TextView header = (TextView) view.findViewById(R.id.header);
 			header.setText("拼购");
 			setting.setVisibility(View.INVISIBLE);
 
-		}else if (position ==2) {
+		} else if (position == 2) {
 			view.findViewById(R.id.header).setVisibility(View.VISIBLE);
 			view.findViewById(R.id.logo).setVisibility(View.INVISIBLE);
 			TextView header = (TextView) view.findViewById(R.id.header);
-			header.setText("礼物");
+			header.setText("礼品");
 			setting.setVisibility(View.INVISIBLE);
 		}
 

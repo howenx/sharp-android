@@ -13,7 +13,7 @@
         android:background="@drawable/bg_gray_boarder"
         android:contentDescription="@null"
         android:padding="0.1dp"
-        android:scaleType="fitXY"
+        android:scaleType="fitCenter"
         android:src="@drawable/hmm_place_holder_z" />
 
     <EditText

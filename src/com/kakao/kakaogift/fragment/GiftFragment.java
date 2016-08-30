@@ -163,8 +163,6 @@ OnRefreshListener2<ListView>, OnClickListener, OnScrollListener{
 			pullNum = pullNum + 1;
 			data.addAll(themes);
 			adapter.notifyDataSetChanged();
-			ToastUtils.Toast(mContext,  "加载了 " + themes.size()
-					+ " 条新数据");
 		}else{
 			ToastUtils.Toast(mContext,  "暂无更多数据");
 		}

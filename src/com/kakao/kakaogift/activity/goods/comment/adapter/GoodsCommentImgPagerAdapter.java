@@ -2,6 +2,7 @@ package com.kakao.kakaogift.activity.goods.comment.adapter;
 
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -12,14 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ImageView.ScaleType;
 
 import com.bumptech.glide.Glide;
 import com.diegocarloslima.byakugallery.lib.TouchImageView;
-import com.kakao.kakaogift.R
-;
+import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.entity.RemarkVo;
-import com.kakao.kakaogift.utils.GlideLoaderTools;
 
 /**
  * 商品详情页 轮播图展示
@@ -65,6 +63,7 @@ public class GoodsCommentImgPagerAdapter extends FragmentStatePagerAdapter {
 			return instance;
 		}
 		
+		@SuppressLint("InflateParams")
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {

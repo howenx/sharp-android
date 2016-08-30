@@ -2,18 +2,17 @@ package com.kakao.kakaogift.activity.mine.pin.fragment;
 
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.kakao.kakaogift.R
-;
+import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.mine.pin.adapter.MyPinTuanAdapter;
 import com.kakao.kakaogift.entity.PinActivity;
 /**
@@ -44,6 +43,7 @@ public class MyPinFragment extends Fragment {
 		return fragment;
 	}
 
+	@SuppressLint("InflateParams")
 	@Override
 	@Nullable
 	public View onCreateView(LayoutInflater inflater,

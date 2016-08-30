@@ -12,21 +12,21 @@ public class UrlUtil {
 	 /*
 	  * 阿里云
 	  */
-//	 public static final String SERVERY3 = "https://api.kakaogift.cn";
-//	 public static final String SERVERY1 = "https://shopping.kakaogift.cn";
+	 public static final String SERVERY3 = "https://api.kakaogift.cn";
+	 public static final String SERVERY1 = "https://shopping.kakaogift.cn";
+	 public static final String SERVERY4 = "https://id.kakaogift.cn";
+	 public static final String SERVERY5 = "https://promotion.kakaogift.cn";
 	 public static final String SERVERY2 = "https://cash.kakaogift.cn";
-//	 public static final String SERVERY4 = "https://id.kakaogift.cn";
-//	 public static final String SERVERY5 = "https://promotion.kakaogift.cn";
 	 public static final String SERVERY7 = "http://dl.kakaogift.cn";
 	 public static final String SERVERY6 = "https://m.kakaogift.cn";
 	 
 	/*
 	 * http://172.28.3.78	孙宝娜
 	 */
-	 public static final String SERVERY3 = "http://172.28.3.78:9001";
-	 public static final String SERVERY1 = "http://172.28.3.78:9003";
-	 public static final String SERVERY4 = "http://172.28.3.78:9004";
-	 public static final String SERVERY5 = "http://172.28.3.78:9005";
+//	 public static final String SERVERY3 = "http://172.28.3.78:9001";
+//	 public static final String SERVERY1 = "http://172.28.3.78:9003";
+//	 public static final String SERVERY4 = "http://172.28.3.78:9004";
+//	 public static final String SERVERY5 = "http://172.28.3.78:9005";
 	/*
 	 * http://172.28.3.51	熊浩
 	 */
@@ -186,4 +186,6 @@ public class UrlUtil {
 	
 	//商品品论图片/comm/comment/rank/img/$skuType<item|vary|customize|pin>/$skuTypeId<[0-9]+>/$pageNum<[0-9]+>   
 	public static final String GOODS_REMARK_PICTURE = SERVERY3 +"/comm/comment/rank/img/";
+	//商品品论图片/comm/comment/rank/img/$skuType<item|vary|customize|pin>/$skuTypeId<[0-9]+>/$pageNum<[0-9]+>   
+	public static final String GOODS_LIKE = SERVERY3 +"/comm/recommend/";
 }

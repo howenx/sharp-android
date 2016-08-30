@@ -20,13 +20,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.kakao.kakaogift.R
-;
+import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.balance.GoodsBalanceActivity;
 import com.kakao.kakaogift.activity.base.BaseActivity;
 import com.kakao.kakaogift.activity.login.LoginActivity;
 import com.kakao.kakaogift.data.AppConstant;
-import com.kakao.kakaogift.data.UrlUtil;
 import com.kakao.kakaogift.entity.CustomsVo;
 import com.kakao.kakaogift.entity.PinActivity;
 import com.kakao.kakaogift.entity.PinResult;

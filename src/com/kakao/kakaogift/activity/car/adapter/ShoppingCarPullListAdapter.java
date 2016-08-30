@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -35,7 +36,6 @@ import com.kakao.kakaogift.entity.ShoppingGoods;
 import com.kakao.kakaogift.http.VolleyHttp;
 import com.kakao.kakaogift.http.VolleyHttp.VolleyJsonCallback;
 import com.kakao.kakaogift.manager.BadgeViewManager;
-import com.kakao.kakaogift.manager.DataBaseManager;
 import com.kakao.kakaogift.manager.ShoppingCarMenager;
 import com.kakao.kakaogift.utils.AlertDialogUtils;
 import com.kakao.kakaogift.utils.ToastUtils;
@@ -88,6 +88,7 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 		return arg0;
 	}
 
+	@SuppressLint("InflateParams")
 	@Override
 	public View getView(int position, View convertView, ViewGroup arg2) {
 		final CustomsVo custom = data.get(position);
@@ -99,7 +100,7 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 			holder.area = (TextView) convertView.findViewById(R.id.area);
 			holder.listView = (CustomListView) convertView
 					.findViewById(R.id.my_listview);
-			holder.tax = (TextView) convertView.findViewById(R.id.attention);
+//			holder.tax = (TextView) convertView.findViewById(R.id.attention);
 			holder.check = (ImageView) convertView.findViewById(R.id.check);
 			convertView.setTag(holder);
 		} else {
@@ -190,13 +191,13 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 		List<ShoppingGoods> list = new ArrayList<ShoppingGoods>();
 		for(int i = 0; i < custom.getList().size(); i ++){
 			//查找本地该购物车数据，修改选中状态
-			ShoppingGoods shoppingGoods = DataBaseManager.getInstance().getDaoSession().getShoppingGoodsDao().queryBuilder()
+			ShoppingGoods shoppingGoods = activity.getDaoSession().getShoppingGoodsDao().queryBuilder()
 			.where(Properties.GoodsId.eq(custom.getList().get(i).getGoodsId())).unique();
 			shoppingGoods.setOrCheck(state);
 			list.add(shoppingGoods);
 		}
 		//更新本地购物车数据
-		DataBaseManager.getInstance().getDaoSession().getShoppingGoodsDao().updateInTx(list);
+		activity.getDaoSession().getShoppingGoodsDao().updateInTx(list);
 		//界面显示信息的更新
 		notifyDataSetChanged();
 		ShoppingCarMenager.getInstance().setCustomState();
@@ -338,7 +339,7 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 		private ImageView check;
 		private TextView area;
 		private CustomListView listView;
-		private TextView tax;
+//		private TextView tax;
 	}
 
 }

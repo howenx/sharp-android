@@ -135,10 +135,10 @@ public class SettingActivity extends BaseActivity implements OnClickListener {
 			@Override
 			public void onClick(View arg0) {
 				startActivity(new Intent(Intent.ACTION_CALL, Uri
-						.parse("tel:4006640808")));
+						.parse("tel:01053678808")));
 				dialog.dismiss();
 			}
-		}, "拨打客服电话 400-664-0808", "取消", "拨打");
+		}, "拨打客服电话 010-53678808", "取消", "拨打");
 	}
 
 	private void doExit() {

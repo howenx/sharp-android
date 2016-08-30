@@ -18,7 +18,6 @@ import android.content.Context;
 public class DataBaseManager {
 
 	private static DataBaseManager instance;
-	private Context context;
 	private DaoMaster daoMaster;
 	private DaoSession daoSession;
 
@@ -29,8 +28,12 @@ public class DataBaseManager {
 	}
 
 	private DataBaseManager(Context context) {
-		super();
-		this.context = context;
+		if (daoMaster == null) {
+			DevOpenHelper helper = new DaoMaster.DevOpenHelper(context,
+					"hmmdb_greedao.db", null);
+			daoMaster = new DaoMaster(helper.getWritableDatabase());
+			daoSession = getDaoMaster().newSession();
+		}
 	}
 
 	public static synchronized DataBaseManager getInstance() {
@@ -43,18 +46,10 @@ public class DataBaseManager {
 	}
 
 	private DaoMaster getDaoMaster() {
-		if (daoMaster == null) {
-			DevOpenHelper helper = new DaoMaster.DevOpenHelper(context,
-					"hmmdb_greedao.db", null);
-			daoMaster = new DaoMaster(helper.getWritableDatabase());
-		}
 		return daoMaster;
 	}
 
 	public DaoSession getDaoSession() {
-		if (daoSession == null) {
-			daoSession = getDaoMaster().newSession();
-		}
 		return daoSession;
 	}
 

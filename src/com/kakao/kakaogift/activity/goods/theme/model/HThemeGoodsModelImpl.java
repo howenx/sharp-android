@@ -10,8 +10,6 @@ import java.util.Map;
 
 import com.google.gson.Gson;
 import com.kakao.kakaogift.data.AppConstant;
-import com.kakao.kakaogift.data.UrlUtil;
-import com.kakao.kakaogift.entity.CartNumVo;
 import com.kakao.kakaogift.entity.HThemeGoods;
 import com.kakao.kakaogift.entity.ShoppingGoods;
 import com.kakao.kakaogift.http.VolleyHttp;

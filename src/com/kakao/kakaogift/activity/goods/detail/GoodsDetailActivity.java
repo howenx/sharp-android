@@ -38,7 +38,6 @@ import com.kakao.kakaogift.activity.goods.detail.presenter.GoodsDetailPresenterI
 import com.kakao.kakaogift.activity.login.LoginActivity;
 import com.kakao.kakaogift.activity.main.HMainActivity;
 import com.kakao.kakaogift.data.AppConstant;
-import com.kakao.kakaogift.data.UrlUtil;
 import com.kakao.kakaogift.entity.CommentVo;
 import com.kakao.kakaogift.entity.CustomsVo;
 import com.kakao.kakaogift.entity.GoodsDetail;
@@ -68,6 +67,7 @@ import com.sina.weibo.sdk.api.share.BaseResponse;
 import com.sina.weibo.sdk.api.share.IWeiboHandler;
 import com.sina.weibo.sdk.constant.WBConstants;
 import com.umeng.socialize.UMShareAPI;
+import com.ypy.eventbus.ThreadMode;
 
 /**
  * 
@@ -150,7 +150,6 @@ public class GoodsDetailActivity extends BaseActivity implements
 		back_top = findViewById(R.id.back_top);
 
 		findViewById(R.id.btn_comment).setOnClickListener(this);
-
 	}
 
 	/**
@@ -731,6 +730,10 @@ public class GoodsDetailActivity extends BaseActivity implements
 			intent.putExtra("cartNum", num_shopcart);
 			sendBroadcast(intent);
 		}
+		if(shareWindow !=null)
+			shareWindow.dismiss();
+		if(pushWindow!=null)
+			pushWindow.dismiss();
 		VolleyHttp.parseRequestTask(Tag);
 	}
 

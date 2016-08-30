@@ -73,7 +73,7 @@ public class AlertDialogUtils {
 	 * @return
 	 */
 	public static NormalDialog showDialog(Context mContext, OnClickListener l) {
-		return showDialog(mContext, l, null,"确定删除？", "取消", "确定");
+		return showDialog(mContext,null, l, null,"确定删除？", "取消", "确定");
 	}
 	/**
 	 * 取消订单
@@ -82,7 +82,7 @@ public class AlertDialogUtils {
 	 * @return
 	 */
 	public static NormalDialog showCancelDialog(Context mContext, OnClickListener l) {
-		return showDialog(mContext, l,null, "确定取消？", "取消", "确定");
+		return showDialog(mContext,null, l,null, "确定取消？", "取消", "确定");
 	}
 	
 	
@@ -93,23 +93,23 @@ public class AlertDialogUtils {
 	 * @param l
 	 */
 	public static void showAddressDialog(Context context, final OnClickListener l) {
-		showDialog(context, l,null, "请添加收货地址", "取消", "确定");
+		showDialog(context,null, l,null, "请添加收货地址", "取消", "确定");
 	}
 	/**
 	 * 
 	 * @param context
 	 * @param l
 	 */
-	public static void showPayDialog(Context context, final OnClickListener l,final OnClickListener dl) {
-		showDialog(context, l,null, "支付失败", "放弃支付", "重新支付");
+	public static NormalDialog showPayDialog(Context context, final OnClickListener l,final OnClickListener dl) {
+		return showDialog(context,dl, l,null, "支付失败", "放弃支付", "重新支付");
 	}
 	/**
 	 * 
 	 * @param context
 	 * @param l
 	 */
-	public static void showDeliveryDialog(Context context, final OnClickListener l) {
-		showDialog(context, l,null, "请确认已经收到货物", "尚未收到", "确认收货");
+	public static NormalDialog showDeliveryDialog(Context context, final OnClickListener l) {
+		return showDialog(context,null, l,null, "请确认已经收到货物", "尚未收到", "确认收货");
 	}
 	/**
 	 * 
@@ -117,7 +117,7 @@ public class AlertDialogUtils {
 	 * @param l
 	 */
 	public static void showBackDialog(Context context, final OnClickListener l) {
-		showDialog(context, l,null, "便宜不等人，请三思而行", "我再想想", "去意已决");
+		showDialog(context, null,l,null, "便宜不等人，请三思而行", "我再想想", "去意已决");
 	}
 
 	/**
@@ -125,12 +125,12 @@ public class AlertDialogUtils {
 	 * @param context
 	 * @param l
 	 */
-	public static void showPayDialog(Context context, final OnClickListener l) {
-		showDialog(context, l,"确认要离开收银台", "若未在24小时内完成在线支付，逾期订单作废。", "继续支付", "确定离开");
+	public static NormalDialog showPayDialog(Context context, final OnClickListener l) {
+		return showDialog(context,null, l,"确认要离开收银台", "若未在24小时内完成在线支付，逾期订单作废。", "继续支付", "确定离开");
 	}
 	
 	public static NormalDialog showDialog(Context mContext,final OnClickListener l,String content, String left, String right) {
-		return showDialog(mContext, l, null, content, left, right);
+		return showDialog(mContext, null,l, null, content, left, right);
 	}
 	
 	/**
@@ -142,7 +142,7 @@ public class AlertDialogUtils {
 	 * @param right 右边按钮
 	 * @return
 	 */
-	public static NormalDialog showDialog(Context mContext,final OnClickListener l,
+	public static NormalDialog showDialog(Context mContext,final OnClickListener ll, final OnClickListener fl,
 			String title,String content, String left, String right) {
 		String[] btns = {  left, right };
 		float[] btnsSize = {  14, 14 };
@@ -167,14 +167,16 @@ public class AlertDialogUtils {
 			@Override
 			public void onBtnClick() {
 				dialog.dismiss();
+				if(ll !=null)
+					ll.onClick(null);
 			}
 		},new OnBtnClickL() {
 			
 			@Override
 			public void onBtnClick() {
 				dialog.dismiss();
-				if(l !=null)
-					l.onClick(null);
+				if(fl !=null)
+					fl.onClick(null);
 			}
 		} );
         

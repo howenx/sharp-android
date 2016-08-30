@@ -9,7 +9,6 @@ import java.util.List;
 
 import com.kakao.kakaogift.entity.HGoodsVo;
 import com.kakao.kakaogift.entity.HMessage;
-import com.kakao.kakaogift.entity.HMessageVo;
 
 /**
  * @author vince

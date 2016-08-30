@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.View;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.google.gson.Gson;
@@ -22,7 +21,6 @@ import com.kakao.kakaogift.http.VolleyHttp;
 import com.kakao.kakaogift.http.VolleyHttp.VolleyJsonCallback;
 import com.kakao.kakaogift.utils.ActionBarUtil;
 import com.kakao.kakaogift.utils.ToastUtils;
-import com.kakao.kakaogift.view.BadgeView;
 
 /**
  * 

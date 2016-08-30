@@ -23,9 +23,8 @@ public class KKApplication extends Application {
 		super.onCreate();
 		initPlatformConfig();
 		VolleyHttp.registRequestQueue(this);
-		DataBaseManager.initializeInstance(this);
 		TestinAgent.init(this);
-		JPushInterface.setDebugMode(true);
+		DataBaseManager.initializeInstance(this);
 		JPushInterface.init(this); // 初始化 JPush
 //		UncaughtExceptionTools.handler(this);
 	}
@@ -62,21 +61,20 @@ public class KKApplication extends Application {
 		this.loginUser = null;
 	}
 
-	// public DaoMaster getDaoMaster() {
-	// if (daoMaster == null) {
-	// DevOpenHelper helper = new DaoMaster.DevOpenHelper(this,
-	// "hmmdb_greedao.db", null);
-	// daoMaster = new DaoMaster(helper.getWritableDatabase());
-	// }
-	// return daoMaster;
-	// }
-	//
-	// public DaoSession getDaoSession() {
-	// if (daoSession == null) {
-	// daoSession = getDaoMaster().newSession();
-	// }
-	// return daoSession;
-	// }
+//	 public DaoMaster getDaoMaster() {
+//	 if (daoMaster == null) {
+//			DevOpenHelper helper = new DaoMaster.DevOpenHelper(this,"hmmdb_greedao.db", null);
+//	 daoMaster = new DaoMaster(helper.getWritableDatabase());
+//	 }
+//	 return daoMaster;
+//	 }
+//	
+//	 public DaoSession getDaoSession() {
+//	 if (daoSession == null) {
+//	 daoSession = getDaoMaster().newSession();
+//	 }
+//	 return daoSession;
+//	 }
 
 	public String getKouling() {
 		return kouling;

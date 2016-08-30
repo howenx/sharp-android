@@ -6,10 +6,10 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -370,6 +370,7 @@ public class GoodsBalanceActivity extends BaseActivity implements
 	 * 
 	 * @return
 	 */
+	@SuppressLint("InflateParams")
 	private RadioButton getCustomRadioButton() {
 		return (RadioButton) getLayoutInflater().inflate(
 				R.layout.panel_radiobutton, null);

@@ -95,7 +95,7 @@ public class ThemeGoodsActivity extends BaseActivity implements HThemeGoodsView 
 		@Override
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
-			Intent intent = null;
+			Intent intent = null; 
 			if (data.get(arg2).getItemType().equals("pin")) {
 				intent = new Intent(getActivity(), PingouDetailActivity.class);
 			} else {

@@ -1,6 +1,8 @@
 package com.kakao.kakaogift.adapter;
 
 import java.util.List;
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,11 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.entity.Entry;
-import com.kakao.kakaogift.utils.CommonUtils;
 import com.kakao.kakaogift.utils.GlideLoaderTools;
 
 /**
@@ -44,6 +45,7 @@ public class CategoryAdapter extends BaseAdapter {
 		return arg0;
 	}
 	
+	@SuppressLint("InflateParams")
 	@Override
 	public View getView(int position, View convertView, ViewGroup arg2) {
 		Entry entry = data.get(position);

@@ -58,7 +58,6 @@ public class GlideLoaderTools {
 			Glide.with(context).load(url).placeholder(R.drawable.hmm_place_holder_z)
 			.animate(R.anim.abc_fade_in).into(imgView);
 		}
-		
 	}
 	
 	/**
@@ -70,7 +69,7 @@ public class GlideLoaderTools {
 	 */
 	public static void loadImage(Context context, String url,
 			ImageView imgView, int placeholder) {
-		Glide.with(context).load(url).placeholder(placeholder).animate(R.anim.abc_fade_in).into(imgView);
+		Glide.with(context).load(url).placeholder(placeholder).fitCenter().animate(R.anim.abc_fade_in).into(imgView);
 	}
 	/**
 	 * 加载图片(矩形，centerCrop)
@@ -82,7 +81,7 @@ public class GlideLoaderTools {
 	public static void loadRectImage(Context context, String url,
 			ImageView imgView) {
 		Glide.with(context).load(url)
-				.placeholder(R.drawable.hmm_place_holder_j)
+				.placeholder(R.drawable.hmm_place_holder_j).fitCenter()
 				.animate(R.anim.abc_fade_in).into(imgView);
 	}
 	/**

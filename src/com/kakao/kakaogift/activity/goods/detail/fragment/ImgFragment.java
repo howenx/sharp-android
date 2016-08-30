@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ProgressBar;
 
 import com.cpoopc.scrollablelayoutlib.ScrollAbleFragment;
 import com.kakao.kakaogift.R;
@@ -24,7 +23,6 @@ public class ImgFragment extends ScrollAbleFragment   {
 
 	
 	private WebView mWebView;
-	private ProgressBar mProgressBar;
 
 	@SuppressLint({ "SetJavaScriptEnabled", "InflateParams" })
 	@Override
@@ -65,8 +63,12 @@ public class ImgFragment extends ScrollAbleFragment   {
 
 	@Override
 	public void showData(Object obj) {
-		if(obj != null && !"".equals(obj))
-			mWebView.loadData((String)obj, "text/html; charset=UTF-8", null);
+		try {
+			if(obj !=null && !"".equals(obj))
+				mWebView.loadData((String)obj, "text/html; charset=UTF-8", null);
+		} catch (Exception e) {
+		}
+	
 	}
 	
 }

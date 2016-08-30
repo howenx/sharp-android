@@ -19,8 +19,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.kakao.kakaogift.R
-;
+import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.base.BaseActivity;
 import com.kakao.kakaogift.dao.ShoppingGoodsDao;
 import com.kakao.kakaogift.dao.ShoppingGoodsDao.Properties;
@@ -33,7 +32,6 @@ import com.kakao.kakaogift.entity.User;
 import com.kakao.kakaogift.http.VolleyHttp;
 import com.kakao.kakaogift.http.VolleyHttp.VolleyJsonCallback;
 import com.kakao.kakaogift.manager.BadgeViewManager;
-import com.kakao.kakaogift.manager.DataBaseManager;
 import com.kakao.kakaogift.manager.ShoppingCarMenager;
 import com.kakao.kakaogift.utils.CommonUtils;
 import com.kakao.kakaogift.utils.GlideLoaderTools;
@@ -384,11 +382,11 @@ public class ShoppingCarAdapter extends BaseAdapter {
 	//未登录状态下，改变购物车商品的选中状态
 	private void updateShoppingLoacalState(ShoppingGoods goods, String state) {
 		//查找本地该购物车数据，修改选中状态
-		ShoppingGoods shoppingGoods = DataBaseManager.getInstance().getDaoSession().getShoppingGoodsDao().queryBuilder()
+		ShoppingGoods shoppingGoods = activity.getDaoSession().getShoppingGoodsDao().queryBuilder()
 		.where(Properties.GoodsId.eq(goods.getGoodsId())).unique();
 		shoppingGoods.setOrCheck(state);
 		//更新本地购物车数据
-		DataBaseManager.getInstance().getDaoSession().getShoppingGoodsDao().update(shoppingGoods);
+		activity.getDaoSession().getShoppingGoodsDao().update(shoppingGoods);
 		goods.setOrCheck(state);
 		//更新界面信息
 		notifyDataSetChanged();

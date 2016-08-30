@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
@@ -40,6 +42,7 @@ import com.kakao.kakaogift.view.webview.ProgressWebView;
 public class Html5LoadActivity extends BaseActivity {
 
 	ProgressWebView mWebView;
+	
 
 	@SuppressLint("NewApi")
 	@Override
@@ -134,17 +137,36 @@ public class Html5LoadActivity extends BaseActivity {
 				activity.startActivity(new Intent(activity, LoginActivity.class));
 				return;
 			}
-			action(url);
+			Message msg = handler.obtainMessage(1, url);
+			handler.sendMessage(msg);
 		}
 	}
+	
+	private Handler handler = new Handler(){
+
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			switch (msg.what) {
+			case 1:
+				action(msg.obj.toString());
+				break;
+			default:
+				break;
+			}
+		}
+		
+	};
 
 	private void action(String url) {
+		getLoading().show();
 		VolleyHttp.doGetRequestTask(getHeaders(), url,
 				new VolleyJsonCallback() {
 
 					@Override
 					public void onSuccess(String result) {
 						Log.i("result", result);
+						getLoading().dismiss();
 						try {
 							HMessageVo vo = new Gson().fromJson(result,
 									HMessageVo.class);
@@ -157,6 +179,7 @@ public class Html5LoadActivity extends BaseActivity {
 
 					@Override
 					public void onError() {
+						getLoading().dismiss();
 						ToastUtils.Toast(getActivity(), R.string.error);
 					}
 				});

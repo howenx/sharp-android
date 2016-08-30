@@ -8,7 +8,6 @@ package com.kakao.kakaogift.activity.goods.category.model;
 import com.google.gson.Gson;
 import com.kakao.kakaogift.activity.goods.category.model.vo.CategoryGoods;
 import com.kakao.kakaogift.activity.goods.category.presenter.CategoryGoodsPresenterImpl.CallBack;
-import com.kakao.kakaogift.entity.HThemeGoods;
 import com.kakao.kakaogift.http.VolleyHttp;
 import com.kakao.kakaogift.http.VolleyHttp.VolleyJsonCallback;
 
@@ -32,12 +31,7 @@ public class CategoryGoodsModelImpl implements CategoryGoodsModel {
 				CategoryGoods data = new Gson().fromJson(result,
 						CategoryGoods.class);
 				if (data.getMessage().getCode() == 200) {
-					if (data.getThemeItemList().isEmpty()) {
-						callBack.onFailed("暂无更多商品");
-						return;
-					}
-					callBack.onSuccess(data.getThemeItemList(), data.getTitle());
-
+					callBack.onSuccess(data.getThemeItemList(), data.getTitle(),data.getPage_count());
 				} else {
 					callBack.onFailed(data.getMessage().getMessage());
 				}

@@ -127,7 +127,6 @@ public class EditAdressActivity extends BaseActivity implements
 
 	
 	private boolean phoneFirstDel = true;
-	private boolean cardFirstDel = true;
 	@Override
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
@@ -276,9 +275,9 @@ public class EditAdressActivity extends BaseActivity implements
 
 	}
 
-	private boolean idcard_up = false;
 	private boolean phone_up = false;
 
+	@SuppressLint("InflateParams")
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -298,6 +297,7 @@ public class EditAdressActivity extends BaseActivity implements
 	}
 
 	// 地区选择器 popwindow初始化
+	@SuppressLint("InflateParams")
 	private void initWheel() {
 		pop = new PopupWindow(this);
 		popView = LayoutInflater.from(this).inflate(R.layout.pop_wheel_layout,
@@ -336,7 +336,6 @@ public class EditAdressActivity extends BaseActivity implements
 	private void checkInfo() {
 		if(isWhat != 1){
 			phone_up = true;
-			idcard_up = true;
 		}
 		name = name_edit.getText().toString();
 		if (phone_up) {
@@ -419,6 +418,7 @@ public class EditAdressActivity extends BaseActivity implements
 		}).start();
 	}
 
+	@SuppressLint("HandlerLeak")
 	private Handler mHandler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {

@@ -44,6 +44,7 @@
                 android:numColumns="2"
                 android:scrollbars="@null"
                 android:stretchMode="columnWidth" />
+
         </LinearLayout>
     </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
 

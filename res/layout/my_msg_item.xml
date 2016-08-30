@@ -24,7 +24,7 @@
         android:id="@+id/img"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         android:background="@drawable/bg_gray_boarder"
         android:contentDescription="@null"
         android:padding="0.1dp"

@@ -27,7 +27,7 @@ public interface CategoryGoodsView {
      * 加载拼购信息
      * @param detail
      */
-    void  CategoryGoodsData(List<HGoodsVo> data);
+    void  CategoryGoodsData(List<HGoodsVo> data, int page_count);
     
     void title(String title);
     

@@ -55,8 +55,8 @@ import com.kakao.kakaogift.override.OnGetMessageListener;
 import com.kakao.kakaogift.utils.ActionBarUtil;
 import com.kakao.kakaogift.utils.GlideLoaderTools;
 import com.kakao.kakaogift.utils.ToastUtils;
+import com.kakao.kakaogift.view.CustomGridView;
 import com.kakao.kakaogift.view.CycleViewPager;
-import com.kakao.kakaogift.view.MyGridView;
 import com.umeng.analytics.MobclickAgent;
 import com.viewpagerindicator.BaseIconFragment;
 
@@ -166,7 +166,7 @@ public class HomeFragment extends BaseIconFragment implements
 
 	private void findCategory() {
 		catView = inflater.inflate(R.layout.home_category_layout, null);
-		MyGridView mGridView = (MyGridView) catView.findViewById(R.id.mygrid);
+		CustomGridView mGridView = (CustomGridView) catView.findViewById(R.id.mygrid);
 		mGridView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -351,8 +351,6 @@ public class HomeFragment extends BaseIconFragment implements
 			if (home.gethMessage().getCode() == 200) {
 				pullNum = pullNum + 1;
 				afterLoadData(home, false);
-				ToastUtils.Toast(mActivity, "加载了 " + home.getThemes().size()
-						+ " 条新数据");
 			} else {
 				ToastUtils.Toast(mActivity, home.gethMessage().getMessage());
 			}
@@ -398,7 +396,7 @@ public class HomeFragment extends BaseIconFragment implements
 	}
 
 	private Home home;
-	private Handler mHandler = new Handler();
+	private static Handler mHandler = new Handler();
 
 	@Override
 	public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
@@ -432,7 +430,7 @@ public class HomeFragment extends BaseIconFragment implements
 		super.onDestroyView();
 		if (cycleViewPager != null) {
 			FragmentManager f = getActivity().getFragmentManager();
-			if (f != null && !f.isDestroyed()) {
+			if (f != null) {
 				final FragmentTransaction ft = f.beginTransaction();
 				if (ft != null) {
 					ft.remove((android.app.Fragment) cycleViewPager).commit();

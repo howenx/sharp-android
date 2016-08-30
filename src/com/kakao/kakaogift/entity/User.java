@@ -18,7 +18,7 @@ public class User {
     private String expired;
     private String last_login;
     private String phone;
-    private String sex;
+    private String sex="M";
     private Integer couponCount;
 
     // KEEP FIELDS - put your custom fields here

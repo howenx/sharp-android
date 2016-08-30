@@ -104,7 +104,7 @@
                     android:drawableLeft="@drawable/hmm_mine_coupon"
                     android:drawablePadding="20dp"
                     android:gravity="center_vertical"
-                    android:text="优惠券"
+                    android:text="我的优惠券"
                     android:textColor="@color/fontcolor"
                     android:textSize="16sp" />
 

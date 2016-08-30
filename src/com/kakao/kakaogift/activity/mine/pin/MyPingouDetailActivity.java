@@ -10,12 +10,10 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.kakao.kakaogift.R
-;
+import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.base.BaseActivity;
 import com.kakao.kakaogift.activity.mine.comment.CommentGoodsActivity;
 import com.kakao.kakaogift.activity.mine.order.LogisticsActivity;
-import com.kakao.kakaogift.data.AppConstant;
 import com.kakao.kakaogift.data.DataParser;
 import com.kakao.kakaogift.data.UrlUtil;
 import com.kakao.kakaogift.entity.Order;

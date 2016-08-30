@@ -7,19 +7,17 @@ package com.kakao.kakaogift.activity.goods.comment.adapter;
 
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.kakao.kakaogift.R
-;
+import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.entity.RemarkVo;
 import com.kakao.kakaogift.utils.GlideLoaderTools;
 import com.kakao.kakaogift.view.CircleImageView;
@@ -78,6 +76,7 @@ public class GoodsCommentAdapter extends BaseAdapter {
 	 * @see android.widget.Adapter#getView(int, android.view.View,
 	 * android.view.ViewGroup)
 	 */
+	@SuppressLint("InflateParams")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub

@@ -26,8 +26,7 @@ import com.bumptech.glide.Glide;
 import com.cpoopc.scrollablelayoutlib.ScrollAbleFragment;
 import com.cpoopc.scrollablelayoutlib.ScrollableLayout;
 import com.cpoopc.scrollablelayoutlib.ScrollableLayout.OnScrollListener;
-import com.kakao.kakaogift.R
-;
+import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.balance.GoodsBalanceActivity;
 import com.kakao.kakaogift.activity.base.BaseActivity;
 import com.kakao.kakaogift.activity.goods.detail.adapter.GoodsDetailPagerAdapter;
@@ -39,7 +38,6 @@ import com.kakao.kakaogift.activity.goods.pin.presenter.PinDetailPresenterImpl;
 import com.kakao.kakaogift.activity.login.LoginActivity;
 import com.kakao.kakaogift.activity.main.HMainActivity;
 import com.kakao.kakaogift.data.AppConstant;
-import com.kakao.kakaogift.data.UrlUtil;
 import com.kakao.kakaogift.entity.CommentVo;
 import com.kakao.kakaogift.entity.CustomsVo;
 import com.kakao.kakaogift.entity.ImageVo;
@@ -413,6 +411,10 @@ public class PingouDetailActivity extends BaseActivity implements
 	protected void onDestroy() {
 		super.onDestroy();
 		unregisterReceiver(netReceiver);
+		if(shareWindow !=null)
+			shareWindow.dismiss();
+		if(pushWindow!=null)
+			pushWindow.dismiss();	
 		VolleyHttp.parseRequestTask(Tag);
 	}
 

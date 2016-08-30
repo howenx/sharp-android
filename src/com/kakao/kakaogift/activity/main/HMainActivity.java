@@ -36,7 +36,6 @@ import com.kakao.kakaogift.utils.ToastUtils;
 import com.kakao.kakaogift.view.SlidingViewPager;
 import com.viewpagerindicator.BaseIconFragment;
 import com.viewpagerindicator.IconTabPageIndicator;
-import com.viewpagerindicator.IconTabPageIndicator.OnTabReselectedListener;
 
 /**
  * 

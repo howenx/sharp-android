@@ -18,7 +18,7 @@ import com.google.gson.reflect.TypeToken;
  *
  */
 public class CommentVo implements Serializable{
-
+	private static final long serialVersionUID = 1L;
 	private String skuId;
 	private String createAt;
 	private String skuImg;

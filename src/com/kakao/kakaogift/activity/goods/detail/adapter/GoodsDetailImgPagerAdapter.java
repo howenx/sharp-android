@@ -2,6 +2,7 @@ package com.kakao.kakaogift.activity.goods.detail.adapter;
 
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -14,9 +15,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
 import com.diegocarloslima.byakugallery.lib.TouchImageView;
-import com.kakao.kakaogift.R
-;
-import com.kakao.kakaogift.utils.GlideLoaderTools;
+import com.kakao.kakaogift.R;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -63,6 +62,7 @@ public class GoodsDetailImgPagerAdapter extends FragmentStatePagerAdapter {
 			return instance;
 		}
 		
+		@SuppressLint("InflateParams")
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {

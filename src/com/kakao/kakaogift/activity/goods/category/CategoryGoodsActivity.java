@@ -48,7 +48,7 @@ public class CategoryGoodsActivity extends BaseActivity implements
 
 		url = getIntent().getStringExtra("url");
 		mGridView = (PullToRefreshGridView) findViewById(R.id.mGridView);
-
+		
 		data = new ArrayList<HGoodsVo>();
 		adapter = new ThemeAdapter(data, this);
 		mGridView.setAdapter(adapter);
@@ -58,12 +58,16 @@ public class CategoryGoodsActivity extends BaseActivity implements
 		presenter.getCategoryGoodsList(url, pageNo);
 	}
 	
-	private void notifyDataUpdate(List<HGoodsVo> list){
+	private void notifyDataUpdate(List<HGoodsVo> list,int page_count){
 		if(pageNo==1){
+			mGridView.setMode(Mode.BOTH);
 			data.clear();
 		}
 		data.addAll(list);
 		adapter.notifyDataSetChanged();
+		if(pageNo >= page_count){
+			mGridView.setMode(Mode.PULL_FROM_START);
+		}
 	}
 
 
@@ -90,11 +94,11 @@ public class CategoryGoodsActivity extends BaseActivity implements
 	}
 
 	@Override
-	public void CategoryGoodsData(List<HGoodsVo> data) {
+	public void CategoryGoodsData(List<HGoodsVo> data, int page_count) {
 		if(mGridView.isRefreshing()){
 			mGridView.onRefreshComplete();
 		}
-		notifyDataUpdate(data);
+		notifyDataUpdate(data,page_count);
 	}
 
 	@Override

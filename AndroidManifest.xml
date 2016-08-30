@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.kakao.kakaogift"
-    android:versionCode="4"
+    android:versionCode="5"
     android:versionName="1.0.0" >
 
     <uses-sdk
-        android:minSdkVersion="11"
+        android:minSdkVersion="15"
         android:targetSdkVersion="21" />
 
     <permission
@@ -55,8 +55,6 @@
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <!-- 允许程序管理AccountManager中的账户列表 -->
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
-   <!--  设置调试程序，一般用于开发-->
-    <uses-permission android:name="android.permission.SET_DEBUG_APP" />
     <!--  显示系统窗口-->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <!-- 访问GMail账户列表 -->

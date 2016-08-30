@@ -11,12 +11,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.bigkoo.convenientbanner.salvage.RecycleBin;
 import com.flyco.dialog.widget.NormalDialog;
 import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.base.BaseActivity;
@@ -33,7 +35,9 @@ import com.kakao.kakaogift.http.VolleyHttp;
 import com.kakao.kakaogift.http.VolleyHttp.VolleyJsonCallback;
 import com.kakao.kakaogift.utils.ActionBarUtil;
 import com.kakao.kakaogift.utils.AlertDialogUtils;
+import com.kakao.kakaogift.utils.RecycleBitmap;
 import com.kakao.kakaogift.utils.ToastUtils;
+import com.kakao.kakaogift.view.DataNoneLayout;
 
 /**
  * @author eric
@@ -89,6 +93,7 @@ public class MyCollectionActivity extends BaseActivity implements
 			}
 		});
 		registerReceivers();
+		
 	}
 
 

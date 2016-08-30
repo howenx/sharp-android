@@ -17,7 +17,7 @@
             android:background="@drawable/bg_gray_boarder"
             android:contentDescription="@null"
             android:padding="0.1dp"
-            android:scaleType="fitXY"
+            android:scaleType="fitCenter"
             android:src="@drawable/ic_launcher" />
 
         <ImageView

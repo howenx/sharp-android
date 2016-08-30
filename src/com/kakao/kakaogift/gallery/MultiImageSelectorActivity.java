@@ -47,7 +47,7 @@ public class MultiImageSelectorActivity extends BaseActivity implements MultiIma
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gallery_activity_default);
-        ActionBarUtil.setActionBarStyle(this, "图片选择",R.drawable.hmm_finish,new View.OnClickListener() {
+        ActionBarUtil.setActionBarStyle(this, "图片选择",R.drawable.gallery_default_check ,new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(resultList != null && resultList.size() >0){

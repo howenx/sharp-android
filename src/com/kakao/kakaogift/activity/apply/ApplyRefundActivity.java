@@ -8,11 +8,8 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.dd.processbutton.OnStateListener;
-import com.dd.processbutton.ProcessButton;
 import com.google.gson.Gson;
-import com.kakao.kakaogift.R
-;
+import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.base.BaseActivity;
 import com.kakao.kakaogift.data.UrlUtil;
 import com.kakao.kakaogift.entity.GoodsBalanceVo;

@@ -5,9 +5,6 @@ import java.util.List;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.view.View;
-
-import com.kakao.kakaogift.activity.mine.pin.fragment.MyPinFragment;
 
 public class PinPagerAdapter extends FragmentPagerAdapter {
 

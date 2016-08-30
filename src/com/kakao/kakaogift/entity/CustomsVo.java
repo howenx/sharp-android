@@ -8,6 +8,7 @@ import java.util.List;
 import android.util.Log;
 
 public class CustomsVo implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private String invArea;
 	private String  invCustoms;
 	private String invAreaNm;
