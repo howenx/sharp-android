@@ -271,7 +271,7 @@ public class PingouResultActivity extends BaseActivity implements
 			vo.setTitle("我在KakaoGift发现了一个不错的礼物，赶快来看看吧");
 			vo.setInfoUrl(pinActivity.getPinUrl());
 			vo.setImgUrl(pinActivity.getPinImg().getUrl());
-			vo.setTargetUrl(pinActivity.getPinUrl().split("promotion/pin")[1]);
+			vo.setTargetUrl(pinActivity.getPinUrl().split("kakaogift.cn/promotion")[1]);
 			vo.setType("T");
 			shareWindow = new ShareWindow(this, vo);
 		}

@@ -14,12 +14,13 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.GridView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
-import com.handmark.pulltorefresh.library.PullToRefreshGridView;
+import com.handmark.pulltorefresh.library.extras.GridViewWithHeaderAndFooter;
+import com.handmark.pulltorefresh.library.extras.PullToRefreshHeaderAndFooterGridView;
+import com.handmark.pulltorefresh.library.internal.EndLayout;
 import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.base.BaseActivity;
 import com.kakao.kakaogift.activity.goods.category.presenter.CategoryGoodsPresenter;
@@ -36,9 +37,9 @@ import com.kakao.kakaogift.utils.ToastUtils;
  * 
  */
 public class CategoryGoodsActivity extends BaseActivity implements
-		OnRefreshListener2<GridView>, CategoryGoodsView {
+		OnRefreshListener2<GridViewWithHeaderAndFooter>, CategoryGoodsView {
 
-	private PullToRefreshGridView mGridView;
+	private PullToRefreshHeaderAndFooterGridView mGridView;
 	private ThemeAdapter adapter;
 	private List<HGoodsVo> data;
 	private int pageNo = 1;
@@ -53,8 +54,7 @@ public class CategoryGoodsActivity extends BaseActivity implements
 		setContentView(R.layout.goods_category_layout);
 
 		url = getIntent().getStringExtra("url");
-		mGridView = (PullToRefreshGridView) findViewById(R.id.mGridView);
-		
+		mGridView = (PullToRefreshHeaderAndFooterGridView) findViewById(R.id.mGridView);
 		data = new ArrayList<HGoodsVo>();
 		adapter = new ThemeAdapter(data, this);
 		mGridView.setAdapter(adapter);
@@ -63,6 +63,7 @@ public class CategoryGoodsActivity extends BaseActivity implements
 		presenter = new CategoryGoodsPresenterImpl(this);
 		mGridView.setOnItemClickListener(clickListener);
 		presenter.getCategoryGoodsList(url, pageNo);
+		
 	}
 	
 	
@@ -86,23 +87,25 @@ public class CategoryGoodsActivity extends BaseActivity implements
 		if(pageNo==1){
 			mGridView.setMode(Mode.BOTH);
 			data.clear();
+			mGridView.getRefreshableView().showFooterView();
 		}
 		data.addAll(list);
 		adapter.notifyDataSetChanged();
 		if(pageNo >= page_count){
 			mGridView.setMode(Mode.PULL_FROM_START);
+			mGridView.getRefreshableView().hideFooterView();
 		}
 	}
 
 
 	@Override
-	public void onPullDownToRefresh(PullToRefreshBase<GridView> refreshView) {
+	public void onPullDownToRefresh(PullToRefreshBase<GridViewWithHeaderAndFooter> refreshView) {
 		pageNo =1;
 		presenter.getCategoryGoodsList(url, pageNo);
 	}
 
 	@Override
-	public void onPullUpToRefresh(PullToRefreshBase<GridView> refreshView) {
+	public void onPullUpToRefresh(PullToRefreshBase<GridViewWithHeaderAndFooter> refreshView) {
 		pageNo++;
 		presenter.getCategoryGoodsList(url, pageNo);
 	}

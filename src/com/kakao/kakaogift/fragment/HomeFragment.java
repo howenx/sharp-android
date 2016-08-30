@@ -31,6 +31,7 @@ import android.widget.TextView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
+import com.handmark.pulltorefresh.library.internal.EndLayout;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.base.BaseActivity;
@@ -93,6 +94,7 @@ public class HomeFragment extends BaseIconFragment implements
 	//
 	private List<Entry> catData;
 	private BaseActivity baseActivity;
+	private EndLayout endLayout;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -158,6 +160,7 @@ public class HomeFragment extends BaseIconFragment implements
 		findCategory();
 		loadData();
 		addHeaderView();
+		mListView.getRefreshableView().addFooterView(endLayout.getView());
 		return view;
 	}
 
@@ -277,6 +280,7 @@ public class HomeFragment extends BaseIconFragment implements
 			catData.clear();
 			mActivity.getLoading().show();
 		}
+		
 		if (mActivity.getHeaders() == null) {
 			VolleyHttp.doGetRequestTask(UrlUtil.HOME_LIST_URL + pageIndex,
 					new VolleyJsonCallback() {

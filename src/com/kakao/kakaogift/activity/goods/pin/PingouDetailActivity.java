@@ -42,6 +42,7 @@ import com.kakao.kakaogift.entity.CommentVo;
 import com.kakao.kakaogift.entity.CustomsVo;
 import com.kakao.kakaogift.entity.ImageVo;
 import com.kakao.kakaogift.entity.PinDetail;
+import com.kakao.kakaogift.entity.PinTieredPrice;
 import com.kakao.kakaogift.entity.ShareVo;
 import com.kakao.kakaogift.entity.ShoppingCar;
 import com.kakao.kakaogift.entity.ShoppingGoods;
@@ -331,7 +332,7 @@ public class PingouDetailActivity extends BaseActivity implements
 	/**
 	 * 点击立即购买按钮的响应事件
 	 */
-	private void clickPay() {
+	private void clickPay(String orderType) {
 		// 未登录跳到登陆页面
 		if (getUser() == null) {
 			startActivity(new Intent(this, LoginActivity.class));
@@ -353,7 +354,15 @@ public class PingouDetailActivity extends BaseActivity implements
 			sgoods.setGoodsImg(s.getInvImgForObj().getUrl());
 			sgoods.setGoodsName(s.getPinTitle());
 			sgoods.setGoodsNums(1);
-			sgoods.setGoodsPrice(s.getInvPrice().doubleValue());
+			if(orderType.equals("pin")){
+				 List<PinTieredPrice> plist= s.getPinTieredPricesDatas();
+				if(plist.size()>0){
+					sgoods.setGoodsPrice(plist.get(0).getPrice().doubleValue());
+					sgoods.setPinTieredPriceId(plist.get(0).getId());
+				}
+			}else{
+				sgoods.setGoodsPrice(s.getInvPrice().doubleValue());
+			}
 			sgoods.setInvArea(s.getInvArea());
 			sgoods.setInvAreaNm(s.getInvAreaNm());
 			sgoods.setInvCustoms(s.getInvCustoms());
@@ -370,7 +379,7 @@ public class PingouDetailActivity extends BaseActivity implements
 		car.setList(list);
 		Intent intent = new Intent(this, GoodsBalanceActivity.class);
 		intent.putExtra("car", car);
-		intent.putExtra("orderType", "item");
+		intent.putExtra("orderType", orderType);
 		startActivity(intent);
 	}
 	/**
@@ -381,9 +390,13 @@ public class PingouDetailActivity extends BaseActivity implements
 		if (!detail.getStock().getStatus().equals("Y")) {
 			return;
 		}
-		Intent intent = new Intent(this, PingouDetailSelActivity.class);
-		intent.putExtra("stock", stock);
-		startActivity(intent);
+		if(stock.getPinTieredPricesDatas().size()>1){
+			Intent intent = new Intent(this, PingouDetailSelActivity.class);
+			intent.putExtra("stock", stock);
+			startActivity(intent);
+		}else{
+			clickPay("pin");
+		}
 	}
 
 	private MyBroadCastReceiver netReceiver;
@@ -461,7 +474,7 @@ public class PingouDetailActivity extends BaseActivity implements
 			break;
 		case R.id.btn_buy_01:
 		case R.id.btn_buy_02:
-			clickPay();
+			clickPay("item");
 			break;
 		case R.id.btn_pin_01:
 		case R.id.btn_pin_02:

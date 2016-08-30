@@ -12,8 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.kakao.kakaogift.R
-;
+import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.entity.HGoodsVo;
 import com.kakao.kakaogift.utils.DateUtils;
 import com.kakao.kakaogift.utils.GlideLoaderTools;
