@@ -112,7 +112,6 @@ public class CycleViewPager extends Fragment implements OnPageChangeListener{
 		mImageCycleViewListener = listener;
 		infos = list;
 		this.imageViews.clear();
-
 		if (views.size() == 0) {
 			viewPagerFragmentLayout.setVisibility(View.GONE);
 			return;

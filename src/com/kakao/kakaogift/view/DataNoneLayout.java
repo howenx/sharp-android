@@ -66,6 +66,7 @@ public class DataNoneLayout {
 		mTextView = (TextView) ll_inner.findViewById(R.id.mTextView);
 		mImageView = (ImageView) ll_inner.findViewById(R.id.mImageView);
 		mGridView = (GridView) ll_inner.findViewById(R.id.mGridView);
+		mGridView.setFocusable(false);
 		go_home = (TextView) ll_inner.findViewById(R.id.go_home);
 		this.mContext = context;
 		mGridView.setOnItemClickListener(new OnItemClickListener() {

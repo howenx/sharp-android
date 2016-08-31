@@ -224,6 +224,8 @@ public class HomeFragment extends BaseIconFragment implements
 	private void initHeaderView() {
 		headerView.setVisibility(View.VISIBLE);
 		views.clear();
+		boolean isCycle = true;
+		if(dataSliders.size() > 1){
 		// 将最后一个ImageView添加进来
 		views.add(getImageView(mContext, dataSliders
 				.get(dataSliders.size() - 1).getImgUrl()));
@@ -232,14 +234,18 @@ public class HomeFragment extends BaseIconFragment implements
 		}
 		// 将第一个ImageView添加进来
 		views.add(getImageView(mContext, dataSliders.get(0).getImgUrl()));
-
+		}else{
+			isCycle = false;
+			for (int i = 0; i < dataSliders.size(); i++) {
+				views.add(getImageView(mContext, dataSliders.get(i).getImgUrl()));
+			}
+		}
 		// 设置循环，在调用setData方法前调用
-		cycleViewPager.setCycle(true);
-
+		cycleViewPager.setCycle(isCycle);
 		// 在加载数据前设置是否循环
 		cycleViewPager.setData(views, dataSliders, null);
 		// 设置轮播
-		cycleViewPager.setWheel(true);
+		cycleViewPager.setWheel(isCycle);
 
 		// 设置轮播时间，默认5000ms
 		cycleViewPager.setTime(3000);

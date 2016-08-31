@@ -30,7 +30,6 @@ import com.kakao.kakaogift.activity.balance.GoodsBalanceActivity;
 import com.kakao.kakaogift.activity.base.BaseActivity;
 import com.kakao.kakaogift.activity.car.adapter.ShoppingCarPullListAdapter;
 import com.kakao.kakaogift.activity.login.LoginActivity;
-import com.kakao.kakaogift.activity.mine.collect.MyCollectionActivity;
 import com.kakao.kakaogift.dao.ShoppingGoodsDao;
 import com.kakao.kakaogift.data.AppConstant;
 import com.kakao.kakaogift.data.DataParser;
@@ -230,6 +229,7 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 	private DataNoneLayout dataNoneLayout;
 	private void setDataNone() {
 		dataNoneLayout.loadData(1);
+		dataNoneLayout.setVisible();
 	}
 	
 	private void getNetData() {
@@ -277,6 +277,7 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 		dataNoneLayout.setText("您的购物车是空的");
 		dataNoneLayout.setMode(Mode.DISABLED);
 		dataNoneLayout.setGoHome();
+		dataNoneLayout.setNoVisible();
 		
 	}
 

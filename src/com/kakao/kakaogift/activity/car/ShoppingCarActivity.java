@@ -57,9 +57,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 	private TextView total_price;
 	private TextView pay;
 	private TextView attention;
-	private LinearLayout no_data;
 	private LinearLayout no_net;
-	private TextView go_home;
 	private List<CustomsVo> data;
 	private ShoppingCarPullListAdapter adapter;
 	private User user;
@@ -69,7 +67,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 	private boolean isBack = false;
 	private TextView reload;
 	private RelativeLayout shopping_main;
-	
+	private DataNoneLayout dataNoneLayout;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -106,9 +104,17 @@ public class ShoppingCarActivity extends BaseActivity implements
 			getData();
 		} else {//购物车本地数据暂无
 			bottom.setVisibility(View.GONE);
-			no_data.setVisibility(View.VISIBLE);
+			setDataNone();
 			mListView.setVisibility(View.GONE);
 		}
+	}
+
+	/**
+	 * 
+	 */
+	private void setDataNone() {
+		dataNoneLayout.loadData(1);
+		dataNoneLayout.setVisible();
 	}
 
 	private JSONArray array;
@@ -153,7 +159,8 @@ public class ShoppingCarActivity extends BaseActivity implements
 				getLoading().dismiss();
 				bottom.setVisibility(View.GONE);
 				mListView.setVisibility(View.GONE);
-				no_data.setVisibility(View.GONE);
+				if(dataNoneLayout != null)
+					dataNoneLayout.setNoVisible();
 				no_net.setVisibility(View.VISIBLE);
 			}
 		},array.toString());
@@ -171,7 +178,8 @@ public class ShoppingCarActivity extends BaseActivity implements
 		data.clear();
 		if (car.getMessage() != null) {
 			if (car.getList() != null && car.getList().size() > 0) {
-				no_data.setVisibility(View.GONE);
+				if(dataNoneLayout != null)
+					dataNoneLayout.setNoVisible();
 				no_net.setVisibility(View.GONE);
 				bottom.setVisibility(View.VISIBLE);
 				mListView.setVisibility(View.VISIBLE);
@@ -181,24 +189,26 @@ public class ShoppingCarActivity extends BaseActivity implements
 				ShoppingCarMenager.getInstance()
 						.initShoppingCarMenager(ShoppingCarActivity.this, adapter,
 								data, attention, 
-								total_price, pay,  bottom,mListView, new DataNoneLayout(getActivity(), no_data));
+								total_price, pay,  bottom,mListView, dataNoneLayout);
 				clearPrice();
 				//
 			} else {
 				bottom.setVisibility(View.GONE);
 				mListView.setVisibility(View.GONE);
 				if(car.getMessage().getCode() == 1015){
-					no_data.setVisibility(View.VISIBLE);
+					setDataNone();
 					no_net.setVisibility(View.GONE);
 				}else{
-					no_data.setVisibility(View.GONE);
+					if(dataNoneLayout != null)
+						dataNoneLayout.setNoVisible();
 					no_net.setVisibility(View.VISIBLE);
 				}
 			}
 		} else {
 			bottom.setVisibility(View.GONE);
 			mListView.setVisibility(View.GONE);
-			no_data.setVisibility(View.GONE);
+			if(dataNoneLayout != null)
+				dataNoneLayout.setNoVisible();
 			no_net.setVisibility(View.VISIBLE);
 		}
 		adapter.notifyDataSetChanged();
@@ -221,7 +231,8 @@ public class ShoppingCarActivity extends BaseActivity implements
 				getLoading().dismiss();
 				bottom.setVisibility(View.GONE);
 				mListView.setVisibility(View.GONE);
-				no_data.setVisibility(View.GONE);
+				if(dataNoneLayout != null)
+					dataNoneLayout.setNoVisible();
 				no_net.setVisibility(View.VISIBLE);
 				attention.setVisibility(View.INVISIBLE);
 			}
@@ -234,21 +245,25 @@ public class ShoppingCarActivity extends BaseActivity implements
 		bottom = (LinearLayout) findViewById(R.id.bottom);
 		total_price = (TextView) findViewById(R.id.total_price);
 		pay = (TextView) findViewById(R.id.pay);
-//		go_home = (TextView)findViewById(R.id.go_home);
-		go_home.setOnClickListener(this);
+		shopping_main = (RelativeLayout) findViewById(R.id.shopping_main);
 		pay.setOnClickListener(this);
 		attention = (TextView) findViewById(R.id.attention);
 		mListView = (PullToRefreshListView) findViewById(R.id.mylist);
 		mListView.setVisibility(View.GONE);
 		mListView.setMode(Mode.DISABLED);
-//		no_data = (LinearLayout) findViewById(R.id.data_null);
 		no_net = (LinearLayout) findViewById(R.id.no_net);
-//		check_all.setOnClickListener(this);
 		adapter = new ShoppingCarPullListAdapter(data, this);
 		mListView.setAdapter(adapter);
 		reload = (TextView) findViewById(R.id.reload);
 		shopping_main = (RelativeLayout) findViewById(R.id.shopping_main);
 		reload.setOnClickListener(this);
+		
+		dataNoneLayout = new DataNoneLayout(getActivity(), shopping_main);
+		dataNoneLayout.setNullImage(R.drawable.icon_gouwuche_none);
+		dataNoneLayout.setText("您的购物车是空的");
+		dataNoneLayout.setMode(Mode.DISABLED);
+		dataNoneLayout.setGoHome();
+		dataNoneLayout.setNoVisible();
 	}
 
 	@Override
@@ -287,9 +302,6 @@ public class ShoppingCarActivity extends BaseActivity implements
 				ToastUtils.Toast(this, "请选择商品");
 			}
 			break;
-//		case R.id.go_home:
-//			startActivity(new Intent(this,HMainActivity.class));
-//			break;
 		case R.id.reload:
 			loadData();
 			break;
