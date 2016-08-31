@@ -18,6 +18,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -29,6 +30,7 @@ import com.kakao.kakaogift.activity.balance.GoodsBalanceActivity;
 import com.kakao.kakaogift.activity.base.BaseActivity;
 import com.kakao.kakaogift.activity.car.adapter.ShoppingCarPullListAdapter;
 import com.kakao.kakaogift.activity.login.LoginActivity;
+import com.kakao.kakaogift.activity.mine.collect.MyCollectionActivity;
 import com.kakao.kakaogift.dao.ShoppingGoodsDao;
 import com.kakao.kakaogift.data.AppConstant;
 import com.kakao.kakaogift.data.DataParser;
@@ -43,6 +45,7 @@ import com.kakao.kakaogift.manager.BadgeViewManager;
 import com.kakao.kakaogift.manager.ShoppingCarMenager;
 import com.kakao.kakaogift.utils.ActionBarUtil;
 import com.kakao.kakaogift.utils.ToastUtils;
+import com.kakao.kakaogift.view.DataNoneLayout;
 import com.umeng.analytics.MobclickAgent;
 import com.viewpagerindicator.BaseIconFragment;
 
@@ -58,8 +61,8 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 	private TextView total_price;
 	private TextView pay;
 	private TextView attention;
-	private LinearLayout no_data;
-	private TextView go_home;
+//	private LinearLayout no_data;
+//	private TextView go_home;
 	private List<CustomsVo> data;
 	private ShoppingCarPullListAdapter adapter;
 	private BaseActivity activity;
@@ -67,6 +70,7 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 	private ShoppingGoodsDao goodsDao;
 	private LinearLayout no_net;
 	private TextView reload;
+	private RelativeLayout shopping_main;
 	
 	
 
@@ -105,7 +109,7 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 		List<ShoppingGoods> list = goodsDao.queryBuilder().build().list();
 		if (list != null && list.size() > 0) {
 			mListView.setVisibility(View.VISIBLE);
-			no_data.setVisibility(View.GONE);
+//			no_data.setVisibility(View.GONE);
 			bottom.setVisibility(View.VISIBLE);
 			toJsonArray(list);
 			getData();
@@ -113,7 +117,7 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 			BadgeViewManager.getInstance().setShopCartGoodsNum(0);
 			attention.setVisibility(View.INVISIBLE);
 			bottom.setVisibility(View.GONE);
-			no_data.setVisibility(View.VISIBLE);
+			setDataNone();
 			mListView.setVisibility(View.GONE);
 			no_net.setVisibility(View.GONE);
 		}
@@ -163,7 +167,6 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 						attention.setVisibility(View.INVISIBLE);
 						bottom.setVisibility(View.GONE);
 						mListView.setVisibility(View.GONE);
-						no_data.setVisibility(View.GONE);
 						no_net.setVisibility(View.VISIBLE);
 					}
 				}, array.toString());
@@ -191,38 +194,44 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 				BadgeViewManager.getInstance().setShopCartGoodsNum(
 						getShoppingCarNum(car.getList()));
 				attention.setVisibility(View.VISIBLE);
-				no_data.setVisibility(View.GONE);
 				no_net.setVisibility(View.GONE);
+				if(dataNoneLayout != null)
+					dataNoneLayout.setNoVisible();
 				bottom.setVisibility(View.VISIBLE);
 				mListView.setVisibility(View.VISIBLE);
 				data.addAll(car.getList());
 				//
 				ShoppingCarMenager.getInstance().initShoppingCarMenager(
-						activity, adapter, data, attention, total_price, pay,
-						no_data, bottom, mListView);
+						activity, adapter, data, attention, total_price, pay, bottom, mListView, dataNoneLayout);
 				clearPrice();
 			} else {
 				attention.setVisibility(View.INVISIBLE);
 				bottom.setVisibility(View.GONE);
-				mListView.setVisibility(View.GONE);
 				if (car.getMessage().getCode() == 1015) {
-					no_data.setVisibility(View.VISIBLE);
+					setDataNone();
 					no_net.setVisibility(View.GONE);
 				} else {
-					no_data.setVisibility(View.GONE);
+					if(dataNoneLayout != null)
+						dataNoneLayout.setNoVisible();
 					no_net.setVisibility(View.VISIBLE);
 				}
 			}
 		} else {
+			if(dataNoneLayout != null)
+				dataNoneLayout.setNoVisible();
 			attention.setVisibility(View.INVISIBLE);
 			bottom.setVisibility(View.GONE);
 			mListView.setVisibility(View.GONE);
-			no_data.setVisibility(View.GONE);
 			no_net.setVisibility(View.VISIBLE);
 		}
 		adapter.notifyDataSetChanged();
 	}
 
+	private DataNoneLayout dataNoneLayout;
+	private void setDataNone() {
+		dataNoneLayout.loadData(1);
+	}
+	
 	private void getNetData() {
 		activity.getLoading().show();
 		VolleyHttp.doGetRequestTask( activity.getHeaders(),
@@ -236,11 +245,12 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 
 					@Override
 					public void onError() {
+						if(dataNoneLayout != null)
+							dataNoneLayout.setNoVisible();
 						activity.getLoading().dismiss();
 						attention.setVisibility(View.INVISIBLE);
 						bottom.setVisibility(View.GONE);
 						mListView.setVisibility(View.GONE);
-						no_data.setVisibility(View.GONE);
 						no_net.setVisibility(View.VISIBLE);
 					}
 				});
@@ -252,15 +262,22 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 		pay = (TextView) view.findViewById(R.id.pay);
 		attention = (TextView) view.findViewById(R.id.attention);
 		mListView = (PullToRefreshListView) view.findViewById(R.id.mylist);
-		go_home = (TextView) view.findViewById(R.id.go_home);
+//		go_home = (TextView) view.findViewById(R.id.go_home);
 		mListView.setOnRefreshListener(this);
 		mListView.setMode(Mode.PULL_DOWN_TO_REFRESH);
-		no_data = (LinearLayout) view.findViewById(R.id.data_null);
 		no_net = (LinearLayout) view.findViewById(R.id.no_net);
 		reload = (TextView) view.findViewById(R.id.reload);
+		shopping_main = (RelativeLayout) view.findViewById(R.id.shopping_main);
 		reload.setOnClickListener(this);
 		pay.setOnClickListener(this);
-		go_home.setOnClickListener(this);
+//		go_home.setOnClickListener(this);
+		
+		dataNoneLayout = new DataNoneLayout(getActivity(), shopping_main);
+		dataNoneLayout.setNullImage(R.drawable.icon_gouwuche_none);
+		dataNoneLayout.setText("您的购物车是空的");
+		dataNoneLayout.setMode(Mode.DISABLED);
+		dataNoneLayout.setGoHome();
+		
 	}
 
 	
@@ -313,10 +330,10 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 				ToastUtils.Toast(getActivity(), "请选择商品");
 			}
 			break;
-		case R.id.go_home:
-			getActivity().sendBroadcast(
-					new Intent(AppConstant.MESSAGE_BROADCAST_GO_HOME));
-			break;
+//		case R.id.go_home:
+//			getActivity().sendBroadcast(
+//					new Intent(AppConstant.MESSAGE_BROADCAST_GO_HOME));
+//			break;
 		case R.id.reload:
 			loadData();
 			break;

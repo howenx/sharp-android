@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
@@ -38,6 +39,7 @@ import com.kakao.kakaogift.http.VolleyHttp.VolleyJsonCallback;
 import com.kakao.kakaogift.manager.ShoppingCarMenager;
 import com.kakao.kakaogift.utils.ActionBarUtil;
 import com.kakao.kakaogift.utils.ToastUtils;
+import com.kakao.kakaogift.view.DataNoneLayout;
 
 /*
  * 同shoppingcarfragment
@@ -66,7 +68,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 	private ShoppingCar shoppingCar;
 	private boolean isBack = false;
 	private TextView reload;
-	
+	private RelativeLayout shopping_main;
 	
 
 	@Override
@@ -179,7 +181,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 				ShoppingCarMenager.getInstance()
 						.initShoppingCarMenager(ShoppingCarActivity.this, adapter,
 								data, attention, 
-								total_price, pay, no_data, bottom,mListView);
+								total_price, pay,  bottom,mListView, new DataNoneLayout(getActivity(), no_data));
 				clearPrice();
 				//
 			} else {
@@ -232,19 +234,20 @@ public class ShoppingCarActivity extends BaseActivity implements
 		bottom = (LinearLayout) findViewById(R.id.bottom);
 		total_price = (TextView) findViewById(R.id.total_price);
 		pay = (TextView) findViewById(R.id.pay);
-		go_home = (TextView)findViewById(R.id.go_home);
+//		go_home = (TextView)findViewById(R.id.go_home);
 		go_home.setOnClickListener(this);
 		pay.setOnClickListener(this);
 		attention = (TextView) findViewById(R.id.attention);
 		mListView = (PullToRefreshListView) findViewById(R.id.mylist);
 		mListView.setVisibility(View.GONE);
 		mListView.setMode(Mode.DISABLED);
-		no_data = (LinearLayout) findViewById(R.id.data_null);
+//		no_data = (LinearLayout) findViewById(R.id.data_null);
 		no_net = (LinearLayout) findViewById(R.id.no_net);
 //		check_all.setOnClickListener(this);
 		adapter = new ShoppingCarPullListAdapter(data, this);
 		mListView.setAdapter(adapter);
 		reload = (TextView) findViewById(R.id.reload);
+		shopping_main = (RelativeLayout) findViewById(R.id.shopping_main);
 		reload.setOnClickListener(this);
 	}
 
@@ -284,9 +287,9 @@ public class ShoppingCarActivity extends BaseActivity implements
 				ToastUtils.Toast(this, "请选择商品");
 			}
 			break;
-		case R.id.go_home:
-			startActivity(new Intent(this,HMainActivity.class));
-			break;
+//		case R.id.go_home:
+//			startActivity(new Intent(this,HMainActivity.class));
+//			break;
 		case R.id.reload:
 			loadData();
 			break;

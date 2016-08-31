@@ -16,6 +16,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -35,6 +36,7 @@ import com.kakao.kakaogift.entity.OrderList;
 import com.kakao.kakaogift.http.VolleyHttp;
 import com.kakao.kakaogift.http.VolleyHttp.VolleyJsonCallback;
 import com.kakao.kakaogift.manager.OrderNumsMenager;
+import com.kakao.kakaogift.view.DataNoneLayout;
 import com.umeng.analytics.MobclickAgent;
 /**
  * @author eric
@@ -45,7 +47,7 @@ public class OrderFragment extends Fragment implements
 		OnRefreshListener2<ListView>, OnClickListener {
 
 	private PullToRefreshListView mListView;
-	private View no_order;
+//	private View no_order;
 	private List<Order> data;
 	private OrderPullListAdapter adapter;
 	private Category category;
@@ -53,6 +55,7 @@ public class OrderFragment extends Fragment implements
 	private BaseActivity activity;
 	private LinearLayout no_net;
 	private TextView reload;	
+	private RelativeLayout roder_main;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -69,9 +72,10 @@ public class OrderFragment extends Fragment implements
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.pulltorefresh_list_layout, null);
-		no_order = view.findViewById(R.id.no_order);
+//		no_order = view.findViewById(R.id.no_order);
 		no_net = (LinearLayout) view.findViewById(R.id.no_net);
 		reload = (TextView) view.findViewById(R.id.reload);
+		roder_main = (RelativeLayout) view.findViewById(R.id.order_main);
 		reload.setOnClickListener(this);
 		mListView = (PullToRefreshListView) view.findViewById(R.id.mylist);
 		mListView.setAdapter(adapter);
@@ -113,16 +117,18 @@ public class OrderFragment extends Fragment implements
 					if (orderList.getList() != null) {
 						getOrderByState(orderList.getList());
 						if (data.size() > 0) {
-							no_order.setVisibility(View.GONE);
+							if(dataNoneLayout != null)
+								dataNoneLayout.setNoVisible();
 						} else {
-							no_order.setVisibility(View.VISIBLE);
+							setDataNone();
 						}
 						
 					} else {
-						no_order.setVisibility(View.VISIBLE);
+						setDataNone();
 					}
 				}else{
-					no_order.setVisibility(View.GONE);
+					if(dataNoneLayout != null)
+						dataNoneLayout.setNoVisible();
 					no_net.setVisibility(View.VISIBLE);
 				}
 				adapter.notifyDataSetChanged();
@@ -131,10 +137,23 @@ public class OrderFragment extends Fragment implements
 			@Override
 			public void onError() {
 				activity.getLoading().dismiss();
-				no_order.setVisibility(View.GONE);
+				if(dataNoneLayout != null)
+					dataNoneLayout.setNoVisible();
 				no_net.setVisibility(View.VISIBLE);
 			}
 		});
+	}
+	private DataNoneLayout dataNoneLayout;
+	private void setDataNone(){
+		if(dataNoneLayout == null){
+			dataNoneLayout = new DataNoneLayout(getActivity(), roder_main);
+			dataNoneLayout.setNullImage(R.drawable.icon_dindan_none);
+			dataNoneLayout.setText("暂无订单");
+			dataNoneLayout.setMode(Mode.DISABLED);
+			dataNoneLayout.loadData(2);
+		}else{
+			dataNoneLayout.setVisible();
+		}
 	}
 	
 

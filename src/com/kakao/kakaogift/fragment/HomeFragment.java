@@ -160,8 +160,13 @@ public class HomeFragment extends BaseIconFragment implements
 		findCategory();
 		loadData();
 		addHeaderView();
-		mListView.getRefreshableView().addFooterView(endLayout.getView());
+		addFootView(view.getContext());
 		return view;
+	}
+	
+	private void addFootView(Context context){
+		endLayout = new EndLayout(context);
+		mListView.getRefreshableView().addFooterView(endLayout.getView());
 	}
 
 	private View catView;
@@ -397,6 +402,16 @@ public class HomeFragment extends BaseIconFragment implements
 			MessageMenager.getInstance().getListener()
 					.onGetMessage(R.drawable.hmm_icon_message);
 		}
+		// TODO Auto-generated method stub
+		if(home.getPage_count()<=pageIndex){
+			endLayout.show();
+			mListView.getRefreshableView().addFooterView(endLayout.getView());
+			mListView.setMode(Mode.PULL_FROM_START);
+		}else if(pageIndex == 1){
+			endLayout.hide();
+			mListView.setMode(Mode.BOTH);
+			mListView.getRefreshableView().removeFooterView(endLayout.getView());
+		}
 	}
 
 	private Home home;
@@ -414,13 +429,7 @@ public class HomeFragment extends BaseIconFragment implements
 	@Override
 	public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
 		if (home.getPage_count() <= pullNum) {
-			mHandler.postDelayed(new Runnable() {
-				@Override
-				public void run() {
-					mListView.onRefreshComplete();
-					ToastUtils.Toast(getActivity(), "暂无更多数据");
-				}
-			}, 1000);
+			endLayout.show();
 		} else {
 			isUpOrDwom = 1;
 			pageIndex++;

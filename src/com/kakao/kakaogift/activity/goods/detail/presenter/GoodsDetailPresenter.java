@@ -7,6 +7,8 @@ package com.kakao.kakaogift.activity.goods.detail.presenter;
 
 import java.util.Map;
 
+import android.content.Context;
+
 import com.kakao.kakaogift.entity.ShoppingGoods;
 import com.kakao.kakaogift.entity.StockVo;
 
@@ -18,6 +20,6 @@ public interface GoodsDetailPresenter {
 	void getGoodsDetailData(Map<String, String> headers, String url, String tag);
 	void getCartNumData(Map<String, String> headers, String tag);
 	void addCollection(Map<String, String> headers,StockVo stock);
-	void cancelCollection(Map<String, String> headers, long collectId );
+	void cancelCollection(Map<String, String> headers, long collectId);
 	void addToCart(Map<String, String> headers,ShoppingGoods goods);
 }

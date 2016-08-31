@@ -7,6 +7,8 @@ package com.kakao.kakaogift.activity.goods.detail.model;
 
 import java.util.Map;
 
+import android.content.Context;
+
 import com.kakao.kakaogift.activity.goods.detail.model.GoodsDetailModelImpl.OnGetGoodsDetailListener;
 import com.kakao.kakaogift.entity.ShoppingGoods;
 import com.kakao.kakaogift.entity.StockVo;

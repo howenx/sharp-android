@@ -24,6 +24,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.handmark.pulltorefresh.library.internal.EndLayout;
 import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.base.BaseActivity;
 import com.kakao.kakaogift.activity.goods.detail.GoodsDetailActivity;
@@ -62,6 +63,8 @@ OnRefreshListener2<ListView>, OnClickListener, OnScrollListener{
 	private boolean isNew = true;
 	private Home home;
 	private Handler mHandler = new Handler();
+	
+	private EndLayout endLayout;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -71,6 +74,7 @@ OnRefreshListener2<ListView>, OnClickListener, OnScrollListener{
 		mContext = getActivity();
 		data = new ArrayList<Theme>();
 		adapter = new HomeAdapter(data, mContext);
+		endLayout = new EndLayout(getContext());
 	}
 
 	@Override
@@ -164,6 +168,7 @@ OnRefreshListener2<ListView>, OnClickListener, OnScrollListener{
 		}else{
 			ToastUtils.Toast(mContext,  "暂无更多数据");
 		}
+		
 	}
 
 	/**

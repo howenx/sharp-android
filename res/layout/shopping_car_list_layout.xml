@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/bg"
     android:fitsSystemWindows="true"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <include layout="@layout/actionbar_custom_layout" />
 
@@ -13,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/bg" >
+        android:background="@color/bg"
+    	android:id="@+id/shopping_main"  >
 
         <TextView
             android:id="@+id/attention"
@@ -55,36 +56,6 @@
             ptr:ptrDrawable="@drawable/refreshing"
             ptr:ptrShowIndicator="false" />
 
-        <LinearLayout
-            android:id="@+id/data_null"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/top"
-            android:background="@color/white"
-            android:gravity="center"
-            android:orientation="vertical" >
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@null"
-                android:scaleType="center"
-                android:src="@drawable/cart_null" />
-
-            <TextView
-                android:id="@+id/go_home"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/theme_border"
-                android:paddingBottom="5dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:paddingTop="5dp"
-                android:text="随便逛逛"
-                android:textColor="@color/yellow"
-                android:textSize="16sp" />
-        </LinearLayout>
 
         <include
             android:id="@+id/no_net"
