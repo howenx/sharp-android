@@ -262,7 +262,6 @@ public class ShoppingCarActivity extends BaseActivity implements
 		dataNoneLayout.setNullImage(R.drawable.icon_gouwuche_none);
 		dataNoneLayout.setText("您的购物车是空的");
 		dataNoneLayout.setMode(Mode.DISABLED);
-		dataNoneLayout.setGoHome();
 		dataNoneLayout.setNoVisible();
 	}
 

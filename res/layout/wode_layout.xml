@@ -133,17 +133,35 @@
                 style="@style/wode_font_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/hmm_mine_address"
+                android:drawableLeft="@drawable/me_setting"
                 android:text="设置" />
+           
             <TextView
                 android:id="@+id/exit"
                 style="@style/textview_button_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="25dp"
                 android:layout_marginBottom="30dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
                 android:text="退出登录" 
                 android:visibility="gone"/>
+                 <!-- 
+                 <TextView
+                android:id="@+id/exit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="30dp"
+                android:text="退出登录" 
+                android:gravity="center"
+                android:textSize="16sp"
+                android:textColor="@color/yellow"
+                android:background="@color/white"
+                android:padding="10dp"
+                android:visibility="gone"/>
+                 -->
         </LinearLayout>
         </LinearLayout>
     </ScrollView>

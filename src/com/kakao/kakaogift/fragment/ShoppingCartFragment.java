@@ -60,8 +60,6 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 	private TextView total_price;
 	private TextView pay;
 	private TextView attention;
-//	private LinearLayout no_data;
-//	private TextView go_home;
 	private List<CustomsVo> data;
 	private ShoppingCarPullListAdapter adapter;
 	private BaseActivity activity;
@@ -108,7 +106,6 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 		List<ShoppingGoods> list = goodsDao.queryBuilder().build().list();
 		if (list != null && list.size() > 0) {
 			mListView.setVisibility(View.VISIBLE);
-//			no_data.setVisibility(View.GONE);
 			bottom.setVisibility(View.VISIBLE);
 			toJsonArray(list);
 			getData();
@@ -262,7 +259,6 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 		pay = (TextView) view.findViewById(R.id.pay);
 		attention = (TextView) view.findViewById(R.id.attention);
 		mListView = (PullToRefreshListView) view.findViewById(R.id.mylist);
-//		go_home = (TextView) view.findViewById(R.id.go_home);
 		mListView.setOnRefreshListener(this);
 		mListView.setMode(Mode.PULL_DOWN_TO_REFRESH);
 		no_net = (LinearLayout) view.findViewById(R.id.no_net);
@@ -270,13 +266,11 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 		shopping_main = (RelativeLayout) view.findViewById(R.id.shopping_main);
 		reload.setOnClickListener(this);
 		pay.setOnClickListener(this);
-//		go_home.setOnClickListener(this);
 		
 		dataNoneLayout = new DataNoneLayout(getActivity(), shopping_main);
 		dataNoneLayout.setNullImage(R.drawable.icon_gouwuche_none);
 		dataNoneLayout.setText("您的购物车是空的");
 		dataNoneLayout.setMode(Mode.DISABLED);
-		dataNoneLayout.setGoHome();
 		dataNoneLayout.setNoVisible();
 		
 	}
@@ -331,10 +325,6 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 				ToastUtils.Toast(getActivity(), "请选择商品");
 			}
 			break;
-//		case R.id.go_home:
-//			getActivity().sendBroadcast(
-//					new Intent(AppConstant.MESSAGE_BROADCAST_GO_HOME));
-//			break;
 		case R.id.reload:
 			loadData();
 			break;
