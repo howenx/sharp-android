@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,8 +30,8 @@ import android.widget.TextView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
-import com.handmark.pulltorefresh.library.internal.EndLayout;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.handmark.pulltorefresh.library.internal.EndLayout;
 import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.base.BaseActivity;
 import com.kakao.kakaogift.activity.goods.category.CategoryGoodsActivity;
@@ -76,9 +75,6 @@ public class HomeFragment extends BaseIconFragment implements
 	private Context mContext;
 	private int pageIndex = 1;
 	private int isUpOrDwom = 0;
-//	private ThemeDao themeDao;
-//	private SliderDao sliderDao;
-//	private EntryDao entryDao;
 	private BaseActivity mActivity;
 	//
 	private View headerView;
@@ -108,9 +104,6 @@ public class HomeFragment extends BaseIconFragment implements
 		adapter = new HomeAdapter(data, mContext);
 		catData = new ArrayList<Entry>();
 		categoryAdapter = new CategoryAdapter(catData, mContext);
-//		themeDao = mActivity.getDaoSession().getThemeDao();
-//		sliderDao = mActivity.getDaoSession().getSliderDao();
-//		entryDao = mActivity.getDaoSession().getEntryDao();
 		registerReceivers();
 	}
 
@@ -158,7 +151,7 @@ public class HomeFragment extends BaseIconFragment implements
 		mListView.setOnScrollListener(this);
 		findHeaderView();
 		findCategory();
-		loadData();
+		getNetData();
 		addHeaderView();
 		addFootView(view.getContext());
 		return view;
@@ -254,28 +247,6 @@ public class HomeFragment extends BaseIconFragment implements
 		cycleViewPager.setIndicatorCenter();
 	}
 
-	// 加载本地数据
-	private void loadData() {
-//		List<Theme> list = themeDao.queryBuilder().build().list();
-//		List<Slider> list2 = sliderDao.queryBuilder().build().list();
-//		List<Entry> list3 = entryDao.queryBuilder().build().list();
-//		if (list != null && list.size() > 0) {
-//			data.clear();
-//			data.addAll(themeDao.queryBuilder().build().list());
-//			adapter.notifyDataSetChanged();
-//		}
-//		if (list2 != null && list2.size() > 0) {
-//			dataSliders.clear();
-//			dataSliders.addAll(list2);
-//			initHeaderView();
-//		}
-//		if (list3 != null && list3.size() > 0) {
-//			catData.clear();
-//			catData.addAll(list3);
-//			categoryAdapter.notifyDataSetChanged();
-//		}
-		getNetData();
-	}
 
 	// 加载网络数据
 	private void getNetData() {
@@ -376,10 +347,7 @@ public class HomeFragment extends BaseIconFragment implements
 		if ((list != null && list.size() > 0)) {
 			if (isNew) {
 				data.addAll(list);
-//				themeDao.deleteAll();
-//				themeDao.insertInTx(data);
 			} else {
-//				themeDao.insertInTx(list);
 				data.addAll(list);
 			}
 			adapter.notifyDataSetChanged();
@@ -387,14 +355,10 @@ public class HomeFragment extends BaseIconFragment implements
 				mListView.getRefreshableView().setSelection(0);
 		}
 		if (sliders != null && sliders.size() > 0) {
-//			sliderDao.deleteAll();
-//			sliderDao.insertInTx(sliders);
 			dataSliders.addAll(sliders);
 			initHeaderView();
 		}
 		if (entries != null && entries.size() > 0) {
-//			entryDao.deleteAll();
-//			entryDao.insertInTx(entries);
 			catData.addAll(entries);
 			categoryAdapter.notifyDataSetChanged();
 		}
@@ -413,7 +377,6 @@ public class HomeFragment extends BaseIconFragment implements
 	}
 
 	private Home home;
-	private static Handler mHandler = new Handler();
 
 	@Override
 	public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
@@ -426,13 +389,9 @@ public class HomeFragment extends BaseIconFragment implements
 
 	@Override
 	public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-		if (home.getPage_count() <= pullNum) {
-//			endLayout.show();
-		} else {
 			isUpOrDwom = 1;
 			pageIndex++;
 			getNetData();
-		}
 	}
 
 	@SuppressLint("NewApi")
@@ -516,7 +475,7 @@ public class HomeFragment extends BaseIconFragment implements
 				pageIndex = 1;
 				isUpOrDwom = 0;
 				pullNum = 1;
-				loadData();
+				getNetData();
 			}
 		}
 	}

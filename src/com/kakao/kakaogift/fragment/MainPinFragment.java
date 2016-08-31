@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -62,8 +61,6 @@ OnRefreshListener2<ListView>, OnClickListener, OnScrollListener{
 	private int pullNum = 1;
 	private boolean isNew = true;
 	private Home home;
-	private Handler mHandler = new Handler();
-	
 	private EndLayout endLayout;
 
 	@Override
@@ -133,6 +130,14 @@ OnRefreshListener2<ListView>, OnClickListener, OnScrollListener{
 				home = DataParser.parserHomeData(result);
 				if(home.gethMessage() != null){
 					if(home.gethMessage().getCode() == 200){
+						// TODO Auto-generated method stub
+						if(home.getPage_count() <= pageIndex){
+							mListView.getRefreshableView().addFooterView(endLayout.getView());
+							mListView.setMode(Mode.PULL_FROM_START);
+						}else if(pageIndex == 1){
+							mListView.setMode(Mode.BOTH);
+							mListView.getRefreshableView().removeFooterView(endLayout.getView());
+						}
 						if(isNew){
 							refreshData(home.getThemes());
 						}else{
@@ -239,19 +244,9 @@ OnRefreshListener2<ListView>, OnClickListener, OnScrollListener{
 	 */
 	@Override
 	public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-		if (home.getPage_count() <= pullNum) {
-			mHandler.postDelayed(new Runnable() {
-				@Override
-				public void run() {
-					mListView.onRefreshComplete();
-					ToastUtils.Toast(getActivity(), "暂无更多数据");
-				}
-			}, 1000);
-		} else {
-			pageIndex++;
-			isNew = false;
-			loadData();
-		}
+		pageIndex++;
+		isNew = false;
+		loadData();
 	}
 
 	public void onResume() {

@@ -7,23 +7,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.AbsListView.OnScrollListener;
-import android.widget.AdapterView.OnItemClickListener;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.handmark.pulltorefresh.library.internal.EndLayout;
 import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.base.BaseActivity;
 import com.kakao.kakaogift.activity.goods.detail.GoodsDetailActivity;
@@ -61,7 +61,6 @@ OnRefreshListener2<ListView>, OnClickListener, OnScrollListener{
 	private int pullNum = 1;
 	private boolean isNew = true;
 	private Home home;
-	private Handler mHandler = new Handler();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -71,6 +70,7 @@ OnRefreshListener2<ListView>, OnClickListener, OnScrollListener{
 		mContext = getActivity();
 		data = new ArrayList<Theme>();
 		adapter = new HomeAdapter(data, mContext);
+		endLayout = new EndLayout(mContext);
 	}
 
 	@Override
@@ -112,7 +112,6 @@ OnRefreshListener2<ListView>, OnClickListener, OnScrollListener{
 		return view;
 	}
 
-
 	/**
 	 * 
 	 */
@@ -129,6 +128,14 @@ OnRefreshListener2<ListView>, OnClickListener, OnScrollListener{
 				home = DataParser.parserHomeData(result);
 				if(home.gethMessage() != null){
 					if(home.gethMessage().getCode() == 200){
+						// TODO Auto-generated method stub
+						if(home.getPage_count() <= pageIndex){
+							mListView.getRefreshableView().addFooterView(endLayout.getView());
+							mListView.setMode(Mode.PULL_FROM_START);
+						}else if(pageIndex == 1){
+							mListView.setMode(Mode.BOTH);
+							mListView.getRefreshableView().removeFooterView(endLayout.getView());
+						}
 						if(isNew){
 							refreshData(home.getThemes());
 						}else{
@@ -156,6 +163,8 @@ OnRefreshListener2<ListView>, OnClickListener, OnScrollListener{
 	/**
 	 * @param themes
 	 */
+
+	private EndLayout endLayout;
 	private void moreData(List<Theme> themes) {
 		if(themes != null && themes.size() > 0){
 			pullNum = pullNum + 1;
@@ -164,6 +173,7 @@ OnRefreshListener2<ListView>, OnClickListener, OnScrollListener{
 		}else{
 			ToastUtils.Toast(mContext,  "暂无更多数据");
 		}
+		
 	}
 
 	/**
@@ -234,19 +244,9 @@ OnRefreshListener2<ListView>, OnClickListener, OnScrollListener{
 	 */
 	@Override
 	public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-		if (home.getPage_count() <= pullNum) {
-			mHandler.postDelayed(new Runnable() {
-				@Override
-				public void run() {
-					mListView.onRefreshComplete();
-					ToastUtils.Toast(getActivity(), "暂无更多数据");
-				}
-			}, 1000);
-		} else {
-			pageIndex++;
-			isNew = false;
-			loadData();
-		}
+		pageIndex++;
+		isNew = false;
+		loadData();
 	}
 
 	public void onResume() {
