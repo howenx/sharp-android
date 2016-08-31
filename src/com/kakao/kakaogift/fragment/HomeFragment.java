@@ -166,7 +166,7 @@ public class HomeFragment extends BaseIconFragment implements
 	
 	private void addFootView(Context context){
 		endLayout = new EndLayout(context);
-		mListView.getRefreshableView().addFooterView(endLayout.getView());
+//		mListView.getRefreshableView().addFooterView(endLayout.getView());
 	}
 
 	private View catView;
@@ -404,11 +404,9 @@ public class HomeFragment extends BaseIconFragment implements
 		}
 		// TODO Auto-generated method stub
 		if(home.getPage_count()<=pageIndex){
-			endLayout.show();
 			mListView.getRefreshableView().addFooterView(endLayout.getView());
 			mListView.setMode(Mode.PULL_FROM_START);
 		}else if(pageIndex == 1){
-			endLayout.hide();
 			mListView.setMode(Mode.BOTH);
 			mListView.getRefreshableView().removeFooterView(endLayout.getView());
 		}
@@ -429,7 +427,7 @@ public class HomeFragment extends BaseIconFragment implements
 	@Override
 	public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
 		if (home.getPage_count() <= pullNum) {
-			endLayout.show();
+//			endLayout.show();
 		} else {
 			isUpOrDwom = 1;
 			pageIndex++;
