@@ -149,6 +149,9 @@ public class StockVo implements Serializable {
 				continue;
 			list.add(p);
 		}
+		if(list.size()>0){
+			list.get(0).setSelected(true);
+		}
 		return list;
 	}
 
