@@ -45,6 +45,9 @@ public class MyCouponActivity extends BaseActivity implements OnClickListener, O
 	private List<Category> data;
 	private List<Fragment> fragmentList;
 	private CouponPagerAdapter adapter;
+	
+	private CouponMenager mCouponMenager;
+	
 //	private AlertDialog dialog;
 	@Override
 	protected void onCreate(Bundle bundle) {
@@ -53,8 +56,10 @@ public class MyCouponActivity extends BaseActivity implements OnClickListener, O
 		ActionBarUtil.setActionBarStyle(this, "优惠券");
 		findView();
 		initCategory();
+		
+		mCouponMenager = new CouponMenager();
+		mCouponMenager.initCouponMenager(t1, t2, t3);
 		initFragment();
-		CouponMenager.getInstance().initCouponMenager(t1, t2, t3);
 	}
 	
 	/**
@@ -67,6 +72,7 @@ public class MyCouponActivity extends BaseActivity implements OnClickListener, O
 			CouponFragment fragment = new CouponFragment();
 			Bundle bundle = new Bundle();
 			bundle.putSerializable("category", category);
+			bundle.putSerializable("CouponMenager", mCouponMenager);
 			fragment.setArguments(bundle);
 			fragmentList.add(fragment);
 		}

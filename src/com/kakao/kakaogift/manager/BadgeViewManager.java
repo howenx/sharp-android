@@ -33,7 +33,7 @@ public class BadgeViewManager {
 	 * @param mListView
 	 */
 	public void initBadgeViewManager(Context mContext,View target) {
-		this.view = new BadgeView(mContext, target);
+		this.view = new BadgeView(mContext.getApplicationContext(), target);
 		view.setTextColor(mContext.getResources().getColor(R.color.white));
 		view.setBackgroundResource(R.drawable.bg_badgeview);
 		view.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);

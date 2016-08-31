@@ -490,6 +490,7 @@ public class HomeFragment extends BaseIconFragment implements
 	public void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
+		MessageMenager.getInstance().setOnGetMessageListener(null);
 		getActivity().unregisterReceiver(myReceiver);
 	}
 

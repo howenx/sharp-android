@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -23,14 +21,13 @@ import com.kakao.kakaogift.data.UrlUtil;
 import com.kakao.kakaogift.entity.Category;
 import com.kakao.kakaogift.entity.CouponVo;
 import com.kakao.kakaogift.entity.Ticket;
-import com.kakao.kakaogift.entity.User;
+import com.kakao.kakaogift.event.CouponEvent;
 import com.kakao.kakaogift.http.VolleyHttp;
 import com.kakao.kakaogift.http.VolleyHttp.VolleyJsonCallback;
 import com.kakao.kakaogift.manager.CouponMenager;
-import com.kakao.kakaogift.manager.MyCouponMenager;
-import com.kakao.kakaogift.utils.HttpUtils;
 import com.kakao.kakaogift.utils.ToastUtils;
 import com.umeng.analytics.MobclickAgent;
+import com.ypy.eventbus.EventBus;
 
 /**
  * @author eric
@@ -47,6 +44,7 @@ public class CouponFragment extends Fragment implements OnClickListener{
 	private int state;
 	private View no_data;
 	private LinearLayout no_net;
+	private CouponMenager mCouponMenager;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -56,6 +54,7 @@ public class CouponFragment extends Fragment implements OnClickListener{
 		adapter = new TicketAdapter(data, activity);
 		Bundle bundle = getArguments();
 		category = (Category) bundle.getSerializable("category");
+		mCouponMenager = (CouponMenager) bundle.getSerializable("CouponMenager");
 	}
 
 	@Override
@@ -146,8 +145,8 @@ public class CouponFragment extends Fragment implements OnClickListener{
 				num3 ++;
 			}
 		}
-		CouponMenager.getInstance().setTitle("未使用（" + num1 + "）", "已使用（" + num2 + "）", "已过期（" + num3 + "）");
-		MyCouponMenager.getInstance().setNums(num1);
+		mCouponMenager.setTitle("未使用（" + num1 + "）", "已使用（" + num2 + "）", "已过期（" + num3 + "）");
+		EventBus.getDefault().post(new CouponEvent(num1));
 	}
 	
 	

@@ -17,40 +17,27 @@ import android.content.Context;
  */
 public class DataBaseManager {
 
-	private static DataBaseManager instance;
+	
 	private DaoMaster daoMaster;
 	private DaoSession daoSession;
 
-	public static synchronized void initializeInstance(Context context) {
-		if (instance == null) {
-			instance = new DataBaseManager(context);
-		}
+	private static class DataBaseManagerHolder{
+		static DataBaseManager instance = new DataBaseManager();
 	}
 
-	private DataBaseManager(Context context) {
-		if (daoMaster == null) {
-			DevOpenHelper helper = new DaoMaster.DevOpenHelper(context,
-					"hmmdb_greedao.db", null);
-			daoMaster = new DaoMaster(helper.getWritableDatabase());
-			daoSession = getDaoMaster().newSession();
-		}
+	public DataBaseManager() {
 	}
 
-	public static synchronized DataBaseManager getInstance() {
-		if (instance == null) {
-			throw new IllegalStateException(
-					DataBaseManager.class.getSimpleName()
-							+ " is not initialized, call initializeInstance(..) method first.");
-		}
-		return instance;
+	public static  DataBaseManager getInstance() {
+		return DataBaseManagerHolder.instance;
 	}
 
-	private DaoMaster getDaoMaster() {
-		return daoMaster;
-	}
 
 	public DaoSession getDaoSession() {
 		return daoSession;
+	}
+	public void setDaoSession(DaoSession daoSession) {
+		this.daoSession = daoSession;
 	}
 
 }

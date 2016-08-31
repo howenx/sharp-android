@@ -37,7 +37,7 @@ public class ShoppingCarMenager {
 	private String customName;
 	private int bottommorePrice;
 	private List<CustomsVo> list = new ArrayList<CustomsVo>();
-	private Activity mActivity;
+	private Context mActivity;
 	private DataNoneLayout dataLayout;
 
 	private static class ShopCartManagerHolder {
@@ -48,7 +48,7 @@ public class ShoppingCarMenager {
 		return ShopCartManagerHolder.instance;
 	}
 	public void initShoppingCarMenager(Context mContext, ShoppingCarPullListAdapter adapter, List<CustomsVo> list, TextView attention, TextView totalPrice, TextView pay, LinearLayout bottom,PullToRefreshListView mListView, DataNoneLayout dataLayout){
-		mActivity = (Activity) mContext;
+		mActivity = mContext.getApplicationContext();
 		this.adapter = adapter;
 		this.list.clear();
 		this.list.addAll(list);

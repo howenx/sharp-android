@@ -53,6 +53,8 @@ public class MyOrderActivity extends BaseActivity implements OnClickListener,
 	private TextView t3_nums;
 	private TextView t4_nums;
 	
+	private OrderNumsMenager mOrderNumsMenager;
+	
 	@Override
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
@@ -63,9 +65,11 @@ public class MyOrderActivity extends BaseActivity implements OnClickListener,
 		viewPager.addOnPageChangeListener(this);
 		initTopListner();
 		initCategory();
-		initFragment();
-		OrderNumsMenager.getInstance().initOrderMenager(this, t2_nums, t3_nums,
+		
+		mOrderNumsMenager = new OrderNumsMenager();
+		mOrderNumsMenager.initOrderMenager(this, t2_nums, t3_nums,
 				t4_nums);
+		initFragment();
 		
 	}
 
@@ -94,6 +98,7 @@ public class MyOrderActivity extends BaseActivity implements OnClickListener,
 			OrderFragment fragment = new OrderFragment();
 			Bundle bundle = new Bundle();
 			bundle.putSerializable("category", category);
+			bundle.putSerializable("OrderNumsMenager", mOrderNumsMenager);
 			fragment.setArguments(bundle);
 			fragmentList.add(fragment);
 		}

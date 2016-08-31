@@ -48,7 +48,6 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 
 	private MainBroadCastReceiver netReceiver;
 	private SlidingViewPager mViewPager;
-	public static boolean isForeground = false;
 
 	private boolean isHome = true;
 	IconTabPageIndicator mIndicator;
@@ -79,15 +78,6 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 				fragments));
 		mViewPager.setOffscreenPageLimit(5);
 		mIndicator.setViewPager(mViewPager);
-//		mIndicator.setOnTabReselectedListener(new OnTabReselectedListener() {
-//
-//			@Override
-//			public void onTabReselected(int position) {
-//				if (position == 0) {
-//					sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UP_HOME_ACTION));
-//				}
-//			}
-//		});
 
 		BadgeViewManager.getInstance().initBadgeViewManager(this, mIndicator.getTabViews().get(3));
 
@@ -193,7 +183,6 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 
 	@Override
 	public void onResume() {
-		isForeground = true;
 		super.onResume();
 
 	}

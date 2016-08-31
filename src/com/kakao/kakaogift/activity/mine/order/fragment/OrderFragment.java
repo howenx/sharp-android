@@ -23,8 +23,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.kakao.kakaogift.R
-;
+import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.base.BaseActivity;
 import com.kakao.kakaogift.activity.mine.order.adapter.OrderPullListAdapter;
 import com.kakao.kakaogift.data.AppConstant;
@@ -57,6 +56,8 @@ public class OrderFragment extends Fragment implements
 	private TextView reload;	
 	private RelativeLayout roder_main;
 
+	private OrderNumsMenager mOrderNumsMenager;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -64,6 +65,7 @@ public class OrderFragment extends Fragment implements
 		adapter = new OrderPullListAdapter(data, getActivity());
 		Bundle bundle = getArguments();
 		category = (Category) bundle.getSerializable("category");
+		mOrderNumsMenager = (OrderNumsMenager) bundle.getSerializable("OrderNumsMenager");
 		activity = (BaseActivity) getActivity();
 		
 	}
@@ -206,7 +208,7 @@ public class OrderFragment extends Fragment implements
 				}
 			}
 		}
-		OrderNumsMenager.getInstance().numsChanged(nums_1, nums_2, nums_3);
+		mOrderNumsMenager.numsChanged(nums_1, nums_2, nums_3);
 	}
 
 

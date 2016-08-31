@@ -5,6 +5,9 @@ import java.util.Map;
 import android.app.Application;
 import cn.jpush.android.api.JPushInterface;
 
+import com.kakao.kakaogift.dao.DaoMaster;
+import com.kakao.kakaogift.dao.DaoMaster.DevOpenHelper;
+import com.kakao.kakaogift.dao.DaoSession;
 import com.kakao.kakaogift.entity.User;
 import com.kakao.kakaogift.entity.VersionVo;
 import com.kakao.kakaogift.http.VolleyHttp;
@@ -17,6 +20,8 @@ public class KKApplication extends Application {
 	private String kouling;
 	private VersionVo versionInfo;
 	private Map<String, String> map;
+	private DaoMaster daoMaster;
+	private DaoSession daoSession;
 
 	@Override
 	public void onCreate() {
@@ -24,9 +29,9 @@ public class KKApplication extends Application {
 		initPlatformConfig();
 		VolleyHttp.registRequestQueue(this);
 		TestinAgent.init(this);
-		DataBaseManager.initializeInstance(this);
 		JPushInterface.init(this); // 初始化 JPush
-//		UncaughtExceptionTools.handler(this);
+		getDaoMaster();
+		DataBaseManager.getInstance().setDaoSession(getDaoSession());
 	}
 
 	// 初始化PlatformConfig
@@ -61,20 +66,21 @@ public class KKApplication extends Application {
 		this.loginUser = null;
 	}
 
-//	 public DaoMaster getDaoMaster() {
-//	 if (daoMaster == null) {
-//			DevOpenHelper helper = new DaoMaster.DevOpenHelper(this,"hmmdb_greedao.db", null);
-//	 daoMaster = new DaoMaster(helper.getWritableDatabase());
-//	 }
-//	 return daoMaster;
-//	 }
-//	
-//	 public DaoSession getDaoSession() {
-//	 if (daoSession == null) {
-//	 daoSession = getDaoMaster().newSession();
-//	 }
-//	 return daoSession;
-//	 }
+	public DaoMaster getDaoMaster() {
+		if (daoMaster == null) {
+			DevOpenHelper helper = new DaoMaster.DevOpenHelper(this,
+					"hmmdb_greedao.db", null);
+			daoMaster = new DaoMaster(helper.getWritableDatabase());
+		}
+		return daoMaster;
+	}
+
+	public DaoSession getDaoSession() {
+		if (daoSession == null) {
+			daoSession = getDaoMaster().newSession();
+		}
+		return daoSession;
+	}
 
 	public String getKouling() {
 		return kouling;
@@ -82,7 +88,7 @@ public class KKApplication extends Application {
 
 	public void setKouling(String kouling) {
 		this.kouling = kouling;
-		
+
 	}
 
 	public VersionVo getVersionInfo() {
@@ -92,5 +98,5 @@ public class KKApplication extends Application {
 	public void setVersionInfo(VersionVo versionInfo) {
 		this.versionInfo = versionInfo;
 	}
-	
+
 }

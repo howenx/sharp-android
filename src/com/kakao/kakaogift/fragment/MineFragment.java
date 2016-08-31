@@ -32,18 +32,19 @@ import com.kakao.kakaogift.data.AppConstant;
 import com.kakao.kakaogift.data.DataParser;
 import com.kakao.kakaogift.data.UrlUtil;
 import com.kakao.kakaogift.entity.User;
-import com.kakao.kakaogift.manager.MyCouponMenager;
+import com.kakao.kakaogift.event.CouponEvent;
 import com.kakao.kakaogift.utils.GlideLoaderTools;
 import com.kakao.kakaogift.utils.HttpUtils;
 import com.kakao.kakaogift.utils.ToastUtils;
 import com.kakao.kakaogift.view.CircleImageView;
 import com.umeng.analytics.MobclickAgent;
 import com.viewpagerindicator.BaseIconFragment;
+import com.ypy.eventbus.EventBus;
 
 /**
  * 
  * @author eric
- *
+ * 
  */
 public class MineFragment extends BaseIconFragment implements OnClickListener {
 	private CircleImageView faceView;
@@ -53,23 +54,22 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 	private BaseActivity activity;
 	private User user;
 	private TextView exit;
-	
-	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		activity = (BaseActivity) getActivity();
+		EventBus.getDefault().register(this);
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.wode_layout, null);
-//		 ActionBarUtil.initMainActionBarStyle(activity,view, 4);
+		// ActionBarUtil.initMainActionBarStyle(activity,view, 4);
 		user = activity.getUser();
 		findView(view);
-		if (user != null){
+		if (user != null) {
 			isRefresh = true;
 			getUserInfo();
 		}
@@ -93,9 +93,9 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 		});
 	}
 
-	public void initView() { 
+	public void initView() {
 		user = activity.getUser();
-		GlideLoaderTools.loadCirlceImage(activity,user.getUserImg(), faceView);
+		GlideLoaderTools.loadCirlceImage(activity, user.getUserImg(), faceView);
 		user_name.setText(user.getUserName());
 		sex.setVisibility(View.VISIBLE);
 		if (user.getSex().equals("F")) {
@@ -112,9 +112,9 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 			couponCount = user.getCouponCount();
 		}
 		youhui_nums.setText(couponCount + " 张可用");
-		if(user != null){
+		if (user != null) {
 			exit.setVisibility(View.VISIBLE);
-		}else{
+		} else {
 			exit.setVisibility(View.GONE);
 		}
 
@@ -132,6 +132,7 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 		}
 		youhui_nums.setText(couponCount + " 张可用");
 	}
+
 	private void clearView() {
 		user = activity.getUser();
 		user_name.setText("登录/注册");
@@ -156,10 +157,9 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 		view.findViewById(R.id.settings).setOnClickListener(this);
 		exit = (TextView) view.findViewById(R.id.exit);
 		exit.setOnClickListener(this);
-		MyCouponMenager.getInstance().initCouponMenager(youhui_nums);
-		if(user != null){
+		if (user != null) {
 			exit.setVisibility(View.VISIBLE);
-		}else{
+		} else {
 			exit.setVisibility(View.GONE);
 		}
 	}
@@ -172,7 +172,7 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 			break;
 		case R.id.order:
 			doJump(MyOrderActivity.class);
-//			doJump(PubCommentActivity.class);
+			// doJump(PubCommentActivity.class);
 			break;
 		case R.id.address:
 			doJump(MyAddressActivity.class);
@@ -190,7 +190,7 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 			doJump(MyPingouActivity.class);
 			break;
 		case R.id.settings:
-			startActivity(new Intent(getActivity(),SettingActivity.class));
+			startActivity(new Intent(getActivity(), SettingActivity.class));
 			break;
 		case R.id.exit:
 			doExit();
@@ -204,6 +204,7 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 	 * 
 	 */
 	private ProgressDialog pdialog;
+
 	private void doExit() {
 		pdialog = new ProgressDialog(getActivity());
 		pdialog.setMessage("正在退出...");
@@ -219,10 +220,12 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 				userDao.deleteAll();
 				userDao.insert(user);
 				JPushInterface.setAlias(getActivity(), "", null);
-				getActivity().sendBroadcast(new Intent(
-						AppConstant.MESSAGE_BROADCAST_QUIT_LOGIN_ACTION));
+				getActivity()
+						.sendBroadcast(
+								new Intent(
+										AppConstant.MESSAGE_BROADCAST_QUIT_LOGIN_ACTION));
 				clearView();
-				pdialog.dismiss();	
+				pdialog.dismiss();
 			}
 		}, 1000);
 	}
@@ -255,13 +258,13 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 					UserDao userDao = activity.getDaoSession().getUserDao();
 					userDao.deleteAll();
 					userDao.insert(user);
-					if(isRefresh){
+					if (isRefresh) {
 						initView();
-					}else{
+					} else {
 						updateCoupon();
 					}
 				} else {
-//					initView();
+					// initView();
 					ToastUtils.Toast(activity, "请检查网络");
 				}
 				break;
@@ -279,18 +282,20 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 		netReceiver = new NetBroadCastReceiver();
 		IntentFilter intentFilter = new IntentFilter();
 		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION);
-//		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_QUIT_LOGIN_ACTION);
+		// intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_QUIT_LOGIN_ACTION);
 		intentFilter.addAction(AppConstant.MESSAGE_BROADCAST_COUNPON_ACTION);
 		getActivity().registerReceiver(netReceiver, intentFilter);
 	}
 
-
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
+		EventBus.getDefault().unregister(this);
 		getActivity().unregisterReceiver(netReceiver);
 	}
+
 	private boolean isRefresh = true;
+
 	private class NetBroadCastReceiver extends BroadcastReceiver {
 		@Override
 		public void onReceive(Context context, Intent intent) {
@@ -298,19 +303,23 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 					AppConstant.MESSAGE_BROADCAST_LOGIN_ACTION)) {
 				isRefresh = true;
 				getUserInfo();
-			} 
-//			else if (intent.getAction().equals(
-//					AppConstant.MESSAGE_BROADCAST_QUIT_LOGIN_ACTION)) {
-//				clearView();
-//			}
-			else if(intent.getAction().equals(
-					AppConstant.MESSAGE_BROADCAST_COUNPON_ACTION)){
+			}
+			// else if (intent.getAction().equals(
+			// AppConstant.MESSAGE_BROADCAST_QUIT_LOGIN_ACTION)) {
+			// clearView();
+			// }
+			else if (intent.getAction().equals(
+					AppConstant.MESSAGE_BROADCAST_COUNPON_ACTION)) {
 				isRefresh = false;
 				getUserInfo();
 			}
 
 		}
 
+	}
+
+	public void onEventMainThread(CouponEvent event) {
+		youhui_nums.setText(event.getNums() + "张可用");
 	}
 
 	public void onResume() {
