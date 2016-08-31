@@ -66,12 +66,12 @@ public class PingouDetailActivity extends BaseActivity implements
 
 	private static final String Tag = "PingouDetailActivity";
 
-	private ScrollableLayout mScrollLayout;  //滚动
-	private ConvenientBanner<ImageVo> slider; //轮播
-	private View back_top;	//返回顶部按钮
-	private ImageView collectionImg; //收藏按钮
+	private ScrollableLayout mScrollLayout; // 滚动
+	private ConvenientBanner<ImageVo> slider; // 轮播
+	private View back_top; // 返回顶部按钮
+	private ImageView collectionImg; // 收藏按钮
 	private ImageView wanfaView; //
-	private TextView more_view; //查看更多
+	private TextView more_view; // 查看更多
 	private ShareWindow shareWindow;
 
 	private ScrollAbleFragment imgFragment;
@@ -80,13 +80,14 @@ public class PingouDetailActivity extends BaseActivity implements
 
 	private PinDetailPresenter mPinDetailPresenter;
 
-	private boolean isCollection = false; //是否收藏
-	private PinDetail detail; //拼购详情信息
+	private boolean isCollection = false; // 是否收藏
+	private PinDetail detail; // 拼购详情信息
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		ActionBarUtil.setActionBarStyle(this, "商品详情",R.drawable.hmm_icon_share, true, new BackListener(), this);
+		ActionBarUtil.setActionBarStyle(this, "商品详情",
+				R.drawable.hmm_icon_share, true, new BackListener(), this);
 		setContentView(R.layout.pingou_detail_layout);
 		initView();
 		initFragmentPager();
@@ -103,8 +104,9 @@ public class PingouDetailActivity extends BaseActivity implements
 	private void loadUrl() {
 		if (TextUtils.isEmpty(getIntent().getStringExtra("url")))
 			return;
-		//获取拼购信息
-		mPinDetailPresenter.getPinDetail(getHeaders(), getIntent().getStringExtra("url"), Tag);
+		// 获取拼购信息
+		mPinDetailPresenter.getPinDetail(getHeaders(), getIntent()
+				.getStringExtra("url"), Tag);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -119,13 +121,14 @@ public class PingouDetailActivity extends BaseActivity implements
 
 		collectionImg = (ImageView) findViewById(R.id.attention);
 		wanfaView = (ImageView) findViewById(R.id.wanfaView);
-		
+
 		Drawable able = getResources().getDrawable(R.drawable.pingou_wanfa);
 		int height = able.getIntrinsicHeight();
 		int width = able.getIntrinsicWidth();
 		int faceWidth = CommonUtils.getScreenWidth(getActivity());
-		int factHeight = faceWidth*height/width;
-		Glide.with(getActivity()).load(R.drawable.pingou_wanfa).override(faceWidth, factHeight).into(wanfaView);
+		int factHeight = faceWidth * height / width;
+		Glide.with(getActivity()).load(R.drawable.pingou_wanfa)
+				.override(faceWidth, factHeight).into(wanfaView);
 
 		findViewById(R.id.wanfaView).setOnClickListener(this);
 		findViewById(R.id.back_top).setOnClickListener(this);
@@ -140,7 +143,7 @@ public class PingouDetailActivity extends BaseActivity implements
 	private void initGoodsDetail(StockVo stock) {
 		if (stock == null)
 			return;
-		//初始化 轮播图
+		// 初始化 轮播图
 		initSliderImage(stock.getItemPreviewImgsForList());
 		//
 		TextView pinTitle = (TextView) findViewById(R.id.pinTitle);
@@ -148,7 +151,7 @@ public class PingouDetailActivity extends BaseActivity implements
 		TextView pin_per_num = (TextView) findViewById(R.id.pin_per_num);
 		TextView item_src_price = (TextView) findViewById(R.id.item_src_price);
 		TextView pin_price = (TextView) findViewById(R.id.pin_price);
-		//初始化商品基础信息
+		// 初始化商品基础信息
 		pinTitle.setText(stock.getPinTitle());
 		soldAmount.setText("已售：" + stock.getSoldAmount() + "件");
 		if (stock.getInvPrice() != null) {
@@ -161,22 +164,23 @@ public class PingouDetailActivity extends BaseActivity implements
 					+ "人团");
 		} else {
 			pin_price.setText(stock.getFloorPrice().get("price") + "元/件");
-			pin_per_num.setText(stock.getFloorPrice().get("person_num") + "人拼团");
+			pin_per_num
+					.setText(stock.getFloorPrice().get("person_num") + "人拼团");
 		}
 
 		if (stock.getCollectId() != 0) {
-			//收藏
+			// 收藏
 			collectionImg.setImageResource(R.drawable.hmm_icon_collect_h);
 			isCollection = true;
 		} else {
-			//尚未收藏
+			// 尚未收藏
 			collectionImg.setImageResource(R.drawable.hmm_icon_collect);
 			isCollection = false;
 		}
 		if (stock.getStatus().equals("Y")) {
 
 		} else {
-			//商品未能正常销售
+			// 商品未能正常销售
 			more_view.setVisibility(View.VISIBLE);
 			more_view.setOnClickListener(this);
 			findViewById(R.id.btn_buy_01).setEnabled(false);
@@ -204,6 +208,7 @@ public class PingouDetailActivity extends BaseActivity implements
 				new int[] { R.drawable.page_indicator,
 						R.drawable.page_indicator_fcoused });
 	}
+
 	//
 	private void initGoodsComment(CommentVo comm) {
 		if (comm.getRemarkCount() <= 0) {
@@ -290,6 +295,7 @@ public class PingouDetailActivity extends BaseActivity implements
 	}
 
 	private GoodsPushWindow pushWindow;
+
 	/**
 	 * 推荐商品弹出窗
 	 */
@@ -300,18 +306,20 @@ public class PingouDetailActivity extends BaseActivity implements
 		pushWindow.show();
 
 	}
+
 	/**
 	 * 收藏商品操作
 	 */
 	private void collectGoods() {
 		if (getUser() == null) {
-			//未登录 先去登录
+			// 未登录 先去登录
 			startActivity(new Intent(this, LoginActivity.class));
 			return;
 		}
 		findViewById(R.id.btn_attention).setOnClickListener(null);
 		if (isCollection) {
-			mPinDetailPresenter.cancelCollection(getHeaders(), detail.getStock().getCollectId());
+			mPinDetailPresenter.cancelCollection(getHeaders(), detail
+					.getStock().getCollectId());
 		} else {
 			mPinDetailPresenter.addCollection(getHeaders(), detail.getStock());
 		}
@@ -332,7 +340,7 @@ public class PingouDetailActivity extends BaseActivity implements
 	/**
 	 * 点击立即购买按钮的响应事件
 	 */
-	private void clickPay(String orderType) {
+	private void clickPay() {
 		// 未登录跳到登陆页面
 		if (getUser() == null) {
 			startActivity(new Intent(this, LoginActivity.class));
@@ -344,25 +352,17 @@ public class PingouDetailActivity extends BaseActivity implements
 		ShoppingCar car = new ShoppingCar();
 		List<CustomsVo> list = new ArrayList<CustomsVo>();
 		CustomsVo customs = new CustomsVo();
-		//判断商品是否能正常销售,组装购物车数据结构
+		// 判断商品是否能正常销售,组装购物车数据结构
 		ShoppingGoods sgoods = null;
 		StockVo s = detail.getStock();
 		if (s.getStatus().equals("Y")) {
-			//商品正常 获取商品信息
+			// 商品正常 获取商品信息
 			sgoods = new ShoppingGoods();
 			sgoods.setGoodsId(s.getId() + "");
 			sgoods.setGoodsImg(s.getInvImgForObj().getUrl());
 			sgoods.setGoodsName(s.getPinTitle());
 			sgoods.setGoodsNums(1);
-			if(orderType.equals("pin")){
-				 List<PinTieredPrice> plist= s.getPinTieredPricesDatas();
-				if(plist.size()>0){
-					sgoods.setGoodsPrice(plist.get(0).getPrice().doubleValue());
-					sgoods.setPinTieredPriceId(plist.get(0).getId());
-				}
-			}else{
-				sgoods.setGoodsPrice(s.getInvPrice().doubleValue());
-			}
+			sgoods.setGoodsPrice(s.getInvPrice().doubleValue());
 			sgoods.setInvArea(s.getInvArea());
 			sgoods.setInvAreaNm(s.getInvAreaNm());
 			sgoods.setInvCustoms(s.getInvCustoms());
@@ -379,23 +379,76 @@ public class PingouDetailActivity extends BaseActivity implements
 		car.setList(list);
 		Intent intent = new Intent(this, GoodsBalanceActivity.class);
 		intent.putExtra("car", car);
-		intent.putExtra("orderType", orderType);
+		intent.putExtra("orderType", "item");
 		startActivity(intent);
 	}
+	
+	private void pinPay(StockVo s){
+		if(getUser() == null){
+			startActivity(new Intent(this, LoginActivity.class));
+			return;
+		}
+		ShoppingCar car = new ShoppingCar();
+		List<CustomsVo> list = new ArrayList<CustomsVo>();
+		CustomsVo customs = new CustomsVo();
+		ShoppingGoods sgoods;
+		if (s.getStatus().equals("Y")) {
+			sgoods = new ShoppingGoods();
+			sgoods.setGoodsId(s.getId() + "");
+			sgoods.setGoodsImg(s.getInvImgForObj().getUrl());
+			sgoods.setGoodsName(s.getPinTitle());
+			sgoods.setGoodsNums(1);
+			for(PinTieredPrice p: s.getPinTieredPricesDatas()){
+				if(p.isSelected()){
+					sgoods.setGoodsPrice(p.getPrice().doubleValue());
+					sgoods.setPinTieredPriceId(p.getId());
+				}
+			}
+			if(sgoods.getGoodsPrice() == null){
+				ToastUtils.Toast(this, "请选择商品");
+				return;
+			}
+			sgoods.setInvArea(s.getInvArea());
+			sgoods.setInvAreaNm(s.getInvAreaNm());
+			sgoods.setInvCustoms(s.getInvCustoms());
+			sgoods.setPostalTaxRate(s.getPostalTaxRate());
+			sgoods.setPostalStandard(s.getPostalStandard());
+			sgoods.setSkuType(s.getSkuType());
+			sgoods.setSkuTypeId(s.getSkuTypeId());
+		} else if (s.getStatus().equals("P")) {
+			ToastUtils.Toast(this, "尚未开售");
+			return;
+		} else {
+			ToastUtils.Toast(this, "活动已结束");
+			return;
+		}
+		customs.addShoppingGoods(sgoods);
+		customs.setInvArea(sgoods.getInvArea());
+		customs.setInvAreaNm(sgoods.getInvAreaNm());
+		customs.setInvCustoms(sgoods.getInvCustoms());
+		list.add(customs);
+		car.setList(list);
+		Intent intent = new Intent(this, GoodsBalanceActivity.class);
+		intent.putExtra("car", car);
+		intent.putExtra("orderType", "pin");
+		startActivity(intent);
+	}
+
 	/**
 	 * 跳转拼购选择页
+	 * 
 	 * @param stock
 	 */
 	private void turnToPingouDetailSelActivity(StockVo stock) {
 		if (!detail.getStock().getStatus().equals("Y")) {
 			return;
 		}
-		if(stock.getPinTieredPricesDatas().size()>1){
+		if (stock.getPinTieredPricesDatas().size() > 1) {
 			Intent intent = new Intent(this, PingouDetailSelActivity.class);
 			intent.putExtra("stock", stock);
 			startActivity(intent);
-		}else{
-			clickPay("pin");
+		} else {
+			pinPay(stock);
 		}
 	}
 
@@ -424,10 +477,10 @@ public class PingouDetailActivity extends BaseActivity implements
 	protected void onDestroy() {
 		super.onDestroy();
 		unregisterReceiver(netReceiver);
-		if(shareWindow !=null)
+		if (shareWindow != null)
 			shareWindow.dismiss();
-		if(pushWindow!=null)
-			pushWindow.dismiss();	
+		if (pushWindow != null)
+			pushWindow.dismiss();
 		VolleyHttp.parseRequestTask(Tag);
 	}
 
@@ -438,15 +491,15 @@ public class PingouDetailActivity extends BaseActivity implements
 		}
 		return super.onKeyDown(keyCode, event);
 	}
-	
-	private class BackListener implements OnClickListener{
+
+	private class BackListener implements OnClickListener {
 
 		@Override
 		public void onClick(View v) {
 			exitClick();
-			
+
 		}
-		
+
 	}
 
 	/**
@@ -474,7 +527,7 @@ public class PingouDetailActivity extends BaseActivity implements
 			break;
 		case R.id.btn_buy_01:
 		case R.id.btn_buy_02:
-			clickPay("item");
+			clickPay();
 			break;
 		case R.id.btn_pin_01:
 		case R.id.btn_pin_02:
@@ -498,7 +551,8 @@ public class PingouDetailActivity extends BaseActivity implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.kakao.kakaogift.activity.view.pdetail.PinDetailView#showLoading()
+	 * @see
+	 * com.kakao.kakaogift.activity.view.pdetail.PinDetailView#showLoading()
 	 */
 	@Override
 	public void showLoading() {
@@ -509,7 +563,8 @@ public class PingouDetailActivity extends BaseActivity implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.kakao.kakaogift.activity.view.pdetail.PinDetailView#hideLoading()
+	 * @see
+	 * com.kakao.kakaogift.activity.view.pdetail.PinDetailView#hideLoading()
 	 */
 	@Override
 	public void hideLoading() {
@@ -521,8 +576,8 @@ public class PingouDetailActivity extends BaseActivity implements
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.kakao.kakaogift.activity.view.pdetail.PinDetailView#loadPinDetailData(com
-	 * .hanmimei.entity.PinDetail)
+	 * com.kakao.kakaogift.activity.view.pdetail.PinDetailView#loadPinDetailData
+	 * (com .hanmimei.entity.PinDetail)
 	 */
 	@Override
 	public void loadPinDetailData(PinDetail detail) {
@@ -556,9 +611,8 @@ public class PingouDetailActivity extends BaseActivity implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * com.kakao.kakaogift.activity.view.pdetail.PinDetailView#cancelCollectionSuccess
-	 * ()
+	 * @see com.kakao.kakaogift.activity.view.pdetail.PinDetailView#
+	 * cancelCollectionSuccess ()
 	 */
 	@Override
 	public void cancelCollectionSuccess() {
@@ -576,8 +630,8 @@ public class PingouDetailActivity extends BaseActivity implements
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.kakao.kakaogift.activity.view.pdetail.PinDetailView#showLoadFaild(java.lang
-	 * .String)
+	 * com.kakao.kakaogift.activity.view.pdetail.PinDetailView#showLoadFaild
+	 * (java.lang .String)
 	 */
 	@Override
 	public void showLoadFaild(String str) {

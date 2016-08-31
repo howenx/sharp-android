@@ -78,8 +78,7 @@ public class OrderSubmitActivity extends BaseActivity {
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
 				if (isOverdue(startTime, new Date())) {
 					ToastUtils.Toast(getActivity(), "页面过期");
-					startActivity(new Intent(getActivity(),
-							MyOrderActivity.class));
+					startActivity(new Intent(getActivity(),MyOrderActivity.class));
 					finish();
 				} else {
 					view.loadUrl(url, extraHeaders);
