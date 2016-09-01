@@ -295,6 +295,9 @@ public class CycleViewPager extends Fragment implements OnPageChangeListener{
 					
 					@Override
 					public void onClick(View v) {
+						if(!isCycle){
+							currentPosition = 1;
+						}
 						if(infos.get(currentPosition - 1).getType().equals("D")){
 							if(!infos.get(currentPosition - 1).getUrl().equals("")){
 								Intent intent = new Intent(getActivity(), GoodsDetailActivity.class);

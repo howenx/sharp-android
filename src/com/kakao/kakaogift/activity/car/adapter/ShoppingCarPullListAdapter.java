@@ -60,7 +60,7 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 	private ShoppingGoods delGoods;
 
 	public ShoppingCarPullListAdapter(List<CustomsVo> data, Context mContext) {
-		this.data = ShoppingCarMenager.getInstance().getData();
+		this.data = data;
 		inflater = LayoutInflater.from(mContext);
 		activity = (BaseActivity) mContext;
 		check_Drawable = activity.getResources().getDrawable(
