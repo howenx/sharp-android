@@ -3,8 +3,7 @@ package com.kakao.kakaogift.manager;
 import android.content.Context;
 import android.view.View;
 
-import com.kakao.kakaogift.R
-;
+import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.fragment.FragmentTabHost;
 import com.kakao.kakaogift.view.BadgeView;
 
@@ -26,13 +25,14 @@ public class BadgeViewManager {
 		view.setTextSize(10);
 		view.setText("0");
 	}
+
 	/**
 	 * 初始化购物车数量管理者
 	 * 
 	 * @param mContext
 	 * @param mListView
 	 */
-	public void initBadgeViewManager(Context mContext,View target) {
+	public void initBadgeViewManager(Context mContext, View target) {
 		this.view = new BadgeView(mContext.getApplicationContext(), target);
 		view.setTextColor(mContext.getResources().getColor(R.color.white));
 		view.setBackgroundResource(R.drawable.bg_badgeview);
@@ -41,13 +41,7 @@ public class BadgeViewManager {
 		view.setText("0");
 	}
 
-
-	private static class BadgeViewManagerHolder {
-		public static final BadgeViewManager instance = new BadgeViewManager();
-	}
-
-	public static BadgeViewManager getInstance() {
-		return BadgeViewManagerHolder.instance;
+	public BadgeViewManager() {
 	}
 
 	public void setShopCartGoodsNum(int num) {
@@ -55,28 +49,30 @@ public class BadgeViewManager {
 		if (num <= 0) {
 			view.hide();
 			return;
-		}else if(num >= 100){
+		} else if (num >= 100) {
 			view.setText("...");
 			view.show();
-		}else{
+		} else {
 			view.setText(num + "");
 			view.show();
 		}
 	}
+
 	private int nums;
 
 	public int getBadgeViewText() {
 		return Integer.valueOf(view.getText().toString());
 	}
-	public void addShoppingCarNum(int addnum){
+
+	public void addShoppingCarNum(int addnum) {
 		nums = nums + addnum;
 		if (nums <= 0) {
 			view.hide();
 			return;
-		}else if(nums >= 100){
+		} else if (nums >= 100) {
 			view.setText("...");
 			view.show();
-		}else{
+		} else {
 			view.setText(nums + "");
 			view.show();
 		}

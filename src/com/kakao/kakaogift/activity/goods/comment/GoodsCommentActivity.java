@@ -22,7 +22,7 @@ import com.kakao.kakaogift.activity.base.BaseActivity;
 import com.kakao.kakaogift.activity.goods.comment.fragment.GoodsComImgFragment;
 import com.kakao.kakaogift.activity.goods.comment.fragment.GoodsCommentFragment;
 import com.kakao.kakaogift.activity.goods.comment.fragment.GoodsCommentFragment.EvaType;
-import com.kakao.kakaogift.event.MessageEvent;
+import com.kakao.kakaogift.event.CommentEvent;
 import com.kakao.kakaogift.utils.ActionBarUtil;
 import com.viewpagerindicator.BaseIconFragment;
 import com.ypy.eventbus.EventBus;
@@ -106,7 +106,7 @@ public class GoodsCommentActivity extends BaseActivity {
 
 
 
-	public void onEvent(MessageEvent event) {
+	public void onEvent(CommentEvent event) {
 		tabStrips.notifyDataSetChanged(event.getPositon());
 	}
 }

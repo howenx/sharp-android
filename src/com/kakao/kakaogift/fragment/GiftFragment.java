@@ -49,7 +49,6 @@ import com.viewpagerindicator.BaseIconFragment;
 public class GiftFragment extends BaseIconFragment implements
 OnRefreshListener2<ListView>, OnClickListener, OnScrollListener{
 	private Context mContext;
-	private BaseActivity baseActivity;
 	private PullToRefreshListView mListView;
 	private HomeAdapter adapter;
 	private List<Theme> data;
@@ -65,19 +64,23 @@ OnRefreshListener2<ListView>, OnClickListener, OnScrollListener{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		mActivity = (BaseActivity) getActivity();
-		baseActivity = (BaseActivity) getActivity();
-		mContext = getActivity();
 		data = new ArrayList<Theme>();
-		adapter = new HomeAdapter(data, mContext);
+		adapter = new HomeAdapter(data, mActivity);
 		endLayout = new EndLayout(mContext);
+	}
+
+	@Override
+	public void onAttach(Context context) {
+		super.onAttach(context);
+		mContext = context;
+		mActivity = (BaseActivity) context;
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.home_list_layout, null);
-		ActionBarUtil.initMainActionBarStyle(baseActivity,view, 2);
+		ActionBarUtil.initMainActionBarStyle(mActivity,view, 2);
 		back_top = view.findViewById(R.id.back_top);
 		no_net = (LinearLayout) view.findViewById(R.id.no_net);
 		reload = (TextView) view.findViewById(R.id.reload);

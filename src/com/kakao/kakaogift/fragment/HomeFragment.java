@@ -48,9 +48,9 @@ import com.kakao.kakaogift.entity.Entry;
 import com.kakao.kakaogift.entity.Home;
 import com.kakao.kakaogift.entity.Slider;
 import com.kakao.kakaogift.entity.Theme;
+import com.kakao.kakaogift.event.MessageEvent;
 import com.kakao.kakaogift.http.VolleyHttp;
 import com.kakao.kakaogift.http.VolleyHttp.VolleyJsonCallback;
-import com.kakao.kakaogift.manager.MessageMenager;
 import com.kakao.kakaogift.override.OnGetMessageListener;
 import com.kakao.kakaogift.utils.ActionBarUtil;
 import com.kakao.kakaogift.utils.GlideLoaderTools;
@@ -59,14 +59,14 @@ import com.kakao.kakaogift.view.CustomGridView;
 import com.kakao.kakaogift.view.CycleViewPager;
 import com.umeng.analytics.MobclickAgent;
 import com.viewpagerindicator.BaseIconFragment;
+import com.ypy.eventbus.EventBus;
 
 /**
  * @author eric
  * 
  */
 public class HomeFragment extends BaseIconFragment implements
-		OnRefreshListener2<ListView>, OnClickListener, OnScrollListener,
-		OnGetMessageListener {
+		OnRefreshListener2<ListView>, OnClickListener, OnScrollListener {
 	private LayoutInflater inflater;
 	private PullToRefreshListView mListView;
 	private HomeAdapter adapter;
@@ -89,14 +89,11 @@ public class HomeFragment extends BaseIconFragment implements
 	private int pullNum = 1;
 	//
 	private List<Entry> catData;
-	private BaseActivity baseActivity;
 	private EndLayout endLayout;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		baseActivity = (BaseActivity) getActivity();
-		mContext = getActivity();
 		inflater = LayoutInflater.from(mContext);
 		mActivity = (BaseActivity) getActivity();
 		dataSliders = new ArrayList<Slider>();
@@ -106,14 +103,21 @@ public class HomeFragment extends BaseIconFragment implements
 		categoryAdapter = new CategoryAdapter(catData, mContext);
 		registerReceivers();
 	}
+	
+	@Override
+	public void onAttach(Context context) {
+		super.onAttach(context);
+		mContext = context;
+		mActivity = (BaseActivity) context;
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.home_list_layout, null);
 
-		settingView = ActionBarUtil.initMainActionBarStyle(baseActivity,view, 0);
-		MessageMenager.getInstance().setOnGetMessageListener(this);
+		settingView = ActionBarUtil.initMainActionBarStyle(mActivity,view, 0);
+		
 
 		mListView = (PullToRefreshListView) view.findViewById(R.id.mylist);
 		mListView.getRefreshableView().setCacheColorHint(Color.TRANSPARENT);
@@ -154,6 +158,7 @@ public class HomeFragment extends BaseIconFragment implements
 		getNetData();
 		addHeaderView();
 		addFootView(view.getContext());
+		EventBus.getDefault().register(this);
 		return view;
 	}
 	
@@ -287,7 +292,7 @@ public class HomeFragment extends BaseIconFragment implements
 						}
 					});
 		} else {
-			VolleyHttp.doGetRequestTask(baseActivity.getHeaders(),
+			VolleyHttp.doGetRequestTask(mActivity.getHeaders(),
 					UrlUtil.HOME_LIST_URL + pageIndex,
 					new VolleyJsonCallback() {
 
@@ -369,8 +374,7 @@ public class HomeFragment extends BaseIconFragment implements
 			categoryAdapter.notifyDataSetChanged();
 		}
 		if (home.getHasMsg() != 0) {
-			MessageMenager.getInstance().getListener()
-					.onGetMessage(R.drawable.hmm_icon_message);
+			EventBus.getDefault().post(new MessageEvent(true));
 		}
 		// TODO Auto-generated method stub
 		if(home.getPage_count()<=pageIndex){
@@ -490,7 +494,7 @@ public class HomeFragment extends BaseIconFragment implements
 	public void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		MessageMenager.getInstance().setOnGetMessageListener(null);
+		EventBus.getDefault().unregister(this);
 		getActivity().unregisterReceiver(myReceiver);
 	}
 
@@ -526,9 +530,15 @@ public class HomeFragment extends BaseIconFragment implements
 	 * 
 	 * @see com.kakao.kakaogift.override.OnGetMessageListener#onGetMessage(int)
 	 */
-	@Override
-	public void onGetMessage(int resId) {
-		settingView.setImageResource(resId);
+	public void onEventMainThread(MessageEvent event) {
+		if(settingView == null)
+			return;
+		if(event.isHasMessage()){
+			settingView.setImageResource(R.drawable.hmm_icon_message);
+		}else{
+			settingView.setImageResource(R.drawable.hmm_icon_message_n);
+		}
+		
 	}
 
 }

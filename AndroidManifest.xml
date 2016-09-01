@@ -5,7 +5,7 @@
     android:versionName="1.0.1" >
 
     <uses-sdk
-        android:minSdkVersion="15"
+        android:minSdkVersion="11"
         android:targetSdkVersion="21" />
 
     <permission
@@ -64,6 +64,7 @@
         android:name="com.kakao.kakaogift.application.KKApplication"
         android:allowBackup="false"
         android:icon="@drawable/ic_gift"
+        android:largeHeap="true"
         android:label="@string/gift_app_name"
         android:theme="@style/AppTheme" >
         <activity

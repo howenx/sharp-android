@@ -40,12 +40,10 @@ public class ShoppingCarMenager {
 	private Context mActivity;
 	private DataNoneLayout dataLayout;
 
-	private static class ShopCartManagerHolder {
-		public static final ShoppingCarMenager instance = new ShoppingCarMenager();
-	}
-
-	public static ShoppingCarMenager getInstance() {
-		return ShopCartManagerHolder.instance;
+	
+	
+	public ShoppingCarMenager() {
+		super();
 	}
 	public void initShoppingCarMenager(Context mContext, ShoppingCarPullListAdapter adapter, List<CustomsVo> list, TextView attention, TextView totalPrice, TextView pay, LinearLayout bottom,PullToRefreshListView mListView, DataNoneLayout dataLayout){
 		mActivity = mContext.getApplicationContext();

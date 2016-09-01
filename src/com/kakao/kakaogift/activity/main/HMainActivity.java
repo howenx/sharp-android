@@ -52,8 +52,7 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 	private boolean isHome = true;
 	IconTabPageIndicator mIndicator;
 
-	
-	private List<BaseIconFragment> fragments; 
+	private List<BaseIconFragment> fragments;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,30 +63,30 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 		initViewPager();
 		registerReceivers();
 		doCheckVersionTask();
-		
-	}
 
+	}
 
 	private void initViewPager() {
 		mViewPager = (SlidingViewPager) findViewById(R.id.id_viewpager);
 		mViewPager.setNoScroll(true);
-		fragments = initFragmentList();
 		mIndicator = (IconTabPageIndicator) findViewById(R.id.indicator);
-
+		fragments = initFragmentList();
+	
 		mViewPager.setAdapter(new TabPagerAdapter(getSupportFragmentManager(),
 				fragments));
 		mViewPager.setOffscreenPageLimit(5);
 		mIndicator.setViewPager(mViewPager);
 
-		BadgeViewManager.getInstance().initBadgeViewManager(this, mIndicator.getTabViews().get(3));
-
+		BadgeViewManager mBadgeViewManager = new BadgeViewManager();
+		mBadgeViewManager.initBadgeViewManager(this, mIndicator.getTabViews().get(3));
+		shoppingCartFragment.setBadgeViewManager(mBadgeViewManager);
 	}
-
-
+	ShoppingCartFragment shoppingCartFragment;
+	
 	private List<BaseIconFragment> initFragmentList() {
 		List<BaseIconFragment> fragments = new ArrayList<>();
 		HomeFragment homeFragment = new HomeFragment();
-		ShoppingCartFragment shoppingCartFragment = new ShoppingCartFragment();
+		shoppingCartFragment = new ShoppingCartFragment();
 		MineFragment mineFragment = new MineFragment();
 		MainPinFragment mainPinFragment = new MainPinFragment();
 		GiftFragment giftFragment = new GiftFragment();
@@ -107,7 +106,8 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 				if (getUser() == null) {
 					startActivity(new Intent(getActivity(), LoginActivity.class));
 				} else {
-					startActivity(new Intent(getActivity(), MessageTypeActivity.class));
+					startActivity(new Intent(getActivity(),
+							MessageTypeActivity.class));
 				}
 			} else {
 				startActivity(new Intent(getActivity(), SettingActivity.class));
@@ -143,7 +143,7 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 			} else {
 				setClipboard();
 				finish();
-				 System.exit(0);
+				System.exit(0);
 			}
 		}
 	}
@@ -177,8 +177,6 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 			}
 		}
 	}
-	
-	
 
 	@Override
 	public void onResume() {
@@ -196,21 +194,20 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.kakao.kakaogift.activity.view.HMainView#loadVersionInfo(com.kakao.kakaogift.entity
-	 * .VersionVo)
+	 * com.kakao.kakaogift.activity.view.HMainView#loadVersionInfo(com.kakao
+	 * .kakaogift.entity .VersionVo)
 	 */
 	@Override
 	public void loadVersionInfo(final VersionVo info) {
-		if(info.getReleaseNumber() <= CommonUtils.getVersionCode(this))
+		if (info.getReleaseNumber() <= CommonUtils.getVersionCode(this))
 			return;
-//		setVersionInfo(info);
-		AlertDialogUtils.showUpdateDialog(getActivity(),
-				new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						downloadApk(info.getDownloadLink());
-					}
-				});
+		// setVersionInfo(info);
+		AlertDialogUtils.showUpdateDialog(getActivity(), new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				downloadApk(info.getDownloadLink());
+			}
+		});
 
 	}
 

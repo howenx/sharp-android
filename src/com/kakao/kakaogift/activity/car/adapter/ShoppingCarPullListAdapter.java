@@ -10,7 +10,6 @@ import org.json.JSONObject;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,13 +32,14 @@ import com.kakao.kakaogift.data.UrlUtil;
 import com.kakao.kakaogift.entity.CustomsVo;
 import com.kakao.kakaogift.entity.HMessage;
 import com.kakao.kakaogift.entity.ShoppingGoods;
+import com.kakao.kakaogift.event.ShoppingCarEvent;
 import com.kakao.kakaogift.http.VolleyHttp;
 import com.kakao.kakaogift.http.VolleyHttp.VolleyJsonCallback;
-import com.kakao.kakaogift.manager.BadgeViewManager;
 import com.kakao.kakaogift.manager.ShoppingCarMenager;
 import com.kakao.kakaogift.utils.AlertDialogUtils;
 import com.kakao.kakaogift.utils.ToastUtils;
 import com.kakao.kakaogift.view.CustomListView;
+import com.ypy.eventbus.EventBus;
 
 /**
  * @author eric
@@ -52,21 +52,15 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 	private LayoutInflater inflater;
 	private ShoppingCarAdapter adapter;
 	private BaseActivity activity;
-	private Drawable check_Drawable;
-	private Drawable uncheck_Drawable;
 	private NormalDialog dialog;
 	private ShoppingGoodsDao goodsDao;
 	private List<ShoppingGoods> goodsList;
 	private ShoppingGoods delGoods;
 
 	public ShoppingCarPullListAdapter(List<CustomsVo> data, Context mContext) {
-		this.data = ShoppingCarMenager.getInstance().getData();
+		this.data = data;
 		inflater = LayoutInflater.from(mContext);
 		activity = (BaseActivity) mContext;
-		check_Drawable = activity.getResources().getDrawable(
-				R.drawable.hmm_radio_select);
-		uncheck_Drawable = activity.getResources().getDrawable(
-				R.drawable.hmm_radio_normal);
 		goodsDao = activity.getDaoSession().getShoppingGoodsDao();
 		goodsList = new ArrayList<ShoppingGoods>();
 		delGoods = new ShoppingGoods();
@@ -129,9 +123,9 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 		});
 		//根据仓库状态  显示是否选中
 		if (custom.getState().equals("G")) {
-			holder.check.setImageDrawable(check_Drawable);
+			holder.check.setImageResource(R.drawable.hmm_radio_select);
 		} else {
-			holder.check.setImageDrawable(uncheck_Drawable);
+			holder.check.setImageResource(R.drawable.hmm_radio_normal);
 		}
 		if(custom.getInvAreaNm() != null)
 			holder.area.setText(custom.getInvAreaNm());
@@ -200,7 +194,7 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 		activity.getDaoSession().getShoppingGoodsDao().updateInTx(list);
 		//界面显示信息的更新
 		notifyDataSetChanged();
-		ShoppingCarMenager.getInstance().setCustomState();
+		EventBus.getDefault().post(new ShoppingCarEvent(ShoppingCarEvent.SETCUSTOMSTATE));
 		activity.setShoppingcarChanged(true);
 	}
 
@@ -240,7 +234,7 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 					if (hmm.getCode() == 200) {
 						activity.setShoppingcarChanged(true);
 						notifyDataSetChanged();
-						ShoppingCarMenager.getInstance().setCustomState();
+						EventBus.getDefault().post(new ShoppingCarEvent(ShoppingCarEvent.SETCUSTOMSTATE));
 					} else {
 						if(selected.equals("Y")){
 							custom.setState("N");
@@ -294,7 +288,7 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 					}
 					goodsList.remove(delGoods);
 					notifyDataSetChanged();
-					ShoppingCarMenager.getInstance().setBottom();
+					EventBus.getDefault().post(new ShoppingCarEvent(ShoppingCarEvent.SETBOTTOM));
 				}
 
 			}
@@ -316,9 +310,9 @@ public class ShoppingCarPullListAdapter extends BaseAdapter {
 				if (hm.getCode() != null) {
 					if (hm.getCode() == 200) {
 						goodsList.remove(delGoods);
-						BadgeViewManager.getInstance().addShoppingCarNum(-delGoods.getGoodsNums());
+						EventBus.getDefault().post(new ShoppingCarEvent(ShoppingCarEvent.ADD,-delGoods.getGoodsNums()));
 						notifyDataSetChanged();
-						ShoppingCarMenager.getInstance().setBottom();
+						EventBus.getDefault().post(new ShoppingCarEvent(ShoppingCarEvent.SETBOTTOM));
 					} else {
 						ToastUtils.Toast(activity, hm.getMessage());
 					}

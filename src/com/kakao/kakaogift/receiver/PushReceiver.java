@@ -19,7 +19,9 @@ import com.kakao.kakaogift.application.KKApplication;
 import com.kakao.kakaogift.data.AppConstant;
 import com.kakao.kakaogift.data.DataParser;
 import com.kakao.kakaogift.entity.Notify;
+import com.kakao.kakaogift.event.MessageEvent;
 import com.kakao.kakaogift.manager.MessageMenager;
+import com.ypy.eventbus.EventBus;
 
 /**
  * 自定义接收器
@@ -35,8 +37,7 @@ public class PushReceiver extends BroadcastReceiver {
 		application = (KKApplication) context.getApplicationContext();
 		Bundle bundle = intent.getExtras();
 		msgIsCouspon(context,bundle);
-		if(MessageMenager.getInstance().getListener() !=null)
-			MessageMenager.getInstance().getListener().onGetMessage(R.drawable.hmm_icon_message);
+		EventBus.getDefault().post(new MessageEvent(true));
 //		context.sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_COUNPON_ACTION));
 
 		if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {

@@ -23,7 +23,6 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
-import com.handmark.pulltorefresh.library.internal.EndLayout;
 import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.base.BaseActivity;
 import com.kakao.kakaogift.activity.goods.detail.GoodsDetailActivity;
@@ -81,7 +80,6 @@ public class ThemeGoodsActivity extends BaseActivity implements HThemeGoodsView 
 		gridView.setAdapter(adapter);
 		gridView.setFocusable(false);
 		gridView.setOnItemClickListener(turnListener);
-		EndLayout layout = new EndLayout(this);
 		mScrollView.setMode(Mode.PULL_FROM_START);
 		mScrollView.setOnRefreshListener(scrollListener);
 

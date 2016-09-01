@@ -34,12 +34,14 @@ import com.kakao.kakaogift.entity.CustomsVo;
 import com.kakao.kakaogift.entity.ShoppingCar;
 import com.kakao.kakaogift.entity.ShoppingGoods;
 import com.kakao.kakaogift.entity.User;
+import com.kakao.kakaogift.event.ShoppingCarEvent;
 import com.kakao.kakaogift.http.VolleyHttp;
 import com.kakao.kakaogift.http.VolleyHttp.VolleyJsonCallback;
 import com.kakao.kakaogift.manager.ShoppingCarMenager;
 import com.kakao.kakaogift.utils.ActionBarUtil;
 import com.kakao.kakaogift.utils.ToastUtils;
 import com.kakao.kakaogift.view.DataNoneLayout;
+import com.ypy.eventbus.EventBus;
 
 /*
  * 同shoppingcarfragment
@@ -68,6 +70,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 	private TextView reload;
 	private RelativeLayout shopping_main;
 	private DataNoneLayout dataNoneLayout;
+	private ShoppingCarMenager mShoppingCarMenager;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -81,7 +84,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 		data = new ArrayList<CustomsVo>();
 		findView();
 		loadData();
-		
+		EventBus.getDefault().register(this);
 	}
 	/**
 	 * 加载购物车数据，根据登陆状态的不同，操作不同
@@ -186,8 +189,8 @@ public class ShoppingCarActivity extends BaseActivity implements
 				attention.setVisibility(View.VISIBLE);
 				data.addAll(car.getList());
 				//初始化购物车管理类
-				ShoppingCarMenager.getInstance()
-						.initShoppingCarMenager(ShoppingCarActivity.this, adapter,
+				mShoppingCarMenager = new ShoppingCarMenager();
+				mShoppingCarMenager.initShoppingCarMenager(ShoppingCarActivity.this, adapter,
 								data, attention, 
 								total_price, pay,  bottom,mListView, dataNoneLayout);
 				clearPrice();
@@ -340,7 +343,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 			}
 		}
 		adapter.notifyDataSetChanged();
-		ShoppingCarMenager.getInstance().setBottom();
+		mShoppingCarMenager.setBottom();
 	}
 
 	@Override
@@ -373,6 +376,7 @@ public class ShoppingCarActivity extends BaseActivity implements
 		if(isShoppingcarChanged()){
 			sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_UPDATE_SHOPPINGCAR));
 		}
+		EventBus.getDefault().unregister(this);
 	}
 
 	private class CarBroadCastReceiver extends BroadcastReceiver {
@@ -392,6 +396,12 @@ public class ShoppingCarActivity extends BaseActivity implements
 		}
 	}
 
-	
+	public void onEventMainThread(ShoppingCarEvent event){
+		if(event.getHandleCode() == ShoppingCarEvent.SETBOTTOM){
+			mShoppingCarMenager.setBottom();
+		}else if(event.getHandleCode() == ShoppingCarEvent.SETCUSTOMSTATE){
+			mShoppingCarMenager.setCustomState();
+		}
+	}
 
 }

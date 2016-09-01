@@ -43,7 +43,7 @@ public class FirstShowActivity extends AppCompatActivity {
 		// 判断是否是第一次进入app
 		// if (IntroConfig.getIntroCfg(this).equals(
 		// IntroConfig.INTRO_CONFIG_VALUE_IS)) {
-		// mHandler.postDelayed(new FirstRun(1), 2000);
+		// mHandler.postDelayed(run, 2000);
 		// } else {
 		run = new FirstRun();
 		loginUser();
@@ -81,11 +81,9 @@ public class FirstShowActivity extends AppCompatActivity {
 
 		public FirstRun() {
 		}
-
-		public void setWhat(int what) {
-			this.what = what;
+		public FirstRun(int what){
+			this.what =what;
 		}
-
 		@Override
 		public void run() {
 			switch (what) {

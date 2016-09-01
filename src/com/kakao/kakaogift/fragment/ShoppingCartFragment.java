@@ -38,6 +38,7 @@ import com.kakao.kakaogift.entity.CustomsVo;
 import com.kakao.kakaogift.entity.ShoppingCar;
 import com.kakao.kakaogift.entity.ShoppingGoods;
 import com.kakao.kakaogift.entity.User;
+import com.kakao.kakaogift.event.ShoppingCarEvent;
 import com.kakao.kakaogift.http.VolleyHttp;
 import com.kakao.kakaogift.http.VolleyHttp.VolleyJsonCallback;
 import com.kakao.kakaogift.manager.BadgeViewManager;
@@ -47,6 +48,7 @@ import com.kakao.kakaogift.utils.ToastUtils;
 import com.kakao.kakaogift.view.DataNoneLayout;
 import com.umeng.analytics.MobclickAgent;
 import com.viewpagerindicator.BaseIconFragment;
+import com.ypy.eventbus.EventBus;
 
 /**
  * @author eric
@@ -69,17 +71,28 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 	private TextView reload;
 	private RelativeLayout shopping_main;
 	
+	private BadgeViewManager mBadgeViewManager;
+	private ShoppingCarMenager mShoppingCarMenager;
 	
+
+	public void setBadgeViewManager(BadgeViewManager mBadgeViewManager) {
+		this.mBadgeViewManager = mBadgeViewManager;
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		activity = (BaseActivity) getActivity();
 		goodsDao = activity.getDaoSession().getShoppingGoodsDao();
 		data = new ArrayList<CustomsVo>();
 		shoppingCar = new ShoppingCar();
 	}
 
+	@Override
+	public void onAttach(Context context) {
+		super.onAttach(context);
+		activity = (BaseActivity) context;
+	}
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -90,6 +103,7 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 		adapter = new ShoppingCarPullListAdapter(data, getActivity());
 		mListView.setAdapter(adapter);
 		loadData();
+		EventBus.getDefault().register(this);
 		return view;
 	}
 
@@ -110,7 +124,7 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 			toJsonArray(list);
 			getData();
 		} else {
-			BadgeViewManager.getInstance().setShopCartGoodsNum(0);
+			mBadgeViewManager.setShopCartGoodsNum(0);
 			attention.setVisibility(View.INVISIBLE);
 			bottom.setVisibility(View.GONE);
 			setDataNone();
@@ -183,11 +197,11 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 		activity.getLoading().dismiss();
 		mListView.onRefreshComplete();
 		data.clear();
-		BadgeViewManager.getInstance().setShopCartGoodsNum(0);
+		mBadgeViewManager.setShopCartGoodsNum(0);
 		if (car.getMessage() != null) {
 			if (car.getList() != null && car.getList().size() > 0) {
 
-				BadgeViewManager.getInstance().setShopCartGoodsNum(
+				mBadgeViewManager.setShopCartGoodsNum(
 						getShoppingCarNum(car.getList()));
 				attention.setVisibility(View.VISIBLE);
 				no_net.setVisibility(View.GONE);
@@ -197,7 +211,8 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 				mListView.setVisibility(View.VISIBLE);
 				data.addAll(car.getList());
 				//
-				ShoppingCarMenager.getInstance().initShoppingCarMenager(
+				mShoppingCarMenager = new ShoppingCarMenager();
+				mShoppingCarMenager.initShoppingCarMenager(
 						activity, adapter, data, attention, total_price, pay, bottom, mListView, dataNoneLayout);
 				clearPrice();
 			} else {
@@ -285,7 +300,7 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 //			}
 //		}
 		adapter.notifyDataSetChanged();
-		ShoppingCarMenager.getInstance().setBottom();
+		mShoppingCarMenager.setBottom();
 	}
 
 	private ShoppingCar shoppingCar;
@@ -357,6 +372,7 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 	public void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
+		EventBus.getDefault().unregister(this);
 		getActivity().unregisterReceiver(netReceiver);
 	}
 
@@ -411,5 +427,16 @@ public class ShoppingCartFragment extends BaseIconFragment implements
 		// TODO Auto-generated method stub
 		return R.drawable.tab_shopping;
 	}
+	
+	public void onEventMainThread(ShoppingCarEvent event){
+		if(event.getHandleCode() == ShoppingCarEvent.ADD){
+			mBadgeViewManager.addShoppingCarNum(event.getNums());
+		}else if(event.getHandleCode() == ShoppingCarEvent.SETBOTTOM){
+			mShoppingCarMenager.setBottom();
+		}else if(event.getHandleCode() == ShoppingCarEvent.SETCUSTOMSTATE){
+			mShoppingCarMenager.setCustomState();
+		}
+	}
+	
 
 }

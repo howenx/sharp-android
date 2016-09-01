@@ -58,8 +58,13 @@ public class MineFragment extends BaseIconFragment implements OnClickListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		activity = (BaseActivity) getActivity();
 		EventBus.getDefault().register(this);
+	}
+	
+	@Override
+	public void onAttach(Context context) {
+		super.onAttach(context);
+		activity = (BaseActivity) context;
 	}
 
 	@Override

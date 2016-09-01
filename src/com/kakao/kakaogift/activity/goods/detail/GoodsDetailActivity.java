@@ -252,6 +252,8 @@ public class GoodsDetailActivity extends BaseActivity implements
 	 */
 	private void displayAnimation() {
 		// 加载商品图片
+//		if(isDestroyed())
+//			return;
 		GlideLoaderTools.loadSquareImage(getActivity(), detail
 				.getCurrentStock().getInvImgForObj().getUrl(), img_hide);
 		if (shopcartAnimator == null && imgAnimator == null) {

@@ -16,13 +16,13 @@ public class MessageMenager {
 		return MessageMenagerHolder.instance;
 	}
 	
-	public void setOnGetMessageListener(OnGetMessageListener listener){
-		this.listener = listener;
-	}
+//	public void setOnGetMessageListener(OnGetMessageListener listener){
+//		this.listener = listener;
+//	}
 	
-	public OnGetMessageListener getListener(){
-		return listener;
-	}
+//	public OnGetMessageListener getListener(){
+//		return listener;
+//	}
 	
 	
 	

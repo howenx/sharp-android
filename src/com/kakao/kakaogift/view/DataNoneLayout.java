@@ -34,6 +34,7 @@ import com.kakao.kakaogift.entity.HGoodsVo;
 import com.kakao.kakaogift.entity.HMessage;
 import com.kakao.kakaogift.http.VolleyHttp;
 import com.kakao.kakaogift.http.VolleyHttp.VolleyJsonCallback;
+import com.squareup.picasso.Picasso;
 
 /**
  * @author vince
@@ -105,7 +106,7 @@ public class DataNoneLayout {
 	}
 
 	public void setNullImage(int resId) {
-		mImageView.setImageResource(resId);
+		Picasso.with(mContext).load(resId).into(mImageView);
 	}
 
 	public void setText(String text) {

@@ -29,6 +29,7 @@ import com.kakao.kakaogift.entity.HMessage;
 import com.kakao.kakaogift.entity.ShoppingCar;
 import com.kakao.kakaogift.entity.ShoppingGoods;
 import com.kakao.kakaogift.entity.User;
+import com.kakao.kakaogift.event.ShoppingCarEvent;
 import com.kakao.kakaogift.http.VolleyHttp;
 import com.kakao.kakaogift.http.VolleyHttp.VolleyJsonCallback;
 import com.kakao.kakaogift.manager.BadgeViewManager;
@@ -38,6 +39,7 @@ import com.kakao.kakaogift.utils.GlideLoaderTools;
 import com.kakao.kakaogift.utils.HttpUtils;
 import com.kakao.kakaogift.utils.KeyWordUtil;
 import com.kakao.kakaogift.utils.ToastUtils;
+import com.ypy.eventbus.EventBus;
 
 /**
  * @author eric
@@ -180,10 +182,10 @@ public class ShoppingCarAdapter extends BaseAdapter {
 						goodsDao.deleteAll();
 						if(!goods.getState().equals("S")){
 							goods.setGoodsNums(goods.getGoodsNums() - 1);
-							BadgeViewManager.getInstance().addShoppingCarNum(-1);
+							EventBus.getDefault().post(new ShoppingCarEvent(1,-1));
 						}
 						notifyDataSetChanged();
-						ShoppingCarMenager.getInstance().setBottom();
+						EventBus.getDefault().post(new ShoppingCarEvent(ShoppingCarEvent.SETBOTTOM));
 						goodsDao.insertInTx(data);
 					}
 				}
@@ -291,14 +293,14 @@ public class ShoppingCarAdapter extends BaseAdapter {
 				if (hmm.getCode() != null) {
 					if (hmm.getCode() == 200) {	//如果成功，将本地数据该商品也更新，同时更新界面显示
 						notifyDataSetChanged();
-						ShoppingCarMenager.getInstance().setBottom();
+						EventBus.getDefault().post(new ShoppingCarEvent(ShoppingCarEvent.SETBOTTOM));
 						goodsDao.deleteAll();
 						goodsDao.insertInTx(data);
 						//设置购物车数量 图标
 						if(isAdd){
-							BadgeViewManager.getInstance().addShoppingCarNum(1);
+							EventBus.getDefault().post(new ShoppingCarEvent(ShoppingCarEvent.ADD,1));
 						}else{
-							BadgeViewManager.getInstance().addShoppingCarNum(-1);
+							EventBus.getDefault().post(new ShoppingCarEvent(ShoppingCarEvent.ADD,-1));
 						}
 					} else {
 						ToastUtils.Toast(activity, hmm.getMessage());
@@ -346,7 +348,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 					if (hmm.getCode() == 200) {//请求成功，更新界面数据
 						baseActivity.setShoppingcarChanged(true);
 						notifyDataSetChanged();
-						ShoppingCarMenager.getInstance().setBottom();
+						EventBus.getDefault().post(new ShoppingCarEvent(ShoppingCarEvent.SETBOTTOM));
 					} else {//失败，数据回归
 						if(selected.equals("Y")){
 							goods.setOrCheck("null");
@@ -390,7 +392,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		goods.setOrCheck(state);
 		//更新界面信息
 		notifyDataSetChanged();
-		ShoppingCarMenager.getInstance().setBottom();
+		EventBus.getDefault().post(new ShoppingCarEvent(ShoppingCarEvent.SETBOTTOM));
 		baseActivity.setShoppingcarChanged(true);
 	}
 
@@ -407,11 +409,11 @@ public class ShoppingCarAdapter extends BaseAdapter {
 				if (m != null) {
 					if (m.getCode() == 200) {//请求成功，更新页面显示信息
 						notifyDataSetChanged();
-						ShoppingCarMenager.getInstance().setBottom();
+						EventBus.getDefault().post(new ShoppingCarEvent(ShoppingCarEvent.SETBOTTOM));
 						if(isAdd){
-							BadgeViewManager.getInstance().addShoppingCarNum(1);
+							EventBus.getDefault().post(new ShoppingCarEvent(ShoppingCarEvent.ADD,1));
 						}else{
-							BadgeViewManager.getInstance().addShoppingCarNum(-1);
+							EventBus.getDefault().post(new ShoppingCarEvent(ShoppingCarEvent.ADD,-1));
 						}
 					} else {
 						ToastUtils.Toast(activity, m.getMessage());

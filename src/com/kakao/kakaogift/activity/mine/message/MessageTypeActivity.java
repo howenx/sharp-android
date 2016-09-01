@@ -23,6 +23,7 @@ import com.kakao.kakaogift.data.DataParser;
 import com.kakao.kakaogift.data.UrlUtil;
 import com.kakao.kakaogift.entity.PushMessageType;
 import com.kakao.kakaogift.entity.PushMessageTypeInfo;
+import com.kakao.kakaogift.event.MessageEvent;
 import com.kakao.kakaogift.http.VolleyHttp;
 import com.kakao.kakaogift.http.VolleyHttp.VolleyJsonCallback;
 import com.kakao.kakaogift.manager.MessageMenager;
@@ -30,6 +31,7 @@ import com.kakao.kakaogift.override.OnGetMessageListener;
 import com.kakao.kakaogift.utils.ActionBarUtil;
 import com.kakao.kakaogift.utils.DateUtils;
 import com.kakao.kakaogift.utils.ToastUtils;
+import com.ypy.eventbus.EventBus;
 
 /**
  * @author eric
@@ -217,7 +219,7 @@ public class MessageTypeActivity extends BaseActivity implements OnClickListener
 	private void exitClick() {
 		if(findViewById(R.id.hasNew1).getVisibility() == 8 && findViewById(R.id.hasNew2).getVisibility() == 8 && findViewById(R.id.hasNew3).getVisibility()
 				== 8 && findViewById(R.id.hasNew4).getVisibility() == 8 && findViewById(R.id.hasNew5).getVisibility() == 8){
-			MessageMenager.getInstance().getListener().onGetMessage(R.drawable.hmm_icon_message_n);
+			EventBus.getDefault().post(new MessageEvent(false));
 		}
 		finish();
 	}

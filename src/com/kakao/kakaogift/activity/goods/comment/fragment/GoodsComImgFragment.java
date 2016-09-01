@@ -28,7 +28,7 @@ import com.kakao.kakaogift.activity.goods.comment.GoodsCommentImgActivity;
 import com.kakao.kakaogift.data.UrlUtil;
 import com.kakao.kakaogift.entity.GoodsCommentVo;
 import com.kakao.kakaogift.entity.RemarkVo;
-import com.kakao.kakaogift.event.MessageEvent;
+import com.kakao.kakaogift.event.CommentEvent;
 import com.kakao.kakaogift.http.VolleyHttp;
 import com.kakao.kakaogift.http.VolleyHttp.VolleyJsonCallback;
 import com.kakao.kakaogift.utils.GlideLoaderTools;
@@ -107,7 +107,7 @@ public class GoodsComImgFragment extends BaseIconFragment  implements OnScrollTo
 	
 	private void notifyTabTitleChange() {
 		if (isFirstLoad) {
-			EventBus.getDefault().post(new MessageEvent(3));
+			EventBus.getDefault().post(new CommentEvent(3));
 			isFirstLoad = false;
 		}
 	}
