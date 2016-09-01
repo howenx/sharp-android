@@ -31,53 +31,58 @@ public class FirstShowActivity extends AppCompatActivity {
 	private User user;
 
 	private Handler mHandler = new Handler();
+	private FirstRun run;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.first_show_layout);
 		getSupportActionBar().hide();
+
 		application = (KKApplication) getApplication();
 		// 判断是否是第一次进入app
-//		if (IntroConfig.getIntroCfg(this).equals(
-//				IntroConfig.INTRO_CONFIG_VALUE_IS)) {
-//			mHandler.postDelayed(new FirstRun(1), 2000);
-//		} else {
-			loginUser();
-//		}
-		
+		// if (IntroConfig.getIntroCfg(this).equals(
+		// IntroConfig.INTRO_CONFIG_VALUE_IS)) {
+		// mHandler.postDelayed(new FirstRun(1), 2000);
+		// } else {
+		run = new FirstRun();
+		loginUser();
+		// }
 	}
 
 	// 判断用户token信息
 	private void loginUser() {
 		user = getDaoSession().getUserDao().queryBuilder().build().unique();
-		//用户登录过并且token未过期
+		// 用户登录过并且token未过期
 		if (user != null && user.getExpired() != null) {
-			//token 存在
+			// token 存在
 			if (user.getToken() != null) {
 				int difDay = DateUtils.getDate(user.getExpired());
-				//token 查24小时过期 更新token
+				// token 查24小时过期 更新token
 				if (difDay < 24 && difDay >= 0) {
 					getNewToken();
 				} else if (difDay < 0) {
-					//token已过期
+					// token已过期
 					getDaoSession().getUserDao().deleteAll();
-					mHandler.postDelayed(new FirstRun(1), 1500);
+					mHandler.postDelayed(run, 1500);
 				} else {
-					//token尚未过期 设置用户登录
+					// token尚未过期 设置用户登录
 					application.setLoginUser(user);
-					mHandler.postDelayed(new FirstRun(1), 1500);
+					mHandler.postDelayed(run, 1500);
 				}
 			}
 		} else {
-			mHandler.postDelayed(new FirstRun(1), 1500);
+			mHandler.postDelayed(run, 1500);
 		}
 	}
 
 	private class FirstRun implements Runnable {
-		private int what;
+		private int what = 1;
 
-		public FirstRun(int what) {
+		public FirstRun() {
+		}
+
+		public void setWhat(int what) {
 			this.what = what;
 		}
 
@@ -123,13 +128,14 @@ public class FirstShowActivity extends AppCompatActivity {
 							ToastUtils.Toast(FirstShowActivity.this,
 									loginInfo.getMessage());
 						}
-						mHandler.postDelayed(new FirstRun(1), 1000);
+						mHandler.postDelayed(run, 1000);
 
 					}
 
 					@Override
 					public void onError() {
-						ToastUtils.Toast(FirstShowActivity.this, R.string.error);
+						ToastUtils
+								.Toast(FirstShowActivity.this, R.string.error);
 					}
 				});
 	}
@@ -148,6 +154,12 @@ public class FirstShowActivity extends AppCompatActivity {
 	protected void onResume() {
 		super.onResume();
 		JPushInterface.onResume(this);
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		mHandler.removeCallbacks(run);
 	}
 
 }

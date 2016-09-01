@@ -140,7 +140,6 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 			if ((System.currentTimeMillis() - mExitTime) > 2000) {
 				ToastUtils.Toast(this, "再按一次退出程序");
 				mExitTime = System.currentTimeMillis();
-
 			} else {
 				setClipboard();
 				finish();
@@ -204,7 +203,7 @@ public class HMainActivity extends BaseActivity implements OnClickListener,
 	public void loadVersionInfo(final VersionVo info) {
 		if(info.getReleaseNumber() <= CommonUtils.getVersionCode(this))
 			return;
-		setVersionInfo(info);
+//		setVersionInfo(info);
 		AlertDialogUtils.showUpdateDialog(getActivity(),
 				new OnClickListener() {
 					@Override

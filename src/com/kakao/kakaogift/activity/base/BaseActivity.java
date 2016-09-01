@@ -215,7 +215,6 @@ public class BaseActivity extends ParallaxActivityBase {
 					}
 				}
 			}
-//		}
 	}
 
 	private GoodsDetail detail;
