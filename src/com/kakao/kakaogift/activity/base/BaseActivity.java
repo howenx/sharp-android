@@ -37,7 +37,6 @@ import com.kakao.kakaogift.entity.User;
 import com.kakao.kakaogift.entity.VersionVo;
 import com.kakao.kakaogift.http.VolleyHttp;
 import com.kakao.kakaogift.http.VolleyHttp.VolleyJsonCallback;
-import com.kakao.kakaogift.manager.DataBaseManager;
 import com.kakao.kakaogift.manager.ThreadPoolManager;
 import com.kakao.kakaogift.utils.GlideLoaderTools;
 import com.kakao.kakaogift.utils.StatusBarCompat;
@@ -66,7 +65,7 @@ public class BaseActivity extends ParallaxActivityBase {
 	 * 获得用于数据库管理的DaoSession
 	 */
 	public DaoSession getDaoSession() {
-		return DataBaseManager.getInstance().getDaoSession();
+		return getMyApplication().getDaoSession();
 	}
 
 	@Override

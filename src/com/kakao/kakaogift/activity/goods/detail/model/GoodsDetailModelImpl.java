@@ -12,10 +12,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.Context;
-import android.content.Intent;
-
 import com.google.gson.Gson;
+import com.kakao.kakaogift.dao.ShoppingGoodsDao;
 import com.kakao.kakaogift.dao.ShoppingGoodsDao.Properties;
 import com.kakao.kakaogift.data.AppConstant;
 import com.kakao.kakaogift.data.UrlUtil;
@@ -27,14 +25,13 @@ import com.kakao.kakaogift.entity.ShoppingGoods;
 import com.kakao.kakaogift.entity.StockVo;
 import com.kakao.kakaogift.http.VolleyHttp;
 import com.kakao.kakaogift.http.VolleyHttp.VolleyJsonCallback;
-import com.kakao.kakaogift.manager.DataBaseManager;
 
 /**
  * @author vince
  * 
  */
 public class GoodsDetailModelImpl implements GoodsDetailModel {
-	
+
 	public interface OnGetGoodsDetailListener {
 		void onSuccess(GoodsDetail detail);
 
@@ -55,8 +52,8 @@ public class GoodsDetailModelImpl implements GoodsDetailModel {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.kakao.kakaogift.activity.model.gdetail.GoodsDetailModel#getGoodsDetail(java
-	 * .util.Map, java.lang.String, java.lang.String,
+	 * com.kakao.kakaogift.activity.model.gdetail.GoodsDetailModel#getGoodsDetail
+	 * (java .util.Map, java.lang.String, java.lang.String,
 	 * com.kakao.kakaogift.activity.model
 	 * .gdetail.GoodsDetailModelImpl.OnGetGoodsDetailListener)
 	 */
@@ -85,15 +82,14 @@ public class GoodsDetailModelImpl implements GoodsDetailModel {
 
 	}
 
-	
-
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.kakao.kakaogift.activity.model.gdetail.GoodsDetailModel#getCartNum(java.
-	 * util.Map,
-	 * com.kakao.kakaogift.activity.model.theme.HThemeGoodsModelImpl.OnCartNumListener)
+	 * com.kakao.kakaogift.activity.model.gdetail.GoodsDetailModel#getCartNum
+	 * (java. util.Map,
+	 * com.kakao.kakaogift.activity.model.theme.HThemeGoodsModelImpl
+	 * .OnCartNumListener)
 	 */
 	@Override
 	public void getCartNumWithLogin(Map<String, String> headers,
@@ -110,6 +106,7 @@ public class GoodsDetailModelImpl implements GoodsDetailModel {
 							listenter.onSuccess(vo.getCartNum());
 						}
 					}
+
 					@Override
 					public void onError() {
 					}
@@ -154,13 +151,14 @@ public class GoodsDetailModelImpl implements GoodsDetailModel {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.kakao.kakaogift.activity.model.gdetail.GoodsDetailModel#addCollection(java
-	 * .util.Map, java.lang.String, java.lang.String, java.lang.String,
+	 * com.kakao.kakaogift.activity.model.gdetail.GoodsDetailModel#addCollection
+	 * (java .util.Map, java.lang.String, java.lang.String, java.lang.String,
 	 * com.kakao.kakaogift
 	 * .activity.model.gdetail.GoodsDetailModelImpl.OnGetGoodsDetailListener)
 	 */
 	@Override
-	public void addCollection(Map<String, String> headers, StockVo stock, String tag, final OnGetGoodsDetailListener listener) {
+	public void addCollection(Map<String, String> headers, StockVo stock,
+			String tag, final OnGetGoodsDetailListener listener) {
 		// TODO Auto-generated method stub
 		JSONObject params = new JSONObject();
 		try {
@@ -193,9 +191,8 @@ public class GoodsDetailModelImpl implements GoodsDetailModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * com.kakao.kakaogift.activity.model.gdetail.GoodsDetailModel#addToCartWithLogin
-	 * (java.util.Map, java.lang.String, java.lang.String,
+	 * @see com.kakao.kakaogift.activity.model.gdetail.GoodsDetailModel#
+	 * addToCartWithLogin (java.util.Map, java.lang.String, java.lang.String,
 	 * com.kakao.kakaogift.activity.
 	 * model.gdetail.GoodsDetailModelImpl.OnGetGoodsDetailListener)
 	 */
@@ -214,7 +211,7 @@ public class GoodsDetailModelImpl implements GoodsDetailModel {
 			object.put("skuType", goods.getSkuType());
 			object.put("skuTypeId", goods.getSkuTypeId());
 			object.put("orCheck", "Y");
-			//购物车数据来源,1登陆后同步,2详细页面点击加入购物车,3点击购物车列表页操作(增删减)
+			// 购物车数据来源,1登陆后同步,2详细页面点击加入购物车,3点击购物车列表页操作(增删减)
 			object.put("cartSource", 2);
 			array.put(object);
 		} catch (JSONException e) {
@@ -243,29 +240,29 @@ public class GoodsDetailModelImpl implements GoodsDetailModel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * com.kakao.kakaogift.activity.model.gdetail.GoodsDetailModel#addToCartWithoutLogin
-	 * (java.lang.String, java.lang.String,
+	 * @see com.kakao.kakaogift.activity.model.gdetail.GoodsDetailModel#
+	 * addToCartWithoutLogin (java.lang.String, java.lang.String,
 	 * com.kakao.kakaogift.activity.model.gdetail.GoodsDetailModelImpl
 	 * .OnGetGoodsDetailListener)
 	 */
 	@Override
-	public void addToCartWithoutLogin(final ShoppingGoods goods,
-			final OnGetGoodsDetailListener listener) {
+	public void addToCartWithoutLogin(ShoppingGoodsDao dao,
+			final ShoppingGoods goods, final OnGetGoodsDetailListener listener) {
 		// TODO Auto-generated method stub
-		ShoppingGoods goods2 = DataBaseManager.getInstance().getDaoSession().getShoppingGoodsDao().queryBuilder()
+		ShoppingGoods goods2 = dao
+				.queryBuilder()
 				.where(Properties.GoodsId.eq(goods.getGoodsId()),
 						Properties.SkuType.eq(goods.getSkuType()),
 						Properties.SkuTypeId.eq(goods.getSkuTypeId())).unique();
 		if (goods2 == null) {
 			goods.setGoodsNums(1);
 			goods.setOrCheck("Y");
-		}else{
+		} else {
 			goods.setId(goods2.getId());
-			goods.setGoodsNums(goods2.getGoodsNums()+1);
+			goods.setGoodsNums(goods2.getGoodsNums() + 1);
 			goods.setOrCheck("Y");
 		}
-		
+
 		JSONObject params = new JSONObject();
 		try {
 			params.put("skuId", goods.getGoodsId());
@@ -297,17 +294,20 @@ public class GoodsDetailModelImpl implements GoodsDetailModel {
 				}, params.toString());
 	}
 
-
-
-	/* (non-Javadoc)
-	 * @see com.kakao.kakaogift.activity.model.gdetail.GoodsDetailModel#getCartNumWithoutLogin(com.kakao.kakaogift.activity.model.gdetail.GoodsDetailModelImpl.OnGetGoodsDetailListener)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.kakao.kakaogift.activity.model.gdetail.GoodsDetailModel#
+	 * getCartNumWithoutLogin
+	 * (com.kakao.kakaogift.activity.model.gdetail.GoodsDetailModelImpl
+	 * .OnGetGoodsDetailListener)
 	 */
 	@Override
-	public void getCartNumWithoutLogin(OnGetGoodsDetailListener listenter) {
+	public void getCartNumWithoutLogin(ShoppingGoodsDao dao,
+			OnGetGoodsDetailListener listenter) {
 		// TODO Auto-generated method stub
-		int num  = 0;
-		List<ShoppingGoods> goods = DataBaseManager.getInstance().getDaoSession().getShoppingGoodsDao()
-				.queryBuilder().list();
+		int num = 0;
+		List<ShoppingGoods> goods = dao.queryBuilder().list();
 		for (ShoppingGoods sg : goods) {
 			num += sg.getGoodsNums();
 		}

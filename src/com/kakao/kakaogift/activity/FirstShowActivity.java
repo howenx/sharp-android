@@ -20,7 +20,6 @@ import com.kakao.kakaogift.entity.HMessage;
 import com.kakao.kakaogift.entity.User;
 import com.kakao.kakaogift.http.VolleyHttp;
 import com.kakao.kakaogift.http.VolleyHttp.VolleyJsonCallback;
-import com.kakao.kakaogift.manager.DataBaseManager;
 import com.kakao.kakaogift.utils.DateUtils;
 import com.kakao.kakaogift.utils.ToastUtils;
 
@@ -139,7 +138,7 @@ public class FirstShowActivity extends AppCompatActivity {
 	}
 
 	private DaoSession getDaoSession() {
-		return DataBaseManager.getInstance().getDaoSession();
+		return ((KKApplication)getApplicationContext()).getDaoSession();
 	}
 
 	@Override

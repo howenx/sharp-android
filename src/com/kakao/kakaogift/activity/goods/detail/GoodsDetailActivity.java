@@ -67,7 +67,6 @@ import com.sina.weibo.sdk.api.share.BaseResponse;
 import com.sina.weibo.sdk.api.share.IWeiboHandler;
 import com.sina.weibo.sdk.constant.WBConstants;
 import com.umeng.socialize.UMShareAPI;
-import com.ypy.eventbus.ThreadMode;
 
 /**
  * 
@@ -190,7 +189,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 	}
 
 	private void getGoodsNums() {
-		detailPresenterImpl.getCartNumData(getHeaders(), null);
+		detailPresenterImpl.getCartNumData(getHeaders(), getDaoSession().getShoppingGoodsDao(),null);
 	}
 
 	// =========================================================================
@@ -242,7 +241,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		}
 		findViewById(R.id.btn_add_shopcart).setClickable(false);
 		// 加入购物车
-		detailPresenterImpl.addToCart(getHeaders(), goods);
+		detailPresenterImpl.addToCart(getHeaders(), getDaoSession().getShoppingGoodsDao(),goods);
 		isChange = true;
 
 	}
@@ -254,8 +253,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 		// 加载商品图片
 //		if(isDestroyed())
 //			return;
-		GlideLoaderTools.loadSquareImage(getActivity(), detail
-				.getCurrentStock().getInvImgForObj().getUrl(), img_hide);
+		GlideLoaderTools.loadSquareImage(getActivity(), detail.getCurrentStock().getInvImgForObj().getUrl(), img_hide);
 		if (shopcartAnimator == null && imgAnimator == null) {
 			shopcartAnimator = AnimationTools.nope(findViewById(R.id.shopcart));
 			imgAnimator = AnimationTools.initAnimatorSetValue(this, img_hide,
@@ -888,8 +886,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 	 * ()
 	 */
 	@Override
-	public void addToCartSuccess() {
+	public void addToCartSuccess(ShoppingGoods goods) {
 		// 购物车添加成功，显示提示框
+		getDaoSession().getShoppingGoodsDao().insertOrReplace(goods);
 		displayAnimation();
 	}
 

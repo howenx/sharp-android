@@ -6,6 +6,7 @@
 package com.kakao.kakaogift.activity.goods.detail;
 
 import com.kakao.kakaogift.entity.GoodsDetail;
+import com.kakao.kakaogift.entity.ShoppingGoods;
 
 /**
  * @author vince
@@ -42,7 +43,7 @@ public interface GoodsDetailView {
     /**
      * 添加收藏成功
      */
-    void addToCartSuccess();
+    void addToCartSuccess(ShoppingGoods goods);
     /**
      * 加载商品信息失败
      * @param str

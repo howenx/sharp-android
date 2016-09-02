@@ -7,15 +7,13 @@ package com.kakao.kakaogift.activity.goods.detail.presenter;
 
 import java.util.Map;
 
-import android.content.Context;
-
 import com.kakao.kakaogift.activity.goods.detail.GoodsDetailView;
 import com.kakao.kakaogift.activity.goods.detail.model.GoodsDetailModelImpl;
 import com.kakao.kakaogift.activity.goods.detail.model.GoodsDetailModelImpl.OnGetGoodsDetailListener;
+import com.kakao.kakaogift.dao.ShoppingGoodsDao;
 import com.kakao.kakaogift.entity.GoodsDetail;
 import com.kakao.kakaogift.entity.ShoppingGoods;
 import com.kakao.kakaogift.entity.StockVo;
-import com.kakao.kakaogift.manager.DataBaseManager;
 
 /**
  * @author vince
@@ -90,12 +88,12 @@ public class GoodsDetailPresenterImpl implements GoodsDetailPresenter,OnGetGoods
 	 * @see com.kakao.kakaogift.activity.presenter.gdetail.GoodsDetailPresenter#getCartNumData(java.util.Map, java.lang.String)
 	 */
 	@Override
-	public void getCartNumData(Map<String, String> headers, String tag) {
+	public void getCartNumData(Map<String, String> headers, ShoppingGoodsDao dao,String tag) {
 		// TODO Auto-generated method stub
 		if(headers !=null){
 			mGoodsDetailModelImpl.getCartNumWithLogin(headers, this);
 		}else{
-			mGoodsDetailModelImpl.getCartNumWithoutLogin(this);
+			mGoodsDetailModelImpl.getCartNumWithoutLogin(dao,this);
 		}
 	}
 
@@ -151,9 +149,9 @@ public class GoodsDetailPresenterImpl implements GoodsDetailPresenter,OnGetGoods
 
 
 	@Override
-	public void addToCart(Map<String, String> headers, ShoppingGoods goods) {
+	public void addToCart(Map<String, String> headers, ShoppingGoodsDao dao,ShoppingGoods goods) {
 		if(headers == null){
-			mGoodsDetailModelImpl.addToCartWithoutLogin(goods, this);
+			mGoodsDetailModelImpl.addToCartWithoutLogin(dao,goods, this);
 		}else{
 			mGoodsDetailView.showLoading();
 			mGoodsDetailModelImpl.addToCartWithLogin(headers, goods, this);
@@ -165,7 +163,7 @@ public class GoodsDetailPresenterImpl implements GoodsDetailPresenter,OnGetGoods
 	public void addToCartWithLoginSuccess() {
 		// TODO Auto-generated method stub
 		mGoodsDetailView.hideLoading();
-		mGoodsDetailView.addToCartSuccess();
+		mGoodsDetailView.addToCartSuccess(null);
 	}
 
 
@@ -174,8 +172,7 @@ public class GoodsDetailPresenterImpl implements GoodsDetailPresenter,OnGetGoods
 	@Override
 	public void addToCartWithoutLoginSuccess(ShoppingGoods goods) {
 		// TODO Auto-generated method stub
-		DataBaseManager.getInstance().getDaoSession().getShoppingGoodsDao().insertOrReplace(goods);
-		mGoodsDetailView.addToCartSuccess();
+		mGoodsDetailView.addToCartSuccess(goods);
 	}
 
 }

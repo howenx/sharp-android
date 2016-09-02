@@ -11,7 +11,6 @@ import com.kakao.kakaogift.dao.DaoSession;
 import com.kakao.kakaogift.entity.User;
 import com.kakao.kakaogift.entity.VersionVo;
 import com.kakao.kakaogift.http.VolleyHttp;
-import com.kakao.kakaogift.manager.DataBaseManager;
 import com.testin.agent.TestinAgent;
 import com.umeng.socialize.PlatformConfig;
 
@@ -30,8 +29,6 @@ public class KKApplication extends Application {
 		VolleyHttp.registRequestQueue(this);
 		TestinAgent.init(this);
 		JPushInterface.init(this); // 初始化 JPush
-		getDaoMaster();
-		DataBaseManager.getInstance().setDaoSession(getDaoSession());
 	}
 
 	// 初始化PlatformConfig

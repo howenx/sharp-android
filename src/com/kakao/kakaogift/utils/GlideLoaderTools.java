@@ -1,16 +1,12 @@
 package com.kakao.kakaogift.utils;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.target.Target;
-import com.kakao.kakaogift.R
-;
+import com.bumptech.glide.util.Util;
+import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.override.GlideRoundTransform;
 
 public class GlideLoaderTools {
@@ -24,8 +20,12 @@ public class GlideLoaderTools {
 	 */
 	public static void loadCirlceImage(Context context, String url,
 			ImageView imgView) {
-		Glide.with(context).load(url).placeholder(R.drawable.hmm_mine_face).animate(R.anim.abc_fade_in).into(imgView);
+		if (Util.isOnMainThread()) {
+			Glide.with(context).load(url).placeholder(R.drawable.hmm_mine_face)
+					.animate(R.anim.abc_fade_in).into(imgView);
+		}
 	}
+
 	/**
 	 * 加载图片(正方形，fitCenter)
 	 * 
@@ -35,11 +35,13 @@ public class GlideLoaderTools {
 	 */
 	public static void loadSquareImage(Context context, String url,
 			ImageView imgView) {
-		Glide.with(context).load(url) 
-				.placeholder(R.drawable.hmm_place_holder_z).fitCenter()
-				.animate(R.anim.abc_fade_in).into(imgView);
+		if (Util.isOnMainThread()) {
+			Glide.with(context.getApplicationContext()).load(url)
+					.placeholder(R.drawable.hmm_place_holder_z).fitCenter()
+					.animate(R.anim.abc_fade_in).into(imgView);
+		}
 	}
-	
+
 	/**
 	 * 加载图片(正方形 scaleType)
 	 * 
@@ -47,19 +49,26 @@ public class GlideLoaderTools {
 	 * @param url
 	 * @param imgView
 	 */
-	public static void loadSquareImage(Context context, String url, ImageView imgView,ScaleType scaleType) {
-		if(ScaleType.CENTER_CROP == scaleType){
-			Glide.with(context).load(url).placeholder(R.drawable.hmm_place_holder_z).centerCrop()
-			.animate(R.anim.abc_fade_in).into(imgView);
-		}else if(ScaleType.FIT_CENTER == scaleType){
-			Glide.with(context).load(url).placeholder(R.drawable.hmm_place_holder_z).fitCenter()
-			.animate(R.anim.abc_fade_in).into(imgView);
-		}else {
-			Glide.with(context).load(url).placeholder(R.drawable.hmm_place_holder_z)
-			.animate(R.anim.abc_fade_in).into(imgView);
+	public static void loadSquareImage(Context context, String url,
+			ImageView imgView, ScaleType scaleType) {
+		if (Util.isOnMainThread()) {
+			if (ScaleType.CENTER_CROP == scaleType) {
+				Glide.with(context).load(url)
+						.placeholder(R.drawable.hmm_place_holder_z)
+						.centerCrop().animate(R.anim.abc_fade_in).into(imgView);
+			} else if (ScaleType.FIT_CENTER == scaleType) {
+				Glide.with(context).load(url)
+						.placeholder(R.drawable.hmm_place_holder_z).fitCenter()
+						.animate(R.anim.abc_fade_in).into(imgView);
+			} else {
+				Glide.with(context).load(url)
+						.placeholder(R.drawable.hmm_place_holder_z)
+						.animate(R.anim.abc_fade_in).into(imgView);
+			}
 		}
+
 	}
-	
+
 	/**
 	 * 加载图片(自定义placeholder)
 	 * 
@@ -69,8 +78,13 @@ public class GlideLoaderTools {
 	 */
 	public static void loadImage(Context context, String url,
 			ImageView imgView, int placeholder) {
-		Glide.with(context).load(url).placeholder(placeholder).fitCenter().animate(R.anim.abc_fade_in).into(imgView);
+		if (Util.isOnMainThread()) {
+			Glide.with(context).load(url).placeholder(placeholder).fitCenter()
+					.animate(R.anim.abc_fade_in).into(imgView);
+		}
+
 	}
+
 	/**
 	 * 加载图片(矩形，centerCrop)
 	 * 
@@ -80,10 +94,13 @@ public class GlideLoaderTools {
 	 */
 	public static void loadRectImage(Context context, String url,
 			ImageView imgView) {
-		Glide.with(context).load(url)
-				.placeholder(R.drawable.hmm_place_holder_j).fitCenter()
-				.animate(R.anim.abc_fade_in).into(imgView);
+		if (Util.isOnMainThread()) {
+			Glide.with(context).load(url)
+					.placeholder(R.drawable.hmm_place_holder_j).fitCenter()
+					.animate(R.anim.abc_fade_in).into(imgView);
+		}
 	}
+
 	/**
 	 * 加载图片(圆角)
 	 * 
@@ -93,10 +110,13 @@ public class GlideLoaderTools {
 	 */
 	public static void loadRoundImage(Context context, String url,
 			ImageView imgView) {
-		Glide.with(context).load(url).transform(new GlideRoundTransform(context, 10))
-				.animate(R.anim.abc_fade_in).into(imgView);
+		if (Util.isOnMainThread()) {
+			Glide.with(context).load(url)
+					.transform(new GlideRoundTransform(context, 10))
+					.animate(R.anim.abc_fade_in).into(imgView);
+		}
 	}
-	
+
 	/**
 	 * 加载图片(矩形)
 	 * 
@@ -106,15 +126,23 @@ public class GlideLoaderTools {
 	 */
 	public static void loadCustomImage(Context mContext, ImageView imgView,
 			String url, int w, int h) {
-		Glide.with(mContext).load(url).placeholder(R.drawable.hmm_place_holder_j).override(w, h).into(imgView);
+		if (Util.isOnMainThread()) {
+			Glide.with(mContext).load(url)
+					.placeholder(R.drawable.hmm_place_holder_j).override(w, h)
+					.into(imgView);
+		}
 	}
 
 	public static void pauseRequests(Context context) {
-		Glide.with(context).pauseRequestsRecursive();
+		if (Util.isOnMainThread()) {
+			Glide.with(context).pauseRequestsRecursive();
+		}
 	}
 
 	public static void resumeRequests(Context context) {
-		Glide.with(context).resumeRequestsRecursive();
+		if (Util.isOnMainThread()) {
+			Glide.with(context).resumeRequestsRecursive();
+		}
 	}
 
 }
