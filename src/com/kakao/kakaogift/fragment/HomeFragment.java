@@ -2,7 +2,6 @@ package com.kakao.kakaogift.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import android.annotation.SuppressLint;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -26,7 +25,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
@@ -51,7 +49,6 @@ import com.kakao.kakaogift.entity.Theme;
 import com.kakao.kakaogift.event.MessageEvent;
 import com.kakao.kakaogift.http.VolleyHttp;
 import com.kakao.kakaogift.http.VolleyHttp.VolleyJsonCallback;
-import com.kakao.kakaogift.override.OnGetMessageListener;
 import com.kakao.kakaogift.utils.ActionBarUtil;
 import com.kakao.kakaogift.utils.GlideLoaderTools;
 import com.kakao.kakaogift.utils.ToastUtils;
