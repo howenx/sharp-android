@@ -48,7 +48,7 @@ public class FirstShowActivity extends AppCompatActivity {
 		loginUser();
 		// }
 	}
-
+	
 	// 判断用户token信息
 	private void loginUser() {
 		user = getDaoSession().getUserDao().queryBuilder().build().unique();

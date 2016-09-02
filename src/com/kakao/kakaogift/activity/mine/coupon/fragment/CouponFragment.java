@@ -46,6 +46,12 @@ public class CouponFragment extends Fragment implements OnClickListener{
 	private LinearLayout no_net;
 	private CouponMenager mCouponMenager;
 	
+	
+
+	public void setCouponMenager(CouponMenager mCouponMenager) {
+		this.mCouponMenager = mCouponMenager;
+	}
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -54,7 +60,6 @@ public class CouponFragment extends Fragment implements OnClickListener{
 		adapter = new TicketAdapter(data, activity);
 		Bundle bundle = getArguments();
 		category = (Category) bundle.getSerializable("category");
-		mCouponMenager = (CouponMenager) bundle.getSerializable("CouponMenager");
 	}
 
 	@Override

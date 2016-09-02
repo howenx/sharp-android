@@ -1,8 +1,5 @@
 package com.kakao.kakaogift.manager;
 
-import java.io.Serializable;
-
-import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
@@ -10,7 +7,7 @@ import android.widget.TextView;
  * @author eric
  *
  */
-public class OrderNumsMenager implements Serializable {
+public class OrderNumsMenager{
 
 	private TextView t1_num;
 	private TextView t2_num;
@@ -20,7 +17,7 @@ public class OrderNumsMenager implements Serializable {
 	
 	public OrderNumsMenager() {
 	}
-	public void initOrderMenager(Context mContext, TextView t1_num, TextView t2_num, TextView t3_num){
+	public void initOrderMenager(TextView t1_num, TextView t2_num, TextView t3_num){
 		this.t1_num = t1_num;
 		this.t2_num = t2_num;
 		this.t3_num = t3_num;

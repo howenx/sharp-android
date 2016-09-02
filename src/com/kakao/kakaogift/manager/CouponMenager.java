@@ -5,8 +5,6 @@
 **/
 package com.kakao.kakaogift.manager;
 
-import java.io.Serializable;
-
 import android.widget.TextView;
 
 
@@ -14,7 +12,7 @@ import android.widget.TextView;
  * @author eric
  *
  */
-public class CouponMenager implements Serializable{
+public class CouponMenager{
 	private TextView title1;
 	private TextView title2;
 	private TextView title3;

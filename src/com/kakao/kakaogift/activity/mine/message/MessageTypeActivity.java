@@ -15,8 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.kakao.kakaogift.R
-;
+import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.base.BaseActivity;
 import com.kakao.kakaogift.data.AppConstant;
 import com.kakao.kakaogift.data.DataParser;
@@ -26,8 +25,6 @@ import com.kakao.kakaogift.entity.PushMessageTypeInfo;
 import com.kakao.kakaogift.event.MessageEvent;
 import com.kakao.kakaogift.http.VolleyHttp;
 import com.kakao.kakaogift.http.VolleyHttp.VolleyJsonCallback;
-import com.kakao.kakaogift.manager.MessageMenager;
-import com.kakao.kakaogift.override.OnGetMessageListener;
 import com.kakao.kakaogift.utils.ActionBarUtil;
 import com.kakao.kakaogift.utils.DateUtils;
 import com.kakao.kakaogift.utils.ToastUtils;

@@ -51,7 +51,6 @@ import com.kakao.kakaogift.entity.Theme;
 import com.kakao.kakaogift.event.MessageEvent;
 import com.kakao.kakaogift.http.VolleyHttp;
 import com.kakao.kakaogift.http.VolleyHttp.VolleyJsonCallback;
-import com.kakao.kakaogift.override.OnGetMessageListener;
 import com.kakao.kakaogift.utils.ActionBarUtil;
 import com.kakao.kakaogift.utils.GlideLoaderTools;
 import com.kakao.kakaogift.utils.ToastUtils;
