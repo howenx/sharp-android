@@ -67,7 +67,7 @@ public class MyOrderActivity extends BaseActivity implements OnClickListener,
 		initCategory();
 		
 		mOrderNumsMenager = new OrderNumsMenager();
-		mOrderNumsMenager.initOrderMenager(this, t2_nums, t3_nums,
+		mOrderNumsMenager.initOrderMenager(t2_nums, t3_nums,
 				t4_nums);
 		initFragment();
 		
@@ -98,8 +98,8 @@ public class MyOrderActivity extends BaseActivity implements OnClickListener,
 			OrderFragment fragment = new OrderFragment();
 			Bundle bundle = new Bundle();
 			bundle.putSerializable("category", category);
-			bundle.putSerializable("OrderNumsMenager", mOrderNumsMenager);
 			fragment.setArguments(bundle);
+			fragment.setOrderNumsMenager(mOrderNumsMenager);
 			fragmentList.add(fragment);
 		}
 		adapter = new CouponPagerAdapter(getSupportFragmentManager(), fragmentList,

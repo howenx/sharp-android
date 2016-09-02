@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import cn.jpush.android.api.JPushInterface;
 
-import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.goods.detail.GoodsDetailActivity;
 import com.kakao.kakaogift.activity.goods.h5.Html5LoadActivity;
 import com.kakao.kakaogift.activity.goods.pin.PingouDetailActivity;
@@ -20,7 +19,6 @@ import com.kakao.kakaogift.data.AppConstant;
 import com.kakao.kakaogift.data.DataParser;
 import com.kakao.kakaogift.entity.Notify;
 import com.kakao.kakaogift.event.MessageEvent;
-import com.kakao.kakaogift.manager.MessageMenager;
 import com.ypy.eventbus.EventBus;
 
 /**
@@ -38,7 +36,6 @@ public class PushReceiver extends BroadcastReceiver {
 		Bundle bundle = intent.getExtras();
 		msgIsCouspon(context,bundle);
 		EventBus.getDefault().post(new MessageEvent(true));
-//		context.sendBroadcast(new Intent(AppConstant.MESSAGE_BROADCAST_COUNPON_ACTION));
 
 		if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
 			// String regId =

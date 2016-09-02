@@ -72,8 +72,8 @@ public class MyCouponActivity extends BaseActivity implements OnClickListener, O
 			CouponFragment fragment = new CouponFragment();
 			Bundle bundle = new Bundle();
 			bundle.putSerializable("category", category);
-			bundle.putSerializable("CouponMenager", mCouponMenager);
 			fragment.setArguments(bundle);
+			fragment.setCouponMenager(mCouponMenager);
 			fragmentList.add(fragment);
 		}
 		adapter = new CouponPagerAdapter(getSupportFragmentManager(), fragmentList,

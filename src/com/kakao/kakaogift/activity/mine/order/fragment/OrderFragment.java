@@ -57,7 +57,11 @@ public class OrderFragment extends Fragment implements
 	private RelativeLayout roder_main;
 
 	private OrderNumsMenager mOrderNumsMenager;
-	
+
+	public void setOrderNumsMenager(OrderNumsMenager mOrderNumsMenager) {
+		this.mOrderNumsMenager = mOrderNumsMenager;
+	}
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -65,7 +69,6 @@ public class OrderFragment extends Fragment implements
 		adapter = new OrderPullListAdapter(data, getActivity());
 		Bundle bundle = getArguments();
 		category = (Category) bundle.getSerializable("category");
-		mOrderNumsMenager = (OrderNumsMenager) bundle.getSerializable("OrderNumsMenager");
 		activity = (BaseActivity) getActivity();
 		
 	}

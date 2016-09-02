@@ -888,7 +888,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 	@Override
 	public void addToCartSuccess(ShoppingGoods goods) {
 		// 购物车添加成功，显示提示框
-		getDaoSession().getShoppingGoodsDao().insertOrReplace(goods);
+		if(goods != null){
+			getDaoSession().getShoppingGoodsDao().insertOrReplace(goods);
+		}
 		displayAnimation();
 	}
 
