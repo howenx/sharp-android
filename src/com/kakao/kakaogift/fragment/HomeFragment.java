@@ -114,7 +114,6 @@ public class HomeFragment extends BaseIconFragment implements
 		View view = inflater.inflate(R.layout.home_list_layout, null);
 
 		settingView = ActionBarUtil.initMainActionBarStyle(mActivity,view, 0);
-		
 
 		mListView = (PullToRefreshListView) view.findViewById(R.id.mylist);
 		mListView.getRefreshableView().setCacheColorHint(Color.TRANSPARENT);

@@ -132,17 +132,18 @@ OnRefreshListener2<ListView>, OnClickListener, OnScrollListener{
 				if(home.gethMessage() != null){
 					if(home.gethMessage().getCode() == 200){
 						// TODO Auto-generated method stub
+						
+						if(isNew){
+							refreshData(home.getThemes());
+						}else{
+							moreData(home.getThemes());
+						}
 						if(home.getPage_count() <= pageIndex){
 							mListView.getRefreshableView().addFooterView(endLayout.getView());
 							mListView.setMode(Mode.PULL_FROM_START);
 						}else if(pageIndex == 1){
 							mListView.setMode(Mode.BOTH);
 							mListView.getRefreshableView().removeFooterView(endLayout.getView());
-						}
-						if(isNew){
-							refreshData(home.getThemes());
-						}else{
-							moreData(home.getThemes());
 						}
 					}else{
 						ToastUtils.Toast(mActivity, home.gethMessage().getMessage());

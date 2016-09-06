@@ -87,9 +87,10 @@ public class ShoppingCarAdapter extends BaseAdapter {
 		return arg0;
 	}
 
+	private ShoppingGoods goods;
 	@Override
 	public View getView(int position, View convertView, ViewGroup arg2) {
-		final ShoppingGoods goods = data.get(position);
+		goods = data.get(position);
 		ViewHolder holder = null;
 		if (convertView == null) {
 			convertView = inflater.inflate(R.layout.shopping_car_item_layout,
@@ -303,6 +304,9 @@ public class ShoppingCarAdapter extends BaseAdapter {
 							EventBus.getDefault().post(new ShoppingCarEvent(ShoppingCarEvent.ADD,-1));
 						}
 					} else {
+						if(isAdd){
+							goods.setGoodsNums(goods.getGoodsNums() - 1);
+						}
 						ToastUtils.Toast(activity, hmm.getMessage());
 					}
 				} else {
@@ -416,6 +420,9 @@ public class ShoppingCarAdapter extends BaseAdapter {
 							EventBus.getDefault().post(new ShoppingCarEvent(ShoppingCarEvent.ADD,-1));
 						}
 					} else {
+						if(isAdd){
+							goods.setGoodsNums(goods.getGoodsNums() - 1);
+						}
 						ToastUtils.Toast(activity, m.getMessage());
 					}
 				} else {
