@@ -8,11 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
-import com.kakao.kakaogift.R
-;
+import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.main.HMainActivity;
 import com.kakao.kakaogift.utils.PreferenceUtil.IntroConfig;
 import com.kakao.kakaogift.view.viewflow.CircleFlowIndicator;
@@ -41,17 +42,17 @@ public class IndroductionActivity extends AppCompatActivity {
 		viewFlow.setFlowIndicator(indicator);
 		viewFlow.setSelection(0);
 		
+		
 		findViewById(R.id.btn_turn).setOnClickListener(new TurnListener());
+		
 	}
 	
 	private class TurnListener implements OnClickListener{
 
 		@Override
 		public void onClick(View v) {
-			IntroConfig.putIntroCfg(IndroductionActivity.this,
-					IntroConfig.INTRO_CONFIG_VALUE_NO);
-			startActivity(new Intent(IndroductionActivity.this,
-					HMainActivity.class));
+			IntroConfig.putIntroCfg(IndroductionActivity.this,IntroConfig.INTRO_CONFIG_VALUE_NO);
+			startActivity(new Intent(IndroductionActivity.this,HMainActivity.class));
 			finish();
 		}
 		
@@ -95,7 +96,7 @@ public class IndroductionActivity extends AppCompatActivity {
 			holder.img.setImageResource(images[position % images.length]);
 			if (position == images.length - 1) {
 				holder.experience.setVisibility(View.VISIBLE);
-				holder.img.setOnClickListener(new TurnListener());
+				holder.experience.setOnClickListener(new TurnListener());
 			} else {
 				holder.experience.setVisibility(View.INVISIBLE);
 			}

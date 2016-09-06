@@ -59,7 +59,7 @@ public class PingouResultActivity extends BaseActivity implements
 			btn_xiadan, about;
 	private ImageView tuan_status, pro_img, tuan_state, master_face;
 
-	private View more_view,notice_view;
+	private TextView more_view,notice_view;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -83,8 +83,8 @@ public class PingouResultActivity extends BaseActivity implements
 		master_time = (TextView) findViewById(R.id.master_time);
 		btn_xiadan = (TextView) findViewById(R.id.btn_xiadan);
 		about = (TextView) findViewById(R.id.about);
-		more_view = findViewById(R.id.more_view);
-		notice_view = findViewById(R.id.notice_view);
+		more_view = (TextView) findViewById(R.id.more_view);
+		notice_view = (TextView) findViewById(R.id.notice_view);
 
 		timer = (TimeDownView) findViewById(R.id.timer);
 		mListView = (ListView) findViewById(R.id.mListView);
@@ -240,8 +240,9 @@ public class PingouResultActivity extends BaseActivity implements
 			findViewById(R.id.jishiView).setVisibility(View.GONE);
 			findViewById(R.id.xiadanView).setVisibility(View.GONE);
 			more_view.setVisibility(View.VISIBLE);
-
-			showPopupwindow();
+			String title = getResources().getString(R.string.pingou_over_notice, "已结束");
+			more_view.setText(title);
+			showPopupwindow(title);
 		}
 
 	}
@@ -284,9 +285,9 @@ public class PingouResultActivity extends BaseActivity implements
 	// ========================= popupwinodw ======================================
 	// ========================================================================
 
-	private void showPopupwindow() {
+	private void showPopupwindow(String title) {
 		if (pushWindow == null) {
-			pushWindow = new GoodsPushWindow(this, pinResult.getThemeList());
+			pushWindow = new GoodsPushWindow(this, title,pinResult.getThemeList());
 		}
 		pushWindow.show();
 	}
@@ -522,7 +523,7 @@ public class PingouResultActivity extends BaseActivity implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.more_view:
-			showPopupwindow();
+			showPopupwindow(null);
 			break;
 
 		default:

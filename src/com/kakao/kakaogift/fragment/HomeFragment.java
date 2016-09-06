@@ -2,6 +2,7 @@ package com.kakao.kakaogift.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -12,7 +13,6 @@ import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
@@ -161,7 +162,8 @@ public class HomeFragment extends BaseIconFragment implements
 	
 	private void addFootView(Context context){
 		endLayout = new EndLayout(context);
-//		mListView.getRefreshableView().addFooterView(endLayout.getView());
+		mListView.getRefreshableView().addFooterView(endLayout.getLayoutHolder());
+		endLayout.hide();
 	}
 
 	private View catView;
@@ -271,7 +273,6 @@ public class HomeFragment extends BaseIconFragment implements
 
 						@Override
 						public void onSuccess(String result) {
-							Log.i("result", result);
 							home = DataParser.parserHomeData(result);
 							if (isUpOrDwom == 0) {
 								upData(home);
@@ -282,7 +283,6 @@ public class HomeFragment extends BaseIconFragment implements
 
 						@Override
 						public void onError() {
-							Log.i("result", "error");
 							mActivity.getLoading().dismiss();
 							mListView.setVisibility(View.GONE);
 							no_net.setVisibility(View.VISIBLE);
@@ -375,11 +375,13 @@ public class HomeFragment extends BaseIconFragment implements
 		}
 		// TODO Auto-generated method stub
 		if(home.getPage_count()<=pageIndex){
-			mListView.getRefreshableView().addFooterView(endLayout.getView());
+//			mListView.getRefreshableView().addFooterView(endLayout.getView());
+			endLayout.show();
 			mListView.setMode(Mode.PULL_FROM_START);
 		}else if(pageIndex == 1){
 			mListView.setMode(Mode.BOTH);
-			mListView.getRefreshableView().removeFooterView(endLayout.getView());
+//			mListView.getRefreshableView().removeFooterView(endLayout.getView());
+			endLayout.hide();
 		}
 	}
 

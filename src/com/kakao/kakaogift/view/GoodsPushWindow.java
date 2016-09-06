@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.kakao.kakaogift.R;
 import com.kakao.kakaogift.activity.goods.detail.GoodsDetailActivity;
@@ -25,11 +26,13 @@ public class GoodsPushWindow extends AlertDialog {
 
 	private Activity mActivity;
 	private List<HGoodsVo> push;
+	private String title;
 
-	public GoodsPushWindow(Context context, List<HGoodsVo> push) {
+	public GoodsPushWindow(Context context, String title,List<HGoodsVo> push) {
 		super(context, R.style.BottomShowDialog);
 		this.mActivity = (Activity) context;
 		this.push = push;
+		this.title =title;
 	}
 
 	@SuppressWarnings("deprecation")
@@ -37,6 +40,10 @@ public class GoodsPushWindow extends AlertDialog {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.goods_push_layout);
+		
+		TextView titleView = (TextView) findViewById(R.id.titleView);
+		if(title !=null)
+			titleView.setText(title);
 
 		RecyclerView recyclerView = (RecyclerView) findViewById(R.id.more_grid);
 		recyclerView.setHasFixedSize(true);
