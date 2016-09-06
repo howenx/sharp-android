@@ -46,6 +46,7 @@ public class CategoryGoodsActivity extends BaseActivity implements
 
 	private String url;
 	private CategoryGoodsPresenter presenter;
+	private EndLayout endLayout;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,6 +56,7 @@ public class CategoryGoodsActivity extends BaseActivity implements
 
 		url = getIntent().getStringExtra("url");
 		mGridView = (PullToRefreshHeaderAndFooterGridView) findViewById(R.id.mGridView);
+		initFooterView();
 		data = new ArrayList<HGoodsVo>();
 		adapter = new ThemeAdapter(data, this);
 		mGridView.setAdapter(adapter);
@@ -62,8 +64,14 @@ public class CategoryGoodsActivity extends BaseActivity implements
 		mGridView.setOnRefreshListener(this);
 		presenter = new CategoryGoodsPresenterImpl(this);
 		mGridView.setOnItemClickListener(clickListener);
-		presenter.getCategoryGoodsList(url, pageNo);
 		
+		presenter.getCategoryGoodsList(url, pageNo);
+	}
+	
+	private void initFooterView(){
+		endLayout = new EndLayout(this);
+		mGridView.getRefreshableView().addFooterView(endLayout.getLayoutHolder());
+		endLayout.hide();
 	}
 	
 	
@@ -87,13 +95,13 @@ public class CategoryGoodsActivity extends BaseActivity implements
 		if(pageNo==1){
 			mGridView.setMode(Mode.BOTH);
 			data.clear();
-			mGridView.getRefreshableView().showFooterView();
+			endLayout.hide();
 		}
 		data.addAll(list);
 		adapter.notifyDataSetChanged();
 		if(pageNo >= page_count){
 			mGridView.setMode(Mode.PULL_FROM_START);
-			mGridView.getRefreshableView().hideFooterView();
+			endLayout.show();
 		}
 	}
 

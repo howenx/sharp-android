@@ -225,9 +225,9 @@ public class StockVo implements Serializable {
 		}else if(status.equals("N")){
 			values = "已删除";
 		}else if(status.equals("K")){
-			values = "已抢光";
+			values = "已售罄";
 		}else if(status.equals("P")){
-			values = "未开售";
+			values = "预售中";
 		}
 		return values;
 	}
@@ -322,9 +322,9 @@ public class StockVo implements Serializable {
 		}else if(state.equals("N")){
 			values = "已删除";
 		}else if(state.equals("K")){
-			values = "已抢光";
+			values = "已售罄";
 		}else if(state.equals("P")){
-			values = "未开售";
+			values = "预售中";
 		}
 		return values;
 	}

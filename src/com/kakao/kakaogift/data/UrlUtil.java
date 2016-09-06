@@ -20,6 +20,7 @@ public class UrlUtil {
 //	 public static final String SERVERY1 = "http://172.28.3.78:9003";
 //	 public static final String SERVERY4 = "http://172.28.3.78:9004";
 //	 public static final String SERVERY5 = "http://172.28.3.78:9005";
+//	 public static final String SERVERY7 = "http://172.28.3.78:9006";
 	/*
 	 * http://172.28.3.51	熊浩
 	 */

@@ -15,7 +15,7 @@ public class PinActivity implements Serializable{
 	private String pinPrice; // 拼购价格
 	private Integer joinPersons; // 已参加活动人数
 	private String createAt; // 发起时间
-	private String status; //   状态   Y-正常， N－取消 ，C－完成 ，F-失败
+	private String status; //   状态   Y-正常， N－取消 ，C－完成 ，F-失败 ，E-过期
 	private Long endCountDown; // 截止时间
 	private String pay; //new 参团成功查询  normal 普通查询
 	

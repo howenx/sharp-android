@@ -205,7 +205,7 @@ public class GoodsDetailActivity extends BaseActivity implements
 			showShareboard();
 			break;
 		case R.id.more_view:
-			showPushWindow();
+			showPushWindow(null);
 			break;
 		case R.id.btn_comment:
 			turnToGoodsCommentActivity();
@@ -415,10 +415,9 @@ public class GoodsDetailActivity extends BaseActivity implements
 	/**
 	 * 展示推荐商品
 	 */
-	private void showPushWindow() {
+	private void showPushWindow(String title) {
 		if (pushWindow == null) {
-			pushWindow = new GoodsPushWindow(this, detail.getPush());
-//			pushWindow = new GoodsPushWindow(this, detail.getPush());
+			pushWindow = new GoodsPushWindow(this,title ,detail.getPush());
 		}
 		pushWindow.show();
 	}
@@ -546,15 +545,11 @@ public class GoodsDetailActivity extends BaseActivity implements
 			findViewById(R.id.btn_pay).setEnabled(false);
 			findViewById(R.id.btn_add_shopcart).setEnabled(false);
 			TextView view = (TextView) findViewById(R.id.sold_out);
-			if(stock.getState().equals("K")){
-				view.setText("已抢光");
-			}else if(stock.getState().equals("D")){
-				view.setText("已下架");
-			}else if(stock.getState().equals("P")){
-				view.setText("未开售");
-			}
+			view.setText(stock.getState_values());
 			view.setVisibility(View.VISIBLE);
-			showPushWindow();
+			String title = getResources().getString(R.string.goods_over_notice, stock.getState_values());
+			more_view.setText(title);
+			showPushWindow(title);
 		}
 		// 初始化主显示商品信息
 		initStocks(stock);

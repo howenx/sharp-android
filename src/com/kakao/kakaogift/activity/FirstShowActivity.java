@@ -21,6 +21,7 @@ import com.kakao.kakaogift.entity.User;
 import com.kakao.kakaogift.http.VolleyHttp;
 import com.kakao.kakaogift.http.VolleyHttp.VolleyJsonCallback;
 import com.kakao.kakaogift.utils.DateUtils;
+import com.kakao.kakaogift.utils.PreferenceUtil.IntroConfig;
 import com.kakao.kakaogift.utils.ToastUtils;
 
 @SuppressLint("NewApi")
@@ -39,16 +40,18 @@ public class FirstShowActivity extends AppCompatActivity {
 		getSupportActionBar().hide();
 
 		application = (KKApplication) getApplication();
-		// 判断是否是第一次进入app
-		// if (IntroConfig.getIntroCfg(this).equals(
-		// IntroConfig.INTRO_CONFIG_VALUE_IS)) {
-		// mHandler.postDelayed(run, 2000);
-		// } else {
 		run = new FirstRun();
-		loginUser();
-		// }
+		// 判断是否是第一次进入app
+		if (IntroConfig.getIntroCfg(this).equals(
+				IntroConfig.INTRO_CONFIG_VALUE_IS)) {
+			run.setWhat(0);
+			mHandler.postDelayed(run, 1500);
+		} else {
+			run.setWhat(1);
+			loginUser();
+		}
 	}
-	
+
 	// 判断用户token信息
 	private void loginUser() {
 		user = getDaoSession().getUserDao().queryBuilder().build().unique();
@@ -77,12 +80,11 @@ public class FirstShowActivity extends AppCompatActivity {
 
 	private class FirstRun implements Runnable {
 		private int what = 1;
+		
+		public void setWhat(int what) {
+			this.what = what;
+		}
 
-		public FirstRun() {
-		}
-		public FirstRun(int what){
-			this.what =what;
-		}
 		@Override
 		public void run() {
 			switch (what) {
@@ -138,7 +140,7 @@ public class FirstShowActivity extends AppCompatActivity {
 	}
 
 	private DaoSession getDaoSession() {
-		return ((KKApplication)getApplicationContext()).getDaoSession();
+		return ((KKApplication) getApplicationContext()).getDaoSession();
 	}
 
 	@Override

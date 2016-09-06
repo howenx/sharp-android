@@ -82,6 +82,7 @@ public class PingouDetailActivity extends BaseActivity implements
 
 	private boolean isCollection = false; // 是否收藏
 	private PinDetail detail; // 拼购详情信息
+	
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -187,7 +188,12 @@ public class PingouDetailActivity extends BaseActivity implements
 			findViewById(R.id.btn_buy_02).setEnabled(false);
 			findViewById(R.id.btn_pin_01).setEnabled(false);
 			findViewById(R.id.btn_pin_02).setEnabled(false);
-			showPopupwindow();
+			TextView view = (TextView) findViewById(R.id.sold_out);
+			view.setText(stock.getStatus_values());
+			view.setVisibility(View.VISIBLE);
+			String title = getResources().getString(R.string.pingou_over_notice, stock.getStatus_values());
+			more_view.setText(title);
+			showPopupwindow(title);
 		}
 	}
 
@@ -299,9 +305,9 @@ public class PingouDetailActivity extends BaseActivity implements
 	/**
 	 * 推荐商品弹出窗
 	 */
-	private void showPopupwindow() {
+	private void showPopupwindow(String title) {
 		if (pushWindow == null) {
-			pushWindow = new GoodsPushWindow(this, detail.getPush());
+			pushWindow = new GoodsPushWindow(this,title, detail.getPush());
 		}
 		pushWindow.show();
 
@@ -537,7 +543,7 @@ public class PingouDetailActivity extends BaseActivity implements
 			collectGoods();
 			break;
 		case R.id.more_view:
-			showPopupwindow();
+			showPopupwindow(null);
 			break;
 		case R.id.setting:
 			showShareboard();

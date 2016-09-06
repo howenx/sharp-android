@@ -67,18 +67,23 @@ public class ThemeAdapter extends BaseAdapter {
 			holder.discount.setText("低至"+activity.getResources().getString(
 					R.string.discount, theme.getItemDiscount()));
 			holder.old_price.setText("最低");
+			holder.old_price.getPaint().setFlags(0);
 			if (theme.getState().equals("P")) {
+				holder.sold_ready.setVisibility(View.VISIBLE);
 				holder.sold_out.setVisibility(View.GONE);
 				holder.timeView.setText(DateUtils.getTimeDiffDesc(theme
-						.getStartAt()) + "开售");
+						.getStartAt()) + "开始");
 			} else if (theme.getState().equals("Y")) {
 				holder.sold_out.setVisibility(View.GONE);
-				holder.timeView.setText("截止"
-						+ DateUtils.getTimeDiffDesc(theme.getEndAt()));
-			} else {
-				holder.timeView.setText("已结束");
+				holder.timeView.setText( DateUtils.getTimeDiffDesc(theme.getEndAt())+"截止");
+			} else if (theme.getState().equals("K")) {
+				holder.timeView.setText("拼购已结束");
 				holder.sold_out.setVisibility(View.VISIBLE);
-				holder.sold_out.setText("已结束");
+				holder.sold_out.setText("已售罄");
+			} else if (theme.getState().equals("D")) {
+				holder.timeView.setText("拼购已结束");
+				holder.sold_out.setVisibility(View.VISIBLE);
+				holder.sold_out.setText("已下架");
 			}
 		} else {
 			holder.price.setText(theme.getItemPrice());
@@ -88,7 +93,7 @@ public class ThemeAdapter extends BaseAdapter {
 						R.string.discount, theme.getItemDiscount()));
 				holder.old_price.setText(activity.getResources().getString(
 						R.string.price_src, theme.getItemSrcPrice()));
-				holder.old_price.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+				holder.old_price.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG|Paint.ANTI_ALIAS_FLAG);
 			}
 			holder.pin_tip.setVisibility(View.GONE);
 
@@ -98,10 +103,14 @@ public class ThemeAdapter extends BaseAdapter {
 			} else if (theme.getState().equals("Y")) {
 				holder.sold_out.setVisibility(View.GONE);
 				holder.sold_ready.setVisibility(View.GONE);
-			} else {
+			} else if(theme.getState().equals("K")){
 				holder.sold_ready.setVisibility(View.GONE);
 				holder.sold_out.setVisibility(View.VISIBLE);
-				holder.sold_out.setText("已抢光");
+				holder.sold_out.setText("已售罄");
+			}else {
+				holder.sold_ready.setVisibility(View.GONE);
+				holder.sold_out.setVisibility(View.VISIBLE);
+				holder.sold_out.setText("已下架");
 			}
 		}
 		return convertView;

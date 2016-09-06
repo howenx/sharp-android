@@ -67,7 +67,6 @@ OnRefreshListener2<ListView>, OnClickListener, OnScrollListener{
 		super.onCreate(savedInstanceState);
 		data = new ArrayList<Theme>();
 		adapter = new HomeAdapter(data, mContext);
-		endLayout = new EndLayout(getContext());
 	}
 	
 	@Override
@@ -113,7 +112,14 @@ OnRefreshListener2<ListView>, OnClickListener, OnScrollListener{
 			}
 		});
 		loadData();
+		addFooterView(mContext);
 		return view;
+	}
+	
+	private void addFooterView(Context context){
+		endLayout = new EndLayout(context);
+		mListView.getRefreshableView().addFooterView(endLayout.getLayoutHolder());
+		endLayout.hide();
 	}
 
 
@@ -141,11 +147,13 @@ OnRefreshListener2<ListView>, OnClickListener, OnScrollListener{
 							moreData(home.getThemes());
 						}
 						if(home.getPage_count() <= pageIndex){
-							mListView.getRefreshableView().addFooterView(endLayout.getView());
+//							mListView.getRefreshableView().addFooterView(endLayout.getView());
+							endLayout.show();
 							mListView.setMode(Mode.PULL_FROM_START);
 						}else if(pageIndex == 1){
 							mListView.setMode(Mode.BOTH);
-							mListView.getRefreshableView().removeFooterView(endLayout.getView());
+//							mListView.getRefreshableView().removeFooterView(endLayout.getView());
+							endLayout.hide();
 						}
 					}else{
 						ToastUtils.Toast(mActivity, home.gethMessage().getMessage());

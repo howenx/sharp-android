@@ -85,7 +85,7 @@ public class Html5LoadActivity extends BaseActivity {
 
 		@Override
 		public boolean shouldOverrideUrlLoading(WebView view, String url) {
-			if (url.contains("detail")) {
+			if (url.contains("detail") && url.contains("kakaogift")) {
 				Intent intent = null;
 				String[] u = url.split("/detail");
 				if (url.contains("pin")) {
@@ -140,6 +140,12 @@ public class Html5LoadActivity extends BaseActivity {
 			Message msg = handler.obtainMessage(1, url);
 			handler.sendMessage(msg);
 		}
+		
+		@JavascriptInterface
+		public void androidRedirect(String url) {
+			
+		}
+		
 	}
 	
 	private Handler handler = new Handler(){

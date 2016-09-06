@@ -35,6 +35,18 @@
                         android:id="@+id/slider"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
+                    
+                    <TextView
+                            android:id="@+id/sold_out"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/bg_oval_shadow"
+                            android:contentDescription="@null"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:visibility="gone" />
                 </com.kakao.kakaogift.view.SquareLayout>
 
                 <TextView
