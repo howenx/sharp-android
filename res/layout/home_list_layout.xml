@@ -24,7 +24,8 @@
             android:headerDividersEnabled="false"
             android:scrollbars="none"
             ptr:ptrDrawable="@drawable/refreshing"
-            ptr:ptrShowIndicator="false" />
+            ptr:ptrShowIndicator="false" 
+            ptr:ptrAnimationStyle = "mystyle"/>
 
         <include
             android:layout_width="40dp"
