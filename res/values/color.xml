@@ -8,7 +8,6 @@
     <color name="white">#FFFFFF</color>
     <!-- 字体的颜色 -->
     <color name="black">#242424</color>
-    <color name="black_01">#4F4F4F</color>
     <color name="btn_buy_pressed">#fdd000</color>
     <color name="btn_buy_normal">#fdd000</color>
     <color name="btn_pin_pressed">#F8F9FA</color>
@@ -34,6 +33,5 @@
     
 	<color name="none_color">#c8c8c8</color>
     <color name="btn_selected">#DCDCDC</color>
-    <color name="content_color">#adadad</color>
     <color name="xian_color">#ECECEC</color>
 </resources>

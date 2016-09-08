@@ -23,22 +23,21 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|bottom"
             android:padding="4dip"
-            app:activeColor="@color/theme"
+            app:activeColor="@color/yellow"
             app:activeRadius="1dp"
             app:activeType="fill"
             app:circleSeparation="15dip"
-            app:inactiveColor="@color/qianhui"
+            android:visibility="gone"
+            app:inactiveColor="@color/huise"
             app:inactiveType="fill" />
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/btn_turn"
+        android:id="@+id/tiaoguo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|right"
-        android:layout_margin="18dp"
-        android:alpha="0.8"
-        android:contentDescription="@null"
+        android:layout_margin="20dp"
         android:src="@drawable/tiaoguo" />
 
 </FrameLayout>

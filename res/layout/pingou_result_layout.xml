@@ -223,11 +223,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/yellow"
+        android:background="@color/notice_good"
         android:gravity="center"
         android:padding="10dp"
         android:text="@string/pingou_over_notice"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:visibility="gone"
         android:textSize="14sp"/>
 

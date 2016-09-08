@@ -129,6 +129,7 @@ public class DataNoneLayout {
 			public void onSuccess(String result) {
 				LikeGoodsVo vo = new Gson().fromJson(result, LikeGoodsVo.class);
 				if (vo.getMessage().getCode() == 200) {
+					data.clear();
 					data.addAll(vo.getThemeItemList());
 					adapter.notifyDataSetChanged();
 				}

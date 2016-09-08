@@ -86,7 +86,7 @@ public class HDownloadManager {
 	public void createNotification() {
         notification = new Notification();
         notification.tickerText = "安装包正在下载...";
-        notification.icon = R.drawable.ic_launcher;
+        notification.icon = R.drawable.ic_gift;
         notification.flags = Notification.FLAG_ONGOING_EVENT;
         
         /*** 自定义  Notification 的显示****/

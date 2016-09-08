@@ -240,6 +240,7 @@ public class PingouResultActivity extends BaseActivity implements
 			findViewById(R.id.jishiView).setVisibility(View.GONE);
 			findViewById(R.id.xiadanView).setVisibility(View.GONE);
 			more_view.setVisibility(View.VISIBLE);
+			more_view.setOnClickListener(this);
 			String title = getResources().getString(R.string.pingou_over_notice, "已结束");
 			more_view.setText(title);
 			showPopupwindow(title);

@@ -44,7 +44,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="15dp"
                 android:layout_toLeftOf="@id/fjian"
-                android:src="@drawable/ic_launcher"
+                android:src="@drawable/ic_gift"
                 app:border_color="@color/qianhui"
                 app:border_width="1dp" />
         </RelativeLayout>

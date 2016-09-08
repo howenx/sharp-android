@@ -8,8 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
@@ -27,8 +25,8 @@ import com.kakao.kakaogift.view.viewflow.ViewFlow;
 public class IndroductionActivity extends AppCompatActivity {
 
 	private ViewFlow viewFlow;
-	private CircleFlowIndicator indicator;
-	public int[] images = { R.drawable.indro_1, R.drawable.indro_2, R.drawable.indro_3 };
+//	private CircleFlowIndicator indicator;
+	public int[] images = { R.drawable.intro_1, R.drawable.intro_2, R.drawable.intro_3 };
 
 	@Override
 	protected void onCreate(Bundle bundle) {
@@ -36,27 +34,26 @@ public class IndroductionActivity extends AppCompatActivity {
 		setContentView(R.layout.viewpager_panel);
 		getSupportActionBar().hide();
 		viewFlow = (ViewFlow) findViewById(R.id.my_viewflow);
-		indicator = (CircleFlowIndicator) findViewById(R.id.my_indicator);
+//		indicator = (CircleFlowIndicator) findViewById(R.id.my_indicator);
 		viewFlow.setmSideBuffer(images.length);
 		viewFlow.setAdapter(new ViewFlowAdapter());
-		viewFlow.setFlowIndicator(indicator);
+//		viewFlow.setFlowIndicator(indicator);
 		viewFlow.setSelection(0);
-		
-		
-		findViewById(R.id.btn_turn).setOnClickListener(new TurnListener());
-		
+		findViewById(R.id.tiaoguo).setOnClickListener(TurnListener);
 	}
 	
-	private class TurnListener implements OnClickListener{
+	private OnClickListener TurnListener = new OnClickListener(){
 
 		@Override
 		public void onClick(View v) {
-			IntroConfig.putIntroCfg(IndroductionActivity.this,IntroConfig.INTRO_CONFIG_VALUE_NO);
 			startActivity(new Intent(IndroductionActivity.this,HMainActivity.class));
+			IntroConfig.putIntroCfg(getApplicationContext(),IntroConfig.INTRO_CONFIG_VALUE_NO);
 			finish();
 		}
-		
-	}
+	};
+	
+	
+	
 	
 
 	class ViewFlowAdapter extends BaseAdapter {
@@ -96,7 +93,7 @@ public class IndroductionActivity extends AppCompatActivity {
 			holder.img.setImageResource(images[position % images.length]);
 			if (position == images.length - 1) {
 				holder.experience.setVisibility(View.VISIBLE);
-				holder.experience.setOnClickListener(new TurnListener());
+				holder.experience.setOnClickListener(TurnListener);
 			} else {
 				holder.experience.setVisibility(View.INVISIBLE);
 			}

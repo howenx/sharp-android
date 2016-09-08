@@ -18,7 +18,7 @@
             android:contentDescription="@null"
             android:padding="0.1dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_launcher" />
+            android:src="@drawable/ic_gift" />
 
         <ImageView
             android:id="@+id/pin"

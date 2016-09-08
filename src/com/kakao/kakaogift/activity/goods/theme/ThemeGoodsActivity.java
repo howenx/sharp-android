@@ -3,11 +3,14 @@ package com.kakao.kakaogift.activity.goods.theme;
 import java.util.ArrayList;
 import java.util.List;
 
+import u.aly.cu;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
@@ -39,6 +42,7 @@ import com.kakao.kakaogift.utils.ActionBarUtil;
 import com.kakao.kakaogift.utils.CommonUtils;
 import com.kakao.kakaogift.utils.ImageResizer;
 import com.kakao.kakaogift.utils.ToastUtils;
+import com.kakao.kakaogift.view.MenuCustomPop;
 import com.ui.tag.TagInfo;
 import com.ui.tag.TagInfo.Type;
 import com.ui.tag.TagView;
@@ -87,14 +91,15 @@ public class ThemeGoodsActivity extends BaseActivity implements HThemeGoodsView 
 		iGoodsPresenterImpl = new HThemeGoodsPresenterImpl(this);
 		iGoodsPresenterImpl.getHThemeGoodsData(getHeaders(), getIntent()
 				.getStringExtra("url"), Tag);
+
 	}
 
-	private OnItemClickListener turnListener = new  OnItemClickListener() {
+	private OnItemClickListener turnListener = new OnItemClickListener() {
 
 		@Override
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
-			Intent intent = null; 
+			Intent intent = null;
 			if (data.get(arg2).getItemType().equals("pin")) {
 				intent = new Intent(getActivity(), PingouDetailActivity.class);
 			} else {
@@ -109,7 +114,8 @@ public class ThemeGoodsActivity extends BaseActivity implements HThemeGoodsView 
 
 		@Override
 		public void onRefresh(PullToRefreshBase<ScrollView> refreshView) {
-			iGoodsPresenterImpl.getHThemeGoodsData(getHeaders(), getIntent().getStringExtra("url"), Tag);
+			iGoodsPresenterImpl.getHThemeGoodsData(getHeaders(), getIntent()
+					.getStringExtra("url"), Tag);
 		}
 	};
 
@@ -271,7 +277,7 @@ public class ThemeGoodsActivity extends BaseActivity implements HThemeGoodsView 
 
 	@Override
 	public void GetHThemeGoodsData(HThemeGoods detail) {
-		if(mScrollView.isRefreshing()){
+		if (mScrollView.isRefreshing()) {
 			mScrollView.onRefreshComplete();
 		}
 		initThemeView(detail);

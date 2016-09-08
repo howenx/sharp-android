@@ -86,7 +86,7 @@
                 style="@style/wode_font_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/hmm_mine_collection"
+                android:drawableLeft="@drawable/hmm_mine_collect"
                 android:text="我的收藏" />
 
             <LinearLayout

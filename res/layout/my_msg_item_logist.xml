@@ -36,7 +36,7 @@
         android:background="@drawable/bg_gray_boarder"
         android:contentDescription="@null"
         android:padding="0.1dp"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/ic_gift" />
 
     <TextView
         android:id="@+id/msg"

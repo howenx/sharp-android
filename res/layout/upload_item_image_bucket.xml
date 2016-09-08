@@ -12,7 +12,7 @@
         android:layout_height="128dp"
         android:layout_gravity="center"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_launcher" >
+        android:src="@drawable/ic_gift" >
     </ImageView>
 
     <ImageView
